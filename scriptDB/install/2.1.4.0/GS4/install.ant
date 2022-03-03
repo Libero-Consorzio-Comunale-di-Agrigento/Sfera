@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     01/mar/2014 11:34:14                                                        
+
+     [NomeProgetto]    
+     [Descrizione del Progetto]
+                   
+     [Autore]                                                                
+     ====================================================================== -->
+<project>
+	<target name="config">
+		<resolve-conn istanza="agsde2" />
+		<require-conn istanza="gs4" 	/>
+	</target>
+	
+	<target name="install:db">
+		<echo message="Integrazione GS4: install"/>
+		
+		<sql escapeprocessing="false"  
+				 userid="${global.db.gs4.username}"
+			   password="${global.db.gs4.password}"
+					url="${global.db.gs4.url}"
+				 driver="${global.db.gs4.driver}"
+			 	  expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+					src="gs4.DELIBERA_AGSDE2_PKG.sql" />
+	</target>
+	
+	<target name="install:fs">
+	</target>
+</project>

@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Convocazione Seduta</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<interrogazioniNonOdg>
+				<ID_OGGETTO_SEDUTA>180735</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>PRIMA INFORMATIVA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2016/1</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>INFORMATIVA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>1</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 1</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>Si</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>FIRMATARIO PROPOSTA</FIRMATARIO_PROPOSTA>
+				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
+				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
+				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
+				<ESITO_ULTIMA_DISCUSSIONE>ESITO DELL'ULTIMA DISCUSSIONE</ESITO_ULTIMA_DISCUSSIONE>
+				<PROSSIMA_DISCUSSIONE>PROSSIMA DISCUSSIONE IL 01/01/2019</PROSSIMA_DISCUSSIONE>
+				<ALLEGATI>
+					<ALLEGATO_TITOLO>PRIMO EMENDAMENTO</ALLEGATO_TITOLO>
+				</ALLEGATI>
+			</interrogazioniNonOdg>
+			<interrogazioniNonOdg>
+				<ID_OGGETTO_SEDUTA>180736</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>SECONDA INFORMATIVA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2016/2</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>INFORMATIVA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>2</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 2</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>No</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>FIRMATARIO PROPOSTA</FIRMATARIO_PROPOSTA>
+				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
+				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
+				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
+				<ESITO_ULTIMA_DISCUSSIONE>ESITO DELL'ULTIMA DISCUSSIONE</ESITO_ULTIMA_DISCUSSIONE>
+				<PROSSIMA_DISCUSSIONE>PROSSIMA DISCUSSIONE IL 01/01/2019</PROSSIMA_DISCUSSIONE>
+				<ALLEGATI>
+					<ALLEGATO_TITOLO>SECONDO EMENDAMENTO</ALLEGATO_TITOLO>
+				</ALLEGATI>
+			</interrogazioniNonOdg>
+			<ordiniNonOdg>
+				<ID_OGGETTO_SEDUTA>180735</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>PRIMA INFORMATIVA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2016/1</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>INFORMATIVA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>1</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 1</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>Si</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>FIRMATARIO PROPOSTA</FIRMATARIO_PROPOSTA>
+				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
+				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
+				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
+				<ESITO_ULTIMA_DISCUSSIONE>ESITO DELL'ULTIMA DISCUSSIONE</ESITO_ULTIMA_DISCUSSIONE>
+				<PROSSIMA_DISCUSSIONE>PROSSIMA DISCUSSIONE IL 01/01/2019</PROSSIMA_DISCUSSIONE>
+				<ALLEGATI>
+					<ALLEGATO_TITOLO>PRIMO EMENDAMENTO</ALLEGATO_TITOLO>
+				</ALLEGATI>
+			</ordiniNonOdg>
+			<ordiniNonOdg>
+				<ID_OGGETTO_SEDUTA>180736</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>SECONDA INFORMATIVA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2016/2</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>INFORMATIVA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>2</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 2</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>No</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>FIRMATARIO PROPOSTA</FIRMATARIO_PROPOSTA>
+				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
+				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
+				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
+				<ESITO_ULTIMA_DISCUSSIONE>ESITO DELL'ULTIMA DISCUSSIONE</ESITO_ULTIMA_DISCUSSIONE>
+				<PROSSIMA_DISCUSSIONE>PROSSIMA DISCUSSIONE IL 01/01/2019</PROSSIMA_DISCUSSIONE>
+				<ALLEGATI>
+					<ALLEGATO_TITOLO>SECONDO EMENDAMENTO</ALLEGATO_TITOLO>
+				</ALLEGATI>
+			</ordiniNonOdg>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+		<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>xxx</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>elenco_registri_informative</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco dei registri delle proposte da trattare come informative</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>id_seduta_stampa</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>xxx</descrizione>
+			<path/>
+		</metaDato>
+		<!-- DEFINIZIONE CAMPI DELLA QUERY -->
+		<metaDato>
+			<nomeSimbolico>GIORNO_SETTIMANA_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Giorno della settimana in cui si produce la stampa scritto in lettere (esempio: stampato il 30/05/2014 riporta la scritta venerdì)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>GIORNO_LETTERE_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del giorno in cui si produce la stampa scritto in lettere (esempio: stampato il 30/05/2014 riporta la scritta trenta)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>GIORNO_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del giorno in cui si produce la stampa scritto in cifre (esempio: stampato il 30/05/2014 riporta la scritta 30)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MESE_LETTERE_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese in cui si produce la stampa scritto in lettere (esempio: stampato il 30/05/2014 riporta la scritta maggio)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MESE_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese in cui si produce la stampa scritto in cifre (esempio: stampato il 30/05/2014 riporta la scritta 05)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_LETTERE_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno in cui si produce la stampa scritto in lettere (esempio: stampato il 30/05/2014 riporta la scritta duemilaquattordici)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno in cui si produce la stampa scritto in cifre (esempio: stampato il 30/05/2014 riporta la scritta 2014)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>GIORNO_SETTIMANA_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Giorno della settimana in cui si svolge la seduta scritto in lettere (esempio: la seduta e' il 30/05/2014 riporta la scritta venerdì)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>GIORNO_LETTERE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del giorno in cui si svolge la seduta scritto in lettere (esempio: la seduta e' il 30/05/2014 riporta la scritta trenta)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>GIORNO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del giorno in cui si svolge la seduta scritto in cifre (esempio: la seduta e' il 30/05/2014 riporta la scritta 30)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MESE_LETTERE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese in cui si svolge la seduta scritto in lettere (esempio: la seduta e' il 30/05/2014 riporta la scritta maggio)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MESE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese in cui si svolge la seduta scritto in cifre (esempio: la seduta e' il 30/05/2014 riporta la scritta 05)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_LETTERE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno in cui si svolge la seduta scritto in lettere (esempio: la seduta e' il 30/05/2014 riporta la scritta duemilaquattordici)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno in cui si svolge la seduta scritto in cifre (esempio: la seduta e' il 30/05/2014 riporta la scritta 2014)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data in cui si svolge la seduta nel formato gg/mm/aaaa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ORA_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ora in cui si svolge la seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ORA_APPELLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ora in cui si svolge l'appello della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TIPO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia di seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TITOLO_COMMISSIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Titolo della commissione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della proposta discussa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Firmatario o dirigente della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ID_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>ID della proposta discussa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PRESENTAZIONE_ISTANZA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di presentazione dell'istanza della proposta discussa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>COMMISSIONE_CONSILIARE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Commissioni consiliari della proposta discussa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOTE_CONVOCAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note di Convocazione della proposta discussa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ESTREMI_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno / Numero della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TIPO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ESEGUIBILITA_IMMEDIATA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Richiesta eseguibilità immediata per la proposta (Si / No)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ID_OGGETTO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>ID dell'oggetto inserito in seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità proponente della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Relatore della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SEDE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Sede della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_SECONDA_CONVOCAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di seconda convocazione della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ORA_SECONDA_CONVOCAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ora di seconda convocazione della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note relative alla seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PRESIDENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Presidente della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SEGRETARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Segretario della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CONVOCATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Convocato alla seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SEQUENZA_CONVOCAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Sequenza di convocazione alla seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RUOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ruolo del convocato alla seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RUOLO_CONVOCATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ruolo del convocato all'interno della seduta (PRESIDENTE - SEGRETARIO - INVITATO....)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Il Numero di Protocollo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di Protocollo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>L'anno di Protocollo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_ALBO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Il Numero di Albo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_ALBO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>L'anno di Albo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CLASSIFICA_CODICE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice della classificazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CLASSIFICA_DESCRIZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione della classificazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FASCICOLO_NUMERO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del fascicolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FASCICOLO_ANNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno del fascicolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FASCICOLO_OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del fascicolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Utente Firmatario</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ESITO_ULTIMA_DISCUSSIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Esito dell'ultima discussione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PROSSIMA_DISCUSSIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Dati relativi alla prossima discussione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ALLEGATO_TITOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Titolo dell'allegato</descrizione>
+			<path/>
+		</metaDato>
+	</definitions>
+	<queryes>
+		<query id='interrogazioniNonOdg'
+			   child="allegati"
+			   help_query_alias="inOdg"
+			   help_field_aliases="ESEGUIBILITA_IMMEDIATA, ESTREMI_PROPOSTA, OGGETTO_PROPOSTA, RELATORE, TIPO_PROPOSTA, UNITA_PROPONENTE, SEQUENZA_CONVOCAZIONE, FIRMATARIO_PROPOSTA, DATA_PRESENTAZIONE_ISTANZA, COMMISSIONE_CONSILIARE, NOTE_CONVOCAZIONE, ESITO_ULTIMA_DISCUSSIONE, PROSSIMA_DISCUSSIONE">
+			SELECT ID_PROPOSTA,
+				   OGGETTO_PROPOSTA,
+				   ESTREMI_PROPOSTA,
+				   TIPO_PROPOSTA,
+				   UNITA_PROPONENTE,
+				   ROWNUM SEQUENZA_CONVOCAZIONE,
+				   ESEGUIBILITA_IMMEDIATA,
+				   FIRMATARIO_PROPOSTA,
+				   RELATORE,
+				   DATA_PRESENTAZIONE_ISTANZA,
+				   COMMISSIONE_CONSILIARE,
+				   NOTE_CONVOCAZIONE,
+				   ESITO_ULTIMA_DISCUSSIONE,
+				   PROSSIMA_DISCUSSIONE
+			  FROM (  SELECT pd.id_proposta_delibera id_proposta,
+							 pd.oggetto OGGETTO_PROPOSTA,
+							 pd.anno_proposta || '/' || pd.numero_proposta ESTREMI_PROPOSTA,
+							 td.titolo TIPO_PROPOSTA,
+							 utility_pkg.get_unita_prop_delibera (pd.id_proposta_delibera)
+								UNITA_PROPONENTE,
+							 DECODE (pd.ESEGUIBILITA_IMMEDIATA, 'Y', 'Si', 'No')
+								ESEGUIBILITA_IMMEDIATA,
+							 NVL (
+								utility_pkg.get_primo_firmatario_prop_deli (
+								   pd.id_proposta_delibera),
+								utility_pkg.get_nominativo_sogg_prop_deli (
+								   pd.id_proposta_delibera,
+								   'DIRIGENTE'))
+								FIRMATARIO_PROPOSTA,
+							 utility_pkg.get_cognome_nome (dele.ni_assessore) RELATORE,
+							 (SELECT valore
+								FROM dati_aggiuntivi da
+							   WHERE     da.id_proposta_delibera = pd.id_proposta_delibera
+									 AND da.codice = 'DATA_ISTANZA')
+								DATA_PRESENTAZIONE_ISTANZA,
+							 (SELECT valore
+								FROM dati_aggiuntivi da
+							   WHERE     da.id_proposta_delibera = pd.id_proposta_delibera
+									 AND da.codice = 'COMMISSIONE_CONSILIARE')
+								COMMISSIONE_CONSILIARE,
+							 (SELECT valore
+								FROM dati_aggiuntivi da
+							   WHERE     da.id_proposta_delibera = pd.id_proposta_delibera
+									 AND da.codice = 'NOTE_CONVOCAZIONE')
+								NOTE_CONVOCAZIONE,
+							 utility_pkg.get_esito_rinvio_proposta (
+								pd.id_proposta_delibera)
+								ESITO_ULTIMA_DISCUSSIONE,
+							 (SELECT    'in trattazione il '
+									 || TO_CHAR (oss.data_seduta, 'DD/MM/YYYY')
+								FROM odg_oggetti_seduta ogg, odg_sedute oss
+							   WHERE     ogg.id_oggetto_seduta = pd.id_oggetto_seduta
+									 AND oss.id_seduta = ogg.id_seduta
+									 AND ogg.conferma_esito = 'N')
+								PROSSIMA_DISCUSSIONE
+						FROM proposte_delibera pd,
+							 odg_commissioni com,
+							 tipi_delibera td,
+							 wkf_engine_iter iter,
+							 deleghe dele
+					   WHERE     com.titolo = 'CONSIGLIO COMUNALE'
+							 AND pd.valido = 'Y'
+							 AND iter.id_engine_iter = pd.id_engine_iter
+							 AND ITER.DATA_FINE IS NULL
+							 AND (   (    pd.id_oggetto_seduta IS NULL
+									  AND pd.stato_odg = 'COMPLETO')
+								  OR (    EXISTS
+											 (SELECT utility_pkg.get_esito_rinvio_proposta (
+														pd.id_proposta_delibera)
+												FROM DUAL)
+									  AND pd.id_oggetto_seduta IS NULL)
+								  OR EXISTS
+										(SELECT 1
+										   FROM odg_oggetti_seduta ogg, odg_sedute oss
+										  WHERE     ogg.id_oggetto_seduta =
+													   pd.id_oggetto_seduta
+												AND oss.id_seduta = ogg.id_seduta
+												AND ogg.conferma_esito = 'N'))
+							 AND pd.id_tipo_delibera = td.id_tipo_delibera
+							 AND td.titolo IN ('CONSIGLIO -  Interrogazione', 'CONSIGLIO -  Interpellanza')
+							 AND pd.id_delega = dele.id_delega (+)
+					ORDER BY pd.anno_proposta ASC, pd.numero_proposta ASC)
+		</query>
+
+		<query id='ordiniNonOdg'
+			   child="allegati"
+			   help_query_alias="onOdg"
+			   help_field_aliases="ESEGUIBILITA_IMMEDIATA, ESTREMI_PROPOSTA, OGGETTO_PROPOSTA, RELATORE, TIPO_PROPOSTA, UNITA_PROPONENTE, SEQUENZA_CONVOCAZIONE, FIRMATARIO_PROPOSTA, DATA_PRESENTAZIONE_ISTANZA, COMMISSIONE_CONSILIARE, NOTE_CONVOCAZIONE, ESITO_ULTIMA_DISCUSSIONE, PROSSIMA_DISCUSSIONE">
+			SELECT ID_PROPOSTA,
+				   OGGETTO_PROPOSTA,
+				   RELATORE,
+				   ESTREMI_PROPOSTA,
+				   TIPO_PROPOSTA,
+				   UNITA_PROPONENTE,
+				   ROWNUM SEQUENZA_CONVOCAZIONE,
+				   ESEGUIBILITA_IMMEDIATA,
+				   FIRMATARIO_PROPOSTA,
+				   DATA_PRESENTAZIONE_ISTANZA,
+				   COMMISSIONE_CONSILIARE,
+				   NOTE_CONVOCAZIONE,
+				   ESITO_ULTIMA_DISCUSSIONE,
+				   PROSSIMA_DISCUSSIONE
+			  FROM (  SELECT pd.id_proposta_delibera id_proposta,
+							 pd.oggetto OGGETTO_PROPOSTA,
+							 utility_pkg.get_cognome_nome (dele.ni_assessore) RELATORE,
+							 pd.anno_proposta || '/' || pd.numero_proposta ESTREMI_PROPOSTA,
+							 td.titolo TIPO_PROPOSTA,
+							 utility_pkg.get_unita_prop_delibera (pd.id_proposta_delibera) UNITA_PROPONENTE,
+							 DECODE (pd.ESEGUIBILITA_IMMEDIATA, 'Y', 'Si', 'No') ESEGUIBILITA_IMMEDIATA,
+							 NVL ( utility_pkg.get_primo_firmatario_prop_deli (pd.id_proposta_delibera), utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'DIRIGENTE')) FIRMATARIO_PROPOSTA,
+							 (SELECT valore
+								FROM dati_aggiuntivi da
+							   WHERE     da.id_proposta_delibera = pd.id_proposta_delibera
+									 AND da.codice = 'DATA_ISTANZA')
+								DATA_PRESENTAZIONE_ISTANZA,
+							 (SELECT valore
+								FROM dati_aggiuntivi da
+							   WHERE     da.id_proposta_delibera = pd.id_proposta_delibera
+									 AND da.codice = 'COMMISSIONE_CONSILIARE')
+								COMMISSIONE_CONSILIARE,
+							 (SELECT valore
+								FROM dati_aggiuntivi da
+							   WHERE     da.id_proposta_delibera = pd.id_proposta_delibera
+									 AND da.codice = 'NOTE_CONVOCAZIONE')
+								NOTE_CONVOCAZIONE,
+							 utility_pkg.get_esito_rinvio_proposta (
+								pd.id_proposta_delibera)
+								ESITO_ULTIMA_DISCUSSIONE,
+							 (SELECT    'in trattazione il '
+									 || TO_CHAR (oss.data_seduta, 'DD/MM/YYYY')
+								FROM odg_oggetti_seduta ogg, odg_sedute oss
+							   WHERE     ogg.id_oggetto_seduta = pd.id_oggetto_seduta
+									 AND oss.id_seduta = ogg.id_seduta
+									AND ogg.conferma_esito = 'N')
+								PROSSIMA_DISCUSSIONE
+						FROM proposte_delibera pd,
+							 odg_commissioni com,
+							 tipi_delibera td,
+							 wkf_engine_iter iter,
+							 deleghe dele
+					   WHERE     com.titolo = 'CONSIGLIO COMUNALE'
+							 AND pd.valido = 'Y'
+							 AND iter.id_engine_iter = pd.id_engine_iter
+							 AND ITER.DATA_FINE IS NULL
+							 AND ( ( pd.id_oggetto_seduta IS NULL AND pd.stato_odg = 'COMPLETO')
+								  OR ( EXISTS (SELECT utility_pkg.get_esito_rinvio_proposta (pd.id_proposta_delibera) FROM DUAL) AND pd.id_oggetto_seduta IS NULL)
+								  OR EXISTS
+										(SELECT 1
+										   FROM odg_oggetti_seduta ogg, odg_sedute oss
+										  WHERE     ogg.id_oggetto_seduta =
+													   pd.id_oggetto_seduta
+												AND oss.id_seduta = ogg.id_seduta
+												AND ogg.conferma_esito = 'N'))
+							 AND pd.id_tipo_delibera = td.id_tipo_delibera
+							 AND td.titolo IN ('CONSIGLIO -  Ordine del Giorno', 'CONSIGLIO -  Mozione')
+							 AND pd.id_delega = dele.id_delega (+)
+					ORDER BY pd.anno_proposta ASC, pd.numero_proposta ASC)
+		</query>
+		<query id="allegati"
+			   help_query_alias="a"
+			   help_field_aliases="ALLEGATO_TITOLO,">
+			select a.titolo 	ALLEGATO_TITOLO
+			from allegati a
+			, tipi_allegato ta
+			where a.id_tipo_allegato = ta.id_tipo_allegato (+)
+			and a.valido = 'Y'
+			and ta.titolo = 'EMENDAMENTO'
+			and a.id_proposta_delibera = @ID_PROPOSTA
+			order by a.sequenza asc
+		</query>
+
+
+	</queryes>
+	<staticData />
+</documentRoot>

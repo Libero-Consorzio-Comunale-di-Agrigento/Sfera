@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+    	viewModel="@id('vm') @init('delegaDettaglioViewModel')"
+    	border="normal" width="900px" height="300px" sizable="false">
+
+		<h:div class="barraTitoloPagina">
+   			<label sclass="titoloPagina" value="Gestione Deleghe"/>
+			<image
+				src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+				tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')" />
+   		</h:div>
+
+		<tabbox vflex="1">
+			<tabs>
+				<tab label="Delega" />
+				<tab label="Storico" visible="@load(vm.selectedRecord.id > 0 and not empty vm.storico)"/>
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+					<grid sclass="form">
+						<rows>
+							<row>
+								<cell align="right" valign="top" width="25%">
+									<h:span class="mandatoryLabel">*</h:span><label value="Cognome - Nome"/>
+								</cell>
+								<cell>
+									<textbox readonly="true" hflex="1" value="@load(vm.assessore)" disabled="@load(not vm.modificabile)"/>
+								</cell>
+								<cell width="32px">
+									<button style="float:right" image="/images/agsde2/16x16/users.png" onClick="@command('onCercaSoggetto')" disabled="@load(not vm.modificabile)"/>
+								</cell>
+							</row>
+							<row>
+								<cell align="right">
+									<h:span class="mandatoryLabel">*</h:span><label value="Assessorato"/>
+								</cell>
+								<cell colspan="2">
+									<textbox mold="rounded" value="@bind(vm.selectedRecord.descrizioneAssessorato)" hflex="1" disabled="@load(not vm.modificabile)"/>
+								</cell>
+							</row>
+						</rows>
+					</grid>
+				</tabpanel>
+				<tabpanel>
+					<listbox model="@load(vm.storico)" emptyMessage="Nessuna delega presente." vflex="1">
+						<listhead>
+							<listheader label="Cognome Nome" />
+							<listheader label="Assessorato" />
+							<listheader width="80px" label="Valido Dal" style="text-align: center"/>
+							<listheader width="80px" label="Valido Al" style="text-align: center"/>
+							<listheader width="30px" />
+						</listhead>
+						<template name="model" var="delega">
+							<listitem>
+								<listcell label="@load(delega.assessore.denominazione)" />
+								<listcell label="@load(delega.descrizioneAssessorato)" />
+								<listcell label="@load(c:formatDate(delega.validoDal, 'dd/MM/yyyy'))" style="text-align: center"/>
+								<listcell label="@load(not empty delega.validoAl ? c:formatDate(delega.validoAl, 'dd/MM/yyyy'): '')" style="text-align: center"/>
+								<listcell image="@load(delega.valido  ? '/images/agsde2/16x16/point_green.png' : '/images/agsde2/16x16/point_red.png')" />
+							</listitem>
+						</template>
+					</listbox>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+
+     	<vlayout class="datiCreazioneModifica" >
+		    <label value="@load(not empty vm.selectedRecord.id ? vm.datiCreazione: '')" />
+			<label value="@load(not empty vm.selectedRecord.id ? vm.datiModifica: '')" />
+		</vlayout>
+
+		<h:div class="barraPulsanti">
+			<button
+					mold="trendy"
+					label="@load(vm.selectedRecord.valido? 'Disattiva' : 'Ripristina')"
+					tooltiptext="@load(vm.selectedRecord.valido? 'Disattiva' : 'Ripristina')"
+					image="@load(vm.selectedRecord.valido? '/images/afc/16x16/cancel.png' : '/images/afc/16x16/ok.png')"
+					onClick="@command('onSettaValido', valido=!vm.selectedRecord.valido)"
+					visible="@load(not empty vm.selectedRecord.id)" />
+
+			<button
+					mold="trendy"
+					label="Modifica"
+					tooltiptext="Modifica"
+					image="/images/afc/16x16/house_plan.png"
+					onClick="@command('onModifica')"
+					visible="@load(vm.selectedRecord.id gt 0 and not vm.modificabile and vm.selectedRecord.valido)"/>
+			<button
+					mold="trendy"
+					label="Storicizza"
+					tooltiptext="Storicizza"
+					image="/images/afc/16x16/save.png"
+					onClick="@command('onStoricizza')"
+					visible="@load(vm.selectedRecord.id gt 0 and not vm.modificabile and vm.selectedRecord.valido)"/>
+
+			<h:div>
+				<button
+						mold="trendy"
+						label="Salva"
+						visible="@load(vm.modificabile and vm.selectedRecord.valido)"
+						onClick="@command('onSalva')"
+						image="/images/afc/16x16/save.png" />
+				<button
+						mold="trendy"
+						label="Salva e chiudi"
+						visible="@load(vm.modificabile and vm.selectedRecord.valido)"
+						onClick="@command('onSalvaChiudi')"
+						image="/images/afc/16x16/save.png" />
+				<button
+						mold="trendy"
+						label="Chiudi"
+						onClick="@command('onChiudi')"
+						image="/images/afc/16x16/close.png"  />
+			</h:div>
+		</h:div>
+
+    </window>
+</zk>

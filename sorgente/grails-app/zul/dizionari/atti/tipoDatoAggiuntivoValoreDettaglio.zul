@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('tipoDatoAggiuntivoValoreDettaglioViewModel')"
+            border="normal"
+            width="500px"
+            sizable="false">
+
+        <vlayout width="100%" spacing="10px">
+            <h:div class="barraTitoloPagina">
+                <label sclass="titoloPagina"
+                       value="@load(c:cat('Gestione Dato Aggiuntivo ', (empty vm.selectedRecord.codice? '': c:cat( ' - ', vm.selectedRecord.codice)) ) )"/>
+
+                <image src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+                       tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')"/>
+            </h:div>
+            <vlayout width="100%" vflex="max">
+                <grid sclass="form">
+                    <rows>
+                        <row>
+                            <cell hflex="1" align="right">
+                                <label value="Tipo di Dato"/>
+                            </cell>
+                            <cell hflex="3">
+                                <combobox hflex="1"
+                                          selectedItem="@bind(vm.tipoDatoAggiuntivo) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')"
+                                          model="@load(vm.listaTipiDatoAggiuntivo)" readonly="true">
+                                    <template name="model">
+                                        <comboitem label="@load(each.descrizione)" value="@load(each)"/>
+                                    </template>
+                                </combobox>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell hflex="1" align="right">
+                                <label value="Sequenza"/>
+                            </cell>
+                            <cell hflex="3">
+                                <textbox value="@bind(vm.selectedRecord.sequenza)" hflex="1"/>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell hflex="1" align="right">
+                                <label value="Tipo di Documento"/>
+                            </cell>
+                            <cell hflex="3">
+                                <combobox hflex="1"
+                                          selectedItem="@bind(vm.selectedRecord.tipoOggetto) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')"
+                                          model="@load(vm.tipoDatoAggiuntivo.tipiDocumento)" readonly="true">
+                                    <template name="model">
+                                        <comboitem label="@load(each)" value="@load(each)"/>
+                                    </template>
+                                </combobox>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell hflex="1" align="right">
+                                <label value="Descrizione"/>
+                            </cell>
+                            <cell hflex="3">
+                                <textbox value="@bind(vm.selectedRecord.descrizione)" hflex="1" sclass="noresizable"/>
+                            </cell>
+                        </row>
+                    </rows>
+                </grid>
+            </vlayout>
+
+            <!-- Inizio informazioni relative al salvataggio e bottoni salva / chiudi -->
+            <vlayout sclass="datiCreazioneModifica">
+                <label value="@bind(vm.datiCreazione)" visible="@bind(not empty vm.selectedRecord.codice)"/>
+                <label value="@bind(vm.datiModifica)" visible="@bind(not empty vm.selectedRecord.codice)"/>
+            </vlayout>
+
+            <controlBarRecord/>
+        </vlayout>
+    </window>
+</zk>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer"
+			viewModel="@id('vm') @init('errorViewModel')"
+			position="center,middle"
+			mode="modal"
+			closable="false"
+			width="420px"
+			class="windowErrore" >
+
+		<vlayout class="testoErrore">
+			<div>
+				<image src="/images/agsde2/16x16/error.png"/>
+				<label value="@bind(vm.title)" style="word-wrap: break-word;"/>
+			</div>
+			<div style="text-align: right;">
+				<button label="Dettagli per l'assistenza" w:onClick="var s = zk.Widget.$('$stacktrace'); s.setVisible(!s.isVisible());" class="pulsanteErrore" visible="@load(not empty vm.stacktrace)" />
+				<button label="Ok" onClick="@command('onClose')" class="pulsanteErrore" />
+			</div>
+			<vlayout id="stacktrace" width="99%" visible="@load(vm.dettagli)">
+				<label value="STACK TRACE" />
+				<textbox width="99%" rows="20" value="@load(vm.stacktrace)" readonly="true" />
+			</vlayout>
+		</vlayout>
+	</window>
+</zk>

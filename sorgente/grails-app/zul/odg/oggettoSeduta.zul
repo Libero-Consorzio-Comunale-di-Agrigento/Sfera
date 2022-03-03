@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer" maximizable="true" maximized="true"
+		border="normal" viewModel="@id('vm') @init('odgOggettoSedutaViewModel')">
+
+		<vlayout hflex="1" vflex="1">
+
+			<!-- Titolo della pagina -->
+			<grid sclass="documentoBandaTitolo">
+				<rows>
+					<row>
+						<cell width="50px" rowspan="2">
+							<image src="/images/agsde2/48x48/logo_delibera_48.png" />
+						</cell>
+						<cell>
+							<!-- titolo della pagina -->
+							<a sclass="documentoTitolo" onClick="@command('onApriProposta')" label="@load(not empty vm.oggetto.propostaDelibera ? c:cat4('Proposta n. ', vm.oggetto.propostaDelibera.numeroProposta, ' / ', vm.oggetto.propostaDelibera.annoProposta) : c:cat4('Proposta Determina n. ', vm.oggetto.determina.numeroProposta, ' / ', vm.oggetto.determina.annoProposta))" />
+							<label sclass="documentoTitolo" value="@load(not empty vm.oggetto.propostaDelibera ? c:cat4(': ', vm.oggetto.propostaDelibera.tipologia.titolo, ' - ', vm.oggetto.propostaDelibera.oggetto) : c:cat4(': ', vm.oggetto.determina.tipologia.titolo, ' - ', vm.oggetto.determina.oggetto))" />
+						</cell>
+					</row>
+					<row>
+						<cell sclass="documentoSottoTitolo">
+							<label
+								value="@load(c:cat('Commissione ' , vm.oggetto.seduta.commissione.titolo))" />
+							<hlayout>
+								<label
+									value="@load(c:cat3(' Seduta ', vm.oggetto.seduta.tipoSeduta.titolo, ' del ' ))" />
+								<label
+									value="@load(vm.oggetto.seduta.dataSeduta) @converter('formattedDate', format='dd MMMM yyyy')" />
+							</hlayout>
+						</cell>
+					</row>
+				</rows>
+			</grid>
+
+			<space height="10px" />
+
+			<!-- contenuto della pagina -->
+			<vlayout hflex="1" vflex="1">
+				<tabbox hflex="1" vflex="1">
+					<tabs>
+						<tab label="Verbalizzazione" />
+						<tab label="Votazioni" disabled="@bind(empty vm.oggetto.esito)"/>
+					</tabs>
+					<tabpanels>
+						<tabpanel>
+							<vlayout hflex="1" vflex="1">
+								<groupbox vflex="1">
+									<caption label="Proposta" />
+									<grid sclass="form" vflex="1">
+										<rows>
+											<row>
+												<cell align="right" width="150px">
+													<label value="Tipo Proposta" />
+												</cell>
+												<cell colspan="2">
+                                                    <label value="@bind(not empty vm.oggetto.propostaDelibera ? vm.oggetto.propostaDelibera.tipologia.titolo : vm.oggetto.determina.tipologia.titolo)" />
+												</cell>
+												<cell align="right" width="150px">
+													<h:span class="mandatoryLabel">*</h:span>
+													<label value="Oggetto aggiuntivo" />
+												</cell>
+												<cell>
+													<radiogroup selectedIndex="@load(vm.oggetto.oggettoAggiuntivo ? 0 : 1)" selectedItem="@save(vm.oggetto.oggettoAggiuntivo)">
+									     				<radio label="Sì" value="@load(true)"/>
+											            <radio label="No" value="@load(false)"/>
+										            </radiogroup>
+												</cell>
+											</row>
+
+											<row>
+												<cell align="right">
+													<label value="Delega" />
+												</cell>
+												<cell colspan="2">
+													<label value="@load(vm.oggetto.delega.descrizioneAssessorato)" />
+													<button style="float:right;" image="/images/agsde2/16x16/users.png" onClick="@command('onAggiungiDelega')" />
+												</cell>
+												<cell align="right">
+													<label value="Relatore" />
+												</cell>
+												<cell>
+													<label value="@load(vm.oggetto.delega.assessore.denominazione)" />
+												</cell>
+											</row>
+
+											<row>
+												<cell align="right" valign="top">
+													<h:span class="mandatoryLabel">*</h:span>
+													<label value="Oggetto" />
+												</cell>
+												<cell colspan="4">
+													<textbox rows="3" focus="true"
+														readonly="@load(not vm.oggettoModificabile or not empty vm.oggetto.esito)"
+														style="text-transform: uppercase"
+														hflex="1" value="@bind(vm.oggettoProposta)"  class="noresizable"/>
+												</cell>
+											</row>
+
+											<row visible="@load(vm.mostraEseguibilitaImmediata)">
+												<cell align="right">
+													<label value="Eseguibilità Immediata" />
+												</cell>
+												<cell colspan="4">
+													<label value="@load(vm.oggetto.propostaDelibera.eseguibilitaImmediata ? 'Sì' : 'No')" />
+                                                </cell>
+                                            </row>
+                                            <row>
+                                                <cell align="right">
+                                                    <label value="Motivazione" />
+                                                </cell>
+                                                <cell colspan="4">
+													<label value="@bind(vm.oggetto.propostaDelibera.motivazioniEseguibilita)" visible="@load(vm.oggetto.propostaDelibera.eseguibilitaImmediata)" />
+												</cell>
+											</row>
+										</rows>
+									</grid>
+								</groupbox>
+
+								<groupbox vflex="1">
+									<caption label="Discussione" />
+									<grid sclass="form">
+										<rows>
+                                            <row>
+                                                <cell width="150px"></cell>
+                                                <cell width="150px"></cell>
+                                                <cell width="150px"></cell>
+                                                <cell></cell>
+                                            </row>
+											<row>
+												<cell align="right" width="150px">
+													<label value="Data Discussione" />
+												</cell>
+												<cell>
+													<datebox value="@bind(vm.oggetto.dataDiscussione)" format="dd/MM/yyyy" />
+                                                </cell>
+                                                <cell align="right" width="150px">
+                                                    <label value="Ora Discussione" />
+                                                </cell>
+                                                <cell>
+                                                    <textbox
+                                                            constraint="/^(([0-1]\d|2[0-3]):([0-5]\d))?$/: Formato ora non corretto"
+                                                            maxlength="5"
+                                                            width="50px"
+                                                            value="@bind(vm.oggetto.oraDiscussione)" />
+                                                    <label value = " Inserire ora e minuti separati da : (esempio 10:30)" />
+												</cell>
+											</row>
+											<row visible="@load(vm.mostraEseguibilitaImmediata)">
+												<cell align="right">
+													<h:span class="mandatoryLabel">*</h:span>
+													<label value="Eseguibilità immediata" />
+												</cell>
+												<cell>
+													<radiogroup selectedIndex="@load(vm.oggetto.eseguibilitaImmediata ? 0 : 1)" selectedItem="@save(vm.oggetto.eseguibilitaImmediata)">
+														<radio label="Sì" value="@load(true)"/>
+														<radio label="No" value="@load(false)"/>
+													</radiogroup>
+												</cell>
+												<cell align="right">
+													<label value="Motivazione" />
+												</cell>
+												<cell>
+													<textbox value="@bind(vm.oggetto.motivazioniEseguibilita)" hflex="1" multiline="true" rows="5" focus="true" class="noresizable" />
+												</cell>
+											</row>
+											<row>
+												<cell align="right">
+													<label value="Esito" />
+												</cell>
+												<cell colspan="2">
+													<combobox hflex="1" readonly="true"
+														selectedItem="@bind(vm.oggetto.esito) @converter('it.finmatica.zkutils.PropertyConverter', property='id')"
+														model="@load(vm.listaEsito)" onSelect="@command('onSettaEsito')"
+														disabled="@load(vm.oggetto.confermaEsito or vm.daNonVerbalizzare)"
+														visible="@load(!vm.oggetto.confermaEsito)">
+														<template name="model">
+															<comboitem label="@load(each.titolo)" value="@load(each)" />
+														</template>
+													</combobox>
+													<label value="@load(vm.oggetto.esito.titolo)" visible="@load(vm.oggetto.confermaEsito)" />
+												</cell>
+											</row>
+											<row>
+												<cell align="right" valign="top">
+													<label value="Note di Verbalizzazione" />
+												</cell>
+												<cell colspan="3">
+													<textbox rows="5" hflex="1" value="@bind(vm.oggetto.note)" class="noresizable" />
+												</cell>
+											</row>
+
+										</rows>
+									</grid>
+								</groupbox>
+							</vlayout>
+						</tabpanel>
+
+						<tabpanel>
+							<hlayout hflex="1" vflex="1">
+								<vlayout hflex="1" vflex="1" >
+									<hlayout hflex="1" style="vertical-align:bottom">
+										<space hflex="1" />
+										<label value="@load(c:cat('FAVOREVOLI: ', vm.voti.FAVOREVOLE))" style="margin-left:10px; margin-right:10px;"/>
+										<label value="@load(c:cat('CONTRARI: ',   vm.voti.CONTRARIO))" 	style="margin-left:10px; margin-right:10px;"/>
+										<label value="@load(c:cat('ASTENUTI: ',   vm.voti.ASTENUTO))" 	style="margin-left:10px; margin-right:10px;"/>
+										<space hflex="1" />
+										<div style="text-align: right">
+											<button image="/images/agsde2/16x16/annotate.png" mold="trendy" onClick="@command('openPopupVoti')" label="Assegna esito unanime" />
+										</div>
+									</hlayout>
+									<listbox id="listaPresenze" model="@load(vm.listaPartecipanti)" vflex="1"
+										selectedItem="@bind(vm.selectedPartecipante)"
+										emptyMessage="Nessun dato trovato">
+										<listhead>
+											<listheader label="" width="5%" />
+											<listheader label="Cognome Nome" width="@load(vm.mostraAssentiNonGiustificati ? '15%' : '28%')" />
+											<listheader label="Ruolo" 	     width="10%" />
+											<listheader label="Incarico" 	 width="10%" />
+											<listheader label="Firma"		 width="5%" style="text-align: center" />
+											<listheader label="" 			 width="0" /> <!-- ATTENZIONE: Questa colonna è uno sporco trucco per far funzionare bene l'allineamento con i radiobutton -->
+											<listheader label="Presenti" 	 width="13%" style="text-align: center" />
+											<listheader label="Assenti"  	 width="13%" style="text-align: center" />
+											<listheader width="13%" style="text-align: center" visible="@load(vm.mostraAssentiNonGiustificati)">
+												<label value="Assenti non giustificati" />
+											</listheader>
+											<listheader label="Voto" 		 width="16%" style="text-align: center" />
+											<listheader label="" 			 width="35px" style="text-align:center;">
+												<image style="cursor: pointer;" tooltiptext="Aggiungi un partecipante" src="/images/afc/16x16/add.png" onClick="@command('onCreaPartecipante')" />
+											</listheader>
+										</listhead>
+										<template name="model" var="p">
+											<listitem>
+												<listcell style="text-align:center;">
+													<image src="/images/agsde2/22x22/annotate.png" onClick="@command('onModificaPartecipante', partecipante=p)" />
+												</listcell>
+												<listcell label="@load(not empty p.sedutaPartecipante.commissioneComponente ? p.sedutaPartecipante.commissioneComponente.componente.denominazione : p.sedutaPartecipante.componenteEsterno.denominazione )" />
+												<listcell label="@load(p.ruoloPartecipante.descrizione)" />
+												<listcell label="@load(not empty p.sedutaPartecipante.incarico ? p.sedutaPartecipante.incarico.titolo : p.sedutaPartecipante.commissioneComponente.incarico.titolo )" />
+												<listcell style="text-align: center">
+													<label style="float:left;" visible="@load(p.firmatario)" value="@load(c:cat(p.sequenzaFirma,'°'))" />
+													<image style="float:right;" src="@load(p.firmatario ? '/images/afc/16x16/legitimate.png' : '')" />
+												</listcell>
+												<listcell style="text-align:center;">
+													<!-- ATTENZIONE: questo completa lo sporco trucco per avere i radiogroup e radiobutton nella listbox. -->
+													<radiogroup onCheck="@command('onSettaPresenza', valore=self.selectedItem.value, partecipante=p)">
+														<cell>
+															<div style="text-align:center;">
+																<radio value="Presenti" selected="@load(p.presente eq true)" />
+															</div>
+														</cell>
+														<cell>
+															<div style="text-align:center;">
+																<radio value="Assenti" selected="@load(p.presente eq false and p.assenteNonGiustificato eq false)"/>
+															</div>
+														</cell>
+														<div visible="@load(vm.mostraAssentiNonGiustificati)">
+															<cell>
+																<div style="text-align:center;">
+																	<radio value="Assenti Non Giustificati" selected="@load(p.assenteNonGiustificato eq true and p.presente eq false)"/>
+																</div>
+															</cell>
+														</div>
+													</radiogroup>
+												</listcell>
+												<listcell>
+													<combobox readonly="true"
+														disabled="@load((not p.presente) or (p.ruoloPartecipante.codice eq 'S') or (p.ruoloPartecipante.codice eq 'I') or (p.ruoloPartecipante.codice eq 'P' and (not p.sedutaPartecipante.seduta.votoPresidente)))"
+														hflex="1" model="@load(vm.listaVoti)"
+														selectedItem="@bind(p.voto) @converter('it.finmatica.zkutils.PropertyConverter', property='id')"
+														onChange="@command('onCambiaVoto')">
+														<template name="model">
+															<comboitem label="@load(each.valore)" value="@load(each)" />
+														</template>
+													</combobox>
+												</listcell>
+												<listcell style="text-align:center;">
+													<image src="/images/agsde2/16x16/trash.png" onClick="@command('onEliminaPartecipante', partecipante=p)" visible="@load(not p.sedutaPartecipante.convocato)" />
+												</listcell>
+											</listitem>
+										</template>
+									</listbox>
+								</vlayout>
+
+								<!-- lato di destra: pulsanti per riordinare i convocati. -->
+								<vbox  pack="middle" align="center" vflex="1">
+								    <button image="/images/afc/22x22/up_blu.png"   onClick="@command('onSuSequenza', listaPartecipanti=listaPresenze)"
+											orient="vertical" disabled="@load(empty vm.selectedPartecipante or listaPresenze.getSelectedIndex() eq 0)"/>
+									<button image="/images/afc/22x22/down_blu.png" onClick="@command('onGiuSequenza', listaPartecipanti=listaPresenze)"
+											orient="vertical" disabled="@load(empty vm.selectedPartecipante or listaPresenze.getSelectedIndex() eq vm.listaPartecipanti.size() -1)"/>
+								</vbox>
+							</hlayout>
+						</tabpanel>
+					</tabpanels>
+				</tabbox>
+			</vlayout>
+
+			<!-- barra dei pulsanti -->
+			<h:div class="barraPulsanti">
+			<!--
+				<button mold="trendy" image="/images/afc/16x16/prev.png"
+					disabled="@load(vm.oggetto.sequenzaDiscussione eq 1)" visible="@load((vm.wParent ne 'ricercaSeduta'))"
+					onClick="@command('prevOggetto')" tooltiptext="Vai alla proposta precedente" />
+				<button mold="trendy" image="/images/afc/16x16/next.png"
+					visible="@load((vm.wParent ne 'ricercaSeduta'))"
+					onClick="@command('nextOggetto')" tooltiptext="Vai alla proposta successiva" />
+ -->
+				<combobutton image="/images/afc/16x16/mail.png"
+					label="Notifiche" disabled="@load(vm.oggetto.id eq -1)">
+					<popup onOpen="@command('calcolaListaNotifiche')" width="300px">
+						<listbox model="@bind(vm.listaNotifiche)" emptyMessage="Nessuna notifica presente">
+							<template name="model" var="notifica">
+								<listitem>
+									<listcell label="@load(notifica.titolo)"
+										onClick="@command('onNotifica', notifica=notifica)" />
+								</listitem>
+							</template>
+						</listbox>
+					</popup>
+				</combobutton>
+
+				<button mold="trendy" image="/images/agsde2/16x16/logo_delibera_16_non_attiva.png"
+					label="@load(vm.odgNumeraDelibere ? 'Numera Delibera' : 'Crea Delibera')" onClick="@command('onNumeraDelibera')"
+					disabled="@bind(not (vm.oggetto.seduta.secondaSeduta eq null and vm.numeraDelibera))" />
+
+				<h:div>
+					<button mold="trendy" image="/images/afc/16x16/save.png"
+						label="Salva" onClick="@command('onSalva')" />
+					<button mold="trendy" image="/images/afc/16x16/save.png"
+						label="Salva e chiudi" onClick="@command('onSalvaChiudi')" />
+					<button mold="trendy" image="/images/afc/16x16/close.png"
+						label="Chiudi" onClick="@command('onChiudi')" />
+				</h:div>
+			</h:div>
+		</vlayout>
+	</window>
+</zk>

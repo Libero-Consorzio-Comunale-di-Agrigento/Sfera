@@ -1,0 +1,822 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>	
+	<descrizione>Verbale della Seduta</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<seduta>
+				<DATA_SEDUTA>15/04/2014</DATA_SEDUTA>
+				<GIORNO_SETTIMANA_STAMPA>giovedì</GIORNO_SETTIMANA_STAMPA>
+				<GIORNO_LETTERE_STAMPA>diciassette</GIORNO_LETTERE_STAMPA>
+				<GIORNO_STAMPA>17</GIORNO_STAMPA>
+				<MESE_LETTERE_STAMPA>aprile</MESE_LETTERE_STAMPA>
+				<MESE_STAMPA>04</MESE_STAMPA>
+				<ANNO_LETTERE_STAMPA>duemilaquattordici</ANNO_LETTERE_STAMPA>
+				<ANNO_STAMPA>2014</ANNO_STAMPA>
+				<GIORNO_SETTIMANA_SEDUTA>MARTEDÌ</GIORNO_SETTIMANA_SEDUTA>
+				<GIORNO_LETTERE_SEDUTA>QUINDICI</GIORNO_LETTERE_SEDUTA>
+				<GIORNO_SEDUTA>15</GIORNO_SEDUTA>
+				<MESE_LETTERE_SEDUTA>APRILE</MESE_LETTERE_SEDUTA>
+				<MESE_SEDUTA>04</MESE_SEDUTA>
+				<ANNO_LETTERE_SEDUTA>DUEMILAQUATTORDICI</ANNO_LETTERE_SEDUTA>
+				<ANNO_SEDUTA>2014</ANNO_SEDUTA>
+				<ORA_SEDUTA>16:00</ORA_SEDUTA>
+				<TITOLO_COMMISSIONE>GIUNTA</TITOLO_COMMISSIONE>
+				<TIPO_SEDUTA>ORDINARIA</TIPO_SEDUTA>
+				<PRESIDENTE>NOMINATIVO PRESIDENTE</PRESIDENTE>
+				<SEGRETARIO>NOMINATIVO SEGRETARIO</SEGRETARIO>
+				<NUMERO_SEDUTA>45</NUMERO_SEDUTA>
+				<SEDE_SEDUTA>Comune di Prova</SEDE_SEDUTA>
+				<NOTE_SEDUTA>Note relative alla seduta</NOTE_SEDUTA>
+				<LINK>www.senato.it</LINK>
+				<INCARICO_PRESIDENTE>SINDACO</INCARICO_PRESIDENTE>
+				<INCARICO_SEGRETARIO>SEGRETARIO GENERALE</INCARICO_SEGRETARIO>
+			</seduta>
+			<partecipanti>
+				<PARTECIPANTE>PRIMO PARTECIPANTE</PARTECIPANTE>
+				<RUOLO>INCARICO PRIMO PARTECIPANTE</RUOLO>
+				<RUOLO_PARTECIPANTE>PRESIDENTE</RUOLO_PARTECIPANTE>
+				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				<INCARICO_PARTECIPANTE>INCARICO PRIMO PARTECIPANTE</INCARICO_PARTECIPANTE>
+			</partecipanti>
+			<partecipanti>
+				<PARTECIPANTE>SECONDO PARTECIPANTE</PARTECIPANTE>
+				<RUOLO>INCARICO SECONDO PARTECIPANTE</RUOLO>
+				<RUOLO_PARTECIPANTE>SEGRETARIO</RUOLO_PARTECIPANTE>
+				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				<INCARICO_PARTECIPANTE>INCARICO SECONDO PARTECIPANTE</INCARICO_PARTECIPANTE>
+			</partecipanti>
+			<partecipanti>
+				<PARTECIPANTE>TERZO PARTECIPANTE</PARTECIPANTE>
+				<RUOLO>INCARICO TERZO PARTECIPANTE</RUOLO>
+				<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				<INCARICO_PARTECIPANTE>INCARICO QUARTO PARTECIPANTE</INCARICO_PARTECIPANTE>
+			</partecipanti>
+			<partecipanti>
+				<PARTECIPANTE>QUARTO PARTECIPANTE</PARTECIPANTE>
+				<RUOLO>INCARICO QUARTO PARTECIPANTE</RUOLO>
+				<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				<INCARICO_PARTECIPANTE>INCARICO QUINTO PARTECIPANTE</INCARICO_PARTECIPANTE>
+			</partecipanti>
+			<proposte>
+			    <ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<ID_OGGETTO_SEDUTA>80735</ID_OGGETTO_SEDUTA>
+				<N_DELIBERA></N_DELIBERA>
+				<ANNO_DELIBERA></ANNO_DELIBERA>
+				<N_PROPOSTA>414</N_PROPOSTA>
+				<OGGETTO_PROPOSTA>PRIMA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<OGGETTO_DELIBERA>PRIMA DELIBERA DI PROVA</OGGETTO_DELIBERA>
+				<RELATORE>NOMINATIVO RELATORE 1</RELATORE>
+				<SEQUENZA>1</SEQUENZA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ORA_DISCUSSIONE>12:00</ORA_DISCUSSIONE>
+				<ESITO_DISCUSSIONE>ADOTTATO</ESITO_DISCUSSIONE>
+				<NOTE_DISCUSSIONE>Note assegnazione esito proposta 414</NOTE_DISCUSSIONE>
+                <TESTO_PROPOSTA>TESTO DELLA PROPOSTA</TESTO_PROPOSTA>
+				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
+				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
+				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
+				<INCARICO_PRESIDENTE>SINDACO</INCARICO_PRESIDENTE>
+				<INCARICO_SEGRETARIO>SEGRETARIO GENERALE</INCARICO_SEGRETARIO>
+				<EMENDAMENTI>
+					<ALLEGATO_TITOLO>PRIMO EMENDAMENTO</ALLEGATO_TITOLO>
+				</EMENDAMENTI>
+			</proposte>
+			<proposte>
+			    <ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<ID_OGGETTO_SEDUTA>81138</ID_OGGETTO_SEDUTA>
+				<N_DELIBERA>21</N_DELIBERA>
+				<ANNO_DELIBERA>2014</ANNO_DELIBERA>
+				<N_PROPOSTA>417</N_PROPOSTA>
+				<OGGETTO_PROPOSTA>SECONDA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<OGGETTO_DELIBERA>SECONDA DELIBERA DI PROVA</OGGETTO_DELIBERA>
+				<RELATORE>NOMINATIVO RELATORE 2</RELATORE>
+				<SEQUENZA>2</SEQUENZA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ORA_DISCUSSIONE>12:10</ORA_DISCUSSIONE>
+				<ESITO_DISCUSSIONE>ADOTTATO</ESITO_DISCUSSIONE>
+				<NOTE_DISCUSSIONE>Note assegnazione esito proposta 417</NOTE_DISCUSSIONE>
+                <TESTO_PROPOSTA>TESTO DELLA PROPOSTA</TESTO_PROPOSTA>
+				<VOTANTI>6</VOTANTI>
+				<PRESENTI>6</PRESENTI>
+				<ASSENTI>1</ASSENTI>
+				<ASTENUTI>1</ASTENUTI>
+				<VOTANTI_ASTENUTI>NOMINATIVO VOTANTI ASTENUTI</VOTANTI_ASTENUTI>
+				<VOTANTI_CONTRARI>NOMINATIVO VOTANTI CONTRARI</VOTANTI_CONTRARI>
+				<VOTANTI_FAVOREVOLI>NOMINATIVO VOTANTI FAVOREVOLI</VOTANTI_FAVOREVOLI>
+				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
+				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
+				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
+				<INCARICO_PRESIDENTE>SINDACO</INCARICO_PRESIDENTE>
+				<INCARICO_SEGRETARIO>SEGRETARIO GENERALE</INCARICO_SEGRETARIO>
+				<EMENDAMENTI>
+					<ALLEGATO_TITOLO>PRIMO EMENDAMENTO</ALLEGATO_TITOLO>
+				</EMENDAMENTI>
+			</proposte>
+			<proposte>
+			    <ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<ID_OGGETTO_SEDUTA>81381</ID_OGGETTO_SEDUTA>
+				<N_DELIBERA>22</N_DELIBERA>
+				<ANNO_DELIBERA>2014</ANNO_DELIBERA>
+				<N_PROPOSTA>420</N_PROPOSTA>
+				<OGGETTO_PROPOSTA>TERZA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<OGGETTO_DELIBERA>TERZA DELIBERA DI PROVA</OGGETTO_DELIBERA>
+				<RELATORE>NOMINATIVO RELATORE 3</RELATORE>
+				<SEQUENZA>3</SEQUENZA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ORA_DISCUSSIONE>12:20</ORA_DISCUSSIONE>
+				<ESITO_DISCUSSIONE>RINVIATO ALLA SEDUTA SUCCESSIVA</ESITO_DISCUSSIONE>
+				<NOTE_DISCUSSIONE>Note assegnazione esito proposta 420</NOTE_DISCUSSIONE>
+                <TESTO_PROPOSTA>TESTO DELLA PROPOSTA</TESTO_PROPOSTA>
+				<VOTANTI>6</VOTANTI>
+				<PRESENTI>6</PRESENTI>
+				<ASSENTI>1</ASSENTI>
+				<ASTENUTI>1</ASTENUTI>
+				<VOTANTI_ASTENUTI>NOMINATIVO VOTANTI ASTENUTI</VOTANTI_ASTENUTI>
+				<VOTANTI_CONTRARI>NOMINATIVO VOTANTI CONTRARI</VOTANTI_CONTRARI>
+				<VOTANTI_FAVOREVOLI>NOMINATIVO VOTANTI FAVOREVOLI</VOTANTI_FAVOREVOLI>
+				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
+				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
+				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
+				<INCARICO_PRESIDENTE>SINDACO</INCARICO_PRESIDENTE>
+				<INCARICO_SEGRETARIO>SEGRETARIO GENERALE</INCARICO_SEGRETARIO>
+				<EMENDAMENTI>
+					<ALLEGATO_TITOLO>PRIMO EMENDAMENTO</ALLEGATO_TITOLO>
+				</EMENDAMENTI>
+			</proposte>
+			<proposte>
+			    <ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<ID_OGGETTO_SEDUTA>81382</ID_OGGETTO_SEDUTA>
+				<N_DELIBERA>23</N_DELIBERA>
+				<ANNO_DELIBERA>2014</ANNO_DELIBERA>
+				<N_PROPOSTA>419</N_PROPOSTA>
+				<OGGETTO_PROPOSTA>QUARTA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<OGGETTO_DELIBERA>QUARTA DELIBERA DI PROVA</OGGETTO_DELIBERA>
+				<RELATORE>NOMINATIVO RELATORE 4</RELATORE>
+				<SEQUENZA>4</SEQUENZA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ORA_DISCUSSIONE>12:30</ORA_DISCUSSIONE>
+				<ESITO_DISCUSSIONE>RINVIATO ALL'UFFICIO PROPONENTE</ESITO_DISCUSSIONE>
+				<NOTE_DISCUSSIONE>Note assegnazione esito proposta 419</NOTE_DISCUSSIONE>
+                <TESTO_PROPOSTA>TESTO DELLA PROPOSTA</TESTO_PROPOSTA>
+				<VOTANTI>6</VOTANTI>
+				<PRESENTI>6</PRESENTI>
+				<ASSENTI>1</ASSENTI>
+				<ASTENUTI>1</ASTENUTI>
+				<VOTANTI_ASTENUTI>NOMINATIVO VOTANTI ASTENUTI</VOTANTI_ASTENUTI>
+				<VOTANTI_CONTRARI>NOMINATIVO VOTANTI CONTRARI</VOTANTI_CONTRARI>
+				<VOTANTI_FAVOREVOLI>NOMINATIVO VOTANTI FAVOREVOLI</VOTANTI_FAVOREVOLI>
+				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
+				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
+				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
+				<INCARICO_PRESIDENTE>SINDACO</INCARICO_PRESIDENTE>
+				<INCARICO_SEGRETARIO>SEGRETARIO GENERALE</INCARICO_SEGRETARIO>
+				<EMENDAMENTI>
+					<ALLEGATO_TITOLO>PRIMO EMENDAMENTO</ALLEGATO_TITOLO>
+				</EMENDAMENTI>
+			</proposte>
+			<proposte>
+			    <ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<ID_OGGETTO_SEDUTA>81640</ID_OGGETTO_SEDUTA>
+				<N_DELIBERA>24</N_DELIBERA>
+				<ANNO_DELIBERA>2014</ANNO_DELIBERA>
+				<N_PROPOSTA>422</N_PROPOSTA>
+				<OGGETTO_PROPOSTA>QUINTA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<OGGETTO_DELIBERA>QUINTA DELIBERA DI PROVA</OGGETTO_DELIBERA>
+				<RELATORE>NOMINATIVO RELATORE 5</RELATORE>
+				<SEQUENZA>5</SEQUENZA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ORA_DISCUSSIONE>12:40</ORA_DISCUSSIONE>
+				<ESITO_DISCUSSIONE>ADOTTATO</ESITO_DISCUSSIONE>
+				<NOTE_DISCUSSIONE>Note assegnazione esito proposta 422</NOTE_DISCUSSIONE>
+                <TESTO_PROPOSTA>TESTO DELLA PROPOSTA</TESTO_PROPOSTA>
+				<VOTANTI>6</VOTANTI>
+				<PRESENTI>6</PRESENTI>
+				<ASSENTI>1</ASSENTI>
+				<ASTENUTI>1</ASTENUTI>
+				<VOTANTI_ASTENUTI>NOMINATIVO VOTANTI ASTENUTI</VOTANTI_ASTENUTI>
+				<VOTANTI_CONTRARI>NOMINATIVO VOTANTI CONTRARI</VOTANTI_CONTRARI>
+				<VOTANTI_FAVOREVOLI>NOMINATIVO VOTANTI FAVOREVOLI</VOTANTI_FAVOREVOLI>
+				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
+				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
+				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
+				<INCARICO_PRESIDENTE>SINDACO</INCARICO_PRESIDENTE>
+				<INCARICO_SEGRETARIO>SEGRETARIO GENERALE</INCARICO_SEGRETARIO>
+				<EMENDAMENTI>
+					<ALLEGATO_TITOLO>PRIMO EMENDAMENTO</ALLEGATO_TITOLO>
+				</EMENDAMENTI>
+			</proposte>
+			<proposte>
+			    <ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<ID_OGGETTO_SEDUTA>81889</ID_OGGETTO_SEDUTA>
+				<N_DELIBERA>25</N_DELIBERA>
+				<ANNO_DELIBERA>2014</ANNO_DELIBERA>
+				<N_PROPOSTA>428</N_PROPOSTA>
+				<OGGETTO_PROPOSTA>SESTA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<OGGETTO_DELIBERA>SESTA DELIBERA DI PROVA</OGGETTO_DELIBERA>
+				<RELATORE>NOMINATIVO RELATORE 6</RELATORE>
+				<SEQUENZA>6</SEQUENZA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ORA_DISCUSSIONE>12:50</ORA_DISCUSSIONE>
+				<ESITO_DISCUSSIONE>RINVIATO ALLA SEDUTA SUCCESSIVA</ESITO_DISCUSSIONE>
+				<NOTE_DISCUSSIONE>Note assegnazione esito proposta 428</NOTE_DISCUSSIONE>
+                <TESTO_PROPOSTA>TESTO DELLA PROPOSTA</TESTO_PROPOSTA>
+				<VOTANTI>6</VOTANTI>
+				<PRESENTI>6</PRESENTI>
+				<ASSENTI>1</ASSENTI>
+				<ASTENUTI>1</ASTENUTI>
+				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
+				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
+				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
+				<VOTANTI_ASTENUTI>NOMINATIVO VOTANTI ASTENUTI</VOTANTI_ASTENUTI>
+				<VOTANTI_CONTRARI>NOMINATIVO VOTANTI CONTRARI</VOTANTI_CONTRARI>
+				<VOTANTI_FAVOREVOLI>NOMINATIVO VOTANTI FAVOREVOLI</VOTANTI_FAVOREVOLI>
+				<INCARICO_PRESIDENTE>SINDACO</INCARICO_PRESIDENTE>
+				<INCARICO_SEGRETARIO>SEGRETARIO GENERALE</INCARICO_SEGRETARIO>
+				<EMENDAMENTI>
+					<ALLEGATO_TITOLO>PRIMO EMENDAMENTO</ALLEGATO_TITOLO>
+				</EMENDAMENTI>
+			</proposte>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>xxx</descrizione>
+			<path/>			
+		</metaDato>
+<!-- DEFINIZIONE CAMPI DELLA QUERY -->
+		<metaDato>
+			<nomeSimbolico>GIORNO_SETTIMANA_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Giorno della settimana in cui si produce la stampa scritto in lettere (esempio: stampato il 30/05/2014 riporta la scritta venerdì)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>GIORNO_LETTERE_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del giorno in cui si produce la stampa scritto in lettere (esempio: stampato il 30/05/2014 riporta la scritta trenta)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>GIORNO_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del giorno in cui si produce la stampa scritto in cifre (esempio: stampato il 30/05/2014 riporta la scritta 30)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MESE_LETTERE_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese in cui si produce la stampa scritto in lettere (esempio: stampato il 30/05/2014 riporta la scritta maggio)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MESE_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese in cui si produce la stampa scritto in cifre (esempio: stampato il 30/05/2014 riporta la scritta 05)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_LETTERE_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno in cui si produce la stampa scritto in lettere (esempio: stampato il 30/05/2014 riporta la scritta duemilaquattordici)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno in cui si produce la stampa scritto in cifre (esempio: stampato il 30/05/2014 riporta la scritta 2014)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>GIORNO_SETTIMANA_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Giorno della settimana in cui si svolge la seduta scritto in lettere (esempio: la seduta è il 30/05/2014 riporta la scritta venerdì)</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>GIORNO_LETTERE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del giorno in cui si svolge la seduta scritto in lettere (esempio: la seduta è il 30/05/2014 riporta la scritta trenta)</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>GIORNO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del giorno in cui si svolge la seduta scritto in cifre (esempio: la seduta è il 30/05/2014 riporta la scritta 30)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MESE_LETTERE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese in cui si svolge la seduta scritto in lettere (esempio: la seduta è il 30/05/2014 riporta la scritta maggio)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MESE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese in cui si svolge la seduta scritto in cifre (esempio: la seduta è il 30/05/2014 riporta la scritta 05)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_LETTERE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno in cui si svolge la seduta scritto in lettere (esempio: la seduta è il 30/05/2014 riporta la scritta duemilaquattordici)</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>ANNO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno in cui si svolge la seduta scritto in cifre (esempio: la seduta è il 30/05/2014 riporta la scritta 2014)</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>DATA_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data in cui si svolge la seduta nel formato gg/mm/aaaa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ORA_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ora in cui si svolge la seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TIPO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia di seduta</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>NOTE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note relative alla seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>LINK</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Link relativo alla seduta</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>TITOLO_COMMISSIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Titolo della commissione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della proposta discussa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO_DELIBERA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ORA_DISCUSSIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ora di discussione della proposta</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>TIPO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SEQUENZA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Sequenza di discussione</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>ID_OGGETTO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>ID dell'oggetto inserito in seduta</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità proponente della proposta</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Relatore della proposta</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>N_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>N_DELIBERA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_DELIBERA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della delibera</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>ESITO_DISCUSSIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Esito assegnato alla proposta in seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOTE_DISCUSSIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note riportate durante all'assegnazione dell'esito della proposta</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>TESTO_PROPOSTA</nomeSimbolico>
+			<tipo>blob</tipo>
+			<descrizione>Il testo della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PRESIDENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Presidente della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SEGRETARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Segretario della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PARTECIPANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nominativo della persona partecipante alla seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RUOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ruolo della persona partecipante</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RUOLO_PARTECIPANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ruolo del partecipante all'interno della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PRESENTE_ASSENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se la persona è presente o assente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INCARICO_PARTECIPANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Incarico del partecipante</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SEDE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Sede della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>VOTANTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di persone votanti</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FAVOREVOLI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di voti favorevoli</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CONTRARI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di voti contrari</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ASTENUTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di astenuti</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>VOTANTI_FAVOREVOLI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco dei votanti favorevoli</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>VOTANTI_CONTRARI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco dei votanti contrari</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>VOTANTI_ASTENUTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco dei votanti astenuti</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ALLEGATO_TITOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Titolo dell'allegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PRESENTAZIONE_ISTANZA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di presentazione dell'istanza della proposta discussa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>COMMISSIONE_CONSILIARE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Commissioni consiliari della proposta discussa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOTE_CONVOCAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note di Convocazione della proposta discussa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INCARICO_PRESIDENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Incarico del segretario</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INCARICO_SEGRETARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Incarico del presidente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ID_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>ID della proposta discussa</descrizione>
+			<path/>
+		</metaDato>
+	</definitions>
+	<queryes>
+ 	<!-- seduta: restituisce i dati della seduta -->
+		<query id='seduta'
+			   help_query_alias="s"
+	           help_field_aliases="ANNO_LETTERE_SEDUTA, ANNO_LETTERE_STAMPA, ANNO_SEDUTA, ANNO_STAMPA, DATA_SEDUTA, GIORNO_LETTERE_SEDUTA, GIORNO_LETTERE_STAMPA, GIORNO_SEDUTA, GIORNO_SETTIMANA_SEDUTA, GIORNO_SETTIMANA_STAMPA, GIORNO_STAMPA, MESE_LETTERE_SEDUTA, MESE_LETTERE_STAMPA, MESE_SEDUTA, MESE_STAMPA, NOTE_SEDUTA, NUMERO_SEDUTA, ORA_SEDUTA, PRESIDENTE, SEGRETARIO, TIPO_SEDUTA, TITOLO_COMMISSIONE, SEDE_SEDUTA, LINK, INCARICO_PRESIDENTE, INCARICO_SEGRETARIO">
+ select to_char (sed.data_seduta, 'DD/MM/YYYY') DATA_SEDUTA
+     ,  utility_pkg.giorno_lettere(sysdate) GIORNO_SETTIMANA_STAMPA
+     ,  utility_pkg.numero_lettere(to_char (sysdate, 'dd')) GIORNO_LETTERE_STAMPA
+     ,    to_char (sysdate, 'dd') GIORNO_STAMPA
+     ,  utility_pkg.mese_lettere (to_char (sysdate, 'mm')) MESE_LETTERE_STAMPA
+     ,  to_char (sysdate, 'mm') MESE_STAMPA
+     ,  utility_pkg.numero_lettere(to_char (sysdate, 'yyyy')) ANNO_LETTERE_STAMPA
+     ,  to_char (sysdate, 'yyyy') ANNO_STAMPA
+     ,  upper(utility_pkg.giorno_lettere(sed.data_seduta)) GIORNO_SETTIMANA_SEDUTA
+     ,  upper(utility_pkg.numero_lettere(to_char (sed.data_seduta, 'dd'))) GIORNO_LETTERE_SEDUTA
+     ,    to_char (sed.data_seduta, 'dd') GIORNO_SEDUTA
+     ,  upper(utility_pkg.mese_lettere (to_char (sed.data_seduta, 'mm'))) MESE_LETTERE_SEDUTA
+     ,  to_char (sed.data_seduta, 'mm') MESE_SEDUTA
+     ,  upper(utility_pkg.numero_lettere(to_char (sed.data_seduta, 'yyyy'))) ANNO_LETTERE_SEDUTA
+     ,  to_char (sed.data_seduta, 'yyyy') ANNO_SEDUTA 
+     ,  sed.ora_seduta ORA_SEDUTA
+     ,  com.titolo TITOLO_COMMISSIONE
+     ,  ots.titolo TIPO_SEDUTA
+	 , (select utility_pkg.get_cognome_nome (nvl (com_presidente.ni_componente, osp_presidente.ni_componente_esterno))
+		  from odg_sedute_partecipanti osp_presidente, odg_commissioni_componenti com_presidente
+		 where osp_presidente.id_seduta = sed.id_seduta
+		   and osp_presidente.ruolo_partecipante = 'P'
+		   and osp_presidente.id_commissione_componente = com_presidente.id_commissione_componente (+)
+		   and osp_presidente.presente = 'Y')  PRESIDENTE
+	 , (select utility_pkg.get_cognome_nome (nvl (com_segretario.ni_componente, osp_segretario.ni_componente_esterno))
+		  from odg_sedute_partecipanti osp_segretario, odg_commissioni_componenti com_segretario
+		 where osp_segretario.id_seduta = sed.id_seduta
+		   and osp_segretario.ruolo_partecipante = 'S'
+		   and osp_segretario.id_commissione_componente = com_segretario.id_commissione_componente (+)
+		   and osp_segretario.presente = 'Y') SEGRETARIO
+     ,  sed.numero NUMERO_SEDUTA
+     ,  sed.sede SEDE_SEDUTA
+     ,  sed.note NOTE_SEDUTA
+     ,  sed.link LINK
+	 , (select nvl (i_osp.titolo, i.titolo)
+             from odg_sedute_partecipanti osp
+                , odg_commissioni_componenti occ
+                , odg_incarichi i
+                , odg_incarichi i_osp
+            where osp.id_seduta = sed.id_seduta
+              and occ.id_commissione_componente(+) = osp.id_commissione_componente
+              and i.id_incarico(+) = occ.id_incarico
+              and i_osp.id_incarico(+) = osp.id_incarico
+              and osp.ruolo_partecipante = 'P'
+			  and osp.presente = 'Y') INCARICO_PRESIDENTE
+     , (select nvl (i_osp.titolo, i.titolo)
+               from odg_sedute_partecipanti osp
+                  , odg_commissioni_componenti occ
+                  , odg_incarichi i
+                  , odg_incarichi i_osp
+              where osp.id_seduta = sed.id_seduta
+                and occ.id_commissione_componente(+) = osp.id_commissione_componente
+                and i.id_incarico(+) = occ.id_incarico
+                and i_osp.id_incarico(+) = osp.id_incarico
+                and osp.ruolo_partecipante = 'S'
+			    and osp.presente = 'Y') INCARICO_SEGRETARIO
+  from  odg_sedute sed
+	 ,  odg_commissioni com
+     ,  odg_tipi_seduta ots
+ where sed.id_seduta = #id
+   and com.id_commissione = sed.id_commissione
+   and sed.id_tipo_seduta = ots.id_tipo_seduta
+		</query>
+ 	<!-- partecipanti: restituisce i dati dei partecipanti alla seduta -->	
+		<query id='partecipanti'
+			   help_query_alias="pa"
+	           help_field_aliases="PARTECIPANTE, PRESENTE_ASSENTE, RUOLO, RUOLO_PARTECIPANTE, INCARICO_PARTECIPANTE">
+     select SEQUENZA, PARTECIPANTE, RUOLO, RUOLO_PARTECIPANTE, PRESENTE_ASSENTE, INCARICO_PARTECIPANTE
+   from (
+ select  occ.sequenza
+       , utility_pkg.get_cognome_nome(nvl(occ.ni_componente, osp.ni_componente_esterno)) PARTECIPANTE
+       , nvl(i_osp.titolo, i.titolo) RUOLO
+	   , nvl(i_osp.titolo, i.titolo) INCARICO_PARTECIPANTE
+       , orp.descrizione RUOLO_PARTECIPANTE
+       , decode (osp.presente, 'Y', 'Presente', 'Assente') PRESENTE_ASSENTE
+    from odg_sedute_partecipanti osp
+       , odg_sedute os
+       , odg_commissioni_componenti occ
+       , odg_incarichi i
+       , odg_incarichi i_osp
+       , odg_ruoli_partecipanti orp
+   where os.id_seduta = #id
+     and osp.id_seduta = os.id_seduta
+     and occ.id_commissione_componente(+) = osp.id_commissione_componente
+     and i.id_incarico(+) = occ.id_incarico
+     and i_osp.id_incarico(+) = osp.id_incarico
+     and nvl (osp.ruolo_partecipante, 'J') not in ('S', 'I')
+     and not(nvl (osp.ruolo_partecipante, 'J') in ('P') and os.voto_presidente = 'N')
+     and osp.ruolo_partecipante = orp.ruolo_partecipante(+))
+ order by sequenza, partecipante asc 
+ 		</query>
+ 	<!-- proposte: restituisce i dati delle proposte in seduta -->
+<query id='proposte'
+	   child="emendamenti"
+	   help_query_alias="p"
+	   help_field_aliases="ANNO_PROPOSTA, ESITO_DISCUSSIONE, ID_OGGETTO_SEDUTA, NOTE_DISCUSSIONE, N_DELIBERA, ANNO_DELIBERA, N_PROPOSTA, OGGETTO_PROPOSTA, OGGETTO_DELIBERA, RELATORE, SEQUENZA, TIPO_PROPOSTA, UNITA_PROPONENTE, ORA_DISCUSSIONE, TESTO_PROPOSTA, VOTANTI_ASTENUTI, VOTANTI_CONTRARI, VOTANTI_FAVOREVOLI, VOTANTI, FAVOREVOLI, CONTRARI, ASTENUTI, INCARICO_PRESIDENTE, INCARICO_SEGRETARIO, DATA_PRESENTAZIONE_ISTANZA, COMMISSIONE_CONSILIARE, NOTE_CONVOCAZIONE">
+    select pd.id_proposta_delibera ID_PROPOSTA
+       ,  os.sequenza_discussione SEQUENZA
+       ,  pd.numero_proposta N_PROPOSTA
+       ,  pd.anno_proposta ANNO_PROPOSTA
+       ,  utility_pkg.get_unita_prop_delibera(pd.id_proposta_delibera) UNITA_PROPONENTE
+       ,  td.titolo TIPO_PROPOSTA
+       ,  d.numero_delibera N_DELIBERA
+	   ,  d.anno_delibera ANNO_DELIBERA
+       ,  utility_pkg.get_cognome_nome(dele.ni_assessore) RELATORE
+       ,  pd.oggetto OGGETTO_PROPOSTA
+	   ,  d.oggetto  OGGETTO_DELIBERA
+       ,  os.ora_discussione ORA_DISCUSSIONE
+       ,  oe.titolo ESITO_DISCUSSIONE
+       ,  os.note NOTE_DISCUSSIONE
+	   ,  utility_pkg.get_testo_proposta_delibera(d.id_proposta_delibera) TESTO_PROPOSTA
+	   , (select count (1)
+			from odg_oggetti_partecipanti oop, odg_voti ov
+			where id_oggetto_seduta = d.id_oggetto_seduta
+			and oop.id_voto = ov.id_voto
+			and ov.codice = 'FAVOREVOLE') FAVOREVOLI
+	   , (select count (1)
+			from odg_oggetti_partecipanti oop, odg_voti ov
+			where id_oggetto_seduta = d.id_oggetto_seduta
+			and oop.id_voto = ov.id_voto
+			and ov.codice = 'CONTRARIO') CONTRARI
+	   , (select count (1)
+			from odg_oggetti_partecipanti oop, odg_voti ov
+			where id_oggetto_seduta = d.id_oggetto_seduta
+			and oop.id_voto = ov.id_voto
+			and ov.codice = 'ASTENUTO') ASTENUTI
+	   , (select count (1)
+			from odg_oggetti_partecipanti oop, odg_voti ov
+			where id_oggetto_seduta = d.id_oggetto_seduta
+			and oop.id_voto = ov.id_voto
+			and (ov.codice in ('FAVOREVOLE', 'CONTRARIO'))) VOTANTI
+	   , utility_pkg.get_votanti_oggetto_seduta (d.id_oggetto_seduta, 'FAVOREVOLE') VOTANTI_FAVOREVOLI
+	   , utility_pkg.get_votanti_oggetto_seduta (d.id_oggetto_seduta, 'CONTRARIO') VOTANTI_CONTRARI
+	   , utility_pkg.get_votanti_oggetto_seduta (d.id_oggetto_seduta, 'ASTENUTO') VOTANTI_ASTENUTI
+	   , (SELECT valore
+			FROM dati_aggiuntivi da
+		   WHERE     da.id_proposta_delibera = pd.id_proposta_delibera
+				 AND da.codice = 'DATA_ISTANZA') DATA_PRESENTAZIONE_ISTANZA
+	   , (SELECT valore
+			FROM dati_aggiuntivi da
+		   WHERE     da.id_proposta_delibera = pd.id_proposta_delibera
+				 AND da.codice = 'COMMISSIONE_CONSILIARE') COMMISSIONE_CONSILIARE
+	   , (SELECT valore
+			FROM dati_aggiuntivi da
+		   WHERE     da.id_proposta_delibera = pd.id_proposta_delibera
+				 AND da.codice = 'NOTE_CONVOCAZIONE') NOTE_CONVOCAZIONE
+	   , (select nvl (i_osp.titolo, i.titolo)
+             from odg_sedute_partecipanti osp
+                , odg_commissioni_componenti occ
+                , odg_incarichi i
+                , odg_incarichi i_osp
+            where osp.id_seduta = os.id_seduta
+              and occ.id_commissione_componente(+) = osp.id_commissione_componente
+              and i.id_incarico(+) = occ.id_incarico
+              and i_osp.id_incarico(+) = osp.id_incarico
+              and osp.ruolo_partecipante = 'P'
+			  and osp.presente = 'Y') INCARICO_PRESIDENTE
+       , (select nvl (i_osp.titolo, i.titolo)
+               from odg_sedute_partecipanti osp
+                  , odg_commissioni_componenti occ
+                  , odg_incarichi i
+                  , odg_incarichi i_osp
+              where osp.id_seduta = os.id_seduta
+                and occ.id_commissione_componente(+) = osp.id_commissione_componente
+                and i.id_incarico(+) = occ.id_incarico
+                and i_osp.id_incarico(+) = osp.id_incarico
+                and osp.ruolo_partecipante = 'S'
+			    and osp.presente = 'Y') INCARICO_SEGRETARIO
+    from  odg_oggetti_seduta os
+       ,  proposte_delibera pd
+       ,  delibere d
+       ,  deleghe dele
+       ,  tipi_delibera td
+       ,  odg_esiti oe
+   where os.id_seduta = #id
+     and os.id_proposta_delibera = pd.id_proposta_delibera
+     and d.id_oggetto_seduta(+) = os.id_oggetto_seduta
+     and pd.id_tipo_delibera = td.id_tipo_delibera
+     and os.id_delega = dele.id_delega(+)
+     and oe.id_esito (+) = os.id_esito  
+ order by os.sequenza_discussione asc
+</query>
+	<query id="emendamenti"
+		   help_query_alias="a"
+		   help_field_aliases="ALLEGATO_TITOLO,">
+		SELECT *
+              FROM (  SELECT a.titolo allegato_titolo
+                        FROM allegati a, tipi_allegato ta
+                       WHERE     a.id_tipo_allegato = ta.id_tipo_allegato(+)
+                             AND a.valido = 'Y'
+                             AND ta.titolo = 'EMENDAMENTO'
+                             AND a.id_proposta_delibera = @ID_PROPOSTA
+                    ORDER BY a.sequenza ASC)
+            UNION ALL
+            SELECT *
+              FROM (  SELECT a.titolo allegato_titolo
+                        FROM allegati a, tipi_allegato ta, delibere d
+                       WHERE     a.id_tipo_allegato = ta.id_tipo_allegato(+)
+                             AND a.valido = 'Y'
+                             AND ta.titolo = 'EMENDAMENTO'
+                             AND d.id_proposta_delibera = @ID_PROPOSTA
+                             AND a.id_delibera = d.id_delibera
+                             AND a.id_proposta_delibera IS NULL
+                    ORDER BY a.sequenza ASC)
+</query>
+	</queryes>
+	<staticData />
+</documentRoot>

@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Registro delle Delibere</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<registro>
+				<REGISTRO>REGISTRO DELLE DELIBERAZIONI</REGISTRO>
+				<ANNO_REGISTRO>2014</ANNO_REGISTRO>
+			</registro>
+			<registro_delibere>
+				<STATO />
+				<NUMERO_DELIBERA>1</NUMERO_DELIBERA>
+				<DATA_DELIBERA>13/01/2014</DATA_DELIBERA>
+				<DATA_ESECUTIVITA>13/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>13/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>28/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>PRIMA DELIBERA</OGGETTO>
+				<UNITA_PROPONENTE>AREA RISORSE</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>1</NUMERO_ALBO>
+			</registro_delibere>
+			<registro_delibere>
+				<STATO />
+				<NUMERO_DELIBERA>2</NUMERO_DELIBERA>
+				<DATA_DELIBERA>13/01/2014</DATA_DELIBERA>
+				<DATA_ESECUTIVITA />
+				<DATA_PUBBLICAZIONE>13/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>28/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>SECONDA DELIBERA</OGGETTO>
+				<UNITA_PROPONENTE>AREA RISORSE</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>2</NUMERO_ALBO>
+			</registro_delibere>
+			<registro_delibere>
+				<STATO />
+				<NUMERO_DELIBERA>3</NUMERO_DELIBERA>
+				<DATA_DELIBERA>18/03/2014</DATA_DELIBERA>
+				<DATA_ESECUTIVITA />
+				<DATA_PUBBLICAZIONE>OMESSA</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE />
+				<OGGETTO>TERZA DELIBERA</OGGETTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>3</NUMERO_ALBO>
+			</registro_delibere>
+			<registro_delibere>
+				<STATO />
+				<NUMERO_DELIBERA>4</NUMERO_DELIBERA>
+				<DATA_DELIBERA>27/03/2014</DATA_DELIBERA>
+				<DATA_ESECUTIVITA />
+				<DATA_PUBBLICAZIONE>OMESSA</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE />
+				<OGGETTO>QUARTA DELIBERA</OGGETTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>4</NUMERO_ALBO>
+			</registro_delibere>
+			<registro_delibere>
+				<STATO />
+				<NUMERO_DELIBERA>5</NUMERO_DELIBERA>
+				<DATA_DELIBERA>13/01/2014</DATA_DELIBERA>
+				<DATA_ESECUTIVITA>13/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE />
+				<DATA_FINE_PUBBLICAZIONE />
+				<OGGETTO>QUINTA DELIBERA</OGGETTO>
+				<UNITA_PROPONENTE>AREA RISORSE</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>5</NUMERO_ALBO>
+			</registro_delibere>
+			<registro_delibere>
+				<STATO />
+				<NUMERO_DELIBERA>6</NUMERO_DELIBERA>
+				<DATA_DELIBERA>13/01/2014</DATA_DELIBERA>
+				<DATA_ESECUTIVITA>14/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>14/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>29/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>SESTA DELIBERA</OGGETTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>6</NUMERO_ALBO>
+			</registro_delibere>
+			<registro_delibere>
+				<STATO />
+				<NUMERO_DELIBERA>7</NUMERO_DELIBERA>
+				<DATA_DELIBERA>13/01/2014</DATA_DELIBERA>
+				<DATA_ESECUTIVITA />
+				<DATA_PUBBLICAZIONE>14/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>29/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>SETTIMA DELIBERA</OGGETTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>7</NUMERO_ALBO>
+			</registro_delibere>
+			<registro_delibere>
+				<STATO />
+				<NUMERO_DELIBERA>8</NUMERO_DELIBERA>
+				<DATA_DELIBERA>14/01/2014</DATA_DELIBERA>
+				<DATA_ESECUTIVITA />
+				<DATA_PUBBLICAZIONE />
+				<DATA_FINE_PUBBLICAZIONE />
+				<OGGETTO>OTTAVA DELIBERA</OGGETTO>
+				<UNITA_PROPONENTE>AREA RISORSE</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>8</NUMERO_ALBO>
+			</registro_delibere>
+			<registro_delibere>
+				<STATO />
+				<NUMERO_DELIBERA>9</NUMERO_DELIBERA>
+				<DATA_DELIBERA>14/01/2014</DATA_DELIBERA>
+				<DATA_ESECUTIVITA />
+				<DATA_PUBBLICAZIONE>14/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>29/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>NONA DELIBERA</OGGETTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>9</NUMERO_ALBO>
+			</registro_delibere>
+			<registro_delibere>
+				<STATO />
+				<NUMERO_DELIBERA>10</NUMERO_DELIBERA>
+				<DATA_DELIBERA>14/01/2014</DATA_DELIBERA>
+				<DATA_ESECUTIVITA />
+				<DATA_PUBBLICAZIONE />
+				<DATA_FINE_PUBBLICAZIONE />
+				<OGGETTO>DECIMA DELIBERA</OGGETTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>10</NUMERO_ALBO>
+			</registro_delibere>
+			<registro_delibere>
+				<STATO />
+				<NUMERO_DELIBERA>11</NUMERO_DELIBERA>
+				<DATA_DELIBERA>14/01/2014</DATA_DELIBERA>
+				<DATA_ESECUTIVITA />
+				<DATA_PUBBLICAZIONE>14/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>29/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>UNDICESIMA DELIBERA</OGGETTO>
+				<UNITA_PROPONENTE>AREA RISORSE</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>11</NUMERO_ALBO>
+			</registro_delibere>
+			<registro_delibere>
+				<STATO />
+				<NUMERO_DELIBERA>12</NUMERO_DELIBERA>
+				<DATA_DELIBERA>14/01/2014</DATA_DELIBERA>
+				<DATA_ESECUTIVITA />
+				<DATA_PUBBLICAZIONE>14/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>29/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>DODICESIMA DELIBERA</OGGETTO>
+				<UNITA_PROPONENTE>AREA RISORSE</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>12</NUMERO_ALBO>
+			</registro_delibere>
+			<registro_delibere>
+				<STATO />
+				<NUMERO_DELIBERA>13</NUMERO_DELIBERA>
+				<DATA_DELIBERA>14/01/2014</DATA_DELIBERA>
+				<DATA_ESECUTIVITA />
+				<DATA_PUBBLICAZIONE>14/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>29/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>TREDICESIMA DELIBERA</OGGETTO>
+				<UNITA_PROPONENTE>AREA RISORSE</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>13</NUMERO_ALBO>
+			</registro_delibere>
+			<registro_delibere>
+				<STATO />
+				<NUMERO_DELIBERA>14</NUMERO_DELIBERA>
+				<DATA_DELIBERA>14/01/2014</DATA_DELIBERA>
+				<DATA_ESECUTIVITA />
+				<DATA_PUBBLICAZIONE>14/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>29/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>QUATTORDICESIMA DELIBERA</OGGETTO>
+				<UNITA_PROPONENTE>AREA RISORSE</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>14</NUMERO_ALBO>
+			</registro_delibere>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_anno</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>anno di adozione</descrizione>
+			<path/>			
+		</metaDato>
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_registro</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>registro di adozione</descrizione>
+			<path/>			
+		</metaDato>
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_da_numero</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_a_numero</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>	
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_data_adozione_dal</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>		
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_data_adozione_al</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>		
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_data_pubb_inizio_dal</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>		
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_data_pubb_inizio_al</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>		
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_data_pubb_fine_dal</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>		
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_data_pubb_fine_al</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>		
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_data_esec_dal</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>		
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_data_esec_al</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>		
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_codice_dirigente</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_uo_proponente</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_uo_proponente_ottica</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_uo_proponente_dal</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_ente</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>ente</descrizione>
+			<path/>			
+		</metaDato>
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_utente</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>utente di sessione</descrizione>
+			<path/>			
+		</metaDato>		
+<!-- DEFINIZIONE CAMPI DELLA QUERY -->			
+		<metaDato>
+			<nomeSimbolico>ANNO_ADOZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di numerazione della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>STATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Valorizzato solo se la delibera e' annullata</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>DATA_DELIBERA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di adozione della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_ESECUTIVITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di esecutivita' della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_DELIBERA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_FINE_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di fine pubblicazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di pubblicazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>REGISTRO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Registro di numerazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_REGISTRO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno registro di numerazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unita' proponente dell'atto</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>ANNO_ALBO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di pubblicazione all'albo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_ALBO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di pubblicazione all'albo</descrizione>
+			<path/>
+		</metaDato>
+	</definitions>
+	<queryes>
+		<query id="registro"
+			help_query_alias="r"
+			help_field_aliases="REGISTRO, ANNO_REGISTRO"><![CDATA[
+  select  tr.descrizione REGISTRO
+       ,  #p_anno ANNO_REGISTRO
+    from  tipi_registro tr	   
+   where tr.tipo_registro = #p_registro ]]>
+</query>	
+ 	<!-- Determine: restituisce l'elenco delle delibere -->
+		<query id="registro_delibere"
+			help_query_alias="rd"
+			help_field_aliases="ANNO_ADOZIONE, ANNO_ALBO, DATA_DELIBERA, DATA_ESECUTIVITA, DATA_FINE_PUBBLICAZIONE, DATA_PUBBLICAZIONE, OGGETTO, NUMERO_ALBO, NUMERO_DELIBERA, STATO, UNITA_PROPONENTE"><![CDATA[
+  select decode (d.stato, 'ANNULLATO',     nvl2(d.data_esecutivita, 'NON ESECUTIVO', nvl2(d.numero_delibera, 'ATTO ANNULLATO', 'PROPOSTA ANNULLATA')),
+                          'NON_ESECUTIVO', nvl2(d.data_esecutivita, 'NON ESECUTIVO', nvl2(d.numero_delibera, 'ATTO ANNULLATO', 'PROPOSTA ANNULLATA')),
+                          '') STATO
+       ,  d.numero_delibera numero_delibera
+       ,  to_char (d.data_adozione, 'dd/mm/yyyy') DATA_DELIBERA
+       ,  to_char (d.data_esecutivita, 'dd/mm/yyyy') DATA_ESECUTIVITA
+       ,  decode (td.pubblicazione, 'Y', to_char (d.data_pubblicazione, 'dd/mm/yyyy'), 'OMESSA') DATA_PUBBLICAZIONE
+       ,  to_char (data_fine_pubblicazione, 'dd/mm/yyyy') DATA_FINE_PUBBLICAZIONE
+       ,  d.oggetto OGGETTO
+       ,  utility_pkg.get_unita_prop_delibera (pd.id_proposta_delibera) UNITA_PROPONENTE
+       ,  d.anno_delibera ANNO_ADOZIONE
+       ,  d.anno_albo ANNO_ALBO
+       ,  d.numero_albo NUMERO_ALBO
+    from proposte_delibera_soggetti pds_dirigente
+       ,  proposte_delibera_soggetti pds_uo_proponente
+       ,  proposte_delibera pd
+       ,  delibere d
+       ,  tipi_delibera td
+   where d.id_proposta_delibera = pd.id_proposta_delibera
+     and pd.id_tipo_delibera = td.id_tipo_delibera
+     and pd.id_proposta_delibera = pds_dirigente.id_proposta_delibera(+)
+     and pds_dirigente.tipo_soggetto(+) = 'DIRIGENTE'
+     and pd.id_proposta_delibera = pds_uo_proponente.id_proposta_delibera(+)
+     and pds_uo_proponente.tipo_soggetto(+) = 'UO_PROPONENTE'
+     and d.numero_delibera is not null
+     and d.ente = #p_ente
+     and ( (#p_anno is null)
+       or (#p_anno is not null
+       and d.anno_delibera = #p_anno ))
+     and ( (#p_da_numero is null)
+       or (#p_da_numero is not null
+       and d.numero_delibera >= #p_da_numero ))
+     and ( (#p_a_numero is null)
+       or (#p_a_numero is not null
+       and d.numero_delibera <= #p_a_numero ))
+     and ( (#p_uo_proponente is null)
+       or (#p_uo_proponente is not null
+       and pds_uo_proponente.unita_progr = #p_uo_proponente and pds_uo_proponente.unita_ottica = #p_uo_proponente_ottica ))
+     and ( (#p_codice_dirigente is null)
+       or (#p_codice_dirigente is not null
+       and pds_dirigente.utente = #p_codice_dirigente ))
+     and ( (#p_registro is null)
+       or (#p_registro is not null
+       and d.registro_delibera = #p_registro ))
+     and ( (#p_data_pubb_inizio_dal is null)
+       or (#p_data_pubb_inizio_dal is not null
+       and d.data_pubblicazione >= to_date (#p_data_pubb_inizio_dal , 'dd/mm/yyyy'))
+       or (#p_data_pubb_inizio_dal is not null
+       and d.data_pubblicazione_2 >= to_date (#p_data_pubb_inizio_dal , 'dd/mm/yyyy')))
+     and ( (#p_data_pubb_fine_al is null)
+       or (#p_data_pubb_fine_al is not null
+       and d.data_fine_pubblicazione <= to_date (#p_data_pubb_fine_al , 'dd/mm/yyyy'))
+       or (#p_data_pubb_fine_al is not null
+       and d.data_fine_pubblicazione_2 <= to_date (#p_data_pubb_fine_al , 'dd/mm/yyyy')))
+     and ( (#p_data_esec_dal is null)
+       or (#p_data_esec_dal is not null
+       and d.data_esecutivita >= to_date (#p_data_esec_dal , 'dd/mm/yyyy')))
+     and ( (#p_data_esec_al is null)
+       or (#p_data_esec_al is not null
+       and d.data_esecutivita <= to_date (#p_data_esec_al , 'dd/mm/yyyy')))
+     and ( (#p_data_adozione_dal is null)
+       or (#p_data_adozione_dal is not null
+       and d.data_numero_delibera >= to_date (#p_data_adozione_dal , 'dd/mm/yyyy')))
+     and ( (#p_data_adozione_al is null)
+       or (#p_data_adozione_al is not null
+       and d.data_numero_delibera <= to_date (#p_data_adozione_al , 'dd/mm/yyyy')))
+ order by d.anno_delibera, d.numero_delibera ]]>
+</query>
+	</queryes>
+	<staticData />
+</documentRoot>

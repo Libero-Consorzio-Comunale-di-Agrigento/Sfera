@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?component name="appletEditaTesto" macroURI="gestionetesti/applet/appletEditaTesto.zul" class="it.finmatica.gestionetesti.AppletEditaTestoMacroComponent" ?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css" ?>
+<?page automaticTimeout="false"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<h:script defer="true" type="text/javascript"><![CDATA[
+		jq(window).bind('beforeunload', function() {
+			jq.ajax('<g:createLink controller="gestioneTesti" action="unlockTesto" params="[id: params.id]" />');
+		});
+		
+		function resizePopup () {
+			// ridimensiono la popup a tutto schermo
+			var w = screen.availWidth;
+			var h = screen.availHeight;
+			window.moveTo(0, 0);
+			window.resizeTo(w,h);
+		}
+
+		resizePopup()
+	]]></h:script>
+
+	<appletEditaTesto />
+
+	<!-- Mantiene attiva la sessione facendo un "ping" ogni 5 minuti -->
+	<timer repeats="true" running="true" delay="300000" onTimer=""/>
+
+	<window apply="grailsBindComposer"
+			viewModel="@id('vm') @init('standaloneViewModel')"
+			vflex="1"
+			hflex="1">
+		<vlayout>
+			<!-- layout da lasciare, altrimenti su i.e. appaiono doppie barre di scorrimento -->
+		</vlayout>
+	</window>
+</zk>

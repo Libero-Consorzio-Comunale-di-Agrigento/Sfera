@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+    	viewModel="@id('vm') @init('caratteristicaTipologiaDettaglioViewModel')"
+    	border="normal" sizable="true" width="800px" height="600px"	title =" ">
+
+		<h:div class="barraTitoloPagina">
+   			<label sclass="titoloPagina" value="Caratteristica Tipologia"/>
+			<image
+				src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+				tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')" />
+   		</h:div>
+		<vlayout vflex="1">
+        <grid sclass="form">
+        	<rows>
+        		<row>
+        			<cell width="100px" align="right"><label value="Titolo"/></cell>
+        			<cell>
+        				<textbox value="@bind(vm.selectedRecord.titolo)" hflex="1"/>
+        			</cell>
+        			<cell align="right"><label value="Oggetto"/></cell>
+        			<cell>
+						<combobox model="@load(vm.listaOggetti)" hflex="1" readonly="true"
+							selectedItem="@bind(vm.selectedRecord.tipoOggetto) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')"
+							onSelect="@command('caricaListaZul')" disabled="@load(vm.selectedRecord.id gt 0)">
+		                    <template name="model" var="oggetto">
+		                        <comboitem label="@load(oggetto.nome)" description="@load(oggetto.descrizione)" value="@load(oggetto)"/>
+		                    </template>
+       					</combobox>
+        			</cell>
+        		</row>
+        		<row>
+        			<cell align="right"><label value="Descrizione"/></cell>
+        			<cell colspan="3">
+        				<textbox value="@bind(vm.selectedRecord.descrizione)" hflex="1" multiline="true" height="50px"/>
+        			</cell>
+        		</row>
+        		<row>
+        			<cell align="right"><label value="Layout Soggetti" /></cell>
+        			<cell colspan="3">
+        				<combobox hflex="1" model="@load(vm.listaZul)" readonly="true"
+        				selectedItem="@bind(vm.selectedLayout)" onSelect="@command('onSelectLayout')" disabled="@load(vm.selectedRecord.id gt 0)">
+        					<template name="model" var="l">
+		                        <comboitem label="@load(l.label)" description="@load(l.descrizione)" value="@load(l)"/>
+		                    </template>
+       					</combobox>
+        			</cell>
+        		</row>
+        		<row>
+        			<cell colspan="4">
+        				<label pre="true" value="@load(vm.selectedLayout.suggerimento)" multiline="true"/>
+        			</cell>
+        		</row>
+        	</rows>
+        </grid>
+
+        <space height="15px"/>
+
+        <listbox model="@load(vm.listaCarTipiSoggetto)" emptyMessage="Nessun Tipo Soggetto configurato per questa caratteristica" vflex="1">
+	        <listhead>
+	        	<listheader width="5%"  label="#"  />
+	        	<listheader width="20%" label="Tipo Soggetto"/>
+	        	<listheader width="20%" label="Calcolo Default"/>
+	        	<listheader width="20%" label="Calcolo Lista"/>
+	        	<listheader width="20%" label="Ruolo"/>
+	        	<listheader width="20%" label="Soggetto di Partenza"/>
+	        </listhead>
+        	<template name="model" var="s">
+	        	<listitem>
+	        		<listcell>
+	        			<label value="@load((s.sequenza + 1))" />
+					</listcell>
+	        		<listcell>
+	        			<label value="@load(s.tipoSoggetto.titolo)"/>
+<!-- 	        			<combobox model="@load(vm.listaTipoSoggetto)" hflex="1"  -->
+<!-- 	        				selectedItem="@bind(s.tipoSoggetto) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')"> -->
+<!-- 							<template name="model" var="ts"> -->
+<!-- 								<comboitem label="@load(ts.titolo)" description="@load(ts.descrizione)" value="@load(ts)"/> -->
+<!-- 							</template> -->
+<!-- 						</combobox> -->
+					</listcell>
+					<listcell>
+						<combobox model="@load(vm.listaRegoleComponenteDefault)" hflex="1" visible="@bind(s.tipoSoggetto.categoria eq 'COMPONENTE')" readonly="true"
+        					   selectedItem="@bind(s.regolaCalcoloDefault) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)">
+        					<template name="model" var="regDef">
+								<comboitem label="@load(regDef.titolo)" description="@load(regDef.descrizione)" value="@load(regDef)" />
+							</template>
+        				</combobox>
+        				<combobox model="@load(vm.listaRegoleUnitaDefault)" hflex="1" visible="@bind(s.tipoSoggetto.categoria eq 'UNITA')" readonly="true"
+        					   selectedItem="@bind(s.regolaCalcoloDefault) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)">
+        					<template name="model" var="regDef">
+								<comboitem label="@load(regDef.titolo)" description="@load(regDef.descrizione)" value="@load(regDef)" />
+							</template>
+        				</combobox>
+					</listcell>
+			 		<listcell>
+						<combobox model="@load(vm.listaRegoleComponenteLista)" hflex="1" visible="@bind(s.tipoSoggetto.categoria eq 'COMPONENTE')" readonly="true"
+        					   selectedItem="@bind(s.regolaCalcoloLista) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)">
+        					<template name="model" var="regLista">
+								<comboitem label="@load(regLista.titolo)" description="@load(regLista.descrizione)" value="@load(regLista)" />
+							</template>
+        				</combobox>
+        				<combobox model="@load(vm.listaRegoleUnitaLista)" hflex="1" visible="@bind(s.tipoSoggetto.categoria eq 'UNITA')" readonly="true"
+        					   selectedItem="@bind(s.regolaCalcoloLista) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)">
+        					<template name="model" var="regDef">
+								<comboitem label="@load(regDef.titolo)" description="@load(regDef.descrizione)" value="@load(regDef)" />
+							</template>
+        				</combobox>
+					</listcell>
+					<listcell>
+	        			<combobox model="@load(vm.listaRuoli)" hflex="1" readonly="true"
+	        				selectedItem="@bind(s.ruolo) @converter('it.finmatica.zkutils.PropertyConverter', property='ruolo', defaultValue='-- nessuno --')">
+							<template name="model" var="ru">
+								<comboitem label="@load(ru.ruolo)" description="@load(ru.descrizione)" value="@load(ru)"/>
+							</template>
+						</combobox>
+					</listcell>
+					<listcell>
+	        			<combobox model="@load(vm.listaTipoSoggetto)" hflex="1"  readonly="true"
+	        				selectedItem="@bind(s.tipoSoggettoPartenza) @converter('it.finmatica.zkutils.PropertyConverter', property='codice', defaultValue='-- nessuno --')">
+							<template name="model" var="ts">
+								<comboitem label="@load(ts.titolo)" description="@load(ts.descrizione)" value="@load(ts)"/>
+							</template>
+						</combobox>
+					</listcell>
+<!-- 					<listcell> -->
+<!-- 	        			<image src="/images/agsde2/16x16/trash.png" onClick="@command('svuotaTipoSoggetto', carTipoSoggetto=s)"></image> -->
+<!-- 	        		</listcell> -->
+        		</listitem>
+        	</template>
+        </listbox>
+		</vlayout>
+<!--      	<vlayout class="datiCreazioneModifica" height="30px"> -->
+<!-- 		    <label value="@load(vm.datiCreazione)" visible="@load(vm.selectedRecord.id gt 0)" /> -->
+<!-- 			<label value="@load(vm.datiModifica)"  visible="@load(vm.selectedRecord.id gt 0)"/> -->
+<!-- 		</vlayout> -->
+
+		<controlBarRecord/>
+
+	</window>
+</zk>

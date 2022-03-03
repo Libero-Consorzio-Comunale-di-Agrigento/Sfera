@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     01/mar/2014 11:34:14                                                        
+
+     [NomeProgetto]    
+     [Descrizione del Progetto]
+                   
+     [Autore]                                                                
+     ====================================================================== -->
+<project xmlns:if="ant:if" xmlns:unless="ant:unless">
+
+	<target name="config">
+		<require-conn istanza="gdm"  />
+		<require-conn istanza="ad4"  />
+		<require-conn istanza="dbfw" />
+	</target>
+	
+	<target name="install:db">
+		<!-- aggiungo il ruolo di installazione a gdm -->
+		<ad4-assegna-diritto-accesso gruppolavoro="AGD" ruolo="UTE" istanza="DBFW" 	modulo="DBFW" 	/>
+		<ad4-assegna-diritto-accesso gruppolavoro="AGD" ruolo="UTE" istanza="GDM" 	modulo="GDMWEB" />
+		
+		<sql escapeprocessing="false"  userid="${global.db.gdm.username}"
+		   password="${global.db.gdm.password}"
+				url="${global.db.gdm.url}"
+			 driver="${global.db.gdm.driver}"
+		 	  expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+				src="01.gdm.sql" />
+		
+		<sql escapeprocessing="false"  userid="${global.db.dbfw.username}" password="${global.db.dbfw.password}" url="${global.db.dbfw.url}" driver="${global.db.dbfw.driver}" expandProperties="true" delimiter="/" delimitertype="row" keepformat="true">
+declare
+    d_utente_agd    varchar2(255);
+    d_esiste        number (10);
+begin
+    select utente into d_utente_agd from ad4_utenti u where U.GRUPPO_LAVORO = 'AGD' and U.TIPO_UTENTE = 'O';
+    
+    select count(1) into d_esiste from si4_competenze where oggetto = 'GDMWEB' and utente = d_utente_agd and accesso = 'S' and tipo_competenza = 'U';
+    
+    if (d_esiste = 0) then
+        INSERT INTO SI4_COMPETENZE (
+           ACCESSO, AL, DAL, 
+           DATA_AGGIORNAMENTO, ID_ABILITAZIONE, 
+           ID_FUNZIONE, OGGETTO, RUOLO, 
+           TIPO_COMPETENZA, UTENTE, UTENTE_AGGIORNAMENTO) 
+    VALUES ( 'S', null, sysdate-100, sysdate, (select id_tipo_abilitazione from si4_tipi_abilitazione where tipo_abilitazione = 'EX'), null, 'GDMWEB', null, 'U', d_utente_agd, null);
+    
+    end if;
+end;
+/
+		</sql>
+		
+		<gdm-carica-area area="SEGRETERIA.ATTI.2_0" file="../../../commons/GDM/XAREA_SEGRETERIA.ATTI.2_0.zip" />
+		
+		<sql escapeprocessing="false"  userid="${global.db.target.username}"
+				   password="${global.db.target.password}"
+						url="${global.db.target.url}"
+					 driver="${global.db.target.driver}"
+					 expandProperties="true" delimiter="/" delimitertype="row" keepformat="true" onerror="continue">
+begin
+	compile_all();
+end;
+/
+		</sql>
+		<sql escapeprocessing="false"  userid="${global.db.gdm.username}"
+		   password="${global.db.gdm.password}" 
+				url="${global.db.gdm.url}" 
+			 driver="${global.db.gdm.driver}" 
+		 	  expandProperties="true" delimiter="/" delimitertype="row" keepformat="true" onerror="continue">
+begin
+	UTILITYPACKAGE.compile_all();
+end;
+/
+</sql>
+	</target>
+		
+	<target name="install:fs">
+	</target>
+</project>

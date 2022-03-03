@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Visto Contabile</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<visto>
+				<NUMERO_DETERMINA>1000</NUMERO_DETERMINA>
+				<DATA_DETERMINA>01/05/2014</DATA_DETERMINA>
+				<ANNO_DETERMINA>2014</ANNO_DETERMINA>
+				<NUMERO_PROPOSTA>500</NUMERO_PROPOSTA>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<SUDDIVISIONE>SERVIZIO</SUDDIVISIONE>
+				<UNITA_PROPONENTE>SERVIZIO PUBBLICA ISTRUZIONE</UNITA_PROPONENTE>
+				<CODICE_UNITA_PROPONENTE>SR_PUBBISTR</CODICE_UNITA_PROPONENTE>
+				<UNITA_VISTO>Ufficio Ragioneria</UNITA_VISTO>
+				<CODICE_UNITA_VISTO>UFF_RAG</CODICE_UNITA_VISTO>
+				<SUDDIVIZIONE_VISTO>SERVIZIO RAGIONERIA</SUDDIVIZIONE_VISTO>
+				<OGGETTO_DETERMINA>OGGETTO DETERMINA</OGGETTO_DETERMINA>
+				<ESITO_VISTO>FAVOREVOLE</ESITO_VISTO>
+				<ESITO_VISTO_DEFINITIVO>FAVOREVOLE</ESITO_VISTO_DEFINITIVO>
+				<NOTE_CONTABILI>Note contabili inserite nella determina</NOTE_CONTABILI>
+				<NOTE_VISTO>Note inserite nel visto</NOTE_VISTO>
+				<DATA_FIRMA>01/05/2014</DATA_FIRMA>
+				<DATA_STAMPA>02/05/2014</DATA_STAMPA>
+				<FIRMATARIO>NOMINATIVO DEL FIRMATARIO</FIRMATARIO>
+				<DESCRIZIONE_FIRMATARIO>Il funzionario delegato</DESCRIZIONE_FIRMATARIO>
+				<DELEGANTE>(IN SOSTITUZIONE DI QUALCUNO)</DELEGANTE>
+				<ASCENDENTI_UNITA>AREA: STRUTTURA AZIENDE SANITARIE</ASCENDENTI_UNITA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>				
+				<CIG>0123456789</CIG>
+				<M_TOTALE_ENTRATE>205,33</M_TOTALE_ENTRATE>
+				<M_TOTALE_USCITE>133,00</M_TOTALE_USCITE>
+				<MSE>+</MSE>
+				<MSU>-</MSU>
+				<TIPOLOGIA_PROPOSTA>DETERMINAZIONE CON IMPEGNO DI SPESA</TIPOLOGIA_PROPOSTA>
+				<TIPOLOGIA_VISTO>VISTO CONTABILE</TIPOLOGIA_VISTO>
+			</visto>
+			<movimenti>
+				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
+				<M_ANNO_PRENOTAZIONE>2015</M_ANNO_PRENOTAZIONE>
+				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
+				<M_CAPITOLO>4</M_CAPITOLO>
+				<M_NOTE>Acquisto Carta</M_NOTE>
+				<M_CIG>13123</M_CIG>
+				<M_CUP>3</M_CUP>
+				<M_SEGNO>-</M_SEGNO>
+				<M_IMPORTO>1234,00</M_IMPORTO>
+				<M_NUMERO_IMPEGNO>1</M_NUMERO_IMPEGNO>
+				<M_NUMERO_PRENOTAZIONE>2</M_NUMERO_PRENOTAZIONE>
+				<M_NUMERO_ACCERTAMENTO>3</M_NUMERO_ACCERTAMENTO>
+				<M_AZIONE>434</M_AZIONE>
+				<M_ENTRATA_USCITA>S</M_ENTRATA_USCITA>
+				<M_CODICE>1234</M_CODICE>
+			</movimenti>
+			<movimenti>
+				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
+				<M_ANNO_PRENOTAZIONE>2015</M_ANNO_PRENOTAZIONE>
+				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
+				<M_CAPITOLO>4</M_CAPITOLO>
+				<M_NOTE>Bonus</M_NOTE>
+				<M_CIG>13123</M_CIG>
+				<M_CUP>4</M_CUP>
+				<M_SEGNO>+</M_SEGNO>
+				<M_IMPORTO>1234,00</M_IMPORTO>
+				<M_NUMERO_IMPEGNO>1</M_NUMERO_IMPEGNO>
+				<M_NUMERO_PRENOTAZIONE>2</M_NUMERO_PRENOTAZIONE>
+				<M_NUMERO_ACCERTAMENTO>3</M_NUMERO_ACCERTAMENTO>
+				<M_AZIONE>434</M_AZIONE>
+				<M_ENTRATA_USCITA>E</M_ENTRATA_USCITA>
+				<M_CODICE>1234</M_CODICE>
+			</movimenti>
+			<movimenti>
+				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
+				<M_ANNO_PRENOTAZIONE>2015</M_ANNO_PRENOTAZIONE>
+				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
+				<M_CAPITOLO>4</M_CAPITOLO>
+				<M_NOTE>Acquisto</M_NOTE>
+				<M_CIG>13123</M_CIG>
+				<M_CUP>5</M_CUP>
+				<M_SEGNO>+</M_SEGNO>
+				<M_IMPORTO>1234,00</M_IMPORTO>
+				<M_NUMERO_IMPEGNO>1</M_NUMERO_IMPEGNO>
+				<M_NUMERO_PRENOTAZIONE>2</M_NUMERO_PRENOTAZIONE>
+				<M_NUMERO_ACCERTAMENTO>3</M_NUMERO_ACCERTAMENTO>
+				<M_AZIONE>434</M_AZIONE>
+				<M_ENTRATA_USCITA>E</M_ENTRATA_USCITA>
+				<M_CODICE>1234</M_CODICE>
+			</movimenti>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+		<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>id del visto</descrizione>
+			<path/>			
+		</metaDato>
+		<!-- DEFINIZIONE CAMPI DELLA QUERY -->		
+		<metaDato>
+			<nomeSimbolico>NUMERO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di adozione della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di adozione della determina</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della proposta di determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della proposta di determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice unità proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SUDDIVISIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Suddivisione dell'unità proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+        <metaDato>
+            <nomeSimbolico>UNITA_VISTO</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Denominazione dell'unità del visto</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>CODICE_UNITA_VISTO</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Codice dell'unità destinataria del visto</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>SUDDIVISIONE_VISTO</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Suddivisione dell'unità del visto</descrizione>
+            <path/>
+        </metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ESITO_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Esito del visto: valori possibili "favorevole", "contrario", "non apposto".
+			Se l'esito non    stato assegnato la variabile viene riproposta per essere calcolata in un secondo tempo</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>ESITO_VISTO_DEFINITIVO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Esito del visto: valori possibili "favorevole", "contrario", "non apposto".
+				Se il visto non è in firma la variabile viene riproposta per essere calcolata in un secondo tempo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOTE_CONTABILI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note contabili della determina</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>NOTE_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note del visto</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>DATA_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data creazione stampa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_FIRMA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di firma del visto</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Firmatario del visto (valorizzato solo se il visto viene firmato digitalmente o con firma autografa)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è un dirigente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DELEGANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è stato delegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DIRIGENTE_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Dirigente / firmatario del visto (visibile in maschera)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ASCENDENTI_UNITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ascendenti unità visto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>AREA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Area dell'unita' proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SERVIZIO_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Servizio dell'unita' proponente della determina</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>CIG</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice Identificativo Gara</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_TOTALE_ENTRATE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Somma dei movimenti in entrata</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>M_TOTALE_USCITE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Somma dei movimenti in uscita</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MSE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Il segno della somma delle entrate (+ o -)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MSU</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Il segno della somma delle uscite (+ o -)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TIPOLOGIA_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia della proposta di determinazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TIPOLOGIA_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia del visto</descrizione>
+			<path/>
+		</metaDato>
+
+		<!-- Query dei movimenti -->
+        <metaDato>
+			<nomeSimbolico>M_ANNO_IMPEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno dell'Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_ANNO_PRENOTAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della Prenotazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_ANNO_ACCERTAMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno dell'Accertamento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CAPITOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice del Capitolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NOTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CIG</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>CIG</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CUP</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>CUP</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_IMPORTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NUMERO_IMPEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NUMERO_PRENOTAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Prenotazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NUMERO_ACCERTAMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Accertamento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_AZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice Azione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_ENTRATA_USCITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Entrata/Uscita</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CODICE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_SEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Il Segno dell'importo (+ o -)</descrizione>
+			<path/>
+		</metaDato>
+	</definitions>
+	<queryes>
+		<query id='visto'
+			   help_query_alias="v"
+			   help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, AREA_PROPONENTE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_FIRMA, DATA_STAMPA, DIRIGENTE_VISTO, ESITO_VISTO, ESITO_VISTO_DEFINITIVO, FIRMATARIO, NOTE_CONTABILI, NOTE_VISTO, NUMERO_DETERMINA, NUMERO_PROPOSTA, OGGETTO_DETERMINA, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, ASCENDENTI_UNITA, CIG, M_TOTALE_ENTRATE, M_TOTALE_USCITE, MSE, MSU, DESCRIZIONE_FIRMATARIO, TIPOLOGIA_PROPOSTA, TIPOLOGIA_VISTO, CODICE_UNITA_VISTO, SUDDIVISIONE_VISTO, UNITA_VISTO">
+  select decode(d.numero_determina, null, '${documentRoot.visto.NUMERO_DETERMINA}', d.numero_determina) NUMERO_DETERMINA
+     ,  decode(d.numero_determina, null, '${documentRoot.visto.DATA_DETERMINA}', to_char (d.data_numero_determina, 'dd/mm/yyyy')) DATA_DETERMINA
+     ,  decode(d.numero_determina, null, '${documentRoot.visto.ANNO_DETERMINA}', d.anno_determina) ANNO_DETERMINA
+     ,  d.numero_proposta NUMERO_PROPOSTA
+     ,  d.anno_proposta ANNO_PROPOSTA
+     ,  utility_pkg.get_suddivisione_uo_determina (d.id_determina) SUDDIVISIONE
+     ,  utility_pkg.get_unita_prop_determina (d.id_determina) UNITA_PROPONENTE
+     ,  utility_pkg.get_codice_unita_prop_dete (d.id_determina) CODICE_UNITA_PROPONENTE
+     ,  utility_pkg.get_uo_descrizione (vp.unita_progr, vp.unita_dal) UNITA_VISTO
+     ,  utility_pkg.get_codice_unita (vp.unita_progr, vp.unita_dal) CODICE_UNITA_VISTO
+     ,  utility_pkg.get_suddivisione_vistoparere (vp.id_visto_parere) SUDDIVISIONE_VISTO
+     ,  d.oggetto OGGETTO_DETERMINA
+     ,  d.note_contabili NOTE_CONTABILI
+     ,  decode(vp.esito, 'DA_VALUTARE', '${documentRoot.visto.ESITO_VISTO}', replace(vp.esito,'_',' ')) ESITO_VISTO
+ 	 ,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.ESITO_VISTO_DEFINITIVO}', replace(vp.esito,'_',' ')) ESITO_VISTO_DEFINITIVO
+     ,  vp.note NOTE_VISTO
+     ,  nvl(to_char(f.data_firma, 'dd/mm/yyyy'), '${documentRoot.visto.DATA_FIRMA}') DATA_FIRMA
+     ,  to_char(sysdate,'dd/mm/yyyy') DATA_STAMPA
+     ,  nvl(utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), d.ente), '${documentRoot.visto.FIRMATARIO}') FIRMATARIO
+	 ,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), d.ente)) DESCRIZIONE_FIRMATARIO
+	 ,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, d.ente)) DELEGANTE
+     ,  nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario)), '${documentRoot.visto.DIRIGENTE_VISTO}') DIRIGENTE_VISTO
+     ,  utility_pkg.get_desc_ascendenti_unita(utility_pkg.get_codice_unita_prop_dete (d.id_determina), null, impostazioni_pkg.get_impostazione('OTTICA_SO4', d.ente), null) ASCENDENTI_UNITA
+     ,  utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_AREA', d.ente) AREA_PROPONENTE
+     ,  utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_SERVIZIO', d.ente) SERVIZIO_PROPONENTE       
+     ,  d.cig CIG
+    , (select trim(TO_CHAR(abs(sum(m.importo)),       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m where m.tipo = 'ENTRATA' and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') M_TOTALE_ENTRATE
+    , (select trim(TO_CHAR(abs(sum(m.importo)),       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m where m.tipo = 'USCITA'  and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') M_TOTALE_USCITE
+    , (select decode(sign(sum(m.importo)), -1, '-', '+') from movimenti_contabili m where m.tipo = 'ENTRATA' and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') MSE
+    , (select decode(sign(sum(m.importo)), -1, '-', '+') from movimenti_contabili m where m.tipo = 'USCITA'  and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') MSU
+	, td.titolo TIPOLOGIA_PROPOSTA
+	, tvp.titolo TIPOLOGIA_VISTO
+	from  determine d
+     ,  visti_pareri vp
+     ,  firmatari f
+	 ,  tipi_determina td
+	 ,  tipi_visto_parere tvp
+ where  vp.id_visto_parere = #id
+    and vp.id_determina = d.id_determina
+	and d.id_tipo_determina = td.id_tipo_determina
+	and vp.id_tipologia = tvp.id_tipo_visto_parere
+    and f.id_visto_parere(+) = vp.id_visto_parere
+    and f.data_firma(+) is not null
+    and f.firmato(+) = 'N' 
+ 		</query>
+ 
+ 		<query id="movimenti"
+        help_query_alias="m"
+		help_field_aliases="M_ANNO_IMPEGNO, M_ANNO_PRENOTAZIONE, M_ANNO_ACCERTAMENTO, M_CAPITOLO, M_NOTE, M_CIG, M_CUP, M_SEGNO, M_IMPORTO, M_NUMERO_IMPEGNO, M_NUMERO_PRENOTAZIONE, M_NUMERO_ACCERTAMENTO, M_AZIONE, M_ENTRATA_USCITA, M_CODICE"> 
+ select m.anno_competenza               as M_ANNO_IMPEGNO
+      , m.anno_crono                    as M_ANNO_PRENOTAZIONE
+      , m.anno_esercizio                as M_ANNO_ACCERTAMENTO
+      , m.capitolo                      as M_CAPITOLO
+      , m.descrizione                   as M_NOTE
+      , m.descrizione_finanziamento_1   as M_CIG
+      , m.descrizione_finanziamento_2   as M_CUP
+      , decode(sign(m.importo), -1, '-', '+') as M_SEGNO
+      , trim(TO_CHAR(abs(m.importo), '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) as M_IMPORTO
+      , m.numero                        as M_NUMERO_IMPEGNO
+      , m.numero_crono                  as M_NUMERO_PRENOTAZIONE
+      , m.numero_det                    as M_NUMERO_ACCERTAMENTO
+      , m.opera                         as M_AZIONE
+      , m.tipo							as M_ENTRATA_USCITA
+      , m.tipo_dettaglio                as M_CODICE
+  from movimenti_contabili m, visti_pareri vp
+ where vp.id_visto_parere = #id
+   and m.id_documento   = vp.id_determina
+   and m.tipo_documento = 'DETERMINA'
+ order by m.tipo asc 
+ </query>
+	</queryes>
+	<staticData />
+</documentRoot>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+
+	<window apply="grailsBindComposer"
+			viewModel="@id('vm') @init('popupCambiaTipologiaViewModel')" position="center" title=" " width="300px"
+			height="180px" border="normal" closable="false" visible="false">
+			<h:div class="barraTitoloPagina">
+				<label sclass="titoloPagina" value="Scelta Tipologia Documento" />
+			</h:div>
+			<grid sclass="form" vflex="1">
+				<rows>
+					<row>
+						<combobox hflex="1" model="@load(vm.listaTipologie)"
+							selectedItem="@bind(vm.selectedRecord)"
+							readonly="true">
+							<template name="model" var="tipologia">
+								<comboitem label="@load(tipologia.titolo)" description="@load(tipologia.descrizione)"
+									value="@load(tipologia)" />
+							</template>
+						</combobox>
+					</row>
+				</rows>
+			</grid>
+			<h:div class="barraPulsanti">
+				<h:div>
+					<button  label="Scegli" onClick="@command('onScegli')" mold="trendy"/>
+					<button label="Annulla" onClick="@command('onAnnulla')" mold="trendy"/>
+				</h:div>
+			</h:div>
+		</window>
+
+</zk>

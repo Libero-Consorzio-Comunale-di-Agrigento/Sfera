@@ -1,0 +1,1185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Delibera (Contabilità Sfera)</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<delibera>
+				<ANNO_DELIBERA>2014</ANNO_DELIBERA>
+				<ANNO_INIZIO_SEDUTA>2014</ANNO_INIZIO_SEDUTA>
+				<ANNO_LETTERE_INIZIO_SEDUTA>duemilaquattordici</ANNO_LETTERE_INIZIO_SEDUTA>
+				<ANNO_LETTERE_SEDUTA>duemilaquattordici</ANNO_LETTERE_SEDUTA>
+				<ANNO_SEDUTA>2014</ANNO_SEDUTA>
+                <ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+                <NUMERO_PROPOSTA>45</NUMERO_PROPOSTA>
+				<ASSENTI>1</ASSENTI>
+				<ASSENTI_OGGETTO>1</ASSENTI_OGGETTO>
+				<ASTENUTI>1</ASTENUTI>
+				<COGNOME_PRESIDENTE>COGNOME PRESIDENTE</COGNOME_PRESIDENTE>
+				<COGNOME_RELATORE>COGNOME RELATORE</COGNOME_RELATORE>
+				<COGNOME_SEGRETARIO>COGNOME SEGRETARIO</COGNOME_SEGRETARIO>
+				<CONTRARI>2</CONTRARI>
+				<DATA_FINE_SEDUTA>01/05/2014</DATA_FINE_SEDUTA>
+				<DATA_INIZIO_SEDUTA>01/05/2014</DATA_INIZIO_SEDUTA>
+				<DATA_SEDUTA>01/05/2014</DATA_SEDUTA>
+				<ELENCO_ASSENTI>NOMINATIVO ASSENTI</ELENCO_ASSENTI>
+				<ELENCO_ASSENTI_OGGETTO>NOMINATIVO ASSENTI ALLA DISCUSSIONE DELLA DELIBERA</ELENCO_ASSENTI_OGGETTO>
+				<ESEGUIBILITA_IMMEDIATA>La presente deliberazione e' stata dichiarata immediatamente eseguibile.</ESEGUIBILITA_IMMEDIATA>
+				<ESEGUIBILITA_NON_IMMEDIATA>La presente deliberazione e' stata dichiarata non immediatamente eseguibile.</ESEGUIBILITA_NON_IMMEDIATA>
+				<MOTIVAZIONI_ESEGUIBILITA>Indica le motivazioni per cui si richiede l'immediata eseguibilità</MOTIVAZIONI_ESEGUIBILITA>
+				<FAVOREVOLI>3</FAVOREVOLI>
+				<GIORNO_INIZIO_SEDUTA>1</GIORNO_INIZIO_SEDUTA>
+				<GIORNO_LETTERE_INIZIO_SEDUTA>uno</GIORNO_LETTERE_INIZIO_SEDUTA>
+				<GIORNO_LETTERE_SEDUTA>uno</GIORNO_LETTERE_SEDUTA>
+				<GIORNO_SEDUTA>1</GIORNO_SEDUTA>
+				<GIORNO_SETTIMANA_INIZIO_SEDUTA>giovedì</GIORNO_SETTIMANA_INIZIO_SEDUTA>
+				<GIORNO_SETTIMANA_SEDUTA>giovedì</GIORNO_SETTIMANA_SEDUTA>
+				<INCARICO_PRESIDENTE>SINDACO</INCARICO_PRESIDENTE>
+				<INCARICO_SEGRETARIO>SEGRETARIO GENERALE</INCARICO_SEGRETARIO>
+				<INVITATI_PRESENTI_OGGETTO>NOMINATIVO INVITATI PRESENTI OGGETTO</INVITATI_PRESENTI_OGGETTO>
+				<INVITATI_PRESENTI_SEDUTA>NOMINATIVO INVITATI PRESENTI SEUTA</INVITATI_PRESENTI_SEDUTA>
+				<MESE_INIZIO_SEDUTA>05</MESE_INIZIO_SEDUTA>
+				<MESE_LETTERE_INIZIO_SEDUTA>maggio</MESE_LETTERE_INIZIO_SEDUTA>
+				<MESE_LETTERE_SEDUTA>maggio</MESE_LETTERE_SEDUTA>
+				<MESE_SEDUTA>05</MESE_SEDUTA>
+				<N_DELIBERA>1000</N_DELIBERA>
+				<NOME_PRESIDENTE>NOME PRESIDENTE</NOME_PRESIDENTE>
+				<NOME_RELATORE>NOME RELATORE</NOME_RELATORE>
+				<NOME_SEGRETARIO>NOME SEGRETARIO</NOME_SEGRETARIO>
+				<NUMERO_SEDUTA>100</NUMERO_SEDUTA>
+				<OGGETTO>1 MAGGIO 2014</OGGETTO>
+				<CLASSIFICA_CODICE>01</CLASSIFICA_CODICE>
+				<CLASSIFICA_DESCRIZIONE>DESCRIZIONE TITOLARIO</CLASSIFICA_DESCRIZIONE>
+				<FASCICOLO_ANNO>2014</FASCICOLO_ANNO>
+				<FASCICOLO_NUMERO>100</FASCICOLO_NUMERO>
+				<FASCICOLO_OGGETTO>DESCRIZIONE FASCICOLO</FASCICOLO_OGGETTO>
+				<ORA_FINE_SEDUTA>13:00</ORA_FINE_SEDUTA>
+				<ORA_INIZIO_SEDUTA>11:00</ORA_INIZIO_SEDUTA>
+				<ORA_SEDUTA>11:00</ORA_SEDUTA>
+				<PRESENTI>6</PRESENTI>
+				<PRESENTI_OGGETTO>6</PRESENTI_OGGETTO>
+				<PRESIDENTE>PRESIDENTE SEDUTA</PRESIDENTE>
+				<RELATORE>NOMINATIVO RELATORE</RELATORE>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<SCRUTATORI_PRESENTI_OGGETTO>NOMINATIVO SCRUTATORI PRESENTI OGGETTO</SCRUTATORI_PRESENTI_OGGETTO>
+				<SCRUTATORI_PRESENTI_SEDUTA>NOMINATIVO SCRUTATORI PRESENTI SEDUTA</SCRUTATORI_PRESENTI_SEDUTA>>
+				<SEGRETARIO>SEGRETARIO SEDUTA</SEGRETARIO>
+				<SEQUENZA_CONVOCAZIONE>1</SEQUENZA_CONVOCAZIONE>
+				<SEQUENZA_DISCUSSIONE>1</SEQUENZA_DISCUSSIONE>
+				<ORA_DISCUSSIONE>12:00</ORA_DISCUSSIONE>
+				<TIPO_SEDUTA>ORDINARIA</TIPO_SEDUTA>
+				<VOTANTI>6</VOTANTI>
+				<VOTANTI_ASTENUTI>NOMINATIVO VOTANTI ASTENUTI</VOTANTI_ASTENUTI>
+				<VOTANTI_CONTRARI>NOMINATIVO VOTANTI CONTRARI</VOTANTI_CONTRARI>
+				<VOTANTI_FAVOREVOLI>NOMINATIVO VOTANTI FAVOREVOLI</VOTANTI_FAVOREVOLI>
+				<M_TOTALE_ENTRATE>205,33</M_TOTALE_ENTRATE>
+				<M_TOTALE_USCITE>133,00</M_TOTALE_USCITE>
+				<MSE>+</MSE>
+				<MSU>-</MSU>
+				<SEDE_SEDUTA>Comune di Prova</SEDE_SEDUTA>
+				<DATA_ADOZIONE>25/12/2014</DATA_ADOZIONE>
+				<NOTE_VERBALIZZAZIONE>NOTE DI VERBALIZZAZIONE PER LA DELIBERA</NOTE_VERBALIZZAZIONE>
+				<PARERE_REVISORI_CONTI>SI</PARERE_REVISORI_CONTI>
+                <OGGETTO_PROPOSTA>OGGETTO PROPOSTA</OGGETTO_PROPOSTA>
+				<FIRMATARIO_PROPOSTA>FIRMATARIO PROPOSTA</FIRMATARIO_PROPOSTA>
+				<DESCRIZIONE_RADICE_SUDD>RADICE AFFARI GENERALI</DESCRIZIONE_RADICE_SUDD>
+				<DATA_PROTOCOLLO>02/05/2014</DATA_PROTOCOLLO>
+				<ANNO_PROTOCOLLO>2014</ANNO_PROTOCOLLO>
+				<NUMERO_PROTOCOLLO>2500</NUMERO_PROTOCOLLO>
+			</delibera>
+			<partecipanti>
+				<PARTECIPANTE>PRIMO PARTECIPANTE</PARTECIPANTE>
+				<INCARICO_PARTECIPANTE>INCARICO PRIMO PARTECIPANTE</INCARICO_PARTECIPANTE>
+				<RUOLO_PARTECIPANTE>PRESIDENTE</RUOLO_PARTECIPANTE>
+				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				<PRESENTE_ASSENTE_OGGETTO>Presente</PRESENTE_ASSENTE_OGGETTO>
+			</partecipanti>
+			<partecipanti>
+				<PARTECIPANTE>SECONDO PARTECIPANTE</PARTECIPANTE>
+				<INCARICO_PARTECIPANTE>INCARICO SECONDO PARTECIPANTE</INCARICO_PARTECIPANTE>
+				<RUOLO_PARTECIPANTE>SEGRETARIO</RUOLO_PARTECIPANTE>
+				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				<PRESENTE_ASSENTE_OGGETTO>Presente</PRESENTE_ASSENTE_OGGETTO>
+			</partecipanti>
+			<partecipanti>
+				<PARTECIPANTE>TERZO PARTECIPANTE</PARTECIPANTE>
+				<INCARICO_PARTECIPANTE>INCARICO TERZO PARTECIPANTE</INCARICO_PARTECIPANTE>
+				<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				<PRESENTE_ASSENTE_OGGETTO>Assente</PRESENTE_ASSENTE_OGGETTO>
+			</partecipanti>
+			<partecipanti>
+				<PARTECIPANTE>QUARTO PARTECIPANTE</PARTECIPANTE>
+				<INCARICO_PARTECIPANTE>INCARICO QUARTO PARTECIPANTE</INCARICO_PARTECIPANTE>
+				<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				<PRESENTE_ASSENTE_OGGETTO>Presente</PRESENTE_ASSENTE_OGGETTO>
+			</partecipanti>
+			<proposta>
+				<TESTO_PROPOSTA>TESTO DELLA PROPOSTA</TESTO_PROPOSTA>
+			</proposta>
+			<movimenti>
+				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
+				<M_ANNO_PRENOTAZIONE>2015</M_ANNO_PRENOTAZIONE>
+				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
+				<M_CAPITOLO>4</M_CAPITOLO>
+				<M_NOTE>Acquisto Carta</M_NOTE>
+				<M_CIG>13123</M_CIG>
+				<M_CUP>3</M_CUP>
+				<M_SEGNO>-</M_SEGNO>
+				<M_IMPORTO>1234,00</M_IMPORTO>
+				<M_NUMERO_IMPEGNO>1</M_NUMERO_IMPEGNO>
+				<M_NUMERO_PRENOTAZIONE>2</M_NUMERO_PRENOTAZIONE>
+				<M_NUMERO_ACCERTAMENTO>3</M_NUMERO_ACCERTAMENTO>
+				<M_AZIONE>434</M_AZIONE>
+				<M_ENTRATA_USCITA>S</M_ENTRATA_USCITA>
+				<M_CODICE>1234</M_CODICE>
+			</movimenti>
+			<movimenti>
+				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
+				<M_ANNO_PRENOTAZIONE>2015</M_ANNO_PRENOTAZIONE>
+				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
+				<M_CAPITOLO>4</M_CAPITOLO>
+				<M_NOTE>Bonus</M_NOTE>
+				<M_CIG>13123</M_CIG>
+				<M_CUP>4</M_CUP>
+				<M_SEGNO>+</M_SEGNO>
+				<M_IMPORTO>1234,00</M_IMPORTO>
+				<M_NUMERO_IMPEGNO>1</M_NUMERO_IMPEGNO>
+				<M_NUMERO_PRENOTAZIONE>2</M_NUMERO_PRENOTAZIONE>
+				<M_NUMERO_ACCERTAMENTO>3</M_NUMERO_ACCERTAMENTO>
+				<M_AZIONE>434</M_AZIONE>
+				<M_ENTRATA_USCITA>E</M_ENTRATA_USCITA>
+				<M_CODICE>1234</M_CODICE>
+			</movimenti>
+			<movimenti>
+				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
+				<M_ANNO_PRENOTAZIONE>2015</M_ANNO_PRENOTAZIONE>
+				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
+				<M_CAPITOLO>4</M_CAPITOLO>
+				<M_NOTE>Acquisto</M_NOTE>
+				<M_CIG>13123</M_CIG>
+				<M_CUP>5</M_CUP>
+				<M_SEGNO>+</M_SEGNO>
+				<M_IMPORTO>1234,00</M_IMPORTO>
+				<M_NUMERO_IMPEGNO>1</M_NUMERO_IMPEGNO>
+				<M_NUMERO_PRENOTAZIONE>2</M_NUMERO_PRENOTAZIONE>
+				<M_NUMERO_ACCERTAMENTO>3</M_NUMERO_ACCERTAMENTO>
+				<M_AZIONE>434</M_AZIONE>
+				<M_ENTRATA_USCITA>E</M_ENTRATA_USCITA>
+				<M_CODICE>1234</M_CODICE>
+			</movimenti>
+			
+			<!-- Query dei movimenti -->
+        <metaDato>
+			<nomeSimbolico>M_ANNO_IMPEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno dell'Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_ANNO_PRENOTAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della Prenotazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_ANNO_ACCERTAMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno dell'Accertamento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CAPITOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice del Capitolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NOTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CIG</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>CIG</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CUP</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>CUP</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_IMPORTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NUMERO_IMPEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NUMERO_PRENOTAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Prenotazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NUMERO_ACCERTAMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Accertamento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_AZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice Azione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_ENTRATA_USCITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Entrata/Uscita</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CODICE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_SEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Il Segno dell'importo (+ o -)</descrizione>
+			<path/>
+		</metaDato>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>id della delibera</descrizione>
+			<path/>			
+		</metaDato>
+<!-- DEFINIZIONE CAMPI DELLA QUERY -->		
+		<metaDato>
+			<nomeSimbolico>N_DELIBERA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_DELIBERA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di numerazione della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CLASSIFICA_CODICE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice della classificazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CLASSIFICA_DESCRIZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione della classificazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FASCICOLO_NUMERO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del fascicolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FASCICOLO_ANNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno del fascicolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FASCICOLO_OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del fascicolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>GIORNO_SETTIMANA_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Giorno della settimana in cui si è svolta la seduta</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>GIORNO_SETTIMANA_INIZIO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Giorno della settimana in cui è iniziata la seduta</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>GIORNO_LETTERE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Giorno della data seduta scritto in lettere (esempio se la data seduta è 02/05/2014 riporta "due")</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>GIORNO_LETTERE_INIZIO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Giorno della data di inizio della seduta scritto in lettere (esempio se la data di inizio della seduta è 02/05/2014 riporta "due")</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>GIORNO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Giorno della data seduta scritto in cifre (esempio se la data seduta è 02/05/2014 riporta "2")</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>GIORNO_INIZIO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Giorno della data di inizio della seduta scritto in cifre (esempio se la data di inizio della seduta è 02/05/2014 riporta "2")</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>MESE_LETTERE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese della data seduta scritto in lettere (esempio se la data seduta è 02/05/2014 riporta "maggio")</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MESE_LETTERE_INIZIO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese della data di inizio della seduta scritto in lettere (esempio se la data di inizio della seduta è 02/05/2014 riporta "maggio")</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>MESE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese della data seduta scritto in cifre (esempio se la data seduta è 02/05/2014 riporta "05")</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MESE_INIZIO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese della data di inizio della seduta scritto in cifre (esempio se la data di inizio della seduta è 02/05/2014 riporta "05")</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>ANNO_LETTERE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della data seduta scritto in lettere (esempio se la data seduta è 02/05/2014 riporta "duemilaquattordici")</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>ANNO_LETTERE_INIZIO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della data di inizio della seduta scritto in lettere (esempio se la data di inizio della seduta è 02/05/2014 riporta "duemilaquattordici")</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>ANNO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della data seduta scritto in cifre (esempio se la data seduta è 02/05/2014 riporta "2014")</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>ANNO_INIZIO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della data di inizio della seduta scritto in cifre (esempio se la data di inizio della seduta è 02/05/2014 riporta "2014")</descrizione>
+			<path/>
+		</metaDato>				
+		<metaDato>
+			<nomeSimbolico>DATA_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_INIZIO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di inizio della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_FINE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di fine della seduta</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>SEQUENZA_CONVOCAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Sequenza di convocazione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SEQUENZA_DISCUSSIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Sequenza di discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ORA_DISCUSSIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ora di discussione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PRESIDENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Presidente della seduta durante la discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>COGNOME_PRESIDENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Cognome del presidente della seduta durante la discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOME_PRESIDENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nome del presidente della seduta durante la discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SEGRETARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Segretario della seduta durante la discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>COGNOME_SEGRETARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Cognome del segretario della seduta durante la discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>NOME_SEGRETARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nome del segretario della seduta durante la discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Relatore della seduta durante la discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>COGNOME_RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Cognome del relatore della seduta durante la discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>NOME_RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nome del relatore della seduta durante la discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>AREA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Area dell'unita' proponente della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SERVIZIO_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Servizio dell'unita' proponente della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INCARICO_PRESIDENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Incarico del segretario</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INCARICO_SEGRETARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Incarico del presidente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FAVOREVOLI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di voti favorevoli</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CONTRARI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di voti contrari</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>ASTENUTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di astenuti</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PRESENTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di presenti durante l'appello della seduta</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>ASSENTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di assenti durante l'appello della seduta</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>PRESENTI_OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di presenti durante la discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>ASSENTI_OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di assenti durante la discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>ELENCO_ASSENTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco degli assenti</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ELENCO_ASSENTI_OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco degli assenti alla discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PARTECIPANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nominativo del partecipante</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RUOLO_PARTECIPANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ruolo del partecipante all'interno della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INCARICO_PARTECIPANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Incarico del partecipante</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>PRESENTE_ASSENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Presente o assente all'appello iniziale</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>PRESENTE_ASSENTE_OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Presente o assente durante la discussione della singola proposta</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>TESTO_PROPOSTA</nomeSimbolico>
+			<tipo>doc</tipo>
+			<descrizione>Testo della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ORA_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ora di convocazione della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ORA_INIZIO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ora di inizio della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ORA_FINE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ora di fine della seduta</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>NUMERO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della seduta</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>TIPO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia di seduta</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>INVITATI_PRESENTI_OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco degli invitati presenti alla discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>INVITATI_PRESENTI_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco degli invitati presenti all'appello iniziale</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>SCRUTATORI_PRESENTI_OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco degli scrutatori presenti alla discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>SCRUTATORI_PRESENTI_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco degli scrutatori presenti all'appello iniziale</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>VOTANTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di persone votanti</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>VOTANTI_FAVOREVOLI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco dei votanti favorevoli</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>VOTANTI_CONTRARI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco dei votanti contrari</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>VOTANTI_ASTENUTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco dei votanti astenuti</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_TIPO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia di movimento contabile</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_DESCRIZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del movimento contabile</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_IMPORTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo movimento contabile</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_RAGIONE_SOCIALE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ragione sociale del movimento contabile</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_RIF_BIL_PEG</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Riferimento al bilancio / peg</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_ANNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno del movimento contabile</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_NUMERO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ESEGUIBILITA_IMMEDIATA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Riporta una frase definita nelle impostazioni e visibile solo se la delibera e' immediatamente eseguibile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ESEGUIBILITA_NON_IMMEDIATA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Riporta una frase definita nelle impostazioni e visibile solo se la delibera non e' immediatamente eseguibile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOTIVAZIONI_ESEGUIBILITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Riporta le motivazioni per cui si richiede l'immediata eseguibilità</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_TOTALE_ENTRATE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Somma dei movimenti in entrata</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>M_TOTALE_USCITE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Somma dei movimenti in uscita</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MSE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Il segno della somma delle entrate (+ o -)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MSU</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Il segno della somma delle uscite (+ o -)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_ADOZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di adozione della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PARERE_REVISORE_CONTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Riporta l'informazione se è stato richiesto il parere dei revisori dei conti (SI o NO)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOTE_VERBALIZZAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note di verbalizzazione della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di protocollazione della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di protocollazione della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di protocollo delibera</descrizione>
+			<path/>
+		</metaDato>
+
+        <!-- Query dei movimenti -->
+        <metaDato>
+			<nomeSimbolico>M_ANNO_IMPEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno dell'Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_ANNO_PRENOTAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della Prenotazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_ANNO_ACCERTAMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno dell'Accertamento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CAPITOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice del Capitolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NOTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CIG</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>CIG</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CUP</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>CUP</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_IMPORTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NUMERO_IMPEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NUMERO_PRENOTAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Prenotazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NUMERO_ACCERTAMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Accertamento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_AZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice Azione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_ENTRATA_USCITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Entrata/Uscita</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CODICE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_SEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Il Segno dell'importo (+ o -)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SEDE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Sede della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+            <nomeSimbolico>OGGETTO_PROPOSTA</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>L'oggetto della proposta di delibera</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+			<nomeSimbolico>FIRMATARIO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Firmatario o dirigente della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_RADICE_SUDD</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione dell'unità radice in struttura rispetto l'unità proponente</descrizione>
+			<path/>
+		</metaDato>
+	</definitions>
+	<queryes>
+		<query id='delibera'
+		       help_query_alias="d"
+		       help_field_aliases="ANNO_DELIBERA, ANNO_LETTERE_SEDUTA, ANNO_LETTERE_INIZIO_SEDUTA, ANNO_PROPOSTA, OGGETTO_PROPOSTA, ANNO_SEDUTA, ANNO_INIZIO_SEDUTA, FIRMATARIO_PROPOSTA, AREA_PROPONENTE, ASSENTI, ASSENTI_OGGETTO, ASTENUTI, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, COGNOME_PRESIDENTE, COGNOME_RELATORE, COGNOME_SEGRETARIO, CONTRARI, DATA_SEDUTA, DATA_INIZIO_SEDUTA, DATA_FINE_SEDUTA, ELENCO_ASSENTI, ELENCO_ASSENTI_OGGETTO, ESEGUIBILITA_IMMEDIATA, ESEGUIBILITA_NON_IMMEDIATA, MOTIVAZIONI_ESEGUIBILITA, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_DESCRIZIONE, FAVOREVOLI, GIORNO_LETTERE_SEDUTA, GIORNO_LETTERE_INIZIO_SEDUTA, GIORNO_SEDUTA, GIORNO_INIZIO_SEDUTA, GIORNO_SETTIMANA_SEDUTA, GIORNO_SETTIMANA_INIZIO_SEDUTA, INCARICO_PRESIDENTE, INCARICO_SEGRETARIO, INVITATI_PRESENTI_SEDUTA, INVITATI_PRESENTI_OGGETTO, MESE_LETTERE_SEDUTA, MESE_LETTERE_INIZIO_SEDUTA, MESE_SEDUTA, MESE_INIZIO_SEDUTA, NOME_PRESIDENTE, NOME_RELATORE, NOME_SEGRETARIO, NUMERO_PROPOSTA, NUMERO_SEDUTA, N_DELIBERA, OGGETTO, ORA_SEDUTA, ORA_INIZIO_SEDUTA, ORA_FINE_SEDUTA, PRESENTI, PRESENTI_OGGETTO, PRESIDENTE, RELATORE, SCRUTATORI_PRESENTI_OGGETTO, SCRUTATORI_PRESENTI_SEDUTA, SEGRETARIO, SEQUENZA_CONVOCAZIONE, SEQUENZA_DISCUSSIONE, SERVIZIO_PROPONENTE, ORA_DISCUSSIONE, TIPO_SEDUTA, UNITA_PROPONENTE, VOTANTI_ASTENUTI, VOTANTI_CONTRARI, VOTANTI_FAVOREVOLI, M_TOTALE_ENTRATE, M_TOTALE_USCITE, MSE, MSU, SEDE_SEDUTA, DATA_ADOZIONE, PARERE_REVISORI_CONTI, NOTE_VERBALIZZAZIONE, DESCRIZIONE_RADICE_SUDD, DATA_PROTOCOLLO, NUMERO_PROTOCOLLO, ANNO_PROTOCOLLO">
+	 select numero_delibera N_DELIBERA
+	      , anno_delibera ANNO_DELIBERA
+	      , d.oggetto OGGETTO
+	      , pd.numero_proposta NUMERO_PROPOSTA
+	      , pd.anno_proposta ANNO_PROPOSTA
+	      , pd.classifica_codice CLASSIFICA_CODICE
+	      , pd.classifica_descrizione CLASSIFICA_DESCRIZIONE
+	      , pd.fascicolo_anno FASCICOLO_ANNO
+	      , pd.fascicolo_numero FASCICOLO_NUMERO
+	      , pd.fascicolo_oggetto FASCICOLO_OGGETTO
+       , pd.oggetto OGGETTO_PROPOSTA
+		  , nvl (utility_pkg.get_primo_firmatario_prop_deli(pd.id_proposta_delibera), utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'DIRIGENTE')) FIRMATARIO_PROPOSTA
+	      , utility_pkg.giorno_lettere(os.data_seduta) GIORNO_SETTIMANA_SEDUTA
+	      , utility_pkg.giorno_lettere(os.data_inizio_seduta) GIORNO_SETTIMANA_INIZIO_SEDUTA
+	      , utility_pkg.numero_lettere(to_char (os.data_seduta, 'dd')) GIORNO_LETTERE_SEDUTA
+	      , utility_pkg.numero_lettere(to_char (os.data_inizio_seduta, 'dd')) GIORNO_LETTERE_INIZIO_SEDUTA
+	      , to_char (os.data_seduta, 'dd') GIORNO_SEDUTA
+	      , to_char (os.data_inizio_seduta, 'dd') GIORNO_INIZIO_SEDUTA
+	      , utility_pkg.mese_lettere (to_char (os.data_seduta, 'mm')) MESE_LETTERE_SEDUTA
+	      , utility_pkg.mese_lettere (to_char (os.data_inizio_seduta, 'mm')) MESE_LETTERE_INIZIO_SEDUTA
+	      , to_char (os.data_seduta, 'mm') MESE_SEDUTA
+	      , to_char (os.data_inizio_seduta, 'mm') MESE_INIZIO_SEDUTA
+	      , utility_pkg.numero_lettere(to_char (os.data_seduta, 'yyyy')) ANNO_LETTERE_SEDUTA
+	      , utility_pkg.numero_lettere(to_char (os.data_inizio_seduta, 'yyyy')) ANNO_LETTERE_INIZIO_SEDUTA
+	      , to_char (os.data_seduta, 'yyyy') ANNO_SEDUTA
+	      , to_char (os.data_inizio_seduta, 'yyyy') ANNO_INIZIO_SEDUTA
+	      , to_char (os.data_seduta, 'DD/MM/YYYY') DATA_SEDUTA
+	      , to_char (os.data_inizio_seduta, 'DD/MM/YYYY') DATA_INIZIO_SEDUTA
+	      , to_char (os.data_fine_seduta, 'DD/MM/YYYY') DATA_FINE_SEDUTA
+	      , os.ora_seduta ORA_SEDUTA
+	      , os.ora_inizio_seduta ORA_INIZIO_SEDUTA
+	      , os.ora_fine_seduta ORA_FINE_SEDUTA
+	      , utility_pkg.get_cognome_nome(ad4_presidente.soggetto) PRESIDENTE
+	      , InitCap(utility_pkg.get_cognome(ad4_presidente.soggetto)) COGNOME_PRESIDENTE
+	      , InitCap(utility_pkg.get_nome(ad4_presidente.soggetto)) NOME_PRESIDENTE
+	      , utility_pkg.get_cognome_nome(ad4_segretario.soggetto) SEGRETARIO
+	      , InitCap(utility_pkg.get_cognome(ad4_segretario.soggetto)) COGNOME_SEGRETARIO
+	      , InitCap(utility_pkg.get_nome(ad4_segretario.soggetto)) NOME_SEGRETARIO
+	      , utility_pkg.get_cognome_nome(deleghe.ni_assessore) RELATORE
+	      , InitCap(utility_pkg.get_cognome(deleghe.ni_assessore)) COGNOME_RELATORE
+	      , InitCap(utility_pkg.get_nome(deleghe.ni_assessore)) NOME_RELATORE
+     	  , utility_pkg.get_unita_prop_delibera (d.id_proposta_delibera) UNITA_PROPONENTE
+     	  , utility_pkg.get_suddivisione_prop_delibera (d.id_proposta_delibera, 'SO4_SUDDIVISIONE_AREA', d.ente) AREA_PROPONENTE
+     	  , utility_pkg.get_suddivisione_prop_delibera (d.id_proposta_delibera, 'SO4_SUDDIVISIONE_SERVIZIO', d.ente) SERVIZIO_PROPONENTE			  
+	      , (select nvl (i_osp.titolo, i.titolo)
+	         from odg_sedute_partecipanti osp
+	            , odg_commissioni_componenti occ
+	            , odg_incarichi i
+	            , odg_incarichi i_osp
+	        where osp.id_seduta = os.id_seduta
+	          and occ.id_commissione_componente(+) = osp.id_commissione_componente
+	          and i.id_incarico(+) = occ.id_incarico
+	          and i_osp.id_incarico(+) = osp.id_incarico
+	          and osp.ruolo_partecipante = 'P'
+			  and osp.presente = 'Y') INCARICO_PRESIDENTE
+	      , (select nvl (i_osp.titolo, i.titolo)
+	           from odg_sedute_partecipanti osp
+	              , odg_commissioni_componenti occ
+	              , odg_incarichi i
+	              , odg_incarichi i_osp
+	          where osp.id_seduta = os.id_seduta
+	            and occ.id_commissione_componente(+) = osp.id_commissione_componente
+	            and i.id_incarico(+) = occ.id_incarico
+	            and i_osp.id_incarico(+) = osp.id_incarico
+	            and osp.ruolo_partecipante = 'S'
+			    and osp.presente = 'Y') INCARICO_SEGRETARIO
+	      , oos.sequenza_convocazione SEQUENZA_CONVOCAZIONE
+	      , oos.sequenza_discussione SEQUENZA_DISCUSSIONE
+	      , oos.ora_discussione ORA_DISCUSSIONE
+	      , (select count (1)
+	           from odg_oggetti_partecipanti oop, odg_voti ov
+	          where id_oggetto_seduta = d.id_oggetto_seduta
+	            and oop.id_voto = ov.id_voto
+	            and ov.codice = 'FAVOREVOLE') FAVOREVOLI
+	      , (select count (1)
+	           from odg_oggetti_partecipanti oop, odg_voti ov
+	          where id_oggetto_seduta = d.id_oggetto_seduta
+	            and oop.id_voto = ov.id_voto
+	            and ov.codice = 'CONTRARIO') CONTRARI
+	      , (select count (1)
+	           from odg_oggetti_partecipanti oop, odg_voti ov
+	          where id_oggetto_seduta = d.id_oggetto_seduta
+	            and oop.id_voto = ov.id_voto
+	            and ov.codice = 'ASTENUTO') ASTENUTI
+	      , (select count (1)
+	           from odg_oggetti_partecipanti oop, odg_voti ov
+	          where id_oggetto_seduta = d.id_oggetto_seduta
+	            and oop.id_voto = ov.id_voto
+	            and (ov.codice in ('FAVOREVOLE', 'CONTRARIO'))) VOTANTI
+	      , (select count (1)
+	           from odg_sedute_partecipanti osp
+	          where osp.id_seduta = os.id_seduta
+	            and presente = 'Y'
+	            and (nvl (osp.ruolo_partecipante, 'J') not in ('P', 'S', 'I')
+	             or (nvl (osp.ruolo_partecipante, 'J') = 'P'
+	            and os.voto_presidente = 'Y'))) PRESENTI
+	      , (select count (1)
+	           from odg_oggetti_partecipanti oop, odg_sedute_partecipanti osp
+	          where oop.id_oggetto_seduta = d.id_oggetto_seduta
+	            and oop.id_seduta_partecipante = osp.id_seduta_partecipante
+	            and oop.presente = 'Y'
+	            and (nvl (oop.ruolo_partecipante, 'J') not in ('P', 'S', 'I')
+	             or (nvl (oop.ruolo_partecipante, 'J') = 'P'
+	            and os.voto_presidente = 'Y'))) PRESENTI_OGGETTO
+	      , (select count (1)
+	           from odg_sedute_partecipanti osp
+	          where osp.id_seduta = os.id_seduta
+	            and presente = 'N'
+	            and (nvl (osp.ruolo_partecipante, 'J') not in ('P', 'S', 'I')
+	             or (nvl (osp.ruolo_partecipante, 'J') = 'P'
+	            and os.voto_presidente = 'Y'))) ASSENTI
+	      , (select count (1)
+	           from odg_oggetti_partecipanti oop, odg_sedute_partecipanti osp
+	          where oop.id_oggetto_seduta = d.id_oggetto_seduta
+	            and oop.id_seduta_partecipante = osp.id_seduta_partecipante
+	            and oop.presente = 'N'
+	            and (nvl (oop.ruolo_partecipante, 'J') not in ('P', 'S', 'I')
+	             or (nvl (oop.ruolo_partecipante, 'J') = 'P'
+	            and os.voto_presidente = 'Y'))) ASSENTI_OGGETTO
+	      , utility_pkg.get_presenti_seduta (os.id_seduta, 'N', null) ELENCO_ASSENTI
+		  , utility_pkg.get_presenti_oggetto_seduta (d.id_oggetto_seduta, 'N', null) ELENCO_ASSENTI_OGGETTO
+	      , os.numero NUMERO_SEDUTA
+	      , ots.titolo TIPO_SEDUTA
+	      , utility_pkg.get_presenti_oggetto_seduta(d.id_oggetto_seduta, 'Y', 'I') INVITATI_PRESENTI_OGGETTO
+	      , utility_pkg.get_presenti_seduta (os.id_seduta, 'Y', 'I') INVITATI_PRESENTI_SEDUTA
+	      , utility_pkg.get_presenti_oggetto_seduta(d.id_oggetto_seduta, 'Y', 'C') SCRUTATORI_PRESENTI_OGGETTO
+	      , utility_pkg.get_presenti_seduta (os.id_seduta, 'Y', 'C') SCRUTATORI_PRESENTI_SEDUTA
+	      , utility_pkg.get_votanti_oggetto_seduta (d.id_oggetto_seduta, 'FAVOREVOLE') VOTANTI_FAVOREVOLI
+	      , utility_pkg.get_votanti_oggetto_seduta (d.id_oggetto_seduta, 'CONTRARIO') VOTANTI_CONTRARI
+	      , utility_pkg.get_votanti_oggetto_seduta (d.id_oggetto_seduta, 'ASTENUTO') VOTANTI_ASTENUTI
+	      , decode(d.eseguibilita_immediata,'Y', impostazioni_pkg.get_impostazione('MODELLI_STAMPE_ESEGUIBILITA_DELIBERA', d.ente), '') ESEGUIBILITA_IMMEDIATA
+	      , decode(d.eseguibilita_immediata,'N', impostazioni_pkg.get_impostazione('MODELLI_STAMPE_NON_ESEGUIBILITA_DELIBERA', d.ente), '') ESEGUIBILITA_NON_IMMEDIATA
+		  , d.motivazioni_eseguibilita MOTIVAZIONI_ESEGUIBILITA
+		  , (select trim(TO_CHAR(abs(sum(m.importo)), '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m where m.tipo = 'ENTRATA' and m.id_documento = d.id_delibera and m.tipo_documento = 'DELIBERA') M_TOTALE_ENTRATE
+    	  , (select trim(TO_CHAR(abs(sum(m.importo)), '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m where m.tipo = 'USCITA'  and m.id_documento = d.id_delibera and m.tipo_documento = 'DELIBERA') M_TOTALE_USCITE
+    	  , (select decode(sign(sum(m.importo)), -1, '-', '+') from movimenti_contabili m where m.tipo = 'ENTRATA' and m.id_documento = d.id_delibera and m.tipo_documento = 'DELIBERA') MSE
+       	  , (select decode(sign(sum(m.importo)), -1, '-', '+') from movimenti_contabili m where m.tipo = 'USCITA'  and m.id_documento = d.id_delibera and m.tipo_documento = 'DELIBERA') MSU
+       	  , os.sede SEDE_SEDUTA
+          , to_char (d.data_adozione, 'DD/MM/YYYY') DATA_ADOZIONE
+		  , decode(pd.parere_revisori_conti,'Y','SI','NO') PARERE_REVISORI_CONTI
+   		  , oos.note NOTE_VERBALIZZAZIONE
+		  , utility_pkg.unita_get_radice_prop_delibera (pd.id_proposta_delibera) DESCRIZIONE_RADICE_SUDD
+			, decode(numero_protocollo, null, '${documentRoot.delibera.NUMERO_PROTOCOLLO}', to_char(numero_protocollo)) NUMERO_PROTOCOLLO
+			, decode(anno_protocollo, null, '${documentRoot.delibera.ANNO_PROTOCOLLO}', anno_protocollo) ANNO_PROTOCOLLO
+			, decode(data_numero_protocollo, null, '${documentRoot.delibera.DATA_PROTOCOLLO}', to_char(data_numero_protocollo,'dd/mm/yyyy')) DATA_PROTOCOLLO
+	  from  ad4_utenti_soggetti ad4_presidente
+	     ,  ad4_utenti_soggetti ad4_segretario    
+	     ,  odg_oggetti_seduta oos
+	     ,  delibere_soggetti ds_presidente
+	     ,  delibere_soggetti ds_segretario
+	     ,  proposte_delibera pd
+	     ,  delibere d
+	     ,  odg_sedute os
+	     ,  deleghe
+	     ,  odg_tipi_seduta ots
+	 where d.id_delibera = #id
+	   and d.id_proposta_delibera = pd.id_proposta_delibera    
+	   and os.id_tipo_seduta = ots.id_tipo_seduta
+	   and d.id_oggetto_seduta = oos.id_oggetto_seduta
+	   and os.id_seduta = oos.id_seduta
+	   and ds_presidente.id_delibera = d.id_delibera
+	   and ds_presidente.tipo_soggetto = 'PRESIDENTE'
+	   and ds_presidente.utente = ad4_presidente.utente
+	   and ds_segretario.id_delibera = d.id_delibera
+	   and ds_segretario.tipo_soggetto = 'SEGRETARIO'
+	   and ds_segretario.utente = ad4_segretario.utente
+	   and oos.id_delega = deleghe.id_delega(+)
+</query>
+		<query id='partecipanti'
+			   help_query_alias="p"
+		       help_field_aliases="INCARICO_PARTECIPANTE, PARTECIPANTE, PRESENTE_ASSENTE, PRESENTE_ASSENTE_OGGETTO, RUOLO_PARTECIPANTE">
+  select decode (osp.id_commissione_componente, null, as4_soggetti_esterno.denominazione, as4_soggetti_interno.denominazione) PARTECIPANTE
+       ,  nvl (i_osp.titolo, i.titolo) INCARICO_PARTECIPANTE
+       ,  orp.descrizione RUOLO_PARTECIPANTE
+       ,  decode (osp.presente, 'Y', 'Presente', 'Assente') PRESENTE_ASSENTE
+       ,  decode (oop.presente, 'Y', 'Presente', 'Assente') PRESENTE_ASSENTE_OGGETTO
+    from as4_v_soggetti_correnti AS4_SOGGETTI_INTERNO
+       ,  as4_v_soggetti_correnti AS4_SOGGETTI_ESTERNO
+       ,  odg_oggetti_partecipanti oop
+       ,  odg_sedute_partecipanti osp
+       ,  odg_oggetti_seduta oos
+	   ,  odg_sedute os
+       ,  delibere d
+       ,  odg_commissioni_componenti occ
+       ,  odg_incarichi i
+       ,  odg_incarichi i_osp
+       ,  odg_ruoli_partecipanti orp
+   where d.id_delibera = #id
+     and d.id_oggetto_seduta = oos.id_oggetto_seduta
+     and oos.id_oggetto_seduta = oop.id_oggetto_seduta
+	 and oos.id_seduta = os.id_seduta
+     and oop.id_seduta_partecipante = osp.id_seduta_partecipante
+     and occ.id_commissione_componente(+) = osp.id_commissione_componente
+     and osp.ni_componente_esterno = as4_soggetti_esterno.ni(+)
+     and occ.ni_componente = as4_soggetti_interno.ni(+)
+     and nvl (oop.ruolo_partecipante, 'J') not in ('S', 'I')
+	 and not(nvl (oop.ruolo_partecipante, 'J') in ('P') and os.voto_presidente = 'N')
+     and i.id_incarico(+) = occ.id_incarico
+     and i_osp.id_incarico(+) = osp.id_incarico
+     and oop.ruolo_partecipante = orp.ruolo_partecipante(+)
+order by occ.sequenza, as4_soggetti_interno.denominazione, as4_soggetti_esterno.denominazione asc 
+ 		</query>
+		<query id='proposta'
+			   help_query_alias="prop"
+		       help_field_aliases="TESTO_PROPOSTA">
+			select utility_pkg.get_testo_proposta_delibera(d.id_proposta_delibera) TESTO_PROPOSTA from delibere d where d.id_delibera = #id
+   </query>
+
+   <query id="movimenti"
+        help_query_alias="m"
+		help_field_aliases="M_ANNO_IMPEGNO, M_ANNO_PRENOTAZIONE, M_ANNO_ACCERTAMENTO, M_CAPITOLO, M_NOTE, M_CIG, M_CUP, M_SEGNO, M_IMPORTO, M_NUMERO_IMPEGNO, M_NUMERO_PRENOTAZIONE, M_NUMERO_ACCERTAMENTO, M_AZIONE, M_ENTRATA_USCITA, M_CODICE"> 
+ select m.anno_competenza               as M_ANNO_IMPEGNO
+      , m.anno_crono                    as M_ANNO_PRENOTAZIONE
+      , m.anno_esercizio                as M_ANNO_ACCERTAMENTO
+      , m.capitolo                      as M_CAPITOLO
+      , m.descrizione                   as M_NOTE
+      , m.descrizione_finanziamento_1   as M_CIG
+      , m.descrizione_finanziamento_2   as M_CUP
+      , decode(sign(m.importo), -1, '-', '+') as M_SEGNO
+      , trim(TO_CHAR(abs(m.importo), '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) as M_IMPORTO
+      , m.numero                        as M_NUMERO_IMPEGNO
+      , m.numero_crono                  as M_NUMERO_PRENOTAZIONE
+      , m.numero_det                    as M_NUMERO_ACCERTAMENTO
+      , m.opera                         as M_AZIONE
+      , m.tipo							as M_ENTRATA_USCITA
+      , m.tipo_dettaglio                as M_CODICE
+  from movimenti_contabili m
+ where m.id_documento     = #id
+   and m.tipo_documento   = 'DELIBERA'
+ order by m.tipo asc
+ </query>
+	</queryes>
+	<staticData />
+</documentRoot>

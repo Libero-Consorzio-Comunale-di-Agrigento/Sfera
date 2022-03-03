@@ -1,0 +1,1 @@
+qui ci sono viste e pkg che dipendono SOLO da AGSDE2 ma che possono essere usati anche da altri applicativi.

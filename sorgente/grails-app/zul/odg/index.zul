@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window vflex="1">
+        <tabbox vflex="1">
+        	<tabs>
+        		<tab label="Predisposizione OdG" />
+        		<tab id="gestione" label="Gestione" />
+        		<tab id="ricerca"  label="Ricerca"  />
+        	</tabs>
+        	<tabpanels>
+        		<tabpanel vflex="1">
+        			<include src="/odg/documentiDaOdg.zul" />
+        		</tabpanel>
+        		<tabpanel fulfill="gestione.onSelect" vflex="1">
+        			<include src="/odg/gestione.zul" />
+        		</tabpanel>
+        		<tabpanel fulfill="ricerca.onSelect" vflex="1">
+        			<include src="/odg/ricerca.zul"/>
+        		</tabpanel>
+        	</tabpanels>
+        </tabbox>
+    </window>
+</zk>

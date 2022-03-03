@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns:liquibase="antlib:liquibase.integration.ant">
+    <taskdef resource="liquibase/integration/ant/antlib.xml" uri="antlib:liquibase.integration.ant"/>
+
+    <!-- Alla fine di tutto, rivalido i package e creo le viste/etc -->
+    <target name="-latest-gdm">
+
+        <liquibase:updateDatabase databaseref="gdm-database" changelogfile="commons/compile_all_user.sql" classpathref="classpath-liquibase"/>
+
+        <liquibase:updateDatabase databaseref="gdm-database"
+                                  changelogfile="commons/GDM/sql/01.gdm.aggiorna.area.sql"
+                                  classpathref="classpath-liquibase"/>
+
+        <liquibase:updateDatabase databaseref="gdm-database" changelogfile="commons/compile_all_user.sql" classpathref="classpath-liquibase"/>
+
+        <liquibase:updateDatabase databaseref="gdm-database"
+                                  changelogfile="commons/GDM/sql/01.gdm.grant.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.target.username" value="${global.db.target.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="commons/GDM/sql/ASS_FILE_ALLEGATI_VUOTI.sql"
+                                  classpathref="classpath-liquibase"/>
+
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="commons/GDM/sql/INTEGRAZIONE_GDM_PKG.sql"
+                                  classpathref="classpath-liquibase"/>
+
+        <liquibase:updateDatabase databaseref="gdm-database"
+                                  changelogfile="commons/GDM/sql/04.gdm.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.target.username" value="${global.db.target.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+
+        <liquibase:updateDatabase databaseref="gdm-database" changelogfile="commons/compile_all_user.sql" classpathref="classpath-liquibase"/>
+    </target>
+</project>

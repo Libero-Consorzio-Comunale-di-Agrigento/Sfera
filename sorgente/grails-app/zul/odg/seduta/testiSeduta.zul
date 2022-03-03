@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer" vflex="1" viewModel="@id('vm') @init('odgTestiSedutaViewModel')">
+
+		<vlayout vflex="1">
+
+	        <hlayout hflex="1">
+				<div align="left" style="display: inline">
+					<label value="Ordina per"/>
+					<combobox selectedItem="@bind(vm.ordinamento)" hflex="1" readonly="true" onSelect="@command('onCambiaOrdinamento')">
+						<comboitem label="Anno e Numero Delibera" value="ANNO_NUMERO" />
+						<comboitem label="Sequenza di discussione"  value="SEQUENZA"/>
+					</combobox>
+					<label value="Delibere attivate " style="color: green; margin-left: 20px;" /><label value="@bind(vm.delibereAttivate)" style="color: green; font-weight: bold;" />
+					<label value="Delibere da attivare: " style="color: red; margin-left: 20px;" /><label value="@bind(vm.delibereDaAttivare)" style="color: red; font-weight: bold;" />
+				</div>
+            	<space hflex="1" />
+		        <div style="text-align: right">
+		        	<button mold="trendy" image="/images/agsde2/16x16/edit_doc.png" 		label="Crea testo" 		onClick="@command('onGeneraTesto', 	  lista=listaDelibere)"	disabled="@load(empty vm.selectedDelibera or not empty vm.seduta.secondaSeduta or not vm.abilitaCreaTesto)"/>
+		        	<button mold="trendy" image="/images/agsde2/16x16/logo_delibera_16.png" label="Attiva Delibere" onClick="@command('onAttivaDelibere', lista=listaDelibere)"	disabled="@load(empty vm.selectedDelibera or not empty vm.seduta.secondaSeduta or not vm.attivaDelibera))"/>
+				</div>
+			</hlayout>
+
+			<listbox id="listaDelibere" vflex="1" model="@load(vm.listaDelibere)"
+				multiple="true" checkmark="true" nonselectableTags="*"
+				onSelect="@command('settaSelezione', lista=listaDelibere)"
+				selectedItem="@bind(vm.selectedDelibera)"
+				emptyMessage="Nessun dato trovato">
+				<listhead>
+			 		<listheader label="" width="30px"/>
+			 		<listheader label="@load(c:l('label.proposta'))" hflex="4"/>
+			 		<listheader label="Firmatari" hflex="4"/>
+					<listheader label="" width="60px" />
+					<listheader label="Delibera" hflex="2" />
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell label=""/>
+						<listcell>
+							<vlayout hflex="1">
+								<a onClick="@command('onLinkProposta', proposta=each.proposta)"
+									label="@load(c:cat4(c:cat4(c:l('label.proposta'),' n. ', each.proposta.numeroProposta, '/'), each.proposta.annoProposta, ' - ', each.proposta.tipologia.titolo) )"
+									style="text-decoration:underline; color:black;"/>
+				                <label value="@load(c:cat3('Relatore', ': ', each.oggettoSeduta.delega.assessore.denominazione))" />
+				                <label onCreate="@command('getUnita', proposta=each.proposta)" />
+								<label value="@load(c:cat3('Oggetto', ': ',  each.proposta.oggetto) )" />
+							</vlayout>
+						</listcell>
+						<listcell>
+							  <label value="@load(each.firmatariOggetto)" multiline="true" />
+						</listcell>
+		               	<listcell>
+		               		<image src="/images/agsde2/22x22/edit_doc.png" 	visible="@load(not empty each.testo)" tooltiptext="La delibera ha il testo"/>
+		               		<image src="/images/agsde2/22x22/logo_delibera_22.png" visible="@load(not empty each.iter)"	 tooltiptext="La delibera è attiva"/>
+		                </listcell>
+		                <listcell>
+			                <a onClick="@command('onLinkDelibera', delibera=each)"
+							   label="@load(c:cat3(each.estremiDelibera, ' ', each.registroDelibera.descrizione))"
+							   style="text-decoration:underline; color:black;"/>
+		                </listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</vlayout>
+    </window>
+</zk>

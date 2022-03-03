@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Certificato della Determina</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<certificato>
+				<N_DETERMINA>1000</N_DETERMINA>
+				<DATA_DETERMINA>01/05/2014</DATA_DETERMINA>
+				<REGISTRO_DETERMINA>DETERMINAZIONI</REGISTRO_DETERMINA>
+				<SUDDIVISIONE>AREA</SUDDIVISIONE>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<CODICE_UNITA_PROPONENTE>A_AAGG</CODICE_UNITA_PROPONENTE>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<OGGETTO>DETERMINA DI PROVA</OGGETTO>
+				<DATA_FIRMA>01/05/2014</DATA_FIRMA>
+				<DATA_STAMPA>02/05/2014</DATA_STAMPA>
+				<FIRMATARIO>NOMINATIVO FIRMATARIO</FIRMATARIO>
+				<DESCRIZIONE_FIRMATARIO>Il funzionario delegato</DESCRIZIONE_FIRMATARIO>
+				<DELEGANTE>(IN SOSTITUZIONE DI QUALCUNO)</DELEGANTE>
+				<DATA_PUBBLICAZIONE>01/05/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>15/05/2014</DATA_FINE_PUBBLICAZIONE>
+				<GIORNI_PUBBLICAZIONE>15</GIORNI_PUBBLICAZIONE>
+				<DATA_PROTOCOLLO>02/05/2014</DATA_PROTOCOLLO>
+				<ANNO_PROTOCOLLO>2014</ANNO_PROTOCOLLO>
+				<NUMERO_PROTOCOLLO>2500</NUMERO_PROTOCOLLO>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>1250</NUMERO_ALBO>
+                <DATA_ESECUTIVITA>11/05/2014</DATA_ESECUTIVITA>
+			</certificato>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>id del certificato richiesto</descrizione>
+			<path/>			
+		</metaDato>	
+<!-- DEFINIZIONE CAMPI DELLA QUERY -->		
+		<metaDato>
+			<nomeSimbolico>N_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>numero della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>data della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice unità proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>AREA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Area dell'unita' proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SERVIZIO_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Servizio dell'unita' proponente della determina</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>SUDDIVISIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Suddivisione dell'unità proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della determina</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>DATA_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data creazione stampa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_FIRMA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di firma del certificato</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Firmatario del certificato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è un dirigente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DELEGANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è stato delegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di pubblicazione della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_FINE_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di fine pubblicazione della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>GIORNI_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Giorni di pubblicazione della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>REGISTRO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Registro di numerazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di protocollazione della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di protocollazione della determina</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di protocollo determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_ALBO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di numerazione della determina all'albo pretorio</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>NUMERO_ALBO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di registro all'albo pretorio della determina</descrizione>
+			<path/>
+		</metaDato>	
+        <metaDato>
+            <nomeSimbolico>DATA_ESECUTIVITA</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Data di esecutività della determina</descrizione>
+            <path/>
+        </metaDato>
+	</definitions>
+	<queryes>
+ 	<!-- certificato: restituisce i dati del certificato -->
+		<query id="certificato"
+			   help_query_alias="c"
+			   help_field_aliases="ANNO_ALBO, ANNO_PROTOCOLLO, AREA_PROPONENTE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_FIRMA, DATA_PROTOCOLLO, DATA_PUBBLICAZIONE, DATA_FINE_PUBBLICAZIONE, DATA_STAMPA, FIRMATARIO, DESCRIZIONE_FIRMATARIO, DELEGANTE, GIORNI_PUBBLICAZIONE, N_DETERMINA, NUMERO_ALBO, NUMERO_PROTOCOLLO, OGGETTO, REGISTRO_DETERMINA, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, DATA_ESECUTIVITA">
+ select d.numero_determina N_DETERMINA
+     , to_char (d.data_numero_determina, 'dd/mm/yyyy') DATA_DETERMINA
+     , utility_pkg.get_suddivisione_uo_determina (d.id_determina) SUDDIVISIONE
+     , utility_pkg.get_unita_prop_determina (d.id_determina) UNITA_PROPONENTE
+     , utility_pkg.get_codice_unita_prop_dete (d.id_determina) CODICE_UNITA_PROPONENTE
+     , utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_AREA', d.ente) AREA_PROPONENTE
+     , utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_SERVIZIO', d.ente) SERVIZIO_PROPONENTE
+     , d.oggetto OGGETTO
+     , nvl (to_char (f.data_firma, 'dd/mm/yyyy'), '${documentRoot.certificato.DATA_FIRMA}') DATA_FIRMA
+     , to_char (sysdate, 'dd/mm/yyyy') DATA_STAMPA
+     , nvl (utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), d.ente), '${documentRoot.certificato.FIRMATARIO}') FIRMATARIO
+     , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.certificato.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), d.ente)) DESCRIZIONE_FIRMATARIO
+     , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.certificato.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, d.ente)) DELEGANTE
+     , nvl (to_char (nvl (d.data_pubblicazione, f.data_firma), 'dd/mm/yyyy'), '${documentRoot.certificato.DATA_PUBBLICAZIONE}') DATA_PUBBLICAZIONE
+     , nvl (to_char (nvl (d.data_fine_pubblicazione, (nvl (d.data_pubblicazione, f.data_firma) + d.giorni_pubblicazione)), 'dd/mm/yyyy'), '${documentRoot.certificato.DATA_FINE_PUBBLICAZIONE}') DATA_FINE_PUBBLICAZIONE
+     , d.giorni_pubblicazione GIORNI_PUBBLICAZIONE
+     , tr.descrizione REGISTRO_DETERMINA
+     , d.anno_albo ANNO_ALBO
+     , d.numero_albo NUMERO_ALBO
+     , decode (numero_protocollo, null, '', to_char (numero_protocollo)) NUMERO_PROTOCOLLO
+     , decode (anno_protocollo, null, '', anno_protocollo) ANNO_PROTOCOLLO
+     , decode (data_numero_protocollo, null, '', to_char (data_numero_protocollo, 'dd/mm/yyyy')) DATA_PROTOCOLLO
+     , decode (data_esecutivita, null, '', to_char (data_esecutivita, 'dd/mm/yyyy')) DATA_ESECUTIVITA
+  from determine d
+     , certificati c
+     , firmatari f
+     , tipi_registro tr
+ where c.id_certificato = #id
+   and c.id_determina = d.id_determina
+   and d.registro_determina = tr.tipo_registro
+   and f.id_certificato(+) = c.id_certificato
+   and f.firmato(+) = 'N'
+   and f.data_firma(+) is not null  
+</query>
+	</queryes>
+	<staticData />
+</documentRoot>

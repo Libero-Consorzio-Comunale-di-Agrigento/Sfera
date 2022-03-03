@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0">
+	<info organisation="it.finmatica.pa.ag" module="agsde2" revision="${versione}" />
+	<publications>
+		<artifact name="agsde2" type="zip" />
+	</publications>
+</ivy-module>

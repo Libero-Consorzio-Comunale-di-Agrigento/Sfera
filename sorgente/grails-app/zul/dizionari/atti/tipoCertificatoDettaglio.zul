@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer"
+		viewModel="@id('vm') @init('tipoCertificatoDettaglioViewModel')"
+		border="normal" width="600px" title=" " sizable="true">
+
+		<vlayout width="100%" spacing="10px">
+			<h:div class="barraTitoloPagina">
+				<label sclass="titoloPagina" value="Gestione Tipo Certificato" />
+				<image
+					src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+					tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')" />
+			</h:div>
+			<vlayout width="100%" vflex="max">
+				<grid sclass="form">
+					<rows>
+						<row>
+							<cell width="150px">
+								<h:span class="mandatoryLabel">*</h:span>
+								<label value="Titolo" />
+							</cell>
+							<cell>
+								<textbox value="@bind(vm.selectedRecord.titolo)" hflex="1" />
+							</cell>
+						</row>
+                        <row>
+                            <cell>
+                                <label value="Descrizione" />
+                            </cell>
+                            <cell>
+                                <textbox value="@bind(vm.selectedRecord.descrizione)"
+                                         hflex="1" multiline="true" rows="3" class="noresizable" />
+                            </cell>
+                        </row>
+                        <row>
+                            <cell><label value="Gruppo Notifica" /></cell>
+                            <cell><textbox value="@load(vm.selectedRecord.descrizioneNotifica) @save(vm.selectedRecord.descrizioneNotifica)" hflex="1" /></cell>
+                        </row>
+						<row>
+							<cell>
+								<label value="Iter:" />
+							</cell>
+							<cell>
+								<combobox model="@load(vm.listaCfgIter)" hflex="1"
+									readonly="true"
+									selectedItem="@bind(vm.selectedRecord.progressivoCfgIter) @converter('it.finmatica.zkutils.PropertyConverter', defaultValue=-1)">
+									<template name="model" var="cfgIter">
+										<comboitem label="@load(cfgIter.nome)" value="@load(cfgIter.progressivo)" />
+									</template>
+								</combobox>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<label value="Caratteristica Tipologia:" />
+							</cell>
+							<cell>
+								<combobox model="@load(vm.listaCaratteristicaTipologia)"
+									hflex="1" readonly="true"
+									selectedItem="@bind(vm.selectedRecord.caratteristicaTipologia) @converter('it.finmatica.zkutils.PropertyConverter', property='id')">
+									<template name="model" var="car">
+										<comboitem label="@load(car.titolo)" description="@load(car.descrizione)" value="@load(car)" />
+									</template>
+								</combobox>
+							</cell>
+						</row>
+						<row>
+							<cell>
+								<label value="Modello testo:" />
+							</cell>
+							<cell>
+								<combobox model="@load(vm.listaModelliTesto)" hflex="1" readonly="true"
+									selectedItem="@bind(vm.selectedRecord.modelloTesto) @converter('it.finmatica.zkutils.PropertyConverter', property='id')">
+									<template name="model" var="mt">
+										<comboitem label="@load(c:cat4(mt.nome, ' (', mt.tipoModello.codice, ')'))" description="@load(mt.descrizione)" value="@load(mt)" />
+									</template>
+								</combobox>
+							</cell>
+						</row>
+					</rows>
+				</grid>
+			</vlayout>
+
+			<!-- Inizio informazioni relative al salvataggio e bottoni salva / chiudi -->
+			<vlayout class="datiCreazioneModifica">
+				<label value="@bind(vm.datiCreazione)" visible="@bind(not empty vm.selectedRecord.id)" />
+				<label value="@bind(vm.datiModifica)" visible="@bind(not empty vm.selectedRecord.id)" />
+			</vlayout>
+
+			<controlBarRecord duplicaAttivo="true"/>
+		</vlayout>
+	</window>
+</zk>

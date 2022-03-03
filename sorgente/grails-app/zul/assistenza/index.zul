@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css" ?>
+<!-- <?component name="appletEditaTesto" macroURI="../gestionetesti/applet/appletEditaTesto.zul" class="it.finmatica.gestionetesti.AppletEditaTestoMacroComponent" ?> -->
+<?page automaticTimeout="false"?>
+
+<!-- Quando serviranno dei CSS personalizzati per varie versioni di IE, bisognerà passare da qui: -->
+<!-- < ? link rel="stylesheet" type="text/css" href="/css/atti.ie7.css" if="${zk.ie == 7.0}" ? > -->
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+<!-- 	<appletEditaTesto />	 -->
+	<window
+		closable="false"
+		apply="grailsBindComposer"
+		width="100%"
+		height="100%"
+		viewModel="@id('vm') @init('assistenzaViewModel')" >
+
+		<borderlayout>
+			<north>
+				<hlayout sclass="intestazione" hflex="3">
+					<hlayout sclass="logoApplicazione" hflex="1">
+						<vlayout>
+							<image src="/images/logoApplicazione.png"/>
+						</vlayout>
+                   		<vlayout>
+	                   		<label sclass="titoloApplicazione" value="@load(c:l('label.titoloApplicazione'))" />
+	                   		<label sclass="descrizioneApplicazione" value="@load(c:l('label.descrizioneApplicazione'))" />
+                   		</vlayout>
+	                </hlayout>
+                   	<vlayout hflex="2" sclass="intestazioneDx" style="padding: 20px">
+                   		<label sclass="descrizioneApplicazione" value="ASSISTENZA" />
+                	</vlayout>
+                </hlayout>
+             </north>
+			<center id="container">
+				   <window vflex="1">
+        <tabbox vflex="1">
+        	<tabs>
+        		<tab label="Gestione Documento" />
+        		<tab id="ricerca" label="Ricerca Documenti" />
+        		<tab id="impostazioni"  label="Impostazioni"  />
+        		<tab id="test"  label="Test Integrazioni"  />
+        	</tabs>
+        	<tabpanels>
+        		<tabpanel vflex="1">
+        			<include src="gestioneDocumenti.zul" />
+        		</tabpanel>
+        		<tabpanel fulfill="ricerca.onSelect" vflex="1">
+        			<include src="../atti/ricercaDocumenti.zul" />
+        		</tabpanel>
+        		<tabpanel fulfill="impostazioni.onSelect" vflex="1">
+        			<include src="../dizionari/impostazioni/impostazioneLista.zul"/>
+        		</tabpanel>
+        		<tabpanel fulfill="test.onSelect" vflex="1">
+        			<include src="/Admin/aggiornamento.gsp" />
+        		</tabpanel>
+        	</tabpanels>
+        </tabbox>
+     </window>
+			</center>
+			<south>
+				<hlayout>
+ 					<label value="© Gruppo Finmatica - AGSDE2" />
+ 				</hlayout>
+			</south>
+		</borderlayout>
+	</window>
+</zk>

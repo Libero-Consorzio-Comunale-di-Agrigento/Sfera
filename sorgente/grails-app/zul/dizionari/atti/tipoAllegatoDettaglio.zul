@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('tipoAllegatoDettaglioViewModel')"
+            border="normal"
+            width="800px"
+            sizable="false" title=" ">
+
+        <vlayout width="100%" spacing="10px">
+
+            <h:div class="barraTitoloPagina">
+                <label sclass="titoloPagina"
+                       value="@load(c:cat('Gestione Tipo Allegato ', (empty vm.selectedRecord.titolo? '': c:cat( ' - ', vm.selectedRecord.titolo)) ) )"/>
+                <image
+                        src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+                        tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')"/>
+            </h:div>
+            <vlayout width="100%" vflex="max">
+                <grid sclass="form">
+                    <rows>
+                        <row>
+                            <cell hflex="1" align="left">
+                                <label value="Tipo di documento"/>
+                                <image popup="helpTipoDocumento" src="/images/agsde2/16x16/info.png" style="margin-left: 5px;" />
+                                <popup id="helpTipoDocumento">
+                                    <label value="Indica per quali tipologie di documento è disponibile questa tipologia di allegato." />
+                                </popup>
+                            </cell>
+                            <cell hflex="3">
+                                <combobox selectedItem="@bind(vm.selectedRecord.tipologia)" hflex="1" readonly="true" onSelect="@command('onCambiaTipologia')">
+                                    <comboitem label="-- TUTTI --"	 value=""/>
+                                    <comboitem label="Delibera" value="DELIBERA" />
+                                    <comboitem label="Determina" value="DETERMINA"/>
+                                    <comboitem label="Proposta Delibera" value="PROPOSTA_DELIBERA" />
+                                    <comboitem label="Visto" value="VISTO"/>
+                                    <comboitem label="Parere" value="PARERE"/>
+                                    <!--comboitem label="Certificato"  value="CERT" /-->
+                                </combobox>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell hflex="1" align="left">
+                                <label value="Tipo"/>
+                                <image popup="helpTipo" src="/images/agsde2/16x16/info.png" style="margin-left: 5px;" />
+                                <popup id="helpTipo">
+                                    <label value="Identifica una categoria specifica di allegati. Necessario soprattutto per rispondere a domande come: 'qual è la scheda contabile' etc." />
+                                </popup>
+                            </cell>
+                            <cell hflex="3">
+                                <combobox selectedItem="@bind(vm.selectedRecord.codice)" hflex="1" readonly="true" onSelect="@command('onCambiaCodice')">
+                                    <comboitem label="Allegato Generico" value="ALLEGATO_GENERICO" />
+                                    <comboitem label="Scheda Contabile"  value="SCHEDA_CONTABILE" visible="@load(vm.selectedRecord.tipologia ne 'CERT')"/>
+                                    <comboitem label="Scheda Contabile Entrata"  value="SCHEDA_CONTABILE_ENTRATA" visible="@load(vm.selectedRecord.tipologia ne 'CERT')"/>
+                                    <comboitem label="Allegato Riassuntivo Firme" value="ALLEGATO_RIASSUNTIVO_FIRME" visible="@load(vm.selectedRecord.tipologia eq 'DELIBERA')"/>
+                                    <comboitem label="Allegato Modificabile" value="ALLEGATO_MODIFICABILE" />
+                                    <comboitem label="Testo Originale" value="TESTO_ORIGINALE" />
+                                    <comboitem label="Frontespizio" value="FRONTESPIZIO" />
+                                    <comboitem label="Omissis" value="OMISSIS" />
+                                </combobox>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell hflex="1" align="left">
+                                <label value="Titolo"/>
+                            </cell>
+                            <cell hflex="3">
+                                <textbox value="@bind(vm.selectedRecord.titolo)" hflex="1"/>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell hflex="1" align="left">
+                                <label value="Descrizione"/>
+                            </cell>
+                            <cell hflex="3">
+                                <textbox value="@bind(vm.selectedRecord.descrizione)" hflex="1" sclass="noresizable" multiline="true" rows="3"/>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell hflex="1" align="left">
+                                <label value="Codice Esterno"/>
+                                <image popup="helpCodiceEsterno" src="/images/agsde2/16x16/info.png" style="margin-left: 5px;" />
+                                <popup id="helpCodiceEsterno">
+                                    <label value="Indica un codice univoco tra tutte le tipologie di allegati in modo che queste siano identificabili univocamente da applicativi terzi che si integrano con sfera." />
+                                </popup>
+                            </cell>
+                            <cell hflex="3">
+                                <textbox value="@bind(vm.selectedRecord.codiceEsterno)" hflex="1" sclass="noresizable"/>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell hflex="1" align="left">
+                                <label value="Stato Firma:" />
+                            </cell>
+                            <cell hflex="3">
+                                <radiogroup selectedIndex="@load(vm.selectedRecord.statoFirma eq 'DA_FIRMARE' ? 1 : 0)" selectedItem="@save(vm.selectedRecord.statoFirma)">
+                                    <radio label="Da Non Firmare" 	value="@load('DA_NON_FIRMARE')"/>
+                                    <radio label="Da Firmare" 		value="@load('DA_FIRMARE')"/>
+                                </radiogroup>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell hflex="1" align="left">
+                                <label value="Da Pubblicare in Casa di Vetro"/>
+                            </cell>
+                            <cell hflex="3">
+                                <radiogroup selectedIndex="@load(vm.selectedRecord.pubblicaCasaDiVetro ? 0 : 1)"
+                                            selectedItem="@save(vm.selectedRecord.pubblicaCasaDiVetro)">
+                                    <radio label="Sì" value="@load(true)"/>
+                                    <radio label="No" value="@load(false)"/>
+                                </radiogroup>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell hflex="1" align="left">
+                                <label value="Da Pubblicare all'Albo Pretorio"/>
+                            </cell>
+                            <cell hflex="3">
+                                <radiogroup selectedIndex="@load(vm.selectedRecord.pubblicaAlbo ? 0 : 1)"
+                                            selectedItem="@save(vm.selectedRecord.pubblicaAlbo)">
+                                    <radio label="Sì" value="@load(true)"/>
+                                    <radio label="No" value="@load(false)"/>
+                                </radiogroup>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell hflex="1" align="left">
+                                <label value="Da Pubblicare nel Visualizzatore"/>
+                            </cell>
+                            <cell hflex="3">
+                                <radiogroup selectedIndex="@load(vm.selectedRecord.pubblicaVisualizzatore ? 0 : 1)"
+                                            selectedItem="@save(vm.selectedRecord.pubblicaVisualizzatore)">
+                                    <radio label="Sì" value="@load(true)"/>
+                                    <radio label="No" value="@load(false)"/>
+                                </radiogroup>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell hflex="1" align="left">
+                                <label value="Stampa Unica"/>
+                            </cell>
+                            <cell hflex="3">
+                                <radiogroup selectedIndex="@load(vm.selectedRecord.stampaUnica ? 0 : 1)"
+                                            selectedItem="@save(vm.selectedRecord.stampaUnica)">
+                                    <radio label="Sì" value="@load(true)"/>
+                                    <radio label="No" value="@load(false)"/>
+                                </radiogroup>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell hflex="1" align="left">
+                                <label value="Modello Testo"/>
+                            </cell>
+                            <cell hflex="3">
+                                <combobox model="@load(vm.listaModelli)"  hflex="1" disabled="@load(empty vm.selectedRecord.codice)"
+                                          selectedItem="@bind(vm.selectedRecord.modelloTesto) @converter('it.finmatica.zkutils.PropertyConverter', property='id')">
+                                    <template name="model" var="mt">
+                                        <comboitem label="@load(mt.nome)" description="@load(mt.descrizione)" value="@load(mt)" />
+                                    </template>
+                                </combobox>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell align="left">
+                                <label value="Abilita Edita Testo:" />
+                            </cell>
+                            <cell>
+                                <radiogroup selectedIndex="@load(vm.selectedRecord.modificabile ? 0 : 1)" selectedItem="@save(vm.selectedRecord.modificabile)">
+                                    <radio label="Sì" value="@load(true)" disabled="@load(empty vm.selectedRecord.modelloTesto)"/>
+                                    <radio label="No" value="@load(false)" disabled="@load(empty vm.selectedRecord.modelloTesto)"/>
+                                </radiogroup>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell align="left">
+                                <label value="Abilita Modifica Campi:" />
+                            </cell>
+                            <cell>
+                                <radiogroup selectedIndex="@load(vm.selectedRecord.modificaCampi ? 0 : 1)" selectedItem="@save(vm.selectedRecord.modificaCampi)">
+                                    <radio label="Sì" value="@load(true)"/>
+                                    <radio label="No" value="@load(false)"/>
+                                </radiogroup>
+                            </cell>
+                        </row>
+                    </rows>
+                </grid>
+            </vlayout>
+
+            <!-- Inizio informazioni relative al salvataggio e bottoni salva / chiudi -->
+            <vlayout sclass="datiCreazioneModifica">
+                <label value="@bind(vm.datiCreazione)" visible="@bind(not empty vm.selectedRecord.titolo)"/>
+                <label value="@bind(vm.datiModifica)" visible="@bind(not empty vm.selectedRecord.titolo)"/>
+            </vlayout>
+
+            <controlBarRecord/>
+        </vlayout>
+
+    </window>
+</zk>

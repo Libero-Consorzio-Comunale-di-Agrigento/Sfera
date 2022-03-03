@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer"
+			viewModel="@id('vm') @init('popupCorreggiTestoViewModel')"
+			position="center,middle"
+			mode="modal"
+			width="600px"
+			height="300px"
+			title=" "
+			border="normal" closable="false" visible="false">
+
+		<vlayout vflex="1"  style="padding-left: 5px; background-color: #F0F0F0">
+			<hlayout style="padding-top: 10px;">
+				<image src="/images/agsde2/16x16/error.png"/>
+				<label value="ATTENZIONE!" width="100%" style="text-align:center;" />
+			</hlayout>
+			<label value="Si è verificato un errore nella generazione del testo!" width="100%" style="text-align:center;"/>
+
+			<h:div style="text-align: right; padding-right: 5px;">
+				<button label="Visualizza i Dettagli"
+						w:onClick="var s = zk.Widget.$('$stacktrace'); s.setVisible(!s.isVisible());"
+						mold="trendy"  />
+			</h:div>
+			<vlayout id="stacktrace" width="99%" visible="false"  vflex="1">
+				<label value="STACK TRACE" />
+				<textbox width="99%" rows="10" value="@load(vm.stacktrace)" readonly="true"  vflex="1" />
+			</vlayout>
+		</vlayout>
+
+		<h:div class="barraPulsanti">
+			<h:div>
+				<button label="Correggi Manualmente" 		onClick="@command('onCorreggiManualmente')" 	mold="trendy"  image="/images/pulsanti/16x16/news_unsubscribe.png"/>
+				<button label="Correggi Automaticamente"	onClick="@command('onCorreggiAutomaticamente')" mold="trendy"  image="/images/pulsanti/16x16/news_unsubscribe.png"/>
+				<button label="Salva Testo" 				onClick="@command('onSalvaTesto')" 				mold="trendy"  image="/images/pulsanti/16x16/filesave.png"/>
+				<button label="Chiudi" 						onClick="@command('onChiudi')" 					mold="trendy"  image="/images/pulsanti/16x16/window_close.png"/>
+			</h:div>
+		</h:div>
+	</window>
+</zk>

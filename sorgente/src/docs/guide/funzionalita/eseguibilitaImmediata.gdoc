@@ -1,0 +1,7 @@
+Il flag in tipologia delibera @eseguibilita_immediata@ indica se una delibera sarà immediatamente eseguibile all'atto della numerazione della stessa.
+L'eseguibilità immediata porta a due casistiche separate:
+
+# Quando la delibera diventa esecutiva, la data di esecutività corrisponde alla data della seduta in cui è stata discussa. In questo caso, il flag in tipologia @eseguibilita_immediata@ avrà valore @Y@ e nel flusso della Delibera sarà presente l'azione @rendiImmediatamenteEsecutiva@.
+# Quando la delibera diventa esecutiva, il calcolo della data di esecutività non varia dalle normali logiche (tot giorni dopo la pubblicazione). In questo caso, il flag @eseguibilita_immediata@ avrà valore @Y@ e *non* bisognerà mettere l'azione @rendiImmeditamenteEsecutiva@ nel flusso della delibera.
+
+

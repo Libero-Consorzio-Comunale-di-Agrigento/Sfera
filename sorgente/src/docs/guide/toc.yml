@@ -1,0 +1,39 @@
+introduzione:
+  title: Introduzione
+#  whatsNew:
+#    title: Cosa c'è di nuovo in Sfera?
+#    novita203: Novità della versione 2.0.3.x
+#    novita210: Novità della versione 2.1.0.x
+#    novita211: Novità della versione 2.1.1.x
+#installazione:
+#  title: Come installare Sfera
+#  requisiti: Requisiti
+#aggiornamento: Aggiornare Sfera
+#configurazione:
+#  title: Configurazione
+#  dirittiAccesso: Diritti di Accesso
+#  impostazioni: Tabella Impostazioni
+#  fileConfig: File di Configurazione
+#integrazioni:
+#  title: Integrazioni
+#  integrazioneGdm: GDM
+#  integrazioneCdv: Casa di Vetro
+#  integrazioneJwf: JWorklist
+#  integrazioneJcons: JCons
+#  integrazioneCfa: Contabilità Armonizzata
+#  integrazioneAgspr: Protocollo Prisma
+#  integrazioneProtocolloTreviso: Protocollo Treviso
+#  integrazioneProtocolloTreviso: Protocollo Modena
+#  integrazioneFirmaDigitale: Firma Digitale
+#  integrazioneFirmaRemota: Firma Remota
+#  integrazioneEditaTesto: Edita Testo
+#  integrazioneReporter: Reporter
+funzionalitaSviluppo:
+  title: Funzionalità per lo Sviluppo
+  gestioneSoggetti: Gestione dei Soggetti
+  noteTrasmissione: Note di Trasmissione
+funzionalita:
+  title: Funzionalità
+  numerazioneDocumento: Numerazione di Documenti
+  secondaNumerazioneDetermina: Seconda Numerazione di Determine
+  eseguibilitaImmediata: Eseguibilità Immediata delle Delibere

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+  <window apply="grailsBindComposer"
+        viewModel="@id('vm') @init('popupUnitaOrganizzativaViewModel')"
+        border="normal"
+        title="Selezione Unità Organizzativa"
+        closable="true"
+        width="500px"
+        height="500px">
+
+       <hlayout valign="middle" style="padding: 5px;">
+			<!-- LEFT BUTTONS -->
+			<hlayout hflex="3">
+				<hlayout sclass="afc-control-bar" valign="middle">
+					<paging sclass="afc-paging"
+						onPaging="@command('onPagina')"
+						activePage="@bind(vm.activePage)"
+						pageSize="@bind(vm.pageSize)"
+						totalSize="@load(vm.totalSize)"/>
+					<toolbarbutton image="/images/afc/22x22/refresh.png"
+						tooltiptext="Refresh"
+						onClick="@command('onRefresh')" />
+				</hlayout>
+			</hlayout>
+
+			<hlayout hflex="2" style="text-align: right;" valign="middle">
+				<textbox width="120px"
+					mold="rounded"
+					tooltiptext="Filtro per la ricerca"
+					value="@bind(vm.filtro)"
+					onOK="@command('onFiltro')"
+					onChanging="@command('onFiltro')" />
+				<toolbarbutton image="/images/afc/22x22/search.png"
+					tooltiptext="Ricerca"
+					onClick="@command('onFiltro')" />
+			</hlayout>
+		</hlayout>
+
+		<listbox vflex="1" model="@load(vm.listaUnita)"
+			selectedItem="@bind(vm.selectedRecord)"
+			emptyMessage="Nessuna unita trovata">
+			<listhead>
+				<listheader label="Unità Organizzativa" />
+				<listheader label="Valida Dal" />
+				<listheader label="Valida Al" />
+			</listhead>
+			<template name="model" var="unita">
+				<listitem>
+	                <listcell label="@load(unita.descrizione)"></listcell>
+	                <listcell label="@load(unita.dal)"></listcell>
+	                <listcell label="@load(unita.al)"></listcell>
+				</listitem>
+			</template>
+		</listbox>
+
+		<h:div class="barraPulsanti">
+			<h:div>
+				<button
+				 	mold="trendy"
+					label="Seleziona"
+					onClick="@command('onSelezionaUnita')" />
+				<button
+				 	mold="trendy"
+					label="Annulla"
+					onClick="@command('onAnnulla')"  />
+			</h:div>
+		</h:div>
+    </window>
+</zk>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-settings>
+    <settings defaultResolver="finmatica"/>
+
+    <resolvers>
+        <chain name="finmatica">
+            <ibiblio name="finmatica-releases" m2compatible="true" root="https://nexus.finmatica.it/repository/maven-public"/>
+        </chain>
+    </resolvers>
+</ivy-settings>

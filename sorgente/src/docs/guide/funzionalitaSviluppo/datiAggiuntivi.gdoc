@@ -1,0 +1,14 @@
+Un @DatoAggiuntivo@ è un dato che viene aggiunto al documento non come colonna su una tabella del documento ma come riga su una tabella apposita.
+L'idea è quella di poter gestire così tutti quei campi particolari e specifici che variano da cliente a cliente e che non sono "generalizzabili" per tutti.
+
+Un @DatoAggiuntivo@ è composto di alcune parti:
+
+* un codice che lo identifica univocamente nel dizionario dei dati aggiuntivi possibili. Questo codice viene codificato nella classe @TipoDatoAggiuntivo@ come costante.
+* la domain class @DatoAggiuntivo@ che contiene i valori collegati ai singoli documenti.
+* la domain class @TipoDatoAggiuntivoValore@ che contiene i possibili valori da collegare ad un @DatoAggiuntivo@, Praticamente questa classe consente di creare dei "dizionari" di valori da poter selezionare
+  per un certo @DatoAggiuntivo@
+* l'impostazione @DATI_AGGIUNTIVI@ contiene o una stringa vuota (in realtà contiene uno spazio siccome stringa vuota su oracle corrisponde a null e non si possono avere impostazioni con valore nullo) oppure un elenco separato da # dei codici dei dati aggiuntivi abilitati.
+* Vari componenti che mostrano i dati aggiuntivi, tali componenti sono veri e propri componenti zk che sono riusabili tra i vari documenti (ad es. @DatoAggiuntivoCheckBox@)
+* il service @DatiAggiuntiviService@ che si preoccupa di salvare i dati aggiuntivi modificati tramite i componenti zk.
+
+

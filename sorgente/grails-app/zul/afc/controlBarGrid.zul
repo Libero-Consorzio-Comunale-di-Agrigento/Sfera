@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<hlayout valign="middle" style="padding: 5px;">
+		<!-- LEFT BUTTONS -->
+		<hlayout hflex="3">
+			<hlayout sclass="afc-control-bar" valign="middle">
+				<paging sclass="afc-paging"
+					onPaging="@command('onPagina')"
+					activePage="@bind(vm.activePage)"
+					pageSize="@bind(vm.pageSize)"
+					totalSize="@load(vm.totalSize)"/>
+				<toolbarbutton image="/images/afc/22x22/refresh.png"
+					tooltiptext="Refresh"
+					onClick="@command('onRefresh')" />
+				<toolbarbutton image="/images/afc/22x22/edit.png"
+					tooltiptext="Modifica"
+					onClick="@command('onModifica', isNuovoRecord=false)"
+					disabled="@load(empty vm.selectedRecord)" />
+				<toolbarbutton image="/images/afc/22x22/add.png"
+					tooltiptext="Aggiungi"
+					onClick="@command('onModifica', isNuovoRecord=true)" />
+				<toolbarbutton image="/images/afc/22x22/delete.png"
+					tooltiptext="Elimina"
+					onClick="@command('onElimina')"
+					disabled="@load(empty vm.selectedRecord)" />
+			</hlayout>
+		</hlayout>
+
+		<hlayout hflex="2" style="text-align: right;" valign="middle">
+			<textbox width="120px"
+				mold="rounded"
+				tooltiptext="Filtro per la ricerca"
+				value="@bind(vm.filtro)"
+				onOK="@command('onFiltro')"
+				onChanging="@command('onFiltro')" />
+			<toolbarbutton image="/images/afc/22x22/search.png"
+				tooltiptext="Ricerca"
+				onClick="@command('onFiltro')" />
+			<space bar="true" />
+			<image class="imgVisValido"
+				hover="@bind(not vm.visualizzaTutti? '/images/agsde2/16x16/point_green_red.png' : '/images/agsde2/16x16/point_green.png')"
+				src="@bind(vm.visualizzaTutti? '/images/agsde2/16x16/point_green_red.png' : '/images/agsde2/16x16/point_green.png')"
+				onClick="@command('onVisualizzaTutti')"
+				tooltiptext="@bind(vm.visualizzaTutti? 'Visualizza solo i documenti attivi' : 'Visualizza anche i documenti non attivi')" />
+		</hlayout>
+	</hlayout>
+
+</zk>

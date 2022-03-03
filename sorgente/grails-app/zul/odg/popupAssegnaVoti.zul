@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer" viewModel="@id('vm') @init('popupAssegnaVotiViewModel')"
+		border="normal" width="500px">
+
+		<h:div class="barraTitoloPagina">
+			<label sclass="titoloPagina" value="Assegna Voti" />
+		</h:div>
+
+		<listbox vflex="1" model="@load(vm.listaVoti)" selectedItem="@bind(vm.selectedVoto)" emptyMessage="Nessun voto presente">
+			<listhead>
+				<listheader label="Voto" />
+				<listheader label="Descrizione" />
+			</listhead>
+			<template name="model" var="voto">
+				<listitem>
+					<listcell label="@load(voto.valore)"></listcell>
+					<listcell label="@load(voto.descrizione)"></listcell>
+				</listitem>
+			</template>
+		</listbox>
+
+		<h:div class="barraPulsanti">
+			<h:div>
+				<button mold="trendy" label="Assegna" onClick="@command('onAssegna')" disabled="@load(empty vm.selectedVoto)"/>
+				<button mold="trendy" label="Chiudi" onClick="@command('onChiudi')" />
+			</h:div>
+		</h:div>
+
+	</window>
+
+</zk>
+
+
+
+
+

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer" border="normal"
+        viewModel="@id('vm') @init('popupControlloRegolaritaViewModel')"
+		width="900px" height="700px" sizable="true" title=" " closable="true">
+
+		<vlayout width="100%" vflex="1" spacing="10px">
+			<h:div class="barraTitoloPagina">
+ 				<label sclass="titoloPagina" value="@load(empty vm.controlloRegolarita.stato ? 'Crea Nuovo Controllo Regolarità' : (vm.controlloRegolarita.stato eq 'CONCLUSO' ? 'Controllo Concluso' : 'Controllo in corso'))"/>
+			</h:div>
+			
+			<tabbox>
+				<tabs>
+			        <tab label="Campi obbligatori" />
+			        <tab label="Elenco tipologie" />
+			        <tab label="Elenco registri" />
+					<tab label="Elenco categorie" />
+					<tab label="Elenco Aree" />
+			    </tabs>
+		    	<tabpanels>
+			    	<tabpanel>
+				    	<grid sclass="form">
+							<rows>
+								<row>
+									<cell>
+										<h:span class="mandatoryLabel">*</h:span><label value="Ambito:" />
+									</cell>
+									<cell colspan="2">
+										<combobox model="@load(vm.listaAmbiti)" selectedItem="@bind(vm.controlloRegolarita.ambito)"
+													readonly="true" disabled="@load(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista)"
+													onSelect="@command('onChangeAmbito')"
+													hflex="1" >
+						                    <template name="model">
+						                        <comboitem label="@load(each)" />
+						                    </template>
+						                </combobox>
+									</cell>
+									<cell>
+										<h:span class="mandatoryLabel">*</h:span><label value="Finalità di estrazione:" />
+									</cell>
+									<cell colspan="2">
+										<combobox hflex="1"
+											selectedItem="@bind(vm.controlloRegolarita.tipoControlloRegolarita) @converter('it.finmatica.zkutils.PropertyConverter', property='id')"
+											model="@load(vm.listaTipiControlloRegolarita)"
+											readonly="true"
+											disabled="@load(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista)">
+											<template name="model">
+										    	<comboitem label="@load(each.titolo)" value="@load(each)"/>
+											</template>
+										</combobox>
+									</cell>
+								</row>
+								<row>
+									<cell>
+										<h:span class="mandatoryLabel">*</h:span><label value="@load(c:l('label.controlloRegolarita.dataEsecutivita'))" />
+									</cell>
+									<cell>
+										<label value="dal" />
+										<datebox value="@bind(vm.controlloRegolarita.dataEsecutivitaDal)" format="dd/MM/yyyy" disabled="@load(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista)"/>
+									</cell>
+									<cell>
+										<label value="al"/>
+										<datebox value="@bind(vm.controlloRegolarita.dataEsecutivitaAl)"  format="dd/MM/yyyy" disabled="@load(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista)"/>
+									</cell>
+								</row>
+								<row>
+									<cell>
+										<h:span class="mandatoryLabel">*</h:span><label value="Numero Atti da estrarre:" />
+									</cell>
+									<cell>
+										<spinner id="quantita" value="@bind(vm.numeroAttiDaEstrarre)" format=",###" disabled="@load((vm.controlloRegolarita.id &gt; 0 and not empty vm.lista) or vm.percentualeAttiDaEstrarre > 0 )"/>
+									</cell>
+									<cell>
+										<h:span class="mandatoryLabel">*</h:span><label value="Percentuale Atti da estrarre:" />
+									</cell>
+									<cell>
+										<spinner id="percentuale" value="@bind(vm.percentualeAttiDaEstrarre)" format=",###" disabled="@load((vm.controlloRegolarita.id &gt; 0 and not empty vm.lista) or vm.numeroAttiDaEstrarre > 0 )"/>
+									</cell>
+								</row>
+								<row>
+									<cell>
+										<label value="Solo con impegno di spesa" />
+									</cell>
+									<cell colspan="2">
+										<radiogroup selectedIndex="@load(vm.impegnoDiSpesa ? 0 : 1)" selectedItem="@save(vm.impegnoDiSpesa)" >
+								            <radio label="Sì" value="@load(true)"   disabled="@load(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista)" />
+								            <radio label="No" value="@load(false)"  disabled="@load(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista)" />
+							            </radiogroup>
+									</cell>
+									<cell visible="@load(vm.controlloRegolarita.totaleAtti > 0)">
+										<label value="Totale atti estratti" />
+									</cell>
+									<cell colspan="2" visible="@load(vm.controlloRegolarita.totaleAtti > 0)">
+										<label value="@load(vm.attiEstratti)" />
+										<label value="/" />
+										<label value="@load(vm.controlloRegolarita.totaleAtti)" />
+									</cell>
+								</row>
+								<row>
+									<cell>
+										<label value="Stampe disponibili:" />
+									</cell>
+									<cell colspan="2">
+										<combobox hflex="1" 
+										selectedItem="@bind(vm.controlloRegolarita.modelloTesto) @converter('it.finmatica.zkutils.PropertyConverter', property='id')"
+										model="@load(vm.listaStampe)" readonly="true" disabled="@load(vm.controlloRegolarita.stato eq 'INVIATA')">
+											<template name="model">
+										    	<comboitem label="@load(each.nome)" value="@load(each)"/>
+											</template>
+										</combobox>
+									</cell>
+								</row>							
+							</rows>
+						</grid>
+					</tabpanel>
+					<tabpanel>
+						<grid sclass="form">
+							<rows>
+								<row>
+									<cell>
+										<label value="Tipologie:" />
+									</cell>
+									<cell>
+					                     <combobox mold="rounded" hflex="1"
+											onChange="@command('onChangeList', list=vm.tipologie,item=self.selectedItem.value)"
+											model="@load(vm.listaTipologie)" disabled="@load(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista)">
+											<template name="model">
+												<comboitem label="@load(each.titolo)" value="@load(each)" />
+											</template>
+										</combobox>
+									</cell>
+								</row>
+								<row>
+									<cell colspan="2">							
+					                    <listbox model="@load(vm.tipologie)" height="100px" emptyMessage="Nessuna tipologia selezionata." id="tipologie">
+					                        <listhead>
+												<listheader label="Tipologia" />
+												<listheader label="" width="80px" />
+											</listhead>
+											<template name="model" var="tipologia">
+												<listitem>
+													<listcell>
+														<label value="@load(tipologia.titolo)"/>
+													</listcell>
+													<listcell>
+														<button label="Elimina" mold="trendy" onClick="@command('onRemoveItem', list=vm.tipologie,item=tipologia)" visible="@load(empty vm.lista)"/>
+													</listcell>
+												</listitem>
+											</template>
+										</listbox>
+					                    
+									</cell>
+								</row>
+							</rows>
+						</grid>
+					</tabpanel>
+					<tabpanel>
+						<grid sclass="form">
+							<rows>
+								<row>
+									<cell>
+										<label value="Registri:" />
+									</cell>
+									<cell>
+					                     <combobox mold="rounded" hflex="1"
+											onChange="@command('onChangeList', list=vm.registri,item=self.selectedItem.value)"
+											model="@load(vm.listaTipiRegistro)" disabled="@load(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista)">
+											<template name="model">
+												<comboitem label="@load(each.descrizione)" value="@load(each)" />
+											</template>
+										</combobox>
+									</cell>
+								</row>
+								<row>
+									<cell colspan="2">							
+					                    <listbox model="@load(vm.registri)" height="100px" emptyMessage="Nessun registro selezionato." id="registri">
+					                        <listhead>
+												<listheader label="Registro" />
+												<listheader label="" width="80px" />
+											</listhead>
+											<template name="model" var="registro">
+												<listitem>
+													<listcell>
+														<label value="@load(registro.descrizione)"/>
+													</listcell>
+													<listcell>
+														<button label="Elimina" mold="trendy" onClick="@command('onRemoveItem', list=vm.registri,item=registro)" visible="@load(empty vm.lista)"/>
+													</listcell>
+												</listitem>
+											</template>
+										</listbox>
+					                    
+									</cell>
+								</row>
+							</rows>
+						</grid>
+					</tabpanel>
+					<tabpanel>
+						<grid sclass="form">
+							<rows>
+								<row>
+									<cell>
+										<label value="Categorie:" />
+									</cell>
+									<cell>
+										<combobox mold="rounded" hflex="1"
+												  onChange="@command('onChangeList', list=vm.categorie,item=self.selectedItem.value)"
+												  model="@load(vm.listaCategorie)" disabled="@load(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista)">
+											<template name="model">
+												<comboitem label="@load(each.codice)" value="@load(each)" />
+											</template>
+										</combobox>
+									</cell>
+								</row>
+								<row>
+									<cell colspan="2">
+										<listbox model="@load(vm.categorie)" height="100px" emptyMessage="Nessuna categoria selezionata." id="categorie">
+											<listhead>
+												<listheader label="Categoria" />
+												<listheader label="" width="80px" />
+											</listhead>
+											<template name="model" var="categoria">
+												<listitem>
+													<listcell>
+														<label value="@load(categoria.codice)"/>
+													</listcell>
+													<listcell>
+														<button label="Elimina" mold="trendy" onClick="@command('onRemoveItem', list=vm.categorie,item=categoria)" visible="@load(empty vm.lista)"/>
+													</listcell>
+												</listitem>
+											</template>
+										</listbox>
+
+									</cell>
+								</row>
+							</rows>
+						</grid>
+					</tabpanel>
+					<tabpanel>
+						<grid sclass="form">
+							<rows>
+								<row>
+									<cell>
+										<label value="Aree:" />
+									</cell>
+									<cell colspan="2">
+										<combobox mold="rounded" hflex="1"
+												  selectedItem="@bind(vm.area)" onSelect="@command('onChangeArea')"
+												  model="@load(vm.listaAree)" disabled="@load(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista)">
+											<template name="model">
+												<comboitem label="@load(each.descrizione)" value="@load(each)" />
+											</template>
+										</combobox>
+									</cell>
+								</row>
+								<row>
+									<cell>
+										<label value="Servizi:" />
+									</cell>
+									<cell colspan="2">
+										<combobox mold="rounded" hflex="1"
+												  selectedItem="@bind(vm.servizio)" onSelect="@command('onSelectServizio')"
+												  model="@load(vm.listaServizi)" disabled="@load(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista)">
+											<template name="model">
+												<comboitem label="@load(each.descrizione)" value="@load(each)" />
+											</template>
+										</combobox>
+									</cell>
+								</row>
+							</rows>
+						</grid>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+			<grid sclass="form">
+				<rows>
+					<row>
+						<cell colspan="6" height="30px" align="right">
+							<button label="Calcola Documenti" onClick="@command('onTrovaDocumenti')" mold="trendy" visible="@load(not empty vm.controlloRegolarita.id and empty vm.lista)"/>
+						</cell>
+					</row>
+				</rows>
+			</grid>
+
+			<listbox id="listaDocumenti"
+			model="@load(vm.lista)"
+			emptyMessage="Nessun documento trovato." vflex="1">
+		        <listhead>
+		        	<listheader label="Documento"/>
+		        	<listheader label="Oggetto"/>
+		        	<listheader width="80px" label="@load(c:l('label.controlloRegolarita.esecutivita'))"/>
+		        	<listheader width="100px" label="Pubblicazione"/>
+		        	<listheader label="Esito"/>
+		        	<listheader width="120px" />
+		        	<listheader width="32px" label="Invio" />
+		        </listhead>
+				<template name="model" var="documento">
+					<listitem onDoubleClick="@command('onApriDocumento', documento=documento)">
+						<listcell label="@load(empty documento.determina.id ? c:cat4('Delibera n. ', documento.delibera.numeroDelibera, '/', documento.delibera.annoDelibera) : c:cat4('Determina n. ', documento.determina.numeroDetermina, '/', documento.determina.annoDetermina))"/>
+						<listcell label="@load(empty documento.determina.id ? documento.delibera.oggetto : documento.determina.oggetto)"/>
+						<listcell label="@load(empty documento.determina.id ? documento.delibera.dataEsecutivita : documento.determina.dataEsecutivita) @converter('formattedDate', format='dd/MM/yyyy')"/>
+						<listcell label="@load(empty documento.determina.id ? documento.delibera.dataPubblicazione : documento.determina.dataPubblicazione)  @converter('formattedDate', format='dd/MM/yyyy')"/>
+						<listcell label="@load(documento.esitoControlloRegolarita.titolo)" tooltiptext="@load(documento.note)"/> 
+						<listcell>
+							<button label="@load(empty documento.esitoControlloRegolarita.id ? 'Assegna esito' : 'Modifica esito')" mold="trendy" onClick="@command('onAssegnaEsito', documento=documento)" visible="@bind(not empty documento.id and vm.controlloRegolarita.stato eq 'REDAZIONE')"/>
+						</listcell>
+						<listcell>
+							<image src="/images/agsde2/16x16/point_green.png" visible="@load(documento.notificata)" tooltiptext="Notifica inviata"/>
+							<image src="/images/agsde2/16x16/point_red.png" visible="@load(not documento.notificata)" tooltiptext="Notifica non inviata"/>
+						</listcell>
+					</listitem>
+				</template>
+	        </listbox>
+
+   			<h:div class="barraPulsanti">
+				<h:div>
+					<button label="Salva"				onClick="@command('onSalva')" 							mold="trendy"/>
+					<button label="Invia notifiche"		onClick="@command('onNotifica')" 						mold="trendy" disabled="@bind(not vm.daNotificare)" />
+					<button label="Stampa riassuntiva"	onClick="@command('onStampa')" 							mold="trendy" disabled="@bind(empty vm.lista)" />
+					<button label="Cancella"			onClick="@command('onCancella')"						mold="trendy" disabled="@bind(empty vm.controlloRegolarita.id or vm.controlloRegolarita.stato ne 'REDAZIONE')"/>
+					<button label="Chiudi Controllo"	onClick="@command('onChiudiControllo')"					mold="trendy" disabled="@bind(empty vm.controlloRegolarita.id or vm.controlloRegolarita.stato ne 'REDAZIONE')"/>
+					<button label="Chiudi" 				onClick="@command('onChiudi')" 							mold="trendy" />
+				</h:div>
+			</h:div>
+		</vlayout>
+
+		<!-- - - - - - - - - - - - - - - - -->
+		<!-- Popup di conferma invio notifica -->
+		<!-- - - - - - - - - - - - - - - - -->
+		<window id="popupAzioni" position="center" title=" " width="400px" height="205px" border="normal" closable="false" visible="false">
+			<vlayout width="100%" vflex="1" spacing="10px">
+				<div sclass="barraTitoloPagina">
+					<label sclass="titoloPagina" value="Notifica Controllo Regolarita" />
+				</div>
+
+				<h:div class="barraPulsanti">
+					<h:div>
+						<button label="Stampa Elenco" 	onClick="@command('onStampa')" 	mold="trendy" />
+						<button label="Invia Notifica" 	onClick="@command('onInvia')"	mold="trendy" />
+						<button label="Annulla" 		onClick="@command('onAnnulla')" mold="trendy" />
+					</h:div>
+				</h:div>
+			</vlayout>
+		</window>
+    </window>
+</zk>

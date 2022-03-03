@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer" vflex="1"
+		viewModel="@id('vm') @init('odgConvocatiSedutaViewModel')">
+
+		<hlayout hflex="1" vflex="1">
+			<vlayout hflex="1" vflex="1">
+				<label sclass="msgErrore" value="@bind(vm.lbRuoliObbligatori)" />
+
+				<listbox id="listaConvocati" model="@load(vm.listaPartecipanti)" vflex="1"
+					selectedItem="@bind(vm.selectedPartecipante)"
+					emptyMessage="Nessun dato trovato">
+					<listhead>
+						<listheader label="" 				width="5%"  />
+						<listheader label="Cognome Nome" 	width="30%" />
+						<listheader label="Ruolo" 			width="25%" />
+						<listheader label="Incarico" 		width="30%" />
+						<listheader label="Firma" 			width="5%"  />
+						<listheader label="" 				width="5%" style="text-align:center;">
+							<image style="cursor: pointer;" tooltiptext="Aggiungi un partecipante alla seduta"
+								src="/images/afc/16x16/add.png" onClick="@command('onCreaPartecipante')"
+								visible="@bind((vm.seduta.secondaSeduta eq null)?true:false)"></image>
+						</listheader>
+					</listhead>
+					<template name="model" var="partecipante">
+						<listitem>
+							<listcell style="text-align:center;">
+								<image src="/images/agsde2/22x22/annotate.png" onClick="@command('onModificaPartecipante', partecipante=partecipante)" />
+							</listcell>
+							<listcell label="@load(not empty partecipante.commissioneComponente ? partecipante.commissioneComponente.componente.denominazione : partecipante.componenteEsterno.denominazione )" />
+							<listcell label="@load(partecipante.ruoloPartecipante.descrizione)" />
+							<listcell label="@load(not empty partecipante.incarico ? partecipante.incarico.titolo : partecipante.commissioneComponente.incarico.titolo )" />
+							<listcell style="text-align: center">
+								<label style="float:left;" visible="@load(partecipante.firmatario)" value="@load(c:cat(partecipante.sequenzaFirma,'°'))" />
+								<image style="float:right;" src="@load(partecipante.firmatario ? '/images/afc/16x16/legitimate.png' : '')" />
+							</listcell>
+							<listcell style="text-align:center;">
+								<image src="/images/agsde2/16x16/trash.png" onClick="@command('onEliminaPartecipante', partecipante=partecipante)" />
+							</listcell>
+						</listitem>
+					</template>
+				</listbox>
+			</vlayout>
+
+			<!-- lato di destra: pulsanti per riordinare i convocati. -->
+			<vbox  pack="middle" align="center" vflex="1">
+				<button image="/images/afc/22x22/up_blu.png"   onClick="@command('onSuSequenza', listaConvocati=listaConvocati)"
+						orient="vertical" disabled="@load(empty vm.selectedPartecipante or listaConvocati.getSelectedIndex() eq 0)"/>
+				<button image="/images/afc/22x22/down_blu.png" onClick="@command('onGiuSequenza', listaConvocati=listaConvocati)"
+						orient="vertical" disabled="@load(empty vm.selectedPartecipante or listaConvocati.getSelectedIndex() eq vm.listaPartecipanti.size() -1)"/>
+			</vbox>
+		</hlayout>
+	</window>
+</zk>

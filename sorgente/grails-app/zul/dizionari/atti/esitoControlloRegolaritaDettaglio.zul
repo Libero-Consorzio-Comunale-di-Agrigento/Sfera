@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+    	viewModel="@id('vm') @init('esitoControlloRegolaritaDettaglioViewModel')"
+    	border="normal"
+        width="600px"
+        sizable="false"
+        title=" ">
+
+	     <h:div class="barraTitoloPagina">
+   			<label sclass="titoloPagina" value="Gestione Esiti Controllo di Regolarità"/>
+			<image
+				src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+				tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')" />
+   		</h:div>
+
+        <grid sclass="form">
+			<rows>
+				<row>
+	        		<cell width="30%" align="right">
+    	    			<h:span class="mandatoryLabel">*</h:span><label value="Ambito"/>
+        			</cell>
+					<cell>
+        				<combobox model="@load(vm.listaAmbiti)" hflex="1"
+	      						   selectedItem="@bind(vm.selectedRecord.ambito)">
+	      							<template name="model" var="ambito">
+									<comboitem label="@load(ambito)" value="@load(ambito)" />
+								</template>
+	      					</combobox>
+        			</cell>
+        		</row>
+
+        		<row>
+	        		<cell align="right">
+    	    			<h:span class="mandatoryLabel">*</h:span><label value="Esito"/>
+        			</cell>
+					<cell>
+        				<textbox value="@bind(vm.selectedRecord.titolo)" hflex="1"/>
+        			</cell>
+        		</row>
+
+
+        		<row>
+	        		<cell align="right"><label value="Descrizione"/>
+        			</cell>
+					<cell>
+        				<textbox multiline="true" rows="3" value="@bind(vm.selectedRecord.descrizione)" hflex="1"/>
+        			</cell>
+        		</row>
+			</rows>
+		</grid>
+
+		<vlayout class="datiCreazioneModifica" visible="@load(not empty vm.selectedRecord.id)">
+		    <label value="@load(vm.datiCreazione)" />
+			<label value="@load(vm.datiModifica)"  />
+		</vlayout>
+
+		<controlBarRecord/>
+
+
+    </window>
+
+</zk>

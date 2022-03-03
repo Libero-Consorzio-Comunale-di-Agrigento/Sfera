@@ -1,0 +1,14 @@
+--liquibase formatted sql
+--changeset rdestasio:install_20200221_as4_03 runOnChange:true
+
+CREATE OR REPLACE FORCE VIEW AS4_V_TIPI_SOGGETTO
+(
+   TIPO_SOGGETTO,
+   DESCRIZIONE,
+   FLAG_TRG
+)
+AS
+   SELECT TIPO_SOGGETTO, DESCRIZIONE, FLAG_TRG FROM AS4_TIPI_SOGGETTO
+/
+
+

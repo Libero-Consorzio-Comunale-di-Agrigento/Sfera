@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <grid sclass="form">
+        <rows>
+            <row>
+                <cell align="right">
+                    <label value="Data dal"/>
+                </cell>
+                <cell>
+                    <datebox format="dd/MM/yyyy" value="@bind(vm.campiRicerca.filtri.DATA_DAL)" mold="rounded" width="100%"
+                             onOK="@command('onRicerca')"/>
+                </cell>
+                <cell align="right">
+                    <label value="al"/>
+                </cell>
+                <cell>
+                    <datebox format="dd/MM/yyyy" value="@bind(vm.campiRicerca.filtri.DATA_AL)" mold="rounded" width="100%"
+                             onOK="@command('onRicerca')"/>
+                </cell>
+            </row>
+            <row>
+                <cell align="right">
+                    <label value="Oggetto"/>
+                </cell>
+                <cell colspan="5">
+                    <textbox value="@bind(vm.campiRicerca.filtri.OGGETTO)" mold="rounded" hflex="1" onOK="@command('onRicerca')"/>
+                </cell>
+            </row>
+            <row>
+                <cell align="right">
+                    <label value="Classifica"/>
+                </cell>
+                <cell colspan="5">
+                    <button image="/images/agsde2/16x16/annotate.png" onClick="@command('apriClassificazione')"/>
+                    <textbox readonly="true" value="@bind(vm.campoClassifica)" mold="rounded" width="85%"/>
+                    <button image="/images/afc/16x16/delete.png" onClick="@command('onSvuotaClassifica')" tooltip="Svuota la Classifica."/>
+                </cell>
+            </row>
+            <row>
+                <cell align="right">
+                    <label value="Fascicolo"/>
+                </cell>
+                <cell colspan="5">
+                    <button image="/images/agsde2/16x16/annotate.png" onClick="@command('apriFascicoli')"/>
+                    <textbox readonly="true" value="@bind(vm.campoFasciolo)" mold="rounded" width="90%"/>
+                </cell>
+            </row>
+            <row>
+                <cell align="right">
+                    <label value="Categoria"/>
+                </cell>
+                <cell colspan="5">
+                    <combobox model="@bind(vm.campiRicerca.filtri.LISTA_CATEGORIA)" hflex="1"
+                              selectedItem="@bind(vm.campiRicerca.filtri.CATEGORIA) @converter('it.finmatica.zkutils.PropertyConverter', property='codice', defaultValue='none')"
+                              readonly="true" mold="rounded">
+                        <template name="model" var="categoria">
+                            <comboitem label="@load(categoria.descrizione)" value="@load(categoria)"/>
+                        </template>
+                    </combobox>
+                </cell>
+            </row>
+        </rows>
+    </grid>
+</zk>

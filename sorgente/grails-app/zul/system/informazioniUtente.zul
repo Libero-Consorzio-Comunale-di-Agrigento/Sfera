@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer"
+			viewModel="@id('vm') @init('informazioniUtenteViewModel')"
+			position="center,middle"
+			mode="modal"
+			closable="false"
+			width="800px"
+			height="500px"
+			title=" " border="normal">
+
+		<style>
+	        .meter {
+	            font-size: 1px;
+	            height: 3px;
+	        }
+	        .meter-inner {
+	            width: 0px;
+	            height: 3px;
+	        }
+	        .meter-red .meter-inner{
+	            background: red;
+	        }
+	        .meter-orange .meter-inner{
+	            background: orange;
+	        }
+	        .meter-green .meter-inner{
+	            background: green;
+	        }
+	    </style>
+
+		<script type="text/javascript"><![CDATA[
+function meterUpdate(e) {
+    var score = strengthMeasure(e.value),
+        desc = [ "", "Molto debole", "Debole", "Media", "Media", "Forte", "Molto Forte" ],
+        meter = $("$meter"),
+        meterWidget = zk.Widget.$(meter);
+
+    switch (score) {
+        case 1:
+        case 2:
+            meterWidget.setSclass("meter meter-red");
+            break;
+        case 3:
+        case 4:
+            meterWidget.setSclass("meter meter-orange");
+            break;
+        case 5:
+        case 6:
+            meterWidget.setSclass("meter meter-green");
+            break;
+        default:
+            meterWidget.setSclass("meter");
+    }
+
+    //Get ZK Widget through jQuery selector
+    zk.Widget.$($(".meter-inner")).setWidth(score * meter.width() / desc.length + "px");
+
+    //Get ZK Widget through ID
+    zk.Widget.$("$msg").setValue(desc[score]);
+}
+
+/* Simple Rule */
+function strengthMeasure(text) {
+    var score = 0;
+    if (text.length > 0)
+        score++;
+
+    if (text.length > 6)
+        score++;
+
+    if ((text.match(/[a-z]/)) && (text.match(/[A-Z]/)))
+        score++;
+
+    if (text.match(/\d+/))
+        score++;
+
+    if (text.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/))
+        score++;
+
+    if (text.length > 12)
+        score++;
+
+    if (text.length == 0)
+        score = 0;
+
+    return score;
+}
+		]]></script>
+
+		<grid sclass="documentoBandaTitolo">
+	 		<rows>
+	 			<row>
+	 				<cell width="50px">
+	 					<image src="/images/agsde2/48x48/user.png" />
+	 				</cell>
+	 				<cell>
+	 					<!-- titolo della pagina -->
+	 					<label value="@load(vm.cognomeNome)"  	class="documentoTitolo" />
+	 					<label value="@load(vm.nominativo)" 	class="documentoSottoTitolo" />
+	 				</cell>
+	 			</row>
+	 		</rows>
+	 	</grid>
+
+	 	<tabbox vflex="1" style="margin-top: 10px">
+	 		<tabs>
+				<tab label="Informazioni" />
+				<tab label="Preferenze" />
+	 			<tab label="Cambio Password" visible="@load(vm.cambioPassword)"/>
+	 			<tab label="Test Funzionalità" />
+	 		</tabs>
+	 		<tabpanels>
+	 			<!-- Informazioni -->
+	 			<tabpanel>
+	 				<grid sclass="form">
+						<rows>
+							<row>
+								<cell width="150px">
+									<label value="Ruolo di Accesso:" />
+								</cell>
+								<cell>
+									<label value="@load(vm.ruoloAccesso)" />
+								</cell>
+							</row>
+
+							<row>
+								<cell width="150px">
+									<label value="Amministrazione:" />
+								</cell>
+								<cell>
+									<label value="@load(vm.amministrazione)" />
+								</cell>
+							</row>
+
+							<row>
+								<cell width="150px">
+									<label value="Ottica:" />
+								</cell>
+								<cell>
+									<label value="@load(vm.ottica)" />
+								</cell>
+							</row>
+						</rows>
+					</grid>
+
+					<grid sclass="form" model="@load(vm.ruoliUo) @template(each.tipo)" vflex="1" style="margin-top:10px">
+
+						<template name="uo">
+					        <row style="background-color: #D7E3EC;">
+				            <cell width="150px"><label value="Unità Organizzativa:" style="font-weight:bold;" /></cell>
+				            <cell><label value="@load(c:cat3(each.descrizione, ' - Progressivo:', each.codice))" style="font-weight:bold;" /></cell>
+ 					        </row>
+ 					    </template>
+					    <template name="ruolo">
+					        <row>
+					            <cell hflex="1"><label value="@load(each.codice)"/></cell>
+					            <cell hflex="3"><label value="@load(each.descrizione)"/></cell>
+					        </row>
+					    </template>
+					</grid>
+	 			</tabpanel>
+
+				<!-- Preferenze -->
+				<tabpanel>
+					<listbox model="@load(vm.preferenze)" emptyMessage="Nessuna preferenza presente."  vflex="1">
+						<listhead>
+							<listheader label="Tipo" width="30%"/>
+							<listheader label="Valore"/>
+							<listheader label="" width="40px" />
+							<listheader label="" width="40px" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell>
+										<label value="@load(each.etichetta)" />
+								</listcell>
+								<listcell>
+									<combobox mold="rounded" model="@load(each.listaValori)" selectedItem="@bind(each.valore)">
+										<template name="model" >
+											<comboitem label="@load(each.descrizione)" value="@load(each.codice)"/>
+										</template>
+									</combobox>
+								</listcell>
+								<listcell style="text-align:center;">
+									<image src="/images/afc/16x16/save.png" tooltiptext="Salva preferenza"  onClick="@command('onSalvaPreferenza', codice=each.codice, codiceDescrizione=each.valore)" />
+								</listcell>
+								<listcell style="text-align:center;">
+									<image src="/images/agsde2/16x16/trash.png" tooltiptext="Rimuovi preferenza"  onClick="@command('onEliminaPreferenza', codice=each.codice)" />
+								</listcell>
+							</listitem>
+						</template>
+					</listbox>
+				</tabpanel>
+
+	 			<!-- Cambio Password -->
+	 			<tabpanel visible="@load(vm.cambioPassword)">
+	 				<grid sclass="form" vflex="1">
+						<rows>
+							<row height="50px">
+								<cell width="150px">
+									<label value="Password corrente:" />
+								</cell>
+								<cell>
+									<textbox value="@bind(vm.vecchiaPassword)" type="password" width="300px" />
+								</cell>
+								<cell width="30px"></cell>
+								<cell width="220px" style="border-left: none"></cell>
+							</row>
+							<row height="50px">
+								<cell>
+									<label value="Nuova password:" />
+								</cell>
+								<cell>
+									<vlayout>
+										<textbox id="pwd" value="@bind(vm.nuovaPassword)" type="password" w:onChanging="meterUpdate(event)"  width="300px" />
+				                    </vlayout>
+								</cell>
+								<cell>
+									<div id="meter" sclass="meter" width="100%">
+					                	<div sclass="meter-inner"></div>
+					                </div>
+					                <label id="msg" />
+					             </cell>
+					             <cell style="border-left: none"></cell>
+							</row>
+							<row height="50px">
+								<cell>
+									<label value="Conferma password:" />
+								</cell>
+								<cell>
+									<textbox value="@bind(vm.confermaPassword)" type="password" onChanging="@command('onVerificaPassword')" onChange="@command('onVerificaPassword')"  width="300px" />
+								</cell>
+								<cell>
+									<image src="@load(vm.passwordVerificata ? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/viewcancel.png')"
+											tooltiptext="@load(vm.passwordVerificata ? 'La nuova password e la conferma coincidono' : 'La password inserita non coincide con quella scelta.')" />
+
+								</cell>
+								<cell  style="border-left: none">
+									<button label="Cambia Password" onClick="@command('onCambiaPassword')" disabled="@load(not vm.passwordVerificata)"  mold="trendy" image="/images/pulsanti/16x16/filesave.png" />
+								</cell>
+							</row>
+						</rows>
+					</grid>
+	 			</tabpanel>
+
+	 			<!-- Test Funzionalità -->
+	 			<tabpanel>
+	 				<grid sclass="form" vflex="1">
+						<rows>
+							<row height="50px">
+								<cell width="150px">
+									<label value="Java:" />
+								</cell>
+								<cell colspan="2">
+									<a href="http://www.java.com/it/download/installed.jsp?detect=jre" target="_blank" label="Verifica Funzionamento Java" />
+								</cell>
+							</row>
+							<row height="50px">
+								<cell width="150px">
+									<label value="Editor utilizzato:" />
+								</cell>
+								<cell colspan="2">
+									<label value="@load(vm.tipoEditor)" /> (<label id="pathEditorTesto" />)
+								</cell>
+<!-- 								<cell> -->
+<!-- 									<button label="Aggiorna Editor" onClick="@command('onAggiornaEditor')" mold="trendy" /> -->
+<!-- 								</cell> -->
+							</row>
+							<row height="50px">
+								<cell width="150px">
+									<label value="Test Edita Testo:" />
+								</cell>
+								<cell>
+									<radiogroup selectedIndex="@load(vm.editaTestoAppletJava ? 0 : 1)" selectedItem="@save(vm.editaTestoAppletJava)" onCheck="@command('onAbilitaAppletJava')">
+					     				<radio label="Con Applet"   value="@load(true)"/>
+							            <radio label="Con Jnlp" 	value="@load(false)" />
+						            </radiogroup>
+								</cell>
+								<cell colspan="2">
+									<button image="/images/agsde2/16x16/pencil.png" mold="trendy"
+											label="Edita"
+											onClick="@command('onTestEditaTesto')"/>
+								</cell>
+							</row>
+							<row height="50px">
+								<cell width="150px">
+									<label value="Test Firma Digitale:" />
+								</cell>
+								<cell>
+									<button image="/images/pulsanti/16x16/signature.png" label="Firma" onUpload="@command('onTestFirma')" upload="true,maxsize=-1,native" mold="trendy"/>
+								</cell>
+								<cell>
+									<button  image="/images/agsde2/16x16/document.png" disabled="@load(vm.idAllegato lt 0)" label="Visualizza file firmato" onClick="@command('onDownloadFileFirmato')" mold="trendy"/>
+								</cell>
+							</row>
+							<row height="50px">
+								<cell width="150px">
+									<label value="Test Firma Digitale (senza applet):" />
+								</cell>
+								<cell>
+									<button image="/images/pulsanti/16x16/signature.png" label="Firma" upload="true" onUpload="@command('onTestFirmaSenzaApplet')" mold="trendy"/>
+								</cell>
+								<cell>
+									<button  image="/images/agsde2/16x16/document.png" disabled="@load(vm.idAllegato lt 0)" label="Visualizza file firmato" onClick="@command('onDownloadFileFirmato')" mold="trendy"/>
+								</cell>
+							</row>
+						</rows>
+					</grid>
+	 			</tabpanel>
+	 		</tabpanels>
+	 	</tabbox>
+
+
+		<!-- - - - - - - - - - - - - - - -->
+		<!-- Pulsanti -->
+		<!-- - - - - - - - - - - - - - - -->
+		<h:div class="pulsantiIter">
+			<button label="Chiudi" onClick="@command('onClose')" mold="trendy" image="/images/pulsanti/16x16/window_close.png" />
+		</h:div>
+	</window>
+</zk>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:ns="http://protocol.comune.modena.it" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ax21="http://dtos.protocol.comune.modena.it/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://protocol.comune.modena.it">
+    <wsdl:documentation>
+		Webservice di accesso al protocollo per ADS
+	</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema xmlns:ax22="http://dtos.protocol.comune.modena.it/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://protocol.comune.modena.it">
+            <xs:import namespace="http://dtos.protocol.comune.modena.it/xsd"/>
+            <xs:element name="getClassifications">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="fullText" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getClassificationsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ax22:Classification"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getDossiers">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="role" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="fullText" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="classifId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="year" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="number" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="subject" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getDossiersResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ax22:Dossier"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://dtos.protocol.comune.modena.it/xsd">
+            <xs:complexType name="Classification">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="startDate" nillable="true" type="xs:dateTime"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Dossier">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="classificationDescr" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="classificationId" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="number" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="subNumber" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="subject" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="year" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getClassificationsRequest">
+        <wsdl:part name="parameters" element="ns:getClassifications"/>
+    </wsdl:message>
+    <wsdl:message name="getClassificationsResponse">
+        <wsdl:part name="parameters" element="ns:getClassificationsResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getDossiersRequest">
+        <wsdl:part name="parameters" element="ns:getDossiers"/>
+    </wsdl:message>
+    <wsdl:message name="getDossiersResponse">
+        <wsdl:part name="parameters" element="ns:getDossiersResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="ProtocolForADSPortType">
+        <wsdl:operation name="getClassifications">
+            <wsdl:input message="ns:getClassificationsRequest" wsaw:Action="urn:getClassifications"/>
+            <wsdl:output message="ns:getClassificationsResponse" wsaw:Action="urn:getClassificationsResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getDossiers">
+            <wsdl:input message="ns:getDossiersRequest" wsaw:Action="urn:getDossiers"/>
+            <wsdl:output message="ns:getDossiersResponse" wsaw:Action="urn:getDossiersResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ProtocolForADSSoap11Binding" type="ns:ProtocolForADSPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getClassifications">
+            <soap:operation soapAction="urn:getClassifications" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getDossiers">
+            <soap:operation soapAction="urn:getDossiers" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="ProtocolForADSSoap12Binding" type="ns:ProtocolForADSPortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getClassifications">
+            <soap12:operation soapAction="urn:getClassifications" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getDossiers">
+            <soap12:operation soapAction="urn:getDossiers" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="ProtocolForADSHttpBinding" type="ns:ProtocolForADSPortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="getClassifications">
+            <http:operation location="ProtocolForADS/getClassifications"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="getClassifications"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="getClassifications"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getDossiers">
+            <http:operation location="ProtocolForADS/getDossiers"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="getDossiers"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="getDossiers"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ProtocolForADS">
+        <wsdl:port name="ProtocolForADSHttpSoap11Endpoint" binding="ns:ProtocolForADSSoap11Binding">
+            <soap:address location="http://sfera-iride-titolfascic.provincia.modena.it:8888/protocol-webservice-for-ads/services/ProtocolForADS.ProtocolForADSHttpSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="ProtocolForADSHttpSoap12Endpoint" binding="ns:ProtocolForADSSoap12Binding">
+            <soap12:address location="http://sfera-iride-titolfascic.provincia.modena.it:8888/protocol-webservice-for-ads/services/ProtocolForADS.ProtocolForADSHttpSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="ProtocolForADSHttpEndpoint" binding="ns:ProtocolForADSHttpBinding">
+            <http:address location="http://sfera-iride-titolfascic.provincia.modena.it:8888/protocol-webservice-for-ads/services/ProtocolForADS.ProtocolForADSHttpEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

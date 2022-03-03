@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+    	viewModel="@id('vm') @init('cambioUnitaDettaglioViewModel')"
+    	border="normal"
+    	title=" "
+    	closable="true"
+        width="800px"
+        height="600px"
+        sizable="true">
+
+		<h:div class="barraTitoloPagina">
+   			<label sclass="titoloPagina" value="Gestione Unità"/>
+   		</h:div>
+
+		<hlayout valign="middle" style="padding: 5px;">
+			<!-- LEFT BUTTONS -->
+			<hlayout hflex="3">
+				<hlayout sclass="afc-control-bar" valign="middle">
+					<paging sclass="afc-paging"
+						onPaging="@command('onPagina')"
+						activePage="@bind(vm.activePage)"
+						pageSize="@bind(vm.pageSize)"
+						totalSize="@load(vm.totalSize)"/>
+					<toolbarbutton image="/images/afc/22x22/refresh.png"
+						tooltiptext="Refresh"
+						onClick="@command('onRefresh')" />
+				</hlayout>
+			</hlayout>
+
+			<hlayout hflex="2" style="text-align: right;" valign="middle">
+				<textbox width="120px"
+					mold="rounded"
+					tooltiptext="Filtro per la ricerca"
+					value="@bind(vm.filtro)"
+					onOK="@command('onFiltro')"
+					onChanging="@command('onFiltro')" />
+				<toolbarbutton image="/images/afc/22x22/search.png"
+					tooltiptext="Ricerca"
+					onClick="@command('onFiltro')" />
+			</hlayout>
+		</hlayout>
+
+		<listbox model="@load(vm.listaUnita)" selectedItem="@bind(vm.unitaSo4Nuova)" emptyMessage="Nessuna unità presente." vflex="1">
+	        <listhead sizable="true">
+	        	<listheader label="Codice" 		hflex="1"/>
+				<listheader label="Descrizione" hflex="3"/>
+				<listheader label="dal" />
+				<listheader label="al" />
+	        </listhead>
+        	<template name="model" var="u">
+				<listitem onDoubleClick="@command('onSalvaUnitaSelezionata')">
+					<listcell label="@load(u.codice)" />
+					<listcell label="@load(u.descrizione)" />
+					<listcell label="@load(empty u.dal ? '' : c:formatDate(u.dal, 'dd/MM/yyyy'))" />
+					<listcell label="@load(empty u.al ? '' : c:formatDate(u.al,  'dd/MM/yyyy'))" />
+				</listitem>
+			</template>
+        </listbox>
+
+        <h:div class="barraPulsanti">
+			<h:div>
+				<button
+				 	mold="trendy"
+					label="Modifica unità"
+					tooltiptext="Modifica il riferimento dall'unità iniziale all'unità selezionata"
+					onClick="@command('onSalvaUnitaSelezionata')"
+					disabled="@bind(empty vm.unitaSo4Nuova)"
+					width="100px" />
+				<button
+				 	mold="trendy"
+					label="Chiudi"
+					onClick="@command('onChiudi')"
+					image="/images/afc/16x16/close.png"  />
+			</h:div>
+		</h:div>
+    </window>
+</zk>

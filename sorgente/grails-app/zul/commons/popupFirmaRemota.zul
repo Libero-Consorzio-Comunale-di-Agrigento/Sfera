@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+        viewModel="@id('vm') @init('popupFirmaRemotaViewModel')"
+        title="Firma Remota"
+		border="normal" sizable="false" closable="true" width="350px" height="250px">
+
+		<grid span="true">
+			<rows>
+				<row>
+					<label>Username:</label>
+					<textbox value="@bind(vm.username)"></textbox>
+				</row>
+				<row>
+					<label>Password:</label>
+					<textbox type="password" value="@bind(vm.password)"></textbox>
+				</row>
+				<row>
+					<label>Pin:</label>
+					<textbox type="password" value="@bind(vm.pin)" ></textbox>
+				</row>
+
+				<row>
+					<cell colspan="2">
+						<button label="Firma" onClick="@command('onFirma')" mold="trendy"></button>
+					</cell>
+				</row>
+			</rows>
+		</grid>
+    </window>
+</zk>

@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Determina (Contabilità Sfera)</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<determina>
+				<NUMERO_PROPOSTA>100</NUMERO_PROPOSTA>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<DATA_DETERMINA>01/05/2014</DATA_DETERMINA>
+				<ANNO_DETERMINA>2014</ANNO_DETERMINA>
+				<NUMERO_DETERMINA>1000</NUMERO_DETERMINA>
+				<DATA_PROTOCOLLO>02/05/2014</DATA_PROTOCOLLO>
+				<ANNO_PROTOCOLLO>2014</ANNO_PROTOCOLLO>
+				<NUMERO_PROTOCOLLO>2500</NUMERO_PROTOCOLLO>
+				<CLASSIFICA_CODICE>01</CLASSIFICA_CODICE>
+				<CLASSIFICA_DESCRIZIONE>DESCRIZIONE TITOLARIO</CLASSIFICA_DESCRIZIONE>
+				<FASCICOLO_ANNO>2014</FASCICOLO_ANNO>
+				<FASCICOLO_NUMERO>100</FASCICOLO_NUMERO>
+				<FASCICOLO_OGGETTO>DESCRIZIONE FASCICOLO</FASCICOLO_OGGETTO>
+				<OGGETTO_DETERMINA>PROVA DETERMINA</OGGETTO_DETERMINA>
+				<OGGETTO_DETERMINA_DEFINITIVO>PROVA DETERMINA  - OGGETTO DEFINITIVO</OGGETTO_DETERMINA_DEFINITIVO>
+				<FUNZIONARIO>NOMINATIVO FUNZIONARIO</FUNZIONARIO>
+				<DIRIGENTE>NOMINATIVO DIRIGENTE</DIRIGENTE>
+				<REDATTORE>NOMINATIVO REDATTORE</REDATTORE>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<CODICE_UNITA_PROPONENTE>A_AAGG</CODICE_UNITA_PROPONENTE>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<SUDDIVISIONE>AREA</SUDDIVISIONE>
+				<UNITA_PADRE>AREA AMMINISTRATIVA</UNITA_PADRE>
+				<FIRMATARIO>NOMINATIVO FIRMATARIO</FIRMATARIO>
+				<DESCRIZIONE_FIRMATARIO>Il funzionario delegato</DESCRIZIONE_FIRMATARIO>
+				<DELEGANTE>(IN SOSTITUZIONE DI QUALCUNO)</DELEGANTE>
+				<ASCENDENTI_UNITA>AREA: STRUTTURA AZIENDE SANITARIE</ASCENDENTI_UNITA>
+				<DESCRIZIONE_REGISTRO>REGISTRO DETERMINAZIONI DIRIGENZIALI</DESCRIZIONE_REGISTRO>
+				<CIG>0123456789</CIG>
+				<M_TOTALE_ENTRATE>205,33</M_TOTALE_ENTRATE>
+				<M_TOTALE_USCITE>133,00</M_TOTALE_USCITE>
+				<MSE>+</MSE>
+				<MSU>-</MSU>
+				<INCARICATO>NOMINATIVO INCARICATO</INCARICATO>
+				<DESCRIZIONE_RADICE_SUDD>RADICE AFFARI GENERALI</DESCRIZIONE_RADICE_SUDD>
+			</determina>
+			<movimenti>
+				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
+				<M_ANNO_PRENOTAZIONE>2015</M_ANNO_PRENOTAZIONE>
+				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
+				<M_CAPITOLO>4</M_CAPITOLO>
+				<M_NOTE>Acquisto Carta</M_NOTE>
+				<M_CIG>13123</M_CIG>
+				<M_CUP>3</M_CUP>
+				<M_SEGNO>-</M_SEGNO>
+				<M_IMPORTO>1234,00</M_IMPORTO>
+				<M_NUMERO_IMPEGNO>1</M_NUMERO_IMPEGNO>
+				<M_NUMERO_PRENOTAZIONE>2</M_NUMERO_PRENOTAZIONE>
+				<M_NUMERO_ACCERTAMENTO>3</M_NUMERO_ACCERTAMENTO>
+				<M_AZIONE>434</M_AZIONE>
+				<M_ENTRATA_USCITA>S</M_ENTRATA_USCITA>
+				<M_CODICE>1234</M_CODICE>
+			</movimenti>
+			<movimenti>
+				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
+				<M_ANNO_PRENOTAZIONE>2015</M_ANNO_PRENOTAZIONE>
+				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
+				<M_CAPITOLO>4</M_CAPITOLO>
+				<M_NOTE>Bonus</M_NOTE>
+				<M_CIG>13123</M_CIG>
+				<M_CUP>4</M_CUP>
+				<M_SEGNO>+</M_SEGNO>
+				<M_IMPORTO>1234,00</M_IMPORTO>
+				<M_NUMERO_IMPEGNO>1</M_NUMERO_IMPEGNO>
+				<M_NUMERO_PRENOTAZIONE>2</M_NUMERO_PRENOTAZIONE>
+				<M_NUMERO_ACCERTAMENTO>3</M_NUMERO_ACCERTAMENTO>
+				<M_AZIONE>434</M_AZIONE>
+				<M_ENTRATA_USCITA>E</M_ENTRATA_USCITA>
+				<M_CODICE>1234</M_CODICE>
+			</movimenti>
+			<movimenti>
+				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
+				<M_ANNO_PRENOTAZIONE>2015</M_ANNO_PRENOTAZIONE>
+				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
+				<M_CAPITOLO>4</M_CAPITOLO>
+				<M_NOTE>Acquisto</M_NOTE>
+				<M_CIG>13123</M_CIG>
+				<M_CUP>5</M_CUP>
+				<M_SEGNO>+</M_SEGNO>
+				<M_IMPORTO>1234,00</M_IMPORTO>
+				<M_NUMERO_IMPEGNO>1</M_NUMERO_IMPEGNO>
+				<M_NUMERO_PRENOTAZIONE>2</M_NUMERO_PRENOTAZIONE>
+				<M_NUMERO_ACCERTAMENTO>3</M_NUMERO_ACCERTAMENTO>
+				<M_AZIONE>434</M_AZIONE>
+				<M_ENTRATA_USCITA>E</M_ENTRATA_USCITA>
+				<M_CODICE>1234</M_CODICE>
+			</movimenti>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>id della determina</descrizione>
+			<path/>
+		</metaDato>	
+<!-- DEFINIZIONE CAMPI DELLA QUERY -->		
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della proposta di determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della proposta di determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di adozione della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di adozione della determina</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>NUMERO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di protocollazione della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di protocollazione della determina</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di protocollo determina</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>OGGETTO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO_DETERMINA_DEFINITIVO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della determina alla numerazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FUNZIONARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Funzionario della determina</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>DIRIGENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Dirigente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>REDATTORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Redattore della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INCARICATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Incaricato della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice UO dell'unità proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>AREA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Area dell'unita' proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SERVIZIO_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Servizio dell'unita' proponente della determina</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>SUDDIVISIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Suddivisione dell'unità proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PADRE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità Padre dell'Unità Proponente</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Utente Firmatario</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è un dirigente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DELEGANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è stato delegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CLASSIFICA_CODICE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice della classificazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CLASSIFICA_DESCRIZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione della classificazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FASCICOLO_NUMERO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del fascicolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FASCICOLO_ANNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno del fascicolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FASCICOLO_OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del fascicolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+            <nomeSimbolico>ASCENDENTI_UNITA</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Ascendenti unità proponente</descrizione>
+            <path/>
+        </metaDato>
+		<metaDato>
+            <nomeSimbolico>DESCRIZIONE_REGISTRO</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Descrizione del registro di numerazione</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>CIG</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Codice Identificativo Gara</descrizione>
+            <path/>
+        </metaDato>	
+        <metaDato>
+			<nomeSimbolico>M_TOTALE_ENTRATE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Somma dei movimenti in entrata</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>M_TOTALE_USCITE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Somma dei movimenti in uscita</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MSE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Il segno della somma delle entrate (+ o -)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MSU</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Il segno della somma delle uscite (+ o -)</descrizione>
+			<path/>
+		</metaDato>
+        
+        <!-- Query dei movimenti -->
+        <metaDato>
+			<nomeSimbolico>M_ANNO_IMPEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno dell'Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_ANNO_PRENOTAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della Prenotazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_ANNO_ACCERTAMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno dell'Accertamento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CAPITOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice del Capitolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NOTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CIG</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>CIG</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CUP</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>CUP</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_IMPORTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NUMERO_IMPEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NUMERO_PRENOTAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Prenotazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NUMERO_ACCERTAMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Accertamento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_AZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice Azione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_ENTRATA_USCITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Entrata/Uscita</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CODICE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_SEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Il Segno dell'importo (+ o -)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_RADICE_SUDD</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione dell'unità radice in struttura rispetto l'unità proponente</descrizione>
+			<path/>
+		</metaDato>
+	</definitions>
+	<queryes>
+ 	<!-- determina: restituisce i dati di una determina -->
+ 	<query 	id="determina"
+ 			help_descrizione="Ritorna i dati di una determina."
+			help_query_alias="d"
+			help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, ANNO_PROTOCOLLO, AREA_PROPONENTE, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_PROTOCOLLO, DESCRIZIONE_REGISTRO, DIRIGENTE, REDATTORE, INCARICATO, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_OGGETTO, FUNZIONARIO, NUMERO_DETERMINA, NUMERO_PROPOSTA, NUMERO_PROTOCOLLO, OGGETTO_DETERMINA, OGGETTO_DETERMINA_DEFINITIVO, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, UNITA_PADRE, FIRMATARIO, DESCRIZIONE_FIRMATARIO, DELEGANTE, ASCENDENTI_UNITA, CIG, M_TOTALE_ENTRATE, M_TOTALE_USCITE, MSE, MSU, DESCRIZIONE_RADICE_SUDD">
+ select decode(numero_proposta, null, '${documentRoot.determina.NUMERO_PROPOSTA}', to_char(numero_proposta)) NUMERO_PROPOSTA
+    , decode(anno_proposta, null, '${documentRoot.determina.ANNO_PROPOSTA}', to_char(anno_proposta)) ANNO_PROPOSTA
+    , decode(data_numero_determina, null, '${documentRoot.determina.DATA_DETERMINA}', to_char(data_numero_determina,'dd/mm/yyyy')) DATA_DETERMINA
+    , decode(anno_determina, null, '${documentRoot.determina.ANNO_DETERMINA}', anno_determina) ANNO_DETERMINA
+    , decode(numero_determina, null, '${documentRoot.determina.NUMERO_DETERMINA}', to_char(numero_determina)) NUMERO_DETERMINA
+    , decode(numero_determina, null, '${documentRoot.determina.NUMERO_PROTOCOLLO}', to_char(numero_protocollo)) NUMERO_PROTOCOLLO
+    , decode(numero_determina, null, '${documentRoot.determina.ANNO_PROTOCOLLO}', anno_protocollo) ANNO_PROTOCOLLO
+    , decode(numero_determina, null, '${documentRoot.determina.DATA_PROTOCOLLO}', to_char(data_numero_protocollo,'dd/mm/yyyy')) DATA_PROTOCOLLO
+    , oggetto OGGETTO_DETERMINA
+    , decode(numero_determina, null, '${documentRoot.determina.OGGETTO_DETERMINA_DEFINITIVO}', oggetto) OGGETTO_DETERMINA_DEFINITIVO
+    , decode(numero_determina, null, decode(classifica_codice, null, '${documentRoot.determina.CLASSIFICA_CODICE}', classifica_codice), classifica_codice) CLASSIFICA_CODICE
+    , decode(numero_determina, null, decode(classifica_descrizione, null, '${documentRoot.determina.CLASSIFICA_DESCRIZIONE}', classifica_descrizione), classifica_descrizione) CLASSIFICA_DESCRIZIONE
+    , decode(numero_determina, null, decode(fascicolo_anno, null, '${documentRoot.determina.FASCICOLO_ANNO}', fascicolo_anno), fascicolo_anno) FASCICOLO_ANNO
+    , decode(numero_determina, null, decode(fascicolo_numero, null, '${documentRoot.determina.FASCICOLO_NUMERO}', fascicolo_numero), fascicolo_numero) FASCICOLO_NUMERO
+    , decode(numero_determina, null, decode(fascicolo_oggetto, null, '${documentRoot.determina.FASCICOLO_OGGETTO}', fascicolo_oggetto), fascicolo_oggetto) FASCICOLO_OGGETTO
+    ,  decode(d.controllo_funzionario,'N',null, utility_pkg.get_nominativo_sogg_dete (d.id_determina, 'FUNZIONARIO')) FUNZIONARIO
+    ,  utility_pkg.get_nominativo_sogg_dete (d.id_determina, 'DIRIGENTE') DIRIGENTE
+    ,  utility_pkg.get_nominativo_sogg_dete (d.id_determina, 'REDATTORE') REDATTORE
+	,  utility_pkg.get_nominativo_sogg_dete (d.id_determina, 'INCARICATO') INCARICATO
+     , utility_pkg.get_unita_prop_determina (d.id_determina) UNITA_PROPONENTE
+     , utility_pkg.get_codice_unita_prop_dete (d.id_determina) CODICE_UNITA_PROPONENTE
+     , utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_AREA', d.ente) AREA_PROPONENTE
+     , utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_SERVIZIO', d.ente) SERVIZIO_PROPONENTE
+     , utility_pkg.get_suddivisione_uo_determina (d.id_determina) SUDDIVISIONE 
+     , utility_pkg.get_uo_padre_determina (d.id_determina) UNITA_PADRE
+    , nvl(utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto( nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), d.ente), '${documentRoot.determina.FIRMATARIO}' ) FIRMATARIO
+	, decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.determina.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), d.ente)) DESCRIZIONE_FIRMATARIO
+	, decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.determina.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, d.ente)) DELEGANTE
+    , utility_pkg.get_desc_ascendenti_unita(utility_pkg.get_codice_unita_prop_dete (d.id_determina), null, impostazioni_pkg.get_impostazione('OTTICA_SO4', d.ente), null) ASCENDENTI_UNITA
+    , decode(tp.descrizione, null, '${documentRoot.determina.DESCRIZIONE_REGISTRO}', tp.descrizione) DESCRIZIONE_REGISTRO
+    , d.cig CIG
+    , (select trim(TO_CHAR(abs(sum(m.importo)),       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m where m.tipo = 'ENTRATA' and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') M_TOTALE_ENTRATE
+    , (select trim(TO_CHAR(abs(sum(m.importo)),       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m where m.tipo = 'USCITA'  and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') M_TOTALE_USCITE
+    , (select decode(sign(sum(m.importo)), -1, '-', '+') from movimenti_contabili m where m.tipo = 'ENTRATA' and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') MSE
+    , (select decode(sign(sum(m.importo)), -1, '-', '+') from movimenti_contabili m where m.tipo = 'USCITA'  and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') MSU
+	, utility_pkg.unita_get_radice_determina (d.id_determina) DESCRIZIONE_RADICE_SUDD
+		from firmatari f
+    , determine d
+    , tipi_registro tp
+ where d.id_determina 				= #id
+  and f.id_determina(+) 			= d.id_determina
+  and f.firmato(+) 					= 'N'
+  and f.data_firma(+) 				is not null
+  and tp.tipo_registro (+) 			= d.registro_determina  
+ </query> 
+
+<query id="movimenti"
+        help_query_alias="m"
+		help_field_aliases="M_ANNO_IMPEGNO, M_ANNO_PRENOTAZIONE, M_ANNO_ACCERTAMENTO, M_CAPITOLO, M_NOTE, M_CIG, M_CUP, M_SEGNO, M_IMPORTO, M_NUMERO_IMPEGNO, M_NUMERO_PRENOTAZIONE, M_NUMERO_ACCERTAMENTO, M_AZIONE, M_ENTRATA_USCITA, M_CODICE"> 
+ select m.anno_competenza               as M_ANNO_IMPEGNO
+      , m.anno_crono                    as M_ANNO_PRENOTAZIONE
+      , m.anno_esercizio                as M_ANNO_ACCERTAMENTO
+      , m.capitolo                      as M_CAPITOLO
+      , m.descrizione                   as M_NOTE
+      , m.descrizione_finanziamento_1   as M_CIG
+      , m.descrizione_finanziamento_2   as M_CUP
+      , decode(sign(m.importo), -1, '-', '+') as M_SEGNO
+      , trim(TO_CHAR(abs(m.importo), '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) as M_IMPORTO
+      , m.numero                        as M_NUMERO_IMPEGNO
+      , m.numero_crono                  as M_NUMERO_PRENOTAZIONE
+      , m.numero_det                    as M_NUMERO_ACCERTAMENTO
+      , m.opera                         as M_AZIONE
+      , m.tipo							as M_ENTRATA_USCITA
+      , m.tipo_dettaglio                as M_CODICE
+  from movimenti_contabili m
+ where m.id_documento     = #id
+   and m.tipo_documento   = 'DETERMINA'
+ order by m.tipo asc
+ </query>
+  	</queryes>
+	<staticData />
+</documentRoot>

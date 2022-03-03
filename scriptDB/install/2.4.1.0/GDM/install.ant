@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     01/mar/2014 11:34:14                                                        
+
+     [NomeProgetto]    
+     [Descrizione del Progetto]
+                   
+     [Autore]                                                                
+     ====================================================================== -->
+<project>
+
+	<import file="../../../commons/sql/GDM/install.ant" />
+	<import file="../../../commons/sql/AGSDE2/install.ant" />
+
+	<target name="config">
+		<!-- richiede queste connessioni -->
+		<require-conn istanza="ad4" 	jndiOpzionale="true"/>
+		<require-conn istanza="agsde2"  jndiOpzionale="true"/>
+		<require-conn istanza="gdm" 	jndiOpzionale="true"/>
+	</target>
+	
+	<target name="install:db" depends="-gdm-carica-area,-gdm-viste-pkg,-agsde2-compile-all">
+		<sql escapeprocessing="false"  userid="${global.db.gdm.username}"
+		   password="${global.db.gdm.password}"
+				url="${global.db.gdm.url}"
+			 driver="${global.db.gdm.driver}"
+		 	  expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+				src="file_nascosti/01.gdm.sql" />
+
+		<sql escapeprocessing="false"  userid="${global.db.target.username}"
+		   password="${global.db.target.password}"
+				url="${global.db.target.url}"
+			 driver="${global.db.target.driver}"
+			  expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+				src="file_nascosti/02.agsde2.sql" />
+
+		<sql escapeprocessing="false"  userid="${global.db.gdm.username}"
+			 password="${global.db.gdm.password}"
+			 url="${global.db.gdm.url}"
+			 driver="${global.db.gdm.driver}"
+			 expandProperties="true" delimiter="/" delimitertype="row" keepformat="true" onerror="continue">
+begin
+	Utilitypackage.compile_all();
+end;
+/
+		</sql>
+	</target>
+	
+	<target name="install:fs">
+	</target>
+</project>

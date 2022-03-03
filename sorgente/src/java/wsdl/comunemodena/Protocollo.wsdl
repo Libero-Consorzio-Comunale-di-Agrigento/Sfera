@@ -1,0 +1,3579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="LeggiProtocollo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AnnoProtocollo" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="NumeroProtocollo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiProtocolloResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeggiProtocolloResult" type="tns:DocumentoOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DocumentoOut">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdDocumento" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AnnoProtocollo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroProtocollo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataProtocollo" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Oggetto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OggettoBilingue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Origine" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Classifica" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Classifica_Descrizione" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoDocumento_Descrizione" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MittenteInterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MittenteInterno_Descrizione" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MittentiDestinatari" type="tns:ArrayOfMittenteDestinatarioOut" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataDocumento" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InCaricoA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InCaricoA_Descrizione" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AnnoNumeroData" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AnnoPratica" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroPratica" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AnnoNumeroPratica" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LivelloDiSicurezza" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataEvidenza" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocAllegati" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocumentoRiservato" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IterAttivo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataDiCarico" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="UtenteDiInserimento" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataInserimento" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Messaggio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Allegati" type="tns:ArrayOfAllegatoOut" />
+          <s:element minOccurs="0" maxOccurs="1" name="Impegni" type="tns:ArrayOfImpegnoOut" />
+          <s:element minOccurs="0" maxOccurs="1" name="Accertamenti" type="tns:ArrayOfAccertamentoOut" />
+          <s:element minOccurs="0" maxOccurs="1" name="CentriDiCosto" type="tns:ArrayOfCentriDiCostoOut" />
+          <s:element minOccurs="0" maxOccurs="1" name="Registri" type="tns:ArrayOfRegistroAssegnatoOut" />
+          <s:element minOccurs="0" maxOccurs="1" name="Interop" type="tns:InteropOut" />
+          <s:element minOccurs="0" maxOccurs="1" name="RispostaAlProtocollo" type="tns:RispostaAlProtocolloOut" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProtocolliGenerati" type="tns:ArrayOfProtocolloGeneratoOut" />
+          <s:element minOccurs="0" maxOccurs="1" name="Corrispondenti" type="tns:ArrayOfCorrispondenteOut" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdPratica" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataInizioPubblicazione" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataFinePubblicazione" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="DatiUtente" type="tns:ArrayOfTabellaUtente" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMittenteDestinatarioOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MittenteDestinatario" type="tns:MittenteDestinatarioOut" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MittenteDestinatarioOut">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdSoggetto" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CognomeNome" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PartitaIVA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ChiaveAlternativa" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAllegatoOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Allegato" type="tns:AllegatoOut" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AllegatoOut">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Serial" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoFile" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContentType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Image" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="Commento" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IDBase" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Versione" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoAllegato" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Schema" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SottoEstensione" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Firmato" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NomeAllegato" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Principale" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pubblicato" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CommentoBilingue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Uri" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UriImportato" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Size" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfImpegnoOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Impegno" type="tns:ImpegnoOut" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ImpegnoOut">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AnnoImpegno" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroImpegno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CapitoloImpegno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ArticoloImpegno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodSiopeImpegno" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImportoImpegno" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="SoggettoImpegno" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAccertamentoOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Accertamento" type="tns:AccertamentoOut" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AccertamentoOut">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AnnoAccertamento" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroAccertamento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CapitoloAccertamento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ArticoloAccertamento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodSiopeAccertamento" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImportoAccertamento" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="SoggettoAccertamento" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCentriDiCostoOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CdC" type="tns:CentriDiCostoOut" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CentriDiCostoOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Voce" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CdC_provento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Propon_ammor" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Importo" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfRegistroAssegnatoOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Registro" type="tns:RegistroAssegnatoOut" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RegistroAssegnatoOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TipoRegistro" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AnnoRegistro" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroRegistro" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataRegistro" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="InteropOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Denominazione" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AOO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Indirizzo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IndirizzoTelematico" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Localizzazione" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Riservato" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RispostaAlProtocolloOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroRegistrazioneRP" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataRegistrazioneRP" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoRP" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfProtocolloGeneratoOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProtocolloGenerato" type="tns:ProtocolloGeneratoOut" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProtocolloGeneratoOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroRegistrazionePG" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataRegistrazionePG" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoPG" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCorrispondenteOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Corrispondente" type="tns:CorrispondenteOut" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CorrispondenteOut">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdSoggetto" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Denominazione" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FlagAmministrazione" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AOO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UnitaOrganizzativa" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroRegistrazione" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataRegistrazione" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTabellaUtente">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TabellaUtente" type="tns:TabellaUtente" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TabellaUtente">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NomeTabella" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Righe" type="tns:ArrayOfRecordUtente" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfRecordUtente">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Riga" type="tns:RecordUtente" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RecordUtente">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Progressivo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Campi" type="tns:ArrayOfCampoUtente" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCampoUtente">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Campo" type="tns:CampoUtente" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CampoUtente">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NomeCampo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoCampo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ValoreCampo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LeggiDocumento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IdDocumento" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiDocumentoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeggiDocumentoResult" type="tns:DocumentoOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InserisciProtocolloEAnagrafiche">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ProtoIn" nillable="true" type="tns:ProtocolloIn" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ProtocolloIn">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataProt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumProt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Classifica" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Oggetto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OggettoBilingue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Origine" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MittenteInterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MittentiDestinatari" type="tns:ArrayOfMittenteDestinatarioIn" />
+          <s:element minOccurs="0" maxOccurs="1" name="AggiornaAnagrafiche" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InCaricoA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AnnoPratica" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroPratica" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroAllegati" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataEvid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OggettoStandard" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Allegati" type="tns:ArrayOfAllegatoIn" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMittenteDestinatarioIn">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MittenteDestinatario" type="tns:MittenteDestinatarioIn" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MittenteDestinatarioIn">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CodiceFiscale" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CognomeNome" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nome" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Indirizzo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Localita" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodiceComuneResidenza" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataNascita" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodiceComuneNascita" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nazionalita" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataInvio_DataProt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Spese_NProt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mezzo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataRicevimento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoSogg" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoPersona" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Recapiti" type="tns:ArrayOfRecapitoIn" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfRecapitoIn">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Recapito" type="tns:RecapitoIn" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RecapitoIn">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TipoRecapito" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ValoreRecapito" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Swap" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAllegatoIn">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Allegato" type="tns:AllegatoIn" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AllegatoIn">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TipoFile" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContentType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Image" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="Commento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdAllegatoPrincipale" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Schema" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NomeAllegato" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoAllegato" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="URI" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Hash" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InserisciProtocolloEAnagraficheResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InserisciProtocolloEAnagraficheResult" type="tns:ProtocolloOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ProtocolloOut">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdDocumento" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AnnoProtocollo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroProtocollo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataProtocollo" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Messaggio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Registri" type="tns:ArrayOfRegistroOut" />
+          <s:element minOccurs="0" maxOccurs="1" name="Allegati" type="tns:ArrayOfAllegatoInseritoOut" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfRegistroOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Registro" type="tns:RegistroOut" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RegistroOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TipoRegistro" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AnnoRegistro" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroRegistro" type="s:short" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAllegatoInseritoOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Allegato" type="tns:AllegatoInseritoOut" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AllegatoInseritoOut">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Serial" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="IDBase" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Versione" type="s:short" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InserisciDocumentoEAnagrafiche">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ProtoIn" nillable="true" type="tns:ProtocolloIn" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InserisciDocumentoEAnagraficheResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InserisciDocumentoEAnagraficheResult" type="tns:ProtocolloOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiungiAllegati">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NuoviAllegati" nillable="true" type="tns:NuoviAllegati" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="NuoviAllegati">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="idDoc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="annoProt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="numProt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="utente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ruolo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Allegati" type="tns:ArrayOfAllegatoIn" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AggiungiAllegatiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AggiungiAllegatiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiProtocolloMultiDB">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AnnoProtocollo" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="NumeroProtocollo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiProtocolloMultiDBResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeggiProtocolloMultiDBResult" type="tns:DocumentoOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiDocumentoMultiDB">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IdDocumento" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiDocumentoMultiDBResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeggiDocumentoMultiDBResult" type="tns:DocumentoOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InserisciProtocolloEAnagraficheMultiDB">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ProtoIn" nillable="true" type="tns:ProtocolloIn" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InserisciProtocolloEAnagraficheMultiDBResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InserisciProtocolloEAnagraficheMultiDBResult" type="tns:ProtocolloOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InserisciDocumentoEAnagraficheMultiDB">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ProtoIn" nillable="true" type="tns:ProtocolloIn" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InserisciDocumentoEAnagraficheMultiDBResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InserisciDocumentoEAnagraficheMultiDBResult" type="tns:ProtocolloOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiungiAllegatiMultiDB">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NuoviAllegati" nillable="true" type="tns:NuoviAllegati" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiungiAllegatiMultiDBResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AggiungiAllegatiMultiDBResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginResult" type="tns:LoginOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="LoginOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Autenticato" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Messaggio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LoginMultiDB">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginMultiDBResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginMultiDBResult" type="tns:LoginOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RicercaAmministrazione">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmmSoggetto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOOSoggetto" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RicercaAmministrazioneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RicercaAmministrazioneResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RicercaAmministrazioneMultiDB">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmmSoggetto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOOSoggetto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RicercaAmministrazioneMultiDBResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RicercaAmministrazioneMultiDBResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiungiAllegati2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NuoviAllegati" nillable="true" type="tns:NuoviAllegati" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiungiAllegati2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AggiungiAllegati2Result" type="tns:AllegatiInseritiOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AllegatiInseritiOut">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdDocumento" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Allegati" type="tns:ArrayOfAllegatoInseritoOut" />
+          <s:element minOccurs="0" maxOccurs="1" name="Messaggio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InserisciDocumentoDaDM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DocumentumIn" nillable="true" type="tns:DocumentumIn" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DocumentumIn">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ObjecID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Oggetto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Origine" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MittenteInterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InserisciDocumentoDaDMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DocumentumOut" nillable="true" type="tns:DocumentumOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DocumentumOut">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdDocumento" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AnnoProtocollo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroProtocollo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataProtocollo" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Registri" type="tns:ArrayOfRegistroOut" />
+          <s:element minOccurs="0" maxOccurs="1" name="Messaggio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ModificaDocumentoEAnagrafiche">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ProtoIn" nillable="true" type="tns:ModificaProtocolloIn" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ModificaProtocolloIn">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AnnoProtocollo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroProtocollo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Classifica" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Oggetto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OggettoBilingue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Origine" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MittenteInterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MittentiDestinatari" type="tns:ArrayOfMittenteDestinatarioIn" />
+          <s:element minOccurs="0" maxOccurs="1" name="AggiornaAnagrafiche" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InCaricoA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AnnoPratica" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroPratica" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroAllegati" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataEvid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ModificaDocumentoEAnagraficheResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ModificaDocumentoEAnagraficheResult" type="tns:ModificaProtocolloOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ModificaProtocolloOut">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdDocumento" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Messaggio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreaCopie">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreaCopieIn" nillable="true" type="tns:CreaCopieIn" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CreaCopieIn">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AnnoProtocollo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroProtocollo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FascicolaConOriginale" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UODestinatarie" type="tns:ArrayOfUODestinataria" />
+          <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUODestinataria">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UODestinataria" type="tns:UODestinataria" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UODestinataria">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Carico" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoUO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroCopie" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreaCopieResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreaCopieResult" type="tns:CreaCopieOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CreaCopieOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Messaggio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdDocumentoSorgente" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CopieCreate" type="tns:ArrayOfCopiaCreata" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCopiaCreata">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CopiaCreata" type="tns:CopiaCreata" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CopiaCreata">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdDocumentoCopia" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Carico" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LeggiBarcode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Barcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiBarcodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeggiBarcodeResult" type="tns:DocumentoOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiDocumentoString">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IdDocumento" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiDocumentoStringResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeggiDocumentoStringResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiProtocolloString">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AnnoProtocollo" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="NumeroProtocollo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiProtocolloStringResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeggiProtocolloStringResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiBarcodeString">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Barcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiBarcodeStringResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeggiBarcodeStringResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InserisciDocumentoEAnagraficheString">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProtocolloInStr" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InserisciDocumentoEAnagraficheStringResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InserisciDocumentoEAnagraficheStringResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InserisciProtocolloEAnagraficheString">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProtocolloInStr" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InserisciProtocolloEAnagraficheStringResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InserisciProtocolloEAnagraficheStringResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModificaDocumentoEAnagraficheString">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProtocolloInStr" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModificaDocumentoEAnagraficheStringResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ModificaDocumentoEAnagraficheStringResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RicercaPerCodiceFiscaleString">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceFiscale" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SoloProtocollo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RicercaPerCodiceFiscaleStringResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RicercaPerCodiceFiscaleStringResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiungiAllegatiString">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NuoviAllegatiStr" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiungiAllegatiStringResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AggiungiAllegatiStringResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreaCopieString">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreaCopieInStr" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreaCopieStringResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreaCopieStringResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PubblicazioneDocumento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Pubblicazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PubblicazioneDocumentoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PubblicazioneDocumentoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiAnagrafica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdSoggetto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceFiscale" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiAnagraficaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeggiAnagraficaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiCopie">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeggiCopieIn" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiCopieResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeggiCopieResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminaAllegato">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EliminaAllegatoIn" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminaAllegatoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EliminaAllegatoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AnnullaDocumento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AnnullaDocumentoIn" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AnnullaDocumentoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AnnullaDocumentoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CollegaDocumento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CollegaDocumentoIn" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CollegaDocumentoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CollegaDocumentoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiDocumentoPlus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FiltroDocumento" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiDocumentoPlusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeggiDocumentoPlusResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InserisciDatiUtente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Appartenenza" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Identificativo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="DatiUtente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InserisciDatiUtenteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InserisciDatiUtenteResult" type="tns:EsitoOperazione" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="EsitoOperazione">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Esito" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Messaggio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RicercaPerCodiceFiscale">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceFiscale" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SoloProtocollo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RicercaPerCodiceFiscaleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RicercaPerCodiceFiscaleResult" type="tns:ProtocolliSoggettoOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ProtocolliSoggettoOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Protocolli" type="tns:ArrayOfProtocolloSoggettoOut" />
+          <s:element minOccurs="0" maxOccurs="1" name="Messaggio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfProtocolloSoggettoOut">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Protocollo" type="tns:ProtocolloSoggettoOut" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProtocolloSoggettoOut">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdDocumento" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroProtocollo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataProtocollo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AnnoProtocollazione" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Origine" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Oggetto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MittenteDestinatario" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdSoggetto" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cognome" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nome" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RicercaPerCodiceFiscaleMultiDB">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceFiscale" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SoloProtocollo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAmministrazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAOO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RicercaPerCodiceFiscaleMultiDBResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RicercaPerCodiceFiscaleMultiDBResult" type="tns:ProtocolliSoggettoOut" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DocumentoOut" nillable="true" type="tns:DocumentoOut" />
+      <s:element name="LoginOut" nillable="true" type="tns:LoginOut" />
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="EsitoOperazione" nillable="true" type="tns:EsitoOperazione" />
+      <s:element name="ProtocolliSoggettoOut" nillable="true" type="tns:ProtocolliSoggettoOut" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="LeggiProtocolloSoapIn">
+    <wsdl:part name="parameters" element="tns:LeggiProtocollo" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloSoapOut">
+    <wsdl:part name="parameters" element="tns:LeggiProtocolloResponse" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoSoapIn">
+    <wsdl:part name="parameters" element="tns:LeggiDocumento" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoSoapOut">
+    <wsdl:part name="parameters" element="tns:LeggiDocumentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="InserisciProtocolloEAnagraficheSoapIn">
+    <wsdl:part name="parameters" element="tns:InserisciProtocolloEAnagrafiche" />
+  </wsdl:message>
+  <wsdl:message name="InserisciProtocolloEAnagraficheSoapOut">
+    <wsdl:part name="parameters" element="tns:InserisciProtocolloEAnagraficheResponse" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDocumentoEAnagraficheSoapIn">
+    <wsdl:part name="parameters" element="tns:InserisciDocumentoEAnagrafiche" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDocumentoEAnagraficheSoapOut">
+    <wsdl:part name="parameters" element="tns:InserisciDocumentoEAnagraficheResponse" />
+  </wsdl:message>
+  <wsdl:message name="AggiungiAllegatiSoapIn">
+    <wsdl:part name="parameters" element="tns:AggiungiAllegati" />
+  </wsdl:message>
+  <wsdl:message name="AggiungiAllegatiSoapOut">
+    <wsdl:part name="parameters" element="tns:AggiungiAllegatiResponse" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloMultiDBSoapIn">
+    <wsdl:part name="parameters" element="tns:LeggiProtocolloMultiDB" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloMultiDBSoapOut">
+    <wsdl:part name="parameters" element="tns:LeggiProtocolloMultiDBResponse" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoMultiDBSoapIn">
+    <wsdl:part name="parameters" element="tns:LeggiDocumentoMultiDB" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoMultiDBSoapOut">
+    <wsdl:part name="parameters" element="tns:LeggiDocumentoMultiDBResponse" />
+  </wsdl:message>
+  <wsdl:message name="InserisciProtocolloEAnagraficheMultiDBSoapIn">
+    <wsdl:part name="parameters" element="tns:InserisciProtocolloEAnagraficheMultiDB" />
+  </wsdl:message>
+  <wsdl:message name="InserisciProtocolloEAnagraficheMultiDBSoapOut">
+    <wsdl:part name="parameters" element="tns:InserisciProtocolloEAnagraficheMultiDBResponse" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDocumentoEAnagraficheMultiDBSoapIn">
+    <wsdl:part name="parameters" element="tns:InserisciDocumentoEAnagraficheMultiDB" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDocumentoEAnagraficheMultiDBSoapOut">
+    <wsdl:part name="parameters" element="tns:InserisciDocumentoEAnagraficheMultiDBResponse" />
+  </wsdl:message>
+  <wsdl:message name="AggiungiAllegatiMultiDBSoapIn">
+    <wsdl:part name="parameters" element="tns:AggiungiAllegatiMultiDB" />
+  </wsdl:message>
+  <wsdl:message name="AggiungiAllegatiMultiDBSoapOut">
+    <wsdl:part name="parameters" element="tns:AggiungiAllegatiMultiDBResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapIn">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginMultiDBSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginMultiDB" />
+  </wsdl:message>
+  <wsdl:message name="LoginMultiDBSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginMultiDBResponse" />
+  </wsdl:message>
+  <wsdl:message name="RicercaAmministrazioneSoapIn">
+    <wsdl:part name="parameters" element="tns:RicercaAmministrazione" />
+  </wsdl:message>
+  <wsdl:message name="RicercaAmministrazioneSoapOut">
+    <wsdl:part name="parameters" element="tns:RicercaAmministrazioneResponse" />
+  </wsdl:message>
+  <wsdl:message name="RicercaAmministrazioneMultiDBSoapIn">
+    <wsdl:part name="parameters" element="tns:RicercaAmministrazioneMultiDB" />
+  </wsdl:message>
+  <wsdl:message name="RicercaAmministrazioneMultiDBSoapOut">
+    <wsdl:part name="parameters" element="tns:RicercaAmministrazioneMultiDBResponse" />
+  </wsdl:message>
+  <wsdl:message name="AggiungiAllegati2SoapIn">
+    <wsdl:part name="parameters" element="tns:AggiungiAllegati2" />
+  </wsdl:message>
+  <wsdl:message name="AggiungiAllegati2SoapOut">
+    <wsdl:part name="parameters" element="tns:AggiungiAllegati2Response" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDocumentoDaDMSoapIn">
+    <wsdl:part name="parameters" element="tns:InserisciDocumentoDaDM" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDocumentoDaDMSoapOut">
+    <wsdl:part name="parameters" element="tns:InserisciDocumentoDaDMResponse" />
+  </wsdl:message>
+  <wsdl:message name="ModificaDocumentoEAnagraficheSoapIn">
+    <wsdl:part name="parameters" element="tns:ModificaDocumentoEAnagrafiche" />
+  </wsdl:message>
+  <wsdl:message name="ModificaDocumentoEAnagraficheSoapOut">
+    <wsdl:part name="parameters" element="tns:ModificaDocumentoEAnagraficheResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreaCopieSoapIn">
+    <wsdl:part name="parameters" element="tns:CreaCopie" />
+  </wsdl:message>
+  <wsdl:message name="CreaCopieSoapOut">
+    <wsdl:part name="parameters" element="tns:CreaCopieResponse" />
+  </wsdl:message>
+  <wsdl:message name="LeggiBarcodeSoapIn">
+    <wsdl:part name="parameters" element="tns:LeggiBarcode" />
+  </wsdl:message>
+  <wsdl:message name="LeggiBarcodeSoapOut">
+    <wsdl:part name="parameters" element="tns:LeggiBarcodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoStringSoapIn">
+    <wsdl:part name="parameters" element="tns:LeggiDocumentoString" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoStringSoapOut">
+    <wsdl:part name="parameters" element="tns:LeggiDocumentoStringResponse" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloStringSoapIn">
+    <wsdl:part name="parameters" element="tns:LeggiProtocolloString" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloStringSoapOut">
+    <wsdl:part name="parameters" element="tns:LeggiProtocolloStringResponse" />
+  </wsdl:message>
+  <wsdl:message name="LeggiBarcodeStringSoapIn">
+    <wsdl:part name="parameters" element="tns:LeggiBarcodeString" />
+  </wsdl:message>
+  <wsdl:message name="LeggiBarcodeStringSoapOut">
+    <wsdl:part name="parameters" element="tns:LeggiBarcodeStringResponse" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDocumentoEAnagraficheStringSoapIn">
+    <wsdl:part name="parameters" element="tns:InserisciDocumentoEAnagraficheString" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDocumentoEAnagraficheStringSoapOut">
+    <wsdl:part name="parameters" element="tns:InserisciDocumentoEAnagraficheStringResponse" />
+  </wsdl:message>
+  <wsdl:message name="InserisciProtocolloEAnagraficheStringSoapIn">
+    <wsdl:part name="parameters" element="tns:InserisciProtocolloEAnagraficheString" />
+  </wsdl:message>
+  <wsdl:message name="InserisciProtocolloEAnagraficheStringSoapOut">
+    <wsdl:part name="parameters" element="tns:InserisciProtocolloEAnagraficheStringResponse" />
+  </wsdl:message>
+  <wsdl:message name="ModificaDocumentoEAnagraficheStringSoapIn">
+    <wsdl:part name="parameters" element="tns:ModificaDocumentoEAnagraficheString" />
+  </wsdl:message>
+  <wsdl:message name="ModificaDocumentoEAnagraficheStringSoapOut">
+    <wsdl:part name="parameters" element="tns:ModificaDocumentoEAnagraficheStringResponse" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleStringSoapIn">
+    <wsdl:part name="parameters" element="tns:RicercaPerCodiceFiscaleString" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleStringSoapOut">
+    <wsdl:part name="parameters" element="tns:RicercaPerCodiceFiscaleStringResponse" />
+  </wsdl:message>
+  <wsdl:message name="AggiungiAllegatiStringSoapIn">
+    <wsdl:part name="parameters" element="tns:AggiungiAllegatiString" />
+  </wsdl:message>
+  <wsdl:message name="AggiungiAllegatiStringSoapOut">
+    <wsdl:part name="parameters" element="tns:AggiungiAllegatiStringResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreaCopieStringSoapIn">
+    <wsdl:part name="parameters" element="tns:CreaCopieString" />
+  </wsdl:message>
+  <wsdl:message name="CreaCopieStringSoapOut">
+    <wsdl:part name="parameters" element="tns:CreaCopieStringResponse" />
+  </wsdl:message>
+  <wsdl:message name="PubblicazioneDocumentoSoapIn">
+    <wsdl:part name="parameters" element="tns:PubblicazioneDocumento" />
+  </wsdl:message>
+  <wsdl:message name="PubblicazioneDocumentoSoapOut">
+    <wsdl:part name="parameters" element="tns:PubblicazioneDocumentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="LeggiAnagraficaSoapIn">
+    <wsdl:part name="parameters" element="tns:LeggiAnagrafica" />
+  </wsdl:message>
+  <wsdl:message name="LeggiAnagraficaSoapOut">
+    <wsdl:part name="parameters" element="tns:LeggiAnagraficaResponse" />
+  </wsdl:message>
+  <wsdl:message name="LeggiCopieSoapIn">
+    <wsdl:part name="parameters" element="tns:LeggiCopie" />
+  </wsdl:message>
+  <wsdl:message name="LeggiCopieSoapOut">
+    <wsdl:part name="parameters" element="tns:LeggiCopieResponse" />
+  </wsdl:message>
+  <wsdl:message name="EliminaAllegatoSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminaAllegato" />
+  </wsdl:message>
+  <wsdl:message name="EliminaAllegatoSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminaAllegatoResponse" />
+  </wsdl:message>
+  <wsdl:message name="AnnullaDocumentoSoapIn">
+    <wsdl:part name="parameters" element="tns:AnnullaDocumento" />
+  </wsdl:message>
+  <wsdl:message name="AnnullaDocumentoSoapOut">
+    <wsdl:part name="parameters" element="tns:AnnullaDocumentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="CollegaDocumentoSoapIn">
+    <wsdl:part name="parameters" element="tns:CollegaDocumento" />
+  </wsdl:message>
+  <wsdl:message name="CollegaDocumentoSoapOut">
+    <wsdl:part name="parameters" element="tns:CollegaDocumentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoPlusSoapIn">
+    <wsdl:part name="parameters" element="tns:LeggiDocumentoPlus" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoPlusSoapOut">
+    <wsdl:part name="parameters" element="tns:LeggiDocumentoPlusResponse" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDatiUtenteSoapIn">
+    <wsdl:part name="parameters" element="tns:InserisciDatiUtente" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDatiUtenteSoapOut">
+    <wsdl:part name="parameters" element="tns:InserisciDatiUtenteResponse" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleSoapIn">
+    <wsdl:part name="parameters" element="tns:RicercaPerCodiceFiscale" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleSoapOut">
+    <wsdl:part name="parameters" element="tns:RicercaPerCodiceFiscaleResponse" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleMultiDBSoapIn">
+    <wsdl:part name="parameters" element="tns:RicercaPerCodiceFiscaleMultiDB" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleMultiDBSoapOut">
+    <wsdl:part name="parameters" element="tns:RicercaPerCodiceFiscaleMultiDBResponse" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloHttpGetIn">
+    <wsdl:part name="AnnoProtocollo" type="s:string" />
+    <wsdl:part name="NumeroProtocollo" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloHttpGetOut">
+    <wsdl:part name="Body" element="tns:DocumentoOut" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoHttpGetIn">
+    <wsdl:part name="IdDocumento" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoHttpGetOut">
+    <wsdl:part name="Body" element="tns:DocumentoOut" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloMultiDBHttpGetIn">
+    <wsdl:part name="AnnoProtocollo" type="s:string" />
+    <wsdl:part name="NumeroProtocollo" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloMultiDBHttpGetOut">
+    <wsdl:part name="Body" element="tns:DocumentoOut" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoMultiDBHttpGetIn">
+    <wsdl:part name="IdDocumento" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoMultiDBHttpGetOut">
+    <wsdl:part name="Body" element="tns:DocumentoOut" />
+  </wsdl:message>
+  <wsdl:message name="LoginHttpGetIn">
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LoginHttpGetOut">
+    <wsdl:part name="Body" element="tns:LoginOut" />
+  </wsdl:message>
+  <wsdl:message name="LoginMultiDBHttpGetIn">
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LoginMultiDBHttpGetOut">
+    <wsdl:part name="Body" element="tns:LoginOut" />
+  </wsdl:message>
+  <wsdl:message name="RicercaAmministrazioneHttpGetIn">
+    <wsdl:part name="CodiceAmmSoggetto" type="s:string" />
+    <wsdl:part name="CodiceAOOSoggetto" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RicercaAmministrazioneHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RicercaAmministrazioneMultiDBHttpGetIn">
+    <wsdl:part name="CodiceAmmSoggetto" type="s:string" />
+    <wsdl:part name="CodiceAOOSoggetto" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RicercaAmministrazioneMultiDBHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiBarcodeHttpGetIn">
+    <wsdl:part name="Barcode" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiBarcodeHttpGetOut">
+    <wsdl:part name="Body" element="tns:DocumentoOut" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoStringHttpGetIn">
+    <wsdl:part name="IdDocumento" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoStringHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloStringHttpGetIn">
+    <wsdl:part name="AnnoProtocollo" type="s:string" />
+    <wsdl:part name="NumeroProtocollo" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloStringHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiBarcodeStringHttpGetIn">
+    <wsdl:part name="Barcode" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiBarcodeStringHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDocumentoEAnagraficheStringHttpGetIn">
+    <wsdl:part name="ProtocolloInStr" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDocumentoEAnagraficheStringHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="InserisciProtocolloEAnagraficheStringHttpGetIn">
+    <wsdl:part name="ProtocolloInStr" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InserisciProtocolloEAnagraficheStringHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ModificaDocumentoEAnagraficheStringHttpGetIn">
+    <wsdl:part name="ProtocolloInStr" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ModificaDocumentoEAnagraficheStringHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleStringHttpGetIn">
+    <wsdl:part name="CodiceFiscale" type="s:string" />
+    <wsdl:part name="SoloProtocollo" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleStringHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AggiungiAllegatiStringHttpGetIn">
+    <wsdl:part name="NuoviAllegatiStr" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AggiungiAllegatiStringHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CreaCopieStringHttpGetIn">
+    <wsdl:part name="CreaCopieInStr" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreaCopieStringHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="PubblicazioneDocumentoHttpGetIn">
+    <wsdl:part name="Pubblicazione" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PubblicazioneDocumentoHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiAnagraficaHttpGetIn">
+    <wsdl:part name="IdSoggetto" type="s:string" />
+    <wsdl:part name="CodiceFiscale" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiAnagraficaHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiCopieHttpGetIn">
+    <wsdl:part name="LeggiCopieIn" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiCopieHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="EliminaAllegatoHttpGetIn">
+    <wsdl:part name="EliminaAllegatoIn" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EliminaAllegatoHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AnnullaDocumentoHttpGetIn">
+    <wsdl:part name="AnnullaDocumentoIn" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AnnullaDocumentoHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CollegaDocumentoHttpGetIn">
+    <wsdl:part name="CollegaDocumentoIn" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CollegaDocumentoHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoPlusHttpGetIn">
+    <wsdl:part name="FiltroDocumento" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoPlusHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDatiUtenteHttpGetIn">
+    <wsdl:part name="Appartenenza" type="s:string" />
+    <wsdl:part name="Identificativo" type="s:string" />
+    <wsdl:part name="DatiUtente" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDatiUtenteHttpGetOut">
+    <wsdl:part name="Body" element="tns:EsitoOperazione" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleHttpGetIn">
+    <wsdl:part name="CodiceFiscale" type="s:string" />
+    <wsdl:part name="SoloProtocollo" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleHttpGetOut">
+    <wsdl:part name="Body" element="tns:ProtocolliSoggettoOut" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleMultiDBHttpGetIn">
+    <wsdl:part name="CodiceFiscale" type="s:string" />
+    <wsdl:part name="SoloProtocollo" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleMultiDBHttpGetOut">
+    <wsdl:part name="Body" element="tns:ProtocolliSoggettoOut" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloHttpPostIn">
+    <wsdl:part name="AnnoProtocollo" type="s:string" />
+    <wsdl:part name="NumeroProtocollo" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloHttpPostOut">
+    <wsdl:part name="Body" element="tns:DocumentoOut" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoHttpPostIn">
+    <wsdl:part name="IdDocumento" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoHttpPostOut">
+    <wsdl:part name="Body" element="tns:DocumentoOut" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloMultiDBHttpPostIn">
+    <wsdl:part name="AnnoProtocollo" type="s:string" />
+    <wsdl:part name="NumeroProtocollo" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloMultiDBHttpPostOut">
+    <wsdl:part name="Body" element="tns:DocumentoOut" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoMultiDBHttpPostIn">
+    <wsdl:part name="IdDocumento" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoMultiDBHttpPostOut">
+    <wsdl:part name="Body" element="tns:DocumentoOut" />
+  </wsdl:message>
+  <wsdl:message name="LoginHttpPostIn">
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LoginHttpPostOut">
+    <wsdl:part name="Body" element="tns:LoginOut" />
+  </wsdl:message>
+  <wsdl:message name="LoginMultiDBHttpPostIn">
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LoginMultiDBHttpPostOut">
+    <wsdl:part name="Body" element="tns:LoginOut" />
+  </wsdl:message>
+  <wsdl:message name="RicercaAmministrazioneHttpPostIn">
+    <wsdl:part name="CodiceAmmSoggetto" type="s:string" />
+    <wsdl:part name="CodiceAOOSoggetto" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RicercaAmministrazioneHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RicercaAmministrazioneMultiDBHttpPostIn">
+    <wsdl:part name="CodiceAmmSoggetto" type="s:string" />
+    <wsdl:part name="CodiceAOOSoggetto" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RicercaAmministrazioneMultiDBHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiBarcodeHttpPostIn">
+    <wsdl:part name="Barcode" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiBarcodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:DocumentoOut" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoStringHttpPostIn">
+    <wsdl:part name="IdDocumento" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoStringHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloStringHttpPostIn">
+    <wsdl:part name="AnnoProtocollo" type="s:string" />
+    <wsdl:part name="NumeroProtocollo" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProtocolloStringHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiBarcodeStringHttpPostIn">
+    <wsdl:part name="Barcode" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiBarcodeStringHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDocumentoEAnagraficheStringHttpPostIn">
+    <wsdl:part name="ProtocolloInStr" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDocumentoEAnagraficheStringHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="InserisciProtocolloEAnagraficheStringHttpPostIn">
+    <wsdl:part name="ProtocolloInStr" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InserisciProtocolloEAnagraficheStringHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ModificaDocumentoEAnagraficheStringHttpPostIn">
+    <wsdl:part name="ProtocolloInStr" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ModificaDocumentoEAnagraficheStringHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleStringHttpPostIn">
+    <wsdl:part name="CodiceFiscale" type="s:string" />
+    <wsdl:part name="SoloProtocollo" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleStringHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AggiungiAllegatiStringHttpPostIn">
+    <wsdl:part name="NuoviAllegatiStr" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AggiungiAllegatiStringHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CreaCopieStringHttpPostIn">
+    <wsdl:part name="CreaCopieInStr" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreaCopieStringHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="PubblicazioneDocumentoHttpPostIn">
+    <wsdl:part name="Pubblicazione" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PubblicazioneDocumentoHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiAnagraficaHttpPostIn">
+    <wsdl:part name="IdSoggetto" type="s:string" />
+    <wsdl:part name="CodiceFiscale" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiAnagraficaHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiCopieHttpPostIn">
+    <wsdl:part name="LeggiCopieIn" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiCopieHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="EliminaAllegatoHttpPostIn">
+    <wsdl:part name="EliminaAllegatoIn" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EliminaAllegatoHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AnnullaDocumentoHttpPostIn">
+    <wsdl:part name="AnnullaDocumentoIn" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AnnullaDocumentoHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CollegaDocumentoHttpPostIn">
+    <wsdl:part name="CollegaDocumentoIn" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CollegaDocumentoHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoPlusHttpPostIn">
+    <wsdl:part name="FiltroDocumento" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LeggiDocumentoPlusHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDatiUtenteHttpPostIn">
+    <wsdl:part name="Appartenenza" type="s:string" />
+    <wsdl:part name="Identificativo" type="s:string" />
+    <wsdl:part name="DatiUtente" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InserisciDatiUtenteHttpPostOut">
+    <wsdl:part name="Body" element="tns:EsitoOperazione" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleHttpPostIn">
+    <wsdl:part name="CodiceFiscale" type="s:string" />
+    <wsdl:part name="SoloProtocollo" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleHttpPostOut">
+    <wsdl:part name="Body" element="tns:ProtocolliSoggettoOut" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleMultiDBHttpPostIn">
+    <wsdl:part name="CodiceFiscale" type="s:string" />
+    <wsdl:part name="SoloProtocollo" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Ruolo" type="s:string" />
+    <wsdl:part name="CodiceAmministrazione" type="s:string" />
+    <wsdl:part name="CodiceAOO" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RicercaPerCodiceFiscaleMultiDBHttpPostOut">
+    <wsdl:part name="Body" element="tns:ProtocolliSoggettoOut" />
+  </wsdl:message>
+  <wsdl:portType name="ProtocolloSoap">
+    <wsdl:operation name="LeggiProtocollo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati di un documento protocollato a partire da Anno e Numero di Protocollo</wsdl:documentation>
+      <wsdl:input message="tns:LeggiProtocolloSoapIn" />
+      <wsdl:output message="tns:LeggiProtocolloSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati di un documento eventualmente protocollato a partire da IdDocumento</wsdl:documentation>
+      <wsdl:input message="tns:LeggiDocumentoSoapIn" />
+      <wsdl:output message="tns:LeggiDocumentoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InserisciProtocollo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserisce un documento protocollato e le anagrafiche (max 100) ed eventualmente esegue l'avvio dell'iter</wsdl:documentation>
+      <wsdl:input name="InserisciProtocolloEAnagrafiche" message="tns:InserisciProtocolloEAnagraficheSoapIn" />
+      <wsdl:output name="InserisciProtocolloEAnagrafiche" message="tns:InserisciProtocolloEAnagraficheSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDocumento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserisce un documento non protocollato e le anagrafiche (max 100) ed eventualmente esegue l'avvio dell'iter</wsdl:documentation>
+      <wsdl:input name="InserisciDocumentoEAnagrafiche" message="tns:InserisciDocumentoEAnagraficheSoapIn" />
+      <wsdl:output name="InserisciDocumentoEAnagrafiche" message="tns:InserisciDocumentoEAnagraficheSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiAllegati">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Aggiunge uno o piu' allegati ad un documento o protocollo esistente</wsdl:documentation>
+      <wsdl:input message="tns:AggiungiAllegatiSoapIn" />
+      <wsdl:output message="tns:AggiungiAllegatiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProtocolloMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati di un documento protocollato a partire da Anno e Numero di Protocollo nel caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:LeggiProtocolloMultiDBSoapIn" />
+      <wsdl:output message="tns:LeggiProtocolloMultiDBSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati di un documento eventualmente protocollato a partire da IdDocumento nel caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:LeggiDocumentoMultiDBSoapIn" />
+      <wsdl:output message="tns:LeggiDocumentoMultiDBSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InserisciProtocolloMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserisce un documento protocollato e le anagrafiche (max 100) ed eventualmente esegue l'avvio dell'iter in caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input name="InserisciProtocolloEAnagraficheMultiDB" message="tns:InserisciProtocolloEAnagraficheMultiDBSoapIn" />
+      <wsdl:output name="InserisciProtocolloEAnagraficheMultiDB" message="tns:InserisciProtocolloEAnagraficheMultiDBSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDocumentoMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserisce un documento non protocollato e le anagrafiche (max 100) ed eventualmente esegue l'avvio dell'iter in caso di installazione multiDM</wsdl:documentation>
+      <wsdl:input name="InserisciDocumentoEAnagraficheMultiDB" message="tns:InserisciDocumentoEAnagraficheMultiDBSoapIn" />
+      <wsdl:output name="InserisciDocumentoEAnagraficheMultiDB" message="tns:InserisciDocumentoEAnagraficheMultiDBSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiAllegatiMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Aggiunge uno o piu' allegati ad un documento o protocollo esistente in caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:AggiungiAllegatiMultiDBSoapIn" />
+      <wsdl:output message="tns:AggiungiAllegatiMultiDBSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Esegue l'autenticazione su IrideWeb</wsdl:documentation>
+      <wsdl:input message="tns:LoginSoapIn" />
+      <wsdl:output message="tns:LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Esegue l'autenticazione su IrideWeb in caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:LoginMultiDBSoapIn" />
+      <wsdl:output message="tns:LoginMultiDBSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RicercaAmministrazione">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Esegue la ricerca di un soggetto per codice amministrazione e codice AOO</wsdl:documentation>
+      <wsdl:input message="tns:RicercaAmministrazioneSoapIn" />
+      <wsdl:output message="tns:RicercaAmministrazioneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RicercaAmministrazioneMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Esegue la ricerca di un soggetto per codice amministrazione e codice AOO in caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:RicercaAmministrazioneMultiDBSoapIn" />
+      <wsdl:output message="tns:RicercaAmministrazioneMultiDBSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiAllegati2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Aggiunge uno o piu' allegati ad un documento o protocollo esistente - nuovo messaggio di ritorno</wsdl:documentation>
+      <wsdl:input message="tns:AggiungiAllegati2SoapIn" />
+      <wsdl:output message="tns:AggiungiAllegati2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDocumentoDaDM">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserisce un documento non protocollato a partire da un documento presente in Documentum ed eventualmente esegue l'avvio dell'iter</wsdl:documentation>
+      <wsdl:input message="tns:InserisciDocumentoDaDMSoapIn" />
+      <wsdl:output message="tns:InserisciDocumentoDaDMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModificaDocumento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Modifica un documento o un protocollo e le anagrafiche (max 500)</wsdl:documentation>
+      <wsdl:input name="ModificaDocumentoEAnagrafiche" message="tns:ModificaDocumentoEAnagraficheSoapIn" />
+      <wsdl:output name="ModificaDocumentoEAnagrafiche" message="tns:ModificaDocumentoEAnagraficheSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreaCopie">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Creazione delle copie di un documento o un protocollo (max 100)</wsdl:documentation>
+      <wsdl:input message="tns:CreaCopieSoapIn" />
+      <wsdl:output message="tns:CreaCopieSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiBarcode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati di un documento eventualmente protocollato a partire dal codice a barre</wsdl:documentation>
+      <wsdl:input message="tns:LeggiBarcodeSoapIn" />
+      <wsdl:output message="tns:LeggiBarcodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce in formato stringa i dati di un documento eventualmente protocollato a partire da IdDocumento</wsdl:documentation>
+      <wsdl:input message="tns:LeggiDocumentoStringSoapIn" />
+      <wsdl:output message="tns:LeggiDocumentoStringSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProtocolloString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati in formato stringa di un documento protocollato a partire da Anno e Numero di Protocollo nel caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:LeggiProtocolloStringSoapIn" />
+      <wsdl:output message="tns:LeggiProtocolloStringSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiBarcodeString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati in formato stringa di un documento eventualmente protocollato a partire dal codice a barre</wsdl:documentation>
+      <wsdl:input message="tns:LeggiBarcodeStringSoapIn" />
+      <wsdl:output message="tns:LeggiBarcodeStringSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDocumentoString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserisce un documento non protocollato e le anagrafiche (max 100) ed eventualmente esegue l'avvio dell'iter a partire da dati in formato stringa e restituisce dati in formato stringa</wsdl:documentation>
+      <wsdl:input name="InserisciDocumentoEAnagraficheString" message="tns:InserisciDocumentoEAnagraficheStringSoapIn" />
+      <wsdl:output name="InserisciDocumentoEAnagraficheString" message="tns:InserisciDocumentoEAnagraficheStringSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InserisciProtocolloString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserisce un documento protocollato e le anagrafiche (max 100) ed eventualmente esegue l'avvio dell'iter in caso a partire da dati in formato stringa e restituisce dati in formato stringa</wsdl:documentation>
+      <wsdl:input name="InserisciProtocolloEAnagraficheString" message="tns:InserisciProtocolloEAnagraficheStringSoapIn" />
+      <wsdl:output name="InserisciProtocolloEAnagraficheString" message="tns:InserisciProtocolloEAnagraficheStringSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModificaDocumentoString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Modifica un documento o un protocollo e le anagrafiche (max 500) in formato stringa</wsdl:documentation>
+      <wsdl:input name="ModificaDocumentoEAnagraficheString" message="tns:ModificaDocumentoEAnagraficheStringSoapIn" />
+      <wsdl:output name="ModificaDocumentoEAnagraficheString" message="tns:ModificaDocumentoEAnagraficheStringSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscaleString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce gli estremi dei documenti (eventualmente solo quelli protocollati) per codice fiscale dell'intestatario in fomrato stringa</wsdl:documentation>
+      <wsdl:input message="tns:RicercaPerCodiceFiscaleStringSoapIn" />
+      <wsdl:output message="tns:RicercaPerCodiceFiscaleStringSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiAllegatiString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Aggiunge uno o piu' allegati ad un documento o protocollo esistente  in formato stringa</wsdl:documentation>
+      <wsdl:input message="tns:AggiungiAllegatiStringSoapIn" />
+      <wsdl:output message="tns:AggiungiAllegatiStringSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreaCopieString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Creazione delle copie di un documento o un protocollo (max 100) in formato stringa</wsdl:documentation>
+      <wsdl:input message="tns:CreaCopieStringSoapIn" />
+      <wsdl:output message="tns:CreaCopieStringSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PubblicazioneDocumento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Pubblicazione di un documento in formato stringa</wsdl:documentation>
+      <wsdl:input message="tns:PubblicazioneDocumentoSoapIn" />
+      <wsdl:output message="tns:PubblicazioneDocumentoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiAnagrafica">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce in formato stringa i dati di un soggetto a partire da IdSoggetto o CodiceFiscale</wsdl:documentation>
+      <wsdl:input message="tns:LeggiAnagraficaSoapIn" />
+      <wsdl:output message="tns:LeggiAnagraficaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiCopie">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce in formato stringa i dati relativi alle copie di un documento</wsdl:documentation>
+      <wsdl:input message="tns:LeggiCopieSoapIn" />
+      <wsdl:output message="tns:LeggiCopieSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminaAllegato">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Elimina un allegato a partire dall'identificativo</wsdl:documentation>
+      <wsdl:input message="tns:EliminaAllegatoSoapIn" />
+      <wsdl:output message="tns:EliminaAllegatoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AnnullaDocumento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Annulla un documento a partire dall'identificativo</wsdl:documentation>
+      <wsdl:input message="tns:AnnullaDocumentoSoapIn" />
+      <wsdl:output message="tns:AnnullaDocumentoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CollegaDocumento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Collega due documenti a partire dall'identificativo</wsdl:documentation>
+      <wsdl:input message="tns:CollegaDocumentoSoapIn" />
+      <wsdl:output message="tns:CollegaDocumentoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoPlus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati in formato stringa di un documento protocollato a partire da Anno e Numero di Protocollo nel caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:LeggiDocumentoPlusSoapIn" />
+      <wsdl:output message="tns:LeggiDocumentoPlusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDatiUtente">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserisce i dati utente associati a un documento, un soggetto o un'attivita' </wsdl:documentation>
+      <wsdl:input message="tns:InserisciDatiUtenteSoapIn" />
+      <wsdl:output message="tns:InserisciDatiUtenteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscale">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce gli estremi dei documenti (eventualmente solo quelli protocollati) per codice fiscale dell'intestatario</wsdl:documentation>
+      <wsdl:input message="tns:RicercaPerCodiceFiscaleSoapIn" />
+      <wsdl:output message="tns:RicercaPerCodiceFiscaleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscaleMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce gli estremi dei documenti (eventualmente solo quelli protocollati) per codice fiscale dell'intestatario in caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:RicercaPerCodiceFiscaleMultiDBSoapIn" />
+      <wsdl:output message="tns:RicercaPerCodiceFiscaleMultiDBSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ProtocolloHttpGet">
+    <wsdl:operation name="LeggiProtocollo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati di un documento protocollato a partire da Anno e Numero di Protocollo</wsdl:documentation>
+      <wsdl:input message="tns:LeggiProtocolloHttpGetIn" />
+      <wsdl:output message="tns:LeggiProtocolloHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati di un documento eventualmente protocollato a partire da IdDocumento</wsdl:documentation>
+      <wsdl:input message="tns:LeggiDocumentoHttpGetIn" />
+      <wsdl:output message="tns:LeggiDocumentoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProtocolloMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati di un documento protocollato a partire da Anno e Numero di Protocollo nel caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:LeggiProtocolloMultiDBHttpGetIn" />
+      <wsdl:output message="tns:LeggiProtocolloMultiDBHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati di un documento eventualmente protocollato a partire da IdDocumento nel caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:LeggiDocumentoMultiDBHttpGetIn" />
+      <wsdl:output message="tns:LeggiDocumentoMultiDBHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Esegue l'autenticazione su IrideWeb</wsdl:documentation>
+      <wsdl:input message="tns:LoginHttpGetIn" />
+      <wsdl:output message="tns:LoginHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Esegue l'autenticazione su IrideWeb in caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:LoginMultiDBHttpGetIn" />
+      <wsdl:output message="tns:LoginMultiDBHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RicercaAmministrazione">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Esegue la ricerca di un soggetto per codice amministrazione e codice AOO</wsdl:documentation>
+      <wsdl:input message="tns:RicercaAmministrazioneHttpGetIn" />
+      <wsdl:output message="tns:RicercaAmministrazioneHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RicercaAmministrazioneMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Esegue la ricerca di un soggetto per codice amministrazione e codice AOO in caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:RicercaAmministrazioneMultiDBHttpGetIn" />
+      <wsdl:output message="tns:RicercaAmministrazioneMultiDBHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiBarcode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati di un documento eventualmente protocollato a partire dal codice a barre</wsdl:documentation>
+      <wsdl:input message="tns:LeggiBarcodeHttpGetIn" />
+      <wsdl:output message="tns:LeggiBarcodeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce in formato stringa i dati di un documento eventualmente protocollato a partire da IdDocumento</wsdl:documentation>
+      <wsdl:input message="tns:LeggiDocumentoStringHttpGetIn" />
+      <wsdl:output message="tns:LeggiDocumentoStringHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProtocolloString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati in formato stringa di un documento protocollato a partire da Anno e Numero di Protocollo nel caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:LeggiProtocolloStringHttpGetIn" />
+      <wsdl:output message="tns:LeggiProtocolloStringHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiBarcodeString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati in formato stringa di un documento eventualmente protocollato a partire dal codice a barre</wsdl:documentation>
+      <wsdl:input message="tns:LeggiBarcodeStringHttpGetIn" />
+      <wsdl:output message="tns:LeggiBarcodeStringHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDocumentoString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserisce un documento non protocollato e le anagrafiche (max 100) ed eventualmente esegue l'avvio dell'iter a partire da dati in formato stringa e restituisce dati in formato stringa</wsdl:documentation>
+      <wsdl:input name="InserisciDocumentoEAnagraficheString" message="tns:InserisciDocumentoEAnagraficheStringHttpGetIn" />
+      <wsdl:output name="InserisciDocumentoEAnagraficheString" message="tns:InserisciDocumentoEAnagraficheStringHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InserisciProtocolloString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserisce un documento protocollato e le anagrafiche (max 100) ed eventualmente esegue l'avvio dell'iter in caso a partire da dati in formato stringa e restituisce dati in formato stringa</wsdl:documentation>
+      <wsdl:input name="InserisciProtocolloEAnagraficheString" message="tns:InserisciProtocolloEAnagraficheStringHttpGetIn" />
+      <wsdl:output name="InserisciProtocolloEAnagraficheString" message="tns:InserisciProtocolloEAnagraficheStringHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModificaDocumentoString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Modifica un documento o un protocollo e le anagrafiche (max 500) in formato stringa</wsdl:documentation>
+      <wsdl:input name="ModificaDocumentoEAnagraficheString" message="tns:ModificaDocumentoEAnagraficheStringHttpGetIn" />
+      <wsdl:output name="ModificaDocumentoEAnagraficheString" message="tns:ModificaDocumentoEAnagraficheStringHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscaleString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce gli estremi dei documenti (eventualmente solo quelli protocollati) per codice fiscale dell'intestatario in fomrato stringa</wsdl:documentation>
+      <wsdl:input message="tns:RicercaPerCodiceFiscaleStringHttpGetIn" />
+      <wsdl:output message="tns:RicercaPerCodiceFiscaleStringHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiAllegatiString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Aggiunge uno o piu' allegati ad un documento o protocollo esistente  in formato stringa</wsdl:documentation>
+      <wsdl:input message="tns:AggiungiAllegatiStringHttpGetIn" />
+      <wsdl:output message="tns:AggiungiAllegatiStringHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreaCopieString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Creazione delle copie di un documento o un protocollo (max 100) in formato stringa</wsdl:documentation>
+      <wsdl:input message="tns:CreaCopieStringHttpGetIn" />
+      <wsdl:output message="tns:CreaCopieStringHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PubblicazioneDocumento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Pubblicazione di un documento in formato stringa</wsdl:documentation>
+      <wsdl:input message="tns:PubblicazioneDocumentoHttpGetIn" />
+      <wsdl:output message="tns:PubblicazioneDocumentoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiAnagrafica">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce in formato stringa i dati di un soggetto a partire da IdSoggetto o CodiceFiscale</wsdl:documentation>
+      <wsdl:input message="tns:LeggiAnagraficaHttpGetIn" />
+      <wsdl:output message="tns:LeggiAnagraficaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiCopie">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce in formato stringa i dati relativi alle copie di un documento</wsdl:documentation>
+      <wsdl:input message="tns:LeggiCopieHttpGetIn" />
+      <wsdl:output message="tns:LeggiCopieHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminaAllegato">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Elimina un allegato a partire dall'identificativo</wsdl:documentation>
+      <wsdl:input message="tns:EliminaAllegatoHttpGetIn" />
+      <wsdl:output message="tns:EliminaAllegatoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AnnullaDocumento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Annulla un documento a partire dall'identificativo</wsdl:documentation>
+      <wsdl:input message="tns:AnnullaDocumentoHttpGetIn" />
+      <wsdl:output message="tns:AnnullaDocumentoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CollegaDocumento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Collega due documenti a partire dall'identificativo</wsdl:documentation>
+      <wsdl:input message="tns:CollegaDocumentoHttpGetIn" />
+      <wsdl:output message="tns:CollegaDocumentoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoPlus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati in formato stringa di un documento protocollato a partire da Anno e Numero di Protocollo nel caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:LeggiDocumentoPlusHttpGetIn" />
+      <wsdl:output message="tns:LeggiDocumentoPlusHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDatiUtente">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserisce i dati utente associati a un documento, un soggetto o un'attivita' </wsdl:documentation>
+      <wsdl:input message="tns:InserisciDatiUtenteHttpGetIn" />
+      <wsdl:output message="tns:InserisciDatiUtenteHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscale">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce gli estremi dei documenti (eventualmente solo quelli protocollati) per codice fiscale dell'intestatario</wsdl:documentation>
+      <wsdl:input message="tns:RicercaPerCodiceFiscaleHttpGetIn" />
+      <wsdl:output message="tns:RicercaPerCodiceFiscaleHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscaleMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce gli estremi dei documenti (eventualmente solo quelli protocollati) per codice fiscale dell'intestatario in caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:RicercaPerCodiceFiscaleMultiDBHttpGetIn" />
+      <wsdl:output message="tns:RicercaPerCodiceFiscaleMultiDBHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ProtocolloHttpPost">
+    <wsdl:operation name="LeggiProtocollo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati di un documento protocollato a partire da Anno e Numero di Protocollo</wsdl:documentation>
+      <wsdl:input message="tns:LeggiProtocolloHttpPostIn" />
+      <wsdl:output message="tns:LeggiProtocolloHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati di un documento eventualmente protocollato a partire da IdDocumento</wsdl:documentation>
+      <wsdl:input message="tns:LeggiDocumentoHttpPostIn" />
+      <wsdl:output message="tns:LeggiDocumentoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProtocolloMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati di un documento protocollato a partire da Anno e Numero di Protocollo nel caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:LeggiProtocolloMultiDBHttpPostIn" />
+      <wsdl:output message="tns:LeggiProtocolloMultiDBHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati di un documento eventualmente protocollato a partire da IdDocumento nel caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:LeggiDocumentoMultiDBHttpPostIn" />
+      <wsdl:output message="tns:LeggiDocumentoMultiDBHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Esegue l'autenticazione su IrideWeb</wsdl:documentation>
+      <wsdl:input message="tns:LoginHttpPostIn" />
+      <wsdl:output message="tns:LoginHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Esegue l'autenticazione su IrideWeb in caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:LoginMultiDBHttpPostIn" />
+      <wsdl:output message="tns:LoginMultiDBHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RicercaAmministrazione">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Esegue la ricerca di un soggetto per codice amministrazione e codice AOO</wsdl:documentation>
+      <wsdl:input message="tns:RicercaAmministrazioneHttpPostIn" />
+      <wsdl:output message="tns:RicercaAmministrazioneHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RicercaAmministrazioneMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Esegue la ricerca di un soggetto per codice amministrazione e codice AOO in caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:RicercaAmministrazioneMultiDBHttpPostIn" />
+      <wsdl:output message="tns:RicercaAmministrazioneMultiDBHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiBarcode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati di un documento eventualmente protocollato a partire dal codice a barre</wsdl:documentation>
+      <wsdl:input message="tns:LeggiBarcodeHttpPostIn" />
+      <wsdl:output message="tns:LeggiBarcodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce in formato stringa i dati di un documento eventualmente protocollato a partire da IdDocumento</wsdl:documentation>
+      <wsdl:input message="tns:LeggiDocumentoStringHttpPostIn" />
+      <wsdl:output message="tns:LeggiDocumentoStringHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProtocolloString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati in formato stringa di un documento protocollato a partire da Anno e Numero di Protocollo nel caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:LeggiProtocolloStringHttpPostIn" />
+      <wsdl:output message="tns:LeggiProtocolloStringHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiBarcodeString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati in formato stringa di un documento eventualmente protocollato a partire dal codice a barre</wsdl:documentation>
+      <wsdl:input message="tns:LeggiBarcodeStringHttpPostIn" />
+      <wsdl:output message="tns:LeggiBarcodeStringHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDocumentoString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserisce un documento non protocollato e le anagrafiche (max 100) ed eventualmente esegue l'avvio dell'iter a partire da dati in formato stringa e restituisce dati in formato stringa</wsdl:documentation>
+      <wsdl:input name="InserisciDocumentoEAnagraficheString" message="tns:InserisciDocumentoEAnagraficheStringHttpPostIn" />
+      <wsdl:output name="InserisciDocumentoEAnagraficheString" message="tns:InserisciDocumentoEAnagraficheStringHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InserisciProtocolloString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserisce un documento protocollato e le anagrafiche (max 100) ed eventualmente esegue l'avvio dell'iter in caso a partire da dati in formato stringa e restituisce dati in formato stringa</wsdl:documentation>
+      <wsdl:input name="InserisciProtocolloEAnagraficheString" message="tns:InserisciProtocolloEAnagraficheStringHttpPostIn" />
+      <wsdl:output name="InserisciProtocolloEAnagraficheString" message="tns:InserisciProtocolloEAnagraficheStringHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModificaDocumentoString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Modifica un documento o un protocollo e le anagrafiche (max 500) in formato stringa</wsdl:documentation>
+      <wsdl:input name="ModificaDocumentoEAnagraficheString" message="tns:ModificaDocumentoEAnagraficheStringHttpPostIn" />
+      <wsdl:output name="ModificaDocumentoEAnagraficheString" message="tns:ModificaDocumentoEAnagraficheStringHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscaleString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce gli estremi dei documenti (eventualmente solo quelli protocollati) per codice fiscale dell'intestatario in fomrato stringa</wsdl:documentation>
+      <wsdl:input message="tns:RicercaPerCodiceFiscaleStringHttpPostIn" />
+      <wsdl:output message="tns:RicercaPerCodiceFiscaleStringHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiAllegatiString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Aggiunge uno o piu' allegati ad un documento o protocollo esistente  in formato stringa</wsdl:documentation>
+      <wsdl:input message="tns:AggiungiAllegatiStringHttpPostIn" />
+      <wsdl:output message="tns:AggiungiAllegatiStringHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreaCopieString">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Creazione delle copie di un documento o un protocollo (max 100) in formato stringa</wsdl:documentation>
+      <wsdl:input message="tns:CreaCopieStringHttpPostIn" />
+      <wsdl:output message="tns:CreaCopieStringHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PubblicazioneDocumento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Pubblicazione di un documento in formato stringa</wsdl:documentation>
+      <wsdl:input message="tns:PubblicazioneDocumentoHttpPostIn" />
+      <wsdl:output message="tns:PubblicazioneDocumentoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiAnagrafica">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce in formato stringa i dati di un soggetto a partire da IdSoggetto o CodiceFiscale</wsdl:documentation>
+      <wsdl:input message="tns:LeggiAnagraficaHttpPostIn" />
+      <wsdl:output message="tns:LeggiAnagraficaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiCopie">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce in formato stringa i dati relativi alle copie di un documento</wsdl:documentation>
+      <wsdl:input message="tns:LeggiCopieHttpPostIn" />
+      <wsdl:output message="tns:LeggiCopieHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminaAllegato">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Elimina un allegato a partire dall'identificativo</wsdl:documentation>
+      <wsdl:input message="tns:EliminaAllegatoHttpPostIn" />
+      <wsdl:output message="tns:EliminaAllegatoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AnnullaDocumento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Annulla un documento a partire dall'identificativo</wsdl:documentation>
+      <wsdl:input message="tns:AnnullaDocumentoHttpPostIn" />
+      <wsdl:output message="tns:AnnullaDocumentoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CollegaDocumento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Collega due documenti a partire dall'identificativo</wsdl:documentation>
+      <wsdl:input message="tns:CollegaDocumentoHttpPostIn" />
+      <wsdl:output message="tns:CollegaDocumentoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoPlus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce i dati in formato stringa di un documento protocollato a partire da Anno e Numero di Protocollo nel caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:LeggiDocumentoPlusHttpPostIn" />
+      <wsdl:output message="tns:LeggiDocumentoPlusHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDatiUtente">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserisce i dati utente associati a un documento, un soggetto o un'attivita' </wsdl:documentation>
+      <wsdl:input message="tns:InserisciDatiUtenteHttpPostIn" />
+      <wsdl:output message="tns:InserisciDatiUtenteHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscale">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce gli estremi dei documenti (eventualmente solo quelli protocollati) per codice fiscale dell'intestatario</wsdl:documentation>
+      <wsdl:input message="tns:RicercaPerCodiceFiscaleHttpPostIn" />
+      <wsdl:output message="tns:RicercaPerCodiceFiscaleHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscaleMultiDB">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce gli estremi dei documenti (eventualmente solo quelli protocollati) per codice fiscale dell'intestatario in caso di installazione multiDB</wsdl:documentation>
+      <wsdl:input message="tns:RicercaPerCodiceFiscaleMultiDBHttpPostIn" />
+      <wsdl:output message="tns:RicercaPerCodiceFiscaleMultiDBHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProtocolloSoap" type="tns:ProtocolloSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="LeggiProtocollo">
+      <soap:operation soapAction="http://tempuri.org/LeggiProtocollo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumento">
+      <soap:operation soapAction="http://tempuri.org/LeggiDocumento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciProtocollo">
+      <soap:operation soapAction="http://tempuri.org/InserisciProtocolloEAnagrafiche" style="document" />
+      <wsdl:input name="InserisciProtocolloEAnagrafiche">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="InserisciProtocolloEAnagrafiche">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDocumento">
+      <soap:operation soapAction="http://tempuri.org/InserisciDocumentoEAnagrafiche" style="document" />
+      <wsdl:input name="InserisciDocumentoEAnagrafiche">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="InserisciDocumentoEAnagrafiche">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiAllegati">
+      <soap:operation soapAction="http://tempuri.org/AggiungiAllegati" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProtocolloMultiDB">
+      <soap:operation soapAction="http://tempuri.org/LeggiProtocolloMultiDB" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoMultiDB">
+      <soap:operation soapAction="http://tempuri.org/LeggiDocumentoMultiDB" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciProtocolloMultiDB">
+      <soap:operation soapAction="http://tempuri.org/InserisciProtocolloEAnagraficheMultiDB" style="document" />
+      <wsdl:input name="InserisciProtocolloEAnagraficheMultiDB">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="InserisciProtocolloEAnagraficheMultiDB">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDocumentoMultiDB">
+      <soap:operation soapAction="http://tempuri.org/InserisciDocumentoEAnagraficheMultiDB" style="document" />
+      <wsdl:input name="InserisciDocumentoEAnagraficheMultiDB">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="InserisciDocumentoEAnagraficheMultiDB">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiAllegatiMultiDB">
+      <soap:operation soapAction="http://tempuri.org/AggiungiAllegatiMultiDB" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginMultiDB">
+      <soap:operation soapAction="http://tempuri.org/LoginMultiDB" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaAmministrazione">
+      <soap:operation soapAction="http://tempuri.org/RicercaAmministrazione" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaAmministrazioneMultiDB">
+      <soap:operation soapAction="http://tempuri.org/RicercaAmministrazioneMultiDB" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiAllegati2">
+      <soap:operation soapAction="http://tempuri.org/AggiungiAllegati2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDocumentoDaDM">
+      <soap:operation soapAction="http://tempuri.org/InserisciDocumentoDaDM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModificaDocumento">
+      <soap:operation soapAction="http://tempuri.org/ModificaDocumentoEAnagrafiche" style="document" />
+      <wsdl:input name="ModificaDocumentoEAnagrafiche">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ModificaDocumentoEAnagrafiche">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaCopie">
+      <soap:operation soapAction="http://tempuri.org/CreaCopie" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiBarcode">
+      <soap:operation soapAction="http://tempuri.org/LeggiBarcode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoString">
+      <soap:operation soapAction="http://tempuri.org/LeggiDocumentoString" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProtocolloString">
+      <soap:operation soapAction="http://tempuri.org/LeggiProtocolloString" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiBarcodeString">
+      <soap:operation soapAction="http://tempuri.org/LeggiBarcodeString" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDocumentoString">
+      <soap:operation soapAction="http://tempuri.org/InserisciDocumentoEAnagraficheString" style="document" />
+      <wsdl:input name="InserisciDocumentoEAnagraficheString">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="InserisciDocumentoEAnagraficheString">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciProtocolloString">
+      <soap:operation soapAction="http://tempuri.org/InserisciProtocolloEAnagraficheString" style="document" />
+      <wsdl:input name="InserisciProtocolloEAnagraficheString">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="InserisciProtocolloEAnagraficheString">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModificaDocumentoString">
+      <soap:operation soapAction="http://tempuri.org/ModificaDocumentoEAnagraficheString" style="document" />
+      <wsdl:input name="ModificaDocumentoEAnagraficheString">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ModificaDocumentoEAnagraficheString">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscaleString">
+      <soap:operation soapAction="http://tempuri.org/RicercaPerCodiceFiscaleString" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiAllegatiString">
+      <soap:operation soapAction="http://tempuri.org/AggiungiAllegatiString" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaCopieString">
+      <soap:operation soapAction="http://tempuri.org/CreaCopieString" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PubblicazioneDocumento">
+      <soap:operation soapAction="http://tempuri.org/PubblicazioneDocumento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiAnagrafica">
+      <soap:operation soapAction="http://tempuri.org/LeggiAnagrafica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiCopie">
+      <soap:operation soapAction="http://tempuri.org/LeggiCopie" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminaAllegato">
+      <soap:operation soapAction="http://tempuri.org/EliminaAllegato" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AnnullaDocumento">
+      <soap:operation soapAction="http://tempuri.org/AnnullaDocumento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CollegaDocumento">
+      <soap:operation soapAction="http://tempuri.org/CollegaDocumento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoPlus">
+      <soap:operation soapAction="http://tempuri.org/LeggiDocumentoPlus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDatiUtente">
+      <soap:operation soapAction="http://tempuri.org/InserisciDatiUtente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscale">
+      <soap:operation soapAction="http://tempuri.org/RicercaPerCodiceFiscale" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscaleMultiDB">
+      <soap:operation soapAction="http://tempuri.org/RicercaPerCodiceFiscaleMultiDB" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ProtocolloSoap12" type="tns:ProtocolloSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="LeggiProtocollo">
+      <soap12:operation soapAction="http://tempuri.org/LeggiProtocollo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumento">
+      <soap12:operation soapAction="http://tempuri.org/LeggiDocumento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciProtocollo">
+      <soap12:operation soapAction="http://tempuri.org/InserisciProtocolloEAnagrafiche" style="document" />
+      <wsdl:input name="InserisciProtocolloEAnagrafiche">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="InserisciProtocolloEAnagrafiche">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDocumento">
+      <soap12:operation soapAction="http://tempuri.org/InserisciDocumentoEAnagrafiche" style="document" />
+      <wsdl:input name="InserisciDocumentoEAnagrafiche">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="InserisciDocumentoEAnagrafiche">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiAllegati">
+      <soap12:operation soapAction="http://tempuri.org/AggiungiAllegati" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProtocolloMultiDB">
+      <soap12:operation soapAction="http://tempuri.org/LeggiProtocolloMultiDB" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoMultiDB">
+      <soap12:operation soapAction="http://tempuri.org/LeggiDocumentoMultiDB" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciProtocolloMultiDB">
+      <soap12:operation soapAction="http://tempuri.org/InserisciProtocolloEAnagraficheMultiDB" style="document" />
+      <wsdl:input name="InserisciProtocolloEAnagraficheMultiDB">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="InserisciProtocolloEAnagraficheMultiDB">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDocumentoMultiDB">
+      <soap12:operation soapAction="http://tempuri.org/InserisciDocumentoEAnagraficheMultiDB" style="document" />
+      <wsdl:input name="InserisciDocumentoEAnagraficheMultiDB">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="InserisciDocumentoEAnagraficheMultiDB">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiAllegatiMultiDB">
+      <soap12:operation soapAction="http://tempuri.org/AggiungiAllegatiMultiDB" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap12:operation soapAction="http://tempuri.org/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginMultiDB">
+      <soap12:operation soapAction="http://tempuri.org/LoginMultiDB" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaAmministrazione">
+      <soap12:operation soapAction="http://tempuri.org/RicercaAmministrazione" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaAmministrazioneMultiDB">
+      <soap12:operation soapAction="http://tempuri.org/RicercaAmministrazioneMultiDB" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiAllegati2">
+      <soap12:operation soapAction="http://tempuri.org/AggiungiAllegati2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDocumentoDaDM">
+      <soap12:operation soapAction="http://tempuri.org/InserisciDocumentoDaDM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModificaDocumento">
+      <soap12:operation soapAction="http://tempuri.org/ModificaDocumentoEAnagrafiche" style="document" />
+      <wsdl:input name="ModificaDocumentoEAnagrafiche">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ModificaDocumentoEAnagrafiche">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaCopie">
+      <soap12:operation soapAction="http://tempuri.org/CreaCopie" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiBarcode">
+      <soap12:operation soapAction="http://tempuri.org/LeggiBarcode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoString">
+      <soap12:operation soapAction="http://tempuri.org/LeggiDocumentoString" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProtocolloString">
+      <soap12:operation soapAction="http://tempuri.org/LeggiProtocolloString" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiBarcodeString">
+      <soap12:operation soapAction="http://tempuri.org/LeggiBarcodeString" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDocumentoString">
+      <soap12:operation soapAction="http://tempuri.org/InserisciDocumentoEAnagraficheString" style="document" />
+      <wsdl:input name="InserisciDocumentoEAnagraficheString">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="InserisciDocumentoEAnagraficheString">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciProtocolloString">
+      <soap12:operation soapAction="http://tempuri.org/InserisciProtocolloEAnagraficheString" style="document" />
+      <wsdl:input name="InserisciProtocolloEAnagraficheString">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="InserisciProtocolloEAnagraficheString">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModificaDocumentoString">
+      <soap12:operation soapAction="http://tempuri.org/ModificaDocumentoEAnagraficheString" style="document" />
+      <wsdl:input name="ModificaDocumentoEAnagraficheString">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ModificaDocumentoEAnagraficheString">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscaleString">
+      <soap12:operation soapAction="http://tempuri.org/RicercaPerCodiceFiscaleString" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiAllegatiString">
+      <soap12:operation soapAction="http://tempuri.org/AggiungiAllegatiString" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaCopieString">
+      <soap12:operation soapAction="http://tempuri.org/CreaCopieString" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PubblicazioneDocumento">
+      <soap12:operation soapAction="http://tempuri.org/PubblicazioneDocumento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiAnagrafica">
+      <soap12:operation soapAction="http://tempuri.org/LeggiAnagrafica" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiCopie">
+      <soap12:operation soapAction="http://tempuri.org/LeggiCopie" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminaAllegato">
+      <soap12:operation soapAction="http://tempuri.org/EliminaAllegato" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AnnullaDocumento">
+      <soap12:operation soapAction="http://tempuri.org/AnnullaDocumento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CollegaDocumento">
+      <soap12:operation soapAction="http://tempuri.org/CollegaDocumento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoPlus">
+      <soap12:operation soapAction="http://tempuri.org/LeggiDocumentoPlus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDatiUtente">
+      <soap12:operation soapAction="http://tempuri.org/InserisciDatiUtente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscale">
+      <soap12:operation soapAction="http://tempuri.org/RicercaPerCodiceFiscale" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscaleMultiDB">
+      <soap12:operation soapAction="http://tempuri.org/RicercaPerCodiceFiscaleMultiDB" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ProtocolloHttpGet" type="tns:ProtocolloHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="LeggiProtocollo">
+      <http:operation location="/LeggiProtocollo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumento">
+      <http:operation location="/LeggiDocumento" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProtocolloMultiDB">
+      <http:operation location="/LeggiProtocolloMultiDB" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoMultiDB">
+      <http:operation location="/LeggiDocumentoMultiDB" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <http:operation location="/Login" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginMultiDB">
+      <http:operation location="/LoginMultiDB" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaAmministrazione">
+      <http:operation location="/RicercaAmministrazione" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaAmministrazioneMultiDB">
+      <http:operation location="/RicercaAmministrazioneMultiDB" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiBarcode">
+      <http:operation location="/LeggiBarcode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoString">
+      <http:operation location="/LeggiDocumentoString" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProtocolloString">
+      <http:operation location="/LeggiProtocolloString" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiBarcodeString">
+      <http:operation location="/LeggiBarcodeString" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDocumentoString">
+      <http:operation location="/InserisciDocumentoEAnagraficheString" />
+      <wsdl:input name="InserisciDocumentoEAnagraficheString">
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output name="InserisciDocumentoEAnagraficheString">
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciProtocolloString">
+      <http:operation location="/InserisciProtocolloEAnagraficheString" />
+      <wsdl:input name="InserisciProtocolloEAnagraficheString">
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output name="InserisciProtocolloEAnagraficheString">
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModificaDocumentoString">
+      <http:operation location="/ModificaDocumentoEAnagraficheString" />
+      <wsdl:input name="ModificaDocumentoEAnagraficheString">
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output name="ModificaDocumentoEAnagraficheString">
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscaleString">
+      <http:operation location="/RicercaPerCodiceFiscaleString" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiAllegatiString">
+      <http:operation location="/AggiungiAllegatiString" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaCopieString">
+      <http:operation location="/CreaCopieString" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PubblicazioneDocumento">
+      <http:operation location="/PubblicazioneDocumento" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiAnagrafica">
+      <http:operation location="/LeggiAnagrafica" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiCopie">
+      <http:operation location="/LeggiCopie" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminaAllegato">
+      <http:operation location="/EliminaAllegato" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AnnullaDocumento">
+      <http:operation location="/AnnullaDocumento" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CollegaDocumento">
+      <http:operation location="/CollegaDocumento" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoPlus">
+      <http:operation location="/LeggiDocumentoPlus" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDatiUtente">
+      <http:operation location="/InserisciDatiUtente" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscale">
+      <http:operation location="/RicercaPerCodiceFiscale" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscaleMultiDB">
+      <http:operation location="/RicercaPerCodiceFiscaleMultiDB" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ProtocolloHttpPost" type="tns:ProtocolloHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="LeggiProtocollo">
+      <http:operation location="/LeggiProtocollo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumento">
+      <http:operation location="/LeggiDocumento" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProtocolloMultiDB">
+      <http:operation location="/LeggiProtocolloMultiDB" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoMultiDB">
+      <http:operation location="/LeggiDocumentoMultiDB" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <http:operation location="/Login" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginMultiDB">
+      <http:operation location="/LoginMultiDB" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaAmministrazione">
+      <http:operation location="/RicercaAmministrazione" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaAmministrazioneMultiDB">
+      <http:operation location="/RicercaAmministrazioneMultiDB" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiBarcode">
+      <http:operation location="/LeggiBarcode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoString">
+      <http:operation location="/LeggiDocumentoString" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProtocolloString">
+      <http:operation location="/LeggiProtocolloString" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiBarcodeString">
+      <http:operation location="/LeggiBarcodeString" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDocumentoString">
+      <http:operation location="/InserisciDocumentoEAnagraficheString" />
+      <wsdl:input name="InserisciDocumentoEAnagraficheString">
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output name="InserisciDocumentoEAnagraficheString">
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciProtocolloString">
+      <http:operation location="/InserisciProtocolloEAnagraficheString" />
+      <wsdl:input name="InserisciProtocolloEAnagraficheString">
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output name="InserisciProtocolloEAnagraficheString">
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModificaDocumentoString">
+      <http:operation location="/ModificaDocumentoEAnagraficheString" />
+      <wsdl:input name="ModificaDocumentoEAnagraficheString">
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output name="ModificaDocumentoEAnagraficheString">
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscaleString">
+      <http:operation location="/RicercaPerCodiceFiscaleString" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiAllegatiString">
+      <http:operation location="/AggiungiAllegatiString" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaCopieString">
+      <http:operation location="/CreaCopieString" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PubblicazioneDocumento">
+      <http:operation location="/PubblicazioneDocumento" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiAnagrafica">
+      <http:operation location="/LeggiAnagrafica" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiCopie">
+      <http:operation location="/LeggiCopie" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminaAllegato">
+      <http:operation location="/EliminaAllegato" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AnnullaDocumento">
+      <http:operation location="/AnnullaDocumento" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CollegaDocumento">
+      <http:operation location="/CollegaDocumento" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiDocumentoPlus">
+      <http:operation location="/LeggiDocumentoPlus" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserisciDatiUtente">
+      <http:operation location="/InserisciDatiUtente" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscale">
+      <http:operation location="/RicercaPerCodiceFiscale" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaPerCodiceFiscaleMultiDB">
+      <http:operation location="/RicercaPerCodiceFiscaleMultiDB" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Protocollo">
+    <wsdl:port name="ProtocolloSoap" binding="tns:ProtocolloSoap">
+      <soap:address location="http://localhost:9999/ulisse/iride/web_services_20/WSProtocolloDM/WSProtocolloDM.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ProtocolloSoap12" binding="tns:ProtocolloSoap12">
+      <soap12:address location="http://localhost:9999/ulisse/iride/web_services_20/WSProtocolloDM/WSProtocolloDM.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ProtocolloHttpGet" binding="tns:ProtocolloHttpGet">
+      <http:address location="http://localhost:9999/ulisse/iride/web_services_20/WSProtocolloDM/WSProtocolloDM.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ProtocolloHttpPost" binding="tns:ProtocolloHttpPost">
+      <http:address location="http://localhost:9999/ulisse/iride/web_services_20/WSProtocolloDM/WSProtocolloDM.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

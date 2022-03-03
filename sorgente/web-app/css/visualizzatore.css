@@ -1,0 +1,105 @@
+/* CSS UTILIZZATO DAL VISUALIZZATORE DEGLI ATTI */
+
+.navbar-inner {
+	padding: 20px;
+}
+
+ /* labelAttoADS: campi descrittivi dell'atto */
+.labelAttoADS {
+ 		text-align: left;
+ 		font-size: 12px !important;	
+}
+	 
+.input-smallADS {
+	width: 75px;
+	height: 16px !important;
+	margin-bottom: 3px !important;
+	text-align: left;
+	font-size: 12px !important;		
+}
+
+.input-smallDateADS {
+	width: 75px;
+	height: 16px !important;
+	margin: 0px 70px 0px 3px !important;
+	text-align: left;
+	font-size: 12px !important;		
+}
+
+.textAreaADS {
+	width: 517px;
+	font-size: 12px !important;	
+}
+	
+.controls-comboADS {
+	width: 150px;
+	font-size: 12px !important;
+}
+
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 12px !important;
+	line-height: 20px;
+	color: #333333;
+	height: 100%;
+}
+
+.control-groupADS {
+	margin-bottom: 10px;
+	text-align: left;
+}
+
+.controls-combo-fullADS {
+	width: 530px;
+	font-size: 12px !important;		
+}
+
+.pulsanteADS {
+	height: 25px !important;
+	float: right !important;
+}
+
+.control-labelADS {
+	float: left;
+	width: 160px;
+	cursor: normal !important;
+	text-align: right;
+	font-size: 12px !important;		
+}
+
+.titoloDettaglioAtto {
+	font-weight: bold;
+	background-color: #efefef;
+	padding: 0.5em 0.75em;
+	-moz-box-shadow: 0 0 3px 1px #aaaaaa;
+	-webkit-box-shadow: 0 0 3px 1px #aaaaaa;
+	box-shadow: 0 0 3px 1px #aaaaaa;
+	zoom: 1;			
+}
+
+.pagination {
+	margin: 20px 0px 50px 0px !important;
+	border-top: 0;
+	padding: 0.3em 0.2em;
+	text-align: center;
+	-moz-box-shadow: 0 0 3px 1px #AAAAAA;
+	-webkit-box-shadow: 0 0 3px 1px #AAAAAA;
+	box-shadow: 0 0 3px 1px #AAAAAA;
+	background-color: #EFEFEF;
+}
+
+.contenitoreADS {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -40px;
+}
+
+.footerADS {
+  margin: 0 auto;
+/*   max-height: 40px; */
+  min-height:40px;
+  text-align: center;
+  background-color: #0e3552!important;
+  color: #FFF;
+}

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+<?xel-method prefix="i" name="impostazione" class="it.finmatica.atti.impostazioni.Impostazioni" signature="it.finmatica.atti.impostazioni.Impostazioni valueOf (java.lang.String)" ?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('tipoBudgetDettaglioViewModel')"
+            border="normal"
+            width="800px"
+            sizable="false" title=" ">
+
+        <vlayout width="100%" spacing="10px">
+
+            <h:div class="barraTitoloPagina">
+                <label sclass="titoloPagina"
+                       value="@load(c:cat('Gestione Tipo Budget ', (empty vm.selectedRecord.titolo? '': c:cat( ' - ', vm.selectedRecord.titolo)) ) )"/>
+                <image
+                        src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+                        tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')"/>
+            </h:div>
+            <h:div>
+                <tabbox vflex="1">
+                    <tabs>
+                        <tab label="Generale"/>
+                        <tab label="Proposte" disabled="@load(vm.selectedRecord.id le 0)"/>
+                        <tab label="Storico" disabled="@load(vm.selectedRecord.id le 0)"/>
+                    </tabs>
+                    <tabpanels vflex="1">
+                        <!-- Generale -->
+                        <tabpanel>
+                            <grid sclass="form" height="300px">
+                                <rows>
+                                    <row>
+                                        <cell hflex="1" align="left">
+                                            <label value="Tipo"/>
+                                        </cell>
+                                        <cell hflex="3">
+                                            <combobox selectedItem="@bind(vm.selectedRecord.tipo)" hflex="1" readonly="true" disabled="@load(not vm.abilitaGestioneFondo or (vm.selectedRecord.id > 0 and not vm.modifica))">
+                                                <comboitem label="Budget" value="BUDGET" />
+                                                <comboitem label="Fondo" value="FONDO"/>
+                                            </combobox>
+                                        </cell>
+                                    </row>
+                                    <row>
+                                        <cell hflex="1" align="left">
+                                            <label value="Titolo"/>
+                                        </cell>
+                                        <cell hflex="3">
+                                            <textbox value="@bind(vm.selectedRecord.titolo)" hflex="1" sclass="noresizable" multiline="false" disabled="@load(vm.selectedRecord.id > 0 and not vm.modifica)"/>
+                                        </cell>
+                                    </row>
+                                    <row>
+                                        <cell hflex="1" align="left">
+                                            <label value="Anno"/>
+                                        </cell>
+                                        <cell hflex="1">
+                                            <intbox value="@bind(vm.selectedRecord.anno)"  disabled="@load(vm.selectedRecord.id > 0)"/>
+                                        </cell>
+                                        <cell hflex="2">
+                                        </cell>
+                                    </row>
+                                    <row>
+                                        <cell hflex="1" align="left">
+                                            <label value="Attivo"/>
+                                        </cell>
+                                        <cell hflex="3">
+                                            <radiogroup selectedIndex="@load(vm.selectedRecord.attivo ? 0 : 1)" selectedItem="@save(vm.selectedRecord.attivo)" >
+                                                <radio label="Si" value="@load(true)"  disabled="@load(vm.selectedRecord.id > 0)"/>
+                                                <radio label="No" value="@load(false)"  disabled="@load(vm.selectedRecord.id > 0)"/>
+                                            </radiogroup>
+                                        </cell>
+                                    </row>
+                                    <row>
+                                        <cell hflex="1" align="left">
+                                            <label value="Unità"/>
+                                        </cell>
+                                        <cell hflex="3">
+                                            <bandbox-unita width="400px" hflex="1" mold="rounded" autodrop="true" unita="@bind(vm.selectedRecord.unitaSo4)"  disabled="@load(vm.selectedRecord.id > 0)"/>
+                                        </cell>
+                                    </row>
+                                    <row>
+                                        <cell hflex="1" align="left">
+                                            <label value="Firmatario"/>
+                                        </cell>
+                                        <cell hflex="3">
+                                            <bandbox-utenti width="400px" mold="rounded" autodrop="true" utente="@bind(vm.selectedRecord.utenteAd4)"  disabled="@load(vm.selectedRecord.id > 0)"/>
+                                        </cell>
+                                    </row>
+                                    <row>
+                                        <cell hflex="1" align="left">
+                                            <label value="Importo Iniziale"/>
+                                        </cell>
+                                        <cell hflex="1">
+                                            <doublebox value="@bind(vm.selectedRecord.importoIniziale)" disabled="@load(vm.selectedRecord.id > 0)"
+                                                format=",###.#00" constraint="no empty,no negative" />
+                                        </cell>
+                                        <cell hflex="2">
+                                        </cell>
+                                    </row>
+                                    <row>
+                                        <cell hflex="1" align="left">
+                                            <label value="Importo Prenotato"/>
+                                        </cell>
+                                        <cell hflex="1">
+                                            <label value="@load(vm.selectedRecord.importoPrenotato)  @converter('formatedNumber', format='###,##0.00')"/>
+                                            <!--doublebox value="@bind(vm.selectedRecord.importoPrenotato)" visible="@load(vm.modifica)"
+                                                format=",###.#00" constraint="no empty,no negative" /-->
+                                        </cell>
+                                        <cell hflex="2">
+                                        </cell>
+                                    </row>
+                                    <row>
+                                        <cell hflex="1" align="left">
+                                            <label value="Importo Autorizzato"/>
+                                        </cell>
+                                        <cell hflex="1">
+                                            <label value="@load(vm.selectedRecord.importoAutorizzato)  @converter('formatedNumber', format='###,##0.00')" visible="@load(not vm.modifica)"/>
+                                            <doublebox value="@bind(vm.selectedRecord.importoAutorizzato)" visible="@load(vm.modifica)"
+                                                format=",###.#00" constraint="no empty,no negative" />
+                                        </cell>
+                                        <cell hflex="2">
+                                        </cell>
+                                    </row>
+                                    <row>
+                                        <cell hflex="1" align="left">
+                                            <label value="Importo Disponibile"/>
+                                        </cell>
+                                        <cell hflex="1">
+                                            <label value="@load(vm.selectedRecord.importoDisponibile)  @converter('formatedNumber', format='###,##0.00')" visible="@load(not vm.modifica)"/>
+                                            <doublebox value="@bind(vm.selectedRecord.importoDisponibile)" visible="@load(vm.modifica)"
+                                                format=",###.#00" constraint="no empty,no negative" />
+                                        </cell>
+                                        <cell hflex="2">
+                                        </cell>
+                                    </row>
+                                    <row>
+                                        <cell hflex="1" align="left">
+                                            <label value="Conto Economico"/>
+                                        </cell>
+                                        <cell hflex="3">
+                                            <textbox value="@bind(vm.selectedRecord.contoEconomico)" hflex="1" sclass="noresizable" multiline="false" disabled="@load(vm.selectedRecord.id > 0 and not vm.modifica)"/>
+                                        </cell>
+                                    </row>
+                                    <row visible="@load(vm.modifica)">
+                                        <cell hflex="1" align="left">
+                                            <label value="Motivazioni"/>
+                                        </cell>
+                                        <cell hflex="1">
+                                            <textbox value="@bind(vm.motivazione)" hflex="1" multiline="true" rows="2"  class="noresizable"/>
+                                        </cell>
+                                        <cell hflex="2">
+                                        </cell>
+                                    </row>
+                                </rows>
+                            </grid>
+                        </tabpanel>
+                        <tabpanel>
+                            <listbox vflex="1" model="@load(vm.listaBudget)" emptyMessage="Nessun budget collegato.">
+                                <listhead>
+                                    <listheader label="Documento" width="15%"/>
+                                    <listheader label="Atto"		/>
+                                    <listheader label="Importo"	width="10%"	/>
+                                    <listheader label="Stato" width="15%"/>
+                                </listhead>
+                                <template name="model" var="doc" >
+                                    <listitem onDoubleClick="@command('apriDocumento', budget=doc)">
+                                        <listcell>
+                                            <label value="@load(doc.proposta.atto.tipoOggetto)" visible="@load(not empty doc.proposta.atto)"/>
+                                            <label value="@load(doc.proposta.tipoOggetto)" visible="@load(empty doc.proposta.atto)"/>
+                                        </listcell>
+                                        <listcell>
+                                            <label  value="@load(doc.atto.estremiAtto)" />
+                                        </listcell>
+                                        <listcell>
+                                            <label value="@load(doc.importo)  @converter('formatedNumber', format='###,##0.00')"/>
+                                        </listcell>
+                                        <listcell>
+                                            <label value="@load(doc.approvato ? (doc.proposta.atto.stato eq 'ANNULLATO' or doc.proposta.atto.stato eq 'NON_ESECUTIVO' ? 'Annullato': (empty doc.proposta.atto.dataEsecutivita ? 'Approvato': 'Autorizzato')) : 'Prenotato'))"  if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"/>
+                                            <label value="@load(doc.proposta.atto.stato eq 'ANNULLATO' or doc.proposta.atto.stato eq 'NON_ESECUTIVO' ? 'Annullato': (empty doc.proposta.atto.dataEsecutivita ? 'Prenotato': 'Approvato'))"  if="#{i:impostazione('GESTIONE_FONDI').abilitato}"/>
+                                        </listcell>
+                                    </listitem>
+                                </template>
+                            </listbox>
+                        </tabpanel>
+                        <tabpanel>
+                            <listbox vflex="1" model="@load(vm.listaStorico)" emptyMessage="Nessuno storico collegato.">
+                                <listhead>
+                                    <listheader label="Data" width="10%"/>
+                                    <listheader label="Importo Autorizzato" width="18%"/>
+                                    <listheader label="Importo Disponibile"	width="18%"	/>
+                                    <listheader label="Conto Economico" width="18%"/>
+                                    <listheader label="Motivazioni" width="40%"/>
+                                </listhead>
+                                <template name="model" var="doc" >
+                                    <listitem>
+                                        <listcell>
+                                            <label value="@load(doc.dateCreated) @converter('formattedDate', format='dd/MM/yyyy')"/>
+                                        </listcell>
+                                        <listcell>
+                                            <label value="@load(doc.importoAutorizzato)  @converter('formatedNumber', format='###,##0.00')"/>
+                                        </listcell>
+                                        <listcell>
+                                            <label value="@load(doc.importoDisponibile)  @converter('formatedNumber', format='###,##0.00')"/>
+                                        </listcell>
+                                        <listcell>
+                                            <label value="@load(doc.contoEconomico)"/>
+                                        </listcell>
+                                        <listcell>
+                                            <label value="@load(doc.motivazioni)"/>
+                                        </listcell>
+                                    </listitem>
+                                </template>
+                            </listbox>
+                        </tabpanel>
+                    </tabpanels>
+                </tabbox>
+            </h:div>
+
+            <!-- Inizio informazioni relative al salvataggio e bottoni salva / chiudi -->
+            <vlayout sclass="datiCreazioneModifica">
+                <label value="@bind(vm.datiCreazione)" visible="@bind(not empty vm.selectedRecord.titolo)"/>
+                <label value="@bind(vm.datiModifica)" visible="@bind(not empty vm.selectedRecord.titolo)"/>
+            </vlayout>
+
+            <h:div class="barraPulsanti">
+            		<button
+            		 	mold="trendy"
+            			label="@load(vm.selectedRecord.valido? 'Disattiva' : 'Ripristina')"
+            			tooltiptext="@load(vm.selectedRecord.valido? 'Disattiva' : 'Ripristina')"
+            			image="@load(vm.selectedRecord.valido? '/images/afc/16x16/cancel.png' : '/images/afc/16x16/ok.png')"
+            			onClick="@command('onSettaValido', valido=!vm.selectedRecord.valido)"
+            			visible="@load(not empty vm.selectedRecord.id)" />
+
+            		<h:div>
+            			<button
+            				mold="trendy"
+            				label="Salva"
+            				onClick="@command('onSalva')"
+            				visible="@load(vm.selectedRecord.id lt 0 or vm.modifica)"
+            				image="/images/afc/16x16/save.png" />
+            			<button
+            				mold="trendy"
+            				label="Modifica"
+            				onClick="@command('onModifica')"
+            				visible="@load(vm.selectedRecord.id gt 0 and not vm.modifica)"
+            				image="/images/afc/16x16/save.png" />
+            			<button
+            			 	mold="trendy"
+            				label="Salva e chiudi"
+            				onClick="@command('onSalvaChiudi')"
+            				visible="@load(vm.selectedRecord.id lt 0  or vm.modifica)"
+            				image="/images/afc/16x16/save.png" />
+            			<button
+            			 	mold="trendy"
+            				label="Chiudi"
+            				onClick="@command('onChiudi')"
+            				image="/images/afc/16x16/close.png"  />
+            		</h:div>
+            	</h:div>
+        </vlayout>
+
+    </window>
+</zk>

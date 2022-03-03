@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+    	viewModel="@id('vm') @init('popupSceltaDestinatariEsterniEsistentiViewModel')"
+    	border="normal"
+        width="600px"
+        sizable="false"
+        title=" ">
+        <vlayout>
+		<h:div class="barraTitoloPagina">
+   			<label sclass="titoloPagina" value="Gestione Destinatari Esterni"/>
+
+   		</h:div>
+
+        <grid sclass="form">
+        	<rows>
+        		<row>
+        			<cell align="right" valign="top" width="30%">
+	        			<label value="Nominativo / Ragione Sociale"/>
+					</cell>
+					<cell>
+						<bandbox hflex="1"
+							id="bdx"
+							mold="rounded"
+							autodrop="true"
+							value="@bind(vm.email)"
+							onChanging="@command('onChangingDestinatario')"
+							onOpen="@command('onOpenDestinatario')"
+							onChange="@command('onChangeDestinatario')">
+							<bandpopup >
+								<listbox
+									model="@load(vm.destinatariList)"
+									multiple="false"
+									onSelect="@command('onSelectDestinatario', target=bdx)"
+									width="500px"
+									height="280px">
+									<listhead>
+										<listheader label="Cognome"/>
+										<listheader label="Nome"/>
+										<listheader label="Ragione Sociale"/>
+										<listheader label="Email" width="40%"/>
+									</listhead>
+							        <template name="model" var="item">
+							            <listitem>
+							                <listcell label="@load(item.cognome)"></listcell>
+							                <listcell label="@load(item.nome)"></listcell>
+							                <listcell label="@load(item.ragioneSociale)"></listcell>
+							                <listcell label="@load(item.indirizzoEmail)"></listcell>
+							            </listitem>
+							        </template>
+								</listbox>
+								<paging
+									activePage="@bind(vm.activePage)"
+									pageSize="@bind(vm.pageSize)"
+									totalSize="@load(vm.totalSize)"
+								 	onPaging="@command('onPaginaDestinatario')"/>
+							</bandpopup>
+						</bandbox>
+						<button
+							onClick ="@command('onAggiungi')"
+							label = "Nuovo">
+
+						</button>
+					</cell>
+        		</row>
+        		<row>
+			        		<cell hflex="1" align="right">
+		    	    			<label value="Tipo Notifica"/>
+		        			</cell>
+							<cell hflex="3">
+								<radiogroup selectedIndex="@load(vm.indiceNotifica)" selectedItem="@save(vm.destNotifica.tipoNotifica)" >
+				     				<radio label="@load(vm.tipoNotificaCompetenza)" value="@load(vm.tipoNotificaCompetenza)" />
+						            <radio label="@load(vm.tipoNotificaConoscenza)" value="@load(vm.tipoNotificaConoscenza)" />
+					            </radiogroup>
+		        			</cell>
+		        		</row>
+		        	</rows>
+		        </grid>
+				<h:div class="barraPulsanti">
+					<h:div>
+						<button label="Seleziona" onClick="@command('onSalva')" mold="trendy"></button>
+						<button label="Annulla" onClick="@command('onAnnulla')" mold="trendy"></button>
+					</h:div>
+				</h:div>
+
+
+
+
+		</vlayout>
+    </window>
+</zk>

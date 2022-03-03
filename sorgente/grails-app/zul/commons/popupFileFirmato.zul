@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer"
+			viewModel="@id('vm') @init('popupFileFirmatoViewModel')" position="center" title=" " width="550px"
+			 border="normal" closable="true" visible="false">
+
+		<style>
+			ul {
+				font-family: Arial;
+				font-size: 10pt;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				padding-left: 31px;
+			}
+
+			li.valido {
+				list-style-image: url(<r:resource file="/images/agsde2/16x16/point_green.png"/>);
+			}
+
+			li.invalido {
+				list-style-image: url(<r:resource file="/images/agsde2/16x16/point_red.png"/>);
+			}
+
+			.z-groupbox {
+				padding: 5px;
+			}
+		</style>
+
+		<h:div class="barraTitoloPagina">
+			<label sclass="titoloPagina" value="Download del file"/>
+		</h:div>
+
+		<h:h3><label value="@load(c:cat3('Il file ', vm.nomeFile, ' è firmato digitalmente.'))" /></h:h3>
+
+		<div children="@load(vm.risultatiVerifica)">
+			<template name="children" var="firma">
+			<groupbox closable="true" open="false">
+				<caption tooltiptext="@load(firma.valida ? 'La firma è valida' : 'Firma non valida')" image="@load(c:cat3('/images/agsde2/16x16/point_', (firma.valida ? 'green' : 'red'), '.png'))"><label value="@load(firma.firmatario)"/></caption>
+				<h:ul children="@load(firma.esiti)">
+					<template name="children" var="esito">
+						<h:li sclass="@load(esito.valido ? 'valido' : 'invalido')"><label value="@load(esito.msg)" /></h:li>
+					</template>
+				</h:ul>
+			</groupbox>
+			</template>
+		</div>
+
+		<h:div class="barraPulsanti">
+			<h:div>
+				<button label="Download" 		onClick="@command('onP7m')" 			mold="trendy" image="/images/agsde2/16x16/inbox.png" 	tooltiptext="Scarica il file P7M firmato." visible="@load(vm.p7m)"/>
+				<button label="Verifica" 		onClick="@command('onVerifica')" 		mold="trendy" image="/images/agsde2/16x16/viewok.png" 	tooltiptext="Verifica la firma del P7M."  visible="@load(vm.p7m)"/>
+				<button label="Visualizza"		onClick="@command('onSbusta')" 			mold="trendy" image="/images/agsde2/16x16/document.png" tooltiptext="Scarica il file originale senza la busta P7M." />
+				<button label="Copia Testo" 	onClick="@command('onCopia')"    		mold="trendy" image="/images/agsde2/16x16/edit_doc.png" tooltiptext="Scarica la copia modificabile del file firmato." visible="@load(vm.copiaTesto)"/>
+				<button label="Copia conforme"	onClick="@command('onCopiaConforme')" 	mold="trendy" image="/images/agsde2/16x16/folder_documents.png" tooltiptext="Copia conforme" />
+				<!-- <button label="Chiudi" 	 	onClick="@command('onChiudi')" 		mold="trendy" image="/images/pulsanti/16x16/window_close.png" tooltiptext="Chiude la maschera." />-->
+			</h:div>
+		</h:div>
+	</window>
+</zk>

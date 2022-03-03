@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Gettone di Presenza</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<gettoni>
+				<NOMINATIVO>BASTIA FEDERICO</NOMINATIVO>
+				<PRESENZE>2</PRESENZE>
+				<DATE_SEDUTA>08/07/2013</DATE_SEDUTA>
+				<IMPORTO>24.88</IMPORTO>
+			</gettoni>
+			<gettoni>
+				<NOMINATIVO>AGOSTINI FILIPPO</NOMINATIVO>
+				<PRESENZE>1</PRESENZE>
+				<DATE_SEDUTA>08/07/2013</DATE_SEDUTA>
+				<IMPORTO>12.44</IMPORTO>
+			</gettoni>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>id della commissione</descrizione>
+			<path/>			
+		</metaDato>
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>dal</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>inizio periodo di ricerca sulle sedute per il calcolo del gettone di presenza</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>al</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>fine periodo di ricerca sulle sedute per il calcolo del gettone di presenza</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>ni</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>ni del partecipante</descrizione>
+			<path/>
+		</metaDato>
+<!-- DEFINIZIONE CAMPI DELLA QUERY -->
+		<metaDato>
+			<nomeSimbolico>TITOLO_COMMISSIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>titolo della commissione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOMINATIVO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nominativo del componente della commissione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PRESENZE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di presenze nel periodo cercato</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>DATE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco delle sedute in cui l'utente era presente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>IMPORTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo totale calcolato</descrizione>
+			<path/>
+		</metaDato>			
+	</definitions>
+	<queryes>
+		<query id='titoloReport' help_query_alias="t" help_field_aliases="DAL, AL, TITOLO_COMMISSIONE">
+		select #dal DAL, #al AL, com.titolo TITOLO_COMMISSIONE from odg_commissioni com where com.id_commissione = #id
+		</query>
+		<query id='gettoni' help_query_alias="g" help_field_aliases="NOMINATIVO, PRESENZE, DATE_SEDUTA, IMPORTO"><![CDATA[
+ select distinct NOMINATIVO
+     , decode(IMPOSTAZIONI_PKG.GET_IMPOSTAZIONE('ODG_CALCOLO_GETTONE_PER_SEDUTA', ente), 'Y', gettoni_per_seduta, gettoni_per_giornata) PRESENZE
+     , DATE_SEDUTA
+     , trim(TO_CHAR(decode(IMPOSTAZIONI_PKG.GET_IMPOSTAZIONE('ODG_CALCOLO_GETTONE_PER_SEDUTA', ente), 'Y', importo_per_seduta, importo_per_giornata), '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) IMPORTO
+  from (
+ select distinct utility_pkg.get_cognome_nome(ni) NOMINATIVO
+     , count (id_seduta) over (partition by ni) gettoni_per_seduta
+     , importo * count (id_seduta) over (partition by ni) importo_per_seduta
+     , count (distinct data_discussione) over (partition by ni) gettoni_per_giornata
+     , string_agg(to_char(data_discussione, 'dd/mm/yyyy')) over (partition by ni) date_seduta
+     , to_char(data_discussione, 'dd/mm/yyyy') data_discussione
+     , importo * count (distinct data_discussione) over (partition by ni) importo_per_giornata
+     , ente
+  from (
+ select distinct s.id_seduta, nvl(os.data_discussione, s.data_inizio_seduta) data_discussione, nvl(cc.ni_componente, sp.ni_componente_esterno) ni, ig.importo, ig.ente
+  from odg_sedute s
+     , odg_oggetti_seduta os
+     , odg_sedute_partecipanti sp
+     , odg_oggetti_partecipanti op
+     , odg_commissioni_componenti cc
+     , odg_importi_gettone ig
+ where os.id_seduta                     = s.id_seduta
+   and op.id_oggetto_seduta             = os.id_oggetto_seduta
+   and sp.id_seduta_partecipante        = op.id_seduta_partecipante
+   and cc.id_commissione_componente(+)  = sp.id_commissione_componente
+   and ig.id_commissione                = s.id_commissione
+   and ig.valido                        = 'Y'
+   and s.valido                         = 'Y'
+   and trunc(IG.VALIDO_DAL)            <= trunc(s.data_inizio_seduta)
+   and (ig.valido_al is null or trunc(IG.VALIDO_AL) >= trunc(s.data_inizio_seduta))
+   and op.presente = 'Y'
+   and (op.ruolo_partecipante is null or sp.ruolo_partecipante <> 'I')
+   and s.id_commissione = #id 
+   and trunc(s.data_inizio_seduta) >= to_date( #dal , 'dd/mm/yyyy')
+   and trunc(s.data_inizio_seduta) <= to_date( #al ,  'dd/mm/yyyy')
+   and ( #ni < 0 or cc.ni_componente = #ni or sp.ni_componente_esterno = #ni )
+ )) order by nominativo
+		]]></query>
+	</queryes>
+	<staticData />
+</documentRoot>

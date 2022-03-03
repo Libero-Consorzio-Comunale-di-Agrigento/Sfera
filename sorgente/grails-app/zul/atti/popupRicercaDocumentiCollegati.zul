@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+	
+	<!-- - - - - - - - - - - - - - 
+	 Popup di ricerca Avanzata
+	 
+	 Non ha viewModel perché usa quello "padre", cioè RicercaDocumentiViewModel 
+	- - - - - - - - - - - - - - - -->
+	<window width="1000px" border="normal" sizable="true" title=" " visible="false">
+		<h:div class="barraTitoloPagina">
+			<hlayout>
+				<label sclass="titoloPagina" value="@load(c:cat('Ricerca ', vm.ricerca.tipiDocumento[vm.ricerca.tipoDocumento].nome))" />
+			</hlayout>
+		</h:div>
+		
+		<groupbox closable="false">
+			<caption label="Estremi Atto" />
+			<grid sclass="form" >
+				<rows>
+					<row>
+						<cell align="right" width="100px"><label value="Anno" /></cell>
+						<cell width="300px">
+							<intbox value="@bind(vm.ricerca.annoAtto)" />
+						</cell>
+						<cell align="right" width="150px"><label value="Numero" /></cell>
+						<cell width="300px">
+							<label value="Dal " />
+							<intbox value="@bind(vm.ricerca.numeroAttoDal)"/>
+							<label value=" Al " />
+							<intbox value="@bind(vm.ricerca.numeroAttoAl)"/>
+						</cell>
+					</row>
+					<row>
+						<cell align="right"><label value="Registro"/></cell>
+						<cell>
+							<combobox model="@load(vm.ricerca.listaTuttiRegistriAtto)" width="100%" readonly="true"
+								selectedItem="@bind(vm.ricerca.registroAtto) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')">
+								<template name="model">
+									<comboitem label="@load(each.descrizione)" value="@load(each.codice)" />
+								</template>
+							</combobox>
+						</cell>
+						<cell align="right"><label value="Data Adozione" /></cell>
+						<cell>
+							<label value="Dal " />
+							<datebox value="@bind(vm.ricerca.dataAdozioneDal)" format="dd/MM/yyyy"/>
+							<label value=" Al " />
+							<datebox value="@bind(vm.ricerca.dataAdozioneAl)" format="dd/MM/yyyy"/>
+						</cell>
+					</row>
+					<row>
+						<cell align="right" width="100px"><label value="@load(c:l('label.ricerca.annoProposta'))" /></cell>
+						<cell width="300px">
+							<intbox value="@bind(vm.ricerca.annoProposta)"/>
+						</cell>
+						<cell align="right" width="150px"><label value="@load(c:l('label.ricerca.numeroProposta'))"  /></cell>
+						<cell width="300px">
+							<label value="Dal " />
+							<intbox value="@bind(vm.ricerca.numeroPropostaDal)"/>
+							<label value=" Al " />
+							<intbox value="@bind(vm.ricerca.numeroPropostaAl)"/>
+						</cell>
+					</row>
+					<row>
+						<cell align="right"><label value="@load(c:l('label.ricerca.dataProposta'))" /></cell>
+						<cell>
+							<label value="Dal " />
+							<datebox value="@bind(vm.ricerca.dataPropostaDal)" format="dd/MM/yyyy"/>
+							<label value=" Al " />
+							<datebox value="@bind(vm.ricerca.dataPropostaAl)" format="dd/MM/yyyy"/>
+						</cell>
+						<!-- Rimossa da Enrico per vedere chi si lamenta...
+						<cell align="right">
+							<label value="Stato Atto" />
+						</cell>
+						<cell>
+							<combobox readonly="true" model="@load(vm.ricerca.statoAtto)"  hflex="1"
+									selectedItem="@bind(vm.ricerca.categoria) @converter('it.finmatica.zkutils.PropertyConverter', property='id')">
+	      						<template name="model" var="categoria">
+									<comboitem label="@load(categoria.codice)" description="@load(categoria.descrizione)" value="@load(categoria)" />
+								</template>
+	      					</combobox>
+						</cell>
+	      					 -->
+					</row>
+					<row>
+						<cell align="right" width="105px"><label value="Anno Protocollo" /></cell>
+						<cell width="295px">
+							<intbox value="@bind(vm.ricerca.annoProtocollo)" />
+						</cell>
+						<cell align="right" width="150px"><label value="Numero Protocollo" /></cell>
+						<cell width="295px">
+							<label value="Dal " />
+							<intbox value="@bind(vm.ricerca.numeroProtocolloDal)"/>
+							<label value=" Al " />
+							<intbox value="@bind(vm.ricerca.numeroProtocolloAl)"/>
+						</cell>
+					</row>
+					<row>
+						<cell align="right"><label value="Unità proponente"/></cell>
+						<cell>
+							<bandbox-unita hflex="1" mold="rounded" autodrop="true" unita="@bind(vm.ricerca.unitaProponente)" />
+						</cell>
+						<cell align="right"><label value="Firmatario"/></cell>
+						<cell>
+							<bandbox-utenti hflex="1" mold="rounded" autodrop="true" utente="@bind(vm.ricerca.firmatario)" />
+						</cell>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<groupbox closable="false">
+			<caption label="Dati" />
+			<grid sclass="form" >
+				<rows>
+					<row>
+						<cell align="right"><label value="Tipologia"/></cell>
+						<cell>
+							<combobox readonly="true" hflex="1" model="@load(vm.ricerca.listaTipologie)" selectedItem="@bind(vm.ricerca.tipologia)">
+								<template name="model" var="tipologia">
+									<comboitem label="@load(tipologia.titolo)" description="@load(tipologia.descrizione)"  />
+								</template>
+							</combobox>
+						</cell><!-- Enrico Sasdelli: Questo secondo me non lo usa nessuno. Provo a commentarlo, vediamo chi si lamenta.
+						<cell align="right"><label value="Data Apposizione" /></cell>
+						<cell>
+							<label value="Dal " />
+							<datebox value="@bind(vm.ricerca.dataApposizioneDal)" format="dd/MM/yyyy"/>
+							<label value=" Al " />
+							<datebox value="@bind(vm.ricerca.dataApposizioneAl)" format="dd/MM/yyyy"/>
+						</cell> -->
+					</row>
+					<row>
+						<cell visible="@load(vm.ricerca.tipoDocumento ne 'CERTIFICATO')" align="right"><label value="Unità" /></cell>
+						<cell visible="@load(vm.ricerca.tipoDocumento ne 'CERTIFICATO')">
+							<bandbox-unita hflex="1" mold="rounded" autodrop="true" unita="@bind(vm.ricerca.unitaVisto)" />
+						</cell>
+						<cell align="right"><label value="Firmatario" /></cell>
+						<cell>
+							<bandbox-utenti hflex="1" mold="rounded" autodrop="true" utente="@bind(vm.ricerca.firmatarioVisto)" />
+						</cell>
+					</row>
+					<row>
+						<cell align="right">
+							<label value="Stato del Documento" />
+						</cell>
+						<cell>
+							<combobox readonly="true" model="@load(vm.ricerca.listaStatiDocumento)" hflex="1" selectedItem="@bind(vm.ricerca.stato)">
+	      						<template name="model" var="stato">
+									<comboitem label="@load(stato)"/>
+								</template>
+	      					</combobox>
+						</cell>
+						<cell align="right">
+							<label value="Esito" visible="@load(vm.ricerca.tipoDocumento ne 'CERTIFICATO')"/>
+							<label value="Tipo"  visible="@load(vm.ricerca.tipoDocumento eq 'CERTIFICATO')"/>
+						</cell>
+						<cell>
+							<combobox visible="@load(vm.ricerca.tipoDocumento ne 'CERTIFICATO')" readonly="true" model="@load(vm.ricerca.listaEsiti)" hflex="1" selectedItem="@bind(vm.ricerca.esito) @converter('it.finmatica.zkutils.PropertyConverter', property='key')">
+	      						<template name="model" var="esito">
+									<comboitem label="@load(esito.value)"  value="@load(esito.key)"/>
+								</template>
+	      					</combobox>
+	      					<combobox visible="@load(vm.ricerca.tipoDocumento eq 'CERTIFICATO')" readonly="true" model="@load(vm.ricerca.listaTipiCertificato)" hflex="1" selectedItem="@bind(vm.ricerca.tipoCertificato) @converter('it.finmatica.zkutils.PropertyConverter', property='key')">
+	      						<template name="model" var="tipo">
+									<comboitem label="@load(tipo.value)"  value="@load(tipo.key)"/>
+								</template>
+	      					</combobox>
+						</cell>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+
+		<h:div class="barraPulsanti">
+			<h:div>
+				<button mold="trendy" image="/images/afc/16x16/filter_box.png" 	label="Cancella Filtri" onClick="@command('onSvuotaFiltri')" 	/>
+				<button mold="trendy" image="/images/afc/16x16/search.png"  	label="Cerca" 			onClick="@command('onCercaAvanzata')"	/>
+				<button mold="trendy" image="/images/afc/16x16/close.png"  		label="Chiudi" 			onClick="@command('onChiudiRicercaAvanzata')" 			/>
+			</h:div>
+		</h:div>
+	</window>
+</zk>

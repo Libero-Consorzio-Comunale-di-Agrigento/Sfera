@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Convocazione Seduta</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<stampa>
+				<NUMERO_PROTOCOLLO>10</NUMERO_PROTOCOLLO>
+				<ANNO_PROTOCOLLO>2018</ANNO_PROTOCOLLO>
+                <DATA_PROTOCOLLO>02/05/2014</DATA_PROTOCOLLO>
+				<NUMERO_ALBO>11</NUMERO_ALBO>
+				<ANNO_ALBO>2017</ANNO_ALBO>
+                <CLASSIFICA_CODICE>01</CLASSIFICA_CODICE>
+                <CLASSIFICA_DESCRIZIONE>DESCRIZIONE TITOLARIO</CLASSIFICA_DESCRIZIONE>
+                <FASCICOLO_ANNO>2014</FASCICOLO_ANNO>
+                <FASCICOLO_NUMERO>100</FASCICOLO_NUMERO>
+                <FASCICOLO_OGGETTO>DESCRIZIONE FASCICOLO</FASCICOLO_OGGETTO>
+                <FIRMATARIO>NOMINATIVO FIRMATARIO</FIRMATARIO>
+			</stampa>
+			<seduta>
+				<GIORNO_SETTIMANA_STAMPA>giovedì</GIORNO_SETTIMANA_STAMPA>
+				<GIORNO_LETTERE_STAMPA>diciassette</GIORNO_LETTERE_STAMPA>
+				<GIORNO_STAMPA>17</GIORNO_STAMPA>
+				<MESE_LETTERE_STAMPA>aprile</MESE_LETTERE_STAMPA>
+				<MESE_STAMPA>04</MESE_STAMPA>
+				<ANNO_LETTERE_STAMPA>duemilaquattordici</ANNO_LETTERE_STAMPA>
+				<ANNO_STAMPA>2014</ANNO_STAMPA>
+				<GIORNO_SETTIMANA_SEDUTA>MARTEDÌ</GIORNO_SETTIMANA_SEDUTA>
+				<GIORNO_LETTERE_SEDUTA>UNO</GIORNO_LETTERE_SEDUTA>
+				<GIORNO_SEDUTA>01</GIORNO_SEDUTA>
+				<MESE_LETTERE_SEDUTA>APRILE</MESE_LETTERE_SEDUTA>
+				<MESE_SEDUTA>04</MESE_SEDUTA>
+				<ANNO_LETTERE_SEDUTA>DUEMILAQUATTORDICI</ANNO_LETTERE_SEDUTA>
+				<ANNO_SEDUTA>2014</ANNO_SEDUTA>
+				<DATA_SEDUTA>01/04/2014</DATA_SEDUTA>
+				<ORA_SEDUTA>09:00</ORA_SEDUTA>
+				<NUMERO_SEDUTA>42</NUMERO_SEDUTA>
+				<TITOLO_COMMISSIONE>GIUNTA</TITOLO_COMMISSIONE>
+				<TIPO_SEDUTA>ORDINARIA</TIPO_SEDUTA>
+				<DATA_SECONDA_CONVOCAZIONE>15/04/2014</DATA_SECONDA_CONVOCAZIONE>
+				<ORA_SECONDA_CONVOCAZIONE>11:00</ORA_SECONDA_CONVOCAZIONE>
+				<NOTE>Note relative alla seduta</NOTE>
+				<PRESIDENTE>NOMINATIVO PRESIDENTE</PRESIDENTE>
+				<SEGRETARIO>NOMINATIVO SEGRETARIO</SEGRETARIO>
+				<SEDE_SEDUTA>Municipio</SEDE_SEDUTA>
+			</seduta>
+			<proposte>
+				<ID_OGGETTO_SEDUTA>80735</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>PRIMA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2014/414</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>1</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 1</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>No</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+			</proposte>
+			<proposte>
+				<ID_OGGETTO_SEDUTA>81138</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>SECONDA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2014/417</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>2</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 2</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>Si</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+			</proposte>
+			<proposte>
+				<ID_OGGETTO_SEDUTA>81381</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>TERZA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2014/420</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>3</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 3</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>No</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+			</proposte>
+			<proposte>
+				<ID_OGGETTO_SEDUTA>81382</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>QUARTA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2014/419</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>4</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 4</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>No</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+			</proposte>
+			<proposte>
+				<ID_OGGETTO_SEDUTA>81640</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>QUINTA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2014/422</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>5</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 5</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>No</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+			</proposte>
+			<proposte>
+				<ID_OGGETTO_SEDUTA>81889</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>SESTA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2014/428</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>6</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 6</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>Si</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+			</proposte>
+			<proposte>
+				<ID_OGGETTO_SEDUTA>83189</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>SETTIMA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2014/452</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>7</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 7</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>No</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+			</proposte>
+			<proposte>
+				<ID_OGGETTO_SEDUTA>83190</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>OTTAVA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2014/451</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>8</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 8</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>No</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+			</proposte>
+			<proposte>
+				<ID_OGGETTO_SEDUTA>83332</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>NONA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2014/453</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>9</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 9</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>Si</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+			</proposte>
+			<informative>
+				<ID_OGGETTO_SEDUTA>180735</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>PRIMA INFORMATIVA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2016/1</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>INFORMATIVA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>1</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 1</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>Si</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+			</informative>
+			<informative>
+				<ID_OGGETTO_SEDUTA>180736</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>SECONDA INFORMATIVA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2016/2</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>INFORMATIVA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>2</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 2</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>No</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+			</informative>
+			<convocati>
+				<CONVOCATO>PRIMO CONVOCATO</CONVOCATO>
+				<RUOLO>SINDACO</RUOLO>
+                <RUOLO_CONVOCATO>PRESIDENTE</RUOLO_CONVOCATO>
+				<SEQUENZA_CONVOCAZIONE>1</SEQUENZA_CONVOCAZIONE>
+			</convocati>
+			<convocati>
+				<CONVOCATO>SECONDO CONVOCATO</CONVOCATO>
+				<RUOLO>ASSESSORE</RUOLO>
+                <RUOLO_CONVOCATO>ASSESSORE</RUOLO_CONVOCATO>
+				<SEQUENZA_CONVOCAZIONE>2</SEQUENZA_CONVOCAZIONE>
+			</convocati>
+			<convocati>
+				<CONVOCATO>TERZO CONVOCATO</CONVOCATO>
+				<RUOLO>ASSESSORE</RUOLO>
+                <RUOLO_CONVOCATO>ASSESSORE</RUOLO_CONVOCATO>
+				<SEQUENZA_CONVOCAZIONE>3</SEQUENZA_CONVOCAZIONE>
+			</convocati>
+			<convocati>
+				<CONVOCATO>QUARTO CONVOCATO</CONVOCATO>
+				<RUOLO>ASSESSORE</RUOLO>
+                <RUOLO_CONVOCATO>ASSESSORE</RUOLO_CONVOCATO>
+				<SEQUENZA_CONVOCAZIONE>4</SEQUENZA_CONVOCAZIONE>
+			</convocati>
+			<convocati>
+				<CONVOCATO>QUINTO CONVOCATO</CONVOCATO>
+				<RUOLO>SEGRETARIO</RUOLO>
+                <RUOLO_CONVOCATO>SEGRETARIO</RUOLO_CONVOCATO>
+				<SEQUENZA_CONVOCAZIONE>5</SEQUENZA_CONVOCAZIONE>
+			</convocati>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+		<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>xxx</descrizione>
+			<path/>			
+		</metaDato>
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>elenco_registri_informative</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco dei registri delle proposte da trattare come informative</descrizione>
+			<path/>			
+		</metaDato>
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>id_seduta_stampa</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>xxx</descrizione>
+			<path/>
+		</metaDato>
+		<!-- DEFINIZIONE CAMPI DELLA QUERY -->
+		<metaDato>
+			<nomeSimbolico>GIORNO_SETTIMANA_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Giorno della settimana in cui si produce la stampa scritto in lettere (esempio: stampato il 30/05/2014 riporta la scritta venerdì)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>GIORNO_LETTERE_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del giorno in cui si produce la stampa scritto in lettere (esempio: stampato il 30/05/2014 riporta la scritta trenta)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>GIORNO_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del giorno in cui si produce la stampa scritto in cifre (esempio: stampato il 30/05/2014 riporta la scritta 30)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MESE_LETTERE_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese in cui si produce la stampa scritto in lettere (esempio: stampato il 30/05/2014 riporta la scritta maggio)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MESE_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese in cui si produce la stampa scritto in cifre (esempio: stampato il 30/05/2014 riporta la scritta 05)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_LETTERE_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno in cui si produce la stampa scritto in lettere (esempio: stampato il 30/05/2014 riporta la scritta duemilaquattordici)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno in cui si produce la stampa scritto in cifre (esempio: stampato il 30/05/2014 riporta la scritta 2014)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>GIORNO_SETTIMANA_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Giorno della settimana in cui si svolge la seduta scritto in lettere (esempio: la seduta e' il 30/05/2014 riporta la scritta venerdì)</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>GIORNO_LETTERE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del giorno in cui si svolge la seduta scritto in lettere (esempio: la seduta e' il 30/05/2014 riporta la scritta trenta)</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>GIORNO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del giorno in cui si svolge la seduta scritto in cifre (esempio: la seduta e' il 30/05/2014 riporta la scritta 30)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MESE_LETTERE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese in cui si svolge la seduta scritto in lettere (esempio: la seduta e' il 30/05/2014 riporta la scritta maggio)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MESE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese in cui si svolge la seduta scritto in cifre (esempio: la seduta e' il 30/05/2014 riporta la scritta 05)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_LETTERE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno in cui si svolge la seduta scritto in lettere (esempio: la seduta e' il 30/05/2014 riporta la scritta duemilaquattordici)</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>ANNO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno in cui si svolge la seduta scritto in cifre (esempio: la seduta e' il 30/05/2014 riporta la scritta 2014)</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>DATA_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data in cui si svolge la seduta nel formato gg/mm/aaaa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ORA_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ora in cui si svolge la seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TIPO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia di seduta</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>TITOLO_COMMISSIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Titolo della commissione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Firmatario o dirigente della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della proposta discussa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ESTREMI_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno / Numero della proposta</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>TIPO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ESEGUIBILITA_IMMEDIATA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Richiesta eseguibilità immediata per la proposta (Si / No)</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>ID_OGGETTO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>ID dell'oggetto inserito in seduta</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità proponente della proposta</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Relatore della proposta</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>NUMERO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SEDE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Sede della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_SECONDA_CONVOCAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di seconda convocazione della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ORA_SECONDA_CONVOCAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ora di seconda convocazione della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note relative alla seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PRESIDENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Presidente della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SEGRETARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Segretario della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CONVOCATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Convocato alla seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SEQUENZA_CONVOCAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Sequenza di convocazione alla seduta</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>RUOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ruolo del convocato alla seduta</descrizione>
+			<path/>
+		</metaDato>
+        <metaDato>
+            <nomeSimbolico>RUOLO_CONVOCATO</nomeSimbolico>
+            <tipo>string</tipo>
+			<descrizione>Ruolo del convocato all'interno della seduta (PRESIDENTE - SEGRETARIO - INVITATO....)</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>NUMERO_PROTOCOLLO</nomeSimbolico>
+            <tipo>string</tipo>
+			<descrizione>Il Numero di Protocollo</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>DATA_PROTOCOLLO</nomeSimbolico>
+            <tipo>string</tipo>
+			<descrizione>Data di Protocollo</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>ANNO_PROTOCOLLO</nomeSimbolico>
+            <tipo>string</tipo>
+			<descrizione>L'anno di Protocollo</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>NUMERO_ALBO</nomeSimbolico>
+            <tipo>string</tipo>
+			<descrizione>Il Numero di Albo</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>ANNO_ALBO</nomeSimbolico>
+            <tipo>string</tipo>
+			<descrizione>L'anno di Albo</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>CLASSIFICA_CODICE</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Codice della classificazione</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>CLASSIFICA_DESCRIZIONE</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Descrizione della classificazione</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>FASCICOLO_NUMERO</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Numero del fascicolo</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>FASCICOLO_ANNO</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Anno del fascicolo</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>FASCICOLO_OGGETTO</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Descrizione del fascicolo</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>FIRMATARIO</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Utente Firmatario</descrizione>
+            <path/>
+        </metaDato>
+	</definitions>
+	<queryes>
+        <query id='stampa' help_query_alias="ss" help_field_aliases="NUMERO_PROTOCOLLO, ANNO_PROTOCOLLO, DATA_PROTOCOLLO, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_OGGETTO, FIRMATARIO">
+            select
+                  decode(ss.NUMERO_PROTOCOLLO, null, '${documentRoot.stampa.NUMERO_PROTOCOLLO}', to_char(numero_protocollo)) NUMERO_PROTOCOLLO
+                , decode(ss.NUMERO_PROTOCOLLO, null, '${documentRoot.stampa.ANNO_PROTOCOLLO}', anno_protocollo) ANNO_PROTOCOLLO
+                , decode(ss.NUMERO_PROTOCOLLO, null, '${documentRoot.stampa.DATA_PROTOCOLLO}', to_char(data_numero_protocollo,'dd/mm/yyyy')) DATA_PROTOCOLLO
+                , decode(ss.classifica_codice, null, decode(ss.classifica_codice, null, '${documentRoot.stampa.CLASSIFICA_CODICE}', classifica_codice), classifica_codice) CLASSIFICA_CODICE
+                , decode(ss.classifica_codice, null, decode(ss.classifica_descrizione, null, '${documentRoot.stampa.CLASSIFICA_DESCRIZIONE}', classifica_descrizione), classifica_descrizione) CLASSIFICA_DESCRIZIONE
+                , decode(ss.classifica_codice, null, decode(ss.fascicolo_anno, null, '${documentRoot.stampa.FASCICOLO_ANNO}', fascicolo_anno), fascicolo_anno) FASCICOLO_ANNO
+                , decode(ss.classifica_codice, null, decode(ss.fascicolo_numero, null, '${documentRoot.stampa.FASCICOLO_NUMERO}', fascicolo_numero), fascicolo_numero) FASCICOLO_NUMERO
+                , decode(ss.classifica_codice, null, decode(ss.fascicolo_oggetto, null, '${documentRoot.stampa.FASCICOLO_OGGETTO}', fascicolo_oggetto), fascicolo_oggetto) FASCICOLO_OGGETTO
+                , nvl(utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto( nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), ss.ente), '${documentRoot.stampa.FIRMATARIO}' ) FIRMATARIO
+            from odg_sedute_stampe ss
+               , firmatari f
+            where ss.id_seduta_stampa = #id_seduta_stampa
+                and f.id_documento(+) = ss.id_seduta_stampa
+                and f.firmato(+) 	  = 'N'
+                and f.data_firma(+)   is not null
+        </query>
+
+		<!-- seduta: restituisce i dati della seduta -->
+		<query id='seduta'
+			   help_query_alias="s"
+	           help_field_aliases="ANNO_LETTERE_SEDUTA, ANNO_LETTERE_STAMPA, ANNO_SEDUTA, ANNO_STAMPA, DATA_SECONDA_CONVOCAZIONE, DATA_SEDUTA, GIORNO_LETTERE_SEDUTA, GIORNO_LETTERE_STAMPA, GIORNO_SEDUTA, GIORNO_SETTIMANA_SEDUTA, GIORNO_SETTIMANA_STAMPA, GIORNO_STAMPA, MESE_LETTERE_SEDUTA, MESE_LETTERE_STAMPA, MESE_SEDUTA, MESE_STAMPA, NOTE, NUMERO_SEDUTA, ORA_SECONDA_CONVOCAZIONE, ORA_SEDUTA, PRESIDENTE, SEGRETARIO, TIPO_SEDUTA, TITOLO_COMMISSIONE, SEDE_SEDUTA">
+ select utility_pkg.giorno_lettere(sysdate) GIORNO_SETTIMANA_STAMPA
+      , utility_pkg.numero_lettere(to_char (sysdate, 'dd')) GIORNO_LETTERE_STAMPA
+      , to_char (sysdate, 'dd') GIORNO_STAMPA
+      , utility_pkg.mese_lettere (to_char (sysdate, 'mm')) MESE_LETTERE_STAMPA
+      , to_char (sysdate, 'mm') MESE_STAMPA
+      , utility_pkg.numero_lettere(to_char (sysdate, 'yyyy')) ANNO_LETTERE_STAMPA
+      , to_char (sysdate, 'yyyy') ANNO_STAMPA
+      , upper(utility_pkg.giorno_lettere(sed.data_seduta)) GIORNO_SETTIMANA_SEDUTA
+      , upper(utility_pkg.numero_lettere(to_char (sed.data_seduta, 'dd'))) GIORNO_LETTERE_SEDUTA
+      , to_char (sed.data_seduta, 'dd') GIORNO_SEDUTA
+      , upper(utility_pkg.mese_lettere (to_char (sed.data_seduta, 'mm'))) MESE_LETTERE_SEDUTA
+      , to_char (sed.data_seduta, 'mm') MESE_SEDUTA
+      , upper(utility_pkg.numero_lettere(to_char (sed.data_seduta, 'yyyy'))) ANNO_LETTERE_SEDUTA
+      , to_char (sed.data_seduta, 'yyyy') ANNO_SEDUTA
+      , to_char (sed.data_seduta, 'DD/MM/YYYY') DATA_SEDUTA
+      , sed.ora_seduta ORA_SEDUTA
+      , sed.numero NUMERO_SEDUTA
+      , com.titolo TITOLO_COMMISSIONE
+      , ots.titolo TIPO_SEDUTA
+      , to_char (sed.data_seconda_convocazione, 'DD/MM/YYYY') DATA_SECONDA_CONVOCAZIONE
+      , sed.ora_seconda_convocazione ORA_SECONDA_CONVOCAZIONE
+	  , sed.note NOTE
+	  , (select utility_pkg.get_cognome_nome (nvl (com_presidente.ni_componente, osp_presidente.ni_componente_esterno))
+		   from odg_sedute_partecipanti osp_presidente, odg_commissioni_componenti com_presidente
+          where osp_presidente.id_seduta = sed.id_seduta
+			and osp_presidente.ruolo_partecipante = 'P'
+			and osp_presidente.id_commissione_componente = com_presidente.id_commissione_componente (+)
+			and rownum = 1) PRESIDENTE
+		, (select utility_pkg.get_cognome_nome (nvl (com_segretario.ni_componente, osp_segretario.ni_componente_esterno))
+		     from odg_sedute_partecipanti osp_segretario, odg_commissioni_componenti com_segretario
+		    where osp_segretario.id_seduta = sed.id_seduta
+		      and osp_segretario.ruolo_partecipante = 'S'
+		      and osp_segretario.id_commissione_componente = com_segretario.id_commissione_componente (+)
+		      and rownum = 1) SEGRETARIO
+	  , sed.sede sede_seduta
+   from odg_sedute sed
+      , odg_commissioni com
+	  , odg_tipi_seduta ots
+  where sed.id_seduta = #id
+	and com.id_commissione = sed.id_commissione
+	and sed.id_tipo_seduta = ots.id_tipo_seduta
+		</query>
+
+		<!-- proposte: restituisce i dati delle proposte in seduta -->
+		<query id='proposte'
+			   help_query_alias="p"
+			   help_field_aliases="ESEGUIBILITA_IMMEDIATA, ESTREMI_PROPOSTA, ID_OGGETTO_SEDUTA, OGGETTO_PROPOSTA, RELATORE, SEQUENZA_CONVOCAZIONE, TIPO_PROPOSTA, UNITA_PROPONENTE, FIRMATARIO_PROPOSTA">
+			     select ID_OGGETTO_SEDUTA
+					  , OGGETTO_PROPOSTA
+					  , ESTREMI_PROPOSTA
+					  , TIPO_PROPOSTA
+					  , UNITA_PROPONENTE
+					  , rownum SEQUENZA_CONVOCAZIONE
+					  , RELATORE
+					  , ESEGUIBILITA_IMMEDIATA
+					  , FIRMATARIO_PROPOSTA
+				  from (
+					  select os.id_oggetto_seduta ID_OGGETTO_SEDUTA
+						   ,  pd.oggetto OGGETTO_PROPOSTA
+						   ,  pd.anno_proposta || '/' || pd.numero_proposta ESTREMI_PROPOSTA
+						   ,  td.titolo TIPO_PROPOSTA
+						   ,  utility_pkg.get_unita_prop_delibera(pd.id_proposta_delibera) UNITA_PROPONENTE
+						   ,  os.sequenza_convocazione SEQUENZA_CONVOCAZIONE
+						   ,  utility_pkg.get_cognome_nome(dele.ni_assessore) RELATORE
+						   ,  decode(pd.ESEGUIBILITA_IMMEDIATA,'Y','Si','No') ESEGUIBILITA_IMMEDIATA
+						   , nvl (utility_pkg.get_primo_firmatario_prop_deli(pd.id_proposta_delibera), utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'DIRIGENTE')) FIRMATARIO_PROPOSTA
+						 from proposte_delibera pd
+						   , deleghe dele
+						   , odg_oggetti_seduta os
+						   , tipi_delibera td
+					   where os.id_seduta = #id
+						 and os.id_proposta_delibera = pd.id_proposta_delibera
+						 and pd.id_tipo_delibera = td.id_tipo_delibera
+						 and not instr(impostazioni_pkg.get_impostazione ('ODG_ELENCO_REGISTRI_INFORMATIVE', pd.ente),chr(35)||td.id_tipo_registro_delibera||chr(35)) > 0
+						 and os.id_delega = dele.id_delega (+)
+					   order by os.sequenza_convocazione asc)  
+		</query>
+
+		<query id='informative'
+			   help_query_alias="i"
+			   help_field_aliases="ESEGUIBILITA_IMMEDIATA, ESTREMI_PROPOSTA, ID_OGGETTO_SEDUTA, OGGETTO_PROPOSTA, RELATORE, SEQUENZA_CONVOCAZIONE, TIPO_PROPOSTA, UNITA_PROPONENTE, FIRMATARIO_PROPOSTA">
+			     select ID_OGGETTO_SEDUTA
+					  , OGGETTO_PROPOSTA
+					  , ESTREMI_PROPOSTA
+					  , TIPO_PROPOSTA
+					  , UNITA_PROPONENTE
+					  , rownum SEQUENZA_CONVOCAZIONE
+					  , RELATORE
+					  , ESEGUIBILITA_IMMEDIATA
+					  , FIRMATARIO_PROPOSTA
+				  from (
+					  select os.id_oggetto_seduta ID_OGGETTO_SEDUTA
+						   ,  pd.oggetto OGGETTO_PROPOSTA
+						   ,  pd.anno_proposta || '/' || pd.numero_proposta ESTREMI_PROPOSTA
+						   ,  td.titolo TIPO_PROPOSTA
+						   ,  utility_pkg.get_unita_prop_delibera(pd.id_proposta_delibera) UNITA_PROPONENTE
+						   ,  os.sequenza_convocazione SEQUENZA_CONVOCAZIONE
+						   ,  utility_pkg.get_cognome_nome(dele.ni_assessore) RELATORE
+						   ,  decode(pd.ESEGUIBILITA_IMMEDIATA,'Y','Si','No') ESEGUIBILITA_IMMEDIATA
+						   , nvl (utility_pkg.get_primo_firmatario_prop_deli(pd.id_proposta_delibera), utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'DIRIGENTE')) FIRMATARIO_PROPOSTA
+						 from proposte_delibera pd
+						   , deleghe dele
+						   , odg_oggetti_seduta os
+						   , tipi_delibera td
+					   where os.id_seduta = #id
+						 and os.id_proposta_delibera = pd.id_proposta_delibera
+						 and pd.id_tipo_delibera = td.id_tipo_delibera
+						 and instr(impostazioni_pkg.get_impostazione ('ODG_ELENCO_REGISTRI_INFORMATIVE', pd.ente),chr(35)||td.id_tipo_registro_delibera||chr(35)) > 0
+						 and os.id_delega = dele.id_delega (+)
+					   order by os.sequenza_convocazione asc) 
+		</query>
+		
+		<!-- convocati: restituisce i dati dei convocati alla seduta -->	
+		<query id='convocati'
+			   help_query_alias="co"
+	           help_field_aliases="SEQUENZA_CONVOCAZIONE, CONVOCATO, RUOLO, RUOLO_CONVOCATO">
+     select SEQUENZA_CONVOCAZIONE, CONVOCATO, RUOLO, RUOLO_CONVOCATO
+	   from (
+		 select  osp.sequenza SEQUENZA_CONVOCAZIONE
+			   , nvl(utility_pkg.get_cognome_nome(occ.ni_componente), utility_pkg.get_cognome_nome(osp.ni_componente_esterno)) CONVOCATO
+			   , i.titolo RUOLO
+			   , orp.descrizione RUOLO_CONVOCATO
+			from odg_sedute os
+			   , odg_sedute_partecipanti osp
+			   , odg_incarichi i
+			   , odg_ruoli_partecipanti orp
+			   , odg_commissioni_componenti occ
+		   where os.id_seduta = #id
+				 and osp.id_seduta = os.id_seduta
+				 and i.id_incarico(+) = osp.id_incarico
+				 and osp.id_commissione_componente = occ.id_commissione_componente (+)
+				 and osp.convocato = 'Y'
+				 and osp.ruolo_partecipante = orp.ruolo_partecipante(+)
+		 order by osp.sequenza, osp.convocato asc)
+		</query>
+	</queryes>
+	<staticData />
+</documentRoot>

@@ -1,0 +1,11 @@
+La possibilità di dare numeri univoci, sequenziali, senza buchi e non doppi è una delle funzionalità base di Sfera.
+
+È possibile configurare diverse Tipologie di Registro in modo da poter dare diversi numeri per diversi Registri.
+
+Nelle Tipologie di Registro è possibile specificare che l'apertura e chiusura di un registro sia automatica.
+
+Quando si va a numerare un documento, le regole sono:
+
+# Deve esistere un Registro Valido per l'anno richiesto.
+# Se non esiste un Registro Valido per l'anno richiesto, se il registro ha "Apertura Automatica" allora ne viene creato uno nuovo.
+# Se esiste un Registro _non_ valido per l'anno richiesto, viene restituito un errore

@@ -1,0 +1,44 @@
+--liquibase formatted sql
+--changeset rdestasio:install_20200221_defaults_03
+
+CREATE OR REPLACE FORCE VIEW DISTINTE_ATTI
+(
+   ANNO_DISTINTA,
+   NUMERO_DISTINTA,
+   DATA_DISTINTA,
+   TIPO_DIST,
+   TIPO_DIST_DESCRI,
+   SCADENZA_DAL,
+   SCADENZA_AL,
+   ANNO_DEL,
+   NUMERO_DEL,
+   SEDE_DEL,
+   ID_PROPOSTA,
+   UNITA_PROPONENTE,
+   ANNO_PROPOSTA,
+   NUMERO_PROPOSTA,
+   ELENCO_IMPEGNI,
+   ELENCO_FORNITORI,
+   IMPORTO
+)
+AS
+  SELECT
+      TO_NUMBER (NULL),
+      TO_NUMBER (NULL),
+      TO_DATE (NULL),
+      NULL,
+      NULL,
+      TO_DATE (NULL),
+      TO_DATE (NULL),
+      TO_NUMBER (NULL),
+      TO_NUMBER (NULL),
+      NULL,
+      TO_NUMBER (NULL),
+      NULL,
+      TO_NUMBER (NULL),
+      TO_NUMBER (NULL),
+      NULL,
+      NULL,
+      TO_NUMBER (NULL)
+  FROM DUAL
+/

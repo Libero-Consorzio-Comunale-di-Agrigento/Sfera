@@ -1,0 +1,5 @@
+--liquibase formatted sql
+--changeset rdestasio:2.1.6.0_20200221_01
+
+ALTER TABLE ODG_COMMISSIONI ADD (CONTROLLO_FIRMATARI CHAR(1 BYTE) DEFAULT 'Y' NOT NULL)
+/

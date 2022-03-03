@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+		<descrizione>Proposta di Delibera</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<proposta_delibera>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>10</NUMERO_PROPOSTA>
+				<OGGETTO>PROPOSTA DI DELIBERA</OGGETTO>
+				<OGGETTO_DEFINITIVO>PROPOSTA DI DELIBERA  - OGGETTO DEFINITIVO</OGGETTO_DEFINITIVO>
+				<CLASSIFICA_CODICE>01</CLASSIFICA_CODICE>
+				<CLASSIFICA_DESCRIZIONE>DESCRIZIONE TITOLARIO</CLASSIFICA_DESCRIZIONE>
+				<FASCICOLO_ANNO>2014</FASCICOLO_ANNO>
+				<FASCICOLO_NUMERO>100</FASCICOLO_NUMERO>
+				<FASCICOLO_OGGETTO>DESCRIZIONE FASCICOLO</FASCICOLO_OGGETTO>
+				<DIRIGENTE>TRABUCCHI LAURA</DIRIGENTE>
+                <UNITA_PROPONENTE>Area Affari Generali</UNITA_PROPONENTE>
+                <UNITA_PROPONENTE_UPPER>AREA AFFARI GENERALI</UNITA_PROPONENTE_UPPER>
+				<UNITA_PADRE>AREA AMMINISTRATIVA</UNITA_PADRE>
+				<CODICE_UNITA_PROPONENTE>A_AAGG</CODICE_UNITA_PROPONENTE>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>						
+				<SUDDIVISIONE>AREA</SUDDIVISIONE>
+				<FUNZIONARIO>NOMINATIVO FUNZIONARIO</FUNZIONARIO>
+				<FIRMATARIO>NOMINATIVO FIRMATARIO</FIRMATARIO>
+				<DESCRIZIONE_FIRMATARIO>Il funzionario delegato</DESCRIZIONE_FIRMATARIO>
+				<DELEGANTE>(IN SOSTITUZIONE DI QUALCUNO)</DELEGANTE>
+				<DATA_FIRMA>01/05/2014</DATA_FIRMA>
+				<COGNOME_RELATORE>COGNOME RELATORE</COGNOME_RELATORE>
+				<NOME_RELATORE>NOME RELATORE</NOME_RELATORE>
+				<RELATORE>NOMINATIVO RELATORE</RELATORE>
+				<REDATTORE>NOMINATIVO REDATTORE</REDATTORE>
+				<INCARICATO>NOMINATIVO INCARICATO</INCARICATO>
+				<DESCRIZIONE_RADICE_SUDD>RADICE AFFARI GENERALI</DESCRIZIONE_RADICE_SUDD>
+			</proposta_delibera>
+            <budget>
+                <TIPO_BUDGET>BUDGET DI DEFAULT</TIPO_BUDGET>
+                <CONTO_ECONOMICO>C01</CONTO_ECONOMICO>
+                <CODICE_PROGETTO>REG01</CODICE_PROGETTO>
+                <IMPORTO_BUDGET>1.000,00</IMPORTO_BUDGET>
+            </budget>
+            <destinatari>
+                <NOMINATIVO>NOME COGNOME</NOMINATIVO>
+            </destinatari>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>id della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>	
+<!-- DEFINIZIONE CAMPI DELLA QUERY -->		
+		<metaDato>
+			<nomeSimbolico>OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>oggetto della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+        <metaDato>
+            <nomeSimbolico>OGGETTO_DEFINITIVO</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Oggetto della proposta di delibera alla firma del documento</descrizione>
+            <path/>
+        </metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>ANNO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CLASSIFICA_CODICE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice della classificazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CLASSIFICA_DESCRIZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione della classificazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FASCICOLO_NUMERO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del fascicolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FASCICOLO_ANNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno del fascicolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FASCICOLO_OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del fascicolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FUNZIONARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Funzionario della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DIRIGENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nominativo del dirigente della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità proponente</descrizione>
+			<path/>
+		</metaDato>
+        <metaDato>
+            <nomeSimbolico>UNITA_PROPONENTE_UPPER</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Unità proponente (in maiuscolo)</descrizione>
+            <path/>
+        </metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice dell'unità proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>REDATTORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Redattore della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INCARICATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Incaricato della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SUDDIVISIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Suddivisione dell'unita' proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PADRE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità padre dell'unità proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>AREA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Area dell'unita' proponente della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SERVIZIO_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Servizio dell'unita' proponente della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Firmatario della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è un dirigente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DELEGANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è stato delegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_FIRMA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data in cui la proposta è stata firmata</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Relatore della seduta durante la discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>COGNOME_RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Cognome del relatore della seduta durante la discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>NOME_RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nome del relatore della seduta durante la discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_RADICE_SUDD</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione dell'unità radice in struttura rispetto l'unità proponente</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>NOMINATIVO</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Nominativo del destinatario interno della proposta di delibera</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>CONTROLLO_DESTINATARI</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Dicitura "NESSUNA STRUTTURA SELEZIONATA PER LE COMUNICAZIONI" se non sono stati specificati i destinatari interni della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+        <metaDato>
+            <nomeSimbolico>TIPO_BUDGET</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Tipologia del budget associato</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>CONTO_ECONOMICO</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Conto economico del budget associato</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>CODICE_PROGETTO</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Codice progetto del budget associato</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>IMPORTO_BUDGET</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Importo del budget associato</descrizione>
+            <path/>
+        </metaDato>
+	</definitions>
+	<queryes>
+ 	<!-- proposta_delibera: restituisce i dati di una proposta di delibera -->
+ 	<query id='proposta_delibera'
+		   help_query_alias="p"
+		   help_field_aliases="ANNO_PROPOSTA, AREA_PROPONENTE, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, CODICE_UNITA_PROPONENTE, COGNOME_RELATORE, DATA_FIRMA, DIRIGENTE, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_DESCRIZIONE, FIRMATARIO, FUNZIONARIO, NOME_RELATORE, NUMERO_PROPOSTA, OGGETTO, OGGETTO_DEFINITIVO, RELATORE, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PADRE, UNITA_PROPONENTE, UNITA_PROPONENTE_UPPER, REDATTORE, INCARICATO, DESCRIZIONE_FIRMATARIO, DELEGANTE, DESCRIZIONE_RADICE_SUDD">
+ select oggetto OGGETTO
+     , decode (f.data_firma, null, '${documentRoot.proposta_delibera.OGGETTO_DEFINITIVO}', oggetto) OGGETTO_DEFINITIVO
+     , decode(numero_proposta, null, '${documentRoot.proposta_delibera.NUMERO_PROPOSTA}', numero_proposta) NUMERO_PROPOSTA
+     , decode(anno_proposta, null, '${documentRoot.proposta_delibera.ANNO_PROPOSTA}', anno_proposta) ANNO_PROPOSTA
+     , decode(classifica_codice, null, '${documentRoot.proposta_delibera.CLASSIFICA_CODICE}', classifica_codice) CLASSIFICA_CODICE
+     , decode(classifica_descrizione, null, '${documentRoot.proposta_delibera.CLASSIFICA_DESCRIZIONE}', classifica_descrizione) CLASSIFICA_DESCRIZIONE
+     , decode(fascicolo_anno, null, '${documentRoot.proposta_delibera.FASCICOLO_ANNO}', fascicolo_anno) FASCICOLO_ANNO
+     , decode(fascicolo_numero, null, '${documentRoot.proposta_delibera.FASCICOLO_NUMERO}', fascicolo_numero) FASCICOLO_NUMERO
+     , decode(fascicolo_oggetto, null, '${documentRoot.proposta_delibera.FASCICOLO_OGGETTO}', fascicolo_oggetto) FASCICOLO_OGGETTO
+     , decode(pd.controllo_funzionario,'N',null, utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'FUNZIONARIO')) FUNZIONARIO
+     , utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'DIRIGENTE') DIRIGENTE
+     , utility_pkg.get_unita_prop_delibera (pd.id_proposta_delibera) UNITA_PROPONENTE
+     , upper(utility_pkg.get_unita_prop_delibera (pd.id_proposta_delibera)) UNITA_PROPONENTE_UPPER
+     , utility_pkg.get_codice_unita_prop_delibera(pd.id_proposta_delibera) CODICE_UNITA_PROPONENTE
+     , utility_pkg.get_suddivisione_uo_prop_deli (pd.id_proposta_delibera) SUDDIVISIONE
+     , utility_pkg.get_uo_padre_prop_delibera (pd.id_proposta_delibera) UNITA_PADRE
+     , utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_AREA', pd.ente) AREA_PROPONENTE
+     , utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_SERVIZIO', pd.ente) SERVIZIO_PROPONENTE                                                          
+     , nvl (utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), pd.ente), '${documentRoot.proposta_delibera.FIRMATARIO}') FIRMATARIO
+	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.proposta_delibera.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), pd.ente)) DESCRIZIONE_FIRMATARIO
+	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.proposta_delibera.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, pd.ente)) DELEGANTE
+     , nvl (to_char (f.data_firma, 'dd/mm/yyyy'), '${documentRoot.proposta_delibera.DATA_FIRMA}') DATA_FIRMA
+     , utility_pkg.get_cognome_nome(deleghe.ni_assessore) RELATORE
+     , InitCap(utility_pkg.get_cognome(deleghe.ni_assessore)) COGNOME_RELATORE
+     , InitCap(utility_pkg.get_nome(deleghe.ni_assessore)) NOME_RELATORE
+     , utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'REDATTORE') REDATTORE
+	 , utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'INCARICATO') INCARICATO
+	 , utility_pkg.unita_get_radice_prop_delibera (pd.id_proposta_delibera) DESCRIZIONE_RADICE_SUDD
+     , decode ((select 1 FROM dual where exists
+                        (select 1   from destinatari_notifiche dn
+                        where tipo_destinatario = 'INTERNO'
+                        and dn.id_proposta_delibera = pd.id_proposta_delibera)), 1, '', 'NESSUNA STRUTTURA SELEZIONATA PER LE COMUNICAZIONI') CONTROLLO_DESTINATARI
+  from proposte_delibera pd
+     ,  firmatari f
+     ,  deleghe
+ where pd.id_proposta_delibera = #id
+   and f.id_proposta_delibera(+) = pd.id_proposta_delibera
+   and f.firmato(+) = 'N'
+   and f.data_firma(+) is not null
+   and pd.id_delega = deleghe.id_delega(+) 
+ </query>
+        <query id="destinatari"
+               help_query_alias="ds"
+               help_field_aliases="NOMINATIVO,">
+            select avsc.cognome || ' ' || avsc.nome NOMINATIVO
+            from destinatari_notifiche dn, as4_v_soggetti_correnti avsc
+            where tipo_destinatario = 'INTERNO'
+                and dn.utente_ad4 = avsc.utente
+                and dn.id_proposta_delibera = #id
+            union all
+            select u.descrizione NOMINATIVO
+            from destinatari_notifiche dn, so4_v_unita_organizzative_pubb u
+            where tipo_destinatario = 'INTERNO'
+                and DN.UNITA_PROGR = U.PROGR
+                and dn.unita_dal = U.DAL
+                and DN.UNITA_OTTICA = U.OTTICA
+                and dn.id_proposta_delibera = #id
+ </query>
+    <query id="budget"
+           help_query_alias="b"
+           help_field_aliases="TIPO_BUDGET, CONTO_ECONOMICO, CODICE_PROGETTO, IMPORTO_BUDGET">
+            SELECT tb.titolo TIPO_BUDGET,
+                   decode (impostazioni_pkg.get_impostazione ('DB_CHARSET', b.ente)
+                 ,  'iso-8859-1', trim (to_char (b.importo, '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))
+                 ,  trim (to_char (b.importo, 'L999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))) IMPORTO_BUDGET,
+                   b.codice_progetto CODICE_PROGETTO,
+                   b.conto_economico CONTO_ECONOMICO from budget b, tipi_budget tb
+             where b.id_tipo_budget = tb.id_tipo_budget
+             and b.id_proposta_delibera = #id
+    </query>
+  	</queryes>
+	<staticData />
+</documentRoot>

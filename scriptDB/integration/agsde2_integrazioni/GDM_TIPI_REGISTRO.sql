@@ -1,0 +1,45 @@
+--liquibase formatted sql
+--changeset rdestasio:install_20200221_integrazioni_09
+-- QUESTA VISTA VIENE USATA DA AGSPR
+
+CREATE OR REPLACE FORCE VIEW GDM_TIPI_REGISTRO
+(
+   TIPO_REGISTRO,
+   VERSION,
+   AUTOMATICO,
+   DATA_INS,
+   DELIBERA,
+   DESCRIZIONE,
+   DETERMINA,
+   ENTE,
+   DATA_UPD,
+   UTENTE_INS,
+   UTENTE_UPD,
+   VALIDO,
+   VALIDO_AL,
+   VALIDO_DAL,
+   REGISTRO_ESTERNO,
+   CHIUSURA_AUTOMATICA,
+   VISUALIZZATORE
+)
+AS
+   SELECT TIPO_REGISTRO,
+          VERSION,
+          AUTOMATICO,
+          DATA_INS,
+          DELIBERA,
+          DESCRIZIONE,
+          DETERMINA,
+          ENTE,
+          DATA_UPD,
+          UTENTE_INS,
+          UTENTE_UPD,
+          VALIDO,
+          VALIDO_AL,
+          VALIDO_DAL,
+          REGISTRO_ESTERNO,
+          CHIUSURA_AUTOMATICA,
+          VISUALIZZATORE
+     FROM TIPI_REGISTRO
+    WHERE valido = 'Y'
+/

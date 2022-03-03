@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<h:div class="barraPulsanti">
+		<button
+		 	mold="trendy"
+			label="@load(vm.selectedRecord.valido? 'Disattiva' : 'Ripristina')"
+			tooltiptext="@load(vm.selectedRecord.valido? 'Disattiva' : 'Ripristina')"
+			image="@load(vm.selectedRecord.valido? '/images/afc/16x16/cancel.png' : '/images/afc/16x16/ok.png')"
+			onClick="@command('onSettaValido', valido=!vm.selectedRecord.valido)"
+			visible="@load(not empty vm.selectedRecord.id)" />
+
+		<button
+		 	mold="trendy"
+			label="Duplica"
+			tooltiptext="Duplica"
+			image="/images/afc/16x16/house_plan.png"
+			onClick="@command('onDuplica')"
+			visible="@load(vm.selectedRecord.id gt 0)" if="#{arg.duplicaAttivo}"/>
+
+		<h:div>
+			<button
+				mold="trendy"
+				label="Salva"
+				onClick="@command('onSalva')"
+				image="/images/afc/16x16/save.png" />
+			<button
+			 	mold="trendy"
+				label="Salva e chiudi"
+				onClick="@command('onSalvaChiudi')"
+				image="/images/afc/16x16/save.png" />
+			<button
+			 	mold="trendy"
+				label="Chiudi"
+				onClick="@command('onChiudi')"
+				image="/images/afc/16x16/close.png"  />
+		</h:div>
+	</h:div>
+
+</zk>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer"
+		viewModel="@id('vm') @init('tipoVistoParereDettaglioViewModel')" border="normal"
+		sizable="true" width="800px" height="600px" title=" ">
+
+		<h:div class="barraTitoloPagina">
+   			<label sclass="titoloPagina" value="Tipologia Visto/Parere"/>
+			<image
+				src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+				tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')" />
+   		</h:div>
+
+		<grid sclass="form">
+			<rows>
+				<row>
+					<cell align="right">
+						<h:span class="mandatoryLabel">*</h:span><label value="Titolo:" />
+					</cell>
+					<cell><textbox value="@bind(vm.selectedRecord.titolo)" hflex="1"/></cell>
+					<cell align="right" width="200px"><label value="Codice:" /></cell>
+					<cell><textbox value="@bind(vm.selectedRecord.codice)" hflex="1"/></cell>
+				</row>
+                <row>
+                    <cell align="right" colspan="1"><label value="Descrizione:" /></cell>
+                    <cell colspan="3"><textbox value="@bind(vm.selectedRecord.descrizione)" hflex="1" multiline="true" rows="3" class="noresizable"/></cell>
+                </row>
+                <row>
+                    <cell align="right" ><label value="Gruppo Notifica" /></cell>
+                    <cell colspan="3"><textbox value="@load(vm.selectedRecord.descrizioneNotifica) @save(vm.selectedRecord.descrizioneNotifica)" hflex="1" /></cell>
+                </row>
+				<row>
+					<cell align="right" colspan="1"><label value="Caratteristica Tipologia:" /></cell>
+					<cell colspan="3"><combobox model="@load(vm.listaCaratteristiche)" hflex="1"
+						selectedItem="@bind(vm.selectedRecord.caratteristicaTipologia) @converter('it.finmatica.zkutils.PropertyConverter', property='id')">
+						<template name="model" var="caratteristica">
+							<comboitem label="@load(caratteristica.titolo)" value="@load(caratteristica)" />
+						</template>
+					</combobox></cell>
+				</row>
+				<row>
+					<cell align="right" colspan="1"><label value="Configurazione Iter:" /></cell>
+					<cell colspan="3"><combobox model="@load(vm.listaCfgIter)" hflex="1"
+						selectedItem="@bind(vm.selectedRecord.progressivoCfgIter) @converter('it.finmatica.zkutils.PropertyConverter', defaultValue=-1)">
+						<template name="model" var="cfgIter">
+							<comboitem label="@load(cfgIter.nome)" value="@load(cfgIter.progressivo)" />
+						</template>
+					</combobox></cell>
+				</row>
+				<row>
+					<cell align="right" colspan="1"><label value="Configurazione Iter Delibera:" /></cell>
+					<cell colspan="3"><combobox model="@load(vm.listaCfgIter)" hflex="1"
+						selectedItem="@bind(vm.selectedRecord.progressivoCfgIterDelibera) @converter('it.finmatica.zkutils.PropertyConverter', defaultValue=-1)">
+						<template name="model" var="cfgIter">
+							<comboitem label="@load(cfgIter.nome)" value="@load(cfgIter.progressivo)" />
+						</template>
+					</combobox></cell>
+				</row>
+				<row>
+					<cell align="right" colspan="1"><label value="Testo predefinito:" /></cell>
+					<cell colspan="3">
+						<combobox model="@load(vm.listaModelliTesto)" hflex="1"
+								  selectedItem="@bind(vm.selectedRecord.modelloTesto) @converter('it.finmatica.zkutils.PropertyConverter', property='id')">
+							<template name="model" var="mt">
+								<comboitem label="@load(mt.nome)" description="@load(mt.descrizione)" value="@load(mt)" />
+							</template>
+						</combobox>
+					</cell>
+				</row>
+				<row>
+     				<cell align="right"><label value="Visto Contabile:"/></cell>
+     				<cell>
+	     				<radiogroup selectedIndex="@load(vm.selectedRecord.contabile ? 0 : 1)" selectedItem="@save(vm.selectedRecord.contabile)">
+		     				<radio label="Sì" value="@load(true)"/>
+				            <radio label="No" value="@load(false)"/>
+			            </radiogroup>
+		            </cell>
+     				<cell align="right"><label value="Richiede Firma Dirigente:"/></cell>
+     				<cell>
+	     				<radiogroup selectedIndex="@load(vm.selectedRecord.conFirma ? 0 : 1)" selectedItem="@save(vm.selectedRecord.conFirma)">
+		     				<radio label="Sì" value="@load(true)" />
+				            <radio label="No" value="@load(false)"/>
+			            </radiogroup>
+		            </cell>
+     			</row>
+     			<row>
+     				<cell align="right"><label value="Passaggio in Redazione Unità:"/></cell>
+     				<cell>
+	     				<radiogroup selectedIndex="@load(vm.selectedRecord.conRedazioneUnita ? 0 : 1)" selectedItem="@save(vm.selectedRecord.conRedazioneUnita)">
+		     				<radio label="Sì" value="@load(true)"  />
+				            <radio label="No" value="@load(false)" />
+			            </radiogroup>
+		            </cell>
+     				<cell align="right"><label value="Passaggio in Redazione Dirigente:"/></cell>
+     				<cell>
+	     				<radiogroup selectedIndex="@load(vm.selectedRecord.conRedazioneDirigente ? 0 : 1)" selectedItem="@save(vm.selectedRecord.conRedazioneDirigente)">
+		     				<radio label="Sì" value="@load(true)"  />
+				            <radio label="No" value="@load(false)" />
+			            </radiogroup>
+		            </cell>
+     			</row>
+     			<row>
+     				<cell align="right"><label value="Stampa Unica:"/></cell>
+     				<cell>
+	     				<radiogroup selectedIndex="@load(vm.selectedRecord.stampaUnica ? 0 : 1)" selectedItem="@save(vm.selectedRecord.stampaUnica)">
+		     				<radio label="Sì" value="@load(true)"  />
+				            <radio label="No" value="@load(false)" />
+			            </radiogroup>
+		            </cell>
+					<cell align="right">
+						<label value="Sequenza Stampa Unica:" />
+					</cell>
+					<cell>
+						<spinner value="@bind(vm.selectedRecord.sequenzaStampaUnica)" format=",###" constraint="no empty,min 0" hflex="1"/>
+					</cell>
+     			</row>
+     			<row>
+     				<cell align="right"><label value="Pubblicazione:"/></cell>
+     				<cell>
+	     				<radiogroup selectedIndex="@load(vm.selectedRecord.pubblicazione ? 0 : 1)" selectedItem="@save(vm.selectedRecord.pubblicazione)">
+		     				<radio label="Sì" value="@load(true)"  />
+				            <radio label="No" value="@load(false)" />
+			            </radiogroup>
+		            </cell>
+					<cell align="right"><label value="Testo obbligatorio:"/></cell>
+					<cell>
+						<radiogroup selectedIndex="@load(vm.selectedRecord.testoObbligatorio ? 0 : 1)" selectedItem="@save(vm.selectedRecord.testoObbligatorio)">
+							<radio label="Sì" value="@load(true)"  />
+							<radio label="No" value="@load(false)" />
+						</radiogroup>
+					</cell>
+				</row>
+				<row>
+					<cell align="right"><label value="Pubblicazione Allegati Albo:"/></cell>
+					<cell>
+						<radiogroup selectedIndex="@load(vm.selectedRecord.pubblicaAllegati ? 0 : 1)" selectedItem="@save(vm.selectedRecord.pubblicaAllegati)">
+							<radio label="Sì" value="@load(true)"  disabled="@load(not vm.selectedRecord.pubblicazione)"/>
+							<radio label="No" value="@load(false)" disabled="@load(not vm.selectedRecord.pubblicazione)"/>
+						</radiogroup>
+					</cell>
+					<cell align="right"><label value="Default Pubblicazione Allegati Albo:"/></cell>
+					<cell>
+						<radiogroup selectedIndex="@load(vm.selectedRecord.pubblicaAllegatiDefault ? 0 : 1)" selectedItem="@save(vm.selectedRecord.pubblicaAllegatiDefault)">
+							<radio label="Sì" value="@load(true)"  disabled="@load(not vm.selectedRecord.pubblicazione)"/>
+							<radio label="No" value="@load(false)" disabled="@load(not vm.selectedRecord.pubblicazione)"/>
+						</radiogroup>
+					</cell>
+		        </row>
+                <row>
+                    <cell align="right"><label value="Movimenti Contabili nei Testi:"/></cell>
+                    <cell>
+                        <radiogroup selectedIndex="@load(vm.selectedRecord.queryMovimenti ? 0 : 1)" selectedItem="@save(vm.selectedRecord.queryMovimenti)">
+                            <radio label="Sì" value="@load(true)"  />
+                            <radio label="No" value="@load(false)" />
+                        </radiogroup>
+                    </cell>
+                </row>
+			</rows>
+		</grid>
+
+		<!-- unità che possono gestire il visto -->
+        <listbox model="@load(vm.listaUnita)" emptyMessage="Non è stata scelta nessuna unità per gestire il visto." vflex="1">
+	        <listhead>
+	        	<listheader label="Codice" width="25%" />
+	        	<listheader label="Descrizione" width="70%" />
+	        	<listheader label="" width="5%">
+	        		<image width="15px" src="/images/afc/16x16/add.png" onClick="@command('onSceltaUnita')"></image>
+	        	</listheader>
+	        </listhead>
+        	<template name="model" var="p">
+	        	<listitem>
+	        		<listcell label="@load(p.codice)" />
+	        		<listcell label="@load(p.descrizione)" />
+	        		<listcell>
+	        			<image src="/images/agsde2/22x22/trash.png" onClick="@command('onRimuoviUnitaDestinataria', unita=p)"/>
+	        		</listcell>
+        		</listitem>
+        	</template>
+        </listbox>
+
+        <!-- dati di modifica -->
+		<vlayout class="datiCreazioneModifica" visible="@load(not empty vm.selectedRecord.id)"  height="30px">
+		    <label value="@load(vm.datiCreazione)" />
+			<label value="@load(vm.datiModifica)"  />
+		</vlayout>
+
+		<!-- pulsanti -->
+		<controlBarRecord duplicaAttivo="true"/>
+
+	</window>
+</zk>

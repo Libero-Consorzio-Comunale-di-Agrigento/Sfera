@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Controllo di Regolarità</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<controlloRegolarita>
+				<FIRMATARIO>NOMINATIVO FIRMATARIO</FIRMATARIO>
+				<DESCRIZIONE_REGISTRO>DELIBERAZIONI DI GIUNTA</DESCRIZIONE_REGISTRO>
+				<DATA_MIN_ESECUTIVITA>14/01/2014</DATA_MIN_ESECUTIVITA>
+				<DATA_MAX_ESECUTIVITA>14/01/2014</DATA_MAX_ESECUTIVITA>
+				<AMBITO>AMBITO</AMBITO>
+				<ATTI_DA_ESTRARRE>13</ATTI_DA_ESTRARRE>
+				<FINALITA_ESTRAZIONE>LEGISLATIVA</FINALITA_ESTRAZIONE>
+				<NUMERO_RISULTATI>100</NUMERO_RISULTATI>
+                <DATA_ESTRAZIONE>15/01/2014</DATA_ESTRAZIONE>
+			</controlloRegolarita>
+			<atti>
+				<SEQUENZA>1</SEQUENZA>
+				<NUMERO>19</NUMERO>
+				<ANNO>2016</ANNO>
+				<NUMERO_PROPOSTA>1</NUMERO_PROPOSTA>
+				<ANNO_PROPOSTA>2016</ANNO_PROPOSTA>
+				<DATA_ADOZIONE>12/01/2014</DATA_ADOZIONE>
+				<DATA_ESECUTIVITA>13/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>15/01/2014</DATA_PUBBLICAZIONE>
+				<OGGETTO>OGGETTO DELLA DELIBERA</OGGETTO>
+				<ESITO>POSITIVO</ESITO>
+				<MOTIVAZIONE>A NORMA</MOTIVAZIONE>
+			</atti>
+			<atti>
+				<SEQUENZA>2</SEQUENZA>
+				<NUMERO>20</NUMERO>
+				<ANNO>2016</ANNO>
+				<NUMERO_PROPOSTA>2</NUMERO_PROPOSTA>
+				<ANNO_PROPOSTA>2016</ANNO_PROPOSTA>
+				<DATA_ADOZIONE>13/01/2014</DATA_ADOZIONE>
+				<DATA_ESECUTIVITA>13/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>15/01/2014</DATA_PUBBLICAZIONE>
+				<OGGETTO>OGGETTO DELLA DELIBERA - 2</OGGETTO>
+				<ESITO>POSITIVO</ESITO>
+				<MOTIVAZIONE>A NORMA</MOTIVAZIONE>
+			</atti>
+			<atti>
+				<SEQUENZA>3</SEQUENZA>
+				<NUMERO>21</NUMERO>
+				<ANNO>2016</ANNO>
+				<NUMERO_PROPOSTA>3</NUMERO_PROPOSTA>
+				<ANNO_PROPOSTA>2016</ANNO_PROPOSTA>
+				<DATA_ADOZIONE>14/01/2014</DATA_ADOZIONE>
+				<DATA_ESECUTIVITA>13/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>15/01/2014</DATA_PUBBLICAZIONE>
+				<OGGETTO>OGGETTO DELLA DELIBERA - 3</OGGETTO>
+				<ESITO>NEGATIVO</ESITO>
+				<MOTIVAZIONE>NON A NORMA</MOTIVAZIONE>
+			</atti>
+			<criteriRicerca>
+				<DESCRIZIONE_CRITERIO>CRITERIO</DESCRIZIONE_CRITERIO>
+				<TIPOLOGIA_CRITERIO>TIPOLOGIA</TIPOLOGIA_CRITERIO>
+			</criteriRicerca>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>id del controllo di regolarità</descrizione>
+			<path/>			
+		</metaDato>
+<!-- DEFINIZIONE CAMPI DELLA QUERY -->
+		<metaDato>
+			<nomeSimbolico>AMBITO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ambito del controllo di regolarità</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FINALITA_ESTRAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Finalità di estrazione del controllo di regolarità</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATTI_DA_ESTRARRE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero atti da estrarre</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_RISULTATI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero totale degli atti che soddisfano i criteri di selezione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SEQUENZA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Sequenza di stampa del documento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_ADOZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di adozione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_ESECUTIVITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di esecutività dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di pubblicazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto dell'atto</descrizione>
+			<path/>
+		</metaDato>
+        <metaDato>
+            <nomeSimbolico>DATA_ESTRAZIONE</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Data di estrazione del controllo di regolarità</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+			<nomeSimbolico>DATA_MIN_ESECUTIVITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data minore di esecutività dell'atto</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>DATA_MAX_ESECUTIVITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data maggiore di esecutività dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>utente che invia la notifica</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>ESITO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Esito del controllo di regolarità</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>MOTIVAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Motivazione del controllo di regolarità</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TIPOLOGIA_CRITERIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipo criterio di ricerca</descrizione>
+			<path/>
+		</metaDato><metaDato>
+			<nomeSimbolico>DESCRIZIONE_CRITERIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del criterio di ricerca</descrizione>
+			<path/>
+		</metaDato>			
+	</definitions>
+	<queryes>
+ 	<!-- registro: restituisce la descrizione del registro utilizzato -->
+<query id='controlloRegolarita'
+	   help_query_alias="n"
+	   help_field_aliases="AMBITO, FINALITA_ESTRAZIONE, DATA_ESTRAZIONE, DATA_MAX_ESECUTIVITA, DATA_MIN_ESECUTIVITA, FIRMATARIO, ATTI_DA_ESTRARRE, NUMERO_RISULTATI">
+  select utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (cr.utente_ins)) firmatario
+       ,  cr.ambito ambito
+       ,  pcr.titolo finalita_estrazione
+       ,  to_char (cr.data_estrazione, 'dd/mm/yyyy') data_estrazione
+       ,  to_char (cr.data_esecutivita_dal, 'dd/mm/yyyy') data_min_esecutivita
+       ,  to_char (cr.data_esecutivita_al, 'dd/mm/yyyy') data_max_esecutivita
+       ,  cr.totale_atti	NUMERO_RISULTATI
+       ,  cr.atti_da_estrarre || decode(cr.percentuale,'Y','%','') atti_da_estrarre
+    from controllo_regolarita cr, tipi_controllo_reg pcr
+   where cr.id_controllo_regolarita = #id
+         and cr.tipo_controllo_regolarita = pcr.id_tipo_controllo_regolarita
+</query>
+ 	<!-- atti: restituisce l'elenco degli atti relativi al controllo di regolarita -->
+<query id='atti'
+	   help_query_alias="a"
+	   help_field_aliases="NUMERO, ANNO, NUMERO_PROPOSTA, ANNO_PROPOSTA, DATA_ADOZIONE, DATA_PUBBLICAZIONE, OGGETTO, SEQUENZA, ESITO, MOTIVAZIONE, DATA_ESECUTIVITA">
+  select rownum SEQUENZA
+     ,  t.numero NUMERO
+     ,  t.anno ANNO
+     ,  t.numero_proposta NUMERO_PROPOSTA
+     ,  t.anno_proposta ANNO_PROPOSTA
+     ,  t.data_adozione DATA_ADOZIONE
+     ,  t.data_pubblicazione DATA_PUBBLICAZIONE
+     ,  t.oggetto OGGETTO
+     ,  t.esito ESITO
+     ,  t.motivazione MOTIVAZIONE
+	 ,  t.data_esecutivita DATA_ESECUTIVITA
+  from (select d.numero_determina numero
+  			 ,  d.anno_determina anno
+  			 ,  d.numero_proposta numero_proposta
+  			 ,  d.anno_proposta anno_proposta
+             ,  to_char (d.data_numero_determina, 'dd/mm/yyyy') data_adozione
+             ,  to_char (d.data_pubblicazione, 'dd/mm/yyyy') data_pubblicazione
+             ,  d.oggetto oggetto
+             ,  tecr.titolo ESITO
+             ,  crd.note MOTIVAZIONE
+			 ,  to_char (d.data_esecutivita, 'dd/mm/yyyy') DATA_ESECUTIVITA
+          from controllo_regolarita_doc crd, determine d, tipi_esiti_controllo_reg tecr
+         where crd.id_controllo_regolarita = #id
+           and crd.id_determina = d.id_determina
+           and crd.id_esito_controllo_reg = tecr.id_esito_controllo_reg (+)
+        union
+        select d.numero_delibera numero
+  			 ,  d.anno_delibera anno
+  			 ,  p.numero_proposta numero_proposta
+  			 ,  p.anno_proposta anno_proposta
+             ,  to_char (d.data_adozione, 'dd/mm/yyyy') data_adozione
+             ,  to_char (d.data_pubblicazione, 'dd/mm/yyyy') data_pubblicazione
+             ,  d.oggetto oggetto
+             ,  tecr.titolo ESITO
+             ,  crd.note MOTIVAZIONE
+			 ,  to_char (d.data_esecutivita, 'dd/mm/yyyy') DATA_ESECUTIVITA
+          from controllo_regolarita_doc crd, delibere d, proposte_delibera p, tipi_esiti_controllo_reg tecr
+         where crd.id_controllo_regolarita = #id
+           and crd.id_delibera = d.id_delibera
+           and p.id_proposta_delibera = d.id_proposta_delibera
+           and crd.id_esito_controllo_reg = tecr.id_esito_controllo_reg (+)
+        order by numero) t 
+</query>
+<query id='criteriRicerca'
+	   help_query_alias="c"
+	   help_field_aliases="TIPOLOGIA_CRITERIO, DESCRIZIONE_CRITERIO">
+	   SELECT 'Registro' TIPOLOGIA_CRITERIO, X.DESCRIZIONE DESCRIZIONE_CRITERIO
+		FROM CONTROLLO_REGOLARITA T
+		   , XMLTABLE(
+		       '/criteriRicerca/registri/registro'
+		       PASSING XMLTYPE(T.CRITERI_RICERCA)
+		       COLUMNS DESCRIZIONE  VARCHAR2(1024) PATH 'descrizione/text()'
+		     ) X
+		     WHERE ID_CONTROLLO_REGOLARITA = #id
+		UNION
+		SELECT 'Tipologia' TIPOLOGIA_CRITERIO, X.DESCRIZIONE DESCRIZIONE_CRITERIO
+		FROM CONTROLLO_REGOLARITA T
+		   , XMLTABLE(
+		       '/criteriRicerca/tipologie/tipologia'
+		       PASSING XMLTYPE(T.CRITERI_RICERCA)
+		       COLUMNS DESCRIZIONE  VARCHAR2(1024) PATH 'titolo/text()'
+		     ) X
+		     WHERE ID_CONTROLLO_REGOLARITA = #id
+		UNION
+		SELECT 'Categoria' TIPOLOGIA_CRITERIO, X.DESCRIZIONE DESCRIZIONE_CRITERIO
+		FROM CONTROLLO_REGOLARITA T
+		   , XMLTABLE(
+		       '/criteriRicerca/categorie/categoria'
+		       PASSING XMLTYPE(T.CRITERI_RICERCA)
+		       COLUMNS DESCRIZIONE  VARCHAR2(1024) PATH 'codice/text()'
+		     ) X
+		     WHERE ID_CONTROLLO_REGOLARITA = #id
+		UNION
+		SELECT 'Impegno di spesa' TIPOLOGIA_CRITERIO, X.DESCRIZIONE DESCRIZIONE_CRITERIO
+		FROM CONTROLLO_REGOLARITA T
+		   , XMLTABLE(
+		       '/criteriRicerca/impegnoDiSpesa'
+		       PASSING XMLTYPE(T.CRITERI_RICERCA)
+		       COLUMNS DESCRIZIONE  VARCHAR2(1024) PATH 'text()'
+		     ) X
+		     WHERE ID_CONTROLLO_REGOLARITA = #id
+		UNION
+		SELECT 'Area' TIPOLOGIA_CRITERIO, X.DESCRIZIONE DESCRIZIONE_CRITERIO
+		FROM CONTROLLO_REGOLARITA T
+			, XMLTABLE(
+			'/criteriRicerca/area'
+			PASSING XMLTYPE(T.CRITERI_RICERCA)
+			COLUMNS DESCRIZIONE  VARCHAR2(1024) PATH 'descrizione/text()'
+			) X
+			WHERE ID_CONTROLLO_REGOLARITA = #id
+		UNION
+		SELECT 'Servizio' TIPOLOGIA_CRITERIO, X.DESCRIZIONE DESCRIZIONE_CRITERIO
+		FROM CONTROLLO_REGOLARITA T
+			, XMLTABLE(
+			'/criteriRicerca/servizio'
+			PASSING XMLTYPE(T.CRITERI_RICERCA)
+			COLUMNS DESCRIZIONE  VARCHAR2(1024) PATH 'descrizione/text()'
+			) X
+		     WHERE ID_CONTROLLO_REGOLARITA = #id
+</query>
+	</queryes>
+	<staticData />
+</documentRoot>

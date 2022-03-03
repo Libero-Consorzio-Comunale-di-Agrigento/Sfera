@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <grid sclass="form" vflex="1">
+        <rows>
+            <row>
+                <cell>Redattore:</cell>
+                <cell colspan="3">
+                    <label value="@load(vm.soggetti.REDATTORE.descrizione)"/>
+                </cell>
+                <cell>Firmatari:</cell>
+                <cell colspan="3">
+                    <label value="@load(vm.soggetti.FIRMATARIO.descrizione)" visible="@load(empty vm.soggetti.FIRMATARIO.lista)"/>
+                    <listbox model="@load(vm.soggetti.FIRMATARIO.lista)" vflex="1" visible="@load(not empty vm.soggetti.FIRMATARIO.lista)">
+                        <listhead>
+                            <listheader/>
+                            <listheader width="30px"/>
+                            <listheader width="30px"/>
+                        </listhead>
+                        <template name="model">
+                            <listitem>
+                                <listcell label="@load(each.descrizione)"/>
+                                <listcell visible="@load(vm.competenze.modifica and not vm.campiProtetti.FIRMATARIO)">
+                                    <image hover="/images/afc/22x22/up_blu.png" src="/images/afc/22x22/up_blu.png"
+                                           onClick="@command('onSoggettoUp', soggetto=each)" visible="@load(forEachStatus.index gt 0)"/>
+                                </listcell>
+                                <listcell visible="@load(vm.competenze.modifica and not vm.campiProtetti.FIRMATARIO)">
+                                    <image hover="/images/afc/22x22/down_blu.png" src="/images/afc/22x22/down_blu.png"
+                                           onClick="@command('onSoggettoDown', soggetto=each)" visible="@load(forEachStatus.index lt (c:length(vm.soggetti.FIRMATARIO.lista) - 1))"/>
+                                </listcell>
+                            </listitem>
+                        </template>
+                    </listbox>
+                </cell>
+            </row>
+        </rows>
+    </grid>
+</zk>

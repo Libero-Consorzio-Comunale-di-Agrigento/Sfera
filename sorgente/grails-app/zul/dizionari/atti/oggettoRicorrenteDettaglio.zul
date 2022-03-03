@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('oggettoRicorrenteDettaglioViewModel')"
+            border="normal"
+            width="500px"
+            height="500px"
+            title=" "
+            sizable="false">
+
+        <vlayout width="100%" spacing="10px" vflex="1">
+
+
+            <h:div class="barraTitoloPagina">
+                <label sclass="titoloPagina" value="Gestione oggetto ricorrente"/>
+                <image src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+                       tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')"/>
+            </h:div>
+            <tabbox vflex="1">
+                <tabs>
+                    <tab label="Generale"/>
+                    <tab label="Casa di Vetro" visible="@load(vm.selectedRecord.id ge 0)"/>
+                </tabs>
+                <tabpanels vflex="1">
+                    <!-- Generale -->
+                    <tabpanel height="285px">
+                        <grid sclass="form" vflex="1">
+                            <rows>
+                                <row>
+                                    <cell colspan="1" align="right">
+                                        <label value="Codice"/>
+                                    </cell>
+                                    <cell colspan="3">
+                                        <textbox value="@bind(vm.selectedRecord.codice)" hflex="1"
+                                                 class="noresizable" style="text-transform: uppercase"/>
+                                    </cell>
+                                </row>
+                                <row visible="@load(vm.oggettiRicorrentiControllo)">
+                                    <cell colspan="4">Il testo definito nel dizionario NON sarà modificabile da parte dell'utente durante la fase di redazione della proposta
+                                        <h:br/>
+                                        <h:br/>
+                                        Per permettere all'utente di personalizzare l'oggetto, inserire la scritta [...]
+                                        <h:br/>
+                                        L'utente potrà modificare solamente queste porzioni di testo
+                                    </cell>
+                                </row>
+                                <row>
+                                    <cell colspan="1" align="right">
+                                        <label value="Oggetto"/>
+                                    </cell>
+                                    <cell colspan="3">
+                                        <textbox value="@bind(vm.selectedRecord.oggetto)" hflex="1"
+                                                 class="noresizable" multiline="true" rows="3"
+                                                 style="text-transform: uppercase"/>
+                                    </cell>
+                                </row>
+                                <row>
+                                    <cell colspan="1" align="right">
+                                        <label value="Determina"/>
+                                    </cell>
+                                    <cell colspan="1">
+                                        <checkbox checked="@bind(vm.selectedRecord.determina)"/>
+                                    </cell>
+                                    <cell colspan="1" align="right">
+                                        <label value="Delibera"/>
+                                    </cell>
+                                    <cell colspan="1">
+                                        <checkbox checked="@bind(vm.selectedRecord.delibera)"/>
+                                    </cell>
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+                    <!-- Casa di vetro -->
+                    <tabpanel vflex="1">
+                        <grid sclass="form" vflex="1">
+                            <rows>
+                                <row>
+                                    <cell colspan="1" align="right">
+                                        <label value="CIG Obbligatorio"/>
+                                    </cell>
+                                    <cell colspan="3">
+                                        <checkbox checked="@bind(vm.selectedRecord.cigObbligatorio)"/>
+                                    </cell>
+                                </row>
+                                <row>
+                                    <cell colspan="1" align="right">
+                                        <label value="Lavoro, servizio o fornitura"/>
+                                    </cell>
+                                    <cell colspan="3">
+                                        <combobox selectedItem="@bind(vm.selectedRecord.servizioFornitura)" hflex="1" readonly="true">
+                                            <comboitem label=""	 value=""/>
+                                            <comboitem label="Lavoro" value="LAVORO" />
+                                            <comboitem label="Servizio" value="SERVIZIO"/>
+                                            <comboitem label="Fornitura" value="FORNITURA" />
+                                        </combobox>
+                                    </cell>
+                                </row>
+                                <row>
+                                    <cell colspan="1" align="right">
+                                        <label value="Tipo"/>
+                                    </cell>
+                                    <cell colspan="3">
+                                        <combobox selectedItem="@bind(vm.selectedRecord.tipo)" hflex="1" readonly="true">
+                                            <comboitem label=""	 value=""/>
+                                            <comboitem label="Indizione" value="INDIZIONE" />
+                                            <comboitem label="Aggiudicazione" value="AGGIUDICAZIONE"/>
+                                            <comboitem label="Affidamento in House" value="AFFIDAMENTO IN HOUSE"/>
+                                        </combobox>
+                                    </cell>
+                                </row>
+                                <row>
+                                    <cell colspan="1" align="right">
+                                        <label value="Norma"/>
+                                    </cell>
+                                    <cell colspan="3">
+                                        <textbox value="@bind(vm.selectedRecord.norma)" hflex="1" class="noresizable" multiline="true" rows="2"/>
+                                    </cell>
+                                </row>
+                                <row>
+                                    <cell colspan="1" align="right">
+                                        <label value="Modalità"/>
+                                    </cell>
+                                    <cell colspan="3">
+                                        <textbox value="@bind(vm.selectedRecord.modalita)" hflex="1" class="noresizable" multiline="true" rows="2"/>
+                                    </cell>
+                                </row>
+                                <row>
+                                    <cell colspan="4">
+                                        <listbox model="@load(vm.listaMappingIntegrazioni)" emptyMessage="Nessuna voce presente." vflex="1" height="40px">
+                                            <listhead>
+                                                <listheader label="Sezioni di pubblicazione"/>
+                                                <listheader label="" width="6%" align="center">
+                                                    <image width="16px" src="/images/afc/16x16/add.png"
+                                                           onClick="@command('onAggiungiMappingIntegrazioni')"
+                                                           tooltiptext="Aggiungi una competenza alla tipologia"
+                                                           style="cursor: pointer;" visible="@load(empty vm.listaMappingIntegrazioni)"/>
+                                                </listheader>
+                                            </listhead>
+                                            <template name="model" var="mapping">
+                                                <listitem onDoubleClick="@command('onModificaMappingIntegrazioni', mappingIntegrazione=mapping)" vflex="1" height="20px">
+                                                    <listcell label="@load(mapping.valoreEsterno)"/>
+                                                    <listcell style="align:center;">
+                                                        <image width="16px" tooltiptext="Modifica" style="cursor: pointer;"
+                                                               src="/images/agsde2/16x16/edit_doc.png"
+                                                               onClick="@command('onModificaMappingIntegrazioni', mappingIntegrazione=mapping)" />
+                                                    </listcell>
+                                                </listitem>
+                                            </template>
+                                        </listbox>
+                                    </cell>
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+                </tabpanels>
+            </tabbox>
+        </vlayout>
+
+        <!-- Inizio informazioni relative al salvataggio e bottoni salva / chiudi -->
+        <vlayout class="datiCreazioneModifica" height="30px">
+            <label value="@bind(vm.datiCreazione)" visible="@bind(not empty vm.selectedRecord.oggetto)"/>
+            <label value="@bind(vm.datiModifica)" visible="@bind(not empty vm.selectedRecord.oggetto)"/>
+        </vlayout>
+
+        <controlBarRecord/>
+
+    </window>
+</zk>

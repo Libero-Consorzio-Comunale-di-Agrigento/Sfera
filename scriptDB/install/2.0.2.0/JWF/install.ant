@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     01/mar/2014 11:34:14                                                        
+
+     [NomeProgetto]    
+     [Descrizione del Progetto]
+                   
+     [Autore]                                                                
+     ====================================================================== -->
+<project xmlns:if="ant:if" xmlns:unless="ant:unless">
+	<description>
+    	Aggiorna il componente JWF alla versione 2.0.2.0
+    </description>
+
+	<target name="config">
+		<require-conn istanza="agsde2" />
+	</target>
+	
+	<target name="install:db">
+		<echo message="Aggiorno il componente AGSDE2.JWF alla versione 2.0.2.0" />
+		<sql escapeprocessing="false"  userid="${global.db.target.username}"
+		   password="${global.db.target.password}"
+				url="${global.db.target.url}"
+			 driver="${global.db.target.driver}"
+		 	  expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+			    src="01.agsde2.sql">
+		</sql>
+	</target>
+	
+	<target name="install:fs">
+	</target>
+</project>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     01/mar/2014 11:34:14                                                        
+
+     [NomeProgetto]    
+     [Descrizione del Progetto]
+                   
+     [Autore]                                                                
+     ====================================================================== -->
+<project xmlns:if="ant:if" xmlns:unless="ant:unless">
+
+	<target name="config">
+		<require-conn istanza="gdm"  />
+		<require-conn istanza="ad4"  />
+		<require-conn istanza="dbfw" />
+	</target>
+	
+	<target name="install:db">
+		<!-- aggiungo il ruolo di installazione a gdm -->
+		<ad4-assegna-diritto-accesso gruppolavoro="AGD" ruolo="UTE" istanza="DBFW" 	modulo="DBFW" 	/>
+		<ad4-assegna-diritto-accesso gruppolavoro="AGD" ruolo="UTE" istanza="GDM" 	modulo="GDMWEB" />
+		
+		<sql escapeprocessing="false"  userid="${global.db.gdm.username}"
+		   password="${global.db.gdm.password}"
+				url="${global.db.gdm.url}"
+			 driver="${global.db.gdm.driver}"
+		 	  expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+				src="01.gdm.sql" />
+
+		<sql escapeprocessing="false"  userid="${global.db.target.username}"
+			 password="${global.db.target.password}"
+			 url="${global.db.target.url}"
+			 driver="${global.db.target.driver}"
+			 expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+			 src="02.INTEGRAZIONE_GDM_PKG.sql" />
+
+		<sql escapeprocessing="false"  userid="${global.db.target.username}"
+			 password="${global.db.target.password}"
+			 url="${global.db.target.url}"
+			 driver="${global.db.target.driver}"
+			 expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+			 src="03.agsde2.sql" />
+
+
+		<sql escapeprocessing="false"  userid="${global.db.gdm.username}"
+			 password="${global.db.gdm.password}"
+			 url="${global.db.gdm.url}"
+			 driver="${global.db.gdm.driver}"
+			 expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+			 src="04.gdm.sql" />
+	</target>
+		
+	<target name="install:fs">
+	</target>
+</project>

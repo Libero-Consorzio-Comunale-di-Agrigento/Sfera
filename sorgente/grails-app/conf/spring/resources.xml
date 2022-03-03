@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 	http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/task 		http://www.springframework.org/schema/task/spring-task.xsd
+						http://www.springframework.org/schema/context 	http://www.springframework.org/schema/context/spring-context.xsd
+						http://cxf.apache.org/jaxws 					http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<!-- configurazione esterna delle proprietà nel config.properties -->
+    <context:property-placeholder order="0" location="file:${catalina.home}/confapps/Atti/config.properties" ignore-unresolvable="true" ignore-resource-not-found="true" />
+    <context:property-placeholder order="1" location="classpath:config.properties" />
+
+	<context:annotation-config/>
+	<context:component-scan base-package="it.finmatica.atti.integrazioni" />
+	<context:component-scan base-package="it.finmatica.atti.config" />
+
+    <task:annotation-driven proxy-target-class="true" />
+
+    <bean id="attiJob" 			class="it.finmatica.atti.jobs.AttiJob" 			autowire="byName" scope="singleton"/>
+    <bean id="attiJobExecutor" 	class="it.finmatica.atti.jobs.AttiJobExecutor" 	autowire="byName" scope="singleton"/>
+
+    <bean id="ad4AuthenticationProvider" class="it.finmatica.atti.AggiornamentoInCorsoAuthenticationProvider" autowire="byName" scope="singleton">
+    	<property name="jdbcAd4" value="jdbc/ad4" />
+    	<property name="userDetailsService" ref="userDetailsService" />
+    </bean>
+
+	<!-- Scope personalizzato per gestire il bean successHandler sia in scope request che dai thread slegati da una request. -->
+	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+		<property name="scopes">
+			<map>
+				<entry key="fallbackScope">
+					<bean class="it.finmatica.atti.commons.FallbackScope">
+						<constructor-arg>
+							<bean class="org.springframework.web.context.request.RequestScope"/>
+						</constructor-arg>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+    <!-- GESTIONE DELLE TRANSACTION SYNCHRONIZATION su più transazioni -->
+    <bean id="chainedPlatformTransactionManagerPostProcessor" class="it.finmatica.atti.spring.transaction.ChainedPlatformTransactionManagerPostProcessor" />
+
+	<!-- DEFINIZIONE DEI NOSTRI DATASOURCES -->
+
+	<!-- AD4 -->
+	<bean id="ad4DataSource" class="org.springframework.jndi.JndiObjectFactoryBean" autowire="byName" lazy-init="true">
+		<!-- per generare i DTO -->
+ 		<!--<property name="jndiName" value="jdbc/ad4" />-->
+		<property name="jndiName" value="java:comp/env/jdbc/ad4" />
+	</bean>
+
+	<!-- Questo serve per mantenere la transazionalità con le connessioni ad4 (aggiungere: @Transactional("transactionManagerAd4") alla classe) -->
+	<!-- il bean si chiama transactionManagerAd4 anziché ad4TransactionManger perché altrimenti viene beccato da Grails per collaborare al ChainedTransactionManager -->
+	<bean id="transactionManagerAd4" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" lazy-init="true">
+		<property name="dataSource" ref="ad4DataSource" />
+	</bean>
+
+	<!-- nostri beans -->
+	<bean id="successHandler" class="org.springframework.aop.scope.ScopedProxyFactoryBean" autowire="byName">
+		<property name="targetBeanName"   value="successHandlerUnproxied" />
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+
+	<bean id="successHandlerUnproxied" class="it.finmatica.zkutils.SuccessHandler" autowire="byName" scope="fallbackScope"/>
+
+	<!-- bean per l'invio delle notifiche email e jworklist in modo asincrono rispetto alla transazione -->
+	<bean id="notificheDispatcher" class="org.springframework.aop.scope.ScopedProxyFactoryBean" autowire="byName">
+		<property name="targetBeanName"   value="notificheDispatcherUnproxied" />
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+
+	<bean id="notificheDispatcherUnproxied" class="it.finmatica.atti.documenti.beans.NotificheDispatcher" autowire="byName" scope="fallbackScope"/>
+
+	<bean id="notificheAsyncDispatcher" class="it.finmatica.atti.documenti.beans.NotificheAsyncDispatcher" autowire="byName" scope="singleton"/>
+
+	<bean id="notificheAsyncService" class="it.finmatica.atti.documenti.beans.NotificheAsyncService" autowire="byName" scope="singleton" />
+
+	<bean id="storageFileService" class="it.finmatica.atti.documenti.beans.GdmFirmaDigitaleFileStorage" autowire="byName" scope="singleton">
+		<constructor-arg ref="gestioneTesti"/>
+		<constructor-arg ref="gestoreFile"/>
+		<constructor-arg ref="fileFirmatoDettaglioService"/>
+		<constructor-arg ref="springSecurityService"/>
+	</bean>
+
+	<bean id="gestoreCompetenze" class="it.finmatica.atti.documenti.beans.AttiGestoreCompetenze" autowire="byName" scope="singleton"/>
+
+	<bean id="gestoreEventiIter" class="it.finmatica.atti.documenti.beans.AttiGestoreEventiIter" autowire="byName" scope="singleton"/>
+
+	<bean id="gestioneTesti" class="it.finmatica.atti.documenti.beans.AttiGestioneTesti" autowire="byName" scope="singleton"/>
+
+	<bean id="gestoreFile" class="it.finmatica.atti.documenti.beans.AttiImpostazioniGestoreFile" autowire="byName" scope="singleton" />
+
+	<bean id="attiGestoreFile" class="it.finmatica.atti.documenti.beans.AttiGestoreFile" autowire="byName" scope="singleton" />
+
+	<bean id="fileFirmatoDettaglioService" class="it.finmatica.atti.documenti.FileFirmatoDettaglioService" autowire="byName" scope="singleton" />
+
+	<bean id="gdmGestoreFile" class="it.finmatica.atti.documenti.beans.GdmGestoreFile" autowire="byName" scope="singleton"/>
+
+	<bean id="gestoreDocumentaleEsterno" class="it.finmatica.atti.documenti.beans.GdmDocumentaleEsterno" autowire="byName" scope="singleton" />
+
+	<bean id="attiFileDownloader" class="it.finmatica.atti.documenti.beans.AttiFileDownloader" autowire="byName" scope="singleton" />
+
+	<bean id="impostazioniMap" class="it.finmatica.atti.impostazioni.ImpostazioniMap" autowire="byName" scope="singleton" init-method="init"/>
+
+	<!-- bean per la gestione delle transazioni di firma -->
+	<bean id="attiGestoreTransazioneFirma" class="org.springframework.aop.scope.ScopedProxyFactoryBean" autowire="byName">
+		<property name="targetBeanName" 	value="attiGestoreTransazioneFirmaUnproxied" />
+		<property name="proxyTargetClass" 	value="true" />
+	</bean>
+
+	<bean id="attiGestoreTransazioneFirmaUnproxied" class="it.finmatica.atti.documenti.beans.AttiGestoreTransazioneFirma" autowire="byName" scope="request" />
+
+	<!-- Gestione della Protocollazione -->
+
+	<!-- bean "principale" -->
+	<bean id="protocolloEsterno" class="it.finmatica.atti.impostazioni.ImpostazioniProxyFactoryBean" autowire="byName" scope="singleton" lazy-init="true" primary="true">
+		<property name="impostazione" value="PROTOCOLLO" />
+		<property name="targetInterface"  value="it.finmatica.atti.IProtocolloEsterno" />
+	</bean>
+
+	<!-- Integrazioni con la Contabilità -->
+	<bean id="integrazioneContabilita" class="it.finmatica.atti.impostazioni.ImpostazioniProxyFactoryBean" autowire="byName" scope="singleton" lazy-init="true" primary="true">
+		<property name="impostazione" value="CONTABILITA" />
+		<property name="targetInterface"  value="it.finmatica.atti.IntegrazioneContabilita" />
+	</bean>
+
+	<!-- bean per la jworklist -->
+	<bean id="jworklistDispatcher" class="it.finmatica.atti.impostazioni.ImpostazioniProxyFactoryBean" autowire="byName" scope="singleton" lazy-init="true" primary="true">
+		<property name="impostazione" value="JWORKLIST" />
+		<property name="targetInterface"  value="it.finmatica.atti.integrazioni.jworklist.JWorklistDispatcher" />
+	</bean>
+
+	<!-- Integrazioni con l'albo -->
+	<bean id="integrazioneAlbo" class="it.finmatica.atti.impostazioni.ImpostazioniProxyFactoryBean" autowire="byName" scope="singleton" lazy-init="true" primary="true">
+		<property name="impostazione" value="INTEGRAZIONE_ALBO" />
+		<property name="targetInterface"  value="it.finmatica.atti.IntegrazioneAlbo" />
+	</bean>
+
+	<!-- Configurazione WebServices esposti da sfera -->
+	<!-- Override del bean di interceptUrlMap di Spring-Security-Core per consentire l'accesso pubblico al .wsdl -->
+	<bean id="customObjectDefinitionSource" 	 class="it.finmatica.atti.springsecurity.CustomInterceptUrlMapFilterInvocationDefinition" autowire="byName" scope="singleton" />
+	<bean id="customFilterInvocationInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor" autowire="byName" scope="singleton" lazy-init="true">
+		<property name="authenticationManager"  	ref="authenticationManager"	/>
+		<property name="accessDecisionManager"  	ref="accessDecisionManager"	/>
+		<property name="securityMetadataSource"  	ref="customObjectDefinitionSource"/>
+		<property name="runAsManager"  				ref="runAsManager"			/>
+		<property name="afterInvocationManager"  	ref="afterInvocationManager"/>
+		<property name="alwaysReauthenticate"  			value="false"	/>
+		<property name="rejectPublicInvocations"  		value="true"	/>
+		<property name="validateConfigAttributes"  		value="true"	/>
+		<property name="publishAuthorizationSuccess"  	value="false"	/>
+		<property name="observeOncePerRequest"  		value="true"	/>
+	</bean>
+
+	<jaxws:endpoint implementor="#attiWebService" address="/atti" implementorClass="it.finmatica.atti.integrazioni.ws.AttiWebService">
+		<jaxws:properties>
+			<entry key="mtom-enabled" value="true"/>
+		</jaxws:properties>
+	</jaxws:endpoint>
+</beans>

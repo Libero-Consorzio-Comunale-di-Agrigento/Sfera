@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?component name="storico" macroURI="commons/storico.zul" inline="true"?>
+<?component name="movimentiCF4" macroURI="commons/movimentiCF4.zul" inline="true"?>
+<?xel-method prefix="i" name="impostazione" class="it.finmatica.atti.impostazioni.Impostazioni" signature="it.finmatica.atti.impostazioni.Impostazioni valueOf (java.lang.String)" ?>
+<?xel-method prefix="da" name="isAbilitato" class="it.finmatica.atti.documenti.TipoDatoAggiuntivo" signature="boolean isAbilitato (java.lang.String)" ?>
+<?xel-method prefix="da" name="descrizione" class="it.finmatica.atti.documenti.TipoDatoAggiuntivo" signature="java.lang.String getDescrizione (java.lang.String)" ?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer" viewModel="@id('vm') @init('deliberaViewModel')"
+		border="normal" sizable="true" width="950px" height="660px" title=" ">
+
+		<grid sclass="documentoBandaTitolo">
+			<rows>
+				<row>
+					<cell width="50px">
+						<image src="/images/agsde2/48x48/logo_delibera_48.png"
+							tooltiptext="@bind(vm.posizioneFlusso)" />
+					</cell>
+					<cell sclass="documentoTitolo" align="left" valign="center">
+						<!-- titolo della pagina -->
+						<label  value="@load(c:cat('Atto', not empty vm.delibera.estremiAtto ? c:cat5(': ', vm.delibera.numeroDelibera,' / ', vm.delibera.annoDelibera, c:cat3(' (',vm.delibera.registroDelibera.descrizione,')')) : ''))"
+								sclass="titolo" />
+						<a sclass="linkTitoloPagina"
+							label="@load(c:cat5(c:l('label.proposta'),': ', vm.delibera.proposta.numeroProposta, ' / ', vm.delibera.proposta.annoProposta))"
+							onClick="@command('onApriAtto')"
+							tooltiptext="@load(c:cat5(c:l('label.visualizzaProposta'),' ', vm.delibera.proposta.numeroProposta, ' / ', vm.delibera.proposta.annoProposta))" />
+					</cell>
+					<cell sclass="documentoSottoTitolo" align="right" valign="center">
+                        <label style="color: #FF0000; font-weight: bold;" value="PROPOSTA ANNULLATA"  visible="@load(vm.delibera.stato eq 'ANNULLATO' and empty vm.delibera.numeroDelibera)" />
+                        <label style="color: #FF0000; font-weight: bold;" value="ATTO ANNULLATO"      visible="@load((vm.delibera.stato eq 'ANNULLATO' or vm.delibera.stato eq 'NON_ESECUTIVO') and vm.delibera.numeroDelibera gt 0 and empty vm.delibera.dataEsecutivita)" />
+                        <label style="color: #FF0000; font-weight: bold;" value="NON ESECUTIVO"       visible="@load( (vm.delibera.stato eq 'ANNULLATO' or vm.delibera.stato eq 'NON_ESECUTIVO') and not empty vm.delibera.dataEsecutivita)" />
+
+						<label style="color: #FF0000; font-weight: bold;" value="ATTO INTEGRATO" visible="@load(vm.delibera.stato eq 'INTEGRATO')" />
+						<label value="@load(vm.delibera.numeroDelibera    eq null ? ' ' : c:cat ('Atto adottato il ', c:formatDate(vm.delibera.dataAdozione, 	  'dd/MM/yyyy')) )" />
+						<label value="@load(vm.delibera.dataEsecutivita   eq null ? ''  : c:l2('label.delibera.esecutiva',  c:formatDate(vm.delibera.dataEsecutivita, 'dd/MM/yyyy').split('-')))" />
+						<label value="@load(vm.delibera.dataPubblicazione eq null ? ' ' : c:cat3('Pubblicato dal ',   c:formatDate(vm.delibera.dataPubblicazione, 'dd/MM/yyyy'), ((vm.delibera.dataFinePubblicazione eq null) ? ' ' : c:cat(' al ', c:formatDate(vm.delibera.dataFinePubblicazione, 'dd/MM/yyyy')))))" />
+                        <StatoConservazione logConservazione="@load(vm.logConservazione)" />
+					</cell>
+					<cell width="24px" valign="center" visible="@load(vm.isLocked)" align="right">
+						<image src="/images/agsde2/22x22/lock.png" tooltiptext="@load(c:l('message.locked'))"/>
+					</cell>
+				</row>
+			</rows>
+		</grid>
+		<space height="3px" />
+		<!-- SOGGETTI DELLA DELIBERA -->
+		<include src="@load(vm.delibera.proposta.tipologia.caratteristicaTipologiaDelibera.layoutSoggetti)" mode="instant" />
+		<space height="3px" />
+		<!-- OGGETTO DELLA DELIBERA -->
+		<grid sclass="form">
+			<rows>
+				<row visible="@load(vm.delibera.proposta.tipologia.delega)">
+					<cell width="150px">
+						<label value="@load(c:l('label.deliberaStandard.assessorato'))" />
+					</cell>
+					<cell>
+						<label value="@load(vm.delibera.oggettoSeduta.delega.descrizioneAssessorato)" />
+					</cell>
+					<cell width="150px">
+						<label value="@load(c:l('label.deliberaStandard.relatore'))" />
+					</cell>
+					<cell>
+						<label value="@load(vm.delibera.oggettoSeduta.delega.assessore.denominazione)" />
+					</cell>
+				</row>
+				<row>
+					<cell width="150px">
+						<label value="Tipologia:" />
+					</cell>
+					<cell>
+						<label value="@load(vm.delibera.proposta.tipologia.titolo)" />
+					</cell>
+					<cell width="150px">
+						<label value="Stato:" />
+					</cell>
+					<cell>
+                        <label sclass="redText" value="PROPOSTA ANNULLATA"  visible="@load(vm.delibera.stato eq 'ANNULLATO' and empty vm.delibera.numeroDelibera)" />
+                        <label sclass="redText" value="ATTO ANNULLATO"      visible="@load((vm.delibera.stato eq 'ANNULLATO' or vm.delibera.stato eq 'NON_ESECUTIVO') and vm.delibera.numeroDelibera gt 0 and empty vm.delibera.dataEsecutivita)" />
+                        <label sclass="redText" value="NON ESECUTIVO"       visible="@load( (vm.delibera.stato eq 'ANNULLATO' or vm.delibera.stato eq 'NON_ESECUTIVO') and not empty vm.delibera.dataEsecutivita)" />
+
+                        <label value="@load(vm.delibera.iter.stepCorrente.cfgStep.titolo eq null ? vm.delibera.stato : vm.delibera.iter.stepCorrente.cfgStep.titolo)" visible="@load((vm.delibera.id > 0) and !(vm.delibera.stato eq 'ANNULLATO' or vm.delibera.stato eq 'NON_ESECUTIVO' or vm.delibera.iter.stepCorrente.cfgStep.titolo eq 'ANNULLATO'))"/>
+                        <label sclass="redText" value="ANNULLATO" visible="@load(vm.delibera.id > 0 and vm.delibera.iter.stepCorrente.cfgStep.titolo eq 'ANNULLATO')" />
+					</cell>
+				</row>
+				<row visible="@load(vm.delibera.stato eq 'ATTESA_ESECUTIVITA_MANUALE')">
+					<cell>
+						<label value="@load(c:l('label.delibera.dataEsecutivita'))" />
+					</cell>
+					<cell colspan="3">
+						<datebox format="dd/MM/yyyy" value="@bind(vm.delibera.dataEsecutivitaManuale)" focus="@load(vm.delibera.stato eq 'ATTESA_ESECUTIVITA_MANUALE')" />
+					</cell>
+				</row>
+				<row>
+					<cell>
+						<label value="@load(c:l('label.proposta'))" />
+					</cell>
+					<cell>
+						<label style="margin-right: 30px"
+							value="@load(c:cat3(vm.delibera.proposta.numeroProposta, ' / ', vm.delibera.proposta.annoProposta))" />
+						<button image="/images/agsde2/16x16/logo_proposta_delibera_16.png"
+							onClick="@command('onApriAtto')"
+							 mold="trendy" />
+							 <space></space>
+						<button image="/images/agsde2/16x16/pdf.png" onClick="@command('onApriTestoAtto')" visible="@load(not empty vm.delibera.proposta.testo)"
+							tooltiptext="@load(c:l('label.visualizzaTestoProposta'))"
+							 mold="trendy" />
+					</cell>
+					<cell>
+						<label value="@load(not empty vm.delibera.oggettoSeduta ? 'Esito Seduta:' : 'Commissione:')" />
+					</cell>
+					<cell>
+						<label value="@load(not empty vm.delibera.oggettoSeduta ? vm.delibera.oggettoSeduta.esito.titolo : vm.delibera.propostaDelibera.commissione.titolo)" tooltiptext="@load(not empty vm.delibera.oggettoSeduta ? vm.delibera.oggettoSeduta.esito.descrizione: vm.delibera.propostaDelibera.commissione.descrizione)"/>
+					</cell>
+				</row>
+				<row>
+					<cell>
+						<label value="Oggetto:" />
+					</cell>
+					<cell colspan="3">
+						<textbox value="@bind(vm.delibera.oggetto)" hflex="1"
+							multiline="true" rows="3" readonly="@load(not vm.competenze.modifica or (not empty vm.delibera.testo and not vm.delibera.testo.modificabile) or vm.delibera.statoFirma eq 'IN_FIRMA' or vm.delibera.statoFirma eq 'FIRMATO' or vm.delibera.statoFirma eq 'FIRMATO_DA_SBLOCCARE' or vm.campiProtetti.TESTO)" style="text-transform: uppercase"
+							focus="true" />
+					</cell>
+				</row>
+			</rows>
+		</grid>
+
+		<tabbox orient="vertical" vflex="1">
+			<tabs sclass="docMenuSx">
+				<tab label="Testo" image="/images/agsde2/32x32/todo.png" />
+				<tab label="Note" visible="@load(vm.mostraNote)"
+					 image="@load(((vm.attorePrecedente) or (not empty vm.delibera.noteTrasmissione) or (not empty vm.delibera.note) or (not empty vm.delibera.oggettoSeduta.note) or (not empty vm.delibera.proposta.noteCommissione and vm.abilitaNoteCommissione) or vm.isEstrattoPresente)? '/images/agsde2/32x32/note_trasmissione.png' : '/images/agsde2/32x32/note.png')" />
+				<tab id="contabilita" label="Contabilità"
+					 visible="@load(vm.contabilitaAbilitata)"
+					 image="@load(vm.conDocumentiContabili ? '/images/agsde2/30x30/cash_full.png' : '/images/agsde2/30x30/cash.png')" />
+				<tab label="Storico" visible="@load(vm.delibera.id > 0 and vm.mostraStorico)"
+					image="/images/agsde2/32x32/archive.png" />
+			</tabs>
+			<tabpanels width="841px">
+				<!-- Testo -->
+				<tabpanel>
+					<tabbox vflex="1">
+						<tabs sclass="tabsImgRight">
+							<tab label="Testo e Allegati" />
+							<tab label="Pareri" 		visible="@load(vm.delibera.id gt 0)" />
+							<tab label="Immediata eseguibilità"	visible="@load(vm.mostraEseguibilitaImmediata)" image="@load((vm.delibera.eseguibilitaImmediata)? '/images/agsde2/16x16/viewok.png' : '')"/>
+							<tab label="Riferimenti"   	visible="@load(vm.delibera.id gt 0)" onClick="@command('onApriTabRiferimenti')" />
+							<tab label="Pubblicazione" 	visible="@load(vm.delibera.proposta.tipologia.pubblicazione and not(vm.delibera.numeroDelibera eq null))" />
+						</tabs>
+						<tabpanels>
+							<!-- Testo e Allegati -->
+							<tabpanel>
+								<grid sclass="form">
+									<rows>
+										<row>
+											<cell width="100px"></cell>
+											<cell></cell>
+											<cell width="160px"></cell>
+											<cell></cell>
+										</row>
+										<row>
+											<cell colspan="2">
+												<label value="Modello Testo: " />
+												<label value="@load(vm.nomeModelloTesto)" />
+											</cell>
+											<cell style="text-align: right;" colspan="2">
+												<button image="@load(vm.delibera.testo.firmato ? ((vm.delibera.testo.statoMarcatura eq 'MARCATO') ? '/images/agsde2/16x16/marksigned.png' : '/images/agsde2/16x16/testo_firmato.png') : '/images/agsde2/16x16/document.png')"
+														mold="trendy"
+														label="Testo"
+														onClick="@command('onDownloadTesto')"
+														visible="@load(not empty vm.delibera.testo and (not vm.delibera.testo.modificabile or vm.delibera.statoFirma eq 'IN_FIRMA' or vm.delibera.statoFirma eq 'FIRMATO' or not vm.competenze.modifica or vm.campiProtetti.TESTO ))" />
+
+												<button image="/images/agsde2/16x16/pdf.png"
+														mold="trendy"
+														label="Stampa Unica"
+														onClick="@command('onDownloadStampaUnica')"
+														visible="@load(not empty vm.delibera.stampaUnica)"/>
+
+												<image  src="@load(vm.testoLockato ? (vm.lockPermanente ? '/images/agsde2/22x22/lock_red.png' : '/images/agsde2/22x22/lock.png') : (vm.lockPermanente ? '/images/agsde2/22x22/unlock_red.png' : '/images/agsde2/22x22/unlock.png'))"
+														visible="@load(vm.delibera.id gt 0 and not empty vm.delibera.modelloTesto and (empty vm.delibera.testo or vm.delibera.testo.modificabile) and not(vm.delibera.statoFirma eq 'IN_FIRMA' or vm.delibera.statoFirma eq 'FIRMATO' or vm.campiProtetti.TESTO) and vm.competenze.modifica)"/>
+
+												<button image="/images/agsde2/16x16/pencil.png" mold="trendy"  autodisable="self"
+														label="Edita testo"
+														onClick="@command('editaTesto')" visible="@load(vm.delibera.id gt 0 and not empty vm.delibera.modelloTesto and (empty vm.delibera.testo or vm.delibera.testo.modificabile) and not(vm.delibera.statoFirma eq 'IN_FIRMA' or vm.delibera.statoFirma eq 'FIRMATO' or vm.campiProtetti.TESTO) and vm.competenze.modifica)"/>
+
+												<button image="/images/agsde2/16x16/cancel.png" mold="trendy" label="Elimina testo" disabled="@load(not vm.competenze.modifica or vm.delibera.testo.id eq null)"
+														visible="@load(vm.delibera.id gt 0 and not empty vm.delibera.modelloTesto and (empty vm.delibera.testo or vm.delibera.testo.modificabile) and not(vm.delibera.statoFirma eq 'IN_FIRMA' or vm.delibera.statoFirma eq 'FIRMATO' or vm.campiProtetti.TESTO) and vm.competenze.modifica)"
+														onClick="@command('onEliminaTesto')"/>
+											</cell>
+										</row>
+										<row>
+											<cell>
+												<label value="Riservato:" visible="@load(vm.abilitaRiservato)"/>
+											</cell>
+											<cell>
+												<radiogroup visible="@load(vm.abilitaRiservato)" selectedIndex="@load(vm.delibera.riservato ? 0 : 1)" selectedItem="@save(vm.delibera.riservato)" >
+								     				<radio label="Sì" value="@load(true)"  disabled="@load(not vm.competenze.modifica or not vm.riservatoModificabile)"/>
+										            <radio label="No" value="@load(false)" disabled="@load(not vm.competenze.modifica or not vm.riservatoModificabile)"/>
+									            </radiogroup>
+											</cell>
+											<cell visible="@load(vm.mostraParereRevisoriConti)">
+												<label value="Parere dei Revisori dei Conti:"/>
+											</cell>
+											<cell visible="@load(vm.mostraParereRevisoriConti)">
+												<radiogroup selectedIndex="@load(vm.delibera.propostaDelibera.parereRevisoriConti ? 0 : 1)" selectedItem="@save(vm.deliberapropostaDelibera.parereRevisoriConti)">
+													<radio label="Sì" value="@load(true)" disabled="true" />
+													<radio label="No" value="@load(false)" disabled="true" />
+												</radiogroup>
+											</cell>
+										</row>
+									</rows>
+								</grid>
+								<space height="3px" />
+								<!-- Allegati -->
+								<groupbox closable="false" vflex="1"
+									visible="@load(vm.delibera.id > 0)">
+									<caption>Allegati</caption>
+									<listbox model="@load(vm.listaAllegati)" emptyMessage="Nessun Allegato"
+										vflex="1" onDoubleClick="@command('onModificaAllegato', nuovo=false)">
+										<listhead>
+											<listheader label="" width="30px" />
+                                            <listheader label="Titolo" 			width="40%" />
+                                            <listheader label="Descrizione" 	width="40%" />
+                                            <listheader label="Riservato"    	width="70px" align="center" />
+											<listheader label="Da firmare" width="80px" align="center" />
+											<listheader label="" width="50px" align="center">
+												<image width="15px" src="/images/afc/16x16/add.png"
+													onClick="@command('onModificaAllegato', nuovo=true)"
+													tooltiptext="Aggiungi allegati" style="cursor: pointer;"
+													visible="@load(vm.competenze.modifica and not vm.campiProtetti.ALLEGATI)" />
+											</listheader>
+										</listhead>
+										<template name="model" var="a">
+											<listitem value="@load(a)">
+												<listcell label="@load(a.sequenza)" />
+												<listcell>
+													<a onClick="@command('onModificaAllegato', nuovo=false, selected=a)" style="color: #000000" label="@load(a.titolo)" />
+												</listcell>
+												<listcell label="@load(a.descrizione)" />
+                                                <listcell label="@load(a.riservato ? 'Si' : 'No')" style="text-align: center"/>
+												<listcell style="text-align: center">
+													<image src="@load((a.statoFirma eq 'DA_FIRMARE') ? '/images/afc/16x16/legitimate.png' : ((a.statoFirma eq 'FIRMATO') ? (a.marcato ? '/images/agsde2/16x16/marksigned.png' : '/images/agsde2/16x16/testo_firmato.png') : ''))"/>
+												</listcell>
+												<listcell>
+													<image
+														src="/images/agsde2/16x16/trash.png"
+														onClick="@command('onEliminaAllegato', allegato=a)"
+														tooltiptext="Elimina allegati" style="cursor: pointer;"
+														visible="@load(vm.competenze.modifica and not vm.campiProtetti.ALLEGATI)" />
+												</listcell>
+											</listitem>
+										</template>
+									</listbox>
+								</groupbox>
+							</tabpanel>
+
+							<!-- Pareri -->
+							<tabpanel>
+								<listbox model="@load(vm.listaVisti)" emptyMessage="Nessun Parere"
+									vflex="1" onDoubleClick="@command('onModificaVistoParere', nuovo=false)">
+									<listhead>
+										<listheader label="Pareri richiesti" width="30%" />
+										<listheader label="Unità Destinataria" width="30%" />
+										<listheader label="Dirigente Firmatario" width="15%" />
+										<listheader label="Esito" width="15%" />
+										<listheader label="Stato" width="10%" />
+										<listheader label=""  width="20px" align="center">
+				        					<image	hover="@bind(not vm.mostraSoloVistiValidi? '/images/agsde2/16x16/point_green_red.png' : '/images/agsde2/16x16/point_green.png')"
+													src="@bind(not empty vm.listaVisti ? (vm.mostraSoloVistiValidi? '/images/agsde2/16x16/point_green.png' : '/images/agsde2/16x16/point_green_red.png') : '') "
+													onClick="@command('onMostraVistiValidi')"
+													tooltiptext="@bind(vm.mostraSoloVistiValidi ? 'Visualizza solo i documenti attivi' : 'Visualizza anche i documenti non attivi')"
+													style="cursor: pointer;" />
+							        	</listheader>
+										<listheader label=""  width="20px" align="center" />
+									</listhead>
+									<template name="model" var="v">
+										<listitem value="@load(v)">
+											<listcell>
+												<a onClick="@command('onModificaVistoParere', nuovo=false, selected=v)" style="color: #000000" label="@load(v.tipologia.titolo)"/>
+											</listcell>
+											<listcell label="@load(v.unitaSo4.descrizione)" />
+											<listcell label="@load(v.firmatario.nominativoSoggetto)" />
+											<listcell label="@load(c:l(c:cat('visto.esito.', v.esito)) )" />
+											<listcell label="@load(c:l(c:cat('visto.stato.', v.stato)) )" />
+											<listcell image="@load(v.valido ? '/images/agsde2/16x16/point_green.png' : '/images/agsde2/16x16/point_red.png')" />
+											<listcell>
+							        			<image src="/images/agsde2/16x16/trash.png"
+							        				   onClick="@command('onEliminaVistoParere', visto=v)"
+							        				   visible="@load(vm.competenze.modifica and v.competenzeInModifica and not v.automatico and not vm.campiProtetti.VISTI_E_PARERI)"
+							        				   tooltiptext="Elimina il parere"
+			        						   		   style="cursor: pointer;" />
+							        		</listcell>
+										</listitem>
+									</template>
+								</listbox>
+							</tabpanel>
+
+							<!-- Immediata eseguibilità -->
+							<tabpanel vflex="1">
+								<grid sclass="form">
+									<rows>
+										<row>
+											<cell width="150px">
+												<label value="Eseguibilità Immediata:"/>
+											</cell>
+											<cell>
+												<radiogroup selectedIndex="@load(vm.delibera.eseguibilitaImmediata ? 0 : 1)" selectedItem="@save(vm.delibera.eseguibilitaImmediata)">
+													<radio label="Sì" value="@load(true)" disabled="@load(not vm.competenze.modifica or vm.campiProtetti.ESEGUIBILITA_IMMEDIATA)" />
+													<radio label="No" value="@load(false)" disabled="@load(not vm.competenze.modifica or vm.campiProtetti.ESEGUIBILITA_IMMEDIATA)" />
+												</radiogroup>
+											</cell>
+										</row>
+										<row>
+											<cell valign="top">
+												<label value="Motivazione:"/>
+											</cell>
+											<cell>
+												<textbox value="@bind(vm.delibera.motivazioniEseguibilita)" hflex="1" rows="15" multiline="true" class="noresizable" readonly="@load(vm.campiProtetti.ESEGUIBILITA_IMMEDIATA)"/>
+											</cell>
+										</row>
+									</rows>
+								</grid>
+							</tabpanel>
+
+							<!-- Riferimenti -->
+							<tabpanel>
+								<groupbox closable="false" visible="@load(vm.delibera.numeroProtocollo gt 0 or vm.mostraArchiviazioni or not empty vm.urlCasaDiVetro or vm.mostraCorteConti)">
+									<caption>Archiviazioni</caption>
+									<grid sclass="form">
+										<rows>
+											<row visible="@load(vm.mostraArchiviazioni)">
+												<cell width="130px">
+													<label value="Classifica:" />
+												</cell>
+												<cell colspan="3">
+													<label
+														value="@load(c:cat3(vm.delibera.classificaCodice, ' - ', vm.delibera.classificaDescrizione))"
+														visible="@load(vm.delibera.classificaCodice eq null? 'false' : 'true')" />
+												</cell>
+											</row>
+											<row visible="@load(vm.mostraArchiviazioni)">
+												<cell width="130px">
+													<label value="Fascicolo:" />
+												</cell>
+												<cell colspan="3">
+													<label
+														value="@load(c:cat4(vm.delibera.fascicoloNumero,' / ',vm.delibera.fascicoloAnno, ' - '))"
+														visible="@load(not (vm.delibera.fascicoloNumero eq null) ? 'true' : 'false')" />
+													<label value="@load(vm.delibera.fascicoloOggetto)" />
+												</cell>
+											</row>
+											<row visible="@load(vm.delibera.numeroProtocollo gt 0)">
+												<cell width="130px">
+													<label value="Estremi Protocollo:" />
+												</cell>
+												<cell colspan="3">
+													<label
+														value="@load(c:cat5(vm.delibera.numeroProtocollo,' / ',vm.delibera.annoProtocollo, '  del ', (vm.delibera.dataNumeroProtocollo ne null ? c:formatDate(vm.delibera.dataNumeroProtocollo, 'dd/MM/yyyy') : ' ')))" />
+												</cell>
+											</row>
+											<row visible="@load(vm.mostraCorteConti)">
+												<cell>
+													<label value="Da Inviare in Corte dei Conti" />
+												</cell>
+												<cell>
+													<radiogroup selectedIndex="@load(vm.delibera.daInviareCorteConti ? 0 : 1)" selectedItem="@save(vm.delibera.daInviareCorteConti)">
+									     				<radio label="Sì" value="@load(true)"  disabled="@load(not vm.competenze.modifica)"/>
+											            <radio label="No" value="@load(false)" disabled="@load(not vm.competenze.modifica)"/>
+										            </radiogroup>
+												</cell>
+												<cell>
+													<label value="Data Invio in Corte dei Conti" />
+												</cell>
+												<cell>
+													<datebox value="@bind(vm.delibera.dataInvioCorteConti)" format="dd/MM/yyyy" disabled="@load(not vm.competenze.modifica or not vm.delibera.daInviareCorteConti)"/>
+												</cell>
+											</row>
+											<row visible="@load(not empty vm.urlCasaDiVetro)">
+												<cell width="90px" colspan="2">
+													<label value="Casa di Vetro:" />
+												</cell>
+												<cell colspan="3">
+													<a target="_blank" href="@load(vm.urlCasaDiVetro)" label="Apri Atto in Casa di Vetro" />
+												</cell>
+											</row>
+                                            <row visible="@load(not empty vm.delibera.statoConservazione )">
+                                                <cell width="90px" colspan="2">
+                                                    <label value="Esito Conservazione:" />
+                                                </cell>
+                                                <cell colspan="2">
+                                                    <EsitoConservazione logConservazione="@load(vm.logConservazione)"/>
+                                                </cell>
+                                            </row>
+										</rows>
+									</grid>
+								</groupbox>
+								<space height="3px" />
+								<groupbox closable="false" vflex="1"
+									visible="@load(vm.delibera.id > 0)">
+									<caption>Documenti collegati</caption>
+									<listbox vflex="1" model="@load(vm.listaDocumentiCollegati)" emptyMessage="Nessun documento collegato.">
+								        <listhead>
+											<listheader width="15%" label="Operazione"	/>
+											<listheader width="15%" label="Documento" 	/>
+											<listheader label="Oggetto"		/>
+								        </listhead>
+							        	<template name="model" var="doc" >
+									        <listitem onDoubleClick="@command('apriDocumentoCollegato', documentoCollegato=doc)">
+								        		<listcell>
+													<label value="@load(doc.collegamentoInverso and doc.operazione eq 'ANNULLA' ? 'ANNULLATO DA' : doc.operazione)" />
+								        		</listcell>
+								        		<listcell>
+													<label value="@load(doc.tipoDocumento)" />
+								        		</listcell>
+								        		<listcell>
+									        		<label value="@load(doc.oggetto)" />
+								        		</listcell>
+							        		</listitem>
+							        	</template>
+									</listbox>
+								</groupbox>
+							</tabpanel>
+							<!-- Pubblicazione -->
+							<tabpanel>
+								<grid sclass="form">
+									<rows>
+										<row visible="@load(not empty vm.delibera.dataPubblicazione)">
+											<cell colspan="2">
+												<h:div>
+													<label value="@load(vm.delibera.dataPubblicazione eq null ? ' ' : c:cat3('Pubblicato dal ', c:formatDate(vm.delibera.dataPubblicazione, 'dd/MM/yyyy'), ((vm.delibera.dataFinePubblicazione eq null) ? ' ' : c:cat(' al ', c:formatDate(vm.delibera.dataFinePubblicazione, 'dd/MM/yyyy')))))" />
+													<h:br/>
+													<label value="@load(vm.delibera.dataPubblicazione2 eq null ? ' ' : c:cat3('Seconda pubblicazione dal ', c:formatDate(vm.delibera.dataPubblicazione2, 'dd/MM/yyyy'), ((vm.delibera.dataFinePubblicazione2 eq null) ? ' ' : c:cat(' al ', c:formatDate(vm.delibera.dataFinePubblicazione2, 'dd/MM/yyyy')))))" />
+												</h:div>
+											</cell>
+										</row>
+										<row visible="@load(not empty vm.delibera.dataPubblicazione and not empty vm.delibera.annoAlbo and not empty vm.delibera.numeroAlbo)">
+											<cell>Estremi Albo: </cell>
+											<cell>
+												<label value="@load(c:cat3(vm.delibera.numeroAlbo, ' / ', vm.delibera.annoAlbo))"></label>
+											</cell>
+											<cell visible="@load(vm.mostraRelata)">
+												<a onClick="@command('onDownloadRelata')" style="color: #000000" label="@load(c:l('label.relata'))"/>
+											</cell>
+										</row>
+										<row visible="@load(vm.abilitaPubblicazioneFinoRevoca)">
+											<cell width="180px">Pubblicazione fino a Revoca:</cell>
+											<cell>
+												<radiogroup selectedIndex="@load(vm.delibera.pubblicaRevoca ? 0 : 1)" selectedItem="@save(vm.delibera.pubblicaRevoca)">
+								     				<radio label="Sì" value="@load(true)"  disabled="@load(not empty vm.delibera.dataPubblicazione or vm.campiProtetti.PUBBLICAZIONE)"/>
+										            <radio label="No" value="@load(false)" disabled="@load(not empty vm.delibera.dataPubblicazione or vm.campiProtetti.PUBBLICAZIONE)"/>
+									            </radiogroup>
+									        </cell>
+										</row>
+										<row if="#{not(da:isAbilitato('PUBBLICAZIONE_PORTALE_REGIONALE') or da:isAbilitato('PUBBLICAZIONE_TRASPARENZA') or da:isAbilitato('PUBBLICAZIONE_BURC'))}">
+											<cell>Giorni di Pubblicazione:</cell>
+											<cell><textbox value="@bind(vm.delibera.giorniPubblicazione)" width="50px" disabled="@load(vm.delibera.pubblicaRevoca  or not vm.delibera.proposta.tipologia.giorniPubblicazioneModificabile))" readonly="@load(not vm.competenze.modifica or not empty vm.delibera.dataPubblicazione or vm.campiProtetti.PUBBLICAZIONE)"/></cell>
+										</row>
+                                        <row if="#{da:isAbilitato('PUBBLICAZIONE_PORTALE_REGIONALE') or da:isAbilitato('PUBBLICAZIONE_TRASPARENZA') or da:isAbilitato('PUBBLICAZIONE_BURC')}">
+                                            <cell>Portali di pubblicazione:</cell>
+                                            <cell>
+                                                <checkbox disabled="@load(not vm.competenze.modifica or vm.campiProtetti.PUBBLICAZIONE)" if="#{da:isAbilitato('PUBBLICAZIONE_PORTALE_REGIONALE')}" use="it.finmatica.atti.zk.components.DatoAggiuntivoCheckBox" datoAggiuntivo="PUBBLICAZIONE_PORTALE_REGIONALE" 	documento="@load(vm.delibera)" />
+                                                <checkbox disabled="@load(not vm.competenze.modifica or vm.campiProtetti.PUBBLICAZIONE)" if="#{da:isAbilitato('PUBBLICAZIONE_TRASPARENZA')}"		 use="it.finmatica.atti.zk.components.DatoAggiuntivoCheckBox" datoAggiuntivo="PUBBLICAZIONE_TRASPARENZA" 		documento="@load(vm.delibera)" />
+                                                <checkbox disabled="@load(not vm.competenze.modifica or vm.campiProtetti.PUBBLICAZIONE)" if="#{da:isAbilitato('PUBBLICAZIONE_BURC')}"				 use="it.finmatica.atti.zk.components.DatoAggiuntivoCheckBox" datoAggiuntivo="PUBBLICAZIONE_BURC" 				documento="@load(vm.delibera)" />
+                                            </cell>
+                                        </row>
+									</rows>
+								</grid>
+
+								<listbox model="@load(vm.listaCertificati)" emptyMessage="Nessun Certificato" vflex="1" onDoubleClick="@command('onApriCertificato')">
+							        <listhead>
+							        	<listheader label="Certificato" 	width="50%" />
+							        	<listheader label="Firmatario"		width="25%" />
+							        	<listheader label="Data Firma"		width="25%" />
+							        </listhead>
+						        	<template name="model" var="c">
+							        	<listitem>
+						        			<listcell label="@load(c.tipo)" />
+											<listcell label="@load(c.firmatario)" />
+											<listcell label="@load(not empty c.dataFirma ? c:formatDate(c.dataFirma, 'dd/MM/yyyy'):'')" />
+						        		</listitem>
+						        	</template>
+						        </listbox>
+							</tabpanel>
+						</tabpanels>
+					</tabbox>
+				</tabpanel>
+
+				<!-- Note -->
+				<tabpanel vflex="1" style="overflow:auto">
+					<tabbox vflex="1">
+						<tabs>
+							<tab label="Estratto" image="@load(vm.isEstrattoPresente? '/images/agsde2/16x16/info.png' : '')" visible="@load(vm.delibera.id gt 0)" if="#{da:isAbilitato('ESTRATTO')}"/>
+							<tab label="Note" image="@load((not empty vm.delibera.note)? '/images/agsde2/16x16/info.png' : '')"/>
+							<tab label="Note di trasmissione"
+								 image="@load(((vm.attorePrecedente) or (not empty vm.delibera.noteTrasmissione))? '/images/agsde2/16x16/info.png' : '')" />
+							<tab label="@load(c:l('label.noteDiscussioneProposta'))"  image="@load((not empty vm.delibera.oggettoSeduta.note)? '/images/agsde2/16x16/info.png' : '')" />
+							<tab label="Note Commissioni"  image="@load((not empty vm.delibera.proposta.noteCommissione)? '/images/agsde2/16x16/info.png' : '')" visible="@load(vm.abilitaNoteCommissione)" />
+						</tabs>
+						<tabpanels vflex="1">
+							<tabpanel vflex="1" if="#{da:isAbilitato('ESTRATTO')}">
+								<textbox hflex="1" multiline="true" rows="20" sclass="noresizable z-textbox" style="width: 630px" use="it.finmatica.atti.zk.components.DatoAggiuntivoTextArea" datoAggiuntivo="ESTRATTO" 	documento="@load(vm.delibera)" disabled="@load(not vm.competenze.modifica or vm.campiProtetti.ESTRATTO)"/>
+							</tabpanel>
+							<tabpanel vflex="1">
+								<textbox multiline="true" value="@bind(vm.delibera.note)"
+									hflex="1" vflex="1" readonly="@load(vm.campiProtetti.NOTE)" />
+							</tabpanel>
+							<tabpanel vflex="1">
+								<groupbox vflex="1">
+									<textbox multiline="true" vflex="1"
+										value="@bind(vm.delibera.noteTrasmissione)" hflex="1"
+										readonly="@load(vm.campiProtetti.NOTE_TRASMISSIONE)" />
+								</groupbox>
+								<groupbox closable="false" vflex="1"
+										  visible="@load(vm.mostraNoteTrasmissionePrecedenti and not empty vm.noteTrasmissionePrecedenti)">
+									<listbox xmlns:h="http://www.w3.org/1999/xhtml" model="@load(vm.noteTrasmissionePrecedenti)" emptyMessage="Nessun passaggio da visualizzare." vflex="1">
+										<listhead>
+											<listheader label="Stato" width="20%" />
+											<listheader label="Operatore" width="20%" />
+											<listheader label="Data" width="15%" />
+											<listheader label="Note di trasmissione" width="45%" />
+										</listhead>
+										<template name="model" var="s">
+											<listitem>
+												<listcell label="@load(s.titolo)" />
+												<listcell label="@load(s.utente)" />
+												<listcell label="@load(s.data) @converter('formatedDate', format='dd/MM/yyyy HH:mm')" />
+												<listcell>
+													<label value="@load(s.noteTrasmissione)" multiline="true"/>
+												</listcell>
+											</listitem>
+										</template>
+									</listbox>
+								</groupbox>
+							</tabpanel>
+							<tabpanel vflex="1">
+								<textbox multiline="true"
+									value="@bind(vm.delibera.oggettoSeduta.note)" hflex="1" vflex="1"
+									readonly="true" />
+							</tabpanel>
+							<tabpanel vflex="1">
+								<textbox multiline="true"
+									value="@bind(vm.delibera.proposta.noteCommissione)" hflex="1" vflex="1"
+									readonly="true" />
+							</tabpanel>
+						</tabpanels>
+					</tabbox>
+				</tabpanel>
+
+				<!-- Contabilità -->
+				<tabpanel fulfill="contabilita.onSelect">
+					<include src="@load(vm.zulContabilita)" onCreate="@command('onAggiornaContabilita')" />
+				</tabpanel>
+
+				<!-- Storico -->
+				<tabpanel>
+					<storico />
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+
+		<!-- - - - - - - - - - - - - - - -->
+		<!-- 			Pulsanti 		 -->
+		<!-- - - - - - - - - - - - - - - -->
+		<h:div class="pulsantiIter">
+			<button label="Chiudi" onClick="@command('onChiudi')" mold="trendy" image="/images/pulsanti/16x16/window_close.png" />
+			<button label="Salva"  onClick="@command('onSalva')"  mold="trendy" image="/images/pulsanti/16x16/filesave.png" visible="@load(empty vm.delibera.iter and vm.competenze.modifica)" />
+			<h:span children="@load(vm.pulsanti)" class="singoloPulsanteIter">
+				<template name="children" var="p">
+					<button mold="trendy" image="@load(p.icona)" label="@load(p.etichetta)" onClick="@command('clickPulsanteIter', idPulsante=p.id)" />
+				</template>
+			</h:span>
+			<button label="Presa Visione e Chiudi" onClick="@command('onPresaVisione')" visible="@load(vm.isNotificaPresente)" mold="trendy" image="/images/pulsanti/16x16/button_accept.png" />
+		</h:div>
+	</window>
+</zk>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Statistiche di presenza</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+            <titoloReport>
+                <DAL>01/01/2017</DAL>
+                <AL>31/12/2017</AL>
+                <TITOLO_COMMISSIONE>Giunta</TITOLO_COMMISSIONE>
+            </titoloReport>
+			<statistiche>
+				<NOMINATIVO>MARIO ROSSI</NOMINATIVO>
+				<PRESENZE>2</PRESENZE>
+				<PERCENTUALE_PRESENZE>50</PERCENTUALE_PRESENZE>
+				<PERCENTUALE_ASSENZE_NON_G>50</PERCENTUALE_ASSENZE_NON_G>
+				<ASSENZE>2</ASSENZE>
+                <TOTALE_SEDUTE>4</TOTALE_SEDUTE>
+                <ASSENZE_NON_GIUSTIFICATE>1</ASSENZE_NON_GIUSTIFICATE>
+			</statistiche>
+			<statistiche>
+				<NOMINATIVO>LUCA VERDI</NOMINATIVO>
+				<PRESENZE>1</PRESENZE>
+				<PERCENTUALE_PRESENZE>50</PERCENTUALE_PRESENZE>
+				<PERCENTUALE_ASSENZE_NON_G>100</PERCENTUALE_ASSENZE_NON_G>
+				<ASSENZE>1</ASSENZE>
+                <TOTALE_SEDUTE>2</TOTALE_SEDUTE>
+                <ASSENZE_NON_GIUSTIFICATE>1</ASSENZE_NON_GIUSTIFICATE>
+			</statistiche>
+			<statistiche>
+				<NOMINATIVO>ANDREA BIANCHI</NOMINATIVO>
+				<PERCENTUALE_PRESENZE>100</PERCENTUALE_PRESENZE>
+				<PERCENTUALE_ASSENZE_NON_G>0</PERCENTUALE_ASSENZE_NON_G>
+				<ASSENZE>0</ASSENZE>
+				<PRESENZE>3</PRESENZE>
+                <TOTALE_SEDUTE>3</TOTALE_SEDUTE>
+                <ASSENZE_NON_GIUSTIFICATE>0</ASSENZE_NON_GIUSTIFICATE>
+			</statistiche>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>id della commissione</descrizione>
+			<path/>			
+		</metaDato>
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>dal</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>inizio periodo di ricerca sulle sedute per il calcolo del gettone di presenza</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>al</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>fine periodo di ricerca sulle sedute per il calcolo del gettone di presenza</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>ni</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>ni del partecipante</descrizione>
+			<path/>
+		</metaDato>
+        <!-- DEFINIZIONE CAMPI DELLA QUERY -->
+		<metaDato>
+			<nomeSimbolico>TITOLO_COMMISSIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>titolo della commissione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOMINATIVO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nominativo del componente della commissione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PRESENZE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di presenze nel periodo cercato</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>ASSENZE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di assenze nel periodo cercato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PERCENTUALE_PRESENZE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Percentuale di presenze sul totale delle sedute</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PERCENTUALE_ASSENZE_NON_G</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Percentuale di assenze non giustificate sul totale delle assenze</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ASSENZE_NON_GIUSTIFICATE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di assenze non giustificate nel periodo cercato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TOTALE_SEDUTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero totale Seduta</descrizione>
+			<path/>
+		</metaDato>
+	</definitions>
+	<queryes>
+		<query id='titoloReport' help_query_alias="t" help_field_aliases="DAL, AL, TITOLO_COMMISSIONE">
+		select #dal DAL, #al AL, com.titolo TITOLO_COMMISSIONE from odg_commissioni com where com.id_commissione = #id
+		</query>
+		<query id='statistiche' help_query_alias="g" help_field_aliases="NOMINATIVO, PRESENZE, TOTALE_SEDUTE, ASSENZE_NON_GIUSTIFICATE, ASSENZE, PERCENTUALE_PRESENZE, PERCENTUALE_ASSENZE_NON_G"><![CDATA[
+ 	select denominazione nominativo
+     , presenze
+     , totale_sedute
+     , assenze_non_giustificate
+     , totale_sedute - presenze assenze
+     , trunc(presenze * 100 / totale_sedute, 2) percentuale_presenze
+     , trunc(decode((totale_sedute - presenze), 0, 0, assenze_non_giustificate * 100 / (totale_sedute - presenze)), 2) PERCENTUALE_ASSENZE_NON_G
+  from (
+ 	select distinct s.denominazione
+     , sum (presenze) over (partition by ni_componente) presenze
+     , count (presenze) over (partition by ni_componente) totale_sedute
+     , sum(assenze_non_giustificate) over (partition by ni_componente) assenze_non_giustificate
+  from (
+select 1 totale
+     , s.id_seduta
+     , nvl(SP.NI_COMPONENTE_ESTERNO, CC.NI_COMPONENTE) ni_componente
+     , max(decode(op.presente, 'Y', 1, 0)) presenze
+     , max(decode(OP.ASSENTE_NON_GIUSTIFICATO, 'Y', 1, 0)) assenze_non_giustificate
+  from odg_sedute s
+     , odg_sedute_partecipanti sp
+     , odg_oggetti_seduta os
+     , odg_oggetti_partecipanti op
+     , odg_commissioni_componenti cc
+ where os.id_seduta = s.id_seduta
+   and op.id_oggetto_seduta = os.id_oggetto_seduta
+   and sp.id_seduta_partecipante = OP.ID_SEDUTA_PARTECIPANTE
+   and CC.ID_COMMISSIONE_COMPONENTE(+) = SP.ID_COMMISSIONE_COMPONENTE
+   and s.id_commissione = #id
+   and trunc(s.data_inizio_seduta) >= to_date( #dal , 'dd/mm/yyyy')
+   and trunc(s.data_inizio_seduta) <= to_date( #al ,  'dd/mm/yyyy')
+   and ( #ni < 0 or cc.ni_componente = #ni or sp.ni_componente_esterno = #ni )
+ group by s.id_seduta, nvl(SP.NI_COMPONENTE_ESTERNO, CC.NI_COMPONENTE)
+ order by ni_componente asc), as4_v_soggetti_correnti s
+ where s.ni = ni_componente
+ order by s.denominazione asc)
+		]]></query>
+	</queryes>
+	<staticData />
+</documentRoot>

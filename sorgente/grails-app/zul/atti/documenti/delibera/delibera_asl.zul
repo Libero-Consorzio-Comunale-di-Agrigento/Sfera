@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<!-- standard proposta delibera -->
+	<grid sclass="form">
+		<rows>
+			<row>
+				<cell width="150px">
+					<label value="@load(c:l('label.deliberaStandard.unita'))" />
+				</cell>
+				<cell colspan="2">
+					<label value="@load(vm.unitaProponenteDesc)" />
+				</cell>
+				<cell width="150px">
+					<!--label value="@load(c:l('label.deliberaStandard.eseguibilita'))" visible="@load(vm.mostraEseguibilitaImmediata)"/-->
+				</cell>
+				<cell colspan="2">
+					<!--radiogroup selectedIndex="@load(vm.delibera.eseguibilitaImmediata ? 0 : 1)" selectedItem="@save(vm.delibera.eseguibilitaImmediata)" style="text-align: right;"  visible="@load(vm.mostraEseguibilitaImmediata)">
+						<radio label="Sì" value="@load(true)"  disabled="@load(not vm.competenze.modifica)"/>
+						<radio label="No" value="@load(false)" disabled="@load(not vm.competenze.modifica)"/>
+					</radiogroup-->
+				</cell>
+			</row>
+
+			<row>
+				<cell>
+					<label value="@load(c:l('label.deliberaAsl.DIRETTORE_AMMINISTRATIVO'))" />
+				</cell>
+				<cell>
+					<label value="@load(vm.soggetti.DIRETTORE_AMMINISTRATIVO.descrizione)" />
+				</cell>
+				<cell style="border-left: none;">
+					<button image="/images/agsde2/16x16/user.png"
+							onClick="@command('onSceltaSoggetto', tipoSoggetto='DIRETTORE_AMMINISTRATIVO', categoriaSoggetto='COMPONENTE')"
+							visible="@load(vm.competenze.modifica and not vm.campiProtetti.DIRETTORE_AMMINISTRATIVO)"
+							disabled="@load(not vm.competenze.modifica or vm.campiProtetti.DIRETTORE_AMMINISTRATIVO)"/>
+				</cell>
+				<cell>
+					<label value="@load(c:l('label.deliberaAsl.DIRETTORE_SANITARIO'))" />
+				</cell>
+				<cell>
+					<label value="@load(vm.soggetti.DIRETTORE_SANITARIO.descrizione)" />
+				</cell>
+				<cell style="border-left: none;">
+					<button image="/images/agsde2/16x16/user.png"
+							onClick="@command('onSceltaSoggetto', tipoSoggetto='DIRETTORE_SANITARIO', categoriaSoggetto='COMPONENTE')"
+							visible="@load(vm.competenze.modifica and not vm.campiProtetti.DIRETTORE_SANITARIO)"
+							disabled="@load(not vm.competenze.modifica or vm.campiProtetti.DIRETTORE_SANITARIO)"/>
+				</cell>
+			</row>
+			
+			<row>
+				<cell>
+					<label value="@load(c:l('label.deliberaAsl.DIRETTORE_GENERALE'))" />
+				</cell>
+				<cell>
+					<label value="@load(vm.soggetti.DIRETTORE_GENERALE.descrizione)" />
+				</cell>
+				<cell style="border-left: none;">
+					<button image="/images/agsde2/16x16/user.png"
+							onClick="@command('onSceltaSoggetto', tipoSoggetto='DIRETTORE_GENERALE', categoriaSoggetto='COMPONENTE')"
+							visible="@load(vm.competenze.modifica and not vm.campiProtetti.DIRETTORE_GENERALE)"
+							disabled="@load(not vm.competenze.modifica or vm.campiProtetti.DIRETTORE_GENERALE)"/>
+				</cell>
+				<cell>
+					<label value="@load(c:l('label.deliberaStandard.segretario'))" />
+				</cell>
+				<cell>
+					<label value="@load(vm.soggetti.SEGRETARIO.descrizione)" />
+				</cell>				
+				<cell style="border-left: none;">
+					<button image="/images/agsde2/16x16/user.png"
+							onClick="@command('onSceltaSoggetto', tipoSoggetto='SEGRETARIO', categoriaSoggetto='COMPONENTE')"
+							visible="@load(vm.competenze.modifica and not vm.campiProtetti.SEGRETARIO)"
+							disabled="@load(not vm.competenze.modifica or vm.campiProtetti.SEGRETARIO)"/>
+				</cell>
+			</row>
+		</rows>
+	</grid>
+</zk>

@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns:liquibase="antlib:liquibase.integration.ant">
+
+    <taskdef resource="liquibase/integration/ant/antlib.xml" uri="antlib:liquibase.integration.ant"/>
+
+    <!-- File delle esecuzioni di liquibase (incluso nel file install.ant) -->
+    <!-- Si possono far partire più esecuzioni di liquibase collegati a diversi user oracle -->
+
+    <target name="-liquibase-installazione" depends="-install-db-agsde2,-gdm-competenze-dbfw,-agsde2-defaults,-agsde2-viste-pkg"/>
+
+    <!-- Classpath dove sono salvati gli script liquibase -->
+    <path id="classpath-liquibase">
+        <pathelement path="../db"/>
+    </path>
+
+    <!-- Connessioni al db -->
+    <liquibase:database id="agsde2-database" driver="${global.db.target.driver}" url="${global.db.target.url}"
+                        user="${global.db.target.username}" password="${global.db.target.password}"/>
+    <liquibase:database id="as4-database" driver="${global.db.as4.driver}" url="${global.db.as4.url}"
+                        user="${global.db.as4.username}" password="${global.db.as4.password}"/>
+    <liquibase:database id="so4-database" driver="${global.db.so4.driver}" url="${global.db.so4.url}"
+                        user="${global.db.so4.username}" password="${global.db.so4.password}"/>
+    <liquibase:database id="gdm-database" driver="${global.db.gdm.driver}" url="${global.db.gdm.url}"
+                        user="${global.db.gdm.username}" password="${global.db.gdm.password}"/>
+    <liquibase:database id="jwf-database" driver="${global.db.jwf.driver}" url="${global.db.jwf.url}"
+                        user="${global.db.jwf.username}" password="${global.db.jwf.password}"/>
+    <liquibase:database id="ad4-database" driver="${global.db.ad4.driver}" url="${global.db.ad4.url}"
+                        user="${global.db.ad4.username}" password="${global.db.ad4.password}"/>
+    <liquibase:database id="dbfw-database" driver="${global.db.dbfw.driver}" url="${global.db.dbfw.url}"
+                        user="${global.db.dbfw.username}" password="${global.db.dbfw.password}"/>
+    <!--
+    Lancio di liquibase per la gestione dei db creati prima dell'introduzione di liquibase
+    Questa esecuzione esegue:
+        - il controllo che la versione dal cui si parte sia quella corretta (l'ultima con installazione vecchia maniera)
+        - l'inserimenti dei changeset nella cartella di DATABASECHANGELOG di tutte le operazioni non idempotenti
+        che non devono essere eseguite perché il database ha già quelle modifiche (tabelle, sequence, constraint)
+    -->
+
+    <target name="-install-db-agsde2" if="da.installare" depends="-da-installare,-install-db-ad4,-agsde2-ad4,-agsde2-as4,-agsde2-so4">
+
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="commons/agsde2/synonyms/01.synonyms.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.so4.username" value="${global.db.so4.username}"/>
+                <liquibase:changeLogParameter name="global.db.ad4.username" value="${global.db.ad4.username}"/>
+                <liquibase:changeLogParameter name="global.db.as4.username" value="${global.db.as4.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.0.0.0/2.0.0.0.agsde2.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.target.username" value="${global.db.target.username}"/>
+                <liquibase:changeLogParameter name="global.db.target.tablespace.name"
+                                              value="${global.db.target.tablespace.name}"/>
+                <liquibase:changeLogParameter name="global.db.so4.username" value="${global.db.so4.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.0.2.0/01.agsde2.iter.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.0.2.0/02.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.0.3.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.1.0.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.1.1.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.1.2.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.1.4.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.1.5.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.1.6.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.1.7.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.2.0.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.3.0.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.3.1.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.3.2.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.3.3.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.4.0.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.4.1.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.4.2.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.4.3.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.4.4.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.4.5.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.4.6.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.4.7.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.4.8.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.4.9.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.5.0.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.5.1.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.5.2.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.5.2.2/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.5.3.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.5.4.0/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.5.5.2/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+    </target>
+
+    <target name="-install-db-ad4" depends="-da-installare" if="da.installare">
+        <!-- creo la tablespace e lo user-->
+        <system-crea-tablespace-user
+                user="${global.db.target.username}"
+                passwd="${global.db.target.password}"
+                name="${global.db.target.tablespace.name}"
+                temp="${global.db.target.tablespace.temp}"
+                size="${global.db.target.tablespace.size}"/>
+
+        <ad4-crea-utente codice="AGSDE2" nominativo="AGSDE2" passwd=""/>
+        <ad4-crea-utente codice="AGSDE2WS" nominativo="AGSDE2WS" passwd=""/>
+
+        <ad4-crea-modulo codice="AGSDE2.CFG" descrizione="Configuratore Iter" progetto="${progetto.codice}"/>
+
+        <ad4-crea-ruolo codice="AGD" descrizione="Accesso Gestione Atti (AGD)"/>
+        <ad4-crea-ruolo codice="AGDWS" descrizione="Accesso WebService Sfera (AGDWS)"/>
+        <ad4-crea-ruolo codice="AGDAMMI" descrizione="Amministratore Sistema Atti (AGDAMMI)"/>
+        <ad4-crea-ruolo codice="AGDATTI" descrizione="Gestione Atti (AGDATTI)"/>
+        <ad4-crea-ruolo codice="AGDCERTF" descrizione="Firmatario Certificati (AGDCERTF)"/>
+        <ad4-crea-ruolo codice="AGDDECF" descrizione="Firmatario Ordinanze/Decreti (AGDDECF)"/>
+        <ad4-crea-ruolo codice="AGDESECF" descrizione="Firmatario Certificato Esec (AGDESECF)"/>
+        <ad4-crea-ruolo codice="AGDFIRMA" descrizione="Firmatario Atti (AGDFIRMA)"/>
+        <ad4-crea-ruolo codice="AGDFUNZ" descrizione="Funzionario (AGDFUNZ)"/>
+        <ad4-crea-ruolo codice="AGDNOTI" descrizione="Destinatario notifiche (AGDNOTI)"/>
+        <ad4-crea-ruolo codice="AGDRED" descrizione="Redige la proposta (AGDRED)"/>
+        <ad4-crea-ruolo codice="AGDRESP" descrizione="Responsabile ruoli assegnati(AGDRESP)"/>
+        <ad4-crea-ruolo codice="AGDVISF" descrizione="Firmatario Visti(AGDVISF)"/>
+        <ad4-crea-ruolo codice="AGDLIQ" descrizione="Notifica di operazioni contabili(AGDLIQ)"/>
+        <ad4-crea-ruolo codice="AGDRISER" descrizione="Visualizza Atti Riservati (AGDRISER)"/>
+        <ad4-crea-ruolo codice="AGDCONF" descrizione="Accesso al Configuratore Iter (AGDCONF)"/>
+
+        <ad4-assegna-diritto-accesso nominativo="AGSDE2" ruolo="AGDAMMI" istanza="${progetto.istanza.codice}"
+                                     modulo="AGSDE2"/>
+        <ad4-assegna-diritto-accesso nominativo="AGSDE2WS" ruolo="AGDWS" istanza="${progetto.istanza.codice}"
+                                     modulo="AGSDE2"/>
+        <ad4-assegna-diritto-accesso nominativo="AGSDE2" ruolo="AGDCONF" istanza="${progetto.istanza.codice}"
+                                     modulo="AGSDE2.CFG"/>
+        <ad4-assegna-diritto-accesso gruppolavoro="AGD" ruolo="AGD" istanza="${progetto.istanza.codice}"
+                                     modulo="AGSDE2"/>
+    </target>
+
+    <target name="-agsde2-ad4">
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="integration/AD4/AD4_V_COMUNI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="integration/AD4/AD4_V_MODULI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="integration/AD4/AD4_V_PROGETTI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="integration/AD4/AD4_V_PROVINCE.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="integration/AD4/AD4_V_REGIONI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="integration/AD4/AD4_V_RUOLI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="integration/AD4/AD4_V_STATI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="integration/AD4/AD4_V_UTENTI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="integration/AD4/AD4_V_UTENTI_RUOLI.sql"
+                                  classpathref="classpath-liquibase"/>
+    </target>
+
+    <target name="-agsde2-as4">
+        <liquibase:updateDatabase databaseref="as4-database" changelogfile="integration/AS4/01.as4.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.target.username" value="${global.db.target.username}"/>
+                <liquibase:changeLogParameter name="global.db.as4.username" value="${global.db.as4.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="integration/AS4/AS4_V_SOGGETTI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/AS4/AS4_V_SOGGETTI_CORRENTI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="integration/AS4/AS4_V_TIPI_SOGGETTO.sql"
+                                  classpathref="classpath-liquibase"/>
+    </target>
+
+    <target name="-agsde2-so4" depends="-agsde2-so4-senza-deleghe,-agsde2-so4-con-deleghe">
+        <liquibase:updateDatabase databaseref="so4-database"
+                                  changelogfile="integration/SO4/01.so4.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.target.username" value="${global.db.target.username}"/>
+                <liquibase:changeLogParameter name="global.db.so4.username" value="${global.db.so4.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+        <!-- metto "continue" perché è possibile che SO4 non sia aggiornato per le DELEGHE -->
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/SO4/02.agsde2.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.target.username" value="${global.db.target.username}"/>
+                <liquibase:changeLogParameter name="global.db.so4.username" value="${global.db.so4.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+        <!-- metto "continue" perché è possibile che SO4 non sia aggiornato per le DELEGHE -->
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/SO4/SO4_V_AMMINISTRAZIONI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="integration/SO4/SO4_V_AOO.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/SO4/SO4_V_ATTR_COMPONENTE.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/SO4/SO4_V_ATTR_COMPONENTE_PUBB.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="integration/SO4/SO4_V_COMPONENTI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/SO4/SO4_V_COMPONENTI_PUBB.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/SO4/SO4_V_INDIRIZZI_TELEMATICI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="integration/SO4/SO4_V_OTTICHE.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/SO4/SO4_V_RUOLI_COMPONENTE.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/SO4/SO4_V_RUOLI_COMPONENTE_PUBB.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/SO4/SO4_V_SUDDIVISIONI_STRUTTURA.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/SO4/SO4_V_UNITA_ORGANIZZATIVE.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/SO4/SO4_V_UNITA_ORGANIZZATIVE_PUBB.sql"
+                                  classpathref="classpath-liquibase"/>
+    </target>
+
+    <target name="-agsde2-so4-ha-deleghe">
+        <resolve-conn istanza="so4" jndiOpzionale="true"/>
+        <!-- se su so4 sono presenti le tabelle di delega, allora ricreo la vista delle deleghe -->
+        <sqlselect username="${global.db.so4.username}" password="${global.db.so4.password}" url="${global.db.so4.url}"
+                   driver="${global.db.so4.driver}">
+            select decode(count(1), 3, 'true', 'false') as "is.so4.con.deleghe" from user_tables where table_name in
+            ('DELEGHE', 'APPLICATIVI', 'COMPETENZE_DELEGA')
+        </sqlselect>
+    </target>
+
+    <target name="-agsde2-so4-con-deleghe" depends="-agsde2-so4-ha-deleghe" if="${is.so4.con.deleghe}">
+
+        <liquibase:updateDatabase databaseref="so4-database"
+                                  changelogfile="integration/SO4/con_deleghe/01.so4.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.target.username" value="${global.db.target.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/SO4/con_deleghe/02.agsde2.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.so4.username" value="${global.db.so4.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/SO4/con_deleghe/SO4_V_DELEGHE.sql"
+                                  classpathref="classpath-liquibase"/>
+    </target>
+
+    <target name="-agsde2-so4-senza-deleghe" depends="-agsde2-so4-ha-deleghe" unless="${is.so4.con.deleghe}">
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/SO4/senza_deleghe/SO4_FAKE.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/SO4/senza_deleghe/01.agsde2.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/SO4/senza_deleghe/SO4_V_DELEGHE.sql"
+                                  classpathref="classpath-liquibase"/>
+    </target>
+
+    <target name="-agsde2-viste-pkg"
+            depends="-agsde2-ad4,-agsde2-as4,-agsde2-so4,-agsde2-viste,-agsde2-pkg,-agsde2-assistenza,-agsde2-integrazioni,-agsde2-compile-all"/>
+
+    <target name="-agsde2-viste">
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_viste/DOCUMENTI_STEP.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_viste/RICERCA_CERTIFICATO.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_viste/RICERCA_DELIBERA.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_viste/RICERCA_DETERMINA.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_viste/RICERCA_PARERE.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_viste/RICERCA_UNITA_DOCUMENTI_ATTIVI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_viste/RICERCA_VISTO.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_viste/SO4_V_UTENTI_RUOLI_SOGG_UO.sql"
+                                  classpathref="classpath-liquibase"/>
+    </target>
+
+    <target name="-agsde2-pkg">
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_pkg/IMPOSTAZIONI_PKG.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="integration/agsde2_pkg/UTILITY_PKG.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_pkg/COMPETENZE_PKG.sql"
+                                  classpathref="classpath-liquibase"/>
+    </target>
+
+    <target name="-agsde2-assistenza">
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_assistenza/ASS_CERTIFICATI_IN_CORSO.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_assistenza/ASS_DELIBERE_FINITE.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_assistenza/ASS_DELIBERE_IN_CORSO.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_assistenza/ASS_DETERMINE_FINITE.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_assistenza/ASS_DETERMINE_IN_CORSO.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_assistenza/ASS_DOCUMENTI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_assistenza/ASS_DOCUMENTI_STEP.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_assistenza/ASS_ERRORE_FIRMA.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_assistenza/ASS_PARERI_IN_CORSO.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_assistenza/ASS_PROPOSTE_DELIBERA_IN_CORSO.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_assistenza/ASS_SO4_SOGG_UTENTI_RUOLI_UO.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_assistenza/ASS_VISTI_IN_CORSO.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_assistenza/ASS_WKF_ITER_AZIONI_USATE.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_assistenza/ASSISTENZA_PKG.sql"
+                                  classpathref="classpath-liquibase"/>
+    </target>
+
+    <target name="-agsde2-integrazioni">
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_integrazioni/CONS_DELIBERE.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_integrazioni/CONS_DELIBERE_ALLEGATI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_integrazioni/CONS_DETERMINE.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_integrazioni/CONS_DETERMINE_ALLEGATI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_integrazioni/CONS_DETERMINE_COLLEGATE.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_integrazioni/DELIBERE_ALLEGATI_VIEW.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_integrazioni/DETERMINE_ALLEGATI_VIEW.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_integrazioni/GDM_ODG_ESITI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_integrazioni/GDM_TIPI_REGISTRO.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_integrazioni/JWF_UTILITY_PKG.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_integrazioni/L190_DELIBERE.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_integrazioni/L190_DETERMINE.sql"
+                                  classpathref="classpath-liquibase"/>
+    </target>
+
+    <target name="-gdm-competenze-dbfw">
+        <liquibase:updateDatabase databaseref="dbfw-database"
+                                  changelogfile="commons/GDM/sql/05.dbfw.sql"
+                                  classpathref="classpath-liquibase"/>
+    </target>
+
+    <target name="-agsde2-defaults">
+
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_defaults/CF4_VISTA_PROP_DEL.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_defaults/CF_DOCUMENTI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_defaults/DISTINTE_ATTI.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_defaults/JCONS_PKG.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="integration/agsde2_defaults/JCONS_V_LOG_CONSERVAZIONE.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="integration/agsde2_defaults/SIAV.sql"
+                                  classpathref="classpath-liquibase"/>
+    </target>
+
+    <target name="-agsde2-compile-all">
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="commons/COMPILE_ALL.sql"
+                                  classpathref="classpath-liquibase"/>
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="commons/da_aggiornare.sql"
+                                  classpathref="classpath-liquibase"/>
+    </target>
+
+    <target name="-da-installare">
+        <condition property="da.installare">
+            <not>
+                <available file="${global.tomcat.home}/${global.tomcat.webapps}/Atti" />
+            </not>
+        </condition>
+    </target>
+
+</project>

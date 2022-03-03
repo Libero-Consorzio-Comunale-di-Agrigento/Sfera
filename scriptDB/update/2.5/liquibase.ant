@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns:liquibase="antlib:liquibase.integration.ant">
+    <taskdef resource="liquibase/integration/ant/antlib.xml" uri="antlib:liquibase.integration.ant"/>
+
+    <!-- Alla fine di tutto, rivalido i package e creo le viste/etc -->
+    <target name="-update-2.5">
+
+        <!-- ESEGUO L'AGGIORNAMENTO SU GDM -->
+        <liquibase:updateDatabase databaseref="gdm-database" changelogfile="update/2.5/update-gdm.xml" classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.target.username" value="${global.db.target.username}"/>
+                <liquibase:changeLogParameter name="global.db.gdm.username" value="${global.db.gdm.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+
+        <!-- ESEGUO L'AGGIORNAMENTO SU AGSDE2 -->
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="update/2.5/update-agsde2.xml" classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.target.username" value="${global.db.target.username}"/>
+                <liquibase:changeLogParameter name="global.db.gdm.username" value="${global.db.gdm.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+
+    </target>
+</project>

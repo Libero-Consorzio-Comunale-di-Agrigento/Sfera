@@ -1,0 +1,1092 @@
+<definitions name='AttiAmministrativiService' targetNamespace='http://service.integrazioneatti.webservice.sib.datamanagement.it/' xmlns='http://schemas.xmlsoap.org/wsdl/' xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' xmlns:tns='http://service.integrazioneatti.webservice.sib.datamanagement.it/' xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+ <types>
+  <xs:schema targetNamespace='http://service.integrazioneatti.webservice.sib.datamanagement.it/' version='1.0' xmlns:tns='http://service.integrazioneatti.webservice.sib.datamanagement.it/' xmlns:xs='http://www.w3.org/2001/XMLSchema'>
+   <xs:element name='ricercaCapitoli' type='tns:ricercaCapitoli'/>
+   <xs:element name='ricercaCapitoliResponse' type='tns:ricercaCapitoliResponse'/>
+   <xs:element name='ricercaDettagliContabiliAtto' type='tns:ricercaDettagliContabiliAtto'/>
+   <xs:element name='ricercaDettagliContabiliAttoResponse' type='tns:ricercaDettagliContabiliAttoResponse'/>
+   <xs:element name='ricercaEserciziPluriennali' type='tns:ricercaEserciziPluriennali'/>
+   <xs:element name='ricercaEserciziPluriennaliResponse' type='tns:ricercaEserciziPluriennaliResponse'/>
+   <xs:element name='ricercaEserciziSuccessivi' type='tns:ricercaEserciziSuccessivi'/>
+   <xs:element name='ricercaEserciziSuccessiviResponse' type='tns:ricercaEserciziSuccessiviResponse'/>
+   <xs:element name='ricercaFatture' type='tns:ricercaFatture'/>
+   <xs:element name='ricercaFattureResponse' type='tns:ricercaFattureResponse'/>
+   <xs:element name='ricercaImpegniAccertamenti' type='tns:ricercaImpegniAccertamenti'/>
+   <xs:element name='ricercaImpegniAccertamentiResponse' type='tns:ricercaImpegniAccertamentiResponse'/>
+   <xs:element name='ricercaLiquidazioni' type='tns:ricercaLiquidazioni'/>
+   <xs:element name='ricercaLiquidazioniResponse' type='tns:ricercaLiquidazioniResponse'/>
+   <xs:element name='ricercaPdc' type='tns:ricercaPdc'/>
+   <xs:element name='ricercaPdcResponse' type='tns:ricercaPdcResponse'/>
+   <xs:element name='ricercaPrenotazioni' type='tns:ricercaPrenotazioni'/>
+   <xs:element name='ricercaPrenotazioniResponse' type='tns:ricercaPrenotazioniResponse'/>
+   <xs:element name='ricercaSiope' type='tns:ricercaSiope'/>
+   <xs:element name='ricercaSiopeResponse' type='tns:ricercaSiopeResponse'/>
+   <xs:element name='ricercaSoggetti' type='tns:ricercaSoggetti'/>
+   <xs:element name='ricercaSoggettiResponse' type='tns:ricercaSoggettiResponse'/>
+   <xs:element name='ricercaStatoEsercizio' type='tns:ricercaStatoEsercizio'/>
+   <xs:element name='ricercaStatoEsercizioResponse' type='tns:ricercaStatoEsercizioResponse'/>
+   <xs:element name='ricercaTipiGara' type='tns:ricercaTipiGara'/>
+   <xs:element name='ricercaTipiGaraResponse' type='tns:ricercaTipiGaraResponse'/>
+   <xs:element name='ricercaVociEconomiche' type='tns:ricercaVociEconomiche'/>
+   <xs:element name='ricercaVociEconomicheResponse' type='tns:ricercaVociEconomicheResponse'/>
+   <xs:element name='trasferimentoAtto' type='tns:trasferimentoAtto'/>
+   <xs:element name='trasferimentoAttoResponse' type='tns:trasferimentoAttoResponse'/>
+   <xs:element name='trasferimentoDettagliContabili' type='tns:trasferimentoDettagliContabili'/>
+   <xs:element name='trasferimentoDettagliContabiliResponse' type='tns:trasferimentoDettagliContabiliResponse'/>
+   <xs:element name='trasferimentoEsecutivitaAtto' type='tns:trasferimentoEsecutivitaAtto'/>
+   <xs:element name='trasferimentoEsecutivitaAttoResponse' type='tns:trasferimentoEsecutivitaAttoResponse'/>
+   <xs:complexType name='ricercaSoggetti'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+     <xs:element minOccurs='0' name='movimento' type='xs:string'/>
+     <xs:element minOccurs='0' name='codice' type='xs:string'/>
+     <xs:element minOccurs='0' name='ragioneSociale' type='xs:string'/>
+     <xs:element minOccurs='0' name='localita' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceFiscale' type='xs:string'/>
+     <xs:element minOccurs='0' name='partitaIVA' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaSoggettiResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaSoggetti'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaSoggetti'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='soggetti' nillable='true' type='tns:recordSoggetti'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='listaRisultati'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='esito' type='tns:esito'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='recordSoggetti'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='codice' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceFiscale' type='xs:string'/>
+     <xs:element minOccurs='0' name='indirizzo' type='xs:string'/>
+     <xs:element minOccurs='0' name='localita' type='xs:string'/>
+     <xs:element minOccurs='0' name='partitaIVA' type='xs:string'/>
+     <xs:element minOccurs='0' name='provincia' type='xs:string'/>
+     <xs:element minOccurs='0' name='ragioneSociale' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='esito'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='altreInformazioni' type='xs:int'/>
+     <xs:element minOccurs='0' name='esito' type='xs:int'/>
+     <xs:element minOccurs='0' name='messaggio' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaCapitoli'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='annoCompetenza' type='xs:string'/>
+     <xs:element minOccurs='0' name='annoGestione' type='xs:string'/>
+     <xs:element minOccurs='0' name='movimento' type='xs:string'/>
+     <xs:element minOccurs='0' name='capitolo' type='xs:string'/>
+     <xs:element minOccurs='0' name='descrizione' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaCapitoliResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaCapitoli'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaCapitoli'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='capitoli' nillable='true' type='tns:recordCapitolo'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='recordCapitolo'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='articolato' type='xs:string'/>
+     <xs:element minOccurs='0' name='articolo' type='xs:string'/>
+     <xs:element minOccurs='0' name='capitolo' type='xs:string'/>
+     <xs:element minOccurs='0' name='codCentroCosto' type='xs:string'/>
+     <xs:element minOccurs='0' name='codIdEuropeo' type='xs:string'/>
+     <xs:element minOccurs='0' name='descrCentroCosto' type='xs:string'/>
+     <xs:element minOccurs='0' name='descrizione' type='xs:string'/>
+     <xs:element minOccurs='0' name='dispConVarDiBilancioProposte' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='dispDodicesimi' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='esercizio' type='xs:string'/>
+     <xs:element minOccurs='0' name='funzione' type='xs:string'/>
+     <xs:element minOccurs='0' name='impegnatoAccertato' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='intervento' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv1pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv2pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv3pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv4pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv5pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='missione' type='xs:string'/>
+     <xs:element minOccurs='0' name='prenotato' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='programma' type='xs:string'/>
+     <xs:element minOccurs='0' name='servizio' type='xs:string'/>
+     <xs:element minOccurs='0' name='siope' type='xs:string'/>
+     <xs:element minOccurs='0' name='stanzTotale' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='tipoEntrata' type='xs:string'/>
+     <xs:element minOccurs='0' name='titolo' type='xs:string'/>
+     <xs:element minOccurs='0' name='variazioni' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='voceEconomica' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaImpegniAccertamenti'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='annoCompetenzaDa' type='xs:string'/>
+     <xs:element minOccurs='0' name='annoCompetenzaA' type='xs:string'/>
+     <xs:element minOccurs='0' name='annoGestione' type='xs:string'/>
+     <xs:element minOccurs='0' name='capitolo' type='xs:string'/>
+     <xs:element minOccurs='0' name='articolo' type='xs:string'/>
+     <xs:element minOccurs='0' name='movimento' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+     <xs:element minOccurs='0' name='numImpegnoDa' type='xs:string'/>
+     <xs:element minOccurs='0' name='numImpegnoA' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaImpegniAccertamentiResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaImpegniAccertamenti'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaImpegniAccertamenti'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='impegnoAccertamento' nillable='true' type='tns:recordImpegnoAccertamento'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='recordImpegnoAccertamento'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='annoprot' type='xs:string'/>
+     <xs:element minOccurs='0' name='capart' type='xs:string'/>
+     <xs:element minOccurs='0' name='capnum' type='xs:string'/>
+     <xs:element minOccurs='0' name='cig' type='xs:string'/>
+     <xs:element minOccurs='0' name='codIdEuropeo' type='xs:string'/>
+     <xs:element minOccurs='0' name='creditore' type='xs:string'/>
+     <xs:element minOccurs='0' name='cup' type='xs:string'/>
+     <xs:element minOccurs='0' name='descr' type='xs:string'/>
+     <xs:element minOccurs='0' name='eser' type='xs:string'/>
+     <xs:element minOccurs='0' name='impegnato' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='impies' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='liquidabile' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='liquidato' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='numpro' type='xs:string'/>
+     <xs:element minOccurs='0' name='pagato' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='siope' type='xs:string'/>
+     <xs:element minOccurs='0' name='subprot' type='xs:string'/>
+     <xs:element minOccurs='0' name='variazioni' type='xs:decimal'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaPrenotazioni'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='annoCompetenzaDa' type='xs:string'/>
+     <xs:element minOccurs='0' name='annoCompetenzaA' type='xs:string'/>
+     <xs:element minOccurs='0' name='annoGestione' type='xs:string'/>
+     <xs:element minOccurs='0' name='capitolo' type='xs:string'/>
+     <xs:element minOccurs='0' name='articolo' type='xs:string'/>
+     <xs:element minOccurs='0' name='movimento' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+     <xs:element minOccurs='0' name='numImpegnoDa' type='xs:string'/>
+     <xs:element minOccurs='0' name='numImpegnoA' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaPrenotazioniResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaPrenotazioni'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaPrenotazioni'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='prenotazioni' nillable='true' type='tns:recordPrenotazioni'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='recordPrenotazioni'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='annoprot' type='xs:string'/>
+     <xs:element minOccurs='0' name='capart' type='xs:string'/>
+     <xs:element minOccurs='0' name='capnum' type='xs:string'/>
+     <xs:element minOccurs='0' name='descr' type='xs:string'/>
+     <xs:element minOccurs='0' name='eser' type='xs:string'/>
+     <xs:element minOccurs='0' name='impegnato' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='impies' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='liquidabile' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='liquidato' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='numpro' type='xs:string'/>
+     <xs:element minOccurs='0' name='pagato' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='subprot' type='xs:string'/>
+     <xs:element minOccurs='0' name='variazioni' type='xs:decimal'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='trasferimentoDettagliContabili'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='inputDettagliContabili' type='tns:recordTrasferimentoDettagliContabili'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='recordTrasferimentoDettagliContabili'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='aimpr' type='xs:int'/>
+     <xs:element minOccurs='0' name='annoPlurPrincipale' type='xs:int'/>
+     <xs:element minOccurs='0' name='annoProtocollo' type='xs:int'/>
+     <xs:element minOccurs='0' name='annoplu' type='xs:int'/>
+     <xs:element minOccurs='0' name='articolo' type='xs:int'/>
+     <xs:element minOccurs='0' name='CIG' type='xs:string'/>
+     <xs:element minOccurs='0' name='CUP' type='xs:string'/>
+     <xs:element minOccurs='0' name='capitolo' type='xs:int'/>
+     <xs:element minOccurs='0' name='codIdEuropeo' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+     <xs:element minOccurs='0' name='creditore' type='xs:int'/>
+     <xs:element minOccurs='0' name='data' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='dataProposta' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='dataScadenza' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='dataScadenzaFattura' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='definitivo' type='xs:string'/>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='eserPlurPrincipale' type='xs:string'/>
+     <xs:element minOccurs='0' name='esercizio' type='xs:string'/>
+     <xs:element minOccurs='0' name='eserplu' type='xs:string'/>
+     <xs:element minOccurs='0' name='flgAggiornaScadenzaFat' type='xs:string'/>
+     <xs:element minOccurs='0' name='flgDocumentoFittizio' type='xs:string'/>
+     <xs:element minOccurs='0' name='importo' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='liv1pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv2pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv3pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv4pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv5pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='movimento' type='xs:string'/>
+     <xs:element minOccurs='0' name='nimpr' type='xs:int'/>
+     <xs:element minOccurs='0' name='numPlurPrincipale' type='xs:int'/>
+     <xs:element minOccurs='0' name='numProtocolloCaricamentoContabilita' type='xs:int'/>
+     <xs:element minOccurs='0' name='numero' type='xs:int'/>
+     <xs:element minOccurs='0' name='numeroProposta' type='xs:long'/>
+     <xs:element minOccurs='0' name='oggetto' type='xs:string'/>
+     <xs:element minOccurs='0' name='oggettoDettaglioContabile' type='xs:string'/>
+     <xs:element minOccurs='0' name='prenotazione' type='xs:int'/>
+     <xs:element minOccurs='0' name='simpr' type='xs:int'/>
+     <xs:element minOccurs='0' name='siope' type='xs:int'/>
+     <xs:element minOccurs='0' name='TIPOmovimento' type='xs:string'/>
+     <xs:element minOccurs='0' name='tipSpe' type='xs:string'/>
+     <xs:element minOccurs='0' name='tipoAttoProposta' type='xs:string'/>
+     <xs:element minOccurs='0' name='tipoEntrata' type='xs:string'/>
+     <xs:element minOccurs='0' name='tipoGara' type='xs:string'/>
+     <xs:element minOccurs='0' name='tipoatto' type='xs:string'/>
+     <xs:element minOccurs='0' name='vimpr' type='xs:int'/>
+     <xs:element minOccurs='0' name='voceco' type='xs:int'/>
+     <xs:element minOccurs='0' name='aAttoLiq' type='xs:string'/>
+     <xs:element minOccurs='0' name='aRegFattura' type='xs:string'/>
+     <xs:element minOccurs='0' name='nAttoLiq' type='xs:string'/>
+     <xs:element minOccurs='0' name='nLiquidazione' type='xs:string'/>
+     <xs:element minOccurs='0' name='nRegFattura' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='trasferimentoDettagliContabiliResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaTrasferimentoDettagliContabili'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaTrasferimentoDettagliContabili'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='trasferimentoDettagliContabili' nillable='true' type='tns:recordTrasferimentoDettagliContabili'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='ricercaVociEconomiche'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+     <xs:element minOccurs='0' name='esercizio' type='xs:string'/>
+     <xs:element minOccurs='0' name='movimento' type='xs:string'/>
+     <xs:element minOccurs='0' name='titolo' type='xs:string'/>
+     <xs:element minOccurs='0' name='intervento' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaVociEconomicheResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaVociEconomiche'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaVociEconomiche'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='vociEconomiche' nillable='true' type='tns:recordVoceEconomica'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='recordVoceEconomica'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='codice' type='xs:string'/>
+     <xs:element minOccurs='0' name='voceEconomica' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaSiope'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+     <xs:element minOccurs='0' name='esercizio' type='xs:string'/>
+     <xs:element minOccurs='0' name='movimento' type='xs:string'/>
+     <xs:element minOccurs='0' name='titolo' type='xs:string'/>
+     <xs:element minOccurs='0' name='intervento' type='xs:string'/>
+     <xs:element minOccurs='0' name='voceEconomica' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaSiopeResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaSiope'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaSiope'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='siope' nillable='true' type='tns:recordSiope'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='recordSiope'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='descrizione' type='xs:string'/>
+     <xs:element minOccurs='0' name='voceEconomica' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaEserciziSuccessivi'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+     <xs:element minOccurs='0' name='anno' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaEserciziSuccessiviResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaEserciziSuccessivi'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaEserciziSuccessivi'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='esercizioSuccessivo' nillable='true' type='tns:recordEsercizioSuccessivo'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='recordEsercizioSuccessivo'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='esercizio' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaStatoEsercizio'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+     <xs:element minOccurs='0' name='anno' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaStatoEsercizioResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaStatoEsercizio'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaStatoEsercizio'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='statoEsercizio' nillable='true' type='tns:recordStatoEsercizio'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='recordStatoEsercizio'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='stato' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaEserciziPluriennali'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+     <xs:element minOccurs='0' name='capitolo' type='xs:string'/>
+     <xs:element minOccurs='0' name='articolo' type='xs:string'/>
+     <xs:element minOccurs='0' name='movimento' type='xs:string'/>
+     <xs:element minOccurs='0' name='esercizio' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaEserciziPluriennaliResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaEserciziPluriennali'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaEserciziPluriennali'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='eserciziPluriennali' nillable='true' type='tns:recordEsercizioPluriennale'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='recordEsercizioPluriennale'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='disponibilitaCons' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='disponibilitaSvil' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='esercizio' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaTipiGara'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaTipiGaraResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaTipiGara'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaTipiGara'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='tipiGara' nillable='true' type='tns:recordTipoGara'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='recordTipoGara'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='codice' type='xs:string'/>
+     <xs:element minOccurs='0' name='descrizione' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaPdc'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+     <xs:element minOccurs='0' name='esercizio' type='xs:string'/>
+     <xs:element minOccurs='0' name='movimento' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv1pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv2pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv3pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv4pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv5pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='flgUtilImpAcc' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaPdcResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaPdc'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaPdc'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='pdc' nillable='true' type='tns:recordPdc'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='recordPdc'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='descrizione' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv1pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv2pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv3pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv4pf' type='xs:string'/>
+     <xs:element minOccurs='0' name='liv5pf' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaFatture'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+     <xs:element minOccurs='0' name='creditore' type='xs:string'/>
+     <xs:element minOccurs='0' name='dataEmissioneDa' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='dataEmissioneA' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='dataRegistrazioneDa' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='dataRegistrazioneA' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='tipo' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaFattureResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaFatture'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaFatture'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='fattura' nillable='true' type='tns:recordFattura'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='recordFattura'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='creditore' type='xs:string'/>
+     <xs:element minOccurs='0' name='dataEmissione' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='dataRegistrazione' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='importo' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='liquidabile' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='note' type='xs:string'/>
+     <xs:element minOccurs='0' name='tipoDocumento' type='xs:string'/>
+     <xs:element minOccurs='0' name='aRegFattura' type='xs:string'/>
+     <xs:element minOccurs='0' name='nEmissione' type='xs:string'/>
+     <xs:element minOccurs='0' name='nRegFattura' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaLiquidazioni'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+     <xs:element minOccurs='0' name='aimpr' type='xs:string'/>
+     <xs:element minOccurs='0' name='nimpr' type='xs:string'/>
+     <xs:element minOccurs='0' name='simpr' type='xs:string'/>
+     <xs:element minOccurs='0' name='aRegFattura' type='xs:string'/>
+     <xs:element minOccurs='0' name='nRegFattura' type='xs:string'/>
+     <xs:element minOccurs='0' name='stato' type='xs:string'/>
+     <xs:element minOccurs='0' name='dataRegistrazioneDa' type='xs:dateTime'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaLiquidazioniResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaLiquidazioni'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaLiquidazioni'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='liquidazione' nillable='true' type='tns:recordLiquidazione'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='recordLiquidazione'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='aimpr' type='xs:string'/>
+     <xs:element minOccurs='0' name='creditore' type='xs:string'/>
+     <xs:element minOccurs='0' name='importo' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='nimpr' type='xs:string'/>
+     <xs:element minOccurs='0' name='simpr' type='xs:string'/>
+     <xs:element minOccurs='0' name='tipoDocumento' type='xs:string'/>
+     <xs:element minOccurs='0' name='aRegFattura' type='xs:string'/>
+     <xs:element minOccurs='0' name='nLiquidazione' type='xs:string'/>
+     <xs:element minOccurs='0' name='nRegFattura' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='trasferimentoAtto'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='inputRecordAtto' type='tns:recordAtto'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='recordAtto'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='annoProposta' type='xs:int'/>
+     <xs:element minOccurs='0' name='annoProvvedimento' type='xs:int'/>
+     <xs:element minOccurs='0' name='attoEsecutivita' type='xs:string'/>
+     <xs:element minOccurs='0' name='attoProposta' type='xs:string'/>
+     <xs:element minOccurs='0' name='attoProvvedimento' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceDivisione' type='xs:int'/>
+     <xs:element minOccurs='0' name='codiceSettore' type='xs:int'/>
+     <xs:element minOccurs='0' name='codiceUfficio' type='xs:int'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+     <xs:element minOccurs='0' name='dataEsecutivita' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='dataProposta' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='dataProvvedimento' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='descrizione' type='xs:string'/>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='idEsterno' type='xs:string'/>
+     <xs:element minOccurs='0' name='idSib' type='xs:long'/>
+     <xs:element minOccurs='0' name='tipoEsecutivita' type='xs:string'/>
+     <xs:element minOccurs='0' name='tipoProposta' type='xs:string'/>
+     <xs:element minOccurs='0' name='tipoProvvedimento' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='trasferimentoAttoResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaRecordAtto'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaRecordAtto'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='listaRecordAtto' nillable='true' type='tns:recordAtto'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='trasferimentoEsecutivitaAtto'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='inputRecordEsecutivitaAtto' type='tns:recordEsecutivitaAtto'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='recordEsecutivitaAtto'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='annoProposta' type='xs:int'/>
+     <xs:element minOccurs='0' name='attoEsecutivita' type='xs:string'/>
+     <xs:element minOccurs='0' name='attoProposta' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceDivisione' type='xs:int'/>
+     <xs:element minOccurs='0' name='codiceSettore' type='xs:int'/>
+     <xs:element minOccurs='0' name='codiceUfficio' type='xs:int'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+     <xs:element minOccurs='0' name='dataEsecutivita' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='flgAnnullaDettagliContabili' type='xs:string'/>
+     <xs:element minOccurs='0' name='idEsterno' type='xs:string'/>
+     <xs:element minOccurs='0' name='idSib' type='xs:long'/>
+     <xs:element minOccurs='0' name='tipoEsecutivita' type='xs:string'/>
+     <xs:element minOccurs='0' name='tipoProposta' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='trasferimentoEsecutivitaAttoResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaRecordEsecutivitaAtto'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaRecordEsecutivitaAtto'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='listaRecordEsecutivitaAtto' nillable='true' type='tns:recordEsecutivitaAtto'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='ricercaDettagliContabiliAtto'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='idEsterno' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceSettore' type='xs:int'/>
+     <xs:element minOccurs='0' name='codiceDivisione' type='xs:int'/>
+     <xs:element minOccurs='0' name='codiceUfficio' type='xs:int'/>
+     <xs:element minOccurs='0' name='tipoProposta' type='xs:string'/>
+     <xs:element minOccurs='0' name='attoProposta' type='xs:string'/>
+     <xs:element minOccurs='0' name='annoProposta' type='xs:int'/>
+     <xs:element minOccurs='0' name='idSib' type='xs:long'/>
+     <xs:element minOccurs='0' name='ente' type='xs:string'/>
+     <xs:element minOccurs='0' name='codiceUtente' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='ricercaDettagliContabiliAttoResponse'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='return' type='tns:listaRecordDettagliContabilitaAtto'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='listaRecordDettagliContabilitaAtto'>
+    <xs:complexContent>
+     <xs:extension base='tns:listaRisultati'>
+      <xs:sequence>
+       <xs:element maxOccurs='unbounded' minOccurs='0' name='listaRecordDettagliContabilitaAtto' nillable='true' type='tns:recordDettagliContabiliAtto'/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name='recordDettagliContabiliAtto'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='annoCompetenza' type='xs:int'/>
+     <xs:element minOccurs='0' name='annoCrono' type='xs:int'/>
+     <xs:element minOccurs='0' name='annoEsercizio' type='xs:int'/>
+     <xs:element minOccurs='0' name='articolo' type='xs:int'/>
+     <xs:element minOccurs='0' name='capitolo' type='xs:int'/>
+     <xs:element minOccurs='0' name='codFnz1' type='xs:int'/>
+     <xs:element minOccurs='0' name='codFnz2' type='xs:int'/>
+     <xs:element minOccurs='0' name='codFnz3' type='xs:int'/>
+     <xs:element minOccurs='0' name='codiceSoggetto' type='xs:string'/>
+     <xs:element minOccurs='0' name='dataDettaglio' type='xs:dateTime'/>
+     <xs:element minOccurs='0' name='desFnz1' type='xs:string'/>
+     <xs:element minOccurs='0' name='desFnz2' type='xs:string'/>
+     <xs:element minOccurs='0' name='desFnz3' type='xs:string'/>
+     <xs:element minOccurs='0' name='descrizione' type='xs:string'/>
+     <xs:element minOccurs='0' name='descrizioneCapitolo' type='xs:string'/>
+     <xs:element minOccurs='0' name='descrizioneInvestimento' type='xs:string'/>
+     <xs:element minOccurs='0' name='descrizioneSoggetto' type='xs:string'/>
+     <xs:element minOccurs='0' name='dispMandati' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='flagPrenotazione' type='xs:string'/>
+     <xs:element minOccurs='0' name='impFnz1' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='impFnz2' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='impFnz3' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='importo' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='importoCassa' type='xs:decimal'/>
+     <xs:element minOccurs='0' name='investimento' type='xs:int'/>
+     <xs:element minOccurs='0' name='missione' type='xs:int'/>
+     <xs:element minOccurs='0' name='numero' type='xs:int'/>
+     <xs:element minOccurs='0' name='numeroCrono' type='xs:int'/>
+     <xs:element minOccurs='0' name='numeroDet' type='xs:int'/>
+     <xs:element minOccurs='0' name='opera' type='xs:int'/>
+     <xs:element minOccurs='0' name='pdcLivcin' type='xs:int'/>
+     <xs:element minOccurs='0' name='pdcLivdue' type='xs:int'/>
+     <xs:element minOccurs='0' name='pdcLivqua' type='xs:int'/>
+     <xs:element minOccurs='0' name='pdcLivtre' type='xs:int'/>
+     <xs:element minOccurs='0' name='pdcLivuno' type='xs:int'/>
+     <xs:element minOccurs='0' name='progetto' type='xs:int'/>
+     <xs:element minOccurs='0' name='programma' type='xs:int'/>
+     <xs:element minOccurs='0' name='subNumero' type='xs:int'/>
+     <xs:element minOccurs='0' name='tipo' type='xs:string'/>
+     <xs:element minOccurs='0' name='tipoDettaglio' type='xs:string'/>
+     <xs:element minOccurs='0' name='tipoVarDiBil' type='xs:string'/>
+     <xs:element minOccurs='0' name='varNumero' type='xs:int'/>
+    </xs:sequence>
+   </xs:complexType>
+  </xs:schema>
+ </types>
+ <message name='AttiAmministrativi_ricercaPrenotazioni'>
+  <part element='tns:ricercaPrenotazioni' name='ricercaPrenotazioni'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaSiope'>
+  <part element='tns:ricercaSiope' name='ricercaSiope'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaStatoEsercizio'>
+  <part element='tns:ricercaStatoEsercizio' name='ricercaStatoEsercizio'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaVociEconomiche'>
+  <part element='tns:ricercaVociEconomiche' name='ricercaVociEconomiche'></part>
+ </message>
+ <message name='AttiAmministrativi_trasferimentoEsecutivitaAtto'>
+  <part element='tns:trasferimentoEsecutivitaAtto' name='trasferimentoEsecutivitaAtto'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaStatoEsercizioResponse'>
+  <part element='tns:ricercaStatoEsercizioResponse' name='ricercaStatoEsercizioResponse'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaCapitoliResponse'>
+  <part element='tns:ricercaCapitoliResponse' name='ricercaCapitoliResponse'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaFatture'>
+  <part element='tns:ricercaFatture' name='ricercaFatture'></part>
+ </message>
+ <message name='AttiAmministrativi_trasferimentoDettagliContabiliResponse'>
+  <part element='tns:trasferimentoDettagliContabiliResponse' name='trasferimentoDettagliContabiliResponse'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaEserciziPluriennali'>
+  <part element='tns:ricercaEserciziPluriennali' name='ricercaEserciziPluriennali'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaFattureResponse'>
+  <part element='tns:ricercaFattureResponse' name='ricercaFattureResponse'></part>
+ </message>
+ <message name='AttiAmministrativi_trasferimentoAtto'>
+  <part element='tns:trasferimentoAtto' name='trasferimentoAtto'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaEserciziSuccessivi'>
+  <part element='tns:ricercaEserciziSuccessivi' name='ricercaEserciziSuccessivi'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaEserciziSuccessiviResponse'>
+  <part element='tns:ricercaEserciziSuccessiviResponse' name='ricercaEserciziSuccessiviResponse'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaLiquidazioniResponse'>
+  <part element='tns:ricercaLiquidazioniResponse' name='ricercaLiquidazioniResponse'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaCapitoli'>
+  <part element='tns:ricercaCapitoli' name='ricercaCapitoli'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaDettagliContabiliAtto'>
+  <part element='tns:ricercaDettagliContabiliAtto' name='ricercaDettagliContabiliAtto'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaImpegniAccertamenti'>
+  <part element='tns:ricercaImpegniAccertamenti' name='ricercaImpegniAccertamenti'></part>
+ </message>
+ <message name='AttiAmministrativi_trasferimentoAttoResponse'>
+  <part element='tns:trasferimentoAttoResponse' name='trasferimentoAttoResponse'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaPdc'>
+  <part element='tns:ricercaPdc' name='ricercaPdc'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaSoggetti'>
+  <part element='tns:ricercaSoggetti' name='ricercaSoggetti'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaEserciziPluriennaliResponse'>
+  <part element='tns:ricercaEserciziPluriennaliResponse' name='ricercaEserciziPluriennaliResponse'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaImpegniAccertamentiResponse'>
+  <part element='tns:ricercaImpegniAccertamentiResponse' name='ricercaImpegniAccertamentiResponse'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaSiopeResponse'>
+  <part element='tns:ricercaSiopeResponse' name='ricercaSiopeResponse'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaPdcResponse'>
+  <part element='tns:ricercaPdcResponse' name='ricercaPdcResponse'></part>
+ </message>
+ <message name='AttiAmministrativi_trasferimentoEsecutivitaAttoResponse'>
+  <part element='tns:trasferimentoEsecutivitaAttoResponse' name='trasferimentoEsecutivitaAttoResponse'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaTipiGaraResponse'>
+  <part element='tns:ricercaTipiGaraResponse' name='ricercaTipiGaraResponse'></part>
+ </message>
+ <message name='AttiAmministrativi_trasferimentoDettagliContabili'>
+  <part element='tns:trasferimentoDettagliContabili' name='trasferimentoDettagliContabili'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaDettagliContabiliAttoResponse'>
+  <part element='tns:ricercaDettagliContabiliAttoResponse' name='ricercaDettagliContabiliAttoResponse'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaLiquidazioni'>
+  <part element='tns:ricercaLiquidazioni' name='ricercaLiquidazioni'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaTipiGara'>
+  <part element='tns:ricercaTipiGara' name='ricercaTipiGara'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaVociEconomicheResponse'>
+  <part element='tns:ricercaVociEconomicheResponse' name='ricercaVociEconomicheResponse'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaPrenotazioniResponse'>
+  <part element='tns:ricercaPrenotazioniResponse' name='ricercaPrenotazioniResponse'></part>
+ </message>
+ <message name='AttiAmministrativi_ricercaSoggettiResponse'>
+  <part element='tns:ricercaSoggettiResponse' name='ricercaSoggettiResponse'></part>
+ </message>
+ <portType name='AttiAmministrativi'>
+  <operation name='ricercaCapitoli' parameterOrder='ricercaCapitoli'>
+   <input message='tns:AttiAmministrativi_ricercaCapitoli'></input>
+   <output message='tns:AttiAmministrativi_ricercaCapitoliResponse'></output>
+  </operation>
+  <operation name='ricercaDettagliContabiliAtto' parameterOrder='ricercaDettagliContabiliAtto'>
+   <input message='tns:AttiAmministrativi_ricercaDettagliContabiliAtto'></input>
+   <output message='tns:AttiAmministrativi_ricercaDettagliContabiliAttoResponse'></output>
+  </operation>
+  <operation name='ricercaEserciziPluriennali' parameterOrder='ricercaEserciziPluriennali'>
+   <input message='tns:AttiAmministrativi_ricercaEserciziPluriennali'></input>
+   <output message='tns:AttiAmministrativi_ricercaEserciziPluriennaliResponse'></output>
+  </operation>
+  <operation name='ricercaEserciziSuccessivi' parameterOrder='ricercaEserciziSuccessivi'>
+   <input message='tns:AttiAmministrativi_ricercaEserciziSuccessivi'></input>
+   <output message='tns:AttiAmministrativi_ricercaEserciziSuccessiviResponse'></output>
+  </operation>
+  <operation name='ricercaFatture' parameterOrder='ricercaFatture'>
+   <input message='tns:AttiAmministrativi_ricercaFatture'></input>
+   <output message='tns:AttiAmministrativi_ricercaFattureResponse'></output>
+  </operation>
+  <operation name='ricercaImpegniAccertamenti' parameterOrder='ricercaImpegniAccertamenti'>
+   <input message='tns:AttiAmministrativi_ricercaImpegniAccertamenti'></input>
+   <output message='tns:AttiAmministrativi_ricercaImpegniAccertamentiResponse'></output>
+  </operation>
+  <operation name='ricercaLiquidazioni' parameterOrder='ricercaLiquidazioni'>
+   <input message='tns:AttiAmministrativi_ricercaLiquidazioni'></input>
+   <output message='tns:AttiAmministrativi_ricercaLiquidazioniResponse'></output>
+  </operation>
+  <operation name='ricercaPdc' parameterOrder='ricercaPdc'>
+   <input message='tns:AttiAmministrativi_ricercaPdc'></input>
+   <output message='tns:AttiAmministrativi_ricercaPdcResponse'></output>
+  </operation>
+  <operation name='ricercaPrenotazioni' parameterOrder='ricercaPrenotazioni'>
+   <input message='tns:AttiAmministrativi_ricercaPrenotazioni'></input>
+   <output message='tns:AttiAmministrativi_ricercaPrenotazioniResponse'></output>
+  </operation>
+  <operation name='ricercaSiope' parameterOrder='ricercaSiope'>
+   <input message='tns:AttiAmministrativi_ricercaSiope'></input>
+   <output message='tns:AttiAmministrativi_ricercaSiopeResponse'></output>
+  </operation>
+  <operation name='ricercaSoggetti' parameterOrder='ricercaSoggetti'>
+   <input message='tns:AttiAmministrativi_ricercaSoggetti'></input>
+   <output message='tns:AttiAmministrativi_ricercaSoggettiResponse'></output>
+  </operation>
+  <operation name='ricercaStatoEsercizio' parameterOrder='ricercaStatoEsercizio'>
+   <input message='tns:AttiAmministrativi_ricercaStatoEsercizio'></input>
+   <output message='tns:AttiAmministrativi_ricercaStatoEsercizioResponse'></output>
+  </operation>
+  <operation name='ricercaTipiGara' parameterOrder='ricercaTipiGara'>
+   <input message='tns:AttiAmministrativi_ricercaTipiGara'></input>
+   <output message='tns:AttiAmministrativi_ricercaTipiGaraResponse'></output>
+  </operation>
+  <operation name='ricercaVociEconomiche' parameterOrder='ricercaVociEconomiche'>
+   <input message='tns:AttiAmministrativi_ricercaVociEconomiche'></input>
+   <output message='tns:AttiAmministrativi_ricercaVociEconomicheResponse'></output>
+  </operation>
+  <operation name='trasferimentoAtto' parameterOrder='trasferimentoAtto'>
+   <input message='tns:AttiAmministrativi_trasferimentoAtto'></input>
+   <output message='tns:AttiAmministrativi_trasferimentoAttoResponse'></output>
+  </operation>
+  <operation name='trasferimentoDettagliContabili' parameterOrder='trasferimentoDettagliContabili'>
+   <input message='tns:AttiAmministrativi_trasferimentoDettagliContabili'></input>
+   <output message='tns:AttiAmministrativi_trasferimentoDettagliContabiliResponse'></output>
+  </operation>
+  <operation name='trasferimentoEsecutivitaAtto' parameterOrder='trasferimentoEsecutivitaAtto'>
+   <input message='tns:AttiAmministrativi_trasferimentoEsecutivitaAtto'></input>
+   <output message='tns:AttiAmministrativi_trasferimentoEsecutivitaAttoResponse'></output>
+  </operation>
+ </portType>
+ <binding name='AttiAmministrativiBinding' type='tns:AttiAmministrativi'>
+  <soap:binding style='document' transport='http://schemas.xmlsoap.org/soap/http'/>
+  <operation name='ricercaCapitoli'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+  <operation name='ricercaDettagliContabiliAtto'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+  <operation name='ricercaEserciziPluriennali'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+  <operation name='ricercaEserciziSuccessivi'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+  <operation name='ricercaFatture'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+  <operation name='ricercaImpegniAccertamenti'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+  <operation name='ricercaLiquidazioni'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+  <operation name='ricercaPdc'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+  <operation name='ricercaPrenotazioni'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+  <operation name='ricercaSiope'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+  <operation name='ricercaSoggetti'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+  <operation name='ricercaStatoEsercizio'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+  <operation name='ricercaTipiGara'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+  <operation name='ricercaVociEconomiche'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+  <operation name='trasferimentoAtto'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+  <operation name='trasferimentoDettagliContabili'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+  <operation name='trasferimentoEsecutivitaAtto'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body use='literal'/>
+   </input>
+   <output>
+    <soap:body use='literal'/>
+   </output>
+  </operation>
+ </binding>
+ 
+ <service name='AttiAmministrativiService'>
+  <port binding='tns:AttiAmministrativiBinding' name='AttiAmministrativiPort'>
+   <!--<soap:address location='http://195.135.200.215:8280/sib/AttiAmministrativi'/>-->
+   <soap:address location='http://sibtest.comune.modena.it/sib/AttiAmministrativi'/>
+  </port>
+ </service>
+</definitions>

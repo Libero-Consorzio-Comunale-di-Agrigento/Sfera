@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer" viewModel="@id('vm') @init('popupAggiungiPartecipanteViewModel')" border="normal" width="500px" height="500px" closable="true">
+
+		<h:div class="barraTitoloPagina">
+			<label sclass="titoloPagina" value="Aggiungi Partecipante" />
+		</h:div>
+
+		<listbox vflex="1" id="listaSoggetti" model="@load(vm.listaPartecipanti)" multiple="true" nonselectableTags="*"
+			checkmark="true" emptyMessage="Nessun partecipante presente" selectedItem="@bind(vm.selectedRecord)">
+			<listhead>
+				<listheader label="Cognome Nome" />
+			</listhead>
+			<template name="model" var="partecipante">
+				<listitem>
+					<listcell label="@load(partecipante.denominazione)" />
+				</listitem>
+			</template>
+		</listbox>
+
+		<h:div class="barraPulsanti">
+			<h:div>
+				<button mold="trendy" label="Aggiungi" disabled="@load(empty vm.selectedRecord)" onClick="@command('onSalvaChiudi', listaSoggetti=listaSoggetti)" />
+				<button mold="trendy" label="Chiudi" onClick="@command('onChiudi')" />
+			</h:div>
+		</h:div>
+	</window>
+</zk>

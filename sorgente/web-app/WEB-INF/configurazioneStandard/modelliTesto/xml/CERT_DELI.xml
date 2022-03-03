@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Certificato della Delibera</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<certificato>
+				<N_DELIBERA>1000</N_DELIBERA>
+				<DATA_DELIBERA>01/05/2014</DATA_DELIBERA>
+				<REGISTRO_DELIBERA>DELIBERAZIONE DI GIUNTA</REGISTRO_DELIBERA>
+				<N_PROPOSTA>300</N_PROPOSTA>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<SUDDIVISIONE>AREA</SUDDIVISIONE>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<CODICE_UNITA_PROPONENTE>A_AAGG</CODICE_UNITA_PROPONENTE>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>				
+				<OGGETTO>DELIBERA DI PROVA</OGGETTO>
+				<DATA_FIRMA>01/05/2014</DATA_FIRMA>
+				<DATA_STAMPA>02/05/2014</DATA_STAMPA>
+				<FIRMATARIO>NOMINATIVO FIRMATARIO</FIRMATARIO>
+				<DESCRIZIONE_FIRMATARIO>Il funzionario delegato</DESCRIZIONE_FIRMATARIO>
+				<DELEGANTE>(IN SOSTITUZIONE DI QUALCUNO)</DELEGANTE>
+				<DATA_PUBBLICAZIONE>01/05/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>15/05/2014</DATA_FINE_PUBBLICAZIONE>
+				<DATA_ESECUTIVITA>11/05/2014</DATA_ESECUTIVITA>
+				<GIORNI_PUBBLICAZIONE>15</GIORNI_PUBBLICAZIONE>	
+				<ESEGUIBILITA_IMMEDIATA>La presente deliberazione e' stata dichiarata immediatamente eseguibile.</ESEGUIBILITA_IMMEDIATA>
+				<ESEGUIBILITA_NON_IMMEDIATA>La presente deliberazione e' stata dichiarata non immediatamente eseguibile.</ESEGUIBILITA_NON_IMMEDIATA>
+				<DATA_PROTOCOLLO>02/05/2014</DATA_PROTOCOLLO>
+				<ANNO_PROTOCOLLO>2014</ANNO_PROTOCOLLO>
+				<NUMERO_PROTOCOLLO>2500</NUMERO_PROTOCOLLO>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>1250</NUMERO_ALBO>
+			</certificato>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>id del certificato richiesto</descrizione>
+			<path/>			
+		</metaDato>
+<!-- DEFINIZIONE CAMPI DELLA QUERY -->		
+		<metaDato>
+			<nomeSimbolico>N_DELIBERA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>numero della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_DELIBERA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>data della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>N_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>numero della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>anno della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità proponente della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice dell'unita proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>AREA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Area dell'unita' proponente della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SERVIZIO_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Servizio dell'unita' proponente della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>SUDDIVISIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Suddivisione dell'unita proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della delibera</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>DATA_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data creazione stampa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_FIRMA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di firma del certificato</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Firmatario del certificato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è un dirigente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DELEGANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è stato delegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di pubblicazione della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_FINE_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di fine pubblicazione della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_ESECUTIVITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di esecutivita della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>GIORNI_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Giorni di pubblicazione della delibera</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>ESEGUIBILITA_IMMEDIATA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Riporta una frase definita nelle impostazioni e visibile solo se la delibera e' immediatamente eseguibile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ESEGUIBILITA_NON_IMMEDIATA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Riporta una frase definita nelle impostazioni e visibile solo se la delibera non e' immediatamente eseguibile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>REGISTRO_DELIBERA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Registro di numerazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di protocollazione della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di protocollazione della determina</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di protocollo determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_ALBO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di numerazione della determina all'albo pretorio</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>NUMERO_ALBO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di registro all'albo pretorio della determina</descrizione>
+			<path/>
+		</metaDato>	
+	</definitions>
+	<queryes>
+ 	<!-- certificato: restituisce i dati del certificato -->
+		<query id='certificato'
+		       help_query_alias="c"
+		       help_field_aliases="ANNO_ALBO, ANNO_PROPOSTA, ANNO_PROTOCOLLO, AREA_PROPONENTE, CODICE_UNITA_PROPONENTE, DATA_DELIBERA, DATA_FINE_PUBBLICAZIONE, DATA_ESECUTIVITA, DATA_FIRMA, DATA_PROTOCOLLO, DATA_PUBBLICAZIONE, DATA_STAMPA, ESEGUIBILITA_IMMEDIATA, ESEGUIBILITA_NON_IMMEDIATA, FIRMATARIO, DESCRIZIONE_FIRMATARIO, DELEGANTE, GIORNI_PUBBLICAZIONE, N_DELIBERA, N_PROPOSTA, NUMERO_ALBO, NUMERO_PROTOCOLLO, OGGETTO, REGISTRO_DELIBERA, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE">
+ select d.numero_delibera N_DELIBERA
+     , to_char (d.data_adozione, 'dd/mm/yyyy') DATA_DELIBERA
+     , pd.numero_proposta N_PROPOSTA
+     , pd.anno_proposta ANNO_PROPOSTA
+     , utility_pkg.get_suddivisione_uo_prop_deli (pd.id_proposta_delibera) SUDDIVISIONE
+     , utility_pkg.get_unita_prop_delibera (pd.id_proposta_delibera) UNITA_PROPONENTE 
+     , utility_pkg.get_codice_unita_prop_delibera(pd.id_proposta_delibera) CODICE_UNITA_PROPONENTE
+     , utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_AREA', pd.ente) AREA_PROPONENTE
+     , utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_SERVIZIO', pd.ente) SERVIZIO_PROPONENTE   
+     , d.oggetto OGGETTO
+     , nvl(to_char(f.data_firma,'dd/mm/yyyy'), '${documentRoot.certificato.DATA_FIRMA}') DATA_FIRMA
+     , to_char (sysdate, 'dd/mm/yyyy') DATA_STAMPA
+     , nvl (utility_pkg.get_nominativo_soggetto(utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), pd.ente), '${documentRoot.certificato.FIRMATARIO}') FIRMATARIO
+	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.certificato.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), pd.ente)) DESCRIZIONE_FIRMATARIO
+	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.certificato.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, pd.ente)) DELEGANTE
+     , nvl(to_char(nvl(d.data_pubblicazione, f.data_firma),'dd/mm/yyyy'), '${documentRoot.certificato.DATA_PUBBLICAZIONE}') DATA_PUBBLICAZIONE
+     , nvl(to_char(nvl(d.data_fine_pubblicazione, (nvl(d.data_pubblicazione, f.data_firma)+d.giorni_pubblicazione)),'dd/mm/yyyy'), '${documentRoot.certificato.DATA_FINE_PUBBLICAZIONE}') DATA_FINE_PUBBLICAZIONE
+     , nvl(to_char(d.data_esecutivita, 'dd/mm/yyyy'), nvl(to_char(nvl(d.data_pubblicazione, f.data_firma)+impostazioni_pkg.get_impostazione('PUBBLICAZIONE_GIORNI_ESECUTIVITA', d.ente),'dd/mm/yyyy'), '${documentRoot.certificato.DATA_ESECUTIVITA}')) DATA_ESECUTIVITA
+     , d.giorni_pubblicazione GIORNI_PUBBLICAZIONE
+     , decode(d.eseguibilita_immediata,'Y', impostazioni_pkg.get_impostazione('MODELLI_STAMPE_ESEGUIBILITA_DELIBERA', d.ente), '') ESEGUIBILITA_IMMEDIATA
+     , decode(d.eseguibilita_immediata,'N', impostazioni_pkg.get_impostazione('MODELLI_STAMPE_NON_ESEGUIBILITA_DELIBERA', d.ente), '') ESEGUIBILITA_NON_IMMEDIATA
+     ,  tr.descrizione REGISTRO_DELIBERA
+     ,  d.anno_albo ANNO_ALBO
+     ,  d.numero_albo NUMERO_ALBO
+     ,  decode(numero_protocollo, null, '', to_char(numero_protocollo)) NUMERO_PROTOCOLLO
+     ,  decode(anno_protocollo, null, '', anno_protocollo) ANNO_PROTOCOLLO
+     ,  decode(data_numero_protocollo, null, '', to_char(data_numero_protocollo,'dd/mm/yyyy')) DATA_PROTOCOLLO    
+  from firmatari f
+     , proposte_delibera pd
+     , delibere d
+     , certificati c
+     , tipi_registro tr
+ where c.id_certificato = #id
+   and c.id_delibera = d.id_delibera
+   and d.registro_delibera = tr.tipo_registro
+   and f.id_certificato(+) = c.id_certificato
+   and f.firmato(+) = 'N'
+   and f.data_firma(+) is not null   
+   and pd.id_proposta_delibera = d.id_proposta_delibera 
+</query>
+	</queryes>
+	<staticData />
+</documentRoot>

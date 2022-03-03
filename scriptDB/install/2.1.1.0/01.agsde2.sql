@@ -1,0 +1,29 @@
+--liquibase formatted sql
+--changeset rdestasio:2.1.1.0_20200221_01
+
+-- aggiungo la tabella per i dati aggiuntivi
+CREATE TABLE DATI_AGGIUNTIVI ( ID_DATO_AGGIUNTIVO 	NUMBER(19) NOT NULL, 
+							   VERSION 				NUMBER(19) NOT NULL, 
+							   CODICE 				VARCHAR2(255 BYTE) NOT NULL, 
+							   DATA_INS 			DATE NOT NULL, 
+							   DESCRIZIONE 			VARCHAR2(4000 BYTE), 
+							   ENTE 				VARCHAR2(255 BYTE) NOT NULL, 
+							   DATA_UPD 			DATE NOT NULL, 
+							   SEQUENZA 			NUMBER(10) NOT NULL, 
+							   TIPO_OGGETTO 		VARCHAR2(255 BYTE) NOT NULL, 
+							   UTENTE_INS 			VARCHAR2(255 BYTE) NOT NULL, 
+							   UTENTE_UPD 			VARCHAR2(255 BYTE) NOT NULL, 
+							   VALIDO 				CHAR(1 BYTE) NOT NULL, 
+							   VALIDO_AL 			DATE, 
+							   VALIDO_DAL 			DATE NOT NULL,
+							   CONSTRAINT 			DATI_AGGIUNTIVI_PK PRIMARY KEY (ID_DATO_AGGIUNTIVO)) 
+
+/
+
+-- aggiungo la colonna per i dati aggiuntivi
+ALTER TABLE DETERMINE ADD (ID_DATO_AGGIUNTIVO NUMBER(19))
+/
+
+ALTER TABLE DETERMINE_STORICO ADD (ID_DATO_AGGIUNTIVO NUMBER(19))
+/
+

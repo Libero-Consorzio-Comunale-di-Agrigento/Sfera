@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+    	viewModel="@id('vm') @init('votoDettaglioViewModel')"
+    	border="normal"
+    	title=" "
+        width="500px"
+        sizable="false">
+
+		<h:div class="barraTitoloPagina">
+			<label sclass="titoloPagina" value="Gestione Voti" />
+			<image
+				src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+				tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')" />
+		</h:div>
+
+		<grid sclass="form">
+			<rows>
+				<row>
+	        		<cell width="30%" align="right">
+    	    			<h:span class="mandatoryLabel">*</h:span><label value="Tipologia"/>
+        			</cell>
+					<cell>
+        				<combobox hflex="1" selectedItem="@bind(vm.selectedRecord.codice)"
+							model="@load(vm.listaVotiStandard)" >
+						    <template name="model">
+						    	<comboitem label="@load(each)" value="@load(each)"/>
+							</template>
+						</combobox>
+        			</cell>
+        		</row>
+				<row>
+					<cell width="30%" align="right">
+						<h:span class="mandatoryLabel">*</h:span><label value="Valore" />
+					</cell>
+					<cell>
+						<textbox value="@bind(vm.selectedRecord.valore)" hflex="1" />
+					</cell>
+				</row>
+				<row>
+					<cell align="right">
+						<label value="Predefinito" />
+					</cell>
+					<cell>
+						<checkbox checked="@bind(vm.selectedRecord.predefinito)"
+							hflex="1" />
+					</cell>
+				</row>
+				<row>
+					<cell align="right">
+						<label value="Descrizione" />
+					</cell>
+					<cell>
+						<textbox multiline="true" rows="3" value="@bind(vm.selectedRecord.descrizione)" hflex="1" />
+					</cell>
+				</row>
+				<row>
+					<cell align="right">
+						<h:span class="mandatoryLabel">*</h:span><label value="Sequenza" />
+					</cell>
+					<cell>
+						<spinner value="@bind(vm.selectedRecord.sequenza)" format=",###"	constraint="min 0"  />
+					</cell>
+				</row>
+			</rows>
+		</grid>
+
+		<vlayout class="datiCreazioneModifica" visible="@load(not empty vm.selectedRecord.id)">
+			<label value="@load(vm.datiCreazione)" />
+			<label value="@load(vm.datiModifica)" />
+		</vlayout>
+
+		<controlBarRecord />
+
+	</window>
+</zk>

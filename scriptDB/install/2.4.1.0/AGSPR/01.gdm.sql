@@ -1,0 +1,28 @@
+-- disabilito i trigger perché da alcuni clienti è abilitata l'integrazione con doc-er tramite trigger che rallenta tutto un casino.
+
+ALTER TABLE GAT_DETERMINA DISABLE ALL TRIGGERS
+/
+
+ALTER TABLE GAT_DELIBERA DISABLE ALL TRIGGERS
+/
+
+ALTER TABLE GAT_SEDUTA_STAMPA DISABLE ALL TRIGGERS
+/
+
+update GAT_DETERMINA set IDRIF = SEQ_IDRIF.nextval where IDRIF is NULL
+/
+
+update GAT_DELIBERA set IDRIF = SEQ_IDRIF.nextval where IDRIF is NULL
+/
+
+update GAT_SEDUTA_STAMPA set IDRIF = SEQ_IDRIF.nextval where IDRIF is NULL
+/
+
+ALTER TABLE GAT_DETERMINA ENABLE ALL TRIGGERS
+/
+
+ALTER TABLE GAT_DELIBERA ENABLE ALL TRIGGERS
+/
+
+ALTER TABLE GAT_SEDUTA_STAMPA ENABLE ALL TRIGGERS
+/

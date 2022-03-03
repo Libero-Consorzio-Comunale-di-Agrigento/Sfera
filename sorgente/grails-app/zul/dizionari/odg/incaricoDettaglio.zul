@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+    	viewModel="@id('vm') @init('incaricoDettaglioViewModel')"
+    	border="normal"
+    	title=" "
+        width="500px"
+        sizable="false">
+
+		<h:div class="barraTitoloPagina">
+			<label sclass="titoloPagina" value="Gestione Incarichi" />
+			<image
+				src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+				tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')" />
+		</h:div>
+
+		<grid sclass="form">
+			<rows>
+				<row>
+					<cell width="30%" align="right">
+						<h:span class="mandatoryLabel">*</h:span><label value="Titolo" />
+					</cell>
+					<cell>
+						<textbox value="@bind(vm.selectedRecord.titolo)" hflex="1" />
+					</cell>
+				</row>
+			</rows>
+		</grid>
+
+		<vlayout class="datiCreazioneModifica" visible="@load(not empty vm.selectedRecord.id)">
+			<label value="@load(vm.datiCreazione)" />
+			<label value="@load(vm.datiModifica)" />
+		</vlayout>
+
+		<controlBarRecord />
+
+	</window>
+</zk>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     01/mar/2014 11:34:14                                                        
+
+     [NomeProgetto]    
+     [Descrizione del Progetto]
+                   
+     [Autore]                                                                
+     ====================================================================== -->
+<project>
+
+    <import file="../../../commons/sql/GDM/install.ant" />
+    <import file="../../../commons/sql/AGSDE2/install.ant" />
+
+	<target name="config">
+		<require-conn istanza="gdm" />
+		<require-conn istanza="agsde2" />
+	</target>
+	
+	<target name="install:db" depends="-trascodifica-file,-agsde2-compile-all"/>
+
+	<target name="-trascodifica-file">
+		<echo message="Trascodifico i file di sfera su GDM" />
+		<sql escapeprocessing="false"  src="01.agsde2.sql"                 		   userid="${global.db.target.username}" password="${global.db.target.password}" url="${global.db.target.url}" driver="${global.db.target.driver}" expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"></sql>
+		<sql escapeprocessing="false"  src="02.gdm.sql"                 		   userid="${global.db.gdm.username}" password="${global.db.gdm.password}" url="${global.db.gdm.url}" driver="${global.db.gdm.driver}" expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"></sql>
+		<sql escapeprocessing="false"  src="03.agsde2.sql"                 		   userid="${global.db.target.username}" password="${global.db.target.password}" url="${global.db.target.url}" driver="${global.db.target.driver}" expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"></sql>
+	</target>
+
+	<target name="install:fs" >
+	</target>
+
+</project>

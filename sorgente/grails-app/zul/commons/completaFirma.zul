@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+        viewModel="@id('vm') @init('completaFirmaViewModel')"
+        title="Completa Firma"
+        width="800px"
+		border="normal"
+		sizable="false">
+
+		<listbox model="@load(vm.lista)" emptyMessage="Nessun documento"
+				 vflex="1" height="100%">
+			<listhead>
+				<listheader label="Descrizione"/>
+				<listheader label="Risultato" width="70px" align="center"/>
+			</listhead>
+			<template name="model" var="el">
+				<listitem>
+					<listcell label="@load(el.descrizione)"/>
+					<listcell><image src="@load(el.result ? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/viewcancel.png')"
+						   tooltiptext="@load(el.result ? 'Operazione completata con successo' : 'Operazione non completata con successo')" />
+					</listcell>
+				</listitem>
+			</template>
+		</listbox>
+		<h:div class="barraPulsanti">
+			<h:div>
+				<button label="Chiudi" onClick="@command('onChiudi')" mold="trendy"></button>
+			</h:div>
+		</h:div>
+
+    </window>
+
+</zk>

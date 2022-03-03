@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer"
+		viewModel="@id('vm') @init('odgIndexOrganoControlloViewModel')" border="normal" width="900px"
+		sizable="false"
+		title=" ">
+
+		<h:div class="barraTitoloPagina">
+			<label sclass="titoloPagina" value="Gestione Organo di Controllo" />
+			<image src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+				   tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')" />
+		</h:div>
+
+		<tabbox vflex="1">
+			<tabs>
+				<tab label="Informazioni" />
+				<tab id="componenti" label="Componenti" visible="@bind(vm.selectedRecord.id ne null)" />
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+					<include src="/dizionari/odg/organoControlloDettaglio.zul" organoControllo="#{vm.selectedRecord}" />
+				</tabpanel>
+				<tabpanel fulfill="componenti.onSelect" vflex="1">
+					<include src="/dizionari/odg/organoControlloComponentiLista.zul" organoControllo="#{vm.selectedRecord}" />
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+
+		<vlayout class="datiCreazioneModifica" visible="@load(not empty vm.selectedRecord.id)">
+			<label value="@load(vm.datiCreazione)" />
+			<label value="@load(vm.datiModifica)" />
+		</vlayout>
+
+		<h:div class="barraPulsanti">
+			<button
+			 	mold="trendy"
+				label="@load(vm.selectedRecord.valido? 'Disattiva' : 'Ripristina')"
+				tooltiptext="@load(vm.selectedRecord.valido? 'Disattiva' : 'Ripristina')"
+				onClick="@command('onSettaValido', valido=!vm.selectedRecord.valido)"
+				visible="@bind(not empty vm.selectedRecord.id)"
+				width="100px" />
+
+			<button
+			 	mold="trendy"
+				label="Rinnova Organo di Controllo"
+				onClick="@command('onRinnovaOrgano')"
+				disabled="@bind(not vm.selectedRecord.valido)"
+				width="100px" />
+
+			<h:div>
+				<button
+					mold="trendy"
+					label="Salva"
+					onClick="@command('onSalva')" />
+				<button
+				 	mold="trendy"
+					label="Salva e chiudi"
+					onClick="@command('onSalvaChiudi')" />
+				<button
+				 	mold="trendy"
+					label="Chiudi"
+					onClick="@command('onChiudi')"  />
+			</h:div>
+		</h:div>
+
+	</window>
+</zk>

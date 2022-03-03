@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer" viewModel="@id('vm') @init('organoControlloDettaglioViewModel')">
+    <vlayout vflex="1">
+
+		<grid sclass="form" >
+			<rows>
+				<row>
+					<cell align="right" width="30%">
+						<h:span class="mandatoryLabel">*</h:span><label value="Titolo" />
+					</cell>
+					<cell>
+						<combobox hflex="1" selectedItem="@bind(vm.organoControllo.tipo) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')"
+							model="@load(vm.listaTipi)" readonly="true" >
+							<template name="model">
+						    	<comboitem label="@load(each.titolo)" value="@load(each)"/>
+							</template>
+						</combobox>
+					</cell>
+				</row>
+				<row>
+					<cell align="right">
+						<label value="Descrizione" />
+					</cell>
+					<cell>
+						<textbox multiline="true" rows="3" value="@bind(vm.organoControllo.descrizione)" hflex="1" />
+					</cell>
+				</row>
+			    <row>
+					<cell align="right">
+						<h:span class="mandatoryLabel">*</h:span><label value="Sequenza" />
+					</cell>
+					<cell>
+						<spinner value="@bind(vm.organoControllo.sequenza)" format=",###" constraint="min 0" />
+					</cell>
+				</row>
+			</rows>
+		</grid>
+
+		 <div style="text-align: left; margin-top: 5px;"><label value="Elenco ruoli" /></div>
+	    <listbox model="@load(vm.listaRuoli)" selectedItem="@bind(vm.selectedRuolo)" emptyMessage="nessun ruolo inserito" rows="5">
+		    <listhead>
+		 		<listheader label="" hflex="1" width="50px" />
+				<listheader label="Ruolo" hflex="2" />
+				<listheader label="Descrizione" hflex="4"/>
+				<listheader label="Valido dal" hflex="1"/>
+				<listheader label="Valido al" hflex="1"/>
+				<listheader label="" width="5%">
+		        	<space width="3px"/>
+		        	<image width="15px" src="/images/afc/16x16/add.png" style="cursor: pointer" onClick="@command('onModifica', ruolo=null)"></image>
+		       	</listheader>
+		    </listhead>
+
+			<template name="model" var="ruolo">
+				<listitem>
+					<listcell>
+	        			<image src="/images/agsde2/22x22/annotate.png" onClick="@command('onModifica', ruolo=ruolo)"></image>
+	        		</listcell>
+					<listcell label="@load(ruolo.titolo)" />
+					<listcell label="@load(ruolo.descrizione)" />
+					<listcell label="@load(ruolo.validoDal) @converter('formattedDate', format='dd/MM/yyyy')" />
+					<listcell label="@load(ruolo.validoAl) @converter('formattedDate', format='dd/MM/yyyy')" />
+			        <listcell>
+ 	        			<image src="/images/agsde2/16x16/trash.png" onClick="@command('onEliminaRuolo', ruolo=ruolo)"></image>
+	        		</listcell>
+				</listitem>
+			</template>
+
+		</listbox>
+ 		<paging activePage="@bind(vm.activePage)" pageSize="@load(vm.pageSize)" totalSize="@load(vm.totalSize)" onPaging="@command('onPagina')" style="border: 0px;"/>
+	</vlayout>
+	</window>
+</zk>

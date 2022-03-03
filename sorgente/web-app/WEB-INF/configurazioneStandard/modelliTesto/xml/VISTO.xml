@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Visto della Determina</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<visto>
+				<NUMERO_DETERMINA>1000</NUMERO_DETERMINA>
+				<DATA_DETERMINA>01/05/2014</DATA_DETERMINA>
+				<ANNO_DETERMINA>2014</ANNO_DETERMINA>
+				<NUMERO_DETERMINA_2>12340</NUMERO_DETERMINA_2>
+				<ANNO_DETERMINA_2>2014</ANNO_DETERMINA_2>
+				<NUMERO_PROPOSTA>500</NUMERO_PROPOSTA>
+                <DATA_PROPOSTA>01/05/2014</DATA_PROPOSTA>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<SUDDIVISIONE>SERVIZIO</SUDDIVISIONE>
+				<UNITA_PROPONENTE>SERVIZIO PUBBLICA ISTRUZIONE</UNITA_PROPONENTE>
+				<CODICE_UNITA_PROPONENTE>SR_PUBBISTR</CODICE_UNITA_PROPONENTE>
+                <UNITA_VISTO>Ufficio Ragioneria</UNITA_VISTO>
+                <CODICE_UNITA_VISTO>UFF_RAG</CODICE_UNITA_VISTO>
+                <SUDDIVIZIONE_VISTO>SERVIZIO RAGIONERIA</SUDDIVIZIONE_VISTO>
+				<OGGETTO_DETERMINA>OGGETTO DETERMINA</OGGETTO_DETERMINA>
+				<ESITO_VISTO>FAVOREVOLE</ESITO_VISTO>
+				<ESITO_VISTO_DEFINITIVO>FAVOREVOLE</ESITO_VISTO_DEFINITIVO>
+				<NOTE_CONTABILI>Note contabili inserite nella determina</NOTE_CONTABILI>
+				<NOTE_VISTO>Note inserite nel visto</NOTE_VISTO>
+				<DATA_FIRMA>01/05/2014</DATA_FIRMA>
+				<DATA_STAMPA>02/05/2014</DATA_STAMPA>
+				<FIRMATARIO>NOMINATIVO DEL FIRMATARIO</FIRMATARIO>
+				<DESCRIZIONE_FIRMATARIO>Il funzionario delegato</DESCRIZIONE_FIRMATARIO>
+				<DELEGANTE>(IN SOSTITUZIONE DI QUALCUNO)</DELEGANTE>
+				<DIRIGENTE_VISTO>NOMINATIVO DEL DIRIGENTE DEL VISTO</DIRIGENTE_VISTO>
+				<ASCENDENTI_UNITA>AREA: STRUTTURA AZIENDE SANITARIE</ASCENDENTI_UNITA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<CIG>0123456789</CIG>
+				<TIPOLOGIA_PROPOSTA>DETERMINAZIONE CON IMPEGNO DI SPESA</TIPOLOGIA_PROPOSTA>
+				<TIPOLOGIA_VISTO>VISTO CONTABILE</TIPOLOGIA_VISTO>
+                <DATA_FIRMA_PROPOSTA>01/05/2014</DATA_FIRMA_PROPOSTA>
+			</visto>
+			<movimenti>
+				<MOVIMENTO_TIPO>IMPEGNO DI SPESA</MOVIMENTO_TIPO>
+				<MOVIMENTO_DESCRIZIONE>ALLESTIMENTO SEGGI</MOVIMENTO_DESCRIZIONE>
+                <MOVIMENTO_IMPORTO>10000</MOVIMENTO_IMPORTO>
+                <MOVIMENTO_IMPORTO_ATTUALE>10000</MOVIMENTO_IMPORTO_ATTUALE>
+				<MOVIMENTO_RAGIONE_SOCIALE>GRUPPO UNO</MOVIMENTO_RAGIONE_SOCIALE>
+				<MOVIMENTO_RIF_BIL_PEG>10000010/0</MOVIMENTO_RIF_BIL_PEG>
+				<MOVIMENTO_DESCRIZIONE_BIL_PEG>SPESE GENERALI</MOVIMENTO_DESCRIZIONE_BIL_PEG>
+				<MOVIMENTO_ANNO_IMPEGNO>2014</MOVIMENTO_ANNO_IMPEGNO>
+				<MOVIMENTO_NUMERO_IMPEGNO>10</MOVIMENTO_NUMERO_IMPEGNO>
+				<MOVIMENTO_ANNO>2014</MOVIMENTO_ANNO>
+				<MOVIMENTO_NUMERO>100</MOVIMENTO_NUMERO>
+				<MOVIMENTO_ENTRATA_SPESA>S</MOVIMENTO_ENTRATA_SPESA>
+				<MOVIMENTO_CODICE_BENEFICIARIO>001</MOVIMENTO_CODICE_BENEFICIARIO>
+				<MOVIMENTO_COD_LIVELLO_5>Livello</MOVIMENTO_COD_LIVELLO_5>
+				<MOVIMENTO_CODICE_SIOPE>siope</MOVIMENTO_CODICE_SIOPE>
+ 	 			<MOVIMENTO_COD_TRANSAZIONE>transazione elementare</MOVIMENTO_COD_TRANSAZIONE>
+ 	 			<MOVIMENTO_CF_PARTITA_IVA>codice fiscale/partita iva</MOVIMENTO_CF_PARTITA_IVA>
+                <FAT_DATA_SCADENZA>30/06/2013</FAT_DATA_SCADENZA>
+                <IMP_ANNO_DEL>2013</IMP_ANNO_DEL>
+                <IMP_NUMERO_DEL>55</IMP_NUMERO_DEL>
+                <IMP_SEDE_DEL>T</IMP_SEDE_DEL>
+                <IMP_ANNO_PROPOSTA>2013</IMP_ANNO_PROPOSTA>
+                <IMP_UNITA_PROPONENTE>PROP</IMP_UNITA_PROPONENTE>
+                <IMP_NUMERO_PROPOSTA>11</IMP_NUMERO_PROPOSTA>
+            </movimenti>
+			<movimenti>
+				<MOVIMENTO_TIPO>IMPEGNO DI SPESA</MOVIMENTO_TIPO>
+				<MOVIMENTO_DESCRIZIONE>RIPARTO DIRITTI DI SEGRETERIA</MOVIMENTO_DESCRIZIONE>
+				<MOVIMENTO_IMPORTO>1200</MOVIMENTO_IMPORTO>
+                <MOVIMENTO_IMPORTO_ATTUALE>1200</MOVIMENTO_IMPORTO_ATTUALE>
+				<MOVIMENTO_RAGIONE_SOCIALE>GRUPPO DUE</MOVIMENTO_RAGIONE_SOCIALE>
+				<MOVIMENTO_RIF_BIL_PEG>10000011/0</MOVIMENTO_RIF_BIL_PEG>
+				<MOVIMENTO_DESCRIZIONE_BIL_PEG>ACQUISTO BENI DI CONSUMO</MOVIMENTO_DESCRIZIONE_BIL_PEG>
+				<MOVIMENTO_ANNO_IMPEGNO>2014</MOVIMENTO_ANNO_IMPEGNO>
+				<MOVIMENTO_NUMERO_IMPEGNO>11</MOVIMENTO_NUMERO_IMPEGNO>				
+				<MOVIMENTO_ANNO>2014</MOVIMENTO_ANNO>
+				<MOVIMENTO_NUMERO>101</MOVIMENTO_NUMERO>
+				<MOVIMENTO_ENTRATA_SPESA>S</MOVIMENTO_ENTRATA_SPESA>
+				<MOVIMENTO_CODICE_BENEFICIARIO>002</MOVIMENTO_CODICE_BENEFICIARIO>
+				<MOVIMENTO_COD_LIVELLO_5>Livello</MOVIMENTO_COD_LIVELLO_5>
+				<MOVIMENTO_CODICE_SIOPE>siope</MOVIMENTO_CODICE_SIOPE>
+ 	 			<MOVIMENTO_COD_TRANSAZIONE>transazione elementare</MOVIMENTO_COD_TRANSAZIONE>
+ 	 			<MOVIMENTO_CF_PARTITA_IVA>codice fiscale/partita iva</MOVIMENTO_CF_PARTITA_IVA>
+                <FAT_DATA_SCADENZA>30/06/2013</FAT_DATA_SCADENZA>
+                <IMP_ANNO_DEL>2013</IMP_ANNO_DEL>
+                <IMP_NUMERO_DEL>55</IMP_NUMERO_DEL>
+                <IMP_SEDE_DEL>T</IMP_SEDE_DEL>
+                <IMP_ANNO_PROPOSTA>2013</IMP_ANNO_PROPOSTA>
+                <IMP_UNITA_PROPONENTE>PROP</IMP_UNITA_PROPONENTE>
+                <IMP_NUMERO_PROPOSTA>11</IMP_NUMERO_PROPOSTA>
+			</movimenti>
+			<movimenti>
+				<MOVIMENTO_TIPO>IMPEGNO DI SPESA</MOVIMENTO_TIPO>
+				<MOVIMENTO_DESCRIZIONE>APPALTO GESTIONE</MOVIMENTO_DESCRIZIONE>
+				<MOVIMENTO_IMPORTO>20500</MOVIMENTO_IMPORTO>
+                <MOVIMENTO_IMPORTO_ATTUALE>20500</MOVIMENTO_IMPORTO_ATTUALE>
+				<MOVIMENTO_RAGIONE_SOCIALE>GRUPPO TRE</MOVIMENTO_RAGIONE_SOCIALE>
+				<MOVIMENTO_RIF_BIL_PEG>10000012/0</MOVIMENTO_RIF_BIL_PEG>
+				<MOVIMENTO_DESCRIZIONE_BIL_PEG>SPESE PER APPALTO</MOVIMENTO_DESCRIZIONE_BIL_PEG>
+				<MOVIMENTO_ANNO_IMPEGNO>2014</MOVIMENTO_ANNO_IMPEGNO>
+				<MOVIMENTO_NUMERO_IMPEGNO>12</MOVIMENTO_NUMERO_IMPEGNO>					
+				<MOVIMENTO_ANNO>2014</MOVIMENTO_ANNO>
+				<MOVIMENTO_NUMERO>102</MOVIMENTO_NUMERO>
+				<MOVIMENTO_ENTRATA_SPESA>S</MOVIMENTO_ENTRATA_SPESA>
+				<MOVIMENTO_CODICE_BENEFICIARIO>003</MOVIMENTO_CODICE_BENEFICIARIO>
+				<MOVIMENTO_COD_LIVELLO_5>Livello</MOVIMENTO_COD_LIVELLO_5>
+				<MOVIMENTO_CODICE_SIOPE>siope</MOVIMENTO_CODICE_SIOPE>
+ 	 			<MOVIMENTO_COD_TRANSAZIONE>transazione elementare</MOVIMENTO_COD_TRANSAZIONE>
+ 	 			<MOVIMENTO_CF_PARTITA_IVA>codice fiscale/partita iva</MOVIMENTO_CF_PARTITA_IVA>
+                <FAT_DATA_SCADENZA>30/06/2013</FAT_DATA_SCADENZA>
+                <IMP_ANNO_DEL>2013</IMP_ANNO_DEL>
+                <IMP_NUMERO_DEL>55</IMP_NUMERO_DEL>
+                <IMP_SEDE_DEL>T</IMP_SEDE_DEL>
+                <IMP_ANNO_PROPOSTA>2013</IMP_ANNO_PROPOSTA>
+                <IMP_UNITA_PROPONENTE>PROP</IMP_UNITA_PROPONENTE>
+                <IMP_NUMERO_PROPOSTA>11</IMP_NUMERO_PROPOSTA>
+			</movimenti>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+		<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>id del visto</descrizione>
+			<path/>			
+		</metaDato>
+		<!-- DEFINIZIONE CAMPI DELLA QUERY -->		
+		<metaDato>
+			<nomeSimbolico>NUMERO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di adozione della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di adozione della determina</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>NUMERO_DETERMINA_2</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Secondo numero della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_DETERMINA_2</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno del secondo numero della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della proposta di determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della proposta di determina</descrizione>
+			<path/>
+		</metaDato>
+        <metaDato>
+            <nomeSimbolico>DATA_PROPOSTA</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Data di numerazione della proposta di determina</descrizione>
+            <path/>
+        </metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice unità proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SUDDIVISIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Suddivisione dell'unità proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+        <metaDato>
+            <nomeSimbolico>UNITA_VISTO</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Denominazione dell'unità del visto</descrizione>
+            <path/>
+        </metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_UNITA_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice dell'unità destinataria del visto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SUDDIVISIONE_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Suddivisione dell'unità del visto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ESITO_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Esito del visto: valori possibili "favorevole", "contrario", "non apposto".
+				Se l'esito non    stato assegnato la variabile viene riproposta per essere calcolata in un secondo tempo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ESITO_VISTO_DEFINITIVO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Esito del visto: valori possibili "favorevole", "contrario", "non apposto".
+				Se il visto non è in firma la variabile viene riproposta per essere calcolata in un secondo tempo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOTE_CONTABILI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note contabili della determina</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>NOTE_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note del visto</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>DATA_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data creazione stampa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_FIRMA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di firma del visto</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Firmatario del visto (valorizzato solo se il visto viene firmato digitalmente o con firma autografa)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è un dirigente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DELEGANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è stato delegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DIRIGENTE_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Dirigente / firmatario del visto (visibile in maschera)</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>ASCENDENTI_UNITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ascendenti unità visto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TIPOLOGIA_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia della proposta di determinazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TIPOLOGIA_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia del visto</descrizione>
+			<path/>
+		</metaDato>
+        <metaDato>
+            <nomeSimbolico>DATA_FIRMA_PROPOSTA</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Data in cui la proposta è stata firmata</descrizione>
+            <path/>
+        </metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_TIPO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia di movimento contabile</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_DESCRIZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+        <metaDato>
+            <nomeSimbolico>MOVIMENTO_IMPORTO</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Importo movimento contabile</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>MOVIMENTO_IMPORTO_ATTUALE</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Importo attuale movimento contabile</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+			<nomeSimbolico>MOVIMENTO_RAGIONE_SOCIALE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ragione sociale del movimento contabile</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_RIF_BIL_PEG</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Riferimento al bilancio / peg</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_DESCRIZIONE_BIL_PEG</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del capitolo di spesa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_ANNO_IMPEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno dell'impegno contabile a cui il sub-impegno si riferisce</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_NUMERO_IMPEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero dell'impegno contabile a cui il sub-impegno si riferisce</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_ANNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno del movimento contabile</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_NUMERO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_ENTRATA_SPESA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipo di movimento: E se entrata, S se spesa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_CODICE_BENEFICIARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice del beneficiario del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_COD_LIVELLO_5</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>V livello del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_CODICE_SIOPE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice SIOPE del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_COD_TRANSAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice Transazione Elementare del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_CF_PARTITA_IVA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice Fiscale/Partita Iva del Beneficiario del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+        <metaDato>
+            <nomeSimbolico>MOVIMENTO_CF_PARTITA_IVA</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Codice Fiscale/Partita Iva del Beneficiario del movimento contabile</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>FAT_DATA_SCADENZA</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Scadenza della fattura</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>IMP_ANNO_DEL</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Anno Atto Impegno</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>IMP_ANNO_DEL</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Numero Atto Impegno</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>IMP_NUMERO_DEL</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Numero Atto Impegno</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>IMP_SEDE_DEL</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Registro Atto Impegno</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>IMP_ANNO_PROPOSTA</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Anno Proposta Impegno</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>IMP_NUMERO_PROPOSTA</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Numero Proposta Impegno</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>IMP_UNITA_PROPONENTE</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Unita' Proponente Proposta Impegno</descrizione>
+            <path/>
+        </metaDato>
+		<metaDato>
+			<nomeSimbolico>CIG</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice Identificativo Gara</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>AREA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Area dell'unita' proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SERVIZIO_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Servizio dell'unita' proponente della determina</descrizione>
+			<path/>
+		</metaDato>			
+	</definitions>
+	<queryes>
+		<query id='visto'
+			   help_query_alias="v"
+			   help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, ANNO_DETERMINA_2, AREA_PROPONENTE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_FIRMA, DATA_STAMPA, DATA_PROPOSTA, DIRIGENTE_VISTO, ESITO_VISTO, ESITO_VISTO_DEFINITIVO, FIRMATARIO, NOTE_CONTABILI, NOTE_VISTO, NUMERO_DETERMINA, NUMERO_DETERMINA_2, NUMERO_PROPOSTA, OGGETTO_DETERMINA, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, ASCENDENTI_UNITA, CIG, DESCRIZIONE_FIRMATARIO, DELEGANTE, TIPOLOGIA_PROPOSTA, TIPOLOGIA_VISTO, CODICE_UNITA_VISTO, SUDDIVISIONE_VISTO, UNITA_VISTO, DATA_FIRMA_PROPOSTA">
+ select decode(d.numero_determina, null, '${documentRoot.visto.NUMERO_DETERMINA}', d.numero_determina) NUMERO_DETERMINA
+     ,  decode(d.numero_determina, null, '${documentRoot.visto.DATA_DETERMINA}', to_char (d.data_numero_determina, 'dd/mm/yyyy')) DATA_DETERMINA
+     ,  decode(d.numero_determina, null, '${documentRoot.visto.ANNO_DETERMINA}', d.anno_determina) ANNO_DETERMINA
+     ,  decode(d.numero_determina_2, null, '${documentRoot.visto.NUMERO_DETERMINA_2}', d.numero_determina_2) NUMERO_DETERMINA_2
+     ,  decode(d.numero_determina_2, null, '${documentRoot.visto.ANNO_DETERMINA_2}', d.anno_determina_2) ANNO_DETERMINA_2
+     ,  d.numero_proposta NUMERO_PROPOSTA
+     ,  d.anno_proposta ANNO_PROPOSTA
+     ,  decode(d.data_numero_proposta, null, '${documentRoot.visto.DATA_PROPOSTA}', to_char(d.data_numero_proposta,'dd/mm/yyyy'))  DATA_PROPOSTA
+     ,  utility_pkg.get_suddivisione_uo_determina (d.id_determina) SUDDIVISIONE
+     ,  utility_pkg.get_unita_prop_determina (d.id_determina) UNITA_PROPONENTE
+     ,  utility_pkg.get_codice_unita_prop_dete (d.id_determina) CODICE_UNITA_PROPONENTE
+     ,  utility_pkg.get_uo_descrizione (vp.unita_progr, vp.unita_dal) UNITA_VISTO
+     ,  utility_pkg.get_codice_unita (vp.unita_progr, vp.unita_dal) CODICE_UNITA_VISTO
+     ,  utility_pkg.get_suddivisione_vistoparere (vp.id_visto_parere) SUDDIVISIONE_VISTO
+     ,  d.oggetto OGGETTO_DETERMINA
+     ,  d.note_contabili NOTE_CONTABILI
+     ,  decode(vp.esito, 'DA_VALUTARE', '${documentRoot.visto.ESITO_VISTO}', replace(vp.esito,'_',' ')) ESITO_VISTO
+ 	 ,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.ESITO_VISTO_DEFINITIVO}', replace(vp.esito,'_',' ')) ESITO_VISTO_DEFINITIVO
+	 ,  vp.note NOTE_VISTO
+     ,  nvl(to_char(f.data_firma, 'dd/mm/yyyy'), '${documentRoot.visto.DATA_FIRMA}') DATA_FIRMA
+     ,  to_char(sysdate,'dd/mm/yyyy') DATA_STAMPA
+     ,  nvl(utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), d.ente), '${documentRoot.visto.FIRMATARIO}') FIRMATARIO
+     ,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), d.ente)) DESCRIZIONE_FIRMATARIO
+     ,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, d.ente)) DELEGANTE
+     ,  nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario)), '${documentRoot.visto.DIRIGENTE_VISTO}') DIRIGENTE_VISTO
+     ,  utility_pkg.get_desc_ascendenti_unita(utility_pkg.get_codice_unita_prop_dete (d.id_determina), null, impostazioni_pkg.get_impostazione('OTTICA_SO4', d.ente), null) ASCENDENTI_UNITA
+     ,  utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_AREA', d.ente) AREA_PROPONENTE
+     ,  utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_SERVIZIO', d.ente) SERVIZIO_PROPONENTE       
+     ,  d.cig CIG
+	 , td.titolo TIPOLOGIA_PROPOSTA
+	 , tvp.titolo TIPOLOGIA_VISTO
+     , nvl (to_char ((select max (data_firma) data_firma_proposta
+            from firmatari fp
+            where fp.firmato = 'Y' and fp.id_determina = d.id_determina)
+            , 'dd/mm/yyyy'), '${documentRoot.visto.DATA_FIRMA_PROPOSTA}') DATA_FIRMA_PROPOSTA
+  from  determine d
+     ,  visti_pareri vp
+     ,  firmatari f
+	 , tipi_determina td
+	 , tipi_visto_parere tvp
+ where vp.id_visto_parere = #id
+   and vp.id_determina = d.id_determina
+   and d.id_tipo_determina = td.id_tipo_determina
+   and vp.id_tipologia = tvp.id_tipo_visto_parere
+   and f.id_visto_parere(+) = vp.id_visto_parere
+   and f.data_firma(+) is not null
+   and f.firmato(+) = 'N' 
+		</query>
+		<query id="movimenti"
+        help_query_alias="m"
+		help_field_aliases="MOVIMENTO_TIPO, MOVIMENTO_CODICE_BENEFICIARIO, MOVIMENTO_DESCRIZIONE, MOVIMENTO_ENTRATA_SPESA, MOVIMENTO_IMPORTO, MOVIMENTO_IMPORTO_ATTUALE, MOVIMENTO_RAGIONE_SOCIALE, MOVIMENTO_RIF_BIL_PEG, MOVIMENTO_ANNO, MOVIMENTO_NUMERO, MOVIMENTO_COD_LIVELLO_5, MOVIMENTO_CODICE_SIOPE, MOVIMENTO_COD_TRANSAZIONE, MOVIMENTO_CF_PARTITA_IVA, MOVIMENTO_DESCRIZIONE_BIL_PEG, MOVIMENTO_ANNO_IMPEGNO, MOVIMENTO_NUMERO_IMPEGNO, FAT_DATA_SCADENZA, IMP_ANNO_DEL, IMP_NUMERO_DEL, IMP_SEDE_DEL, IMP_ANNO_PROPOSTA,IMP_UNITA_PROPONENTE,IMP_NUMERO_PROPOSTA">
+ select distinct c.tipo MOVIMENTO_TIPO
+     ,  c.descrizione MOVIMENTO_DESCRIZIONE
+	 ,  decode (impostazioni_pkg.get_impostazione ('DB_CHARSET', d.ente)
+	 ,  'iso-8859-1', trim (to_char (c.importo, '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))
+	 ,  trim (to_char (c.importo, 'L999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))) MOVIMENTO_IMPORTO
+     ,  decode (impostazioni_pkg.get_impostazione ('DB_CHARSET', d.ente)
+     ,  'iso-8859-1', trim (to_char (c.importo_attuale, '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))
+     ,  trim (to_char (c.importo_attuale, 'L999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))) MOVIMENTO_IMPORTO_ATTUALE
+     ,  c.ragione_sociale MOVIMENTO_RAGIONE_SOCIALE
+     ,  c.rif_bil_peg MOVIMENTO_RIF_BIL_PEG
+     ,  c.anno MOVIMENTO_ANNO
+     ,  c.numero MOVIMENTO_NUMERO
+	 ,  c.e_s MOVIMENTO_ENTRATA_SPESA
+	 ,  c.codice_beneficiario MOVIMENTO_CODICE_BENEFICIARIO
+	 ,  c.cod_livello_5 MOVIMENTO_COD_LIVELLO_5
+ 	 ,  c.codice_siope MOVIMENTO_CODICE_SIOPE
+ 	 ,  c.cod_transazione_elementare MOVIMENTO_COD_TRANSAZIONE
+ 	 ,  c.codice_fiscale_partita_iva MOVIMENTO_CF_PARTITA_IVA
+ 	 ,  c.descr_voce_peg MOVIMENTO_DESCRIZIONE_BIL_PEG
+	 ,  c.anno_imp MOVIMENTO_ANNO_IMPEGNO
+     ,  c.numero_imp MOVIMENTO_NUMERO_IMPEGNO
+     ,  c.FAT_DATA_SCADENZA FAT_DATA_SCADENZA
+     ,  c.IMP_ANNO_DEL IMP_ANNO_DEL
+     ,  c.IMP_NUMERO_DEL IMP_NUMERO_DEL
+     ,  c.IMP_SEDE_DEL IMP_SEDE_DEL
+     ,  c.IMP_ANNO_PROPOSTA IMP_ANNO_PROPOSTA
+     ,  c.IMP_UNITA_PROPONENTE, IMP_UNITA_PROPONENTE
+     ,  c.IMP_NUMERO_PROPOSTA IMP_NUMERO_PROPOSTA
+  from cf4_vista_prop_del c, visti_pareri vp, determine d, tipi_registro tr, tipi_visto_parere tv
+ where vp.id_visto_parere = #id
+   and vp.id_determina = d.id_determina
+   and d.registro_proposta = tr.tipo_registro
+   and c.anno_prop = d.anno_proposta
+   and c.numero_prop = d.numero_proposta
+   and tr.registro_esterno = c.unita_prop
+   and c.anno_prop is not null
+   and c.numero_prop is not null
+   and c.unita_prop is not null
+  and tv.id_tipo_visto_parere = vp.id_tipologia
+  and tv.query_movimenti = 'Y'
+union
+ select distinct c.tipo MOVIMENTO_TIPO
+     ,  c.descrizione MOVIMENTO_DESCRIZIONE
+	 ,  decode (impostazioni_pkg.get_impostazione ('DB_CHARSET', d.ente)
+	 ,  'iso-8859-1', trim (to_char (c.importo, '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))
+     ,  trim (to_char (c.importo, 'L999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))) MOVIMENTO_IMPORTO
+     ,  decode (impostazioni_pkg.get_impostazione ('DB_CHARSET', d.ente)
+     ,  'iso-8859-1', trim (to_char (c.importo_attuale, '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))
+     ,  trim (to_char (c.importo_attuale, 'L999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))) MOVIMENTO_IMPORTO_ATTUALE
+     ,  c.ragione_sociale MOVIMENTO_RAGIONE_SOCIALE
+     ,  c.rif_bil_peg MOVIMENTO_RIF_BIL_PEG
+     ,  c.anno MOVIMENTO_ANNO
+     ,  c.numero MOVIMENTO_NUMERO
+	 ,  c.e_s MOVIMENTO_ENTRATA_SPESA
+	 ,  c.codice_beneficiario MOVIMENTO_CODICE_BENEFICIARIO
+	 ,  c.cod_livello_5 MOVIMENTO_COD_LIVELLO_5
+ 	 ,  c.codice_siope MOVIMENTO_CODICE_SIOPE
+ 	 ,  c.cod_transazione_elementare MOVIMENTO_COD_TRANSAZIONE
+ 	 ,  c.codice_fiscale_partita_iva MOVIMENTO_CF_PARTITA_IVA
+ 	 ,  c.descr_voce_peg MOVIMENTO_DESCRIZIONE_BIL_PEG
+	 ,  c.anno_imp MOVIMENTO_ANNO_IMPEGNO
+     ,  c.numero_imp MOVIMENTO_NUMERO_IMPEGNO
+     ,  c.FAT_DATA_SCADENZA FAT_DATA_SCADENZA
+     ,  c.IMP_ANNO_DEL IMP_ANNO_DEL
+     ,  c.IMP_NUMERO_DEL IMP_NUMERO_DEL
+     ,  c.IMP_SEDE_DEL IMP_SEDE_DEL
+     ,  c.IMP_ANNO_PROPOSTA IMP_ANNO_PROPOSTA
+     ,  c.IMP_UNITA_PROPONENTE, IMP_UNITA_PROPONENTE
+     ,  c.IMP_NUMERO_PROPOSTA IMP_NUMERO_PROPOSTA
+  from cf4_vista_prop_del c,  visti_pareri vp, determine d, tipi_registro tr, tipi_visto_parere tv
+ where vp.id_visto_parere = #id
+   and vp.id_determina = d.id_determina
+   and d.registro_determina = tr.tipo_registro
+   and c.anno_del = d.anno_determina
+   and c.numero_del = d.numero_determina
+   and tr.registro_esterno = c.sede_del
+   and c.anno_del is not null
+   and c.numero_del is not null
+   and c.sede_del is not null
+   and tv.id_tipo_visto_parere = vp.id_tipologia
+   and tv.query_movimenti = 'Y'
+		</query>
+	</queryes>
+	<staticData />
+</documentRoot>

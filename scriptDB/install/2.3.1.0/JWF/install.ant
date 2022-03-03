@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     01/mar/2014 11:34:14                                                        
+
+     [NomeProgetto]    
+     [Descrizione del Progetto]
+                   
+     [Autore]                                                                
+     ====================================================================== -->
+<project xmlns:if="ant:if" xmlns:unless="ant:unless">
+
+	<target name="config">
+		<require-conn istanza="jwf" />
+		<require-conn istanza="agsde2" />
+	</target>
+	
+	<target name="install:db">
+		<echo message="Aggiorno il modulo AGSDE2 alla versione 2.2.0.0" />
+		<sql escapeprocessing="false"  src="01.jwf.sql"                 		   userid="${global.db.jwf.username}" password="${global.db.jwf.password}" url="${global.db.jwf.url}" driver="${global.db.jwf.driver}" expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"></sql>
+		<sql escapeprocessing="false"  src="02.agsde2.sql"                 		   userid="${global.db.target.username}" password="${global.db.target.password}" url="${global.db.target.url}" driver="${global.db.target.driver}" expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"></sql>
+<sql userid="${global.db.target.username}" password="${global.db.target.password}" url="${global.db.target.url}" driver="${global.db.target.driver}" expandProperties="true" delimiter="/" delimitertype="row" keepformat="true" onerror="continue">
+begin compile_all(); end;
+/
+</sql>
+	</target>
+		
+	<target name="install:fs" >
+	</target>
+
+</project>

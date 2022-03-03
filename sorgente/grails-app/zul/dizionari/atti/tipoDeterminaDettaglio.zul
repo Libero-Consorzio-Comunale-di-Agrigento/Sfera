@@ -1,0 +1,803 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xel-method prefix="i" name="impostazione" class="it.finmatica.atti.impostazioni.Impostazioni" signature="it.finmatica.atti.impostazioni.Impostazioni valueOf (java.lang.String)" ?>
+<?xel-method prefix="da" name="isAbilitato" class="it.finmatica.atti.documenti.TipoDatoAggiuntivo" signature="boolean isAbilitato (java.lang.String)" ?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer"
+		viewModel="@id('vm') @init('tipoDeterminaDettaglioViewModel')" border="normal"
+		sizable="true" width="800px" height="690px"
+		title=" ">
+
+		<h:div class="barraTitoloPagina">
+   			<label sclass="titoloPagina" value="Tipologia Determina"/>
+			<image
+				src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+				tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')" />
+   		</h:div>
+
+		<grid sclass="form">
+			<rows>
+				<row>
+					<cell width="110px"></cell>
+					<cell></cell>
+					<cell width="100px"></cell>
+					<cell></cell>
+				</row>
+				<row>
+					<cell><h:span class="mandatoryLabel">*</h:span><label value="Titolo" /></cell>
+					<cell colspan="3"><textbox value="@load(vm.selectedRecord.titolo) @save(vm.selectedRecord.titolo)" hflex="1" /></cell>
+				</row>
+                <row>
+                    <cell><label value="Descrizione" /></cell>
+                    <cell colspan="3"><textbox value="@bind(vm.selectedRecord.descrizione)" hflex="1" multiline="true" rows="1" class="noresizable"/></cell>
+                </row>
+                <row>
+                    <cell><h:span class="mandatoryLabel">*</h:span><label value="Caratteristica" /></cell>
+                    <cell colspan="3"><combobox model="@load(vm.listaCaratteristiche)" hflex="1" onChange="@command('onCambiaCaratteristica')"
+                                    selectedItem="@bind(vm.selectedRecord.caratteristicaTipologia) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)">
+                        <template name="model" var="caratteristica">
+                            <comboitem label="@load(caratteristica.titolo)" value="@load(caratteristica)" />
+                        </template>
+                    </combobox>
+                    </cell>
+                </row>
+                <row>
+                    <cell><label value="Titolo Notifica" /></cell>
+                    <cell><textbox value="@load(vm.selectedRecord.titoloNotifica) @save(vm.selectedRecord.titoloNotifica)" hflex="1" /></cell>
+                    <cell><label value="Gruppo Notifica" /></cell>
+                    <cell><textbox value="@load(vm.selectedRecord.descrizioneNotifica) @save(vm.selectedRecord.descrizioneNotifica)" hflex="1" /></cell>
+                </row>
+			</rows>
+		</grid>
+
+		<tabbox vflex="1">
+			<tabs>
+				<tab label="Generale"/>
+				<tab label="Modelli Testo" disabled="@load(vm.selectedRecord.id le 0)"/>
+				<tab label="Iter" disabled="@load(vm.selectedRecord.id le 0)"/>
+				<tab label="Visti" disabled="@load(vm.selectedRecord.id le 0)" />
+				<tab label="Pubblicazione" disabled="@load(vm.selectedRecord.id le 0)"/>
+				<tab label="Contabilità" disabled="@load(vm.selectedRecord.id le 0)" />
+				<tab label="Integrazioni" disabled="@load(vm.selectedRecord.id le 0)"/>
+				<tab label="Competenze" disabled="@load(vm.selectedRecord.id le 0)" />
+			</tabs>
+			<tabpanels vflex="1">
+				<!-- Generale -->
+				<tabpanel>
+                    <groupbox closable="false">
+                        <caption>
+                            <label value="Repertorio"></label>
+                        </caption>
+                        <grid sclass="form">
+                            <rows>
+                                <row>
+                                    <cell><label value="Il registro da usare è quello dell'unità:"/></cell>
+                                    <cell>
+                                        <radiogroup selectedIndex="@load(vm.selectedRecord.registroUnita ? 0 : 1)" selectedItem="@save(vm.selectedRecord.registroUnita)">
+                                            <radio label="Sì" value="@load(true)"  />
+                                            <radio label="No" value="@load(false)" />
+                                        </radiogroup>
+                                    </cell>
+                                    <cell><label value="Registro Numerazione Determina" /></cell>
+                                    <cell><combobox model="@load(vm.listaTipiRegistro)" hflex="1" disabled="@load(vm.selectedRecord.registroUnita)" readonly="true"
+                                        selectedItem="@bind(vm.selectedRecord.tipoRegistro) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')">
+                                        <template name="model" var="tipoRegistro">
+                                            <comboitem label="@load(tipoRegistro.descrizione)" value="@load(tipoRegistro)" />
+                                        </template>
+                                    </combobox></cell>
+                                </row>
+                                <row if="#{i:impostazione('SECONDO_NUMERO_DETERMINA').abilitato}">
+                                    <cell colspan="2">
+                                    </cell>
+                                    <cell><label value="@load(c:l('dizionario.registroSecondaNumerazione'))" /></cell>
+                                    <cell><combobox model="@load(vm.listaTipiRegistro)" hflex="1" selectedItem="@bind(vm.selectedRecord.tipoRegistro2) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')" readonly="true">
+                                        <template name="model" var="tipoRegistro">
+                                            <comboitem label="@load(tipoRegistro.descrizione)" value="@load(tipoRegistro)" />
+                                        </template>
+                                    </combobox></cell>
+                                </row>
+                            </rows>
+                        </grid>
+                    </groupbox>
+                    <space height="5px" />
+                    <groupbox closable="false" >
+                        <caption>
+                            <label value="Informazioni generali"></label>
+                        </caption>
+                        <grid sclass="form">
+                            <rows>
+                                <row>
+                                    <cell><label value="Va in conservazione sostitutiva:"/></cell>
+                                    <cell>
+                                        <radiogroup selectedIndex="@load(vm.selectedRecord.conservazioneSostitutiva ? 0 : 1)" selectedItem="@save(vm.selectedRecord.conservazioneSostitutiva)">
+                                            <radio label="Sì" value="@load(true)"  />
+                                            <radio label="No" value="@load(false)" />
+                                        </radiogroup>
+                                    </cell>
+                                    <cell><label value="Prevista Notifica Organi di Controllo:"/></cell>
+                                    <cell>
+                                        <radiogroup selectedIndex="@load(vm.selectedRecord.notificaOrganiControllo ? 0 : 1)" selectedItem="@save(vm.selectedRecord.notificaOrganiControllo)">
+                                            <radio label="Sì" value="@load(true)"  />
+                                            <radio label="No" value="@load(false)" />
+                                        </radiogroup>
+                                    </cell>
+                                </row>
+                                <row>
+                                    <cell><label value="Esecutività dopo pubblicazione:"/></cell>
+                                    <cell>
+                                        <radiogroup selectedIndex="@load(vm.selectedRecord.diventaEsecutiva ? 0 : 1)" selectedItem="@save(vm.selectedRecord.diventaEsecutiva)">
+                                            <radio label="Sì" value="@load(true)"  />
+                                            <radio label="No" value="@load(false)" />
+                                        </radiogroup>
+                                    </cell>
+                                    <cell><label value="Codice esterno (per integrazioni applicativi)" /></cell>
+                                    <cell><textbox value="@load(vm.selectedRecord.codiceEsterno) @save(vm.selectedRecord.codiceEsterno)" hflex="1" /></cell>
+                                </row>
+                                <row if="#{i:impostazione('PROTOCOLLO').valore eq 'protocolloEsternoGdm'}" >
+                                    <cell><label value="Tipo di Protocollo:"/></cell>
+                                    <cell colspan="3">
+                                        <combobox model="@load(vm.listaTipiDocumento)" hflex="1" readonly="true" selectedItem="@bind(vm.tipoDocumentoEsterno) @converter('it.finmatica.zkutils.PropertyConverter', default='')">
+                                            <template name="model" var="mt">
+                                                <comboitem label="@load(c:cat3(mt.codice,' - ', mt.descrizione))" value="@load(mt.codice)" />
+                                            </template>
+                                        </combobox>
+                                    </cell>
+                                </row>
+                                <row visible="@load(vm.mostraEseguibilitaImmediata)">
+                                    <cell hflex="2"><label value="Eseguibilità Immediata:"/></cell>
+                                    <cell hflex="1">
+                                        <radiogroup selectedIndex="@load(vm.selectedRecord.eseguibilitaImmediata ? 0 : 1)" selectedItem="@save(vm.selectedRecord.eseguibilitaImmediata)">
+                                            <radio label="Sì" value="@load(true)"  />
+                                            <radio label="No" value="@load(false)" />
+                                        </radiogroup>
+                                    </cell>
+                                    <cell hflex="2"></cell>
+                                    <cell hflex="2"></cell>
+                                </row>
+                            </rows>
+                        </grid>
+                    </groupbox>
+                    <space height="5px" />
+                    <groupbox closable="false" >
+                        <caption>
+                            <label value="Campi obbligatori"></label>
+                        </caption>
+                        <grid sclass="form" vflex="1">
+                            <rows>
+                                <row>
+                                    <cell><label value="Il Funzionario è Obbligatorio:"/></cell>
+                                    <cell>
+                                        <radiogroup selectedIndex="@load(vm.selectedRecord.funzionarioObbligatorio ? 0 : 1)" selectedItem="@save(vm.selectedRecord.funzionarioObbligatorio)">
+                                            <radio label="Sì" value="@load(true)"  />
+                                            <radio label="No" value="@load(false)" />
+                                        </radiogroup>
+                                    </cell>
+                                    <cell><label value="Il Testo è Obbligatorio:"/></cell>
+                                    <cell>
+                                        <radiogroup selectedIndex="@load(vm.selectedRecord.testoObbligatorio ? 0 : 1)" selectedItem="@save(vm.selectedRecord.testoObbligatorio)">
+                                            <radio label="Sì" value="@load(true)"  />
+                                            <radio label="No" value="@load(false)" />
+                                        </radiogroup>
+                                    </cell>
+                                </row>
+                                <row>
+                                    <cell><label value="Previsto Codice Identificativo Gara:"/></cell>
+                                    <cell>
+                                        <radiogroup selectedIndex="@load(vm.selectedRecord.codiceGara ? 0 : 1)" selectedItem="@save(vm.selectedRecord.codiceGara)">
+                                            <radio label="Sì" value="@load(true)"  />
+                                            <radio label="No" value="@load(false)" />
+                                        </radiogroup>
+                                    </cell>
+                                    <cell><label value="Il Codice Identificativo Gara è Obbligatorio:"/></cell>
+                                    <cell>
+                                        <radiogroup selectedIndex="@load(vm.selectedRecord.codiceGaraObbligatorio ? 0 : 1)" selectedItem="@save(vm.selectedRecord.codiceGaraObbligatorio)">
+                                            <radio label="Sì" value="@load(true)" disabled="@load(!vm.selectedRecord.codiceGara)" />
+                                            <radio label="No" value="@load(false)" disabled="@load(!vm.selectedRecord.codiceGara)" />
+                                        </radiogroup>
+                                    </cell>
+                                </row>
+                                <row>
+                                    <cell if="#{i:impostazione('CATEGORIA_DETERMINA').abilitato}"><label value="La Categoria è Obbligatoria:"/></cell>
+                                    <cell if="#{i:impostazione('CATEGORIA_DETERMINA').abilitato}">
+                                        <radiogroup selectedIndex="@load(vm.selectedRecord.categoriaObbligatoria ? 0 : 1)" selectedItem="@save(vm.selectedRecord.categoriaObbligatoria)">
+                                            <radio label="Sì" value="@load(true)"  />
+                                            <radio label="No" value="@load(false)" />
+                                        </radiogroup>
+                                    </cell>
+                                    <cell visible="@load(vm.abilitaIncaricato)"><label value="L'Incaricato è obbligatorio:"/></cell>
+                                    <cell visible="@load(vm.abilitaIncaricato)">
+                                        <radiogroup selectedIndex="@load(vm.selectedRecord.incaricatoObbligatorio ? 0 : 1)" selectedItem="@save(vm.selectedRecord.incaricatoObbligatorio)">
+                                            <radio label="Sì" value="@load(true)"  />
+                                            <radio label="No" value="@load(false)" />
+                                        </radiogroup>
+                                    </cell>
+                                </row>
+                            </rows>
+                        </grid>
+                    </groupbox>
+				</tabpanel>
+
+				<!-- Modelli Testo -->
+				<tabpanel>
+					<label value="Elenco dei modelli di testo utilizzabili dalla tipologia" />
+					<listbox model="@load(vm.listaModelliTesto)" emptyMessage="Nessun modello testo assegnato" vflex="1">
+	        			<listhead>
+	        				<listheader label="Nome" />
+	        				<listheader label="Descrizione" />
+	        				<listheader label="" width="6%" align="center">
+	        					<image width="15px" src="/images/afc/16x16/add.png"
+	        						onClick="@command('onAggiungiModelloTesto')"
+	        						tooltiptext="Aggiungi un modello di testo"
+	        						style="cursor: pointer;" />
+	        				</listheader>
+	        			</listhead>
+        				<template name="model" var="modello">
+	        				<listitem>
+	        					<listcell label="@load(modello.nome)" />
+	        					<listcell label="@load(modello.descrizione)" />
+	        					<listcell>
+	        						<image src="/images/agsde2/16x16/trash.png"
+	        							onClick="@command('onEliminaModelloTesto', modelloTesto=modello)"
+	        							tooltiptext="Elimina il modello di testo"
+	        						   style="cursor: pointer;" />
+	        					</listcell>
+        					</listitem>
+        				</template>
+        			</listbox>
+        			<h:br />
+					<grid sclass="form">
+						<rows>
+							<row>
+								<cell width="150px"><label value="Testo predefinito" /></cell>
+								<cell>
+									<label visible="@load(empty vm.listaModelliTesto)" value="Aggiungere almeno un modello di testo per poterlo selezionare come predefinito." />
+									<combobox visible="@load(not empty vm.listaModelliTesto)" model="@load(vm.listaModelliTesto)" hflex="1" readonly="true"
+											  selectedItem="@bind(vm.selectedRecord.modelloTesto) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)">
+										<template name="model" var="mt">
+											<comboitem label="@load(mt.nome)" description="@load(mt.descrizione)" value="@load(mt)" />
+										</template>
+									</combobox>
+								</cell>
+							</row>
+							<row>
+								<cell width="150px"><label value="Testo frontespizio" /></cell>
+								<cell>
+                                    <label visible="@load(empty vm.listaModelliTestoFrontespizio)" value="Aggiungere almeno un modello di testo per poterlo selezionare come frontespizio." />
+                                    <combobox visible="@load(not empty vm.listaModelliTestoFrontespizio)" model="@load(vm.listaModelliTestoFrontespizio)" hflex="1" readonly="true"
+											  selectedItem="@bind(vm.selectedRecord.modelloTestoFrontespizio) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)">
+										<template name="model" var="mt">
+											<comboitem label="@load(mt.nome)" description="@load(mt.descrizione)" value="@load(mt)" />
+										</template>
+									</combobox>
+								</cell>
+							</row>
+						</rows>
+					</grid>
+				</tabpanel>
+
+				<!-- Iter -->
+				<tabpanel>
+					<grid sclass="form">
+						<rows>
+							<row>
+								<cell width="150px"><label value="Configurazione Iter" /></cell>
+								<cell><combobox model="@load(vm.listaCfgIter)" onChange="@command('caricaListaParametri')" hflex="1"
+									selectedItem="@bind(vm.selectedRecord.progressivoCfgIter) @converter('it.finmatica.zkutils.PropertyConverter', defaultValue=-1)">
+									<template name="model" var="cfgIter">
+										<comboitem label="@load(cfgIter.nome)" value="@load(cfgIter.progressivo)" />
+									</template>
+								</combobox></cell>
+							</row>
+						</rows>
+					</grid>
+					<h:br />
+					<label value="Parametri per l'iter" />
+					<!-- parametri per il flusso -->
+					<listbox model="@load(vm.listaParametri)" emptyMessage="Nessun Parametro necessario per l'iter selezionato" vflex="1">
+				        <listhead>
+				        	<listheader label="Gruppo Step" width="25%" />
+				        	<listheader label="Parametro" width="41%" />
+				        	<listheader label="Valore" width="30%" />
+				        	<listheader label="" width="4%" />
+				        </listhead>
+			        	<template name="model" var="p">
+				        	<listitem>
+				        		<listcell>
+				        			<label value="@load(p.descrizione)" />
+				        		</listcell>
+				        		<listcell label="@load(p.descrizioneParametro)"/>
+				        		<listcell>
+				        			<!-- VISTO -->
+				        			<combobox visible="@bind(p.codice eq 'CODICE_VISTO' or p.codice eq 'CODICE_VISTO_FUNZIONARIO')" model="@load(vm.listaTipologieVisto)"
+				        				selectedItem="@bind(p.valore) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')">
+										<template name="model" var="tv">
+											<comboitem label="@load(c:cat3(tv.codice, ' - ', tv.titolo))" description="@load(tv.descrizione)" value="@load(tv.codice)"/>
+										</template>
+									</combobox>
+									<!-- UO -->
+				        			<textbox visible="@bind(p.codice eq 'PROGR_UO')" value="@bind(p.valore)"/>
+				        		</listcell>
+				        		<listcell>
+				        			<image src="/images/agsde2/16x16/trash.png"
+				        				onClick="@command('svuotaParametro', parametro=p)"
+				        				tooltiptext="Elimina il parametro"
+	        						   style="cursor: pointer;" />
+				        		</listcell>
+			        		</listitem>
+			        	</template>
+			        </listbox>
+				</tabpanel>
+
+				<!-- Visti -->
+				<tabpanel>
+					<grid sclass="form">
+						<rows>
+							<row>
+			     				<cell width="150px"><label value="Prevede Aggiunta di Visti:"/></cell>
+			     				<cell>
+				     				<radiogroup selectedIndex="@load(vm.selectedRecord.vistiPareri ? 0 : 1)" selectedItem="@save(vm.selectedRecord.vistiPareri)">
+					     				<radio label="Sì" value="@load(true)" />
+							            <radio label="No" value="@load(false)"/>
+						            </radiogroup>
+					            </cell>
+			     			</row>
+						</rows>
+					</grid>
+
+					<h:br />
+					<label value="Visti Automatici" />
+
+					<!-- visti da istanziare alla creazione della determina -->
+			        <listbox model="@load(vm.listaTipiVisto)" emptyMessage="Nessun Visto Automatico" vflex="1">
+				        <listhead>
+				        	<listheader label="Codice" width="25%" />
+				        	<listheader label="Titolo" width="41%" />
+				        	<listheader label="Descrizione" width="30%" />
+				        	<listheader label="" width="4%"  align="center">
+				        		<image width="15px" src="/images/afc/16x16/add.png" popup="sceltaTipoVistoPopup"
+				        			   tooltiptext="Aggiungi un visto automatico"
+	        							style="cursor: pointer;" />
+				        	</listheader>
+				        </listhead>
+			        	<template name="model" var="p">
+				        	<listitem>
+				        		<listcell label="@load(p.codice)" />
+				        		<listcell label="@load(p.titolo)" />
+				        		<listcell label="@load(p.descrizione)" />
+				        		<listcell>
+				        			<image src="/images/agsde2/16x16/trash.png"
+				        				onClick="@command('onEliminaTipologiaVisto', tipologiaVisto=p)"
+				        				tooltiptext="Elimina il visto automatico"
+	        						   style="cursor: pointer;" />
+				        		</listcell>
+			        		</listitem>
+			        	</template>
+			        </listbox>
+				</tabpanel>
+
+				<!-- Pubblicazione -->
+				<tabpanel style="overflow:auto">
+                    <grid sclass="form">
+                        <rows>
+                            <row>
+                                <cell width="250px"></cell>
+                                <cell width="100px"></cell>
+                                <cell width="250px"></cell>
+                                <cell></cell>
+                            </row>
+                            <row>
+                                <cell><label value="Pubblicazione:"/></cell>
+                                <cell>
+                                    <radiogroup selectedIndex="@load(vm.selectedRecord.pubblicazione ? 0 : 1)" selectedItem="@save(vm.selectedRecord.pubblicazione)">
+                                        <radio label="Sì" value="@load(true)"/>
+                                        <radio label="No" value="@load(false)"/>
+                                    </radiogroup>
+                                </cell>
+                                <cell><label value="Seconda Pubblicazione:"/></cell>
+                                <cell colspan="2">
+                                    <radiogroup selectedIndex="@load(vm.selectedRecord.secondaPubblicazione ? 0 : 1)" selectedItem="@save(vm.selectedRecord.secondaPubblicazione)">
+                                        <radio label="Sì" value="@load(true)"	disabled="@load(not vm.selectedRecord.pubblicazione)"/>
+                                        <radio label="No" value="@load(false)"	disabled="@load(not vm.selectedRecord.pubblicazione)"/>
+                                    </radiogroup>
+                                </cell>
+                            </row>
+                            <row>
+                                <cell><label value="Pubblicazione Allegati Albo:"/></cell>
+                                <cell>
+                                    <radiogroup selectedIndex="@load(vm.selectedRecord.pubblicaAllegati ? 0 : 1)" selectedItem="@save(vm.selectedRecord.pubblicaAllegati)">
+                                        <radio label="Sì" value="@load(true)"  disabled="@load(not vm.selectedRecord.pubblicazione)"/>
+                                        <radio label="No" value="@load(false)" disabled="@load(not vm.selectedRecord.pubblicazione)"/>
+                                    </radiogroup>
+                                </cell>
+                                <cell><label value="Default Pubblicazione Allegato Albo:"/></cell>
+                                <cell colspan="2">
+                                    <radiogroup selectedIndex="@load(vm.selectedRecord.pubblicaAllegatiDefault ? 0 : 1)" selectedItem="@save(vm.selectedRecord.pubblicaAllegatiDefault)">
+                                        <radio label="Sì" value="@load(true)"  disabled="@load(not vm.selectedRecord.pubblicazione)"/>
+                                        <radio label="No" value="@load(false)" disabled="@load(not vm.selectedRecord.pubblicazione)"/>
+                                    </radiogroup>
+                                </cell>
+                            </row>
+                            <row>
+                                <cell><label value="Pubblicazione Manuale:"/></cell>
+                                <cell>
+                                    <radiogroup selectedIndex="@load(vm.selectedRecord.manuale ? 0 : 1)" selectedItem="@save(vm.selectedRecord.manuale)">
+                                        <radio label="Sì" value="@load(true)"  disabled="@load(not vm.selectedRecord.pubblicazione)"/>
+                                        <radio label="No" value="@load(false)" disabled="@load(not vm.selectedRecord.pubblicazione)"/>
+                                    </radiogroup>
+                                </cell>
+                                <cell><label value="Pubblicazione Trasparenza Obbligatoria:" if="#{i:impostazione('INTEGRAZIONE_CASA_DI_VETRO').abilitato}"/></cell>
+                                <cell colspan="2">
+                                    <radiogroup if="#{i:impostazione('INTEGRAZIONE_CASA_DI_VETRO').abilitato}"
+                                                selectedIndex="@load(vm.selectedRecord.pubblicazioneTrasparenza ? 0 : 1)"
+                                                selectedItem="@save(vm.selectedRecord.pubblicazioneTrasparenza)">
+                                        <radio label="Sì" value="@load(true)" />
+                                        <radio label="No" value="@load(false)"/>
+                                    </radiogroup>
+                                </cell>
+                            </row>
+                            <row>
+                                <cell><label value="Pubblicazione Fino A Revoca:" if="#{i:impostazione('PUBBLICAZIONE_FINO_REVOCA').abilitato}"/></cell>
+                                <cell>
+                                    <radiogroup if="#{i:impostazione('PUBBLICAZIONE_FINO_REVOCA').abilitato}"
+                                        selectedIndex="@load(vm.selectedRecord.pubblicazioneFinoARevoca ? 0 : 1)"
+                                         selectedItem="@save(vm.selectedRecord.pubblicazioneFinoARevoca)">
+                                        <radio label="Sì" value="@load(true)"  disabled="@load(not vm.selectedRecord.pubblicazione)"/>
+                                        <radio label="No" value="@load(false)" disabled="@load(not vm.selectedRecord.pubblicazione)"/>
+                                    </radiogroup>
+                                </cell>
+                                <cell></cell>
+                                <cell>
+                                </cell>
+                            </row>
+                            <row>
+                                <cell><label value="Giorni di Pubblicazione:" /></cell>
+                                <cell><intbox value="@bind(vm.selectedRecord.giorniPubblicazione)" width="150px" disabled="@load(not vm.selectedRecord.pubblicazione or vm.selectedRecord.pubblicazioneFinoARevoca)"/></cell>
+                                <cell><label value="Giorni di Pubblicazione Modificabili:"/></cell>
+                                <cell colspan="2">
+                                    <radiogroup selectedIndex="@load(vm.selectedRecord.giorniPubblicazioneModificabile ? 0 : 1)" selectedItem="@save(vm.selectedRecord.giorniPubblicazioneModificabile)">
+                                        <radio label="Sì" value="@load(true)"  disabled="@load(empty vm.selectedRecord.giorniPubblicazione)"/>
+                                        <radio label="No" value="@load(false)" disabled="@load(empty vm.selectedRecord.giorniPubblicazione)"/>
+                                    </radiogroup>
+                                </cell>
+                            </row>
+                            <row>
+                                <cell><label value="Si può indicare data di pubblicazione ?"/></cell>
+                                <cell>
+                                    <radiogroup selectedIndex="@load(vm.selectedRecord.pubblicazioneFutura ? 0 : 1)" selectedItem="@save(vm.selectedRecord.pubblicazioneFutura)">
+                                        <radio label="Sì" value="@load(true)"  disabled="@load(empty vm.selectedRecord.pubblicazioneFutura)"/>
+                                        <radio label="No" value="@load(false)" disabled="@load(empty vm.selectedRecord.pubblicazioneFutura)"/>
+                                    </radiogroup>
+                                </cell>
+                                <cell><label value="Pubblicazione nel Visualizzatore:"/></cell>
+                                <cell colspan="2">
+                                    <radiogroup selectedIndex="@load(vm.selectedRecord.pubblicaVisualizzatore ? 0 : 1)" selectedItem="@save(vm.selectedRecord.pubblicaVisualizzatore)">
+                                        <radio label="Sì" value="@load(true)" />
+                                        <radio label="No" value="@load(false)"/>
+                                    </radiogroup>
+                                </cell>
+                            </row>
+                            <row visible="@load(vm.mostraAllegatiVisualizzatore)">
+                                <cell><label value="Visualizza allegati dopo pubblicazione"/></cell>
+                                <cell>
+                                    <radiogroup selectedIndex="@load(vm.selectedRecord.pubblicaAllegatiVisualizzatore ? 0 : 1)" selectedItem="@save(vm.selectedRecord.pubblicaAllegatiVisualizzatore)">
+                                        <radio label="Sì" value="@load(true)"  disabled="@load(empty vm.selectedRecord.pubblicaAllegatiVisualizzatore)"/>
+                                        <radio label="No" value="@load(false)" disabled="@load(empty vm.selectedRecord.pubblicaAllegatiVisualizzatore)"/>
+                                    </radiogroup>
+                                </cell>
+								<cell></cell>
+								<cell colspan="2">
+								</cell>
+                            </row>
+                            <row>
+                                <cell width="170px"><label value="Iter di Pubblicazione:"/></cell>
+                                <cell colspan="4">
+                                    <combobox model="@load(vm.listaCfgIter)" hflex="1"
+                                                            readonly="true"
+                                                            selectedItem="@bind(vm.selectedRecord.progressivoCfgIterPubblicazione) @converter('it.finmatica.zkutils.PropertyConverter', property='progressivo', defaultValue=-1)"
+                                                            disabled="@load(not vm.selectedRecord.pubblicazione)">
+                                                <template name="model" var="cfgIter">
+                                                    <comboitem label="@load(cfgIter.nome)" value="@load(cfgIter.progressivo)" />
+                                                </template>
+                                    </combobox>
+                                </cell>
+                            </row>
+                            <row>
+                                <cell width="170px"><label value="Tipo di Pubblicazione all'Albo:" /></cell>
+                                <cell colspan="4"><textbox hflex="1" value="@bind(vm.selectedRecord.tipoPubblicazioneAlbo)" disabled="@load(not vm.selectedRecord.pubblicazione)"/></cell>
+                            </row>
+                        </rows>
+                    </grid>
+                    <space height="15px" />
+                    <grid sclass="form">
+                        <rows>
+                            <row>
+                                <cell width="250px"><label value="Certificato Pubblicazione:"/></cell>
+                                <cell>
+                                    <combobox model="@load(vm.listaCertificati)" hflex="1"
+                                        readonly="true"
+                                        selectedItem="@bind(vm.selectedRecord.tipoCertPubb) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)"
+                                        disabled="@load(not vm.selectedRecord.pubblicazione)">
+                                        <template name="model" var="tipoCertPub">
+                                            <comboitem label="@load(tipoCertPub.titolo)" value="@load(tipoCertPub)" />
+                                        </template>
+                                    </combobox>
+                                </cell>
+                             </row>
+                            <row>
+                                <cell width="250px"><label value="Certificato Avvenuta Pubblicazione:"/></cell>
+                                <cell>
+                                    <combobox model="@load(vm.listaCertificati)" hflex="1"
+                                        readonly="true"
+                                        selectedItem="@bind(vm.selectedRecord.tipoCertAvvPubb) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)"
+                                        disabled="@load(not vm.selectedRecord.pubblicazione)">
+                                        <template name="model" var="tipoCertAvvPub">
+                                            <comboitem label="@load(tipoCertAvvPub.titolo)" value="@load(tipoCertAvvPub)" />
+                                        </template>
+                                    </combobox>
+                                </cell>
+                             </row>
+                             <row>
+                                <cell width="250px"><label value="Certificato Esecutività:"/></cell>
+                                <cell>
+                                    <combobox model="@load(vm.listaCertificati)" hflex="1"
+                                        readonly="true"
+                                        selectedItem="@bind(vm.selectedRecord.tipoCertEsec) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue='-1')"
+                                        disabled="@load(not vm.selectedRecord.pubblicazione)">
+                                        <template name="model" var="tipoCertEse">
+                                            <comboitem label="@load(tipoCertEse.titolo)" value="@load(tipoCertEse)" />
+                                        </template>
+                                    </combobox>
+                                </cell>
+                             </row>
+                            <row visible="@load(vm.mostraEseguibilitaImmediata)">
+                                <cell><label value="Certificato di Immediata Eseguibilità:"/></cell>
+                                <cell>
+                                    <combobox model="@load(vm.listaCertificati)" hflex="1"
+                                        readonly="true"
+                                        selectedItem="@bind(vm.selectedRecord.tipoCertImmEseg) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue='-1')"
+                                        disabled="@load(not vm.selectedRecord.pubblicazione)">
+                                        <template name="model" var="tipoCertEse">
+                                            <comboitem label="@load(tipoCertEse.titolo)" value="@load(tipoCertEse)" />
+                                        </template>
+                                    </combobox>
+                                </cell>
+                             </row>                             <row>
+                                <cell width="250px"><label value="Certificato Seconda Pubblicazione:"/></cell>
+                                <cell>
+                                    <combobox model="@load(vm.listaCertificati)" hflex="1"
+                                        readonly="true"
+                                        selectedItem="@bind(vm.selectedRecord.tipoCertPubb2) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)"
+                                        disabled="@load(not vm.selectedRecord.secondaPubblicazione)">
+                                        <template name="model" var="tipoCertPub2">
+                                            <comboitem label="@load(tipoCertPub2.titolo)" value="@load(tipoCertPub2)" />
+                                        </template>
+                                    </combobox>
+                                </cell>
+                             </row>
+                            <row>
+                                <cell width="250px"><label value="Certificato Avvenuta Seconda Pubblicazione:"/></cell>
+                                <cell>
+                                    <combobox model="@load(vm.listaCertificati)" hflex="1"
+                                        readonly="true"
+                                        selectedItem="@bind(vm.selectedRecord.tipoCertAvvPubb2) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)"
+                                        disabled="@load(not vm.selectedRecord.secondaPubblicazione)">
+                                        <template name="model" var="tipoCertAvvPub2">
+                                            <comboitem label="@load(tipoCertAvvPub2.titolo)" value="@load(tipoCertAvvPub2)" />
+                                        </template>
+                                    </combobox>
+                                </cell>
+                             </row>
+                        </rows>
+                    </grid>
+				</tabpanel>
+
+				<!-- Contabilità Finanziaria -->
+				<tabpanel>
+                    <grid sclass="form">
+                        <rows>
+                            <row>
+                                <cell><label value="Mostra Movimenti Contabili:"/></cell>
+                                <cell>
+                                    <radiogroup selectedIndex="@load(vm.selectedRecord.movimentiContabili ? 0 : 1)" selectedItem="@save(vm.selectedRecord.movimentiContabili)">
+                                        <radio label="Sì" value="@load(true)"  />
+                                        <radio label="No" value="@load(false)" />
+                                    </radiogroup>
+                                </cell>
+                                <cell><label value="Scrittura Movimenti Contabili:"/></cell>
+                                <cell>
+                                    <radiogroup selectedIndex="@load(vm.selectedRecord.scritturaMovimentiContabili ? 0 : 1)" selectedItem="@save(vm.selectedRecord.scritturaMovimentiContabili)">
+                                        <radio label="Sì" value="@load(true)"  />
+                                        <radio label="No" value="@load(false)" />
+                                    </radiogroup>
+                                </cell>
+                            </row>
+                            <row>
+                                <cell><label value="Esecutività Movimenti Contabili:"/></cell>
+                                <cell>
+                                    <radiogroup selectedIndex="@load(vm.selectedRecord.esecutivitaMovimenti ? 0 : 1)" selectedItem="@save(vm.selectedRecord.esecutivitaMovimenti)">
+                                        <radio label="Sì" value="@load(true)"  />
+                                        <radio label="No" value="@load(false)" />
+                                    </radiogroup>
+                                </cell>
+                                <cell><label value="Movimenti Contabili nei Testi:"/></cell>
+                                <cell>
+                                    <radiogroup selectedIndex="@load(vm.selectedRecord.queryMovimenti ? 0 : 1)" selectedItem="@save(vm.selectedRecord.queryMovimenti)">
+                                        <radio label="Sì" value="@load(true)"  />
+                                        <radio label="No" value="@load(false)" />
+                                    </radiogroup>
+                                </cell>
+                            </row>
+                            <row  if="#{da:isAbilitato('CUP')}">
+                                <cell><label value="Campo CUP visibile"/></cell>
+                                <cell>
+                                    <radiogroup selectedIndex="@load(vm.selectedRecord.cupVisibile ? 0 : 1)" selectedItem="@save(vm.selectedRecord.cupVisibile)">
+                                        <radio label="Sì" value="@load(true)"  />
+                                        <radio label="No" value="@load(false)" />
+                                    </radiogroup>
+                                </cell>
+                                <cell><label value="Il CUP è Obbligatorio:"/></cell>
+                                <cell>
+                                    <radiogroup selectedIndex="@load(vm.selectedRecord.cupObbligatorio ? 0 : 1)" selectedItem="@save(vm.selectedRecord.cupObbligatorio)">
+                                        <radio label="Sì" value="@load(true)"  disabled="@load(not vm.selectedRecord.cupVisibile)"/>
+                                        <radio label="No" value="@load(false)" disabled="@load(not vm.selectedRecord.cupVisibile)"/>
+                                    </radiogroup>
+                                </cell>
+                            </row>
+                        </rows>
+                    </grid>
+                    <h:br />
+                    <label value="Informazioni contabili" visible="@load(vm.tabContabilitaVisibile)" />
+					<listbox model="@load(vm.listaTipoDocumentoCf)" emptyMessage="Nessun tipo documento" vflex="1" visible="@load(vm.tabContabilitaVisibile)">
+						<listhead>
+							<listheader label="Titolo" />
+							<listheader label="Descrizione" />
+							<listheader label="" width="6%"  align="center">
+								<image width="15px" src="/images/afc/16x16/add.png"
+									   onClick="@command('onAggiungiTipoDocumentoCf')"
+									   tooltiptext="Aggiungi un tipo documento alla tipologia"
+									   style="cursor: pointer;" />
+							</listheader>
+						</listhead>
+						<template name="model" var="tipoDocumento">
+							<listitem>
+								<listcell label="@load(tipoDocumento.tipoDocumentoCf.titolo)" />
+								<listcell label="@load(tipoDocumento.tipoDocumentoCf.descrizione)" />
+								<listcell>
+									<image src="/images/agsde2/16x16/trash.png"
+										   onClick="@command('onEliminaTipoDocumentoCf', tipoDocumentoCf = tipoDocumento)"
+										   tooltiptext="Elimina il tipo documento"
+										   style="cursor: pointer;" />
+								</listcell>
+							</listitem>
+						</template>
+					</listbox>
+				</tabpanel>
+
+                <!-- Allegati obbligatori e Oggetti ricorrenti-->
+                <tabpanel>
+                    <groupbox closable="false" vflex="1">
+                        <caption>Allegati Obbligatori</caption>
+                        <listbox model="@load(vm.listaAllegatiObbligatori)" emptyMessage="Nessun allegato obbligatorio" vflex="1">
+                            <listhead>
+                                <listheader label="Tipo Allegato" width="30%" />
+                                <listheader label="Titolo" />
+                                <listheader label="" width="6%"  align="center">
+                                    <image width="15px" src="/images/afc/16x16/add.png"
+                                           onClick="@command('onAggiungiAllegatoObbligatorio')"
+                                           tooltiptext="Aggiungi un allegato obbligatorio alla tipologia"
+                                           style="cursor: pointer;" />
+                                </listheader>
+                            </listhead>
+                            <template name="model" var="allegatoObb">
+                                <listitem  onDoubleClick="@command('onModificaAllegatoObbligatorio', allegatoObbligatorio=allegatoObb)">
+                                    <listcell label="@load(allegatoObb.codice)" />
+                                    <listcell label="@load(allegatoObb.titolo)" />
+                                    <listcell>
+                                        <image src="/images/agsde2/16x16/trash.png"
+                                               onClick="@command('onEliminaAllegatoObbligatorio', allegatoObbligatorio= allegatoObb)"
+                                               tooltiptext="Elimina l'allegato obbligatorio"
+                                               style="cursor: pointer;" />
+                                    </listcell>
+                                </listitem>
+                            </template>
+                        </listbox>
+                    </groupbox>
+                    <groupbox closable="false" vflex="1" visible="@load(vm.abilitaOggettiRicorrenti )">
+                        <caption>Oggetti Ricorrenti</caption>
+                            <listbox model="@load(vm.selectedRecord.oggettiRicorrenti)" emptyMessage="Nessun oggetto ricorrente" vflex="1" >
+                                <listhead>
+                                    <listheader label="Codice" width="15%" />
+                                    <listheader label="Oggetto" />
+                                    <listheader label="" width="6%"  align="center">
+                                        <image width="15px" src="/images/afc/16x16/add.png"
+                                               onClick="@command('onAggiungiOggettoRicorrente')"
+                                               tooltiptext="Aggiungi un oggetto ricorrente alla tipologia"
+                                               style="cursor: pointer;" />
+                                    </listheader>
+                                </listhead>
+                                <template name="model" var="oggettoRic">
+                                    <listitem>
+                                        <listcell label="@load(oggettoRic.codice)" />
+                                        <listcell label="@load(oggettoRic.oggetto)" />
+                                        <listcell>
+                                            <image src="/images/agsde2/16x16/trash.png"
+                                                   onClick="@command('onEliminaOggettoRicorrente', oggettoRicorrente = oggettoRic)"
+                                                   tooltiptext="Elimina l'oggetto ricorrente"
+                                                   style="cursor: pointer;" />
+                                        </listcell>
+                                    </listitem>
+                                </template>
+                            </listbox>
+                    </groupbox>
+                </tabpanel>
+
+				<!-- Competenze -->
+				<tabpanel>
+                    <grid sclass="form">
+                        <rows>
+                            <row>
+                                <cell><label value="Ruolo Riservati:"/></cell>
+                                <cell>
+                                    <textbox hflex="1" value="@bind(vm.selectedRecord.ruoloRiservato)" />
+                                </cell>
+                                <cell></cell>
+                                <cell>
+                                </cell>
+                            </row>
+                        </rows>
+                    </grid>
+                    <h:br />
+                    <label value="Competenze"/>
+					<listbox model="@load(vm.listaTipoDeterminaCompetenza)" emptyMessage="Nessuna competenza assegnata" vflex="1">
+						<listhead>
+							<listheader label="Titolo" width="25%" />
+							<listheader label="Utente" width="23%" />
+							<listheader label="Ruolo" width="23%" />
+							<listheader label="Unità Organizzativa" width="23%" />
+							<listheader label="" width="6%"  align="center">
+								<image width="15px" src="/images/afc/16x16/add.png"
+									   onClick="@command('onAggiungiTipoDeterminaCompetenza')"
+									   tooltiptext="Aggiungi una competenza alla tipologia"
+									   style="cursor: pointer;" />
+							</listheader>
+						</listhead>
+						<template name="model" var="competenza">
+							<listitem>
+								<listcell label="@load(competenza.titolo)" />
+								<listcell label="@load(competenza.utenteAd4.nominativo)" />
+								<listcell label="@load(competenza.ruoloAd4.ruolo)" />
+								<listcell label="@load(competenza.unitaSo4.descrizione)" />
+								<listcell>
+									<image src="/images/agsde2/16x16/trash.png"
+										   onClick="@command('onEliminaTipoDeterminaCompetenza', tipoDeterminaCompetenza = competenza)"
+										   tooltiptext="Elimina la competenza"
+										   style="cursor: pointer;" />
+								</listcell>
+							</listitem>
+						</template>
+					</listbox>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+
+        <!-- Popup Tipologie Visto -->
+        <popup id="sceltaTipoVistoPopup">
+		    <combobox id="sceltaTipoVistoCombo" model="@load(vm.listaTipologieVisto)" >
+				<template name="model" var="tv">
+					<comboitem label="@load(c:cat3(tv.codice, ' - ', tv.titolo))" description="@load(tv.descrizione)" value="@load(tv)" />
+				</template>
+			</combobox>
+			<button label="Aggiungi" onClick="@command('onAggiungiTipologiaVisto', tipologiaVisto=sceltaTipoVistoCombo.selectedItem.value, popup=sceltaTipoVistoPopup)" />
+		</popup>
+
+     	<vlayout class="datiCreazioneModifica" height="30px">
+		    <label value="@load(vm.datiCreazione)" visible="@load(vm.selectedRecord.id gt 0)" />
+			<label value="@load(vm.datiModifica)"  visible="@load(vm.selectedRecord.id gt 0)"/>
+		</vlayout>
+
+		<controlBarRecord duplicaAttivo="true" />
+	</window>
+</zk>

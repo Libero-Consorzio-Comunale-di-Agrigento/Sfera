@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+        viewModel="@id('vm') @init('popupNoteViewModel')"
+		border="normal"
+        width="600px"
+        title=" ">
+
+		<vlayout hflex="1" vflex="1">
+			<h:div class="barraTitoloPagina">
+   			   <label sclass="titoloPagina" value="@load(vm.title)"/>
+			</h:div>
+
+			<grid hflex="1">
+				<rows>
+					<row>
+						<cell width="20%">
+							<label value="@load(vm.label)" />
+						</cell>
+						<cell width="80%" colspan="3">
+							<textbox rows="10" hflex="1" value="@bind(vm.note)"/>
+						</cell>
+					</row>
+				</rows>
+			</grid>
+
+			<h:div class="barraPulsanti">
+				<h:div>
+					<button mold="trendy" label="Salva"  onClick="@command('onSalva')"/>
+					<button mold="trendy" label="Chiudi" onClick="@command('onChiudi')" />
+				</h:div>
+			</h:div>
+		</vlayout>
+    </window>
+</zk>

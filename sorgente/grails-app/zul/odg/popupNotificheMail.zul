@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer" viewModel="@id('vm') @init('popupNotificheMailViewModel')"
+		border="normal" width="800px" height="500px" title=" ">
+
+		<h:div class="barraTitoloPagina">
+			<label sclass="titoloPagina" value="Notifiche Mail" />
+		</h:div>
+
+		<vbox vflex="1">
+			<hbox vflex="1">
+				<vbox vflex="1">
+					<label value="@load(vm.titoloListaSoggetto)" />
+					<listbox id="listboxSoggetti" model="@load(vm.listaSoggetti)" selectedItems="@bind(vm.soggettiSelezionati)" emptyMessage="Nessun soggetto presente." vflex="1" multiple="true" checkmark="true" nonselectableTags="*"
+						onCreate="@command('onSelezionaTutti')" mold="paging" pageSize="500">
+						<listhead>
+							<listheader label="Cognome Nome" />
+							<listheader label="EMail" />
+							<listheader label="Notifica già inviata" visible="@load(not vm.aggiungiNuoveEmail)" />
+						</listhead>
+						<template name="model" var="s">
+							<listitem checkable="@load(not empty s.email)" disabled="@load(empty s.email)">
+								<listcell label="@load(s.denominazione)" />
+								<listcell label="@load(s.email)" />
+                                <listcell image="@load(not empty s.idAttivita ? '/images/agsde2/16x16/viewok.png' : '')" tooltip="Notifica inviata." visible="@load(not vm.aggiungiNuoveEmail)"/>
+							</listitem>
+						</template>
+					</listbox>
+				</vbox>
+				<vbox vflex="1" visible="@load(vm.aggiungiNuoveEmail)">
+				    <label value="Altri Indirizzi Email" />
+					<hbox hflex="1">
+						<textbox value="@bind(vm.altroIndirizzo)" hflex="1"/>
+						<button mold="trendy" label="Inserisci"	disabled="@load(empty vm.altroIndirizzo)" onClick="@command('onInserisciIndirizzo')" />
+					</hbox>
+					<listbox model="@load(vm.listaIndirizzi)" vflex="1"	emptyMessage="Nessun indirizzo presente.">
+						<listhead>
+							<listheader />
+							<listheader width="30px" />
+						</listhead>
+						<template name="model" var="indirizzo">
+							<listitem>
+								<listcell label="@load(indirizzo)" />
+								<listcell>
+									<image src="/images/agsde2/22x22/trash.png" onClick="@command('onEliminaIndirizzo', indirizzo=indirizzo)" />
+								</listcell>
+							</listitem>
+						</template>
+					</listbox>
+				</vbox>
+			</hbox>
+
+			<label value="Stampa" visible="@load(vm.convocazione and empty vm.sedutaStampa)"/>
+			<combobox selectedItem="@bind(vm.selectedStampa)" model="@load(vm.listaCommissioneStampa)" hflex="1"  visible="@load(vm.convocazione and empty vm.sedutaStampa)"
+					  readonly="true" value="Selezionare una stampa...">
+				<template name="model" var="stampa">
+					<comboitem label="@load(stampa.titolo)" description="@load(stampa.descrizione)"/>
+				</template>
+			</combobox>
+
+			<h:div class="barraPulsanti">
+				<h:div>
+					<button mold="trendy" label="Invio Notifica" image="/images/afc/16x16/mail.png" 			 onClick="@command('onInvioNotifica')" />
+					<button mold="trendy" label="Chiudi" 		 image="/images/pulsanti/16x16/window_close.png" onClick="@command('onChiudi')" />
+				</h:div>
+			</h:div>
+		</vbox>
+	</window>
+</zk>

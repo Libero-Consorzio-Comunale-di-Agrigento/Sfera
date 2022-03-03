@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+		<descrizione>Parere (Contabilità Sfera)</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<parere>
+				<NUMERO_PROPOSTA>1000</NUMERO_PROPOSTA>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<SUDDIVISIONE>AREA</SUDDIVISIONE>
+				<SUDDIVISIONE_PARERE>AREA</SUDDIVISIONE_PARERE>
+				<UNITA_PARERE>AREA SEGRETERIA</UNITA_PARERE>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<CODICE_UNITA_PROPONENTE>A_AAGG</CODICE_UNITA_PROPONENTE>
+				<OGGETTO_PROPOSTA>OGGETTO DELLA PROPOSTA</OGGETTO_PROPOSTA>
+				<ESITO_PARERE>FAVOREVOLE</ESITO_PARERE>
+				<ESITO_PARERE_DEFINITIVO>FAVOREVOLE</ESITO_PARERE_DEFINITIVO>
+				<NOTE>NOTE RELATIVE AL PARERE</NOTE>
+				<DATA_FIRMA>01/05/2014</DATA_FIRMA>
+				<DATA_STAMPA>01/05/2014</DATA_STAMPA>
+				<FIRMATARIO>NOMINATIVO FIRMATARIO</FIRMATARIO>
+         		<DESCRIZIONE_FIRMATARIO>Il funzionario delegato</DESCRIZIONE_FIRMATARIO>
+				<DELEGANTE>(IN SOSTITUZIONE DI QUALCUNO)</DELEGANTE>
+				<DIRIGENTE_PARERE>NOMINATIVO DEL DIRIGENTE DEL PARERE</DIRIGENTE_PARERE>
+				<M_TOTALE_ENTRATE>205,33</M_TOTALE_ENTRATE>
+				<M_TOTALE_USCITE>133,00</M_TOTALE_USCITE>
+				<MSE>+</MSE>
+				<MSU>-</MSU>
+                <TIPOLOGIA_PROPOSTA>DELIBERA DI CONSIGLIO</TIPOLOGIA_PROPOSTA>
+                <TIPOLOGIA_PARERE>PARERE TECNICO</TIPOLOGIA_PARERE>
+			</parere>
+			<movimenti>
+				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
+				<M_ANNO_PRENOTAZIONE>2015</M_ANNO_PRENOTAZIONE>
+				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
+				<M_CAPITOLO>4</M_CAPITOLO>
+				<M_NOTE>Acquisto Carta</M_NOTE>
+				<M_CIG>13123</M_CIG>
+				<M_CUP>3</M_CUP>
+				<M_SEGNO>-</M_SEGNO>
+				<M_IMPORTO>1234,00</M_IMPORTO>
+				<M_NUMERO_IMPEGNO>1</M_NUMERO_IMPEGNO>
+				<M_NUMERO_PRENOTAZIONE>2</M_NUMERO_PRENOTAZIONE>
+				<M_NUMERO_ACCERTAMENTO>3</M_NUMERO_ACCERTAMENTO>
+				<M_AZIONE>434</M_AZIONE>
+				<M_ENTRATA_USCITA>S</M_ENTRATA_USCITA>
+				<M_CODICE>1234</M_CODICE>
+			</movimenti>
+			<movimenti>
+				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
+				<M_ANNO_PRENOTAZIONE>2015</M_ANNO_PRENOTAZIONE>
+				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
+				<M_CAPITOLO>4</M_CAPITOLO>
+				<M_NOTE>Bonus</M_NOTE>
+				<M_CIG>13123</M_CIG>
+				<M_CUP>4</M_CUP>
+				<M_SEGNO>+</M_SEGNO>
+				<M_IMPORTO>1234,00</M_IMPORTO>
+				<M_NUMERO_IMPEGNO>1</M_NUMERO_IMPEGNO>
+				<M_NUMERO_PRENOTAZIONE>2</M_NUMERO_PRENOTAZIONE>
+				<M_NUMERO_ACCERTAMENTO>3</M_NUMERO_ACCERTAMENTO>
+				<M_AZIONE>434</M_AZIONE>
+				<M_ENTRATA_USCITA>E</M_ENTRATA_USCITA>
+				<M_CODICE>1234</M_CODICE>
+			</movimenti>
+			<movimenti>
+				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
+				<M_ANNO_PRENOTAZIONE>2015</M_ANNO_PRENOTAZIONE>
+				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
+				<M_CAPITOLO>4</M_CAPITOLO>
+				<M_NOTE>Acquisto</M_NOTE>
+				<M_CIG>13123</M_CIG>
+				<M_CUP>5</M_CUP>
+				<M_SEGNO>+</M_SEGNO>
+				<M_IMPORTO>1234,00</M_IMPORTO>
+				<M_NUMERO_IMPEGNO>1</M_NUMERO_IMPEGNO>
+				<M_NUMERO_PRENOTAZIONE>2</M_NUMERO_PRENOTAZIONE>
+				<M_NUMERO_ACCERTAMENTO>3</M_NUMERO_ACCERTAMENTO>
+				<M_AZIONE>434</M_AZIONE>
+				<M_ENTRATA_USCITA>E</M_ENTRATA_USCITA>
+				<M_CODICE>1234</M_CODICE>
+			</movimenti>		
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>id del parere</descrizione>
+			<path/>			
+		</metaDato>
+<!-- DEFINIZIONE CAMPI DELLA QUERY -->		
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>numero della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>anno della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unitù proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>AREA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Area dell'unita' proponente della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SERVIZIO_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Servizio dell'unita' proponente della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>CODICE_UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice dell'unità proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PARERE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unita destinataria del parere</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>CODICE_UNITA_PARERE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice dell'unità destinataria del parere</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SUDDIVISIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Suddivisione dell'unità proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SUDDIVISIONE_PARERE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Suddivisione dell'unità del parere</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note del parere</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>DATA_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data creazione stampa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_FIRMA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di firma del parere</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Firmatario del parere (valorizzato solo se il parere viene firmato digitalmente o con firma autografa)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+        <nomeSimbolico>DESCRIZIONE_FIRMATARIO</nomeSimbolico>
+          <tipo>string</tipo>
+          <descrizione>Indica se il firmatario è un dirigente</descrizione>
+          <path/>
+        </metaDato>
+        <metaDato>
+			<nomeSimbolico>DELEGANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è stato delegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DIRIGENTE_PARERE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Dirigente / firmatario del parere (visibile in maschera)</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>ESITO_PARERE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Esito del parere</descrizione>
+			<path/>
+		</metaDato>
+        <metaDato>
+			<nomeSimbolico>ESITO_PARERE_DEFINITIVO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Esito del parere, la variabile viene sostituita al momento della firma del parere</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+            <nomeSimbolico>TIPOLOGIA_PROPOSTA</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Tipologia della proposta di delibera</descrizione>
+            <path/>
+        </metaDato>
+        <metaDato>
+            <nomeSimbolico>TIPOLOGIA_PARERE</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Tipologia del parere</descrizione>
+            <path/>
+        </metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_TIPO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia di movimento contabile</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_DESCRIZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del movimento contabile</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_IMPORTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo movimento contabile</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_RAGIONE_SOCIALE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ragione sociale del movimento contabile</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_RIF_BIL_PEG</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Riferimento al bilancio / peg</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_ANNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno del movimento contabile</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_NUMERO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_ENTRATA_SPESA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipo di movimento: E se entrata, S se spesa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_CODICE_BENEFICIARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice del beneficiario del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_TOTALE_ENTRATE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Somma dei movimenti in entrata</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>M_TOTALE_USCITE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Somma dei movimenti in uscita</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MSE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Il segno della somma delle entrate (+ o -)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MSU</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Il segno della somma delle uscite (+ o -)</descrizione>
+			<path/>
+		</metaDato>
+		
+		<!-- Query dei movimenti -->
+        <metaDato>
+			<nomeSimbolico>M_ANNO_IMPEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno dell'Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_ANNO_PRENOTAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della Prenotazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_ANNO_ACCERTAMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno dell'Accertamento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CAPITOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice del Capitolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NOTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CIG</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>CIG</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CUP</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>CUP</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_IMPORTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NUMERO_IMPEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NUMERO_PRENOTAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Prenotazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_NUMERO_ACCERTAMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Accertamento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_AZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice Azione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_ENTRATA_USCITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Entrata/Uscita</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_CODICE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_SEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Il Segno dell'importo (+ o -)</descrizione>
+			<path/>
+		</metaDato>
+	</definitions>
+	<queryes>
+ 	<!-- seduta: restituisce i dati della seduta -->
+		<query id="parere"
+			   help_query_alias="p"
+			   help_field_aliases="NUMERO_PROPOSTA, ANNO_PROPOSTA, AREA_PROPONENTE, DIRIGENTE_PARERE, SUDDIVISIONE, UNITA_PROPONENTE, CODICE_UNITA_PROPONENTE, UNITA_PARERE, CODICE_UNITA_PARERE, SERVIZIO_PROPONENTE, SUDDIVISIONE_PARERE, OGGETTO_PROPOSTA, NOTE, DATA_FIRMA, DATA_STAMPA, ESITO_PARERE, FIRMATARIO, M_TOTALE_ENTRATE, M_TOTALE_USCITE, MSE, MSU, DESCRIZIONE_FIRMATARIO, DELEGANTE, TIPOLOGIA_PROPOSTA, TIPOLOGIA_PARERE">
+  select nvl(to_char(pd.numero_proposta), '${documentRoot.parere.NUMERO_PROPOSTA}') NUMERO_PROPOSTA
+     , nvl(to_char(pd.anno_proposta), '${documentRoot.parere.ANNO_PROPOSTA}') ANNO_PROPOSTA
+     , utility_pkg.get_suddivisione_uo_prop_deli (pd.id_proposta_delibera) SUDDIVISIONE
+     , utility_pkg.get_unita_prop_delibera (pd.id_proposta_delibera) UNITA_PROPONENTE
+     , utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_AREA', pd.ente) AREA_PROPONENTE
+     , utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_SERVIZIO', pd.ente) SERVIZIO_PROPONENTE     
+     , utility_pkg.get_codice_unita_prop_delibera(pd.id_proposta_delibera) CODICE_UNITA_PROPONENTE
+     , utility_pkg.get_uo_descrizione (vp.unita_progr, vp.unita_dal) UNITA_PARERE
+     , utility_pkg.get_codice_unita (vp.unita_progr, vp.unita_dal) CODICE_UNITA_PARERE
+     , utility_pkg.get_suddivisione_vistoparere (vp.id_visto_parere) SUDDIVISIONE_PARERE
+     , pd.oggetto OGGETTO_PROPOSTA
+     , vp.note NOTE
+     , decode(f.data_firma, null, '${documentRoot.parere.DATA_FIRMA}', to_char(f.data_firma, 'dd/mm/yyyy')) DATA_FIRMA
+     , to_char(sysdate,'dd/mm/yyyy') DATA_STAMPA
+     , nvl(utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), pd.ente), '${documentRoot.parere.FIRMATARIO}' ) FIRMATARIO
+	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), pd.ente)) DESCRIZIONE_FIRMATARIO
+	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, pd.ente)) DELEGANTE
+     , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario)), '${documentRoot.visto.DIRIGENTE_PARERE}') DIRIGENTE_PARERE
+     , decode(vp.esito, 'DA_VALUTARE', '${documentRoot.parere.ESITO_PARERE}', replace(vp.esito,'_',' ')) ESITO_PARERE
+	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.ESITO_PARERE_DEFINITIVO}', replace(vp.esito,'_',' ')) ESITO_PARERE_DEFINITIVO
+	 , (select trim(TO_CHAR(sum(m.importo),       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m where m.tipo = 'ENTRATA' and m.id_documento = pd.id_proposta_delibera and m.tipo_documento = 'PROPOSTA_DELIBERA') M_TOTALE_ENTRATE
+     , (select trim(TO_CHAR(sum(m.importo),       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m where m.tipo = 'USCITA'  and m.id_documento = pd.id_proposta_delibera and m.tipo_documento = 'PROPOSTA_DELIBERA') M_TOTALE_USCITE
+     , (select decode(nvl(sum(m.importo), 1), -1, '-', '+') from movimenti_contabili m where m.tipo = 'ENTRATA' and m.id_documento = pd.id_proposta_delibera and m.tipo_documento = 'PROPOSTA_DELIBERA') MSE
+     , (select decode(-nvl(sum(m.importo), 1), -1, '-', '+') from movimenti_contabili m where m.tipo = 'USCITA'  and m.id_documento = pd.id_proposta_delibera and m.tipo_documento = 'PROPOSTA_DELIBERA') MSU
+	 , td.titolo TIPOLOGIA_PROPOSTA
+	 , tvp.titolo TIPOLOGIA_PARERE
+	from proposte_delibera pd
+     , visti_pareri vp
+     , firmatari f
+     , tipi_delibera td
+     , tipi_visto_parere tvp
+ where vp.id_visto_parere = #id
+   and vp.id_proposta_delibera = pd.id_proposta_delibera
+   and pd.id_tipo_delibera = td.id_tipo_delibera
+   and vp.id_tipologia = tvp.id_tipo_visto_parere
+   and f.id_visto_parere(+) = vp.id_visto_parere
+   and f.data_firma(+) is not null
+   and f.firmato(+) = 'N'
+union all
+select nvl(to_char(pd.numero_proposta), '${documentRoot.parere.NUMERO_PROPOSTA}') NUMERO_PROPOSTA
+     , nvl(to_char(pd.anno_proposta), '${documentRoot.parere.ANNO_PROPOSTA}') ANNO_PROPOSTA
+     , utility_pkg.get_suddivisione_uo_prop_deli (pd.id_proposta_delibera) SUDDIVISIONE
+     , utility_pkg.get_unita_prop_delibera (pd.id_proposta_delibera) UNITA_PROPONENTE
+     , utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_AREA', pd.ente) AREA_PROPONENTE
+     , utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_SERVIZIO', pd.ente) SERVIZIO_PROPONENTE     
+     , utility_pkg.get_codice_unita_prop_delibera(pd.id_proposta_delibera) CODICE_UNITA_PROPONENTE
+     , utility_pkg.get_uo_descrizione (vp.unita_progr, vp.unita_dal) UNITA_PARERE
+     , utility_pkg.get_codice_unita (vp.unita_progr, vp.unita_dal) CODICE_UNITA_PARERE
+     , utility_pkg.get_suddivisione_vistoparere (vp.id_visto_parere) SUDDIVISIONE_PARERE
+     , d.oggetto OGGETTO_PROPOSTA
+     , vp.note NOTE
+     , decode(f.data_firma, null, '${documentRoot.parere.DATA_FIRMA}', to_char(f.data_firma, 'dd/mm/yyyy')) DATA_FIRMA
+     , to_char(sysdate,'dd/mm/yyyy') DATA_STAMPA
+     , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario))), '${documentRoot.parere.FIRMATARIO}' ) FIRMATARIO
+	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), pd.ente)) DESCRIZIONE_FIRMATARIO
+	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, pd.ente)) DELEGANTE
+     , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario)), '${documentRoot.visto.DIRIGENTE_PARERE}') DIRIGENTE_PARERE
+	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.ESITO_PARERE_DEFINITIVO}', replace(vp.esito,'_',' ')) ESITO_PARERE_DEFINITIVO
+     , decode(vp.esito, 'DA_VALUTARE', '${documentRoot.parere.ESITO_PARERE}', replace(vp.esito,'_',' ')) ESITO_PARERE
+	 , (select trim(TO_CHAR(abs(sum(m.importo)),       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m where m.tipo = 'ENTRATA' and m.id_documento = pd.id_proposta_delibera and m.tipo_documento = 'PROPOSTA_DELIBERA') M_TOTALE_ENTRATE
+     , (select trim(TO_CHAR(abs(sum(m.importo)),       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m where m.tipo = 'USCITA'  and m.id_documento = pd.id_proposta_delibera and m.tipo_documento = 'PROPOSTA_DELIBERA') M_TOTALE_USCITE
+     , (select decode(sign(sum(m.importo)), -1, '-', '+') from movimenti_contabili m where m.tipo = 'ENTRATA' and m.id_documento = pd.id_proposta_delibera and m.tipo_documento = 'PROPOSTA_DELIBERA') MSE
+     , (select decode(sign(sum(m.importo)), -1, '-', '+') from movimenti_contabili m where m.tipo = 'USCITA'  and m.id_documento = pd.id_proposta_delibera and m.tipo_documento = 'PROPOSTA_DELIBERA') MSU
+	 , td.titolo TIPOLOGIA_PROPOSTA
+     , tvp.titolo TIPOLOGIA_PARERE
+	from proposte_delibera pd
+     , delibere d
+     , visti_pareri vp
+     , firmatari f
+     , tipi_delibera td
+     , tipi_visto_parere tvp
+ where vp.id_visto_parere = #id
+   and d.id_delibera = vp.id_delibera
+   and d.id_proposta_delibera = pd.id_proposta_delibera
+   and pd.id_tipo_delibera = td.id_tipo_delibera
+   and vp.id_tipologia = tvp.id_tipo_visto_parere
+   and f.id_visto_parere(+) = vp.id_visto_parere
+   and f.data_firma(+) is not null
+   and f.firmato(+) = 'N'  
+</query>
+ <query id="movimenti"
+        help_query_alias="m"
+		help_field_aliases="M_ANNO_IMPEGNO, M_ANNO_PRENOTAZIONE, M_ANNO_ACCERTAMENTO, M_CAPITOLO, M_NOTE, M_CIG, M_CUP, M_SEGNO, M_IMPORTO, M_NUMERO_IMPEGNO, M_NUMERO_PRENOTAZIONE, M_NUMERO_ACCERTAMENTO, M_AZIONE, M_ENTRATA_USCITA, M_CODICE"> 
+ select m.anno_competenza               as M_ANNO_IMPEGNO
+      , m.anno_crono                    as M_ANNO_PRENOTAZIONE
+      , m.anno_esercizio                as M_ANNO_ACCERTAMENTO
+      , m.capitolo                      as M_CAPITOLO
+      , m.descrizione                   as M_NOTE
+      , m.descrizione_finanziamento_1   as M_CIG
+      , m.descrizione_finanziamento_2   as M_CUP
+      , decode(sign(m.importo), -1, '-', '+') as M_SEGNO
+      , trim(TO_CHAR(abs(m.importo), '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) as M_IMPORTO
+      , m.numero                        as M_NUMERO_IMPEGNO
+      , m.numero_crono                  as M_NUMERO_PRENOTAZIONE
+      , m.numero_det                    as M_NUMERO_ACCERTAMENTO
+      , m.opera                         as M_AZIONE
+      , m.tipo							as M_ENTRATA_USCITA
+      , m.tipo_dettaglio                as M_CODICE
+  from movimenti_contabili m, visti_pareri vp
+ where vp.id_visto_parere = #id
+   and m.id_documento   = vp.id_proposta_delibera
+   and m.tipo_documento = 'PROPOSTA_DELIBERA'
+ order by m.tipo asc 
+ </query>
+	</queryes>
+	<staticData />
+</documentRoot>

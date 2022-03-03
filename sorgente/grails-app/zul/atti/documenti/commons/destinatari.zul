@@ -1,0 +1,84 @@
+<tabbox vflex="1">
+    <tabs>
+        <tab label="Destinatari Interni" visible="@load(vm.abilitaDestinatariInterni)" />
+        <tab label="Destinatari Esterni" visible="@load(vm.abilitaDestinatariEsterni)"/>
+    </tabs>
+    <tabpanels>
+        <!-- Destinatari Interni-->
+        <tabpanel>
+            <grid sclass="form">
+                <rows>
+                    <row visible="@load(vm.destinatariInterniObbligatori)">
+                        <cell width="160px">
+                            <label value="Verifica Presenza Destinatari:" />
+                        </cell>
+                        <cell>
+                            <radiogroup selectedIndex="@load(vm.proposta.controllaDestinatari ? 0 : 1)" selectedItem="@save(vm.proposta.controllaDestinatari)">
+                                <radio label="Sì" value="@load(true)" disabled="@load(not vm.competenze.modifica)"/>
+                                <radio label="No" value="@load(false)" disabled="@load(not vm.competenze.modifica)"/>
+                            </radiogroup>
+                        </cell>
+                    </row>
+        	</rows>
+        </grid>
+
+            <listbox model="@load(vm.listaDestinatariInterni)" emptyMessage="Nessun Destinatario Interno" vflex="1">
+                <listhead>
+                    <listheader label="Nome e Cognome / Unità" />
+                    <listheader label="Email" width="25%" />
+                    <listheader label="" width="5%" align="center" >
+                        <image width="15px" src="/images/afc/16x16/add.png"
+                               onClick="@command('onAggiungiDestinatariInterni')"
+                               tooltiptext="Aggiungi destinatari interni"
+                               style="cursor: pointer;"
+                               visible="@load(vm.competenze.modifica and not vm.campiProtetti.DESTINATARI and vm.documentoDTO.id gt 0)" />
+                    </listheader>
+                </listhead>
+                <template name="model" var="s">
+                    <listitem>
+                        <listcell label="@load((not empty s.cognome) ? c:cat3(s.cognome, ' ', s.nome) : s.unita)" />
+                        <listcell label="@load(s.email)"/>
+                        <listcell>
+                            <image src="/images/agsde2/16x16/trash.png"
+                                   onClick="@command('onEliminaDestinatarioNotifica', destinatario=s, tipo='I')"
+                                   tooltiptext="Elimina destinatari interni"
+                                   style="cursor: pointer;"
+                                   visible="@load(vm.competenze.modifica and not vm.campiProtetti.DESTINATARI and vm.documentoDTO.id gt 0)" />
+                        </listcell>
+                    </listitem>
+                </template>
+            </listbox>
+        </tabpanel>
+        <!-- Destinatari Esterni-->
+        <tabpanel>
+            <listbox model="@load(vm.listaDestinatariEsterni)" emptyMessage="Nessun Destinatario Esterno" vflex="1">
+                <listhead>
+                    <listheader label="Nome e Cognome / Ragione Sociale" 	width="50%" />
+                    <listheader label="Email" 								width="25%" />
+                    <listheader label="Tipo Notifica"						width="20%" />
+                    <listheader label="" 									width="5%" align="center">
+                        <image width="15px" src="/images/afc/16x16/add.png"
+                               onClick="@command('onAggiungiDestinatariEsterni')"
+                               tooltiptext="Aggiungi destinatari esterni"
+                               style="cursor: pointer;"
+                               visible="@load(vm.competenze.modifica and not vm.campiProtetti.DESTINATARI and vm.documentoDTO.id gt 0)" />
+                    </listheader>
+                </listhead>
+                <template name="model" var="s">
+                    <listitem>
+                        <listcell label="@load(empty s.email.ragioneSociale ? c:cat3(s.email.cognome, ' ', s.email.nome) : s.email.ragioneSociale)" />
+                        <listcell label="@load(s.email.indirizzoEmail)" />
+                        <listcell label="@load(s.tipoNotifica)" />
+                        <listcell>
+                            <image src="/images/agsde2/16x16/trash.png"
+                                   onClick="@command('onEliminaDestinatarioNotifica', destinatario=s, tipo='E')"
+                                   tooltiptext="Elimina destinatari esterni"
+                                   style="cursor: pointer;"
+                                   visible="@load(vm.competenze.modifica and not vm.campiProtetti.DESTINATARI and vm.documentoDTO.id gt 0)" />
+                        </listcell>
+                    </listitem>
+                </template>
+            </listbox>
+        </tabpanel>
+    </tabpanels>
+</tabbox>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     01/mar/2014 11:34:14                                                        
+
+     [NomeProgetto]    
+     [Descrizione del Progetto]
+                   
+     [Autore]                                                                
+     ====================================================================== -->
+<project>
+    <description>Installazione Integrazione AGSPR</description>
+
+	<import file="../../../commons/sql/AGSPR/install.ant" />
+
+	<target name="config">
+		<!-- richiede queste connessioni -->
+		<require-conn istanza="agsde2" 	jndiOpzionale="true"/>
+		<require-conn istanza="gdm" 	jndiOpzionale="true"/>
+	</target>
+	
+	<target name="install:db" depends="-agspr-rigenera-viste-indici,-agspr-pkg">
+		<sql escapeprocessing="false"  userid="${global.db.gdm.username}"
+		   password="${global.db.gdm.password}"
+				url="${global.db.gdm.url}"
+			 driver="${global.db.gdm.driver}"
+			 expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+				src="01.gdm.sql" />
+	</target>
+	
+	<target name="install:fs">
+	</target>
+</project>

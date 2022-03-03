@@ -1,0 +1,1485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+  <descrizione>Visto Contabile</descrizione>
+  <connections>
+    <connectionJNDI>jdbc/agsde2</connectionJNDI>
+  </connections>
+  <testStaticData>
+    <documentRoot>
+      <visto>
+        <NUMERO_DETERMINA>1000</NUMERO_DETERMINA>
+        <DATA_DETERMINA>01/05/2014</DATA_DETERMINA>
+        <ANNO_DETERMINA>2014</ANNO_DETERMINA>
+        <NUMERO_PROPOSTA>500</NUMERO_PROPOSTA>
+        <ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+        <SUDDIVISIONE>SERVIZIO</SUDDIVISIONE>
+        <UNITA_PROPONENTE>SERVIZIO PUBBLICA ISTRUZIONE</UNITA_PROPONENTE>
+        <CODICE_UNITA_PROPONENTE>SR_PUBBISTR</CODICE_UNITA_PROPONENTE>
+        <UNITA_VISTO>Ufficio Ragioneria</UNITA_VISTO>
+        <CODICE_UNITA_VISTO>UFF_RAG</CODICE_UNITA_VISTO>
+        <SUDDIVIZIONE_VISTO>SERVIZIO RAGIONERIA</SUDDIVIZIONE_VISTO>
+        <OGGETTO_DETERMINA>OGGETTO DETERMINA</OGGETTO_DETERMINA>
+        <ESITO_VISTO>FAVOREVOLE</ESITO_VISTO>
+        <ESITO_VISTO_DEFINITIVO>FAVOREVOLE</ESITO_VISTO_DEFINITIVO>
+        <NOTE_CONTABILI>Note contabili inserite nella determina</NOTE_CONTABILI>
+        <NOTE_VISTO>Note inserite nel visto</NOTE_VISTO>
+        <DATA_FIRMA>01/05/2014</DATA_FIRMA>
+        <DATA_STAMPA>02/05/2014</DATA_STAMPA>
+        <FIRMATARIO>NOMINATIVO DEL FIRMATARIO</FIRMATARIO>
+        <DESCRIZIONE_FIRMATARIO>Il funzionario delegato</DESCRIZIONE_FIRMATARIO>
+        <DELEGANTE>(IN SOSTITUZIONE DI QUALCUNO)</DELEGANTE>
+        <ASCENDENTI_UNITA>AREA: STRUTTURA AZIENDE SANITARIE</ASCENDENTI_UNITA>
+        <AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+        <SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+        <CIG>0123456789</CIG>
+        <TIPOLOGIA_PROPOSTA>DETERMINAZIONE CON IMPEGNO DI SPESA</TIPOLOGIA_PROPOSTA>
+        <TIPOLOGIA_VISTO>VISTO CONTABILE</TIPOLOGIA_VISTO>
+      </visto>
+      <tipi_movimento>
+        <CODICE_TIPO_MOVIMENTO>IPG</CODICE_TIPO_MOVIMENTO>
+        <TIPO_MOVIMENTO>Impegno</TIPO_MOVIMENTO>
+        <ANNO_VARIAZIONE></ANNO_VARIAZIONE>
+        <NUMERO_VARIAZIONE></NUMERO_VARIAZIONE>
+        <CODICE_VARIAZIONE_BILANCIO></CODICE_VARIAZIONE_BILANCIO>
+        <TIPO_VARIAZIONE_BILANCIO></TIPO_VARIAZIONE_BILANCIO>
+        <TOTALE_IMPORTO></TOTALE_IMPORTO>
+        <TOTALE_DISP_MANDATI></TOTALE_DISP_MANDATI>
+        <TOTALE_INCENTIVI></TOTALE_INCENTIVI>
+        <FONDO_INNOVAZIONE></FONDO_INNOVAZIONE>
+        <TOTALE_QUADRO_ECONOMICO></TOTALE_QUADRO_ECONOMICO>
+        <CON_CRONO>N</CON_CRONO>
+        <movimenti>
+          <N_RIGA>1</N_RIGA>
+          <ANNO_ESERCIZIO>2015</ANNO_ESERCIZIO>
+          <E_U>U</E_U>
+          <CAP_ART>Capitolo/Articolo</CAP_ART>
+          <DESC_CAPITOLO>Descrizione Capitolo</DESC_CAPITOLO>
+          <MISSIONE_PROGRAMMA>Missione/Programma</MISSIONE_PROGRAMMA>
+          <TIPO_PRENOTAZIONE>Prenotazione</TIPO_PRENOTAZIONE>
+          <ANNO_COMPETENZA>2015</ANNO_COMPETENZA>
+          <NUMERO_DET_SUB>100</NUMERO_DET_SUB>
+          <IMPORTO>1000,00</IMPORTO>
+          <PIANO_CONTI>5/7/5/3/2</PIANO_CONTI>
+          <ANNO_NUMERO_CRONO>2015</ANNO_NUMERO_CRONO>
+          <POLITICA>Politica</POLITICA>
+          <PROGRAMMA>Programma</PROGRAMMA>
+          <PROGETTO>Progretto</PROGETTO>
+          <DESC_INVESTIMENTO>Descrizione Investimento</DESC_INVESTIMENTO>
+          <TIPO_FIN_1>Tipo Finanziamento 1</TIPO_FIN_1>
+          <TIPO_FIN_2>Tipo Finanziamento 2</TIPO_FIN_2>
+          <TIPO_FIN_3>Tipo Finanziamento 3</TIPO_FIN_3>
+          <DESC_FIN_1>Descrizione Finanziamento 1</DESC_FIN_1>
+          <DESC_FIN_2>Descrizione Finanziamento 2</DESC_FIN_2>
+          <DESC_FIN_3>Descrizione Finanziamento 3</DESC_FIN_3>
+          <IMPORTO_FIN_1>1001</IMPORTO_FIN_1>
+          <IMPORTO_FIN_2>1002</IMPORTO_FIN_2>
+          <IMPORTO_FIN_3>1003</IMPORTO_FIN_3>
+          <CODICE_SOGGETTO>Codice Soggetto</CODICE_SOGGETTO>
+          <DESC_SOGGETTO>Descrizione Soggetto</DESC_SOGGETTO>
+          <SEGNO_IMPORTO>-</SEGNO_IMPORTO>
+          <IMPORTO_CASSA>100</IMPORTO_CASSA>
+          <SEGNO_IMPORTO_CASSA>-</SEGNO_IMPORTO_CASSA>
+          <NUMERO_CRONO>8</NUMERO_CRONO>
+          <NUMERO_SUB_CRONO>9</NUMERO_SUB_CRONO>
+          <DESC_CRONO>Descrizione Crono</DESC_CRONO>
+          <DISP_MANDATI>Disposizione Mandati</DISP_MANDATI>
+        </movimenti>
+      </tipi_movimento>
+      <tipi_movimento>
+        <CODICE_TIPO_MOVIMENTO>SIP</CODICE_TIPO_MOVIMENTO>
+        <TIPO_MOVIMENTO>Subimpegno</TIPO_MOVIMENTO>
+        <ANNO_VARIAZIONE></ANNO_VARIAZIONE>
+        <NUMERO_VARIAZIONE></NUMERO_VARIAZIONE>
+        <CODICE_VARIAZIONE_BILANCIO></CODICE_VARIAZIONE_BILANCIO>
+        <TIPO_VARIAZIONE_BILANCIO></TIPO_VARIAZIONE_BILANCIO>
+        <TOTALE_IMPORTO></TOTALE_IMPORTO>
+        <TOTALE_DISP_MANDATI></TOTALE_DISP_MANDATI>
+        <TOTALE_INCENTIVI></TOTALE_INCENTIVI>
+        <FONDO_INNOVAZIONE></FONDO_INNOVAZIONE>
+        <TOTALE_QUADRO_ECONOMICO></TOTALE_QUADRO_ECONOMICO>
+        <CON_CRONO>N</CON_CRONO>
+        <movimenti>
+          <N_RIGA>1</N_RIGA>
+          <ANNO_ESERCIZIO>2015</ANNO_ESERCIZIO>
+          <E_U>U</E_U>
+          <CAP_ART>Capitolo/Articolo</CAP_ART>
+          <DESC_CAPITOLO>Descrizione Capitolo</DESC_CAPITOLO>
+          <MISSIONE_PROGRAMMA>Missione/Programma</MISSIONE_PROGRAMMA>
+          <TIPO_PRENOTAZIONE>Prenotazione</TIPO_PRENOTAZIONE>
+          <ANNO_COMPETENZA>2015</ANNO_COMPETENZA>
+          <NUMERO_DET_SUB>100</NUMERO_DET_SUB>
+          <IMPORTO>1000,00</IMPORTO>
+          <PIANO_CONTI>5/7/5/3/2</PIANO_CONTI>
+          <ANNO_NUMERO_CRONO>2015</ANNO_NUMERO_CRONO>
+          <POLITICA>Politica</POLITICA>
+          <PROGRAMMA>Programma</PROGRAMMA>
+          <PROGETTO>Progretto</PROGETTO>
+          <DESC_INVESTIMENTO>Descrizione Investimento</DESC_INVESTIMENTO>
+          <TIPO_FIN_1>Tipo Finanziamento 1</TIPO_FIN_1>
+          <TIPO_FIN_2>Tipo Finanziamento 2</TIPO_FIN_2>
+          <TIPO_FIN_3>Tipo Finanziamento 3</TIPO_FIN_3>
+          <DESC_FIN_1>Descrizione Finanziamento 1</DESC_FIN_1>
+          <DESC_FIN_2>Descrizione Finanziamento 2</DESC_FIN_2>
+          <DESC_FIN_3>Descrizione Finanziamento 3</DESC_FIN_3>
+          <IMPORTO_FIN_1>1001</IMPORTO_FIN_1>
+          <IMPORTO_FIN_2>1002</IMPORTO_FIN_2>
+          <IMPORTO_FIN_3>1003</IMPORTO_FIN_3>
+          <CODICE_SOGGETTO>Codice Soggetto</CODICE_SOGGETTO>
+          <DESC_SOGGETTO>Descrizione Soggetto</DESC_SOGGETTO>
+          <SEGNO_IMPORTO>-</SEGNO_IMPORTO>
+          <IMPORTO_CASSA>100</IMPORTO_CASSA>
+          <SEGNO_IMPORTO_CASSA>-</SEGNO_IMPORTO_CASSA>
+          <NUMERO_CRONO>8</NUMERO_CRONO>
+          <NUMERO_SUB_CRONO>9</NUMERO_SUB_CRONO>
+          <DESC_CRONO>Descrizione Crono</DESC_CRONO>
+          <DISP_MANDATI>Disposizione Mandati</DISP_MANDATI>
+        </movimenti>
+      </tipi_movimento>
+      <tipi_movimento>
+        <CODICE_TIPO_MOVIMENTO>ACC</CODICE_TIPO_MOVIMENTO>
+        <TIPO_MOVIMENTO>Accertamento</TIPO_MOVIMENTO>
+        <ANNO_VARIAZIONE></ANNO_VARIAZIONE>
+        <NUMERO_VARIAZIONE></NUMERO_VARIAZIONE>
+        <CODICE_VARIAZIONE_BILANCIO></CODICE_VARIAZIONE_BILANCIO>
+        <TIPO_VARIAZIONE_BILANCIO></TIPO_VARIAZIONE_BILANCIO>
+        <TOTALE_IMPORTO></TOTALE_IMPORTO>
+        <TOTALE_DISP_MANDATI></TOTALE_DISP_MANDATI>
+        <TOTALE_INCENTIVI></TOTALE_INCENTIVI>
+        <FONDO_INNOVAZIONE></FONDO_INNOVAZIONE>
+        <TOTALE_QUADRO_ECONOMICO></TOTALE_QUADRO_ECONOMICO>
+        <CON_CRONO>N</CON_CRONO>
+        <movimenti>
+          <N_RIGA>1</N_RIGA>
+          <ANNO_ESERCIZIO>2015</ANNO_ESERCIZIO>
+          <E_U>U</E_U>
+          <CAP_ART>Capitolo/Articolo</CAP_ART>
+          <DESC_CAPITOLO>Descrizione Capitolo</DESC_CAPITOLO>
+          <MISSIONE_PROGRAMMA>Missione/Programma</MISSIONE_PROGRAMMA>
+          <TIPO_PRENOTAZIONE>Prenotazione</TIPO_PRENOTAZIONE>
+          <ANNO_COMPETENZA>2015</ANNO_COMPETENZA>
+          <NUMERO_DET_SUB>100</NUMERO_DET_SUB>
+          <IMPORTO>1000,00</IMPORTO>
+          <PIANO_CONTI>5/7/5/3/2</PIANO_CONTI>
+          <ANNO_NUMERO_CRONO>2015</ANNO_NUMERO_CRONO>
+          <POLITICA>Politica</POLITICA>
+          <PROGRAMMA>Programma</PROGRAMMA>
+          <PROGETTO>Progretto</PROGETTO>
+          <DESC_INVESTIMENTO>Descrizione Investimento</DESC_INVESTIMENTO>
+          <TIPO_FIN_1>Tipo Finanziamento 1</TIPO_FIN_1>
+          <TIPO_FIN_2>Tipo Finanziamento 2</TIPO_FIN_2>
+          <TIPO_FIN_3>Tipo Finanziamento 3</TIPO_FIN_3>
+          <DESC_FIN_1>Descrizione Finanziamento 1</DESC_FIN_1>
+          <DESC_FIN_2>Descrizione Finanziamento 2</DESC_FIN_2>
+          <DESC_FIN_3>Descrizione Finanziamento 3</DESC_FIN_3>
+          <IMPORTO_FIN_1>1001</IMPORTO_FIN_1>
+          <IMPORTO_FIN_2>1002</IMPORTO_FIN_2>
+          <IMPORTO_FIN_3>1003</IMPORTO_FIN_3>
+          <CODICE_SOGGETTO>Codice Soggetto</CODICE_SOGGETTO>
+          <DESC_SOGGETTO>Descrizione Soggetto</DESC_SOGGETTO>
+          <SEGNO_IMPORTO>-</SEGNO_IMPORTO>
+          <IMPORTO_CASSA>100</IMPORTO_CASSA>
+          <SEGNO_IMPORTO_CASSA>-</SEGNO_IMPORTO_CASSA>
+          <NUMERO_CRONO>8</NUMERO_CRONO>
+          <NUMERO_SUB_CRONO>9</NUMERO_SUB_CRONO>
+          <DESC_CRONO>Descrizione Crono</DESC_CRONO>
+          <DISP_MANDATI>Disposizione Mandati</DISP_MANDATI>
+        </movimenti>
+      </tipi_movimento>
+      <tipi_movimento>
+        <CODICE_TIPO_MOVIMENTO>SAC</CODICE_TIPO_MOVIMENTO>
+        <TIPO_MOVIMENTO>Subaccertamento</TIPO_MOVIMENTO>
+        <ANNO_VARIAZIONE></ANNO_VARIAZIONE>
+        <NUMERO_VARIAZIONE></NUMERO_VARIAZIONE>
+        <CODICE_VARIAZIONE_BILANCIO></CODICE_VARIAZIONE_BILANCIO>
+        <TIPO_VARIAZIONE_BILANCIO></TIPO_VARIAZIONE_BILANCIO>
+        <TOTALE_IMPORTO></TOTALE_IMPORTO>
+        <TOTALE_DISP_MANDATI></TOTALE_DISP_MANDATI>
+        <TOTALE_INCENTIVI></TOTALE_INCENTIVI>
+        <FONDO_INNOVAZIONE></FONDO_INNOVAZIONE>
+        <TOTALE_QUADRO_ECONOMICO></TOTALE_QUADRO_ECONOMICO>
+        <CON_CRONO>N</CON_CRONO>
+        <movimenti>
+          <N_RIGA>1</N_RIGA>
+          <ANNO_ESERCIZIO>2015</ANNO_ESERCIZIO>
+          <E_U>U</E_U>
+          <CAP_ART>Capitolo/Articolo</CAP_ART>
+          <DESC_CAPITOLO>Descrizione Capitolo</DESC_CAPITOLO>
+          <MISSIONE_PROGRAMMA>Missione/Programma</MISSIONE_PROGRAMMA>
+          <TIPO_PRENOTAZIONE>Prenotazione</TIPO_PRENOTAZIONE>
+          <ANNO_COMPETENZA>2015</ANNO_COMPETENZA>
+          <NUMERO_DET_SUB>100</NUMERO_DET_SUB>
+          <IMPORTO>1000,00</IMPORTO>
+          <PIANO_CONTI>5/7/5/3/2</PIANO_CONTI>
+          <ANNO_NUMERO_CRONO>2015</ANNO_NUMERO_CRONO>
+          <POLITICA>Politica</POLITICA>
+          <PROGRAMMA>Programma</PROGRAMMA>
+          <PROGETTO>Progretto</PROGETTO>
+          <DESC_INVESTIMENTO>Descrizione Investimento</DESC_INVESTIMENTO>
+          <TIPO_FIN_1>Tipo Finanziamento 1</TIPO_FIN_1>
+          <TIPO_FIN_2>Tipo Finanziamento 2</TIPO_FIN_2>
+          <TIPO_FIN_3>Tipo Finanziamento 3</TIPO_FIN_3>
+          <DESC_FIN_1>Descrizione Finanziamento 1</DESC_FIN_1>
+          <DESC_FIN_2>Descrizione Finanziamento 2</DESC_FIN_2>
+          <DESC_FIN_3>Descrizione Finanziamento 3</DESC_FIN_3>
+          <IMPORTO_FIN_1>1001</IMPORTO_FIN_1>
+          <IMPORTO_FIN_2>1002</IMPORTO_FIN_2>
+          <IMPORTO_FIN_3>1003</IMPORTO_FIN_3>
+          <CODICE_SOGGETTO>Codice Soggetto</CODICE_SOGGETTO>
+          <DESC_SOGGETTO>Descrizione Soggetto</DESC_SOGGETTO>
+          <SEGNO_IMPORTO>-</SEGNO_IMPORTO>
+          <IMPORTO_CASSA>100</IMPORTO_CASSA>
+          <SEGNO_IMPORTO_CASSA>-</SEGNO_IMPORTO_CASSA>
+          <NUMERO_CRONO>8</NUMERO_CRONO>
+          <NUMERO_SUB_CRONO>9</NUMERO_SUB_CRONO>
+          <DESC_CRONO>Descrizione Crono</DESC_CRONO>
+          <DISP_MANDATI>Disposizione Mandati</DISP_MANDATI>
+        </movimenti>
+      </tipi_movimento>
+      <tipi_movimento>
+        <CODICE_TIPO_MOVIMENTO>VIP</CODICE_TIPO_MOVIMENTO>
+        <TIPO_MOVIMENTO>Variazione Impegno</TIPO_MOVIMENTO>
+        <ANNO_VARIAZIONE></ANNO_VARIAZIONE>
+        <NUMERO_VARIAZIONE></NUMERO_VARIAZIONE>
+        <CODICE_VARIAZIONE_BILANCIO></CODICE_VARIAZIONE_BILANCIO>
+        <TIPO_VARIAZIONE_BILANCIO></TIPO_VARIAZIONE_BILANCIO>
+        <TOTALE_IMPORTO></TOTALE_IMPORTO>
+        <TOTALE_DISP_MANDATI></TOTALE_DISP_MANDATI>
+        <TOTALE_INCENTIVI></TOTALE_INCENTIVI>
+        <FONDO_INNOVAZIONE></FONDO_INNOVAZIONE>
+        <TOTALE_QUADRO_ECONOMICO></TOTALE_QUADRO_ECONOMICO>
+        <CON_CRONO>N</CON_CRONO>
+        <movimenti>
+          <N_RIGA>1</N_RIGA>
+          <ANNO_ESERCIZIO>2015</ANNO_ESERCIZIO>
+          <E_U>U</E_U>
+          <CAP_ART>Capitolo/Articolo</CAP_ART>
+          <DESC_CAPITOLO>Descrizione Capitolo</DESC_CAPITOLO>
+          <MISSIONE_PROGRAMMA>Missione/Programma</MISSIONE_PROGRAMMA>
+          <TIPO_PRENOTAZIONE>Prenotazione</TIPO_PRENOTAZIONE>
+          <ANNO_COMPETENZA>2015</ANNO_COMPETENZA>
+          <NUMERO_DET_SUB>100</NUMERO_DET_SUB>
+          <IMPORTO>1000,00</IMPORTO>
+          <PIANO_CONTI>5/7/5/3/2</PIANO_CONTI>
+          <ANNO_NUMERO_CRONO>2015</ANNO_NUMERO_CRONO>
+          <POLITICA>Politica</POLITICA>
+          <PROGRAMMA>Programma</PROGRAMMA>
+          <PROGETTO>Progretto</PROGETTO>
+          <DESC_INVESTIMENTO>Descrizione Investimento</DESC_INVESTIMENTO>
+          <TIPO_FIN_1>Tipo Finanziamento 1</TIPO_FIN_1>
+          <TIPO_FIN_2>Tipo Finanziamento 2</TIPO_FIN_2>
+          <TIPO_FIN_3>Tipo Finanziamento 3</TIPO_FIN_3>
+          <DESC_FIN_1>Descrizione Finanziamento 1</DESC_FIN_1>
+          <DESC_FIN_2>Descrizione Finanziamento 2</DESC_FIN_2>
+          <DESC_FIN_3>Descrizione Finanziamento 3</DESC_FIN_3>
+          <IMPORTO_FIN_1>1001</IMPORTO_FIN_1>
+          <IMPORTO_FIN_2>1002</IMPORTO_FIN_2>
+          <IMPORTO_FIN_3>1003</IMPORTO_FIN_3>
+          <CODICE_SOGGETTO>Codice Soggetto</CODICE_SOGGETTO>
+          <DESC_SOGGETTO>Descrizione Soggetto</DESC_SOGGETTO>
+          <SEGNO_IMPORTO>-</SEGNO_IMPORTO>
+          <IMPORTO_CASSA>100</IMPORTO_CASSA>
+          <SEGNO_IMPORTO_CASSA>-</SEGNO_IMPORTO_CASSA>
+          <NUMERO_CRONO>8</NUMERO_CRONO>
+          <NUMERO_SUB_CRONO>9</NUMERO_SUB_CRONO>
+          <DESC_CRONO>Descrizione Crono</DESC_CRONO>
+          <DISP_MANDATI>Disposizione Mandati</DISP_MANDATI>
+        </movimenti>
+      </tipi_movimento>
+      <tipi_movimento>
+        <CODICE_TIPO_MOVIMENTO>VSI</CODICE_TIPO_MOVIMENTO>
+        <TIPO_MOVIMENTO>Variazione Subimpegno</TIPO_MOVIMENTO>
+        <ANNO_VARIAZIONE></ANNO_VARIAZIONE>
+        <NUMERO_VARIAZIONE></NUMERO_VARIAZIONE>
+        <CODICE_VARIAZIONE_BILANCIO></CODICE_VARIAZIONE_BILANCIO>
+        <TIPO_VARIAZIONE_BILANCIO></TIPO_VARIAZIONE_BILANCIO>
+        <TOTALE_IMPORTO></TOTALE_IMPORTO>
+        <TOTALE_DISP_MANDATI></TOTALE_DISP_MANDATI>
+        <TOTALE_INCENTIVI></TOTALE_INCENTIVI>
+        <FONDO_INNOVAZIONE></FONDO_INNOVAZIONE>
+        <TOTALE_QUADRO_ECONOMICO></TOTALE_QUADRO_ECONOMICO>
+        <CON_CRONO>N</CON_CRONO>
+        <movimenti>
+          <N_RIGA>1</N_RIGA>
+          <ANNO_ESERCIZIO>2015</ANNO_ESERCIZIO>
+          <E_U>U</E_U>
+          <CAP_ART>Capitolo/Articolo</CAP_ART>
+          <DESC_CAPITOLO>Descrizione Capitolo</DESC_CAPITOLO>
+          <MISSIONE_PROGRAMMA>Missione/Programma</MISSIONE_PROGRAMMA>
+          <TIPO_PRENOTAZIONE>Prenotazione</TIPO_PRENOTAZIONE>
+          <ANNO_COMPETENZA>2015</ANNO_COMPETENZA>
+          <NUMERO_DET_SUB>100</NUMERO_DET_SUB>
+          <IMPORTO>1011,00</IMPORTO>
+          <PIANO_CONTI>5/7/5/3/2</PIANO_CONTI>
+          <ANNO_NUMERO_CRONO>2015</ANNO_NUMERO_CRONO>
+          <POLITICA>Politica</POLITICA>
+          <PROGRAMMA>Programma</PROGRAMMA>
+          <PROGETTO>Progretto</PROGETTO>
+          <DESC_INVESTIMENTO>Descrizione Investimento</DESC_INVESTIMENTO>
+          <TIPO_FIN_1>Tipo Finanziamento 1</TIPO_FIN_1>
+          <TIPO_FIN_2>Tipo Finanziamento 2</TIPO_FIN_2>
+          <TIPO_FIN_3>Tipo Finanziamento 3</TIPO_FIN_3>
+          <DESC_FIN_1>Descrizione Finanziamento 1</DESC_FIN_1>
+          <DESC_FIN_2>Descrizione Finanziamento 2</DESC_FIN_2>
+          <DESC_FIN_3>Descrizione Finanziamento 3</DESC_FIN_3>
+          <IMPORTO_FIN_1>1001</IMPORTO_FIN_1>
+          <IMPORTO_FIN_2>1002</IMPORTO_FIN_2>
+          <IMPORTO_FIN_3>1003</IMPORTO_FIN_3>
+          <CODICE_SOGGETTO>Codice Soggetto</CODICE_SOGGETTO>
+          <DESC_SOGGETTO>Descrizione Soggetto</DESC_SOGGETTO>
+          <SEGNO_IMPORTO>-</SEGNO_IMPORTO>
+          <IMPORTO_CASSA>100</IMPORTO_CASSA>
+          <SEGNO_IMPORTO_CASSA>-</SEGNO_IMPORTO_CASSA>
+          <NUMERO_CRONO>8</NUMERO_CRONO>
+          <NUMERO_SUB_CRONO>9</NUMERO_SUB_CRONO>
+          <DESC_CRONO>Descrizione Crono</DESC_CRONO>
+          <DISP_MANDATI>Disposizione Mandati</DISP_MANDATI>
+        </movimenti>
+        <movimenti>
+          <N_RIGA>2</N_RIGA>
+          <ANNO_ESERCIZIO>2015</ANNO_ESERCIZIO>
+          <E_U>U</E_U>
+          <CAP_ART>Capitolo/Articolo</CAP_ART>
+          <DESC_CAPITOLO>Descrizione Capitolo</DESC_CAPITOLO>
+          <MISSIONE_PROGRAMMA>Missione/Programma</MISSIONE_PROGRAMMA>
+          <TIPO_PRENOTAZIONE>Prenotazione</TIPO_PRENOTAZIONE>
+          <ANNO_COMPETENZA>2015</ANNO_COMPETENZA>
+          <NUMERO_DET_SUB>100</NUMERO_DET_SUB>
+          <IMPORTO>1022,00</IMPORTO>
+          <PIANO_CONTI>5/7/5/3/2</PIANO_CONTI>
+          <ANNO_NUMERO_CRONO>2015</ANNO_NUMERO_CRONO>
+          <POLITICA>Politica</POLITICA>
+          <PROGRAMMA>Programma</PROGRAMMA>
+          <PROGETTO>Progretto</PROGETTO>
+          <DESC_INVESTIMENTO>Descrizione Investimento</DESC_INVESTIMENTO>
+          <TIPO_FIN_1>Tipo Finanziamento 1</TIPO_FIN_1>
+          <TIPO_FIN_2>Tipo Finanziamento 2</TIPO_FIN_2>
+          <TIPO_FIN_3>Tipo Finanziamento 3</TIPO_FIN_3>
+          <DESC_FIN_1>Descrizione Finanziamento 1</DESC_FIN_1>
+          <DESC_FIN_2>Descrizione Finanziamento 2</DESC_FIN_2>
+          <DESC_FIN_3>Descrizione Finanziamento 3</DESC_FIN_3>
+          <IMPORTO_FIN_1>1001</IMPORTO_FIN_1>
+          <IMPORTO_FIN_2>1002</IMPORTO_FIN_2>
+          <IMPORTO_FIN_3>1003</IMPORTO_FIN_3>
+          <CODICE_SOGGETTO>Codice Soggetto</CODICE_SOGGETTO>
+          <DESC_SOGGETTO>Descrizione Soggetto</DESC_SOGGETTO>
+          <SEGNO_IMPORTO>-</SEGNO_IMPORTO>
+          <IMPORTO_CASSA>100</IMPORTO_CASSA>
+          <SEGNO_IMPORTO_CASSA>-</SEGNO_IMPORTO_CASSA>
+          <NUMERO_CRONO>8</NUMERO_CRONO>
+          <NUMERO_SUB_CRONO>9</NUMERO_SUB_CRONO>
+          <DESC_CRONO>Descrizione Crono</DESC_CRONO>
+          <DISP_MANDATI>Disposizione Mandati</DISP_MANDATI>
+        </movimenti>
+        <movimenti>
+          <N_RIGA>3</N_RIGA>
+          <ANNO_ESERCIZIO>2015</ANNO_ESERCIZIO>
+          <E_U>U</E_U>
+          <CAP_ART>Capitolo/Articolo</CAP_ART>
+          <DESC_CAPITOLO>Descrizione Capitolo</DESC_CAPITOLO>
+          <MISSIONE_PROGRAMMA>Missione/Programma</MISSIONE_PROGRAMMA>
+          <TIPO_PRENOTAZIONE>Prenotazione</TIPO_PRENOTAZIONE>
+          <ANNO_COMPETENZA>2015</ANNO_COMPETENZA>
+          <NUMERO_DET_SUB>100</NUMERO_DET_SUB>
+          <IMPORTO>1033,00</IMPORTO>
+          <PIANO_CONTI>5/7/5/3/2</PIANO_CONTI>
+          <ANNO_NUMERO_CRONO>2015</ANNO_NUMERO_CRONO>
+          <POLITICA>Politica</POLITICA>
+          <PROGRAMMA>Programma</PROGRAMMA>
+          <PROGETTO>Progretto</PROGETTO>
+          <DESC_INVESTIMENTO>Descrizione Investimento</DESC_INVESTIMENTO>
+          <TIPO_FIN_1>Tipo Finanziamento 1</TIPO_FIN_1>
+          <TIPO_FIN_2>Tipo Finanziamento 2</TIPO_FIN_2>
+          <TIPO_FIN_3>Tipo Finanziamento 3</TIPO_FIN_3>
+          <DESC_FIN_1>Descrizione Finanziamento 1</DESC_FIN_1>
+          <DESC_FIN_2>Descrizione Finanziamento 2</DESC_FIN_2>
+          <DESC_FIN_3>Descrizione Finanziamento 3</DESC_FIN_3>
+          <IMPORTO_FIN_1>1001</IMPORTO_FIN_1>
+          <IMPORTO_FIN_2>1002</IMPORTO_FIN_2>
+          <IMPORTO_FIN_3>1003</IMPORTO_FIN_3>
+          <CODICE_SOGGETTO>Codice Soggetto</CODICE_SOGGETTO>
+          <DESC_SOGGETTO>Descrizione Soggetto</DESC_SOGGETTO>
+          <SEGNO_IMPORTO>-</SEGNO_IMPORTO>
+          <IMPORTO_CASSA>100</IMPORTO_CASSA>
+          <SEGNO_IMPORTO_CASSA>-</SEGNO_IMPORTO_CASSA>
+          <NUMERO_CRONO>8</NUMERO_CRONO>
+          <NUMERO_SUB_CRONO>9</NUMERO_SUB_CRONO>
+          <DESC_CRONO>Descrizione Crono</DESC_CRONO>
+          <DISP_MANDATI>Disposizione Mandati</DISP_MANDATI>
+        </movimenti>
+      </tipi_movimento>
+      <tipi_movimento>
+        <CODICE_TIPO_MOVIMENTO>VAC</CODICE_TIPO_MOVIMENTO>
+        <TIPO_MOVIMENTO>Variazione accertamento</TIPO_MOVIMENTO>
+        <ANNO_VARIAZIONE></ANNO_VARIAZIONE>
+        <NUMERO_VARIAZIONE></NUMERO_VARIAZIONE>
+        <CODICE_VARIAZIONE_BILANCIO></CODICE_VARIAZIONE_BILANCIO>
+        <TIPO_VARIAZIONE_BILANCIO></TIPO_VARIAZIONE_BILANCIO>
+        <TOTALE_IMPORTO></TOTALE_IMPORTO>
+        <TOTALE_DISP_MANDATI></TOTALE_DISP_MANDATI>
+        <TOTALE_INCENTIVI></TOTALE_INCENTIVI>
+        <FONDO_INNOVAZIONE></FONDO_INNOVAZIONE>
+        <TOTALE_QUADRO_ECONOMICO></TOTALE_QUADRO_ECONOMICO>
+        <CON_CRONO>N</CON_CRONO>
+        <movimenti>
+          <N_RIGA>1</N_RIGA>
+          <ANNO_ESERCIZIO>2015</ANNO_ESERCIZIO>
+          <E_U>U</E_U>
+          <CAP_ART>Capitolo/Articolo</CAP_ART>
+          <DESC_CAPITOLO>Descrizione Capitolo</DESC_CAPITOLO>
+          <MISSIONE_PROGRAMMA>Missione/Programma</MISSIONE_PROGRAMMA>
+          <TIPO_PRENOTAZIONE>Prenotazione</TIPO_PRENOTAZIONE>
+          <ANNO_COMPETENZA>2015</ANNO_COMPETENZA>
+          <NUMERO_DET_SUB>100</NUMERO_DET_SUB>
+          <IMPORTO>1000,00</IMPORTO>
+          <PIANO_CONTI>5/7/5/3/2</PIANO_CONTI>
+          <ANNO_NUMERO_CRONO>2015</ANNO_NUMERO_CRONO>
+          <POLITICA>Politica</POLITICA>
+          <PROGRAMMA>Programma</PROGRAMMA>
+          <PROGETTO>Progretto</PROGETTO>
+          <DESC_INVESTIMENTO>Descrizione Investimento</DESC_INVESTIMENTO>
+          <TIPO_FIN_1>Tipo Finanziamento 1</TIPO_FIN_1>
+          <TIPO_FIN_2>Tipo Finanziamento 2</TIPO_FIN_2>
+          <TIPO_FIN_3>Tipo Finanziamento 3</TIPO_FIN_3>
+          <DESC_FIN_1>Descrizione Finanziamento 1</DESC_FIN_1>
+          <DESC_FIN_2>Descrizione Finanziamento 2</DESC_FIN_2>
+          <DESC_FIN_3>Descrizione Finanziamento 3</DESC_FIN_3>
+          <IMPORTO_FIN_1>1001</IMPORTO_FIN_1>
+          <IMPORTO_FIN_2>1002</IMPORTO_FIN_2>
+          <IMPORTO_FIN_3>1003</IMPORTO_FIN_3>
+          <CODICE_SOGGETTO>Codice Soggetto</CODICE_SOGGETTO>
+          <DESC_SOGGETTO>Descrizione Soggetto</DESC_SOGGETTO>
+          <SEGNO_IMPORTO>-</SEGNO_IMPORTO>
+          <IMPORTO_CASSA>100</IMPORTO_CASSA>
+          <SEGNO_IMPORTO_CASSA>-</SEGNO_IMPORTO_CASSA>
+          <NUMERO_CRONO>8</NUMERO_CRONO>
+          <NUMERO_SUB_CRONO>9</NUMERO_SUB_CRONO>
+          <DESC_CRONO>Descrizione Crono</DESC_CRONO>
+          <DISP_MANDATI>Disposizione Mandati</DISP_MANDATI>
+        </movimenti>
+      </tipi_movimento>
+      <tipi_movimento>
+        <CODICE_TIPO_MOVIMENTO>VSA</CODICE_TIPO_MOVIMENTO>
+        <TIPO_MOVIMENTO>Variazione sub accertamento</TIPO_MOVIMENTO>
+        <ANNO_VARIAZIONE></ANNO_VARIAZIONE>
+        <NUMERO_VARIAZIONE></NUMERO_VARIAZIONE>
+        <CODICE_VARIAZIONE_BILANCIO></CODICE_VARIAZIONE_BILANCIO>
+        <TIPO_VARIAZIONE_BILANCIO></TIPO_VARIAZIONE_BILANCIO>
+        <TOTALE_IMPORTO></TOTALE_IMPORTO>
+        <TOTALE_DISP_MANDATI></TOTALE_DISP_MANDATI>
+        <TOTALE_INCENTIVI></TOTALE_INCENTIVI>
+        <FONDO_INNOVAZIONE></FONDO_INNOVAZIONE>
+        <TOTALE_QUADRO_ECONOMICO></TOTALE_QUADRO_ECONOMICO>
+        <CON_CRONO>N</CON_CRONO>
+        <movimenti>
+          <N_RIGA>1</N_RIGA>
+          <ANNO_ESERCIZIO>2015</ANNO_ESERCIZIO>
+          <E_U>U</E_U>
+          <CAP_ART>Capitolo/Articolo</CAP_ART>
+          <DESC_CAPITOLO>Descrizione Capitolo</DESC_CAPITOLO>
+          <MISSIONE_PROGRAMMA>Missione/Programma</MISSIONE_PROGRAMMA>
+          <TIPO_PRENOTAZIONE>Prenotazione</TIPO_PRENOTAZIONE>
+          <ANNO_COMPETENZA>2015</ANNO_COMPETENZA>
+          <NUMERO_DET_SUB>100</NUMERO_DET_SUB>
+          <IMPORTO>1000,00</IMPORTO>
+          <PIANO_CONTI>5/7/5/3/2</PIANO_CONTI>
+          <ANNO_NUMERO_CRONO>2015</ANNO_NUMERO_CRONO>
+          <POLITICA>Politica</POLITICA>
+          <PROGRAMMA>Programma</PROGRAMMA>
+          <PROGETTO>Progretto</PROGETTO>
+          <DESC_INVESTIMENTO>Descrizione Investimento</DESC_INVESTIMENTO>
+          <TIPO_FIN_1>Tipo Finanziamento 1</TIPO_FIN_1>
+          <TIPO_FIN_2>Tipo Finanziamento 2</TIPO_FIN_2>
+          <TIPO_FIN_3>Tipo Finanziamento 3</TIPO_FIN_3>
+          <DESC_FIN_1>Descrizione Finanziamento 1</DESC_FIN_1>
+          <DESC_FIN_2>Descrizione Finanziamento 2</DESC_FIN_2>
+          <DESC_FIN_3>Descrizione Finanziamento 3</DESC_FIN_3>
+          <IMPORTO_FIN_1>1001</IMPORTO_FIN_1>
+          <IMPORTO_FIN_2>1002</IMPORTO_FIN_2>
+          <IMPORTO_FIN_3>1003</IMPORTO_FIN_3>
+          <CODICE_SOGGETTO>Codice Soggetto</CODICE_SOGGETTO>
+          <DESC_SOGGETTO>Descrizione Soggetto</DESC_SOGGETTO>
+          <SEGNO_IMPORTO>-</SEGNO_IMPORTO>
+          <IMPORTO_CASSA>100</IMPORTO_CASSA>
+          <SEGNO_IMPORTO_CASSA>-</SEGNO_IMPORTO_CASSA>
+          <NUMERO_CRONO>8</NUMERO_CRONO>
+          <NUMERO_SUB_CRONO>9</NUMERO_SUB_CRONO>
+          <DESC_CRONO>Descrizione Crono</DESC_CRONO>
+          <DISP_MANDATI>Disposizione Mandati</DISP_MANDATI>
+        </movimenti>
+      </tipi_movimento>
+      <tipi_movimento>
+        <CODICE_TIPO_MOVIMENTO>VCU</CODICE_TIPO_MOVIMENTO>
+        <TIPO_MOVIMENTO>Variazioni Bilancio</TIPO_MOVIMENTO>
+        <ANNO_VARIAZIONE>2015</ANNO_VARIAZIONE>
+        <NUMERO_VARIAZIONE>1</NUMERO_VARIAZIONE>
+        <CODICE_VARIAZIONE_BILANCIO>CON</CODICE_VARIAZIONE_BILANCIO>
+        <TIPO_VARIAZIONE_BILANCIO>CONSIGLIO</TIPO_VARIAZIONE_BILANCIO>
+        <TOTALE_IMPORTO></TOTALE_IMPORTO>
+        <TOTALE_DISP_MANDATI></TOTALE_DISP_MANDATI>
+        <TOTALE_INCENTIVI></TOTALE_INCENTIVI>
+        <FONDO_INNOVAZIONE></FONDO_INNOVAZIONE>
+        <TOTALE_QUADRO_ECONOMICO></TOTALE_QUADRO_ECONOMICO>
+        <CON_CRONO>N</CON_CRONO>
+        <movimenti>
+          <N_RIGA>1</N_RIGA>
+          <ANNO_ESERCIZIO>2015</ANNO_ESERCIZIO>
+          <E_U>U</E_U>
+          <CAP_ART>Capitolo/Articolo</CAP_ART>
+          <DESC_CAPITOLO>Descrizione Capitolo</DESC_CAPITOLO>
+          <MISSIONE_PROGRAMMA>Missione/Programma</MISSIONE_PROGRAMMA>
+          <TIPO_PRENOTAZIONE>Prenotazione</TIPO_PRENOTAZIONE>
+          <ANNO_COMPETENZA>2015</ANNO_COMPETENZA>
+          <NUMERO_DET_SUB>100</NUMERO_DET_SUB>
+          <IMPORTO>1000,00</IMPORTO>
+          <PIANO_CONTI>5/7/5/3/2</PIANO_CONTI>
+          <ANNO_NUMERO_CRONO>2015</ANNO_NUMERO_CRONO>
+          <POLITICA>Politica</POLITICA>
+          <PROGRAMMA>Programma</PROGRAMMA>
+          <PROGETTO>Progretto</PROGETTO>
+          <DESC_INVESTIMENTO>Descrizione Investimento</DESC_INVESTIMENTO>
+          <TIPO_FIN_1>Tipo Finanziamento 1</TIPO_FIN_1>
+          <TIPO_FIN_2>Tipo Finanziamento 2</TIPO_FIN_2>
+          <TIPO_FIN_3>Tipo Finanziamento 3</TIPO_FIN_3>
+          <DESC_FIN_1>Descrizione Finanziamento 1</DESC_FIN_1>
+          <DESC_FIN_2>Descrizione Finanziamento 2</DESC_FIN_2>
+          <DESC_FIN_3>Descrizione Finanziamento 3</DESC_FIN_3>
+          <IMPORTO_FIN_1>1001</IMPORTO_FIN_1>
+          <IMPORTO_FIN_2>1002</IMPORTO_FIN_2>
+          <IMPORTO_FIN_3>1003</IMPORTO_FIN_3>
+          <CODICE_SOGGETTO>Codice Soggetto</CODICE_SOGGETTO>
+          <DESC_SOGGETTO>Descrizione Soggetto</DESC_SOGGETTO>
+          <SEGNO_IMPORTO>-</SEGNO_IMPORTO>
+          <IMPORTO_CASSA>100</IMPORTO_CASSA>
+          <SEGNO_IMPORTO_CASSA>-</SEGNO_IMPORTO_CASSA>
+          <NUMERO_CRONO>8</NUMERO_CRONO>
+          <NUMERO_SUB_CRONO>9</NUMERO_SUB_CRONO>
+          <DESC_CRONO>Descrizione Crono</DESC_CRONO>
+          <DISP_MANDATI>Disposizione Mandati</DISP_MANDATI>
+        </movimenti>
+      </tipi_movimento>
+      <tipi_movimento>
+        <CODICE_TIPO_MOVIMENTO>VCE</CODICE_TIPO_MOVIMENTO>
+        <TIPO_MOVIMENTO></TIPO_MOVIMENTO>
+        <ANNO_VARIAZIONE>2015</ANNO_VARIAZIONE>
+        <NUMERO_VARIAZIONE>3</NUMERO_VARIAZIONE>
+        <CODICE_VARIAZIONE_BILANCIO>GIU</CODICE_VARIAZIONE_BILANCIO>
+        <TIPO_VARIAZIONE_BILANCIO>GIUNTA</TIPO_VARIAZIONE_BILANCIO>
+        <TOTALE_IMPORTO></TOTALE_IMPORTO>
+        <TOTALE_DISP_MANDATI></TOTALE_DISP_MANDATI>
+        <TOTALE_INCENTIVI></TOTALE_INCENTIVI>
+        <FONDO_INNOVAZIONE></FONDO_INNOVAZIONE>
+        <TOTALE_QUADRO_ECONOMICO></TOTALE_QUADRO_ECONOMICO>
+        <CON_CRONO>N</CON_CRONO>
+        <movimenti>
+          <N_RIGA>1</N_RIGA>
+          <ANNO_ESERCIZIO>2015</ANNO_ESERCIZIO>
+          <E_U>U</E_U>
+          <CAP_ART>Capitolo/Articolo</CAP_ART>
+          <DESC_CAPITOLO>Descrizione Capitolo</DESC_CAPITOLO>
+          <MISSIONE_PROGRAMMA>Missione/Programma</MISSIONE_PROGRAMMA>
+          <TIPO_PRENOTAZIONE>Prenotazione</TIPO_PRENOTAZIONE>
+          <ANNO_COMPETENZA>2015</ANNO_COMPETENZA>
+          <NUMERO_DET_SUB>100</NUMERO_DET_SUB>
+          <IMPORTO>1000,00</IMPORTO>
+          <PIANO_CONTI>5/7/5/3/2</PIANO_CONTI>
+          <ANNO_NUMERO_CRONO>2015</ANNO_NUMERO_CRONO>
+          <POLITICA>Politica</POLITICA>
+          <PROGRAMMA>Programma</PROGRAMMA>
+          <PROGETTO>Progretto</PROGETTO>
+          <DESC_INVESTIMENTO>Descrizione Investimento</DESC_INVESTIMENTO>
+          <TIPO_FIN_1>Tipo Finanziamento 1</TIPO_FIN_1>
+          <TIPO_FIN_2>Tipo Finanziamento 2</TIPO_FIN_2>
+          <TIPO_FIN_3>Tipo Finanziamento 3</TIPO_FIN_3>
+          <DESC_FIN_1>Descrizione Finanziamento 1</DESC_FIN_1>
+          <DESC_FIN_2>Descrizione Finanziamento 2</DESC_FIN_2>
+          <DESC_FIN_3>Descrizione Finanziamento 3</DESC_FIN_3>
+          <IMPORTO_FIN_1>1001</IMPORTO_FIN_1>
+          <IMPORTO_FIN_2>1002</IMPORTO_FIN_2>
+          <IMPORTO_FIN_3>1003</IMPORTO_FIN_3>
+          <CODICE_SOGGETTO>Codice Soggetto</CODICE_SOGGETTO>
+          <DESC_SOGGETTO>Descrizione Soggetto</DESC_SOGGETTO>
+          <SEGNO_IMPORTO>-</SEGNO_IMPORTO>
+          <IMPORTO_CASSA>100</IMPORTO_CASSA>
+          <SEGNO_IMPORTO_CASSA>-</SEGNO_IMPORTO_CASSA>
+          <NUMERO_CRONO>8</NUMERO_CRONO>
+          <NUMERO_SUB_CRONO>9</NUMERO_SUB_CRONO>
+          <DESC_CRONO>Descrizione Crono</DESC_CRONO>
+          <DISP_MANDATI>Disposizione Mandati</DISP_MANDATI>
+        </movimenti>
+      </tipi_movimento>
+      <tipi_movimento>
+        <CODICE_TIPO_MOVIMENTO>VOU</CODICE_TIPO_MOVIMENTO>
+        <TIPO_MOVIMENTO></TIPO_MOVIMENTO>
+        <ANNO_VARIAZIONE>2015</ANNO_VARIAZIONE>
+        <NUMERO_VARIAZIONE>4</NUMERO_VARIAZIONE>
+        <CODICE_VARIAZIONE_BILANCIO>DIR</CODICE_VARIAZIONE_BILANCIO>
+        <TIPO_VARIAZIONE_BILANCIO>DIRIGENTE</TIPO_VARIAZIONE_BILANCIO>
+        <TOTALE_IMPORTO></TOTALE_IMPORTO>
+        <TOTALE_DISP_MANDATI></TOTALE_DISP_MANDATI>
+        <TOTALE_INCENTIVI></TOTALE_INCENTIVI>
+        <FONDO_INNOVAZIONE></FONDO_INNOVAZIONE>
+        <TOTALE_QUADRO_ECONOMICO></TOTALE_QUADRO_ECONOMICO>
+        <CON_CRONO>N</CON_CRONO>
+        <movimenti>
+          <N_RIGA>1</N_RIGA>
+          <ANNO_ESERCIZIO>2015</ANNO_ESERCIZIO>
+          <E_U>U</E_U>
+          <CAP_ART>Capitolo/Articolo</CAP_ART>
+          <DESC_CAPITOLO>Descrizione Capitolo</DESC_CAPITOLO>
+          <MISSIONE_PROGRAMMA>Missione/Programma</MISSIONE_PROGRAMMA>
+          <TIPO_PRENOTAZIONE>Prenotazione</TIPO_PRENOTAZIONE>
+          <ANNO_COMPETENZA>2015</ANNO_COMPETENZA>
+          <NUMERO_DET_SUB>100</NUMERO_DET_SUB>
+          <IMPORTO>1000,00</IMPORTO>
+          <PIANO_CONTI>5/7/5/3/2</PIANO_CONTI>
+          <ANNO_NUMERO_CRONO>2015</ANNO_NUMERO_CRONO>
+          <POLITICA>Politica</POLITICA>
+          <PROGRAMMA>Programma</PROGRAMMA>
+          <PROGETTO>Progretto</PROGETTO>
+          <DESC_INVESTIMENTO>Descrizione Investimento</DESC_INVESTIMENTO>
+          <TIPO_FIN_1>Tipo Finanziamento 1</TIPO_FIN_1>
+          <TIPO_FIN_2>Tipo Finanziamento 2</TIPO_FIN_2>
+          <TIPO_FIN_3>Tipo Finanziamento 3</TIPO_FIN_3>
+          <DESC_FIN_1>Descrizione Finanziamento 1</DESC_FIN_1>
+          <DESC_FIN_2>Descrizione Finanziamento 2</DESC_FIN_2>
+          <DESC_FIN_3>Descrizione Finanziamento 3</DESC_FIN_3>
+          <IMPORTO_FIN_1>1001</IMPORTO_FIN_1>
+          <IMPORTO_FIN_2>1002</IMPORTO_FIN_2>
+          <IMPORTO_FIN_3>1003</IMPORTO_FIN_3>
+          <CODICE_SOGGETTO>Codice Soggetto</CODICE_SOGGETTO>
+          <DESC_SOGGETTO>Descrizione Soggetto</DESC_SOGGETTO>
+          <SEGNO_IMPORTO>-</SEGNO_IMPORTO>
+          <IMPORTO_CASSA>100</IMPORTO_CASSA>
+          <SEGNO_IMPORTO_CASSA>-</SEGNO_IMPORTO_CASSA>
+          <NUMERO_CRONO>8</NUMERO_CRONO>
+          <NUMERO_SUB_CRONO>9</NUMERO_SUB_CRONO>
+          <DESC_CRONO>Descrizione Crono</DESC_CRONO>
+          <DISP_MANDATI>Disposizione Mandati</DISP_MANDATI>
+        </movimenti>
+      </tipi_movimento>
+      <tipi_movimento>
+        <CODICE_TIPO_MOVIMENTO>VOE</CODICE_TIPO_MOVIMENTO>
+        <TIPO_MOVIMENTO></TIPO_MOVIMENTO>
+        <ANNO_VARIAZIONE>2015</ANNO_VARIAZIONE>
+        <NUMERO_VARIAZIONE>9</NUMERO_VARIAZIONE>
+        <CODICE_VARIAZIONE_BILANCIO>DIB</CODICE_VARIAZIONE_BILANCIO>
+        <TIPO_VARIAZIONE_BILANCIO>Dirigente Bilancio</TIPO_VARIAZIONE_BILANCIO>
+        <TOTALE_IMPORTO></TOTALE_IMPORTO>
+        <TOTALE_DISP_MANDATI></TOTALE_DISP_MANDATI>
+        <TOTALE_INCENTIVI></TOTALE_INCENTIVI>
+        <FONDO_INNOVAZIONE></FONDO_INNOVAZIONE>
+        <TOTALE_QUADRO_ECONOMICO></TOTALE_QUADRO_ECONOMICO>
+        <CON_CRONO>N</CON_CRONO>
+        <movimenti>
+          <N_RIGA>1</N_RIGA>
+          <ANNO_ESERCIZIO>2015</ANNO_ESERCIZIO>
+          <E_U>U</E_U>
+          <CAP_ART>Capitolo/Articolo</CAP_ART>
+          <DESC_CAPITOLO>Descrizione Capitolo</DESC_CAPITOLO>
+          <MISSIONE_PROGRAMMA>Missione/Programma</MISSIONE_PROGRAMMA>
+          <TIPO_PRENOTAZIONE>Prenotazione</TIPO_PRENOTAZIONE>
+          <ANNO_COMPETENZA>2015</ANNO_COMPETENZA>
+          <NUMERO_DET_SUB>100</NUMERO_DET_SUB>
+          <IMPORTO>1000,00</IMPORTO>
+          <PIANO_CONTI>5/7/5/3/2</PIANO_CONTI>
+          <ANNO_NUMERO_CRONO>2015</ANNO_NUMERO_CRONO>
+          <POLITICA>Politica</POLITICA>
+          <PROGRAMMA>Programma</PROGRAMMA>
+          <PROGETTO>Progretto</PROGETTO>
+          <DESC_INVESTIMENTO>Descrizione Investimento</DESC_INVESTIMENTO>
+          <TIPO_FIN_1>Tipo Finanziamento 1</TIPO_FIN_1>
+          <TIPO_FIN_2>Tipo Finanziamento 2</TIPO_FIN_2>
+          <TIPO_FIN_3>Tipo Finanziamento 3</TIPO_FIN_3>
+          <DESC_FIN_1>Descrizione Finanziamento 1</DESC_FIN_1>
+          <DESC_FIN_2>Descrizione Finanziamento 2</DESC_FIN_2>
+          <DESC_FIN_3>Descrizione Finanziamento 3</DESC_FIN_3>
+          <IMPORTO_FIN_1>1001</IMPORTO_FIN_1>
+          <IMPORTO_FIN_2>1002</IMPORTO_FIN_2>
+          <IMPORTO_FIN_3>1003</IMPORTO_FIN_3>
+          <CODICE_SOGGETTO>Codice Soggetto</CODICE_SOGGETTO>
+          <DESC_SOGGETTO>Descrizione Soggetto</DESC_SOGGETTO>
+          <SEGNO_IMPORTO>-</SEGNO_IMPORTO>
+          <IMPORTO_CASSA>100</IMPORTO_CASSA>
+          <SEGNO_IMPORTO_CASSA>-</SEGNO_IMPORTO_CASSA>
+          <NUMERO_CRONO>8</NUMERO_CRONO>
+          <NUMERO_SUB_CRONO>9</NUMERO_SUB_CRONO>
+          <DESC_CRONO>Descrizione Crono</DESC_CRONO>
+          <DISP_MANDATI>Disposizione Mandati</DISP_MANDATI>
+        </movimenti>
+      </tipi_movimento>
+      <tipi_movimento>
+        <CODICE_TIPO_MOVIMENTO>SCP</CODICE_TIPO_MOVIMENTO>
+        <TIPO_MOVIMENTO>Sub Crono</TIPO_MOVIMENTO>
+        <ANNO_VARIAZIONE></ANNO_VARIAZIONE>
+        <NUMERO_VARIAZIONE></NUMERO_VARIAZIONE>
+        <CODICE_VARIAZIONE_BILANCIO></CODICE_VARIAZIONE_BILANCIO>
+        <TIPO_VARIAZIONE_BILANCIO></TIPO_VARIAZIONE_BILANCIO>
+        <TOTALE_IMPORTO>100</TOTALE_IMPORTO>
+        <TOTALE_DISP_MANDATI>101</TOTALE_DISP_MANDATI>
+        <TOTALE_INCENTIVI>100</TOTALE_INCENTIVI>
+        <FONDO_INNOVAZIONE>900</FONDO_INNOVAZIONE>
+        <TOTALE_QUADRO_ECONOMICO>1100</TOTALE_QUADRO_ECONOMICO>
+        <CON_CRONO>SI</CON_CRONO>
+        <movimenti>
+          <N_RIGA>1</N_RIGA>
+          <ANNO_ESERCIZIO>2015</ANNO_ESERCIZIO>
+          <E_U>U</E_U>
+          <CAP_ART>Capitolo/Articolo</CAP_ART>
+          <DESC_CAPITOLO>Descrizione Capitolo</DESC_CAPITOLO>
+          <MISSIONE_PROGRAMMA>Missione/Programma</MISSIONE_PROGRAMMA>
+          <TIPO_PRENOTAZIONE>Prenotazione</TIPO_PRENOTAZIONE>
+          <ANNO_COMPETENZA>2015</ANNO_COMPETENZA>
+          <NUMERO_DET_SUB>100</NUMERO_DET_SUB>
+          <IMPORTO>1000,00</IMPORTO>
+          <PIANO_CONTI>5/7/5/3/2</PIANO_CONTI>
+          <ANNO_NUMERO_CRONO>2015</ANNO_NUMERO_CRONO>
+          <POLITICA>Politica</POLITICA>
+          <PROGRAMMA>Programma</PROGRAMMA>
+          <PROGETTO>Progretto</PROGETTO>
+          <DESC_INVESTIMENTO>Descrizione Investimento</DESC_INVESTIMENTO>
+          <TIPO_FIN_1>Tipo Finanziamento 1</TIPO_FIN_1>
+          <TIPO_FIN_2>Tipo Finanziamento 2</TIPO_FIN_2>
+          <TIPO_FIN_3>Tipo Finanziamento 3</TIPO_FIN_3>
+          <DESC_FIN_1>Descrizione Finanziamento 1</DESC_FIN_1>
+          <DESC_FIN_2>Descrizione Finanziamento 2</DESC_FIN_2>
+          <DESC_FIN_3>Descrizione Finanziamento 3</DESC_FIN_3>
+          <IMPORTO_FIN_1>1001</IMPORTO_FIN_1>
+          <IMPORTO_FIN_2>1002</IMPORTO_FIN_2>
+          <IMPORTO_FIN_3>1003</IMPORTO_FIN_3>
+          <CODICE_SOGGETTO>Codice Soggetto</CODICE_SOGGETTO>
+          <DESC_SOGGETTO>Descrizione Soggetto</DESC_SOGGETTO>
+          <SEGNO_IMPORTO>-</SEGNO_IMPORTO>
+          <IMPORTO_CASSA>100</IMPORTO_CASSA>
+          <SEGNO_IMPORTO_CASSA>-</SEGNO_IMPORTO_CASSA>
+          <NUMERO_CRONO>8</NUMERO_CRONO>
+          <NUMERO_SUB_CRONO>9</NUMERO_SUB_CRONO>
+          <DESC_CRONO>Descrizione Crono</DESC_CRONO>
+          <DISP_MANDATI>Disposizione Mandati</DISP_MANDATI>
+        </movimenti>
+      </tipi_movimento>
+      <tipi_movimento>
+        <CODICE_TIPO_MOVIMENTO>COP</CODICE_TIPO_MOVIMENTO>
+        <TIPO_MOVIMENTO>Crono</TIPO_MOVIMENTO>
+        <ANNO_VARIAZIONE></ANNO_VARIAZIONE>
+        <NUMERO_VARIAZIONE></NUMERO_VARIAZIONE>
+        <CODICE_VARIAZIONE_BILANCIO></CODICE_VARIAZIONE_BILANCIO>
+        <TIPO_VARIAZIONE_BILANCIO></TIPO_VARIAZIONE_BILANCIO>
+        <TOTALE_IMPORTO>200</TOTALE_IMPORTO>
+        <TOTALE_DISP_MANDATI>222</TOTALE_DISP_MANDATI>
+        <TOTALE_INCENTIVI></TOTALE_INCENTIVI>
+        <FONDO_INNOVAZIONE></FONDO_INNOVAZIONE>
+        <TOTALE_QUADRO_ECONOMICO></TOTALE_QUADRO_ECONOMICO>
+        <CON_CRONO>N</CON_CRONO>
+        <movimenti>
+          <N_RIGA>1</N_RIGA>
+          <ANNO_ESERCIZIO>2015</ANNO_ESERCIZIO>
+          <E_U>U</E_U>
+          <CAP_ART>Capitolo/Articolo</CAP_ART>
+          <DESC_CAPITOLO>Descrizione Capitolo</DESC_CAPITOLO>
+          <MISSIONE_PROGRAMMA>Missione/Programma</MISSIONE_PROGRAMMA>
+          <TIPO_PRENOTAZIONE>Prenotazione</TIPO_PRENOTAZIONE>
+          <ANNO_COMPETENZA>2015</ANNO_COMPETENZA>
+          <NUMERO_DET_SUB>100</NUMERO_DET_SUB>
+          <IMPORTO>1000,00</IMPORTO>
+          <PIANO_CONTI>5/7/5/3/2</PIANO_CONTI>
+          <ANNO_NUMERO_CRONO>2015</ANNO_NUMERO_CRONO>
+          <POLITICA>Politica</POLITICA>
+          <PROGRAMMA>Programma</PROGRAMMA>
+          <PROGETTO>Progretto</PROGETTO>
+          <DESC_INVESTIMENTO>Descrizione Investimento</DESC_INVESTIMENTO>
+          <TIPO_FIN_1>Tipo Finanziamento 1</TIPO_FIN_1>
+          <TIPO_FIN_2>Tipo Finanziamento 2</TIPO_FIN_2>
+          <TIPO_FIN_3>Tipo Finanziamento 3</TIPO_FIN_3>
+          <DESC_FIN_1>Descrizione Finanziamento 1</DESC_FIN_1>
+          <DESC_FIN_2>Descrizione Finanziamento 2</DESC_FIN_2>
+          <DESC_FIN_3>Descrizione Finanziamento 3</DESC_FIN_3>
+          <IMPORTO_FIN_1>1001</IMPORTO_FIN_1>
+          <IMPORTO_FIN_2>1002</IMPORTO_FIN_2>
+          <IMPORTO_FIN_3>1003</IMPORTO_FIN_3>
+          <CODICE_SOGGETTO>Codice Soggetto</CODICE_SOGGETTO>
+          <DESC_SOGGETTO>Descrizione Soggetto</DESC_SOGGETTO>
+          <SEGNO_IMPORTO>-</SEGNO_IMPORTO>
+          <IMPORTO_CASSA>100</IMPORTO_CASSA>
+          <SEGNO_IMPORTO_CASSA>-</SEGNO_IMPORTO_CASSA>
+          <NUMERO_CRONO>8</NUMERO_CRONO>
+          <NUMERO_SUB_CRONO>9</NUMERO_SUB_CRONO>
+          <DESC_CRONO>Descrizione Crono</DESC_CRONO>
+          <DISP_MANDATI>Disposizione Mandati</DISP_MANDATI>
+        </movimenti>
+      </tipi_movimento>
+    </documentRoot>
+  </testStaticData>
+  <definitions>
+    <!-- DEFINIZIONE PARAMETRI DI INPUT -->
+    <metaDato tipoParametro="input">
+      <nomeSimbolico>id</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>id del visto</descrizione>
+      <path/>
+    </metaDato>
+    <!-- DEFINIZIONE CAMPI DELLA QUERY -->
+    <metaDato>
+      <nomeSimbolico>NUMERO_DETERMINA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Numero della determina</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>DATA_DETERMINA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Data di adozione della determina</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>ANNO_DETERMINA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Anno di adozione della determina</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>NUMERO_PROPOSTA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Numero della proposta di determina</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>ANNO_PROPOSTA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Anno della proposta di determina</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Unità proponente della determina</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>CODICE_UNITA_PROPONENTE</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Codice unità proponente della determina</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>SUDDIVISIONE</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Suddivisione dell'unità proponente della determina</descrizione>
+      <path/>
+    </metaDato>
+      <metaDato>
+          <nomeSimbolico>UNITA_VISTO</nomeSimbolico>
+          <tipo>string</tipo>
+          <descrizione>Denominazione dell'unità del visto</descrizione>
+          <path/>
+      </metaDato>
+      <metaDato>
+          <nomeSimbolico>CODICE_UNITA_VISTO</nomeSimbolico>
+          <tipo>string</tipo>
+          <descrizione>Codice dell'unità destinataria del visto</descrizione>
+          <path/>
+      </metaDato>
+      <metaDato>
+          <nomeSimbolico>SUDDIVISIONE_VISTO</nomeSimbolico>
+          <tipo>string</tipo>
+          <descrizione>Suddivisione dell'unità del visto</descrizione>
+          <path/>
+      </metaDato>
+      <metaDato>
+      <nomeSimbolico>OGGETTO_DETERMINA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Oggetto della determina</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>ESITO_VISTO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Esito del visto: valori possibili "favorevole", "contrario", "non apposto".
+        Se l'esito non    stato assegnato la variabile viene riproposta per essere calcolata in un secondo tempo</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>ESITO_VISTO_DEFINITIVO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Esito del visto: valori possibili "favorevole", "contrario", "non apposto".
+          Se il visto non è in firma la variabile viene riproposta per essere calcolata in un secondo tempo</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>NOTE_CONTABILI</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Note contabili della determina</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>NOTE_VISTO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Note del visto</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>DATA_STAMPA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Data creazione stampa</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>DATA_FIRMA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Data di firma del visto</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>FIRMATARIO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Firmatario del visto</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>DESCRIZIONE_FIRMATARIO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Indica se il firmatario è un dirigente</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>DELEGANTE</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Indica se il firmatario è stato delegato</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>ASCENDENTI_UNITA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Ascendenti unità visto</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>AREA_PROPONENTE</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Area dell'unita' proponente della determina</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>SERVIZIO_PROPONENTE</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Servizio dell'unita' proponente della determina</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>CIG</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Codice Identificativo Gara</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>TIPOLOGIA_PROPOSTA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Tipologia della proposta di determinazione</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>TIPOLOGIA_VISTO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Tipologia del visto</descrizione>
+      <path/>
+    </metaDato>
+
+    <!--  campi movimenti modena -->
+    <metaDato>
+      <!-- questo campo è necessario solo per fare la sub-query sui movimenti. -->
+      <nomeSimbolico>ID_DOCUMENTO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>ID del documento principale</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>CODICE_TIPO_MOVIMENTO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Codice Tipo Movimento</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>TIPO_MOVIMENTO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Descrizione Tipo Movimento</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>ANNO_VARIAZIONE</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Anno di esercizio della Variazione di Bilancio</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>NUMERO_VARIAZIONE</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Numero della Variazione di Bilancio</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>CODICE_VARIAZIONE_BILANCIO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Codice del Tipo Variazione di Bilancio</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>TIPO_VARIAZIONE_BILANCIO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Descrizione Tipo Variazione di Bilancio</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>TOTALE_IMPORTO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Totale Importi SCP</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>TOTALE_DISP_MANDATI</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Totale Disp. Mandati SCP</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>TOTALE_INCENTIVI</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Totale Incentivi</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>FONDO_INNOVAZIONE</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Totale Fondo Innovazione</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>TOTALE_QUADRO_ECONOMICO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Totale Quadro Economico</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>CON_CRONO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>'SI' se il dettaglio SCP ha anche un dettaglio COP</descrizione>
+      <path />
+    </metaDato>
+
+    <!-- campi MOVIMENTI_CONTABILI -->
+    <metaDato>
+      <nomeSimbolico>N_RIGA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Numero della Riga</descrizione>
+      <path/>
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>ANNO_ESERCIZIO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Anno di Esercizio</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>E_U</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Entrata / Uscita</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>CAP_ART</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Capitolo / Articolo</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>DESC_CAPITOLO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Descrizione Capitolo</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>MISSIONE_PROGRAMMA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Missione / Programma</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>TIPO_PRENOTAZIONE</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Prenotazione / Impegno / Accertamento</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>ANNO_COMPETENZA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Anno di Competenza</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>NUMERO_DET_SUB</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Numero Determina / Sub</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>IMPORTO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Importo</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>PIANO_CONTI</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Piano dei Conti</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>ANNO_NUMERO_CRONO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Anno / Numero Crono</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>POLITICA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Politica</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>PROGRAMMA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Programma</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>PROGETTO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Progetto</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>DESC_INVESTIMENTO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Descrizione Investimento</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>TIPO_FIN_1</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Tipo Finanziamento 1</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>TIPO_FIN_2</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Tipo Finanziamento 2</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>TIPO_FIN_3</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Tipo Finanziamento 3</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>DESC_FIN_1</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Descrizione Finanziamento 1</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>DESC_FIN_2</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Descrizione Finanziamento 2</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>DESC_FIN_3</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Descrizione Finanziamento 3</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>IMPORTO_FIN_1</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Importo Finanziamento 1</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>IMPORTO_FIN_2</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Importo Finanziamento 2</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>IMPORTO_FIN_3</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Importo Finanziamento 3</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>CODICE_SOGGETTO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Codice Soggetto</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>DESC_SOGGETTO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Descrizione Soggetto</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>SEGNO_IMPORTO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Segno dell'Importo</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>IMPORTO_CASSA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Importo di Cassa</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>SEGNO_IMPORTO_CASSA</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Segno dell'Importo di Cassa</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>NUMERO_CRONO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Numero Crono</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>NUMERO_SUB_CRONO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Numero Sub Crono</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>DESC_CRONO</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Descrizione Crono</descrizione>
+      <path />
+    </metaDato>
+    <metaDato>
+      <nomeSimbolico>DISP_MANDATI</nomeSimbolico>
+      <tipo>string</tipo>
+      <descrizione>Disposizione Mandati</descrizione>
+      <path />
+    </metaDato>
+  </definitions>
+  <queryes>
+    <query id='visto'
+           help_query_alias="v"
+           help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, AREA_PROPONENTE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_FIRMA, DATA_STAMPA, ESITO_VISTO, ESITO_VISTO_DEFINITIVO, FIRMATARIO, NOTE_CONTABILI, NOTE_VISTO, NUMERO_DETERMINA, NUMERO_PROPOSTA, OGGETTO_DETERMINA, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, ASCENDENTI_UNITA, CIG, DESCRIZIONE_FIRMATARIO, TIPOLOGIA_PROPOSTA, TIPOLOGIA_VISTO, DELEGANTE, CODICE_UNITA_VISTO, SUDDIVISIONE_VISTO, UNITA_VISTO">
+      select decode(d.numero_determina, null, '${documentRoot.visto.NUMERO_DETERMINA}', d.numero_determina) NUMERO_DETERMINA
+      ,  decode(d.numero_determina, null, '${documentRoot.visto.DATA_DETERMINA}', to_char (d.data_numero_determina, 'dd/mm/yyyy')) DATA_DETERMINA
+      ,  decode(d.numero_determina, null, '${documentRoot.visto.ANNO_DETERMINA}', d.anno_determina) ANNO_DETERMINA
+      ,  d.numero_proposta NUMERO_PROPOSTA
+      ,  d.anno_proposta ANNO_PROPOSTA
+      ,  so4_suddivisioni.descrizione SUDDIVISIONE
+      ,  so4_unita.descrizione UNITA_PROPONENTE
+      ,  so4_unita.codice CODICE_UNITA_PROPONENTE
+      ,  d.oggetto OGGETTO_DETERMINA
+      ,  utility_pkg.get_uo_descrizione (vp.unita_progr, vp.unita_dal) UNITA_VISTO
+      ,  utility_pkg.get_codice_unita (vp.unita_progr, vp.unita_dal) CODICE_UNITA_VISTO
+      ,  utility_pkg.get_suddivisione_vistoparere (vp.id_visto_parere) SUDDIVISIONE_VISTO
+      ,  d.note_contabili NOTE_CONTABILI
+      ,  decode(vp.esito, 'DA_VALUTARE', '${documentRoot.visto.ESITO_VISTO}', replace(vp.esito,'_',' ')) ESITO_VISTO
+ 	  ,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.ESITO_VISTO_DEFINITIVO}', replace(vp.esito,'_',' ')) ESITO_VISTO_DEFINITIVO
+      ,  vp.note NOTE_VISTO
+      ,  nvl(to_char(f.data_firma, 'dd/mm/yyyy'), '${documentRoot.visto.DATA_FIRMA}') DATA_FIRMA
+      ,  to_char(sysdate,'dd/mm/yyyy') DATA_STAMPA
+      ,  nvl(as4_firmatario.denominazione, '${documentRoot.visto.FIRMATARIO}') FIRMATARIO
+      ,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), d.ente)) DESCRIZIONE_FIRMATARIO
+      ,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, d.ente)) DELEGANTE
+      ,  utility_pkg.get_desc_ascendenti_unita(so4_unita_visto.codice, null, impostazioni_pkg.get_impostazione('OTTICA_SO4', d.ente), null) ASCENDENTI_UNITA
+      ,  utility_pkg.get_suddivisione_descrizione (ds_uoprop.unita_progr
+      ,  ds_uoprop.unita_dal
+      ,  'SO4_SUDDIVISIONE_AREA'
+      ,  d.ente) AREA_PROPONENTE
+      ,  utility_pkg.get_suddivisione_descrizione (ds_uoprop.unita_progr
+      ,  ds_uoprop.unita_dal
+      ,  'SO4_SUDDIVISIONE_SERVIZIO'
+      ,  d.ente) SERVIZIO_PROPONENTE
+      ,  d.cig CIG
+      ,  td.titolo TIPOLOGIA_PROPOSTA
+      ,  tvp.titolo TIPOLOGIA_VISTO
+      from determine_soggetti ds_uoprop
+      ,  determine d
+      ,  visti_pareri vp
+      ,  so4_v_unita_organizzative_pubb so4_unita
+      ,  as4_v_soggetti_correnti as4_firmatario
+      ,  so4_v_suddivisioni_struttura so4_suddivisioni
+      ,  so4_v_unita_organizzative_pubb so4_unita_visto
+      ,  firmatari f
+      ,  tipi_determina td
+      ,  tipi_visto_parere tvp
+      where vp.id_visto_parere = #id
+      and vp.id_determina = d.id_determina
+      and ds_uoprop.id_determina = d.id_determina
+      and d.id_tipo_determina = td.id_tipo_determina
+      and vp.id_tipologia = tvp.id_tipo_visto_parere
+      and f.id_visto_parere(+) = vp.id_visto_parere
+      and f.data_firma(+) is not null
+      and f.firmato(+) = 'N'
+      and ds_uoprop.tipo_soggetto = 'UO_PROPONENTE'
+      and ds_uoprop.unita_dal       = so4_unita.dal
+      and ds_uoprop.unita_ottica    = so4_unita.ottica
+      and ds_uoprop.unita_progr     = so4_unita.progr
+      and f.utente_firmatario       = as4_firmatario.utente(+)
+      and so4_unita.id_suddivisione = so4_suddivisioni.id_suddivisione
+      and vp.unita_dal      = so4_unita_visto.dal
+      and vp.unita_ottica   = so4_unita_visto.ottica
+      and vp.unita_progr    = so4_unita_visto.progr
+    </query>
+
+    <query id="tipi_movimento" child="movimenti" help_query_alias="tm" help_field_aliases="ID_DOCUMENTO, CODICE_TIPO_MOVIMENTO, TIPO_MOVIMENTO, ANNO_VARIAZIONE, NUMERO_VARIAZIONE, CODICE_VARIAZIONE_BILANCIO, TIPO_VARIAZIONE_BILANCIO, TOTALE_IMPORTO, TOTALE_DISP_MANDATI, TOTALE_INCENTIVI, FONDO_INNOVAZIONE, TOTALE_QUADRO_ECONOMICO, CON_CRONO">
+      select ID_DOCUMENTO, CODICE_TIPO_MOVIMENTO, decode(r_num, 1, TIPO_MOVIMENTO, '') TIPO_MOVIMENTO, ANNO_VARIAZIONE, NUMERO_VARIAZIONE, CODICE_VARIAZIONE_BILANCIO, TIPO_VARIAZIONE_BILANCIO
+      , trim(TO_CHAR(TOTALE_IMPORTO,       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) TOTALE_IMPORTO
+      , trim(TO_CHAR(TOTALE_DISP_MANDATI,  '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) TOTALE_DISP_MANDATI
+      , trim(TO_CHAR(SOMMA_INCENTIVI,     '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) TOTALE_INCENTIVI
+      , trim(TO_CHAR(FONDO_INNOVAZIONE,   '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) FONDO_INNOVAZIONE
+      , trim(TO_CHAR((TOTALE_IMPORTO + SOMMA_INCENTIVI + FONDO_INNOVAZIONE), '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) TOTALE_QUADRO_ECONOMICO
+      , decode(CON_CRONO, 0, 'NO', 'SI') CON_CRONO
+      from (
+      select mc.id_documento ID_DOCUMENTO
+      , 1 r_num
+      , mc.gruppo_tipo_dettaglio CODICE_TIPO_MOVIMENTO
+      , case mc.gruppo_tipo_dettaglio
+      when 'IPG,SIP' then 'Impegno'
+      when 'ACC,SAC' then 'Accertamento'
+      when 'VIP,VSI' then 'Variazione di Impegno'
+      when 'VAC,VSA' then 'Variazione di Accertamento'
+      when 'VCU,VCE,VOU,VOE' then 'Variazione di Bilancio'
+      when 'SCP'     then 'Sub Crono'
+      when 'COP'     then 'Crono'
+      end as TIPO_MOVIMENTO
+      , case mc.gruppo_tipo_dettaglio
+      when 'ACC,SAC' then 1
+      when 'IPG,SIP' then 2
+      when 'VIP,VSI' then 4
+      when 'VAC,VSA' then 3
+      when 'COP'     then 6
+      when 'SCP'     then 7
+      end as SEQUENZA
+      , 0 anno_variazione
+      , 0 numero_variazione
+      , '' CODICE_VARIAZIONE_BILANCIO
+      , '' tipo_variazione_bilancio
+      , sum(mc.importo)  TOTALE_IMPORTO
+      , sum(MC.DISPOSIZIONE_MANDATI) TOTALE_DISP_MANDATI
+      , (select sum(crono.importo) from movimenti_contabili crono where crono.id_documento = mc.id_documento and tipo_dettaglio = 'COP') -
+      (select sum(sub.importo) from movimenti_contabili sub where sub.id_documento = mc.id_documento and tipo_dettaglio = 'SCP') SOMMA_INCENTIVI
+      , (select sum(ipg.importo) from movimenti_contabili ipg where ipg.id_documento = mc.id_documento and tipo_dettaglio = 'IPG' and numero_crono = 0) FONDO_INNOVAZIONE
+      , (select count(crono_sub.tipo_dettaglio) from movimenti_contabili crono_sub where crono_sub.id_documento = mc.id_documento and crono_sub.tipo_dettaglio = 'COP') CON_CRONO
+      from (select case mc.tipo_dettaglio
+      when 'ACC' then 'ACC,SAC'
+      when 'SAC' then 'ACC,SAC'
+      when 'IPG' then 'IPG,SIP'
+      when 'SIP' then 'IPG,SIP'
+      when 'VAC' then 'VAC,VSA'
+      when 'VSA' then 'VAC,VSA'
+      when 'VIP' then 'VIP,VSI'
+      when 'VSI' then 'VIP,VSI'
+      when 'VCU' then 'VCU,VCE,VOU,VOE'
+      when 'VCE' then 'VCU,VCE,VOU,VOE'
+      when 'VOU' then 'VCU,VCE,VOU,VOE'
+      when 'VOE' then 'VCU,VCE,VOU,VOE'
+      when 'SCP' then 'SCP'
+      when 'COP' then 'COP'
+      end gruppo_tipo_dettaglio, mc.* from movimenti_contabili mc) mc, visti_pareri v
+      where mc.id_documento      = nvl(v.id_determina, nvl(v.id_delibera, v.id_proposta_delibera))
+      and mc.tipo_dettaglio not in ('VCU', 'VCE', 'VOU', 'VOE')
+      and v.id_visto_parere = #id
+      group by mc.gruppo_tipo_dettaglio, mc.id_documento
+      union all
+      select mc.id_documento id_documento
+      , row_number() OVER (ORDER BY  mc.anno_esercizio, mc.numero_variazione, mc.tipo_variazione_di_bilancio, mc.id_documento) r_num
+      , 'VCU,VCE,VOU,VOE' as codice_tipo_movimento
+      , 'Variazione di Bilancio' as tipo_movimento
+      , 5 as sequenza
+      , mc.anno_esercizio anno_variazione
+      , mc.numero_variazione
+      , mc.tipo_variazione_di_bilancio as CODICE_VARIAZIONE_BILANCIO
+      , case MC.TIPO_VARIAZIONE_DI_BILANCIO
+      when 'CON' then 'CONSIGLIO'
+      when 'DIB' then 'DIRIGENTE BILANCIO'
+      when 'DIR' then 'DIRIGENTE'
+      when 'GIS' then 'GIUNTA STIPENDI'
+      when 'GIU' then 'GIUNTA'
+      when 'PEG' then 'VOCE DI P.E.G.'
+      when 'RAT' then 'RATIFICA'
+      else '' end                 TIPO_VARIAZIONE_BILANCIO
+      , 0 TOTALE_IMPORTO
+      , 0 TOTALE_DISP_MANDATI
+      , 0 SOMMA_INCENTIVI
+      , 0 FONDO_INNOVAZIONE
+      , 0 CON_CRONO
+      from movimenti_contabili mc, visti_pareri v
+      where mc.id_documento      = nvl(v.id_determina, nvl(v.id_delibera, v.id_proposta_delibera))
+      and mc.tipo_dettaglio in ('VCU', 'VCE', 'VOU', 'VOE')
+      and v.id_visto_parere = #id
+      group by mc.anno_esercizio, mc.numero_variazione, mc.tipo_variazione_di_bilancio, mc.id_documento
+      ) order by sequenza asc, r_num asc
+    </query>
+    <query id="movimenti"
+           help_query_alias="m"
+           help_field_aliases="N_RIGA, ANNO_ESERCIZIO, E_U, CAP_ART, DESC_CAPITOLO, MISSIONE_PROGRAMMA, TIPO_PRENOTAZIONE, ANNO_COMPETENZA, NUMERO_DET_SUB, IMPORTO, PIANO_CONTI, ANNO_NUMERO_CRONO, POLITICA, PROGRAMMA, PROGETTO, DESC_INVESTIMENTO, TIPO_FIN_1, TIPO_FIN_2, TIPO_FIN_3, DESC_FIN_1, DESC_FIN_2, DESC_FIN_3, IMPORTO_FIN_1, IMPORTO_FIN_2, IMPORTO_FIN_3, CODICE_SOGGETTO, DESC_SOGGETTO, SEGNO_IMPORTO, IMPORTO_CASSA, SEGNO_IMPORTO_CASSA, NUMERO_CRONO, NUMERO_SUB_CRONO, DESC_CRONO, DISP_MANDATI">
+      select rownum                                   N_RIGA, t.* from (select
+      mc.anno_esercizio                        ANNO_ESERCIZIO
+      , mc.tipo                                  E_U
+      , mc.capitolo||'/'||nvl(mc.articolo, 0)    CAP_ART
+      , mc.descrizione_capitolo                  DESC_CAPITOLO
+      , mc.missione||'/'||mc.programma           MISSIONE_PROGRAMMA
+      , case
+      when mc.tipo_dettaglio in ('IPG', 'SIP', 'VIP', 'VSI') then
+      decode(nvl(trim(mc.prenotazione), 'N'), 'N', 'Impegno', 'Prenotazione')
+      when mc.tipo_dettaglio in  ('ACC', 'SAC', 'VAC', 'VSA') then
+      decode(nvl(trim(mc.prenotazione), 'N'), 'N', 'Accertamento', 'Prenotazione')
+      else mc.prenotazione
+      end as                                                                                       TIPO_PRENOTAZIONE
+      , mc.anno_competenza                                                                           ANNO_COMPETENZA
+      , mc.numero_det||'/'||nvl(mc.sub_numero, 0)                                                    NUMERO_DET_SUB
+      , trim(TO_CHAR(abs(mc.importo), '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))   IMPORTO
+      , MC.PDC_LIV_1||'/'||MC.PDC_LIV_2||'/'||MC.PDC_LIV_3||'/'||MC.PDC_LIV_4||'/'||MC.PDC_LIV_5     PIANO_CONTI
+      , decode(MC.ANNO_CRONO, 0, '', MC.ANNO_CRONO||'/'||mc.numero_crono)                              ANNO_NUMERO_CRONO
+      , decode(MC.OPERA, 0, '', MC.OPERA)                                 POLITICA
+      , decode(mc.progetto, 0, '', mc.progetto)                          PROGRAMMA
+      , decode(mc.investimento, 0, '', mc.investimento)                  PROGETTO
+      , mc.descrizione_investimento          DESC_INVESTIMENTO,
+      decode(mc.codice_finanziamento_1, 0, '', mc.codice_finanziamento_1)            TIPO_FIN_1
+      , decode(mc.codice_finanziamento_2, 0, '', mc.codice_finanziamento_2)            TIPO_FIN_2
+      , decode(mc.codice_finanziamento_3, 0, '', mc.codice_finanziamento_3)            TIPO_FIN_3
+      , decode(mc.codice_finanziamento_1, 0, '', mc.descrizione_finanziamento_1)       DESC_FIN_1
+      , decode(mc.codice_finanziamento_2, 0, '', mc.descrizione_finanziamento_2)       DESC_FIN_2
+      , decode(mc.codice_finanziamento_3, 0, '', mc.descrizione_finanziamento_3)       DESC_FIN_3
+      , decode(mc.codice_finanziamento_1, 0, '', trim(TO_CHAR(mc.importo_finanziamento_1, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')))           IMPORTO_FIN_1
+      , decode(mc.codice_finanziamento_2, 0, '', trim(TO_CHAR(mc.importo_finanziamento_2, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')))           IMPORTO_FIN_2
+      , decode(mc.codice_finanziamento_3, 0, '', trim(TO_CHAR(mc.importo_finanziamento_3, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')))           IMPORTO_FIN_3
+      , mc.codice_soggetto                   CODICE_SOGGETTO
+      , mc.descrizione_soggetto              DESC_SOGGETTO
+      , case when mc.importo >= 0 then '+' else '-' end       as SEGNO_IMPORTO
+      , trim(TO_CHAR(abs(mc.importo_cassa), '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) IMPORTO_CASSA
+      , case when mc.importo_cassa >= 0 then '+' else '-' end as SEGNO_IMPORTO_CASSA
+      , mc.numero_det                NUMERO_CRONO
+      , decode(mc.sub_numero, 0, '', mc.sub_numero)                NUMERO_SUB_CRONO
+      , mc.descrizione               DESC_CRONO
+      , trim(TO_CHAR(mc.disposizione_mandati, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))      DISP_MANDATI
+      from movimenti_contabili mc
+      where (mc.tipo_dettaglio not in ('VCU', 'VCE', 'VOU', 'VOE')
+      and instr( @CODICE_TIPO_MOVIMENTO , mc.tipo_dettaglio) > 0
+      and mc.id_documento = @ID_DOCUMENTO )
+      or (mc.tipo_dettaglio in ('VCU', 'VCE', 'VOU', 'VOE')
+      and instr( @CODICE_TIPO_MOVIMENTO , mc.tipo_dettaglio) > 0
+      and mc.id_documento   = @ID_DOCUMENTO
+      and mc.anno_esercizio = @ANNO_VARIAZIONE
+      and mc.numero_variazione = @NUMERO_VARIAZIONE
+      and mc.TIPO_VARIAZIONE_DI_BILANCIO = @CODICE_VARIAZIONE_BILANCIO )
+      order by mc.anno_esercizio, mc.tipo desc, mc.capitolo, mc.articolo) t
+    </query>
+  </queryes>
+  <staticData />
+</documentRoot>

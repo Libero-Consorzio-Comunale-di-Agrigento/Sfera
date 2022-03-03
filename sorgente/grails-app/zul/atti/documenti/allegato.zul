@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer" viewModel="@id('vm') @init('allegatoViewModel')"
+	 	border="normal"	sizable="true" width="760px" height="600px"	title =" ">
+	 	<grid sclass="documentoBandaTitolo">
+	 		<rows>
+	 			<row>
+	 				<cell width="50px">
+	 					<image src="/images/agsde2/48x48/attach.png" />
+	 				</cell>
+	 				<cell>
+	 					<!-- titolo della pagina -->
+	 					<label value="Allegato" sclass="documentoTitolo" />
+	 				</cell>
+	 			</row>
+	 		</rows>
+	 	</grid>
+
+		<space height="3px" />
+		<!-- TIPOLOGIA E POSIZIONE FLUSSO -->
+		<grid sclass="form">
+			<rows>
+				<row>
+					<cell colspan="2" align="right" width="180px">
+						<h:span class="mandatoryLabel">*</h:span><label value="Titolo:" />
+					</cell>
+					<cell colspan="4">
+						<textbox value="@bind(vm.allegato.titolo)" hflex="1" readonly="@load(not vm.competenze.modifica)" constraint="no empty"/>
+					</cell>
+				</row>
+				<row>
+					<cell colspan="2" align="right">
+						<label value="Tipo Allegato:" />
+					</cell>
+					<cell colspan="4">
+						<combobox model="@load(vm.listaTipoAllegato)"  hflex="1"
+       						   selectedItem="@bind(vm.allegato.tipoAllegato) @converter('it.finmatica.zkutils.PropertyConverter', property='id')"
+       						   readonly="@load(not vm.competenze.modifica or vm.allegato.id gt 0)"
+       						   disabled="@load(not vm.competenze.modifica or vm.allegato.id gt 0)"
+							   onSelect="@command('onCambiaTipoAllegato')" onChange="@command('onCambiaTipoAllegato')">
+       							<template name="model" var="tipoAll">
+									<comboitem label="@load(tipoAll.titolo)" value="@load(tipoAll)" />
+								</template>
+     					</combobox>
+					</cell>
+				</row>
+				<row>
+					<cell colspan="2" align="right">
+						<label value="Descrizione:" />
+					</cell>
+					<cell colspan="4">
+						<textbox value="@bind(vm.allegato.descrizione)" multiline="true" rows="3" hflex="1" class="noresizable" readonly="@load(not vm.competenze.modifica)" />
+					</cell>
+				</row>
+				<row>
+					<cell colspan="2" align="right">
+						<label value="Stato Firma:" />
+					</cell>
+					<cell colspan="2">
+						<radiogroup selectedIndex="@load(vm.allegato.statoFirma eq 'IN_FIRMA' ? 3 : (vm.allegato.statoFirma eq 'FIRMATO' ? 2 : (vm.allegato.statoFirma eq 'DA_FIRMARE' ? 1 : 0)))" selectedItem="@save(vm.allegato.statoFirma)">
+				            <radio label="Da Non Firmare" 	value="@load('DA_NON_FIRMARE')" disabled="@load(not vm.competenze.modifica or vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or not vm.modificaCampi)"	/>
+		     				<radio label="Da Firmare" 		value="@load('DA_FIRMARE')" 	disabled="@load(not vm.competenze.modifica or vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or not vm.modificaCampi)" />
+				            <radio label="Firmato"			value="@load('FIRMATO')"		disabled="@load(not vm.competenze.modifica or not vm.modificaCampi or vm.allegato.statoFirma eq 'IN_FIRMA')" visible="@load(vm.allegato.statoFirma eq 'FIRMATO')" />
+							<radio label="In Firma"			value="@load('IN_FIRMA')"		disabled="true" visible="@load(vm.allegato.statoFirma eq 'IN_FIRMA')" />
+			            </radiogroup>
+					</cell>
+					<cell colspan="2" visible="@load(vm.allegato.codice eq 'OMISSIS' or vm.allegato.codice eq 'ALLEGATO_MODIFICABILE' or vm.allegato.codice eq 'SCHEDA_CONTABILE')" style="text-align: right;">
+						<button image="/images/agsde2/16x16/document.png"
+								mold="trendy"
+								label="Testo"
+								onClick="@command('onDownloadTesto')"
+								visible="@load(not empty vm.testo and (not vm.testo.modificabile or vm.allegato.statoFirma eq 'IN_FIRMA' or vm.allegato.statoFirma eq 'FIRMATO' or not vm.competenze.modifica))" />
+					
+						<image  src="@load(vm.testoLockato ? (vm.lockPermanente ? '/images/agsde2/22x22/lock_red.png' : '/images/agsde2/22x22/lock.png') : (vm.lockPermanente ? '/images/agsde2/22x22/unlock_red.png' : '/images/agsde2/22x22/unlock.png'))"
+								visible="@load(vm.allegato.id gt 0 and (empty vm.testo or vm.testo.modificabile) and not(vm.allegato.statoFirma eq 'IN_FIRMA' or vm.allegato.statoFirma eq 'FIRMATO') and vm.competenze.modifica and (empty vm.allegato.tipoAllegato or vm.allegato.tipoAllegato.modificabile))"/>
+					
+						<button image="/images/agsde2/16x16/pencil.png" mold="trendy" autodisable="self"
+								label="Edita testo"
+								onClick="@command('editaTesto')"
+								visible="@load((vm.allegato.codice eq 'OMISSIS' or vm.allegato.codice eq 'ALLEGATO_MODIFICABILE' or vm.allegato.codice eq 'SCHEDA_CONTABILE') and vm.allegato.id gt 0 and (empty vm.testo or vm.testo.modificabile) and (empty vm.allegato.tipoAllegato or vm.allegato.tipoAllegato.modificabile) and not(vm.allegato.statoFirma eq 'IN_FIRMA' or vm.allegato.statoFirma eq 'FIRMATO') and vm.competenze.modifica)"/>
+<!-- Per ora non è possibile eliminare il testo perché viene gestito solo per gli "omissis". 
+						<button image="/images/agsde2/16x16/cancel.png" mold="trendy" label="Elimina testo" disabled="@load(not vm.competenze.modifica or vm.testo.id eq null)"
+								onClick="@command('onEliminaTesto')"
+								visible="@load(vm.allegato.id gt 0 and (empty vm.testo or vm.testo.modificabile) and not(vm.allegato.statoFirma eq 'IN_FIRMA' or vm.allegato.statoFirma eq 'FIRMATO') and vm.competenze.modifica)"/>
+ -->
+					</cell>
+				</row>
+				<row>
+					<cell colspan="2" align="right">
+						<label value="Stampa Unica:" />
+					</cell>
+					<cell colspan="1">
+						<radiogroup selectedIndex="@load(vm.allegato.stampaUnica ? 0 : 1)" selectedItem="@save(vm.allegato.stampaUnica)">
+							<radio label="Sì" value="@load(true)" disabled="@load(not vm.competenze.modifica or not vm.modificaCampi)"/>
+							<radio label="No" value="@load(false)" disabled="@load(not vm.competenze.modifica or not vm.modificaCampi)"/>
+						</radiogroup>
+					</cell>
+					<cell colspan="2" align="right" visible="@load(vm.abilitaRiservato)">
+						<label value="Riservato:" />
+					</cell>
+					<cell colspan="1" visible="@load(vm.abilitaRiservato)">
+						<radiogroup selectedIndex="@load(vm.allegato.riservato ? 0 : 1)" selectedItem="@save(vm.allegato.riservato)">
+							<radio label="Sì" value="@load(true)"  disabled="@load(not vm.riservatoModificabile or not vm.competenze.modifica)"/>
+							<radio label="No" value="@load(false)" disabled="@load(not vm.riservatoModificabile or not vm.competenze.modifica)"/>
+						</radiogroup>
+					</cell>
+				</row>
+				<row>
+					<cell colspan="2" align="right">
+						<label value="Pubblicazione all'Albo" />
+					</cell>
+					<cell colspan="1">
+						<radiogroup selectedIndex="@load(vm.allegato.pubblicaAlbo ? 0 : 1)" selectedItem="@save(vm.allegato.pubblicaAlbo)">
+		     				<radio label="Sì" value="@load(true)"  disabled="@load(not vm.competenze.modifica or not vm.modificaCampi or not vm.abilitaModificaPubblicazione)"/>
+				            <radio label="No" value="@load(false)" disabled="@load(not vm.competenze.modifica or not vm.modificaCampi or not vm.abilitaModificaPubblicazione)"/>
+			            </radiogroup>
+					</cell>
+					<cell colspan="2" align="right">
+						<label value="Pubblicazione in Casa di Vetro:" visible="@load(vm.abilitaCasaDiVetro)"/>
+					</cell>
+					<cell colspan="1" >
+						<radiogroup selectedIndex="@load(vm.allegato.pubblicaCasaDiVetro ? 0 : 1)" selectedItem="@save(vm.allegato.pubblicaCasaDiVetro)" visible="@load(vm.abilitaCasaDiVetro)">
+							<radio label="Sì" value="@load(true)"  disabled="@load(not vm.competenze.modifica or not vm.modificaCampi)"/>
+							<radio label="No" value="@load(false)" disabled="@load(not vm.competenze.modifica or not vm.modificaCampi)"/>
+						</radiogroup>
+					</cell>
+				</row>
+				<row>
+					<cell colspan="2" align="right">
+						<label value="Pubblicazione nel Visualizzatore:" />
+					</cell>
+					<cell colspan="1">
+						<radiogroup selectedIndex="@load(vm.allegato.pubblicaVisualizzatore ? 0 : 1)" selectedItem="@save(vm.allegato.pubblicaVisualizzatore)">
+							<radio label="Sì" value="@load(true)" disabled="@load(not vm.competenze.modifica or not vm.modificaCampi)"/>
+							<radio label="No" value="@load(false)" disabled="@load(not vm.competenze.modifica or not vm.modificaCampi)"/>
+						</radiogroup>
+					</cell>
+					<cell colspan="2" align="right">
+					</cell>
+					<cell colspan="1">
+					</cell>
+				</row>
+				<row>
+					<cell align="right">
+						<label value="Quantità:" />
+					</cell>
+					<cell>
+						<textbox value="@bind(vm.allegato.quantita)" hflex="1" readonly="@load(not vm.competenze.modifica)"/>
+					</cell>
+					<cell align="right">
+						<label value="Numero Pagine:" />
+					</cell>
+					<cell>
+						<textbox value="@bind(vm.allegato.numPagine)" hflex="1" readonly="@load(not vm.competenze.modifica)"/>
+					</cell>
+					<cell align="right">
+						<label value="Sequenza:"  />
+					</cell>
+					<cell>
+						<textbox value="@bind(vm.allegato.sequenza)" hflex="1" readonly="@load(not vm.competenze.modifica)"/>
+					</cell>
+				</row>
+				<row>
+					<cell colspan="2" align="right">
+						<label value="Ubicazione:" />
+					</cell>
+					<cell colspan="4">
+						<textbox value="@bind(vm.allegato.ubicazione)" hflex="1" readonly="@load(not vm.competenze.modifica)"/>
+					</cell>
+				</row>
+				<row>
+					<cell colspan="2" align="right">
+						<label value="Origine:" />
+					</cell>
+					<cell colspan="4">
+						<textbox value="@bind(vm.allegato.origine)" hflex="1" readonly="@load(not vm.competenze.modifica)"/>
+					</cell>
+				</row>
+			</rows>
+		</grid>
+
+		<listbox model="@load(vm.fileAllegati)" emptyMessage="Nessun File Allegato" vflex="1">
+	        <listhead>
+	        	<listheader label="Nome File"/>
+				<listheader label="Dimensione" width="15%"/>
+				<listheader label="" width="22px" visible="@load(vm.abilitaConversionePdf)"/>
+	        	<listheader label="" width="130px">
+	        		<div visible="@load(vm.allegato.codice ne 'OMISSIS')">
+		        		<button image="/images/afc/16x16/add.png"
+		        				tooltiptext="Aggiungi un file"
+		        				upload="@load(c:cat(vm.uploadAttributeValue, ',multiple=true,native'))"
+		        				onUpload="@command('onUploadFileAllegato')"
+		        				visible="@load(vm.competenze.modifica and not(vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or vm.allegato.statoFirma eq 'FIRMATO_DA_SBLOCCARE'))"
+		        				disabled="@load(not vm.competenze.modifica)"
+		        				mold="trendy">
+		        		</button>
+		        		<button image="/images/afc/16x16/scanner.png"
+		        				tooltiptext="Apri finestra per la scansione"
+		        				visible="@load(vm.competenze.modifica and not(vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or vm.allegato.statoFirma eq 'FIRMATO_DA_SBLOCCARE'))"
+		        				disabled="@load(not vm.competenze.modifica)"
+		        				onClick="@command('onApriPopupScansione')"
+		        				mold="trendy" />
+		        		<button image="/images/afc/16x16/search.png"
+		        				tooltiptext="Apri finestra per la ricerca dei documenti"
+		        				visible="@load(vm.abilitaCercaDocumenti and vm.competenze.modifica and not(vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or vm.allegato.statoFirma eq 'FIRMATO_DA_SBLOCCARE'))"
+		        				disabled="@load(not vm.competenze.modifica)"
+		        				onClick="@command('onApriPopupRicercaDocumenti')"
+		        				mold="trendy" />
+	        	  </div>
+	        	</listheader>
+	        </listhead>
+	       	<template name="model" var="a">
+	        	<listitem>
+	        		<listcell tooltip="Scarica File">
+						<a onClick="@command('onDownloadFileAllegato', fileAllegato=a)" style="color: #000000" label="@load(a.nome)"/>
+					</listcell>
+	        		<listcell label="@load(a.dimensioneMB)" onDoubleClick="@command('onDownloadFileAllegato', fileAllegato=a)" tooltip="Scarica File" />
+					<listcell style="text-align: right" visible="@load(vm.abilitaConversionePdf)">
+						<image src="/images/agsde2/16x16/pdf.png" tooltiptext="Anteprima PDF" onClick="@command('onDownloadPdfFileAllegato', fileAllegato=a)" visible="@load(vm.competenze.modifica and a.isConvertibilePdf() and vm.allegato.statoFirma eq 'DA_FIRMARE')"/>
+					</listcell>
+					<listcell style="text-align: right">
+						<image src="/images/agsde2/16x16/trash.png" onClick="@command('onEliminaFileAllegato', fileAllegato=a)" visible="@load(vm.competenze.modifica and (vm.allegato.codice eq 'ALLEGATO_COPIA_TESTO' or (vm.allegato.codice ne 'OMISSIS' and vm.allegato.codice ne 'OMISSIS' and not(vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or vm.allegato.statoFirma eq 'FIRMATO_DA_SBLOCCARE'))))"/>
+					</listcell>
+	       		</listitem>
+	       	</template>
+        </listbox>
+
+		<!-- - - - - - - - - - - - - - - -->
+		<!-- Pulsanti -->
+		<!-- - - - - - - - - - - - - - - -->
+		<h:div class="pulsantiIter">
+			<button label="Chiudi" onClick="@command('onChiudi')" mold="trendy"
+				image="/images/afc/16x16/close.png" />
+			<button label="Salva e chiudi" onClick="@command('onSalvaChiudi')" mold="trendy"
+				image="/images/afc/16x16/save.png"
+				visible="@load(vm.competenze.modifica)"
+        		disabled="@load(not vm.competenze.modifica)"/>
+			<button label="Salva" onClick="@command('onSalva')" mold="trendy"
+				image="/images/afc/16x16/save.png"
+				visible="@load(vm.competenze.modifica)"
+	        		disabled="@load(not vm.competenze.modifica)"/>
+		</h:div>
+	</window>
+
+</zk>

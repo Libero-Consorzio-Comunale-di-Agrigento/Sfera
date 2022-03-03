@@ -1,0 +1,67 @@
+--liquibase formatted sql
+--changeset rdestasio:install_20200221_defaults_01
+
+-- SENZA integrazione CF4:
+CREATE OR REPLACE FORCE VIEW cf4_vista_prop_del
+(
+   TIPO,
+   CODICE_TIPO,
+   E_S,
+   UNITA_PROP,
+   NUMERO_PROP,
+   ANNO_PROP,
+   SEDE_DEL,
+   NUMERO_DEL,
+   ANNO_DEL,
+   RIF_BIL_PEG,
+   ANNO,
+   NUMERO,
+   DESCRIZIONE,
+   IMPORTO,
+   CODICE_BENEFICIARIO,
+   RAGIONE_SOCIALE,
+   DATA,
+   COD_LIVELLO_5,
+   CODICE_SIOPE,
+   COD_TRANSAZIONE_ELEMENTARE,
+   CODICE_FISCALE_PARTITA_IVA,
+   NUMERO_IMP,
+   ANNO_IMP,
+   DESCR_VOCE_PEG,
+   FAT_DATA_SCADENZA,
+   IMP_ANNO_DEL,
+   IMP_NUMERO_DEL,
+   IMP_SEDE_DEL,
+   IMP_ID_PROPOSTA,
+   IMP_ANNO_PROPOSTA,
+   IMP_UNITA_PROPONENTE,
+   IMP_NUMERO_PROPOSTA,
+   IMPORTO_ATTUALE
+)
+AS
+   SELECT NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL,
+          NULL
+     FROM DUAL
+/

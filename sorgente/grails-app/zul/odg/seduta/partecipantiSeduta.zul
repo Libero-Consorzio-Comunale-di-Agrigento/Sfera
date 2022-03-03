@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer" vflex="1"
+		viewModel="@id('vm') @init('odgPartecipantiSedutaViewModel')">
+		<hlayout hflex="1" vflex="1">
+			<vlayout hflex="1" vflex="1">
+				<hlayout hflex="1" style="vertical-align:bottom">
+					<div align="left" style="display: inline">
+						<button mold="trendy" image="/images/agsde2/16x16/viewok.png" label="Seleziona Tutti Presenti" onClick="@command('onSelezionaTuttiPresenti')" disabled="@load(not empty vm.seduta.secondaSeduta)"/>
+						<label value=" Numero presenti: " style="color: green; margin-left: 20px;" /><label value="@load(vm.numeroPresenti)" style="color: green; font-weight: bold;" />
+						<label value=" Numero assenti: " style="color: red; margin-left: 20px;" /><label value="@load(vm.numeroAssenti)" style="color: red; font-weight: bold;" />
+					</div>
+	 				<space hflex="1" />
+					<div style="text-align: right">
+						<button mold="trendy" image="/images/agsde2/16x16/calendar_year.png" label="Seconda Convocazione" visible="@load(vm.creaSecondaConvocazione)"
+							disabled="@load(not vm.abilitaCreaSecondaConvocazione)" onClick="@command('onCreaSecondaSeduta')" />
+					</div>
+				</hlayout>
+
+				<label sclass="msgErrore" value="@bind(vm.lbRuoliObbligatori)" />
+
+				<listbox id="listaPartecipanti" model="@load(vm.listaPartecipanti)" vflex="1"
+				    selectedItem="@bind(vm.selectedPartecipante)"
+					emptyMessage="Nessun dato trovato">
+					<listhead>
+						<listheader label="" width="5%" />
+						<listheader label="Cognome Nome" width="@load(vm.mostraAssentiNonGiustificati ? '15%' : '30%')" />
+						<listheader label="Ruolo" 	     width="10%" />
+						<listheader label="Incarico" 	 width="15%" />
+						<listheader label="Firma"		 width="5%" style="text-align: center" />
+						<listheader label="" 			 width="0" /><!-- ATTENZIONE: Questa colonna è uno sporco trucco per far funzionare bene l'allineamento con i radiobutton -->
+						<listheader label="Presenti" 	 width="15%" style="text-align: center" />
+						<listheader label="Assenti"  	 width="15%" style="text-align: center" />
+						<listheader width="15%" style="text-align: center" visible="@load(vm.mostraAssentiNonGiustificati)">
+							<label value="Assenti non giustificati" />
+						</listheader>
+						<listheader label="" 			 width="5%" style="text-align:center;">
+							<image style="cursor: pointer;" tooltiptext="Aggiungi un partecipante"
+								src="/images/afc/16x16/add.png" onClick="@command('onCreaPartecipante')"
+								visible="@bind(vm.seduta.secondaSeduta eq null)"></image>
+						</listheader>
+					</listhead>
+					<template name="model" var="partecipante">
+						<listitem>
+							<listcell style="text-align:center;">
+								<image src="/images/agsde2/22x22/annotate.png" onClick="@command('onModificaPartecipante', partecipante=partecipante)" />
+							</listcell>
+							<listcell label="@load(not empty partecipante.commissioneComponente ? partecipante.commissioneComponente.componente.denominazione : partecipante.componenteEsterno.denominazione )" />
+							<listcell label="@load(partecipante.ruoloPartecipante.descrizione)" />
+							<listcell label="@load(not empty partecipante.incarico ? partecipante.incarico.titolo : partecipante.commissioneComponente.incarico.titolo )" />
+							<listcell style="text-align: center">
+								<label style="float:left;" visible="@load(partecipante.firmatario)" value="@load(c:cat(partecipante.sequenzaFirma,'°'))" />
+								<image style="float:right;" src="@load(partecipante.firmatario ? '/images/afc/16x16/legitimate.png' : '')" />
+							</listcell>
+							<listcell style="text-align:center;">
+								<!-- ATTENZIONE: questo completa lo sporco trucco per avere i radiogroup e radiobutton nella listbox. -->
+								<radiogroup onCheck="@command('onSettaPresenza', valore=self.selectedItem.value, partecipante=partecipante)">
+									<cell>
+										<div style="text-align:center;">
+											<radio value="Presenti" selected="@load(partecipante.presente eq true)" />
+										</div>
+									</cell>
+									<cell visible="@load(vm.mostraAssentiNonGiustificati)">
+										<div style="text-align:center;">
+											<radio value="Assenti" selected="@load(partecipante.presente eq false and partecipante.assenteNonGiustificato eq false)" />
+										</div>
+									</cell>
+									<div visible="@load(vm.mostraAssentiNonGiustificati)">
+										<cell>
+											<div style="text-align:center;">
+												<radio value="Assenti Non Giustificati" selected="@load(partecipante.assenteNonGiustificato eq true and partecipante.presente eq false)" />
+											</div>
+										</cell>
+									</div>
+								</radiogroup>
+							</listcell>
+							<listcell style="text-align:center;">
+								<image src="/images/agsde2/16x16/trash.png" onClick="@command('onEliminaPartecipante', partecipante=partecipante)" visible="@load(not partecipante.convocato)" />
+							</listcell>
+						</listitem>
+					</template>
+				</listbox>
+			</vlayout>
+
+			<!-- lato di destra: pulsanti per riordinare i convocati. -->
+			<vbox  pack="middle" align="center" vflex="1">
+				<button image="/images/afc/22x22/up_blu.png"   onClick="@command('onSuSequenza', listaPartecipanti=listaPartecipanti)"
+						orient="vertical" disabled="@load(empty vm.selectedPartecipante or listaPartecipanti.getSelectedIndex() eq 0)"/>
+				<button image="/images/afc/22x22/down_blu.png" onClick="@command('onGiuSequenza', listaPartecipanti=listaPartecipanti)"
+						orient="vertical" disabled="@load(empty vm.selectedPartecipante or listaPartecipanti.getSelectedIndex() eq vm.listaPartecipanti.size() -1)"/>
+			</vbox>
+		</hlayout>
+	</window>
+</zk>

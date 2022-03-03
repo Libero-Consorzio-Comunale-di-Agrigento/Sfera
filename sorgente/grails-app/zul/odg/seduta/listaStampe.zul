@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <listbox apply="grailsBindComposer" viewModel="@id('vm') @init('sedutaStampaListaViewModel')" model="@load(vm.listaStampe)" emptyMessage="@load(vm.messaggioListaVuota)" vflex="1">
+        <listhead>
+            <listheader label="Titolo" />
+            <listheader label="Dati di Protocollazione" />
+            <listheader label="Collegamenti"/>
+            <listheader width="30px">
+                <image src="/images/afc/22x22/add.png" onClick="@command('onApriStampa', stampa=null)" style="cursor:pointer;" visible="@load(vm.nuovaStampaAbilitato)" />
+            </listheader>
+        </listhead>
+        <template name="model" var="stampa">
+            <listitem onDoubleClick="@command('onApriStampa', stampa=stampa)">
+                <listcell label="@load(stampa.commissioneStampa.titolo)" />
+                <listcell label="@load(stampa.datiProtocollazione)" />
+                <listcell>
+                    <!-- TODO: potrebbe aprire l'ultima pec inviata? -->
+                    <!--image visible="@load(not empty stampa.riferimentoPec)" src="/images/agsde2/16x16/doc_send.png" tooltip="Apre la ricevuta dell'invio PEC" onClick="@command('apriRicevutaPec', sedutaStampa=stampa)"/-->
+                    <image visible="@load(stampa.idDocumentoLettera gt 0)"  src="/images/agsde2/16x16/doc_send.png" tooltip="Apre la lettera su AGSPR" onClick="@command('apriDocumentoLettera', sedutaStampa=stampa)"/>
+                </listcell>
+                <listcell>
+                    <image src="/images/agsde2/16x16/trash.png" style="cursor:pointer;" onClick="@command('onEliminaStampa', stampa=stampa)" visible="@load((not (stampa.numeroProtocollo gt 0)) and stampa.statoFirma ne 'FIRMATO' and stampa.statoFirma ne 'IN_FIRMA' and stampa.statoFirma ne 'FIRMATO_DA_SBLOCCARE')"/>
+                </listcell>
+            </listitem>
+        </template>
+    </listbox>
+</zk>

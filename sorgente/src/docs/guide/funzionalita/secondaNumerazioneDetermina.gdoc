@@ -1,0 +1,32 @@
+Deve essere possibile dare un secondo numero alle determine. Tale numero deve essere ricercabile.
+La funzionalità è stata richiesta inizialmente dal SIAR: [Issue su Redmine|http://svi-redmine/issues/22205].
+
+h3. Configurazione
+
+È possibile abilitare / disabilitare la funzionalità tramite l'impostazione: @SECONDO_NUMERO_DETERMINA@. Se la funzionalità viene disabilitata allora i campi relativi alla doppia numerazione non saranno visibili.
+È possibile configurare le etichette:
+
+* @feature.secondaNumerazione.registro@
+* @feature.secondaNumerazione.anno@
+* @feature.secondaNumerazione.numero@
+
+Una volta attivata la funzionalità, è necessario creare un nuovo Registro di numerazione ed associarlo in tipologia, infine, è necessario inserire l'azione per la seconda numerazione nel punto desiderato del flusso.
+
+h3. Dettagli implementativi
+
+h4. Database
+
+Sono state aggiunte le colonne @numero_determina_2@, @anno_determina_2@, @registro_determina_2@, @data_numero_determina_2@ sulla tabella @determine@.
+In tutte le viste di ricerca (@ricerca_determine@, @ricerca_visti@, etc...) sono stati aggiunti i campi: @numero_atto_2@, @anno_atto_2@, @data_numero_atto_2@. Tali campi saranno valorizzati solo per le determine ed i relativi documenti collegati. Per gli altri documenti saranno invece sempre @null@.
+
+h4. Modelli di Testo
+
+Nel modello di testo @DETERMINA.XML@ sono stati aggiunti i relativi campi per la stampa unione: @NUMERO_DETERMINA_2@, @ANNO_DETERMINA_2@, @REGISTRO_DETERMINA_2@
+
+h4. Azioni per il ConfiguratoreIter
+
+Sono state aggiunte varie azioni per l'uso nel ConfiguratoreIter:
+
+* @determinaAction.numeraDetermina2@
+* @determinaCondizioniAction.isDeterminaNumerata2@
+* @determinaCondizioniAction.isNotDeterminaNumerata2@

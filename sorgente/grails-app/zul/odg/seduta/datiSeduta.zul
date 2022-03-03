@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer" viewModel="@id('vm') @init('odgDatiSedutaViewModel')" maximizable="true" maximized="true">
+        <vlayout vflex="1">
+        <grid sclass="form" vflex="3">
+            <rows>
+                <row>
+                    <cell align="right" width="150px">
+                        <h:span class="mandatoryLabel">*</h:span>
+                        <label value="Commissione"/>
+                    </cell>
+                    <cell>
+                        <combobox mold="rounded" hflex="1"
+                                  selectedItem="@bind(vm.seduta.commissione) @converter('it.finmatica.zkutils.PropertyConverter', property='id')"
+                                  onChange="@command('onChangeCommissione', commissione=self.selectedItem.value)"
+                                  model="@load(vm.listaCommissione)" width="30%" disabled="@load(vm.seduta.id > 0)">
+                            <template name="model">
+                                <comboitem label="@load(each.titolo)" value="@load(each)"/>
+                            </template>
+                        </combobox>
+                    </cell>
+                    <cell visible="@load(vm.mostraVotoPresidente)" align="right">
+                        <label value="Il presidente ha diritto di voto ?"/>
+                    </cell>
+                    <cell visible="@load(vm.mostraVotoPresidente)">
+                        <radiogroup selectedIndex="@load(vm.seduta.votoPresidente ? 0 : 1)" selectedItem="@save(vm.seduta.votoPresidente)">
+                            <radio label="Sì" value="@load(true)" disabled="@load(vm.seduta.id gt 0)"/>
+                            <radio label="No" value="@load(false)" disabled="@load(vm.seduta.id gt 0)"/>
+                        </radiogroup>
+                    </cell>
+                </row>
+                <row>
+                    <cell colspan="1" align="right">
+                        <h:span class="mandatoryLabel">*</h:span>
+                        <label value="Tipo Seduta"/>
+                    </cell>
+                    <cell colspan="1">
+                        <combobox mold="rounded" hflex="1"
+                                  selectedItem="@bind(vm.seduta.tipoSeduta) @converter('it.finmatica.zkutils.PropertyConverter', property='id')"
+                                  model="@load(vm.listaTipoSeduta)" width="30%">
+                            <template name="model">
+                                <comboitem label="@load(each.titolo)" value="@load(each)"/>
+                            </template>
+                        </combobox>
+                    </cell>
+                </row>
+                <row>
+                    <cell colspan="1" align="right">
+                        <h:span class="mandatoryLabel">*</h:span>
+                        <label value="Seduta Pubblica"/>
+                    </cell>
+                    <cell colspan="1">
+                        <radiogroup selectedIndex="@load(vm.seduta.pubblica ? 0 : 1)" selectedItem="@save(vm.seduta.pubblica)">
+                            <radio label="Sì" value="@load(true)"/>
+                            <radio label="No" value="@load(false)"/>
+                        </radiogroup>
+                    </cell>
+                </row>
+                <row>
+                    <cell align="right">
+                        <h:span class="mandatoryLabel">*</h:span>
+                        <label value="Data Seduta"/>
+                    </cell>
+                    <cell>
+                        <datebox mold="rounded" format="dd/MM/yyyy" lenient="true" value="@bind(vm.seduta.dataSeduta)"
+                                 buttonVisible="@load(vm.modificaDataSeduta)" disabled="@load(not vm.modificaDataSeduta)"/>
+                    </cell>
+                    <cell align="right">
+                        <h:span class="mandatoryLabel">*</h:span>
+                        <label value="Ora Seduta"/>
+                    </cell>
+                    <cell>
+                        <textbox mold="rounded"
+                                 constraint="/^(([0-1]\d|2[0-3]):([0-5]\d))?$/: Formato ora non corretto: hh:mm"
+                                 maxlength="5"
+                                 value="@bind(vm.seduta.oraSeduta)"/>
+                    </cell>
+                </row>
+                <row visible="@load((vm.seduta.commissione.secondaConvocazione) and (vm.seduta.secondaSeduta eq null) and (not vm.seduta.secondaConvocazione))">
+                    <cell align="right">
+                        <label value="Data Seconda Convocazione"/>
+                    </cell>
+                    <cell>
+                        <datebox mold="rounded" format="dd/MM/yyyy" lenient="true" value="@bind(vm.seduta.dataSecondaConvocazione)"/>
+                    </cell>
+                    <cell align="right">
+                        <label value="Ora Seconda Convocazione"/>
+                    </cell>
+                    <cell>
+                        <textbox mold="rounded"
+                                 constraint="/^(([0-1]\d|2[0-3]):([0-5]\d))?$/: Formato ora non corretto"
+                                 maxlength="5"
+                                 value="@bind(vm.seduta.oraSecondaConvocazione)"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell colspan="1" align="right">
+                        <label value="Sede della Seduta"/>
+                    </cell>
+                    <cell colspan="3">
+                        <textbox mold="rounded" value="@bind(vm.seduta.sede)" width="100%"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell colspan="1" align="right">
+                        <label value="Collegamento alla Seduta"/>
+                    </cell>
+                    <cell colspan="3">
+                        <textbox mold="rounded" value="@bind(vm.seduta.link)" width="100%"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell colspan="1" align="right" valign="top">
+                        <label value="Note"/>
+                    </cell>
+                    <cell colspan="3">
+                        <textbox mold="rounded" value="@bind(vm.seduta.note)" width="99%" rows="10"/>
+                    </cell>
+                </row>
+            </rows>
+        </grid>
+
+        <hlayout vflex="1" if="#{i:impostazione('STAMPE_SEDUTA_DOCUMENTI').abilitato}">
+            <div hflex="1" vflex="1">
+                <label value="@load(c:l('tipoOggetto.seduteStampe.CONVOCAZIONE'))" sclass="documentoTitolo"/>
+                <include src="/odg/seduta/listaStampe.zul" seduta="#{vm.seduta}" tipo="CONVOCAZIONE" vflex="1"/>
+            </div>
+            <div hflex="1" vflex="1">
+                <label value="@load(c:l('tipoOggetto.seduteStampe.VERBALE'))" sclass="documentoTitolo"/>
+                <include src="/odg/seduta/listaStampe.zul" seduta="#{vm.seduta}" tipo="VERBALE" vflex="1"/>
+            </div>
+        </hlayout>
+        </vlayout>
+    </window>
+</zk>

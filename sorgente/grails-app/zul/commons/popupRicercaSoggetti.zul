@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer" viewModel="@id('vm') @init('popupRicercaSoggettiViewModel')"
+		border="normal" sizable="true" width="600px" height="400px" title=" ">
+
+		<h:div class="barraTitoloPagina">
+			<label sclass="titoloPagina" value="Ricerca Soggetti" />
+		</h:div>
+
+		<grid sclass="form">
+			<rows>
+				<row visible="@load(vm.tipoRicerca eq 'sfera')">
+					<cell align="right" colspan="1">
+						<label value="Nome / Cognome / Ragione Sociale" />
+					</cell>
+					<cell colspan="2">
+						<textbox value="@bind(vm.cognome)" width="100%" onOK="@command('onCerca', paginate=false)"/>
+					</cell>
+                    <cell align="right">
+                        <button visible="@load(vm.tipoRicerca eq 'sfera')" label="Nuovo" image="/images/afc/16x16/add.png" onClick="@command('onCreaNuovo')"/>
+                    </cell>
+				</row>
+				<row visible="@load(vm.tipoRicerca ne 'sfera')">
+					<cell align="right">
+						<label value="Cognome" />
+					</cell>
+					<cell>
+						<textbox value="@bind(vm.cognome)" width="100%" />
+					</cell>
+					<cell align="right">
+						<label value="Nome" />
+					</cell>
+					<cell>
+						<textbox value="@bind(vm.nome)" width="100%" />
+					</cell>
+				</row>
+				<row visible="@load(vm.tipoRicerca ne 'sfera')">
+					<cell align="right">
+						<label value="Codice Fiscale" />
+					</cell>
+					<cell>
+						<textbox value="@bind(vm.codiceFiscale)" width="100%" />
+					</cell>
+					<cell align="right">
+						<label value="Data di Nascita" />
+					</cell>
+					<cell>
+						<datebox value="@bind(vm.dataNascita)" width="100%" format="dd/MM/yyyy" />
+					</cell>
+				</row>
+				<row>
+                    <cell align="right">
+						Tipo Ricerca
+                    </cell>
+					<cell colspan="2">
+						<combobox readonly="true" hflex="1" selectedItem="@bind(vm.tipoRicerca)">
+                            <comboitem label="Ricerca in Struttura" value="so4" />
+                            <comboitem label="Ricerca su tutta l'Anagrafe" value="as4" />
+                            <comboitem label="Ricerca sugli indirizzi in Sfera" value="sfera" if="#{vm.ricercaSuSfera}" />
+						</combobox>
+					</cell>
+					<cell colspan="1" align="right">
+						<button label="Cerca" image="/images/afc/16x16/search.png" onClick="@command('onCerca', paginate=false)"/>
+					</cell>
+				</row>
+			</rows>
+		</grid>
+
+		<listbox vflex="1" model="@load(vm.listaSoggetti)" selectedItem="@bind(vm.soggetto)" emptyMessage="Nessun soggetto trovato">
+			<listhead>
+				<listheader label="Cognome" 		/>
+				<listheader label="Nome" 			/>
+				<listheader label="Codice Fiscale" 	/>
+				<listheader label="Data di Nascita" />
+				<listheader label="Utente" 			/>
+				<listheader label="Email" 			/>
+			</listhead>
+			<template name="model" var="soggetto">
+				<listitem>
+					<listcell label="@load(soggetto.cognome)" />
+					<listcell label="@load(soggetto.nome)" />
+					<listcell label="@load(soggetto.codiceFiscale)" />
+					<listcell label="@load(soggetto.dataNascita) @converter('formattedDate', format='dd/MM/yyyy')" />
+					<listcell label="@load(soggetto.utenteAd4.nominativo)" />
+					<listcell label="@load(soggetto.indirizzoWeb)" />
+				</listitem>
+			</template>
+		</listbox>
+
+		<paging activePage="@bind(vm.activePage)" pageSize="@load(vm.pageSize)" totalSize="@load(vm.totalSize)" onPaging="@command('onCerca', paginate=true)" />
+
+		<h:div class="barraPulsanti">
+			<h:div>
+				<button label="Seleziona" onClick="@command('onSeleziona')" mold="trendy" image="/images/afc/16x16/save.png" disabled="@load(vm.soggetto eq null)"/>
+				<button label="Annulla"   onClick="@command('onAnnulla')" 	mold="trendy" image="/images/afc/16x16/close.png" />
+			</h:div>
+		</h:div>
+	</window>
+</zk>

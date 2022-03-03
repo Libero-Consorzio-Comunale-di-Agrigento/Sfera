@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+    	viewModel="@id('vm') @init('gestioneTestiTipoModelloDettaglioViewModel')"
+    	border="normal"
+        width="500px"
+
+        sizable="false">
+
+        <vlayout width="100%" spacing="10px">
+
+
+		<h:div class="barraTitoloPagina">
+  			<label sclass="titoloPagina" value="@load(c:cat('Gestione Tipo Modello ', (empty vm.selectedRecord.codice? '': c:cat( ' - ', vm.selectedRecord.codice)) ) )"/>
+		<image
+			src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+			tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')" />
+   		</h:div>
+	      <vlayout width="100%" vflex="max">
+      		<grid  sclass="form">
+	        	<rows>
+	        		<row>
+	        			<cell hflex="1" align="right">
+		        			<label value="Codice"/>
+						</cell>
+						<cell hflex="3">
+							<textbox value="@bind(vm.selectedRecord.codice)" hflex="1" readonly="@load(empty vm.selectedRecord.codice? false : true)"/>
+						</cell>
+	        		</row>
+	        		<row>
+		        		<cell hflex="1" align="right">
+	    	    			<label value="Descrizione"/>
+	        			</cell>
+						<cell hflex="3">
+	        				<textbox value="@bind(vm.selectedRecord.descrizione)" hflex="1" class="noresizable"/>
+	        			</cell>
+	        		</row>
+	        		<row>
+		        		<cell hflex="1" align="right">
+	    	    			<label value="Query"/>
+	        			</cell>
+						<cell hflex="3">
+	        				<button label="Download" visible="@load(vm.fileGiaInserito)" onClick="@command('onDownload')"/>
+	        			</cell>
+	        		</row>
+	        	</rows>
+	        </grid>
+	       </vlayout>
+
+	      	<!-- Inizio informazioni relative al salvataggio e bottoni salva / chiudi -->
+	     	<vlayout class="datiCreazioneModifica" >
+			    <label value="@bind(vm.datiCreazione)" visible="@bind(not empty vm.selectedRecord.codice)"/>
+				<label value="@bind(vm.datiModifica)" visible="@bind(not empty vm.selectedRecord.codice)"/>
+			</vlayout>
+
+			<h:div class="barraPulsanti">
+				<button
+				 	mold="trendy"
+					label="@load(vm.selectedRecord.valido? 'Disattiva' : 'Ripristina')"
+					tooltiptext="@load(vm.selectedRecord.valido? 'Disattiva' : 'Ripristina')"
+					onClick="@command('onSettaValido', valido=!vm.selectedRecord.valido)"
+					visible="@load(vm.fileGiaInserito)"
+					width="100px" />
+
+				<h:div>
+					<button
+						mold="trendy"
+						label="Upload"
+						onUpload="@command('onUpload')"
+						upload="true">
+					</button>
+					<button
+						mold="trendy"
+						disabled="@load(!vm.fileGiaInserito)"
+						label="Salva"
+						onClick="@command('onSalva')" />
+					<button
+					 	mold="trendy"
+						disabled="@load(!vm.fileGiaInserito)"
+						label="Salva e chiudi"
+						onClick="@command('onSalvaChiudi')" />
+					<button
+					 	mold="trendy"
+						label="Chiudi"
+						onClick="@command('onChiudi')"  />
+				</h:div>
+			</h:div>
+		</vlayout>
+
+    </window>
+</zk>

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer" viewModel="@id('vm') @init('popupRicercaDocumentiViewModel')"
+            border="normal" sizable="true" width="850px" height="750px" title=" ">
+
+        <h:div class="barraTitoloPagina">
+            <label sclass="titoloPagina" value="Ricerca Documenti"/>
+        </h:div>
+
+        <div>
+            <groupbox>
+                <caption label="Dati generali"/>
+                <grid sclass="form">
+                    <rows>
+                        <row>
+                            <cell colspan="2" align="right">
+                                <label value="Ricerca per parola"/>
+                            </cell>
+                            <cell colspan="10">
+                                <textbox value="@bind(vm.keyWords)" width="100%"/>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell colspan="2" align="right">
+                                <label value="Tipo Documento"/>
+                            </cell>
+                            <cell colspan="4">
+                                <textbox value="@bind(vm.typeId)" style="text-transform: uppercase" width="100%"/>
+                            </cell>
+                            <cell colspan="2" align="right">
+                                <label value="Numero"/>
+                            </cell>
+                            <cell colspan="4">
+                                <intbox value="@bind(vm.docNum)" width="100%"/>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell align="right" colspan="2">
+                                <label value="Stato Archivistico"/>
+                            </cell>
+                            <cell colspan="4">
+                                <combobox hflex="1" model="@load(vm.listaStatoArchivistico)"
+                                          selectedItem="@bind(vm.statoArchivistico)">
+                                    <template name="model" var="st">
+                                        <comboitem label="@bind(st.value)"/>
+                                    </template>
+                                </combobox>
+                            </cell>
+                            <cell colspan="2" align="right">
+                                <label value="Stato Business"/>
+                            </cell>
+                            <cell colspan="4">
+                                <combobox hflex="1" model="@load(vm.listaStatoBusiness)"
+                                          selectedItem="@bind(vm.statoBusinness)">
+                                    <template name="model" var="statoBus">
+                                        <comboitem label="@bind(statoBus.value)"/>
+                                    </template>
+                                </combobox>
+                            </cell>
+
+                        </row>
+                        <row>
+                            <cell align="right" colspan="2">
+                                <label value="Nome Documento"/>
+                            </cell>
+                            <cell colspan="4">
+                                <textbox value="@bind(vm.docName)" width="100%"/>
+                            </cell>
+                            <cell colspan="2" align="right">
+                                <label value="Descrizione"/>
+                            </cell>
+                            <cell colspan="4">
+                                <textbox value="@bind(vm.descrizione)" width="100%"/>
+                            </cell>
+
+                        </row>
+                        <row>
+                            <cell align="right" colspan="2">
+                                <label value="Data Acquisizione"/>
+                            </cell>
+                            <cell colspan="4">
+                                <hlayout hflex="1">
+                                    <label value="Dal "/>
+                                    <datebox value="@bind(vm.dataAcquisizioneDal)" format="dd/MM/yyyy" hflex="1"/>
+                                    <label value=" Al "/>
+                                    <datebox value="@bind(vm.dataAcquisizioneAl)" format="dd/MM/yyyy" hflex="1"/>
+                                </hlayout>
+                            </cell>
+                            <cell colspan="2" align="right">
+                                <label value="Tipo Componente"/>
+                            </cell>
+                            <cell colspan="4">
+                                <combobox hflex="1" model="@load(vm.listaTipoComponente)"
+                                          selectedItem="@bind(vm.tipoComponente)">
+                                    <template name="model" var="tipoComponente">
+                                        <comboitem label="@bind(tipoComponente.value)"/>
+                                    </template>
+                                </combobox>
+                            </cell>
+                        </row>
+                    </rows>
+                </grid>
+            </groupbox>
+            <groupbox>
+                <caption label="Classifica e Fascicoli"/>
+                <grid sclass="form">
+                    <rows>
+                        <row>
+                            <cell colspan="2" align="right">
+                                <label value="Classifica"/>
+                            </cell>
+                            <cell colspan="10">
+                                <combobox hflex="1" readonly="true"
+                                          selectedItem="@bind(vm.selectClassifica) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')"
+                                          model="@load(vm.listaClassificazioni)">
+                                    <template name="model">
+                                        <comboitem label="@load(vm.fnsubstring(each.codice,each.descrizione))"
+                                                   tooltiptext="@load(c:\(each.codice, ' - ', each.descrizione))"
+                                                   value="@load(each)"/>
+                                    </template>
+                                </combobox>
+                            </cell>
+                            <cell colspan="2" align="right">
+                                <label value="Numero"/>
+                            </cell>
+                            <cell colspan="4">
+                                <intbox value="@bind(vm.progrFascicolo)" width="100%"/>
+                            </cell>
+                            <cell colspan="2" align="right">
+                                <label value="Anno"/>
+                            </cell>
+                            <cell colspan="4">
+                                <intbox value="@bind(vm.annoFascicolo)" width="100%"/>
+                            </cell>
+                        </row>
+                    </rows>
+                </grid>
+            </groupbox>
+            <groupbox>
+                <caption label="Protocollazione"/>
+                <grid sclass="form">
+                    <rows>
+                        <row>
+                            <cell colspan="2" align="right">
+                                <label value="Numero"/>
+                            </cell>
+                            <cell colspan="4">
+                                <intbox value="@bind(vm.numProtocollo)" width="100%"/>
+                            </cell>
+                            <cell colspan="2" align="right">
+                                <label value="Anno"/>
+                            </cell>
+                            <cell colspan="4">
+                                <intbox value="@bind(vm.annoProtocollo)" width="100%"/>
+                            </cell>
+                            <cell colspan="2" align="right">
+                                <label value="Oggetto"/>
+                            </cell>
+                            <cell colspan="4">
+                                <textbox value="@bind(vm.oggettoProtocollo)" width="100%"/>
+                            </cell>
+                            <cell colspan="2" align="right">
+                                <label value="Registro"/>
+                            </cell>
+                            <cell colspan="4">
+                                <textbox value="@bind(vm.registroProtocollo)" width="100%"/>
+                            </cell>
+                        </row>
+                    </rows>
+                </grid>
+            </groupbox>
+            <groupbox>
+                <caption label="Registrazione Particolare"/>
+                <grid sclass="form">
+                    <rows>
+                        <row>
+                            <cell colspan="2" align="right">
+                                <label value="Numero"/>
+                            </cell>
+                            <cell colspan="4">
+                                <intbox value="@bind(vm.numRegistrazione)" width="100%"/>
+                            </cell>
+                            <cell colspan="2" align="right">
+                                <label value="Anno"/>
+                            </cell>
+                            <cell colspan="4">
+                                <intbox value="@bind(vm.annoRegistrazione)" width="100%"/>
+                            </cell>
+                            <cell colspan="2" align="right">
+                                <label value="Oggetto"/>
+                            </cell>
+                            <cell colspan="4">
+                                <textbox value="@bind(vm.oggettoRegistrazione)" width="100%"/>
+                            </cell>
+                            <cell colspan="2" align="right">
+                                <label value="Id"/>
+                            </cell>
+                            <cell colspan="4">
+                                <intbox value="@bind(vm.idRegistrazione)" width="100%"/>
+                            </cell>
+                        </row>
+                    </rows>
+                </grid>
+            </groupbox>
+            <groupbox>
+                <caption label="Pubblicazione"/>
+                <grid sclass="form">
+                    <rows>
+                        <row>
+                            <cell colspan="2" align="right">
+                                <label value="Numero"/>
+                            </cell>
+                            <cell colspan="4">
+                                <intbox value="@bind(vm.numPubblicazione)" width="100%"/>
+                            </cell>
+                            <cell colspan="2" align="right">
+                                <label value="Anno"/>
+                            </cell>
+                            <cell colspan="4">
+                                <intbox value="@bind(vm.annoPubblicazione)" width="100%"/>
+                            </cell>
+                            <cell colspan="2" align="right">
+                                <label value="Oggetto"/>
+                            </cell>
+                            <cell colspan="4">
+                                <textbox value="@bind(vm.oggettoPubblicazione)" width="100%"/>
+                            </cell>
+                            <cell colspan="2" align="right">
+                                <label value="Registro"/>
+                            </cell>
+                            <cell colspan="4">
+                                <textbox value="@bind(vm.registroPubblicazione)" width="100%"/>
+                            </cell>
+                        </row>
+                    </rows>
+                </grid>
+            </groupbox>
+            <groupbox>
+                <caption label="Conservazione"/>
+                <grid sclass="form">
+                    <rows>
+                        <row>
+                            <cell colspan="2" align="right">
+                                <label value="Stato Conservazione"/>
+                            </cell>
+                            <cell colspan="4">
+                                <combobox hflex="1" model="@load(vm.listaStatoConservazione)"
+                                          selectedItem="@bind(vm.statoConservazione)">
+                                    <template name="model" var="statoConservazione">
+                                        <comboitem label="@bind(statoConservazione.value)"/>
+                                    </template>
+                                </combobox>
+                            </cell>
+                            <cell colspan="2" align="right">
+                                <label value="Tipo Conservazione"/>
+                            </cell>
+                            <cell colspan="4">
+                                <combobox hflex="1" model="@load(vm.listaTipoConservazione)"
+                                          selectedItem="@bind(vm.tipoConservazione)">
+                                    <template name="model" var="tipoConservazione">
+                                        <comboitem label="@bind(tipoConservazione.value)"/>
+                                    </template>
+                                </combobox>
+                            </cell>
+                            <!-- 							<cell align="right">	 -->
+                            <!-- 								<toolbarbutton image="/images/afc/22x22/search.png"  -->
+                            <!-- 												tooltiptext='#{empty arg.searchTooltip?"Ricerca":arg.searchTooltip}'  -->
+                            <!-- 												visible="#{empty arg.searchVisible?true:arg.searchVisible}" -->
+                            <!-- 												onClick="@command('onCerca')" /> -->
+
+                            <!-- 							</cell>							 -->
+                        </row>
+                    </rows>
+                </grid>
+            </groupbox>
+        </div>
+
+        <h:div class="barraPulsanti">
+            <h:div>
+                <button label="Cerca" onClick="@command('onCerca')" mold="trendy"/>
+            </h:div>
+        </h:div>
+
+        <listbox vflex="1" model="@load(vm.listaDocumenti)"
+                 selectedItem="@bind(vm.selectedDocumento)"
+                 emptyMessage="Nessuna documento trovato"
+        >
+            <listhead>
+                <listheader label="Numero" width="15%"/>
+                <listheader label="Nome" width="85%"/>
+            </listhead>
+            <template name="model" var="documento">
+                <listitem>
+                    <listcell label="@load(documento.docNum)"/>
+                    <listcell label="@load(documento.docName)"/>
+                </listitem>
+            </template>
+        </listbox>
+
+        <h:div class="barraPulsanti">
+            <h:div>
+                <button label="Seleziona" onClick="@command('onSalva')" disabled="@load(vm.selectedDocumento eq null)"
+                        mold="trendy"></button>
+                <button mold="trendy" image="/images/afc/16x16/close.png" label="Chiudi"
+                        onClick="@command('onChiudi')"/>
+            </h:div>
+        </h:div>
+    </window>
+</zk>

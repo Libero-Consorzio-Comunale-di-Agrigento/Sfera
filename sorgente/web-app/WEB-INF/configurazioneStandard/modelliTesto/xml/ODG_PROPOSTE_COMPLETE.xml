@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Elenco delle proposte complete</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<proposte>
+				<OGGETTO_PROPOSTA>PRIMA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2019/1</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<STATO_PROPOSTA>GESTIONE ODG</STATO_PROPOSTA>
+				<DATA_SEDUTA_PREVISTA>01/01/2019</DATA_SEDUTA_PREVISTA>
+				<IN_ODG>SI</IN_ODG>
+			</proposte>
+			<proposte>
+				<OGGETTO_PROPOSTA>SECONDA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2019/2</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<STATO_PROPOSTA>GESTIONE ODG</STATO_PROPOSTA>
+				<DATA_SEDUTA_PREVISTA>10/01/2019</DATA_SEDUTA_PREVISTA>
+				<IN_ODG>NO</IN_ODG>
+			</proposte>
+			<proposte>
+				<OGGETTO_PROPOSTA>TERZA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2019/3</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<STATO_PROPOSTA>GESTIONE ODG</STATO_PROPOSTA>
+				<DATA_SEDUTA_PREVISTA>21/01/2019</DATA_SEDUTA_PREVISTA>
+				<IN_ODG>SI</IN_ODG>
+			</proposte>
+			<proposte>
+				<OGGETTO_PROPOSTA>QUARTA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2019/4</ESTREMI_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<STATO_PROPOSTA>GESTIONE ODG</STATO_PROPOSTA>
+				<DATA_SEDUTA_PREVISTA>21/01/2019</DATA_SEDUTA_PREVISTA>
+				<IN_ODG>SI</IN_ODG>
+			</proposte>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+		<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>xxx</descrizione>
+			<path/>
+		</metaDato>
+		<!-- DEFINIZIONE CAMPI DELLA QUERY -->
+		<metaDato>
+			<nomeSimbolico>OGGETTO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della proposta discussa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ESTREMI_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno / Numero della proposta</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>TIPO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità proponente della proposta</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>DATA_SEDUTA_PREVISTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data prevista della seduta per la proposta</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>IN_ODG</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se è inserita in ODG</descrizione>
+			<path/>
+		</metaDato>
+	</definitions>
+	<queryes>
+		<query id='proposte'
+		   help_query_alias="p"
+		   help_field_aliases="ESTREMI_PROPOSTA, OGGETTO_PROPOSTA, TIPO_PROPOSTA, UNITA_PROPONENTE, DATA_SEDUTA_PREVISTA, IN_ODG, STATO_PROPOSTA"/>
+	</queryes>
+	<staticData />
+</documentRoot>

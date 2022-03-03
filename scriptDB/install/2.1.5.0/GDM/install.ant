@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     01/mar/2014 11:34:14                                                        
+
+     [NomeProgetto]    
+     [Descrizione del Progetto]
+                   
+     [Autore]                                                                
+     ====================================================================== -->
+<project xmlns:if="ant:if" xmlns:unless="ant:unless">
+
+	<target name="config">
+		<require-conn istanza="gdm"  />
+		<require-conn istanza="ad4"  />
+	</target>
+	
+	<target name="install:db">
+		<sql escapeprocessing="false"  userid="${global.db.gdm.username}"
+		   password="${global.db.gdm.password}"
+				url="${global.db.gdm.url}"
+			 driver="${global.db.gdm.driver}"
+		 	  expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+				src="01.gdm.sql" />
+
+		<sql escapeprocessing="false"  userid="${global.db.target.username}"
+			 password="${global.db.target.password}"
+			 url="${global.db.target.url}"
+			 driver="${global.db.target.driver}"
+			 expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+			 src="02.agsde2.sql" />
+	</target>
+		
+	<target name="install:fs">
+	</target>
+</project>

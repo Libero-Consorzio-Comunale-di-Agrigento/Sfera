@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+    	viewModel="@id('vm') @init('gestioneTestiModelloDettaglioViewModel')"
+    	border="normal"
+        width="800px"
+        title=" "
+        sizable="false">
+
+        <style>
+        	.monospaced {
+        		font-family: monospace;
+				white-space: pre;
+        	}
+        </style>
+
+        <vlayout width="100%" spacing="10px">
+		<h:div class="barraTitoloPagina">
+  			<label sclass="titoloPagina" value="@load(c:cat('Gestione  Modello ', (empty vm.selectedRecord.nome? '': c:cat( ' - ', vm.selectedRecord.nome)) ) )"/>
+		<image
+			src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+			tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')" />
+   		</h:div>
+	      <vlayout width="100%">
+		      <tabbox>
+		      	<tabs>
+		      		<tab label="Dati Generali"></tab>
+		      		<tab label="Competenze"></tab>
+		      	</tabs>
+		      	<tabpanels>
+		      		<!-- DATI GENERALI -->
+		      		<tabpanel>
+		      			<grid  sclass="form">
+				        	<rows>
+				        		<row>
+				        			<cell width="25%" align="right">
+					        			<label value="Nome"/>
+									</cell>
+									<cell>
+										<textbox value="@bind(vm.selectedRecord.nome)" hflex="1" />
+									</cell>
+				        		</row>
+				        		<row>
+					        		<cell align="right">
+				    	    			<label value="Descrizione"/>
+				        			</cell>
+									<cell>
+				        				<textbox value="@bind(vm.selectedRecord.descrizione)" hflex="1" class="noresizable"/>
+				        			</cell>
+				        		</row>
+				        		<row>
+					        		<cell align="right">
+				    	    			<label value="Tipo Modello"/>
+				        			</cell>
+									<cell>
+				        				<combobox model="@load(vm.listaGestioneTestiTipoModelloDTO)"  hflex="1"
+					       						   selectedItem="@bind(vm.selectedRecord.tipoModello) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')"
+					       						   onSelect="@command('onSelectTipoModello')">
+			       							<template name="model" var="tipoModello">
+												<comboitem label="@load(tipoModello.codice)" description="@load(tipoModello.descrizione)" value="@load(tipoModello)" />
+											</template>
+						       			</combobox>
+				        			</cell>
+				        		</row>
+				        		<row>
+					        		<cell align="right">
+				    	    			<label value="File Template"/>
+				        			</cell>
+									<cell>
+				        				<button label="Download" mold="trendy" visible="@load(vm.fileGiaInserito)" onClick="@command('onDownload')"/>
+				        				<space width="10%"/>
+				        				<!--
+				        				<button
+											mold="trendy"
+											label="Visualizza Campi"
+											onClick="@command('onVisualizzaCampi')"/>
+										<button
+											mold="trendy"
+											label="Verifica Modello"
+											onClick="@command('onVerificaModello')"/>
+										-->
+										<button
+												mold="trendy"
+												label="Prova Modello"
+												onClick="@command('onProvaModello')"/>
+										<button
+												mold="trendy"
+												label="Prova Modello Pdf"
+												onClick="@command('onProvaModelloPdf')"/>
+										<button
+											mold="trendy"
+											label="Correggi Modello"
+											onClick="@command('onCorreggiModello')"/>
+										<button
+											mold="trendy"
+											label="Origine Dati"
+											onClick="@command('onDownloadOrigineDati')"/>
+				        			</cell>
+				        		</row>
+				        	</rows>
+				        </grid>
+	        			<groupbox closable="true" open="true">
+	        				<caption>Campi Disponibili per il Modello</caption>
+	        				<grid sclass="form" model="@load(vm.campiDisponibili)" height="300px">
+	        					<columns>
+	        						<column width="25%" label="Nome" />
+	        						<column width="25%" label="Descrizione"/>
+	        						<column width="50%" label="Sintassi da usare nel modello"/>
+	        					</columns>
+	        					<template name="model" var="campo">
+							        <row>
+							            <cell><label sclass="monospaced" value="@load(campo.nome)"/></cell>
+							            <cell><label value="@load(campo.descrizione)"/></cell>
+							            <cell><label sclass="monospaced" value="@load(campo.istruzione)"/></cell>
+							        </row>
+							    </template>
+	        				</grid>
+	        			</groupbox>
+		      		</tabpanel>
+		      		<!-- COMPETENZE -->
+			      		<tabpanel>
+			      			<listbox model="@load(vm.listaGestioneTestiModelloCompetenza)" emptyMessage="Nessuna competenza assegnata" height="300px">
+					        <listhead>
+					        	<listheader label="Titolo" width="25%" />
+					        	<listheader label="Utente" width="23%" />
+					        	<listheader label="Ruolo" width="23%" />
+					        	<listheader label="Unità Organizzativa" width="23%" />
+					        	<listheader label="" width="6%">
+					        		<image width="15px" src="/images/afc/16x16/add.png" onClick="@command('onAggiungiGestioneTestiModelloCompetenza')"></image>
+					        	</listheader>
+					        </listhead>
+				        	<template name="model" var="competenza">
+					        	<listitem>
+					        		<listcell label="@load(competenza.titolo)" />
+					        		<listcell label="@load(competenza.utenteAd4.nominativo)" />
+					        		<listcell label="@load(competenza.ruoloAd4.ruolo)" />
+					        		<listcell label="@load(competenza.unitaSo4.descrizione)" />
+					        		<listcell>
+					        			<image src="/images/agsde2/22x22/trash.png" onClick="@command('onEliminaGestioneTestiModelloCompetenza', gestioneTestiModelloCompetenza = competenza)"/>
+					        		</listcell>
+				        		</listitem>
+				        	</template>
+				        </listbox>
+		      		</tabpanel>
+		      	</tabpanels>
+		      </tabbox>
+	       </vlayout>
+
+	      	<!-- Inizio informazioni relative al salvataggio e bottoni salva / chiudi -->
+	     	<vlayout class="datiCreazioneModifica" visible="@load(not empty vm.selectedRecord.id)">
+			    <label value="@bind(vm.datiCreazione)"/>
+				<label value="@bind(vm.datiModifica)"/>
+			</vlayout>
+
+			<h:div class="barraPulsanti">
+				<button
+				 	mold="trendy"
+					label="@load(vm.selectedRecord.valido? 'Disattiva' : 'Ripristina')"
+					tooltiptext="@load(vm.selectedRecord.valido? 'Disattiva' : 'Ripristina')"
+					image="@load(vm.selectedRecord.valido? '/images/afc/16x16/cancel.png':'/images/afc/16x16/ok.png')"
+					onClick="@command('onSettaValido', valido=!vm.selectedRecord.valido)"
+					visible="@load(vm.fileGiaInserito)"
+					width="100px" />
+
+				<button
+				 	mold="trendy"
+					label="Duplica"
+					tooltiptext="Duplica"
+					image="/images/afc/16x16/house_plan.png"
+					onClick="@command('onDuplica')"
+					visible="@load(vm.fileGiaInserito)"/>
+
+				<h:div>
+					<button
+						mold="trendy"
+						disabled="@load(empty vm.selectedRecord.tipoModello)"
+						label="Upload"
+						onUpload="@command('onUpload')"
+						upload="true"
+						image="/images/afc/16x16/arrow_up.png">
+						<custom-attributes org.zkoss.zul.image.preload="true" />
+					</button>
+					<button
+						mold="trendy"
+						disabled="@load(!vm.fileGiaInserito)"
+						label="Salva"
+						onClick="@command('onSalva')"
+						image="/images/afc/16x16/save.png" />
+					<button
+					 	mold="trendy"
+						disabled="@load(!vm.fileGiaInserito)"
+						label="Salva e chiudi"
+						onClick="@command('onSalvaChiudi')"
+						image="/images/afc/16x16/save.png" />
+					<button
+					 	mold="trendy"
+						label="Chiudi"
+						onClick="@command('onChiudi')"
+						image="/images/afc/16x16/close.png" />
+				</h:div>
+			</h:div>
+		</vlayout>
+
+    </window>
+</zk>

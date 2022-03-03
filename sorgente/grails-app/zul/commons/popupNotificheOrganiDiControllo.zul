@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer" border="normal"
+        viewModel="@id('vm') @init('popupNotificheOrganiDiControlloViewModel')"
+		width="900px" height="600px" sizable="true" title=" " closable="true">
+
+		<vlayout width="100%" vflex="1" spacing="10px">
+			<h:div class="barraTitoloPagina">
+ 				<label sclass="titoloPagina" value="@load(empty vm.organoControlloNotifica.stato ? 'Crea Nuova Notifica' : (vm.organoControlloNotifica.stato eq 'INVIATA' ? 'Notifica Inviata' : 'Notifica Non Inviata'))"/>
+			</h:div>
+
+			<grid sclass="form">
+				<rows>
+					<row>
+						<cell>
+							<label value="Organo di Controllo:" />
+						</cell>
+						<cell colspan="2">
+							<combobox hflex="1"
+								selectedItem="@bind(vm.organoControlloNotifica.tipoOrganoControllo) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')"
+								model="@load(vm.listaTipiOrganoDiControllo)"
+								readonly="true"
+								disabled="@load(vm.organoControlloNotifica.stato eq 'INVIATA')">
+								<template name="model">
+							    	<comboitem label="@load(each.titolo)" value="@load(each)"/>
+								</template>
+							</combobox>
+						</cell>
+						<cell>
+							<label value="Stampe disponibili:" />
+						</cell>
+						<cell colspan="2">
+							<combobox hflex="1" selectedItem="@bind(vm.selectedStampa)"
+							model="@load(vm.listaStampe)" readonly="true" disabled="@load(vm.organoControlloNotifica.stato eq 'INVIATA')">
+								<template name="model">
+							    	<comboitem label="@load(each.nome)" value="@load(each)"/>
+								</template>
+							</combobox>
+						</cell>
+					</row>
+					<row>
+						<cell>
+							<label value="Ambito:" />
+						</cell>
+						<cell colspan="2">
+							<combobox model="@load(vm.listaAmbiti)" selectedItem="@bind(vm.organoControlloNotifica.ambito)"
+										readonly="true" disabled="@load(vm.organoControlloNotifica.stato eq 'INVIATA')"
+										onSelect="@command('onChangeAmbito')"
+										hflex="1" >
+			                    <template name="model">
+			                        <comboitem label="@load(each)" />
+			                    </template>
+			                </combobox>
+						</cell>
+						<cell >
+							<label value="Registro:"/>
+						</cell>
+						<cell colspan="2">
+							<combobox model="@load(vm.listaTipiRegistro)" disabled="@load(vm.organoControlloNotifica.stato eq 'INVIATA')" onSelect="@command('onVisualizza')"
+										selectedItem="@bind(vm.organoControlloNotifica.tipoRegistro) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')" readonly="true"
+										hflex="1">
+			                    <template name="model">
+			                        <comboitem label="@load(each.descrizione)" value="@load(each)" />
+			                    </template>
+			                </combobox>
+						</cell>
+					</row>
+
+					<row>
+						<cell>
+							<label value="Data di Adozione:" />
+						</cell>
+						<cell>
+							<label value="dal" />
+							<datebox value="@bind(vm.organoControlloNotifica.dataAdozioneDal)" format="dd/MM/yyyy" disabled="@load(vm.organoControlloNotifica.stato eq 'INVIATA')" onChange="@command('onVisualizza')"/>
+						</cell>
+						<cell>
+							<label value="al"/>
+							<datebox value="@bind(vm.organoControlloNotifica.dataAdozioneAl)"  format="dd/MM/yyyy" disabled="@load(vm.organoControlloNotifica.stato eq 'INVIATA')" onChange="@command('onVisualizza')"/>
+						</cell>
+						<cell>
+							<label value="Data di Pubblicazione:" />
+						</cell>
+						<cell>
+							<label value="dal" />
+							<datebox value="@bind(vm.organoControlloNotifica.dataPubblicazioneDal)" format="dd/MM/yyyy" disabled="@load(vm.organoControlloNotifica.stato eq 'INVIATA')" onChange="@command('onVisualizza')"/>
+						</cell>
+						<cell>
+							<label value="al"/>
+							<datebox value="@bind(vm.organoControlloNotifica.dataPubblicazioneAl)"  format="dd/MM/yyyy" disabled="@load(vm.organoControlloNotifica.stato eq 'INVIATA')" onChange="@command('onVisualizza')"/>
+						</cell>
+					</row>
+
+					<row>
+						<cell colspan="6">
+							<space hflex="1" />
+							<button label="Visualizza Dati" onClick="@command('onVisualizza')" mold="trendy" visible="@load(vm.organoControlloNotifica.stato ne 'INVIATA')"/>
+						</cell>
+					</row>
+				</rows>
+			</grid>
+
+			<listbox id="listaDocumenti"
+			model="@load(vm.lista) @template(forEachStatus.each.getClass().getSimpleName())"
+			emptyMessage="Nessun documento trovato." vflex="1">
+		        <listhead>
+		        	<listheader label="Documento"/>
+		        	<listheader label="Oggetto"/>
+		        	<listheader label="Adozione"/>
+		        	<listheader label="Pubblicazione"/>
+		        </listhead>
+	        	<template name="DeliberaDTO">
+					<listitem onDoubleClick="@command('onApriDocumento')">
+						<listcell label="@load(c:cat4('Delibera n. ', each.numeroDelibera, '/', each.annoDelibera))" />
+						<listcell label="@load(each.oggetto)" />
+						<listcell label="@load(each.dataAdozione) 		@converter('formattedDate', format='dd/MM/yyyy')"/>
+						<listcell label="@load(each.dataPubblicazione)  @converter('formattedDate', format='dd/MM/yyyy')"/>
+					</listitem>
+				</template>
+				<template name="DeterminaDTO">
+					<listitem onDoubleClick="@command('onApriDocumento')">
+						<listcell label="@load(c:cat4('Determina n. ', each.numeroDetermina, '/', each.annoDetermina))" />
+						<listcell label="@load(each.oggetto)" />
+						<listcell label="@load(each.dataEsecutivita)     @converter('formattedDate', format='dd/MM/yyyy')"/>
+						<listcell label="@load(each.dataPubblicazione)   @converter('formattedDate', format='dd/MM/yyyy')"/>
+					</listitem>
+				</template>
+	        </listbox>
+
+   			<h:div class="barraPulsanti">
+				<h:div>
+					<button label="Invia notifiche..."	onClick="@command('onNotifica', lista=listaDocumenti)" 	mold="trendy" disabled="@bind(empty vm.organoControlloNotifica.tipoOrganoControllo or empty vm.organoControlloNotifica.tipoRegistro.codice or empty vm.organoControlloNotifica.ambito or empty vm.lista)" />
+					<button label="Cancella"			onClick="@command('onCancellaNotifica')"				mold="trendy" disabled="@bind(vm.organoControlloNotifica.stato eq 'INVIATA')"/>
+					<button label="Chiudi" 				onClick="@command('onChiudi')" 							mold="trendy" />
+				</h:div>
+			</h:div>
+		</vlayout>
+
+		<!-- - - - - - - - - - - - - - - - -->
+		<!-- Popup di conferma invio notifica -->
+		<!-- - - - - - - - - - - - - - - - -->
+		<window id="popupAzioni" position="center" title=" " width="400px" height="205px" border="normal" closable="false" visible="false">
+			<vlayout width="100%" vflex="1" spacing="10px">
+				<div sclass="barraTitoloPagina">
+					<label sclass="titoloPagina" value="Notifica agli Organi Di Controllo" />
+				</div>
+
+				<div>
+					Tramite il pulsante "Stampa Elenco" é possibile visualizzare in
+					anteprima l'elenco degli atti che verranno notificati.
+					<h:br />
+					<h:br />
+					Tramite il pulsante "Invia Notifica" il documento verrà inviato
+					all'organo di controllo prescelto.
+					<h:br />
+				</div>
+
+				<h:div class="barraPulsanti">
+					<h:div>
+						<button label="Stampa Elenco" 	onClick="@command('onStampa')" 	mold="trendy" />
+						<button label="Invia Notifica" 	onClick="@command('onInvia')"	mold="trendy" />
+						<button label="Annulla" 		onClick="@command('onAnnulla')" mold="trendy" />
+					</h:div>
+				</h:div>
+			</vlayout>
+		</window>
+    </window>
+</zk>

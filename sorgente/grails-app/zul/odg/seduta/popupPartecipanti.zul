@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer" viewModel="@id('vm') @init('popupPartecipantiViewModel')" border="normal" width="500px" title=" ">
+
+		<h:div class="barraTitoloPagina">
+			<label sclass="titoloPagina" value="Convocati Seduta" />
+		</h:div>
+
+		<vlayout vflex="1">
+<!-- 			<hlayout hflex="1"> -->
+<!-- 				<label value="Ricerca Convocato:" /> -->
+<!-- 				<radiogroup id="tipoSoggetto" onCheck="@command('onChangeTipoRicerca', valore=self.selectedItem.label)" /> -->
+<!-- 				<radio label="Interno" radiogroup="tipoSoggetto" selected="true" /> -->
+<!-- 				<radio label="Esterno" radiogroup="tipoSoggetto" /> -->
+<!-- 			</hlayout> -->
+			<grid sclass="form">
+				<rows>
+					<row>
+						<cell align="right" valign="top" width="20%">
+							<h:span class="mandatoryLabel">*</h:span>
+							<label value="Soggetto" />
+						</cell>
+						<cell colspan="3">
+							<label value="@load(vm.soggetto.denominazione)"/>
+							<button visible="@load(vm.partecipante.id le 0)" disabled="@load(vm.partecipante.id gt 0)" style="float:right;" image="/images/agsde2/16x16/users.png" onClick="@command('onCercaSoggetto')"/>
+						</cell>
+					</row>
+					<row>
+						<cell align="right">
+							<label value="Ruolo" />
+						</cell>
+						<cell colspan="3">
+							<combobox hflex="1" readonly="true"
+								selectedItem="@bind(vm.partecipante.ruoloPartecipante) @converter('it.finmatica.zkutils.PropertyConverter', property='codice', defaultValue='')"
+								model="@load(vm.listaRuoli)">
+								<template name="model">
+									<comboitem label="@load(each.descrizione)" value="@load(each)" />
+								</template>
+							</combobox>
+						</cell>
+					</row>
+					<row>
+						<cell align="right">
+							<label value="Incarico" />
+						</cell>
+						<cell colspan="3">
+							<combobox hflex="1" readonly="true"
+								selectedItem="@bind(vm.incarico) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue='-1')"
+								model="@load(vm.listaIncarichi)">
+								<template name="model">
+									<comboitem label="@load(each.titolo)" value="@load(each)" />
+								</template>
+							</combobox>
+						</cell>
+					</row>
+					<row>
+						<cell align="right">
+							<label value="Firmatario" />
+						</cell>
+						<cell>
+							<radiogroup selectedIndex="@load(vm.partecipante.firmatario ? 0 : 1)" selectedItem="@save(vm.partecipante.firmatario)">
+			     				<radio label="Sì" value="@load(true)"   disabled="@load(empty vm.soggetto.utenteAd4)" />
+					            <radio label="No" value="@load(false)"  disabled="@load(empty vm.soggetto.utenteAd4)" />
+				            </radiogroup>
+						</cell>
+						<cell align="right">
+							<label value="Sequenza Firma" visible="@load(vm.partecipante.firmatario)" />
+						</cell>
+						<cell>
+							<spinner value="@bind(vm.partecipante.sequenzaFirma)"
+								visible="@load(vm.partecipante.firmatario)" format=",###" constraint="no empty,min 0"
+								disabled="@load(empty vm.soggetto.utenteAd4)" />
+						</cell>
+					</row>
+				</rows>
+			</grid>
+
+			<h:div class="barraPulsanti">
+				<h:div>
+					<button mold="trendy" image="/images/afc/16x16/save.png"  label="Salva" 		 onClick="@command('onSalva')" 		 />
+					<button mold="trendy" image="/images/afc/16x16/save.png"  label="Salva e chiudi" onClick="@command('onSalvaChiudi')" />
+					<button mold="trendy" image="/images/afc/16x16/close.png" label="Chiudi" 		 onClick="@command('onChiudi')" 	 />
+				</h:div>
+			</h:div>
+		</vlayout>
+	</window>
+</zk>

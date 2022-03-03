@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Notifica agli Organi di Controllo</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<notifica>
+				<FIRMATARIO>NOMINATIVO FIRMATARIO</FIRMATARIO>
+				<DESCRIZIONE_REGISTRO>DELIBERAZIONI DI GIUNTA</DESCRIZIONE_REGISTRO>
+				<DATA_MIN_SEDUTA>14/01/2014</DATA_MIN_SEDUTA>
+				<DATA_MAX_SEDUTA>14/01/2014</DATA_MAX_SEDUTA>
+				<DATA_MIN_PUBBLICAZIONE>15/01/2014</DATA_MIN_PUBBLICAZIONE>
+				<DATA_MAX_PUBBLICAZIONE>15/01/2014</DATA_MAX_PUBBLICAZIONE>
+				<GIORNO_STAMPA>15</GIORNO_STAMPA>
+				<ANNO_STAMPA>2014</ANNO_STAMPA>
+				<MESE_LETTERE_STAMPA>gennaio</MESE_LETTERE_STAMPA>
+			</notifica>		
+			<componenti>
+				<NOMINATIVO>PRIMO NOMINATIVO</NOMINATIVO>
+				<RUOLO>LEGA</RUOLO>
+			</componenti>
+			<componenti>
+				<NOMINATIVO>SECONDO NOMINATIVO</NOMINATIVO>
+				<RUOLO>M5S</RUOLO>
+			</componenti>
+			<componenti>
+				<NOMINATIVO>TERZO NOMINATIVO</NOMINATIVO>
+				<RUOLO>PDL</RUOLO>
+			</componenti>
+			<componenti>
+				<NOMINATIVO>QUARTO NOMINATIVO</NOMINATIVO>
+				<RUOLO>SEL</RUOLO>
+			</componenti>
+			<componenti>
+				<NOMINATIVO>QUINTO NOMINATIVO</NOMINATIVO>
+				<RUOLO>M5S</RUOLO>
+			</componenti>
+			<componenti>
+				<NOMINATIVO>SESTO NOMINATIVO</NOMINATIVO>
+				<RUOLO>LEGA</RUOLO>
+			</componenti>
+			<componenti>
+				<NOMINATIVO>SETTIMO NOMINATIVO</NOMINATIVO>
+				<RUOLO>PD</RUOLO>
+			</componenti>
+			<componenti>
+				<NOMINATIVO>OTTAVO NOMINATIVO</NOMINATIVO>
+				<RUOLO>PDL</RUOLO>
+			</componenti>
+			<componenti>
+				<NOMINATIVO>NONO NOMINATIVO</NOMINATIVO>
+				<RUOLO>PD</RUOLO>
+			</componenti>
+			<componenti>
+				<NOMINATIVO>DECIMO NOMINATIVO</NOMINATIVO>
+				<RUOLO>M5S</RUOLO>
+			</componenti>
+			<componenti>
+				<NOMINATIVO>UNDICESIMO NOMINATIVO</NOMINATIVO>
+				<RUOLO>PDL</RUOLO>
+			</componenti>
+			<componenti>
+				<NOMINATIVO>DODICESIMO NOMINATIVO</NOMINATIVO>
+				<RUOLO>PD</RUOLO>
+			</componenti>
+			<componenti>
+				<NOMINATIVO>TREDICESIMO NOMINATIVO</NOMINATIVO>
+				<RUOLO>LEGA</RUOLO>
+			</componenti>
+			<atti>
+				<SEQUENZA>1</SEQUENZA>
+				<NUMERO>19</NUMERO>
+				<DATA_ADOZIONE>12/01/2014</DATA_ADOZIONE>
+				<DATA_PUBBLICAZIONE>15/01/2014</DATA_PUBBLICAZIONE>
+				<OGGETTO>OGGETTO DELLA DELIBERA</OGGETTO>
+			</atti>
+			<atti>
+				<SEQUENZA>2</SEQUENZA>
+				<NUMERO>20</NUMERO>
+				<DATA_ADOZIONE>13/01/2014</DATA_ADOZIONE>
+				<DATA_PUBBLICAZIONE>15/01/2014</DATA_PUBBLICAZIONE>
+				<OGGETTO>OGGETTO DELLA DELIBERA - 2</OGGETTO>
+			</atti>
+			<atti>
+				<SEQUENZA>3</SEQUENZA>
+				<NUMERO>21</NUMERO>
+				<DATA_ADOZIONE>14/01/2014</DATA_ADOZIONE>
+				<DATA_PUBBLICAZIONE>15/01/2014</DATA_PUBBLICAZIONE>
+				<OGGETTO>OGGETTO DELLA DELIBERA - 3</OGGETTO>
+			</atti>		
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>id della notifica agli organi di controllo</descrizione>
+			<path/>			
+		</metaDato>
+<!-- DEFINIZIONE CAMPI DELLA QUERY -->
+		<metaDato>
+			<nomeSimbolico>GIORNO_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del giorno in cui si produce la stampa scritto in cifre (esempio: stampato il 30/05/2014 riporta la scritta 30)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MESE_LETTERE_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Mese in cui si produce la stampa scritto in lettere (esempio: stampato il 30/05/2014 riporta la scritta maggio)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno in cui si produce la stampa scritto in cifre (esempio: stampato il 30/05/2014 riporta la scritta 2014)</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>NOMINATIVO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nominativo del componente dell'organo di controllo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RUOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ruolo del componente dell'organo di controllo</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_REGISTRO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del registro degli atti</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SEQUENZA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Sequenza di stampa del documento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_ADOZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di adozione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di pubblicazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto dell'atto</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>DATA_MIN_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data minore delle sedute</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>DATA_MAX_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data maggiore delle sedute</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_MIN_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data minore di pubblicazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_MAX_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data maggiore di pubblicazione dell'atto</descrizione>
+			<path/>
+		</metaDato>		
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>utente che invia la notifica</descrizione>
+			<path/>
+		</metaDato>			
+	</definitions>
+	<queryes>
+ 	<!-- registro: restituisce la descrizione del registro utilizzato -->
+<query id='notifica'
+	   help_query_alias="n"
+	   help_field_aliases="ANNO_STAMPA, DATA_MAX_PUBBLICAZIONE, DATA_MIN_PUBBLICAZIONE, DATA_MAX_SEDUTA, DATA_MIN_SEDUTA, DESCRIZIONE_REGISTRO, FIRMATARIO, GIORNO_STAMPA, MESE_LETTERE_STAMPA">
+  select utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (ocn.utente_ins)) firmatario
+       ,  upper (tp.descrizione) descrizione_registro
+       ,  to_char (min (os.data_seduta), 'dd/mm/yyyy') data_min_seduta
+       ,  to_char (max (os.data_seduta), 'dd/mm/yyyy') data_max_seduta
+       ,  to_char (min (d.data_pubblicazione), 'dd/mm/yyyy') data_min_pubblicazione
+       ,  to_char (max (d.data_pubblicazione), 'dd/mm/yyyy') data_max_pubblicazione
+       ,  to_char (sysdate, 'dd') giorno_stampa
+       ,  upper (utility_pkg.mese_lettere (to_char (sysdate, 'mm'))) mese_lettere_stampa
+       ,  to_char (sysdate, 'yyyy') anno_stampa
+    from odg_oggetti_seduta oos
+       ,  organi_controllo_notifiche_doc ocnd
+       ,  delibere d
+       ,  odg_sedute os
+       ,  organi_controllo_notifiche ocn
+       ,  tipi_registro tp
+   where ocn.id_organo_controllo_notifica = #id
+     and ocn.ambito = 'DELIBERA'
+     and tp.tipo_registro = ocn.tipo_registro
+     and ocnd.id_organo_controllo_notifica = ocn.id_organo_controllo_notifica
+     and ocnd.id_delibera = d.id_delibera
+     and d.id_oggetto_seduta = oos.id_oggetto_seduta
+     and oos.id_seduta = os.id_seduta
+ group by tp.descrizione, utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (ocn.utente_ins))
+ union
+  select utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (ocn.utente_ins)) firmatario
+       ,  upper (tp.descrizione) descrizione_registro
+       ,  '' data_min_seduta
+       ,  '' data_max_seduta
+       ,  to_char (min (d.data_pubblicazione), 'dd/mm/yyyy') data_min_pubblicazione
+       ,  to_char (max (d.data_pubblicazione), 'dd/mm/yyyy') data_max_pubblicazione
+       ,  to_char (sysdate, 'dd') giorno_stampa
+       ,  upper (utility_pkg.mese_lettere (to_char (sysdate, 'mm'))) mese_lettere_stampa
+       ,  to_char (sysdate, 'yyyy') anno_stampa
+    from organi_controllo_notifiche_doc ocnd
+       ,  determine d
+       ,  organi_controllo_notifiche ocn
+       ,  tipi_registro tp
+   where ocn.id_organo_controllo_notifica = #id
+     and ocn.ambito = 'DETERMINA'
+     and tp.tipo_registro = ocn.tipo_registro
+     and ocnd.id_organo_controllo_notifica = ocn.id_organo_controllo_notifica
+     and ocnd.id_determina = d.id_determina
+ group by tp.descrizione, utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (ocn.utente_ins)) 
+</query>
+<!-- componenti: restituisce i componenti dell'organo di controllo -->
+		<query id='componenti'
+			   help_query_alias="c"
+	           help_field_aliases="NOMINATIVO, RUOLO">
+ select utility_pkg.get_cognome_nome(occ.ni_componente) NOMINATIVO
+     ,  ocr.titolo RUOLO
+  from organi_controllo_notifiche ocn
+     , organi_controllo oc
+     , organi_controllo_componenti occ
+     , organi_controllo_ruoli ocr
+ where ocn.id_organo_controllo_notifica = #id
+   and ocn.tipo_organo_controllo = oc.tipo_organo_controllo
+   and oc.id_organo_controllo = occ.id_organo_controllo
+   and occ.id_organo_controllo_ruolo = ocr.id_organo_controllo_ruolo (+)
+   and occ.valido = 'Y'
+ order by 1  
+</query> 
+ 	<!-- atti: restituisce l'elenco degli atti notificati -->
+<query id='atti'
+	   help_query_alias="a"
+	   help_field_aliases="DATA_ADOZIONE, DATA_PUBBLICAZIONE, NUMERO, OGGETTO, SEQUENZA">
+  select rownum SEQUENZA
+     ,  t.numero NUMERO
+     ,  t.data_adozione DATA_ADOZIONE
+     ,  t.data_pubblicazione DATA_PUBBLICAZIONE
+     ,  t.oggetto OGGETTO
+  from (select d.numero_determina numero
+             ,  to_char (d.data_numero_determina, 'dd/mm/yyyy') data_adozione
+             ,  to_char (d.data_pubblicazione, 'dd/mm/yyyy') data_pubblicazione
+             ,  d.oggetto oggetto
+          from organi_controllo_notifiche_doc ocnd, determine d
+         where ocnd.id_organo_controllo_notifica = #id
+           and ocnd.id_determina = d.id_determina
+        union
+        select d.numero_delibera numero
+             ,  to_char (d.data_adozione, 'dd/mm/yyyy') data_adozione
+             ,  to_char (d.data_pubblicazione, 'dd/mm/yyyy') data_pubblicazione
+             ,  d.oggetto oggetto
+          from organi_controllo_notifiche_doc ocnd, delibere d
+         where ocnd.id_organo_controllo_notifica = #id
+           and ocnd.id_delibera = d.id_delibera
+        order by numero) t 
+</query>
+	</queryes>
+	<staticData />
+</documentRoot>

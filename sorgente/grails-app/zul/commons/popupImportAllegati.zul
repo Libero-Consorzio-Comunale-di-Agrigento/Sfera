@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="wp" apply="grailsBindComposer"
+    		viewModel="@id('vm') @init('popupImportAllegatiViewModel')"
+    		onImportaDocumenti="@command('onImportaDocumenti')"
+			border="normal"
+			sizable="true"
+			width="850px"
+			height="850px"
+			title=" ">
+
+		<h:script defer="true" type="text/javascript"><![CDATA[
+			 function importaDocumenti() {
+				   var win;
+				   var frame = document.getElementsByName('frameDoc')[0];
+				   var targetOrigin = document.getElementsByName('targetOrigin')[0].value;
+
+				   if(frame){
+					   win = frame.contentWindow;
+					   win.postMessage('Eventuali dati da inviare',targetOrigin);
+				   }
+			 }
+
+			 function listener(event){
+				 var seq = event.data;
+				 zAu.send(new zk.Event(zk.Widget.$(jq('$wp')), 'onImportaDocumenti', seq));
+			 }
+
+			 if (window.addEventListener){
+				  addEventListener("message", listener, false)
+			 } else {
+				  attachEvent("onmessage", listener)
+			 }
+
+		]]></h:script>
+
+		<h:div class="barraTitoloPagina">
+			<label sclass="titoloPagina" value="Import Allegati"/>
+		</h:div>
+
+	 	<iframe id="frameDoc" name="frameDoc" src="@load(vm.urlPopup)" height="750px" width="850px" />
+
+	    <h:div class="barraPulsanti">
+			<h:div>
+			    <textbox name="targetOrigin" value="@load(vm.targetOrigin)" visible="false"/>
+				<button	label="Inserisci" onClick="@command('onSalva')" />
+				<button label="Chiudi" onClick="@command('onChiudi')" mold="trendy"></button>
+			</h:div>
+		</h:div>
+
+    </window>
+</zk>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     01/mar/2014 11:34:14                                                        
+
+     [NomeProgetto]    
+     [Descrizione del Progetto]
+                   
+     [Autore]                                                                
+     ====================================================================== -->
+<project>
+    <description>Installazione Integrazione AGSPR</description>
+
+	<import file="../../../commons/sql/AGSPR/install.ant" />
+
+	<target name="config">
+		<!-- richiede queste connessioni -->
+		<require-conn istanza="agsde2" 	jndiOpzionale="true"/>
+		<resolve-conn istanza="agspr" 	jndiOpzionale="true"/>
+	</target>
+	
+	<target name="install:db" if="${global.db.agspr.username}">
+		<sql escapeprocessing="false"  userid="${global.db.agspr.username}"
+		   password="${global.db.agspr.password}"
+				url="${global.db.agspr.url}"
+			 driver="${global.db.agspr.driver}"
+			 expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+				src="01.agspr.sql" />
+
+		<sql escapeprocessing="false"  userid="${global.db.target.username}"
+			 password="${global.db.target.password}"
+			 url="${global.db.target.url}"
+			 driver="${global.db.target.driver}"
+			 expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+			 src="02.agsde2.sql" />
+	</target>
+
+	<target name="install:fs">
+	</target>
+</project>

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+    	viewModel="@id('vm') @init('notificaDettaglioViewModel')"
+    	border="normal"
+        width="800px"
+        height="600px"
+        sizable="false">
+
+		<h:div class="barraTitoloPagina">
+   			<label sclass="titoloPagina" value="Configura Notifica"/>
+			<image src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')" tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')" />
+   		</h:div>
+
+   		<tabbox vflex="1">
+			<tabs>
+				<tab label="Generale"					/>
+				<tab label="Oggetto, Testo e Allegati"	/>
+				<tab label="Destinatari"				/>
+			</tabs>
+			<tabpanels vflex="1">
+				<!-- Generale -->
+				<tabpanel>
+					<grid sclass="form">
+						<rows>
+							<row>
+								<cell width="100px" align="right">
+									<h:span class="mandatoryLabel">*</h:span><label value="Tipologia" />
+								</cell>
+								<cell>
+								  	<combobox hflex="1" selectedItem="@bind(vm.selectedRecord.tipoNotifica) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')"
+										model="@load(vm.listaTipoNotifica)" onChange="@command('onChangeTipologia')">
+										<template name="model">
+											<comboitem label="@load(each.titolo)" description="@load(each.descrizione)" value="@load(each.codice)" />
+										</template>
+									</combobox>
+								</cell>
+							</row>
+							<row>
+								<cell width="100px" align="right">
+								</cell>
+								<cell>
+								  	<label value="@load(vm.selectedRecord.tipo.descrizione)" />
+								</cell>
+							</row>
+							<row visible="@bind(vm.commissione)">
+							    <cell align="right"><label value="Commissione"/></cell>
+								<cell>
+									<combobox hflex="1"
+										selectedItem="@bind(vm.selectedRecord.commissione) @converter('it.finmatica.zkutils.PropertyConverter', property='id')"
+										model="@load(vm.listaCommissione)">
+										<template name="model">
+											<comboitem label="@load(each.titolo)" value="@load(each)" />
+										</template>
+									</combobox>
+								</cell>
+							</row>
+							<row>
+				        		<cell align="right">
+			    	    			<h:span class="mandatoryLabel">*</h:span><label value="Titolo"/>
+			        			</cell>
+								<cell>
+			        				<textbox mold="rounded" value="@bind(vm.selectedRecord.titolo)" hflex="1"/>
+			        			</cell>
+			        		</row>
+			        		<row>
+				        		<cell align="right">
+			    	    			<h:span class="mandatoryLabel">*</h:span><label value="Modalità di Invio"/>
+			        			</cell>
+								<cell>
+			        				<radiogroup selectedItem="@bind(vm.selectedRecord.modalitaInvio)" orient="horizontal">
+			        					<radio value="EMAIL" 		label="Email"		tooltiptext="Invia la notifica tramite EMail."/><h:br/>
+			        					<radio value="JWORKLIST"	label="JWorklist"	tooltiptext="Invia la notifica tramite JWorklist. Gli utenti che non hanno accesso alla JWorklist riceveranno una email."/><h:br/>
+			        					<radio value="PEC"			label="Pec"			tooltiptext="Invia la notifica tramite PEC. Solo i documenti Protocollati possono essere inviati via PEC."/><h:br/>
+			        				</radiogroup>
+			        			</cell>
+			        		</row>
+			        		<row>
+				        		<cell align="right">
+			    	    			<h:span class="mandatoryLabel">*</h:span><label value="Documenti per cui attivare la notifica:"/>
+			        			</cell>
+								<cell>
+			        				<div children="@load(vm.oggettiDisponibili)">
+			        					<template name="children" var="o">
+			        						<checkbox label="@load(o.codice)" checked="@bind(o.selezionato)" onCheck="@command('onSelezionaOggettiDisponibili')" />
+			        					</template>
+			        				</div>
+			        			</cell>
+			        		</row>
+						</rows>
+					</grid>
+	        		<groupbox closable="false" vflex="1" visible="@load(not empty vm.selectedRecord.tipo.azioni)">
+						<caption label="Uso della notifica nelle configurazioni Iter" />
+
+	        			<listbox model="@load(vm.listaStep)" vflex="1" width="100%" emptyMessage="Notifica non usata in nessun flusso." >
+					        <listhead>
+					        	<listheader label="Configurazione Iter"	width="65%" />
+					        	<listheader label="Nodo" />
+					        </listhead>
+				        	<template name="model" var="s">
+					        	<listitem>
+					        		<listcell label="@load(s.titoloIter)" />
+									<listcell label="@load(s.titoloStep)" />
+				        		</listitem>
+				        	</template>
+				        </listbox>
+				   </groupbox>
+				</tabpanel>
+
+				<tabpanel>
+					<grid sclass="form">
+						<rows>
+							<row>
+				        		<cell align="right" width="100px">
+			    	    			<h:span class="mandatoryLabel">*</h:span><label value="Oggetto Email"/>
+			        			</cell>
+								<cell>
+			        				<textbox mold="rounded" value="@bind(vm.selectedRecord.oggetto)" hflex="1"/>
+			        			</cell>
+			        		</row>
+			        		<row>
+				        		<cell align="right"><label value="Testo Email"/></cell>
+								<cell>
+			        				<textbox rows="10" mold="rounded" value="@bind(vm.selectedRecord.testo)" hflex="1"/>
+			        			</cell>
+			        		</row>
+			        		<row>
+				        		<cell align="right"><label value="Allegati:"/></cell>
+								<cell>
+									<combobox hflex="1" model="@load(vm.listaTipiAllegati)"
+										selectedItem="@bind(vm.selectedRecord.allegati) @converter('it.finmatica.zkutils.PropertyConverter', property='key')"
+										readonly="true">
+										<template name="model" var="f">
+											<comboitem label="@load(f.value.descrizione)" value="@load(f.key)" />
+										</template>
+									</combobox>
+			        			</cell>
+			        		</row>
+						</rows>
+					</grid>
+
+					<groupbox closable="false" vflex="1">
+						<caption label="Campi disponibili per la sostituzione" />
+						<grid sclass="form" model="@load(vm.campiDisponibili)" vflex="1">
+							<template name="model" var="campo">
+						        <row>
+					            	<cell width="150px"><label value="@load(c:cat3('[', campo.key, ']'))"/></cell>
+									<cell><label value="@load(campo.value.descrizione)"/></cell>
+	 					        </row>
+	 					    </template>
+						</grid>
+					</groupbox>
+				</tabpanel>
+
+				<tabpanel>
+					<groupbox closable="false" vflex="1">
+						<caption label="Aggiungi destinatari" />
+						<listbox model="@load(vm.listaDestinatari)" vflex="1" hflex="1" emptyMessage="Nessun Destinatario" >
+					        <listhead>
+					        	<listheader label="Soggetto"	width="23%" />
+					        	<listheader label="Funzione" 	width="23%" />
+					        	<listheader label="Ruolo" 		width="23%" />
+					        	<listheader label="Unita" 		/>
+					        	<listheader label="" width="20px" align="center">
+	        						<button image="/images/afc/16x16/add.png"
+		        						onClick="@command('onAggiungiDestinatario')"
+		        						tooltiptext="Aggiungi un nuovo Destinatario"
+		        						style="@load(empty vm.selectedRecord.id ? 'border: none; padding: 0;' : 'cursor: pointer; border: none; padding: 0;')"  
+		        						disabled="@load(empty vm.selectedRecord.id)" width="16px"/>
+					        	</listheader>
+					        </listhead>
+				        	<template name="model" var="a">
+					        	<listitem value="@load(a)">
+					        		<listcell label="@load(a.soggetto.denominazione)" />
+									<listcell label="@load(vm.listaTipiDestinatari[a.funzione].descrizione)" />
+									<listcell label="@load(c:cat3(a.ruolo.ruolo, ' - ', a.ruolo.descrizione))" 	/>
+									<listcell label="@load(c:cat3(a.unita.codice, ' - ', a.unita.descrizione))" />
+									<listcell>
+					        			<image src="/images/agsde2/16x16/trash.png"
+					        				   onClick="@command('onEliminaDestinatario', destinatario=a)"
+					        				   tooltiptext="Elimina destinatario"
+	        						   		   style="cursor: pointer;" />
+					        		</listcell>
+				        		</listitem>
+				        	</template>
+				        </listbox>
+					</groupbox>
+
+					<groupbox closable="false" vflex="1">
+						<caption label="Aggiungi destinatari Email" />
+
+						<hlayout hflex="1" vflex="1">
+							<listbox model="@bind(vm.listaEmail)" vflex="1" hflex="3" droppable="true" onDrop="@command('dropToList1')" selectedItem="@bind(vm.selectedEmail)">
+								<listhead>
+									<listheader label="Elenco indirizzi disponibili" />
+								</listhead>
+								<template name="model">
+									<listitem draggable="true" droppable="true"
+										label="@load(c:cat4(c:cat5(each.cognome, ' ', each.nome, ' ',  each.ragioneSociale), ' (', each.indirizzoEmail , ')'))"
+										onDrop="@command('insertToList1', base=each)" attributes.item="@load(each)"
+										value="@load(each)" />
+								</template>
+							</listbox>
+
+							<vbox vflex="1" hflex="1" pack="middle" width="50px" align="center">
+								<button image="/images/afc/22x22/last.png" tooltiptext="Porta tutto a destra"
+									onClick="@command('onSelTuttoADx')">
+								</button>
+								<button image="/images/afc/22x22/next.png" tooltiptext="Selezionato a destra"
+									onClick="@command('onSelADx')" disabled="@load(empty vm.selectedEmail)">
+								</button>
+								<space height="5px"/>
+								<button image="/images/afc/22x22/prev.png" tooltiptext="Selezionato a sinistra"
+									onClick="@command('onSelASx')" disabled="@load(empty vm.selectedNotificaEmail)">
+								</button>
+								<button image="/images/afc/22x22/first.png" tooltiptext="Porta tutto a sinistra"
+									onClick="@command('onSelTuttoASx')">
+								</button>
+							</vbox>
+
+							<listbox model="@bind(vm.listaNotificaEmail)" vflex="1" hflex="3" droppable="true" onDrop="@command('dropToList2')" selectedItem="@bind(vm.selectedNotificaEmail)">
+								<listhead>
+									<listheader label="Elenco indirizzi associati" />
+								</listhead>
+								<template name="model">
+									<listitem draggable="true" droppable="true"
+										label="@load(c:cat4(c:cat5(each.email.cognome, ' ', each.email.nome, ' ',  each.email.ragioneSociale ), ' (', each.email.indirizzoEmail , ')'))"
+										onDrop="@command('insertToList2', base=each)" attributes.item="@load(each)"
+										value="@load(each)" />
+								</template>
+							</listbox>
+						</hlayout>
+					</groupbox>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+
+		<vlayout class="datiCreazioneModifica" height="30px">
+		    <label value="@load(vm.datiCreazione)" visible="@load(vm.selectedRecord.id gt 0)" />
+			<label value="@load(vm.datiModifica)"  visible="@load(vm.selectedRecord.id gt 0)"/>
+		</vlayout>
+
+		<controlBarRecord duplicaAttivo="true" />
+
+		<!-- - - - - - - - - - - - - - - - -->
+		<!-- Popup Aggiungi Destinatario   -->
+		<!-- - - - - - - - - - - - - - - - -->
+		<window id="popupNuovoDestinatario" position="center" title=" " width="600px" height="480px" border="normal" closable="false" visible="false">
+			<h:div class="barraTitoloPagina">
+				<label sclass="titoloPagina" value="Nuovo Destinatario" />
+			</h:div>
+			<grid sclass="form" vflex="1">
+				<rows>
+					<row>
+						<cell width="100px">Funzione:</cell>
+						<cell>
+							<combobox hflex="1" model="@load(vm.listaTipiDestinatari)"
+								selectedItem="@bind(vm.destinatario.funzione) @converter('it.finmatica.zkutils.PropertyConverter', property='key')"
+								readonly="true">
+								<template name="model" var="f">
+									<comboitem label="@load(f.value.descrizione)" value="@load(f.key)" />
+								</template>
+							</combobox>
+						</cell>
+					</row>
+					<row>
+						<cell>Soggetto:</cell>
+						<cell>
+							<textbox readonly="true" hflex="1" value="@load(vm.destinatario.soggetto.denominazione)" />
+							<button style="float:right;" image="/images/agsde2/16x16/users.png" onClick="@command('onCercaSoggetto')"/>
+						</cell>
+					</row>
+					<row>
+						<cell>Ruolo:</cell>
+						<cell><bandbox-ruoli
+								hflex="1"
+								mold="rounded"
+								autodrop="true"
+								ruolo="@bind(vm.destinatario.ruolo)" />
+						</cell>
+					</row>
+					<row>
+						<cell>Unita:</cell>
+						<cell><bandbox-unita
+								hflex="1"
+								mold="rounded"
+								autodrop="true"
+								unita="@bind(vm.destinatario.unita)" />
+						</cell>
+					</row>
+				</rows>
+			</grid>
+			<h:div class="barraPulsanti">
+				<h:div>
+					<button label="Salva" onClick="@command('onSalvaDestinatario')" mold="trendy" image="/images/pulsanti/16x16/filesave.png" />
+					<button label="Annulla" onClick="@command('onChiudiPopup')" mold="trendy" image="/images/pulsanti/16x16/window_close.png" />
+				</h:div>
+			</h:div>
+		</window>
+	</window>
+</zk>

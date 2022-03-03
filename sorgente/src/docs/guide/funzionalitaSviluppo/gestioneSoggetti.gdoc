@@ -1,0 +1,33 @@
+La gestione dei documenti in Sfera richiede che sia necessario identificare diversi soggetti per diversi documenti. Ad esempio, i soggetti di
+default per le Determine sono: Redattore, Unità Proponente, Funzionario e Dirigente.
+
+L'architettura di Sfera consente di poter aggiungere nuovi soggetti quando richiesto.
+
+h3. Architettura della Gestione dei Soggetti
+
+Per dare la possibilità di gestire soggetti personalizzabili, la struttura che sfera mette a disposizione consiste in:
+
+# Interfaccia Java @IDocumento@: mette a disposizione i metodi per il "set" e il "get" dei soggetti: @void setSoggetto(String tipoSoggetto, Ad4Utente utente, So4Unita unita, int sequenza)@ e @ISoggettoDocumento getSoggetto(tipoSoggetto)@
+# Interfaccia Java @ISoggettoDocumento@: che identifica un soggetto con tipoSoggetto, unità, utente, sequenza e validità.
+# Domain Class @CaratteristicaTipologiaSoggetto@: classe che descrive quali soggetti sono disponibili e come vengono calcolati per una certa "caratteristica" di documento, ad esempio, la "determina standard" ha i soggetto "Redattore", "Unità Proponente", "Funzionario" e "Dirigente".
+# Domain Class @RegolaCalcolo@: classe che identifica una regola di calcolo utilizzabile per il calcolo dei soggetti.
+# Classe @SoggettiAction@: action per il configuratore iter che gestisce diverse funzioni in modo automatico e dinamico come "haSoggettoXY" o "getSoggettoXY"
+# Vari @.zul@ che mostrano i soggetti a seconda della Caratteristica scelta
+# In Tipologia del documento è possibile associare una Caratteristica.
+
+h3. Gestire un nuovo Soggetto
+
+# Definire una costante in @TipoSoggetto@ che identifichi il nuovo soggetto, ad esempio: @INCARICATO@
+# Inserire una nuova riga sulla tabella @tipi_soggetto@ per l'incaricato.
+# Creare una nuova pagina .zul che verrà inclusa nella pagina del documento principale. "visualizzazione del soggetto", ad esempio: @grails-app/zul/atti/documenti/determina/determina_con_incaricato.zul@
+# Eventualmente creare una nuova @label@ da personalizzare presso il cliente
+# Aggiungere in @aggiornamentoService.aggiornaAzioni@ il mapping per quali soggetti rendere disponibili per quali documenti.
+# Avviare l'applicazione e cliccare "Aggiorna Azioni" che renderà disponibili le azioni sul nuovo soggetto nel flusso.
+
+h3. Limitazioni
+
+Un solo ruolo di configurazione in Caratteristica Tipologia per ogni regola di calcolo
+
+h3. Sviluppi e Miglioramenti futuri
+
+Eliminare la Domain Class RegolaCalcolo, costrurire una Annotation che identifichi un metodo come regola di calcolo, costruire una interfaccia ed un service che raccolga tutte le regole di calcolo. Tutto questo è già realizzato nel plugin GestioneDocumenti.

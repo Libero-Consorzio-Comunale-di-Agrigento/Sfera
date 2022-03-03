@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+    <system-config>
+        <ui-factory-class>org.zkoss.zk.grails.ui.GrailsComposerFactory</ui-factory-class>
+    </system-config>
+    <session-config>
+    	<!-- espresso in secondi: 1800 = 30 minuti -->
+	    <session-timeout>1800</session-timeout>
+	    
+	    <!-- Nel file index.zul e standalone.zul è presente un timer che ogni 5 minuti lancia un "ping"
+	    	 per manterere attiva la sessione.
+	    	 Questo si è reso necessario siccome gli utenti cliccano "edita testo" e ci lavorano sopra anche per ore
+	    	 con la conseguenza di perdere la sessione tomcat/zk. In questo modo viene tenuta attiva.
+	    -->
+	    <timer-keep-alive>true</timer-keep-alive>
+	</session-config>
+    <listener>
+        <description>ThreadLocal Synchronization Listener</description>
+        <listener-class>org.zkoss.zkplus.util.ThreadLocalListener</listener-class>
+    </listener>
+    <zscript-config>
+        <language-name>GroovyGrails</language-name>
+        <interpreter-class>
+            org.zkoss.zk.grails.scripting.GroovyGrailsInterpreter
+        </interpreter-class>
+    </zscript-config>
+    <preference>
+            <name>ThreadLocal</name>
+            <value>
+                org.springframework.transaction.support.TransactionSynchronizationManager=resources,
+                synchronizations,currentTransactionName,currentTransactionReadOnly,actualTransactionActive;
+                org.springframework.transaction.interceptor.TransactionAspectSupport=transactionInfoHolder;
+                org.springframework.web.context.request.RequestContextHolder=requestAttributesHolder,inheritableRequestAttributesHolder;
+            </value>
+    </preference>
+    <library-property>
+        <name>org.zkoss.zk.ui.metainfo.page.Loader.class</name>
+        <value>org.zkoss.web.util.resource.GrailsContentLoader</value>
+    </library-property>
+    <library-property>
+		<name>org.zkoss.zul.progressbox.position</name>
+		<value>center,top</value>
+	</library-property>
+	<library-property>
+        <name>org.zkoss.zul.image.preload</name>
+        <value>true</value>
+    </library-property>
+    <error-page>
+	    <exception-type>java.lang.Throwable</exception-type>    
+	    <location>/system/error.zul</location>
+	</error-page>
+	<system-config>
+    	<label-location>/WEB-INF/zk-label.properties</label-location>
+	</system-config>
+	<language-config>
+		<addon-uri>/WEB-INF/lang-addon.xml</addon-uri>
+	</language-config>
+</zk>

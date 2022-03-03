@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?xel-method prefix="i" name="impostazione" class="it.finmatica.atti.impostazioni.Impostazioni" signature="it.finmatica.atti.impostazioni.Impostazioni valueOf (java.lang.String)" ?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer" maximizable="true" maximized="true"
+            border="normal" viewModel="@id('vm') @init('sedutaIndexViewModel')">
+
+        <vlayout hflex="1" vflex="1">
+            <grid sclass="documentoBandaTitolo">
+                <rows>
+                    <row>
+                        <cell width="50px" rowspan="2">
+                            <image src="/images/agsde2/48x48/meeting.png"/>
+                        </cell>
+                        <cell>
+                            <label value="@load(vm.descrizioneSeduta)" sclass="documentoTitolo"/>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell sclass="documentoSottoTitolo">
+                            <label
+                                    value="@load((vm.seduta.tipoSeduta.descrizione ne null)? c:cat('Seduta ',vm.seduta.tipoSeduta.titolo) : '')"/>
+                            <a visible="@load(vm.seduta.secondaConvocazione)" sclass="secondoTitoloPaginaSeduta"
+                               label="@load(vm.linkSedutaPrincipale)" tooltiptext="Collegamento Seduta Principale"
+                               onClick="@command('onApriSedutaPrincipale')"/>
+                        </cell>
+                    </row>
+                </rows>
+            </grid>
+
+            <space height="3px"/>
+
+            <vlayout hflex="1" vflex="1">
+                <tabbox orient="vertical" vflex="1" onSelect="@global-command('onSelectTabSeduta')">
+                    <tabs sclass="docMenuSx">
+                        <tab id="tabConvocazione" label="Convocazione" image="/images/agsde2/32x32/calendar.png" onSelect="@global-command('onSelectDatiSeduta')" />
+                        <tab id="tabVerbalizzazione" label="Verbalizzazione" image="/images/agsde2/32x32/legitimate.png"
+                             disabled="@bind(vm.abilitaTabVerbalizzazione)"/>
+                    </tabs>
+                    <tabpanels>
+                        <tabpanel>
+                            <tabbox vflex="1">
+                                <tabs>
+                                    <tab id="dataSeduta" label="Dati Seduta" onSelect="@global-command('onSelectDatiSeduta')"/>
+                                    <tab id="convocati" label="Convocati" disabled="@load(vm.seduta.id lt 0)"/>
+                                    <tab id="proposte" label="@load(c:l('label.odg.inserimentoProposte'))" disabled="@load(vm.seduta.id lt 0)" onSelect="@global-command('onRefreshProposte')"/>
+                                </tabs>
+                                <tabpanels>
+                                    <tabpanel>
+                                        <include src="/odg/seduta/datiSeduta.zul" seduta="#{vm.seduta}"/>
+                                    </tabpanel>
+                                    <tabpanel fulfill="convocati.onSelect">
+                                        <include src="/odg/seduta/convocatiSeduta.zul" seduta="#{vm.seduta}" wp="#{vm.self}"/>
+                                    </tabpanel>
+                                    <tabpanel fulfill="proposte.onSelect">
+                                        <include src="/odg/seduta/proposteSeduta.zul" seduta="#{vm.seduta}"/>
+                                    </tabpanel>
+                                </tabpanels>
+                            </tabbox>
+                        </tabpanel>
+                        <tabpanel>
+                            <tabbox vflex="1">
+                                <tabs>
+                                    <tab id="partecipanti" label="Partecipanti" disabled="@load(vm.modificaPartecipanti)"/>
+                                    <tab id="verbalizzazione" label="Esiti trattazione" disabled="@load(vm.abilitaVerbalizzazione)"/>
+                                    <tab id="testi" label="Testi Delibere" disabled="@load(vm.abilitaTesti)"/>
+                                </tabs>
+                                <tabpanels>
+                                    <tabpanel fulfill="tabVerbalizzazione.onSelect">
+                                        <include src="/odg/seduta/partecipantiSeduta.zul" seduta="#{vm.seduta}" wp="#{vm.self}"/>
+                                    </tabpanel>
+                                    <tabpanel fulfill="verbalizzazione.onSelect">
+                                        <include src="/odg/seduta/verbalizzazioneSeduta.zul" seduta="#{vm.seduta}"/>
+                                    </tabpanel>
+                                    <tabpanel fulfill="testi.onSelect">
+                                        <include src="/odg/seduta/testiSeduta.zul" seduta="#{vm.seduta}"/>
+                                    </tabpanel>
+                                </tabpanels>
+                            </tabbox>
+                        </tabpanel>
+                    </tabpanels>
+                </tabbox>
+            </vlayout>
+
+            <h:div class="barraPulsanti">
+                <combobutton image="/images/afc/16x16/print.png" label="Stampe" visible="@load(vm.stampeAbilitate)">
+                    <popup width="300px">
+                        <listbox model="@load(vm.listaStampeCommissione)" emptyMessage="Nessun dato trovato">
+                            <template name="model" var="stampa">
+                                <listitem
+                                        disabled="@load((vm.statoSeduta ne 'Da Verbalizzare') and (stampa.modelloTesto.nome eq 'Stampa del verbale' or stampa.modelloTesto.nome eq 'Stampa dei capigruppo'))">
+                                    <listcell label="@load(stampa.modelloTesto.nome)" onClick="@command('onStampa', stampa=stampa)"/>
+                                </listitem>
+                            </template>
+                        </listbox>
+                    </popup>
+                </combobutton>
+
+                <combobutton image="/images/afc/16x16/mail.png" visible="@load(vm.notificheStampeAbilitate)" label="Notifiche">
+                    <popup width="300px">
+                        <listbox model="@load(vm.listaNotifiche)" emptyMessage="Nessuna notifica presente">
+                            <template name="model" var="notifica">
+                                <listitem>
+                                    <listcell label="@load(notifica.titolo)" onClick="@command('onNotifica', notifica=notifica)"/>
+                                </listitem>
+                            </template>
+                        </listbox>
+                    </popup>
+                </combobutton>
+
+                <button mold="trendy" image="/images/agsde2/16x16/pdf.png"
+                        label="Stampa Unica" onClick="@command('onStampaUnica')"
+                        if="#{i:impostazione('ODG_STAMPA_UNICA').abilitato}"/>
+
+                <button mold="trendy" image="/images/afc/16x16/world.png"
+                        label="Pubblica" onClick="@command('onPubblica', pubblica=true)"
+                        visible="@load(vm.seduta.commissione.pubblicaWeb and !vm.seduta.pubblicaWeb)"/>
+
+                <button mold="trendy" image="/images/afc/16x16/cancel.png"
+                        label="Annulla Pubblicazione" onClick="@command('onPubblica',pubblica = false)"
+                        visible="@load(vm.seduta.commissione.pubblicaWeb and vm.seduta.pubblicaWeb)"/>
+
+                <button mold="trendy" image="/images/afc/16x16/delete.png" label="Elimina" onClick="@command('onElimina')"
+                        visible="@load((vm.numOggettoSeduta eq 0) and (vm.seduta.id ne -1))"/>
+
+                <button mold="trendy" image="/images/afc/16x16/house_plan.png"
+                        label="Esporta" onClick="@command('onExportSedutaXml')"
+                        visible="@load(vm.seduta.id gt 0 and (!vm.modificaPartecipanti) and vm.esportaSedutaXml)"/>
+                <button mold="trendy" image="/images/afc/16x16/house_plan.png"
+                        label="Esporta" onClick="@command('onExportSedutaCsv')"
+                        visible="@load(vm.seduta.id gt 0 and vm.esportaSedutaCsv)"/>
+
+                <h:div>
+                    <button mold="trendy" image="/images/afc/16x16/save.png"
+                            label="Salva" onClick="@command('onSalva')"
+                            disabled="@load(not empty vm.seduta.secondaSeduta)"/>
+                    <button mold="trendy" image="/images/afc/16x16/save.png"
+                            label="Salva e chiudi" onClick="@command('onSalvaChiudi')"
+                            disabled="@load(not empty vm.seduta.secondaSeduta)"/>
+                    <button mold="trendy" image="/images/afc/16x16/close.png"
+                            label="Chiudi" onClick="@command('onChiudi')" focus="true"/>
+                    <!-- ho messo il focus a true per evitare l'effetto sul link della seconda
+                        seduta.....da gestire in altro modo (css)  -->
+                </h:div>
+            </h:div>
+        </vlayout>
+    </window>
+</zk>

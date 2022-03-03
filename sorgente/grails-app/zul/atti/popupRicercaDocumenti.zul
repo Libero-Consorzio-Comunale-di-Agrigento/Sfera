@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?xel-method prefix="i" name="impostazione" class="it.finmatica.atti.impostazioni.Impostazioni" signature="it.finmatica.atti.impostazioni.Impostazioni valueOf (java.lang.String)" ?>
+<?xel-method prefix="da" name="isAbilitato" class="it.finmatica.atti.documenti.TipoDatoAggiuntivo" signature="boolean isAbilitato (java.lang.String)" ?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+	
+	<!-- - - - - - - - - - - - - - 
+	 Popup di ricerca Avanzata
+	 
+	 Non ha viewModel perché usa quello "padre", cioè RicercaDocumentiViewModel 
+	- - - - - - - - - - - - - - - -->
+	<window width="1000px" border="normal" sizable="true" title=" " visible="false">
+		<h:div class="barraTitoloPagina">
+			<hlayout>
+				<label sclass="titoloPagina" value="@load(c:cat('Ricerca ', vm.ricerca.tipiDocumento[vm.ricerca.tipoDocumento].nome))" />
+			</hlayout>
+		</h:div>
+		
+		<groupbox closable="false">
+			<caption label="@load(c:cat('Dati ', vm.ricerca.tipiDocumento[vm.ricerca.tipoDocumento].nome))" />
+			<grid sclass="form" >
+				<rows>
+					<row if="#{i:impostazione('SECONDO_NUMERO_DETERMINA').abilitato}">
+						<cell align="right" width="105px"><label value="@load(c:l('feature.secondaNumerazione.anno'))" /></cell>
+						<cell width="295px">
+							<intbox value="@bind(vm.ricerca.annoAtto2)" />
+						</cell>
+						<cell align="right" width="150px"><label value="@load(c:l('feature.secondaNumerazione.numero'))" /></cell>
+						<cell width="295px">
+							<label value="Dal " />
+							<intbox value="@bind(vm.ricerca.numeroAtto2Dal)"/>
+							<label value=" Al " />
+							<intbox value="@bind(vm.ricerca.numeroAtto2Al)"/>
+						</cell>
+					</row>
+					<row>
+						<cell align="right" width="105px"><label value="Anno" /></cell>
+						<cell width="295px">
+							<intbox value="@bind(vm.ricerca.annoAtto)" />
+						</cell>
+						<cell align="right" width="150px"><label value="Numero" /></cell>
+						<cell width="295px">
+							<label value="Dal " />
+							<intbox value="@bind(vm.ricerca.numeroAttoDal)"/>
+							<label value=" Al " />
+							<intbox value="@bind(vm.ricerca.numeroAttoAl)"/>
+						</cell>
+					</row>
+					<row>
+						<cell align="right"><label value="Registro"/></cell>
+						<cell>
+							<combobox model="@load(vm.ricerca.listaTuttiRegistriAtto)" width="100%" readonly="true"
+								selectedItem="@bind(vm.ricerca.registroAtto) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')">
+								<template name="model">
+									<comboitem label="@load(each.descrizione)" value="@load(each.codice)" />
+								</template>
+							</combobox>
+						</cell>
+						<cell align="right"><label value="Solo con impegno di spesa" /></cell>
+						<cell>
+							<radiogroup selectedIndex="@load(vm.ricerca.conImpegnoSpesa ? 0 : 1)" selectedItem="@save(vm.ricerca.conImpegnoSpesa)" >
+			     				<radio label="Sì" value="@load(true)"  />
+					            <radio label="No" value="@load(false)" />
+				            </radiogroup>
+						</cell>
+					</row>
+					<row>
+						<cell align="right" width="105px"><label value="Anno Protocollo" /></cell>
+						<cell width="295px">
+							<intbox value="@bind(vm.ricerca.annoProtocollo)" />
+						</cell>
+						<cell align="right" width="150px"><label value="Numero Protocollo" /></cell>
+						<cell width="295px">
+							<label value="Dal " />
+							<intbox value="@bind(vm.ricerca.numeroProtocolloDal)"/>
+							<label value=" Al " />
+							<intbox value="@bind(vm.ricerca.numeroProtocolloAl)"/>
+						</cell>
+					</row>
+					<row>
+						<cell align="right"><label value="Data Adozione" /></cell>
+						<cell>
+							<label value="Dal " />
+							<datebox value="@bind(vm.ricerca.dataAdozioneDal)" format="dd/MM/yyyy"/>
+							<label value=" Al " />
+							<datebox value="@bind(vm.ricerca.dataAdozioneAl)" format="dd/MM/yyyy"/>
+						</cell>
+						<cell align="right"><label value="@load(c:l('label.ricerca.dataEsecutivita'))" /></cell>
+						<cell>
+							<label value="Dal " />
+							<datebox value="@bind(vm.ricerca.dataEsecutivitaDal)" format="dd/MM/yyyy"/>
+							<label value=" Al " />
+							<datebox value="@bind(vm.ricerca.dataEsecutivitaAl)" format="dd/MM/yyyy"/>
+						</cell>
+					</row>
+					<row>
+						<cell align="right"><label value="Pubblicazione" /></cell>
+						<cell>
+							<label value="Dal " />
+							<datebox value="@bind(vm.ricerca.dataPubblicazioneDal)" format="dd/MM/yyyy"/>
+							<label value=" Al " />
+							<datebox value="@bind(vm.ricerca.dataPubblicazioneAl)" format="dd/MM/yyyy"/>
+						</cell>
+						<cell visible="@load(vm.ricerca.abilitaRichiestaEsecutivita)" align="right">
+							<label value="@load(c:l('label.popupRicercaDocumenti.richiestaEsecutivita'))" />
+						</cell>
+						<cell visible="@load(vm.ricerca.abilitaRichiestaEsecutivita)">
+							<label value="Dal " />
+							<datebox value="@bind(vm.ricerca.dataScadenzaDal)" format="dd/MM/yyyy"/>
+							<label value=" Al " />
+							<datebox value="@bind(vm.ricerca.dataScadenzaAl)" format="dd/MM/yyyy"/>
+						</cell>
+					</row>
+					<row>
+						<cell align="right" width="105px"><label value="Anno Albo" /></cell>
+						<cell width="295px">
+							<intbox value="@bind(vm.ricerca.annoAlbo)" />
+						</cell>
+						<cell align="right" width="150px"><label value="Numero Albo" /></cell>
+						<cell width="295px">
+							<label value="Dal " />
+							<intbox value="@bind(vm.ricerca.numeroAlboDal)"/>
+							<label value=" Al " />
+							<intbox value="@bind(vm.ricerca.numeroAlboAl)"/>
+						</cell>
+					</row>
+					<row visible="@load(vm.ricerca.corteContiAbilitata)">
+						<cell align="right" ><label value="Stato Corte dei Conti" /></cell>
+						<cell>
+							<combobox hflex="1" readonly="true" 	selectedItem="@bind(vm.ricerca.statoInvioCorteConti)">
+								<comboitem label="-- nessuno --" 	value="NESSUNO"/>
+								<comboitem label="Da Inviare" 		value="DA_INVIARE"/>
+								<comboitem label="Da Non Inviare" 	value="DA_NON_INVIARE"/>
+								<comboitem label="Inviate" 			value="INVIATO"/>
+								<comboitem label="Da Non Inviare" 	value="NON_INVIATO"/>
+	      					</combobox>
+						</cell>
+						<cell align="right" ><label value="Data di Invio Corte dei Conti" /></cell>
+						<cell>
+							<label value="Dal " />
+							<datebox value="@bind(vm.ricerca.dataInvioCorteContiDal)" format="dd/MM/yyyy" />
+							<label value=" Al " />
+							<datebox value="@bind(vm.ricerca.dataInvioCorteContiAl)" format="dd/MM/yyyy" />
+						</cell>
+					</row>
+					<row>
+						<cell align="right"><label value="Tipo Allegato"/></cell>
+						<cell>
+							<combobox hflex="1" model="@load(vm.ricerca.listaTipiAllegato)" selectedItem="@bind(vm.ricerca.tipoAllegato)" readonly="true">
+								<template name="model" var="tipologia">
+									<comboitem label="@bind(tipologia.titolo)" description="@bind(tipologia.descrizione)"  />
+								</template>
+							</combobox>
+						</cell>
+						<cell align="right"><label value="Tipo Allegato Parere"/></cell>
+						<cell>
+							<combobox hflex="1" model="@load(vm.ricerca.listaTipiAllegato)" selectedItem="@bind(vm.ricerca.tipoAllegatoVistoParere) @converter('it.finmatica.zkutils.PropertyConverter', property='id', default=-1)" readonly="true">
+								<template name="model" var="tipologia">
+									<comboitem label="@load(tipologia.titolo)" description="@load(tipologia.descrizione)"  />
+								</template>
+							</combobox>
+						</cell>
+					</row>
+					<row>
+						<cell align="right">
+							<label value="Stato" />
+						</cell>
+						<cell>
+							<combobox readonly="true" model="@load(vm.ricerca.listaStatiDocumento)" hflex="1" selectedItem="@bind(vm.ricerca.stato)">
+	      						<template name="model" var="stato">
+									<comboitem label="@load(stato)"/>
+								</template>
+	      					</combobox>
+						</cell>
+					</row>
+					<row  visible="@load(vm.ricerca.tipoDocumento eq 'DELIBERA')">
+						<cell align="right"><label value="Presidente"/></cell>
+						<cell>
+							<bandbox-utenti hflex="1" mold="rounded" autodrop="true" utente="@bind(vm.ricerca.presidente)" tipoSoggetto="PRESIDENTE" mascheraRicerca="@load(vm.ricerca)" />
+						</cell>
+						<cell align="right"><label value="Segretario"/></cell>
+						<cell>
+							<bandbox-utenti hflex="1" mold="rounded" autodrop="true" utente="@bind(vm.ricerca.segretario)" tipoSoggetto="SEGRETARIO" mascheraRicerca="@load(vm.ricerca)" />
+						</cell>
+					</row>
+					<row visible="@load(not vm.ricerca.ricercaConservazione)">
+						<cell align="right" width="105px"><label value="Stato Conservazione" /></cell>
+						<cell width="295px">
+							<radiogroup selectedItem="@save(vm.ricerca.statoConservazione)" >
+								<radio label="Tutti" value="" checked="true"/>
+								<radio label="Non Conservati" value="N" />
+								<radio label="Conservati" value="Y" />
+							</radiogroup>
+						</cell>
+						<cell align="right" width="150px"><label value="Data Conservazione" /></cell>
+						<cell width="295px">
+							<label value="Dal " />
+							<datebox value="@bind(vm.ricerca.dataConservazioneDal)" format="dd/MM/yyyy"/>
+							<label value=" Al " />
+							<datebox value="@bind(vm.ricerca.dataConservazioneAl)" format="dd/MM/yyyy"/>
+						</cell>
+					</row>
+					<row visible="@load(vm.ricerca.ricercaConservazione)">
+                        <cell align="right" width="105px"><label value="Stato Conservazione" /></cell>
+                        <cell width="295px">
+                            <radiogroup selectedItem="@save(vm.ricerca.statoConservazione)" >
+                                <radio label="Da Conservare" value="DC" />
+                                <radio label="Errore" value="ER" />
+                                <radio label="Entrambi" value="ALL" checked="true"/>
+                            </radiogroup>
+                        </cell>
+						<cell align="right" width="105px"><label value="Atto Concluso" /></cell>
+						<cell width="295px">
+							<radiogroup selectedIndex="@load(vm.ricerca.attoConcluso ? 0 : 1)" selectedItem="@save(vm.ricerca.attoConcluso)" >
+								<radio label="Sì" value="@load(true)"  />
+								<radio label="No" value="@load(false)" />
+							</radiogroup>
+						</cell>
+						<cell align="right" width="150px"></cell>
+						<cell width="295px">
+						</cell>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<groupbox closable="false">
+			<caption label="@load(c:l('label.ricerca.sezioneDatiProposta'))" />
+			<grid sclass="form">
+				<rows>
+					<row>
+						<cell align="right" width="105px"><label value="@load(c:l('label.ricerca.annoProposta'))" /></cell>
+						<cell width="295px">
+							<intbox value="@bind(vm.ricerca.annoProposta)"/>
+						</cell>
+						<cell align="right" width="150px"><label value="@load(c:l('label.ricerca.numeroProposta'))"  /></cell>
+						<cell width="295px">
+							<label value="Dal " />
+							<intbox value="@bind(vm.ricerca.numeroPropostaDal)"/>
+							<label value=" Al " />
+							<intbox value="@bind(vm.ricerca.numeroPropostaAl)"/>
+						</cell>
+					</row>
+					<row>
+						<cell align="right"><label value="@load(c:l('label.ricerca.dataProposta'))" /></cell>
+						<cell>
+							<label value="Dal " />
+							<datebox value="@bind(vm.ricerca.dataPropostaDal)" format="dd/MM/yyyy"/>
+							<label value=" Al " />
+							<datebox value="@bind(vm.ricerca.dataPropostaAl)" format="dd/MM/yyyy"/>
+						</cell>
+						<cell align="right" visible="@load(vm.ricerca.categoriaAbilitata)">
+							<label value="@load(vm.ricerca.tipiDocumento[vm.ricerca.tipoDocumento].labelCategoria)" />
+						</cell>
+						<cell visible="@load(vm.ricerca.categoriaAbilitata)">
+							<combobox readonly="true" model="@load(vm.ricerca.listaCategorie)"  hflex="1"
+								   selectedItem="@bind(vm.ricerca.categoria) @converter('it.finmatica.zkutils.PropertyConverter', property='id')">
+								<template name="model" var="categoria">
+									<comboitem label="@load(categoria.codice)" description="@load(categoria.descrizione)" value="@load(categoria)" />
+								</template>
+							</combobox>
+						</cell>
+						<cell colspan="2" visible="@load(not vm.ricerca.categoriaAbilitata)">
+						</cell>
+					</row>
+					<row>
+						<cell align="right"><label value="Tipologia"/></cell>
+						<cell>
+							<combobox readonly="true" hflex="1" model="@load(vm.ricerca.listaTipologie)" selectedItem="@bind(vm.ricerca.tipologia)">
+								<template name="model" var="tipologia">
+									<comboitem label="@load(c:cat(tipologia.titolo, (tipologia.valido ? '' : (c:cat5(' (dal ', c:formatDate(tipologia.validoDal, 'dd/MM/yyyy'), ' al ', c:formatDate(tipologia.validoAl, 'dd/MM/yyyy'), ')')))))" description="@load(tipologia.descrizione)"  />
+								</template>
+							</combobox>
+						</cell>
+						<cell align="right"><label value="Organo Deliberante" visible="@load(vm.ricerca.tipoDocumento eq 'DELIBERA')" /></cell>
+						<cell>
+							<combobox readonly="true" hflex="1" model="@load(vm.ricerca.listaCommissioni)" selectedItem="@bind(vm.ricerca.commissione)" visible="@load(vm.ricerca.tipoDocumento eq 'DELIBERA')">
+								<template name="model" var="commissione">
+									<comboitem label="@load(commissione.titolo)" description="@load(commissione.descrizione)"  />
+								</template>
+							</combobox>
+						</cell>
+					</row>
+					<row>
+						<cell align="right">
+							<label value="Oggetto Ricorrente" />
+						</cell>
+						<cell>
+							<combobox model="@load(vm.ricerca.listaOggettiRicorrenti)"  hflex="1"
+									  selectedItem="@bind(vm.ricerca.oggettoRicorrente) @converter('it.finmatica.zkutils.PropertyConverter', property='id')">
+								<template name="model" var="oggettoRicorrente">
+									<comboitem label="@load(not empty oggettoRicorrente.codice ? c:cat3(oggettoRicorrente.codice, ' - ', oggettoRicorrente.oggetto) : oggettoRicorrente.oggetto)" value="@load(oggettoRicorrente)" />
+								</template>
+							</combobox>
+						</cell>
+					</row>
+					<row>
+						<cell align="right"><label value="Unità proponente"/></cell>
+						<cell>
+							<bandbox-unita hflex="1" mold="rounded" autodrop="true" unita="@bind(vm.ricerca.unitaProponente)" mascheraRicerca="@load(vm.ricerca)" />
+						</cell>
+						<cell align="right"><label value="Redattore"/></cell>
+						<cell>
+							<bandbox-utenti hflex="1" mold="rounded" autodrop="true" utente="@bind(vm.ricerca.redattore)" tipoSoggetto="REDATTORE" mascheraRicerca="@load(vm.ricerca)" />
+						</cell>
+					</row>
+					<row>
+						<cell align="right"><label value="Firmatario"/></cell>
+						<cell>
+							<bandbox-utenti hflex="1" mold="rounded" autodrop="true" utente="@bind(vm.ricerca.firmatario)" tipoSoggetto="DIRIGENTE" mascheraRicerca="@load(vm.ricerca)" />
+						</cell>
+						<cell align="right"><label value="Relatore" visible="@load(vm.ricerca.tipoDocumento eq 'DELIBERA')" /></cell>
+						<cell>
+							<combobox readonly="true" model="@load(vm.ricerca.listaRelatori)"  hflex="1" visible="@load(vm.ricerca.tipoDocumento eq 'DELIBERA')"
+									  selectedItem="@bind(vm.ricerca.relatore) @converter('it.finmatica.zkutils.PropertyConverter', property='id')">
+								<template name="model" var="delega">
+									<comboitem label="@load(delega.denominazione)" value="@load(delega)" />
+								</template>
+							</combobox>
+						</cell>
+					</row>
+					<row visible="@load(vm.ricerca.abilitaIncaricato)">
+						<cell align="right" visible="@load(vm.ricerca.abilitaIncaricato)"><label value="@load(c:l('label.ricerca.incaricato'))"/></cell>
+						<cell visible="@load(vm.ricerca.abilitaIncaricato)">
+							<bandbox-utenti hflex="1" mold="rounded" autodrop="true" utente="@bind(vm.ricerca.incaricato)" tipoSoggetto="INCARICATO" mascheraRicerca="@load(vm.ricerca)" />
+						</cell>
+						<cell align="right"></cell>
+						<cell></cell>
+					</row>
+                    <row if="#{da:isAbilitato('CUP')}" visible="@load(vm.ricerca.tipoDocumento eq 'DETERMINA')">
+                        <cell align="right" if="#{da:isAbilitato('CUP')}"><label value="CUP"/></cell>
+                        <cell if="#{da:isAbilitato('CUP')}">
+                            <textbox mold="rounded" hflex="1" width="100%" value="@bind(vm.ricerca.cup)"/>
+                        </cell>
+                    </row>
+					<row>
+						<cell align="right">
+							<label value="Tipo Budget" />
+						</cell>
+						<cell>
+							<combobox model="@load(vm.ricerca.listaBudget)"  hflex="1" selectedItem="@bind(vm.ricerca.tipoBudget) @converter('it.finmatica.zkutils.PropertyConverter', property='id')">
+								<template name="model" var="tipo">
+									<comboitem label="@load(c:cat(tipo.titolo, empty tipo.contoEconomico ? '' : c:cat3(' [', tipo.contoEconomico, ']')))" value="@load(tipo)" />
+								</template>
+							</combobox>
+						</cell>
+						<cell align="right">
+							<label value="Conto Economico" />
+						</cell>
+						<cell>
+    						<textbox mold="rounded" hflex="1" width="100%" value="@bind(vm.ricerca.contoEconomico)"/>
+                        </cell>
+					</row>
+					<row>
+						<cell align="right">
+							<label value="Codice Progetto" />
+						</cell>
+						<cell>
+    						<textbox mold="rounded" hflex="1" width="100%" value="@bind(vm.ricerca.codiceProgetto)"/>
+                        </cell>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+	
+		<h:div class="barraPulsanti">
+			<h:div>
+				<button mold="trendy" image="/images/afc/16x16/filter_box.png" 	label="Cancella Filtri" onClick="@command('onSvuotaFiltri')" 	/>
+				<button mold="trendy" image="/images/afc/16x16/search.png"  	label="Cerca" 			onClick="@command('onCercaAvanzata')"	/>
+				<button mold="trendy" image="/images/afc/16x16/close.png"  		label="Chiudi" 			onClick="@command('onChiudiRicercaAvanzata')" 			/>
+			</h:div>
+		</h:div>
+	</window>
+</zk>

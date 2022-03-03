@@ -1,0 +1,8 @@
+Le note di trasmissione sono note che un utente scrive per l'utente successivo del flusso.
+
+La particolarità di queste note è che sono scritte in prima istanza da un utente nel campo @note_trasmissione@ del documento (determina, proposta delibera, visto o parere), poi nel passaggio al nodo successivo
+il contenuto del campo viene storicizzato ed il campo originale viene svuotato per dare la possibilità all'utente successivo di riempirlo nuovamente.
+A questo punto l'utente vedrà le note trasmissione inserite dall'utente precedente perché queste ultime vengono recuperate dallo storico.
+
+Questo meccanismo è valido per i documenti: Determina, PropostaDelibera, VistoParere.
+

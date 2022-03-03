@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Documento riassuntivo firme</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<delibera>
+				<ANNO_DELIBERA>2017</ANNO_DELIBERA>
+				<N_DELIBERA>1000</N_DELIBERA>
+				<DATA_ADOZIONE>20/06/2017</DATA_ADOZIONE>
+				<FIRMATARIO_PROPOSTA>Firmatario Proposta</FIRMATARIO_PROPOSTA>
+				<OGGETTO>OGGETTO DELLA DELIBERA</OGGETTO>
+				<COGNOME_FIRMATARIO_PROPOSTA>Cognome Firmatario Proposta</COGNOME_FIRMATARIO_PROPOSTA>
+				<NOME_FIRMATARIO_PROPOSTA>Nome Firmatario Proposta</NOME_FIRMATARIO_PROPOSTA>
+			</delibera>
+			<firmatari>
+				<FIRMATARIO>Nome e Cognome Presidente</FIRMATARIO>
+				<NOME_FIRMATARIO>Nome</NOME_FIRMATARIO>
+				<COGNOME_FIRMATARIO>Cognome</COGNOME_FIRMATARIO>
+				<RUOLO>PRESIDENTE</RUOLO>
+				<COMPONENTE>Nome e Cognome Presidente</COMPONENTE>
+				<NOME_COMPONENTE>Nome Presidente</NOME_COMPONENTE>
+				<COGNOME_COMPONENTE>Cognome Presidente</COGNOME_COMPONENTE>
+				<DESCRIZIONE_FIRMATARIO>Il Presidente Nome e Cognome Presidente</DESCRIZIONE_FIRMATARIO>
+			</firmatari>
+			<firmatari>
+				<FIRMATARIO>Nome e Cognome Segretario</FIRMATARIO>
+				<NOME_FIRMATARIO>Nome</NOME_FIRMATARIO>
+				<COGNOME_FIRMATARIO>Cognome</COGNOME_FIRMATARIO>
+				<RUOLO>SEGRETARIO</RUOLO>
+				<COMPONENTE>Nome e Cognome Segretario</COMPONENTE>
+				<NOME_COMPONENTE>Nome Segratario</NOME_COMPONENTE>
+				<COGNOME_COMPONENTE>Cognome Segretario</COGNOME_COMPONENTE>
+				<DESCRIZIONE_FIRMATARIO>Il Segretario Nome e Cognome Segretario</DESCRIZIONE_FIRMATARIO>
+			</firmatari>
+			<soggetti_firmatari>
+				<FIRMATARIO>Nome e Cognome Primo firmatario</FIRMATARIO>
+				<NOME_FIRMATARIO>Nome Primo firmatario</NOME_FIRMATARIO>
+				<COGNOME_FIRMATARIO>Cognome Primo firmatario</COGNOME_FIRMATARIO>
+			</soggetti_firmatari>
+			<soggetti_firmatari>
+				<FIRMATARIO>Nome e Cognome Secondo firmatario</FIRMATARIO>
+				<NOME_FIRMATARIO>Nome Secondo firmatario</NOME_FIRMATARIO>
+				<COGNOME_FIRMATARIO>Cognome Secondo firmatario</COGNOME_FIRMATARIO>
+			</soggetti_firmatari>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>id della delibera</descrizione>
+			<path/>			
+		</metaDato>
+<!-- DEFINIZIONE CAMPI DELLA QUERY -->
+		<metaDato>
+			<nomeSimbolico>N_DELIBERA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_DELIBERA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di numerazione della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Firmatario della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOME_FIRMATARIO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nome del firmatario della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>COGNOME_FIRMATARIO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Cognome del firmatario della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_ADOZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di adozione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Firmatario dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>COGNOME_FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Cognome del firmatario dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOME_FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nome del firmatario dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RUOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ruolo del firmatario nella seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>COMPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Cognome e nome del componente della seduta con lo stesso ruolo del firmatario</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>COGNOME_COMPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Cognome del componente della seduta con lo stesso ruolo del firmatario</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOME_COMPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nome del componente della seduta con lo stesso ruolo del firmatario</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Dicitura da inserrie per la descrizione del firmatario. Es. Il RUOLO FIRMATARIO (come da delega acquisita agli atti dell'Azienda)</descrizione>
+			<path/>
+		</metaDato>
+	</definitions>
+	<queryes>
+		<query id='delibera'
+			   help_query_alias="d"
+			   help_field_aliases="ANNO_DELIBERA, N_DELIBERA, OGGETTO, DATA_ADOZIONE, FIRMATARIO_PROPOSTA, NOME_FIRMATARIO_PROPOSTA, COGNOME_FIRMATARIO_PROPOSTA">
+			   select N_DELIBERA
+					, ANNO_DELIBERA
+					, OGGETTO
+					, DATA_ADOZIONE
+					, FIRMATARIO_PROPOSTA
+					, COGNOME_FIRMATARIO_PROPOSTA
+					, NOME_FIRMATARIO_PROPOSTA
+					from (  select decode (numero_delibera, null, '${documentRoot.delibera.N_DELIBERA}', to_char (numero_delibera)) N_DELIBERA
+								 , decode (anno_delibera, null, '${documentRoot.delibera.ANNO_DELIBERA}', to_char (anno_delibera)) ANNO_DELIBERA
+								 , d.oggetto OGGETTO
+								 , to_char (d.data_adozione, 'DD/MM/YYYY') DATA_ADOZIONE
+								 , initcap (utility_pkg.get_cognome_nome (utility_pkg.get_ni_soggetto (f.utente_firmatario))) FIRMATARIO_PROPOSTA
+								 , initcap (utility_pkg.get_cognome (utility_pkg.get_ni_soggetto (f.utente_firmatario))) COGNOME_FIRMATARIO_PROPOSTA
+								 , initcap (utility_pkg.get_nome (utility_pkg.get_ni_soggetto (f.utente_firmatario))) NOME_FIRMATARIO_PROPOSTA
+							  from delibere d, firmatari f
+							 where d.id_delibera = #id
+							   and d.id_proposta_delibera = f.id_proposta_delibera(+)
+			                   and f.firmato(+) = 'Y'
+			              order by f.data_firma desc)
+					where rownum = 1
+		</query>
+		<!-- firmatari: restituisce i dati dei firmatari della delibera -->
+        <!-- query id='firmatari'
+			   help_query_alias="f"
+               help_field_aliases="FIRMATARIO, COGNOME_FIRMATARIO, NOME_FIRMATARIO, RUOLO, COMPONENTE, COGNOME_COMPONENTE, NOME_COMPONENTE">
+            select  InitCap(utility_pkg.get_cognome_nome (orig.ni_componente)) 		firmatario,
+                    InitCap(utility_pkg.get_cognome (orig.ni_componente)) 	cognome_firmatario,
+                    InitCap(utility_pkg.get_nome    (orig.ni_componente)) 	nome_firmatario,
+					orp.descrizione ruolo,
+                    InitCap(utility_pkg.get_cognome_nome (occ.ni_componente)) 		componente,
+                    InitCap(utility_pkg.get_cognome (occ.ni_componente)) 	cognome_componente,
+                    InitCap(utility_pkg.get_nome (occ.ni_componente)) 		nome_componente
+			from 	delibere d,
+					proposte_delibera p,
+					odg_oggetti_seduta oos,
+					odg_sedute os,
+					odg_commissioni_componenti occ,
+					odg_sedute_partecipanti osp,
+					odg_ruoli_partecipanti orp,
+					odg_commissioni_componenti orig
+			where
+					d.id_delibera = #id and d.id_proposta_delibera = p.id_proposta_delibera
+					and p.id_oggetto_seduta = oos.id_oggetto_seduta
+					and os.id_seduta = oos.id_seduta
+					and os.id_commissione = occ.id_commissione
+					and osp.id_seduta = os.id_seduta
+					and osp.firmatario = 'Y'
+					and osp.ruolo_partecipante = occ.ruolo_partecipante
+					and occ.valido = 'Y'
+					and osp.ruolo_partecipante = orp.ruolo_partecipante(+)
+					and orig.id_commissione_componente = osp.id_commissione_componente
+        </query -->
+        <query id='firmatari'
+               help_query_alias="f"
+               help_field_aliases="FIRMATARIO, COGNOME_FIRMATARIO, NOME_FIRMATARIO, RUOLO, COMPONENTE, COGNOME_COMPONENTE, NOME_COMPONENTE, DESCRIZIONE_FIRMATARIO">
+			SELECT DISTINCT InitCap (utility_pkg.get_cognome_nome (ad4_us.soggetto)) FIRMATARIO,
+				InitCap (utility_pkg.get_cognome (ad4_us.soggetto))      COGNOME_FIRMATARIO,
+				InitCap (utility_pkg.get_nome (ad4_us.soggetto))         NOME_FIRMATARIO,
+				InitCap (orp.descrizione)                                RUOLO,
+				InitCap (utility_pkg.get_cognome_nome (occ.ni_componente)) COMPONENTE,
+				InitCap (utility_pkg.get_cognome (occ.ni_componente))      COGNOME_COMPONENTE,
+				InitCap (utility_pkg.get_nome (occ.ni_componente))         NOME_COMPONENTE,
+				DECODE (ad4_us.soggetto,
+						occ.ni_componente,
+						'Il '     || InitCap (orp.descrizione) || ' ' || InitCap (utility_pkg.get_nome (occ.ni_componente)) || ' ' || InitCap (utility_pkg.get_cognome (occ.ni_componente)),
+						'Per il ' || InitCap (orp.descrizione) || ' ' || InitCap (utility_pkg.get_nome (occ.ni_componente)) || ' ' || InitCap (utility_pkg.get_cognome (occ.ni_componente))
+						|| ' come da delega acquisita agli atti dell''Azienda '||InitCap (utility_pkg.get_cognome_nome (ad4_us.soggetto))) DESCRIZIONE_FIRMATARIO,
+				occ.sequenza
+			FROM delibere d,
+				proposte_delibera p,
+				delibere_soggetti ds,
+				odg_commissioni_componenti occ,
+				odg_ruoli_partecipanti orp,
+				ad4_utenti_soggetti ad4_us,
+				firmatari f
+			WHERE   d.id_delibera = #id
+					AND d.id_proposta_delibera = p.id_proposta_delibera
+					AND d.id_delibera = ds.id_delibera
+					AND p.id_commissione = occ.id_commissione
+					AND ds.tipo_soggetto = occ.ruolo_partecipante
+					AND orp.ruolo_partecipante = occ.ruolo_partecipante
+					AND ds.utente = ad4_us.utente
+					AND f.utente_firmatario_effettivo = ds.utente
+					AND f.id_delibera = d.id_delibera
+					AND f.firmato = 'Y'
+					AND occ.valido = 'Y'
+					AND occ.firmatario = 'Y'
+			ORDER BY occ.sequenza
+		</query>
+		<query id='soggetti_firmatari'
+			   help_query_alias="s_firma"
+			   help_field_aliases="FIRMATARIO, COGNOME_FIRMATARIO, NOME_FIRMATARIO">
+			select firmatario FIRMATARIO
+			     , cognome_firmatario COGNOME_FIRMATARIO
+			     , nome_firmatario NOME_FIRMATARIO
+			from (  select rownum sequenza
+						 , initcap (ad4_us.cognome || ' ' || ad4_us.nome) firmatario
+						 , initcap (ad4_us.cognome) cognome_firmatario
+						 , initcap (ad4_us.nome) nome_firmatario
+			          from delibere_soggetti ds
+						 , firmatari f
+						 , as4_v_soggetti_correnti ad4_us
+					 where f.id_delibera = #id
+					   and f.firmato = 'Y'
+					   and f.utente_firmatario_effettivo = ad4_us.utente
+					   and ds.id_delibera = f.id_delibera
+					   and ds.utente = ad4_us.utente
+			      order by f.data_firma asc)
+			group by firmatario, cognome_firmatario, nome_firmatario
+			order by max (sequenza)
+		</query>
+	</queryes>
+	<staticData />
+</documentRoot>

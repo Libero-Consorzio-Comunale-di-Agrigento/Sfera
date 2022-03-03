@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Estratto delle Determine</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<registro>
+				<REGISTRO>Registro per Affari Generali</REGISTRO>
+				<ANNO_REGISTRO>2014</ANNO_REGISTRO>
+			</registro>
+			<estratto_determine>
+				<STATO />
+				<NUMERO_DETERMINA>101</NUMERO_DETERMINA>
+				<DATA_DETERMINA>07/01/2014</DATA_DETERMINA>
+                <NUMERO_DETERMINA_2>1</NUMERO_DETERMINA_2>
+                <DATA_DETERMINA_2>08/01/2014</DATA_DETERMINA_2>
+				<DATA_ESECUTIVITA>09/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>OMESSA</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE />
+				<OGGETTO>PRIMA DETERMINA</OGGETTO>
+				<ESTRATTO>ESTRATTO DELLA DETERMINA</ESTRATTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>1</NUMERO_ALBO>
+			</estratto_determine>
+			<estratto_determine>
+				<STATO />
+                <NUMERO_DETERMINA>102</NUMERO_DETERMINA>
+                <DATA_DETERMINA>08/01/2014</DATA_DETERMINA>
+                <NUMERO_DETERMINA_2>2</NUMERO_DETERMINA_2>
+                <DATA_DETERMINA_2>09/01/2014</DATA_DETERMINA_2>
+                <DATA_ESECUTIVITA>10/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>OMESSA</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE />
+				<OGGETTO>SECONDA DETERMINA</OGGETTO>
+				<ESTRATTO>ESTRATTO DELLA SECONDA DETERMINA</ESTRATTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>2</NUMERO_ALBO>
+			</estratto_determine>
+			<estratto_determine>
+				<STATO />
+                <NUMERO_DETERMINA>103</NUMERO_DETERMINA>
+                <DATA_DETERMINA>09/01/2014</DATA_DETERMINA>
+                <NUMERO_DETERMINA_2>3</NUMERO_DETERMINA_2>
+                <DATA_DETERMINA_2>11/01/2014</DATA_DETERMINA_2>
+				<DATA_ESECUTIVITA />
+				<DATA_PUBBLICAZIONE>10/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>25/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>TERZA DETERMINA</OGGETTO>
+				<ESTRATTO>ESTRATTO DELLA TERZA DETERMINA</ESTRATTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>3</NUMERO_ALBO>
+			</estratto_determine>
+			<estratto_determine>
+				<STATO />
+                <NUMERO_DETERMINA>104</NUMERO_DETERMINA>
+                <DATA_DETERMINA>09/01/2014</DATA_DETERMINA>
+                <NUMERO_DETERMINA_2>4</NUMERO_DETERMINA_2>
+                <DATA_DETERMINA_2>11/01/2014</DATA_DETERMINA_2>
+                <DATA_ESECUTIVITA>11/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>09/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>24/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>QUARTA DETERMINA</OGGETTO>
+				<ESTRATTO>ESTRATTO DELLA QUARTA DETERMINA</ESTRATTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>3</NUMERO_ALBO>
+			</estratto_determine>
+			<estratto_determine>
+				<STATO />
+                <NUMERO_DETERMINA>105</NUMERO_DETERMINA>
+                <DATA_DETERMINA>09/01/2014</DATA_DETERMINA>
+                <NUMERO_DETERMINA_2>5</NUMERO_DETERMINA_2>
+                <DATA_DETERMINA_2>12/01/2014</DATA_DETERMINA_2>
+				<DATA_ESECUTIVITA />
+				<DATA_PUBBLICAZIONE />
+				<DATA_FINE_PUBBLICAZIONE />
+				<OGGETTO>QUINTA DETERMINA</OGGETTO>
+				<ESTRATTO>ESTRATTO DELLA QUINTA DETERMINA</ESTRATTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>3</NUMERO_ALBO>
+			</estratto_determine>
+			<estratto_determine>
+				<STATO />
+                <NUMERO_DETERMINA>106</NUMERO_DETERMINA>
+                <DATA_DETERMINA>09/01/2014</DATA_DETERMINA>
+                <NUMERO_DETERMINA_2>6</NUMERO_DETERMINA_2>
+                <DATA_DETERMINA_2>12/01/2014</DATA_DETERMINA_2>
+                <DATA_ESECUTIVITA />
+				<DATA_PUBBLICAZIONE>14/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>29/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>SESTA DETERMINA</OGGETTO>
+				<ESTRATTO>ESTRATTO DELLA SESTA DETERMINA</ESTRATTO>
+				<UNITA_PROPONENTE>AREA RISORSE</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>4</NUMERO_ALBO>
+			</estratto_determine>
+			<estratto_determine>
+				<STATO>ANNULLATA</STATO>
+                <NUMERO_DETERMINA>107</NUMERO_DETERMINA>
+                <DATA_DETERMINA>09/01/2014</DATA_DETERMINA>
+                <NUMERO_DETERMINA_2>7</NUMERO_DETERMINA_2>
+                <DATA_DETERMINA_2>12/01/2014</DATA_DETERMINA_2>
+				<DATA_ESECUTIVITA />
+				<DATA_PUBBLICAZIONE>OMESSA</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE />
+				<OGGETTO>SETTIMA DETERMINA</OGGETTO>
+				<ESTRATTO>ESTRATTO DELLA SETTIMA DETERMINA</ESTRATTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>5</NUMERO_ALBO>
+			</estratto_determine>
+			<estratto_determine>
+				<STATO />
+                <NUMERO_DETERMINA>108</NUMERO_DETERMINA>
+                <DATA_DETERMINA>09/01/2014</DATA_DETERMINA>
+                <NUMERO_DETERMINA_2>8</NUMERO_DETERMINA_2>
+                <DATA_DETERMINA_2>12/01/2014</DATA_DETERMINA_2>
+				<DATA_ESECUTIVITA>14/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>14/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>29/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>OTTAVA DETERMINA</OGGETTO>
+				<ESTRATTO>ESTRATTO DELL'OTTAVA DETERMINA</ESTRATTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>6</NUMERO_ALBO>
+			</estratto_determine>
+			<estratto_determine>
+				<STATO />
+                <NUMERO_DETERMINA>109</NUMERO_DETERMINA>
+                <DATA_DETERMINA>09/01/2014</DATA_DETERMINA>
+                <NUMERO_DETERMINA_2>9</NUMERO_DETERMINA_2>
+                <DATA_DETERMINA_2>12/01/2014</DATA_DETERMINA_2>
+                <DATA_ESECUTIVITA>14/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>14/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>29/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>NONA DETERMINA</OGGETTO>
+				<ESTRATTO>ESTRATTO DELLA NONA DETERMINA</ESTRATTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>7</NUMERO_ALBO>
+			</estratto_determine>
+			<estratto_determine>
+				<STATO>ANNULLATA</STATO>
+                <NUMERO_DETERMINA>110</NUMERO_DETERMINA>
+                <DATA_DETERMINA>09/01/2014</DATA_DETERMINA>
+                <NUMERO_DETERMINA_2>10</NUMERO_DETERMINA_2>
+                <DATA_DETERMINA_2>12/01/2014</DATA_DETERMINA_2>
+                <DATA_ESECUTIVITA>14/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>14/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>29/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>DECIMA DETERMINA</OGGETTO>
+				<ESTRATTO>ESTRATTO DELLA DECIMA DETERMINA</ESTRATTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>8</NUMERO_ALBO>
+			</estratto_determine>
+			<estratto_determine>
+				<STATO />
+                <NUMERO_DETERMINA>111</NUMERO_DETERMINA>
+                <DATA_DETERMINA>09/01/2014</DATA_DETERMINA>
+                <NUMERO_DETERMINA_2>11</NUMERO_DETERMINA_2>
+                <DATA_DETERMINA_2>12/01/2014</DATA_DETERMINA_2>
+                <DATA_ESECUTIVITA>14/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>14/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>29/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>UNDICESIMA DETERMINA</OGGETTO>
+				<ESTRATTO>ESTRATTO DELL'UNDICESIMA DETERMINA</ESTRATTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>9</NUMERO_ALBO>
+			</estratto_determine>
+			<estratto_determine>
+				<STATO />
+                <NUMERO_DETERMINA>112</NUMERO_DETERMINA>
+                <DATA_DETERMINA>09/01/2014</DATA_DETERMINA>
+                <NUMERO_DETERMINA_2>12</NUMERO_DETERMINA_2>
+                <DATA_DETERMINA_2>12/01/2014</DATA_DETERMINA_2>
+                <DATA_ESECUTIVITA>14/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>14/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>29/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>DODICESIMA DETERMINA</OGGETTO>
+				<ESTRATTO>ESTRATTO DELLA DODICESIMA DETERMINA</ESTRATTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>10</NUMERO_ALBO>
+			</estratto_determine>
+			<estratto_determine>
+				<STATO>ANNULLATA</STATO>
+                <NUMERO_DETERMINA>113</NUMERO_DETERMINA>
+                <DATA_DETERMINA>09/01/2014</DATA_DETERMINA>
+                <NUMERO_DETERMINA_2>13</NUMERO_DETERMINA_2>
+                <DATA_DETERMINA_2>12/01/2014</DATA_DETERMINA_2>
+                <DATA_ESECUTIVITA>14/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>14/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>29/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>TREDICESIMA DETERMINA</OGGETTO>
+				<ESTRATTO>ESTRATTO DELLA TREDICESIMA DETERMINA</ESTRATTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>11</NUMERO_ALBO>
+			</estratto_determine>
+			<estratto_determine>
+				<STATO />
+                <NUMERO_DETERMINA>114</NUMERO_DETERMINA>
+                <DATA_DETERMINA>09/01/2014</DATA_DETERMINA>
+                <NUMERO_DETERMINA_2>14</NUMERO_DETERMINA_2>
+                <DATA_DETERMINA_2>12/01/2014</DATA_DETERMINA_2>
+                <DATA_ESECUTIVITA>14/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>14/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>29/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>QUATTORDICESIMA DETERMINA</OGGETTO>
+				<ESTRATTO>ESTRATTO DELLA QUATTORDICESIMA DETERMINA</ESTRATTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>12</NUMERO_ALBO>
+			</estratto_determine>
+			<estratto_determine>
+				<STATO />
+                <NUMERO_DETERMINA>115</NUMERO_DETERMINA>
+                <DATA_DETERMINA>09/01/2014</DATA_DETERMINA>
+                <NUMERO_DETERMINA_2>15</NUMERO_DETERMINA_2>
+                <DATA_DETERMINA_2>12/01/2014</DATA_DETERMINA_2>
+                <DATA_ESECUTIVITA>14/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>15/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>30/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>QUINDICESIMA DETERMINA</OGGETTO>
+				<ESTRATTO>ESTRATTO DELLA QUINDICESIMA DETERMINA</ESTRATTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>13</NUMERO_ALBO>
+			</estratto_determine>
+			<estratto_determine>
+				<STATO />
+                <NUMERO_DETERMINA>116</NUMERO_DETERMINA>
+                <DATA_DETERMINA>09/01/2014</DATA_DETERMINA>
+                <NUMERO_DETERMINA_2>16</NUMERO_DETERMINA_2>
+                <DATA_DETERMINA_2>12/01/2014</DATA_DETERMINA_2>
+                <DATA_ESECUTIVITA>14/01/2014</DATA_ESECUTIVITA>
+				<DATA_PUBBLICAZIONE>16/01/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>31/01/2014</DATA_FINE_PUBBLICAZIONE>
+				<OGGETTO>SEDICESIMA DETERMINA</OGGETTO>
+				<ESTRATTO>ESTRATTO DELLA SEDICESIMA DETERMINA</ESTRATTO>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>4</NUMERO_ALBO>
+			</estratto_determine>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_anno</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>anno di adozione</descrizione>
+			<path/>			
+		</metaDato>
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_registro</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>registro di adozione</descrizione>
+			<path/>			
+		</metaDato>
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_da_numero</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_a_numero</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>	
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_data_adozione_dal</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>		
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_data_adozione_al</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>		
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_data_pubb_inizio_dal</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>		
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_data_pubb_inizio_al</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>		
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_data_pubb_fine_dal</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>		
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_data_pubb_fine_al</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>		
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_data_esec_dal</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>		
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_data_esec_al</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>		
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_codice_dirigente</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_uo_proponente</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_uo_proponente_ottica</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_uo_proponente_dal</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione></descrizione>
+			<path/>			
+		</metaDato>
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_ente</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>ente</descrizione>
+			<path/>			
+		</metaDato>
+ 		<metaDato tipoParametro="input">
+			<nomeSimbolico>p_utente</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>utente di sessione</descrizione>
+			<path/>			
+		</metaDato>		
+<!-- DEFINIZIONE CAMPI DELLA QUERY -->			
+		<metaDato>
+			<nomeSimbolico>ANNO_ADOZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di numerazione della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>STATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Valorizzato solo se la determina e' annullata</descrizione>
+			<path/>
+		</metaDato>	
+		<metaDato>
+			<nomeSimbolico>DATA_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di adozione della determina</descrizione>
+			<path/>
+		</metaDato>
+        <metaDato>
+            <nomeSimbolico>DATA_DETERMINA_2</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Data di seconda numerazione della determina</descrizione>
+            <path/>
+        </metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_ESECUTIVITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di esecutivita' della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero dell'atto</descrizione>
+			<path/>
+		</metaDato>
+        <metaDato>
+            <nomeSimbolico>NUMERO_DETERMINA_2</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Secondo numero dell'atto</descrizione>
+            <path/>
+        </metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_FINE_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di fine pubblicazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di pubblicazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ESTRATTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Estratto dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>REGISTRO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Registro di numerazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_REGISTRO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno registro di numerazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unita' proponente dell'atto</descrizione>
+			<path/>
+		</metaDato>			
+		<metaDato>
+			<nomeSimbolico>ANNO_ALBO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di pubblicazione all'albo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_ALBO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di pubblicazione all'albo</descrizione>
+			<path/>
+		</metaDato>
+	</definitions>
+	<queryes>
+		<query id="registro"
+			help_query_alias="r"
+			help_field_aliases="REGISTRO, ANNO_REGISTRO"><![CDATA[
+  select  tr.descrizione REGISTRO
+       ,  #p_anno ANNO_REGISTRO
+    from  tipi_registro tr	   
+   where tr.tipo_registro = #p_registro ]]>
+</query>	
+ 	<!-- Determine: restituisce l'elenco delle determine -->
+		<query id="estratto_determine"
+			help_query_alias="rd"
+			help_field_aliases="ANNO_ADOZIONE, ANNO_ALBO, DATA_DETERMINA, DATA_DETERMINA_2, DATA_ESECUTIVITA, DATA_FINE_PUBBLICAZIONE, DATA_PUBBLICAZIONE, OGGETTO, ESTRATTO, NUMERO_ALBO, NUMERO_DETERMINA, NUMERO_DETERMINA_2, STATO, UNITA_PROPONENTE"><![CDATA[
+ select decode (stato, 'ANNULLATO', 'ANNULLATA', 'NON_ESECUTIVO', 'ANNULLATA',  '') STATO
+       ,  d.numero_determina NUMERO_DETERMINA
+       ,  to_char (d.data_numero_determina, 'dd/mm/yyyy') DATA_DETERMINA
+       ,  d.numero_determina_2 NUMERO_DETERMINA_2
+       ,  to_char (d.data_numero_determina_2, 'dd/mm/yyyy') DATA_DETERMINA_2
+       ,  to_char (d.data_esecutivita, 'dd/mm/yyyy') DATA_ESECUTIVITA
+       ,  decode (td.pubblicazione, 'Y', to_char (d.data_pubblicazione, 'dd/mm/yyyy'), 'OMESSA') DATA_PUBBLICAZIONE
+       ,  to_char (data_fine_pubblicazione, 'dd/mm/yyyy') DATA_FINE_PUBBLICAZIONE
+       ,  d.oggetto OGGETTO
+       ,  nvl(da.valore, '') ESTRATTO
+       ,  utility_pkg.get_unita_prop_determina (d.id_determina) UNITA_PROPONENTE
+       ,  d.anno_determina ANNO_ADOZIONE
+       ,  d.anno_albo ANNO_ALBO
+       ,  d.numero_albo NUMERO_ALBO
+    from  determine_soggetti ds_dirigente
+       ,  determine_soggetti ds_uo_proponente
+       ,  determine d
+       ,  tipi_determina td
+       ,  dati_aggiuntivi da
+   where d.id_tipo_determina = td.id_tipo_determina
+     and d.id_determina = ds_dirigente.id_determina(+)
+     and ds_dirigente.tipo_soggetto(+) = 'DIRIGENTE'
+     and d.id_determina = ds_uo_proponente.id_determina(+)
+     and ds_uo_proponente.tipo_soggetto(+) = 'UO_PROPONENTE'
+     and d.numero_determina is not null
+     and da.id_determina (+) = d.id_determina
+     and da.codice (+) = 'ESTRATTO'
+     and d.ente = #p_ente and ( (#p_anno is null)
+       or (#p_anno is not null
+       and d.anno_determina = #p_anno ))
+     and ( (#p_da_numero is null)
+       or (#p_da_numero is not null
+       and d.numero_determina >= #p_da_numero ))
+     and ( (#p_a_numero is null)
+       or (#p_a_numero is not null
+       and d.numero_determina <= #p_a_numero ))
+     and ( (#p_uo_proponente is null)
+       or (#p_uo_proponente is not null
+       and ds_uo_proponente.unita_progr = #p_uo_proponente and ds_uo_proponente.unita_dal = to_date(#p_uo_proponente_dal ,'dd/mm/yyyy')
+       and ds_uo_proponente.unita_ottica = #p_uo_proponente_ottica ))
+     and ( (#p_codice_dirigente is null)
+       or (#p_codice_dirigente is not null
+       and ds_dirigente.utente = #p_codice_dirigente ))
+     and ( (#p_registro is null)
+       or (#p_registro is not null
+       and d.registro_determina = #p_registro ))
+     and ( (#p_data_pubb_inizio_dal is null)
+       or (#p_data_pubb_inizio_dal is not null
+       and d.data_pubblicazione >= to_date(#p_data_pubb_inizio_dal ,'dd/mm/yyyy'))
+       or (#p_data_pubb_inizio_dal is not null
+       and d.data_pubblicazione_2 >= to_date(#p_data_pubb_inizio_dal ,'dd/mm/yyyy')))
+     and ( (#p_data_pubb_inizio_al is null)
+       or (#p_data_pubb_inizio_al is not null
+       and d.data_fine_pubblicazione <= to_date(#p_data_pubb_inizio_al ,'dd/mm/yyyy'))
+       or (#p_data_pubb_inizio_al is not null
+       and d.data_fine_pubblicazione_2 <= to_date(#p_data_pubb_inizio_al ,'dd/mm/yyyy')))
+     and ( (#p_data_esec_dal is null)
+       or (#p_data_esec_dal is not null
+       and d.data_esecutivita >= to_date(#p_data_esec_dal ,'dd/mm/yyyy')))
+     and ( (#p_data_esec_al is null)
+       or (#p_data_esec_al is not null
+       and d.data_esecutivita <= to_date(#p_data_esec_al ,'dd/mm/yyyy')))
+     and ( (#p_data_adozione_dal is null)
+       or (#p_data_adozione_dal is not null
+       and d.data_numero_determina >= to_date(#p_data_adozione_dal ,'dd/mm/yyyy')))
+     and ( (#p_data_adozione_al is null)
+       or (#p_data_adozione_al is not null
+       and d.data_numero_determina <= to_date(#p_data_adozione_al ,'dd/mm/yyyy')))
+union all
+select decode (stato, 'ANNULLATO', 'ANNULLATA', 'NON_ESECUTIVO', 'ANNULLATA',  '') STATO
+       ,  d.numero_determina NUMERO_DETERMINA
+       ,  to_char (d.data_numero_determina, 'dd/mm/yyyy') DATA_DETERMINA
+       ,  d.numero_determina_2 NUMERO_DETERMINA_2
+       ,  to_char (d.data_numero_determina_2, 'dd/mm/yyyy') DATA_DETERMINA_2
+       ,  to_char (d.data_esecutivita, 'dd/mm/yyyy') DATA_ESECUTIVITA
+       ,  decode (td.pubblicazione, 'Y', to_char (d.data_pubblicazione, 'dd/mm/yyyy'), 'OMESSA') DATA_PUBBLICAZIONE
+       ,  to_char (data_fine_pubblicazione, 'dd/mm/yyyy') DATA_FINE_PUBBLICAZIONE
+       ,  d.oggetto OGGETTO
+       ,  nvl(da.valore, '') ESTRATTO
+       ,  utility_pkg.get_unita_prop_determina (d.id_determina) UNITA_PROPONENTE
+       ,  d.anno_determina_2 ANNO_ADOZIONE
+       ,  d.anno_albo ANNO_ALBO
+       ,  d.numero_albo NUMERO_ALBO
+    from  determine_soggetti ds_dirigente
+       ,  determine_soggetti ds_uo_proponente
+       ,  determine d
+       ,  tipi_determina td
+       ,  dati_aggiuntivi da
+   where d.id_tipo_determina = td.id_tipo_determina
+     and d.id_determina = ds_dirigente.id_determina(+)
+     and ds_dirigente.tipo_soggetto(+) = 'DIRIGENTE'
+     and d.id_determina = ds_uo_proponente.id_determina(+)
+     and ds_uo_proponente.tipo_soggetto(+) = 'UO_PROPONENTE'
+     and d.numero_determina_2 is not null
+     and da.id_determina (+) = d.id_determina
+     and da.codice (+) = 'ESTRATTO'
+     and d.ente = #p_ente and ( (#p_anno is null)
+       or (#p_anno is not null
+       and d.anno_determina_2 = #p_anno ))
+     and ( (#p_da_numero is null)
+       or (#p_da_numero is not null
+       and d.numero_determina_2 >= #p_da_numero ))
+     and ( (#p_a_numero is null)
+       or (#p_a_numero is not null
+       and d.numero_determina_2 <= #p_a_numero ))
+     and ( (#p_uo_proponente is null)
+       or (#p_uo_proponente is not null
+       and ds_uo_proponente.unita_progr = #p_uo_proponente and ds_uo_proponente.unita_dal = to_date(#p_uo_proponente_dal ,'dd/mm/yyyy')
+       and ds_uo_proponente.unita_ottica = #p_uo_proponente_ottica ))
+     and ( (#p_codice_dirigente is null)
+       or (#p_codice_dirigente is not null
+       and ds_dirigente.utente = #p_codice_dirigente ))
+     and ( (#p_registro is null)
+       or (#p_registro is not null
+       and d.registro_determina_2 = #p_registro ))
+     and ( (#p_data_pubb_inizio_dal is null)
+       or (#p_data_pubb_inizio_dal is not null
+       and d.data_pubblicazione >= to_date(#p_data_pubb_inizio_dal ,'dd/mm/yyyy'))
+       or (#p_data_pubb_inizio_dal is not null
+       and d.data_pubblicazione_2 >= to_date(#p_data_pubb_inizio_dal ,'dd/mm/yyyy')))
+     and ( (#p_data_pubb_inizio_al is null)
+       or (#p_data_pubb_inizio_al is not null
+       and d.data_fine_pubblicazione <= to_date(#p_data_pubb_inizio_al ,'dd/mm/yyyy'))
+       or (#p_data_pubb_inizio_al is not null
+       and d.data_fine_pubblicazione_2 <= to_date(#p_data_pubb_inizio_al ,'dd/mm/yyyy')))
+     and ( (#p_data_esec_dal is null)
+       or (#p_data_esec_dal is not null
+       and d.data_esecutivita >= to_date(#p_data_esec_dal ,'dd/mm/yyyy')))
+     and ( (#p_data_esec_al is null)
+       or (#p_data_esec_al is not null
+       and d.data_esecutivita <= to_date(#p_data_esec_al ,'dd/mm/yyyy')))
+     and ( (#p_data_adozione_dal is null)
+       or (#p_data_adozione_dal is not null
+       and d.data_numero_determina_2 >= to_date(#p_data_adozione_dal ,'dd/mm/yyyy')))
+     and ( (#p_data_adozione_al is null)
+       or (#p_data_adozione_al is not null
+       and d.data_numero_determina_2 <= to_date(#p_data_adozione_al ,'dd/mm/yyyy')))
+ order by ANNO_ADOZIONE, NUMERO_DETERMINA_2, NUMERO_DETERMINA ]]>
+</query>
+	</queryes>
+	<staticData />
+</documentRoot>

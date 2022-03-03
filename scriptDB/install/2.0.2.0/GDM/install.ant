@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     01/mar/2014 11:34:14                                                        
+
+     [NomeProgetto]    
+     [Descrizione del Progetto]
+                   
+     [Autore]                                                                
+     ====================================================================== -->
+<project xmlns:if="ant:if" xmlns:unless="ant:unless">
+
+	<target name="config">
+		<require-conn istanza="so4" />
+		<require-conn istanza="gdm" />
+		<require-conn istanza="agsde2" />
+	</target>
+	
+	<target name="install:db">
+		<echo message="Aggiorno il componente AGSDE2.GDM alla versione 2.0.2.0" />
+		
+		<!-- aggiorno l'area gdm -->
+		<gdm-carica-area area="SEGRETERIA.ATTI.2_0" file="../../../commons/GDM/XAREA_SEGRETERIA.ATTI.2_0.zip" />
+		
+		<sql escapeprocessing="false"  userid="${global.db.gdm.username}"
+		   password="${global.db.gdm.password}" 
+				url="${global.db.gdm.url}" 
+			 driver="${global.db.gdm.driver}" 
+		 	  expandProperties="true" delimiter="/" delimitertype="row" keepformat="true" onerror="continue">
+begin
+	UTILITYPACKAGE.compile_all();
+end;
+/
+</sql>
+		
+		<sql escapeprocessing="false"  userid="${global.db.gdm.username}"
+		   password="${global.db.gdm.password}" 
+				url="${global.db.gdm.url}" 
+			 driver="${global.db.gdm.driver}" 
+		 	  expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+			    src="01.gdm.grant.sql">
+		</sql>
+		
+		<sql escapeprocessing="false"  userid="${global.db.target.username}"
+		   password="${global.db.target.password}"
+				url="${global.db.target.url}"
+			 driver="${global.db.target.driver}"
+		 	  expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+			    src="02.agsde2.sql">
+		</sql>
+		
+		<sql escapeprocessing="false"  userid="${global.db.gdm.username}"
+		   password="${global.db.gdm.password}" 
+				url="${global.db.gdm.url}" 
+			 driver="${global.db.gdm.driver}" 
+		 	  expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+			    src="03.gdm.trigger.sql">
+		</sql>
+		
+		<sql escapeprocessing="false"  userid="${global.db.target.username}"
+		   password="${global.db.target.password}"
+				url="${global.db.target.url}"
+			 driver="${global.db.target.driver}"
+		 	  expandProperties="true" delimiter="/" delimitertype="row" keepformat="true"
+			    src="04.agsde2.sql">
+		</sql>
+	</target>
+	
+	<target name="install:fs">
+	</target>
+</project>

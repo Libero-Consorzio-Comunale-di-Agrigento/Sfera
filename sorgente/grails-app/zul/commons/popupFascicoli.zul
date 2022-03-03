@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+        viewModel="@id('vm') @init('popupFascicoliViewModel')"
+		border="normal"	sizable="true" width="800px" height="600px"	title=" ">
+
+		<vlayout vflex="1">
+			<div sclass="barraTitoloPagina">
+ 				<label sclass="titoloPagina" value="Ricerca Fascicolo"/>
+			</div>
+
+			<grid sclass="form">
+	        	<rows>
+	        		<row>
+	        			<cell width="100px">
+		        			<label value="Classifica:"/>
+						</cell>
+						<cell>
+							<textbox mold="rounded" readonly="true" hflex="1" value="@load(c:cat3(vm.classificaCodice, ' - ', vm.classificaDescrizione))" />
+						</cell>
+
+						<cell width="30px">
+							<toolbarbutton image="/images/afc/22x22/delete.png" onClick="@command('onSvuotaClassifica')" tooltip="Svuota la Classifica." />
+						</cell>
+	        		</row>
+	        		<row>
+	        			<cell width="100px">
+		        			<label value="Ricerca Fascicolo:"/>
+						</cell>
+						<cell>
+							<textbox mold="rounded" hflex="1"  value="@bind(vm.filtro)" onOK="@command('onCerca')" />
+						</cell>
+						<cell>
+							<toolbarbutton image="/images/afc/22x22/search.png" onClick="@command('onCerca')" />
+						</cell>
+	        		</row>
+	        	</rows>
+	        </grid>
+
+			<listbox vflex="1" model="@load(vm.listaFascicoli)" selectedItem="@bind(vm.selectedFascicolo)" emptyMessage="Nessun fascicolo trovato." onSelect="@command('onAggiornaClassifica')">
+				<listhead>
+					<listheader label="Classifica" 	sort="auto(classificazione)" width="10%"/>
+					<listheader label="Anno"  		sort="auto(anno)" 			 width="10%"/>
+					<listheader label="Numero"  	sort="auto(numero)" 		 width="10%"/>
+					<listheader label="Oggetto"  	sort="auto(oggetto)" 		 width="60%"/>
+				</listhead>
+				<template name="model" var="each">
+					<listitem>
+		                <listcell label="@load(each.classifica.codice)" />
+		                <listcell label="@load(each.anno)" />
+		                <listcell label="@load(each.numero)" />
+		                <listcell label="@load(each.oggetto)"/>
+					</listitem>
+				</template>
+			</listbox>
+
+			<hlayout style="background-color: #D7E3EC; padding:5px;">
+				<hlayout>
+					<button label="Crea Fascicolo" onClick="@command('onCreaFascicolo')" visible="@load(vm.abilitaCreaFascicolo)" mold="trendy" />
+				</hlayout>
+				<hlayout hflex="1" style="text-align:right;">
+					<button label="Seleziona" onClick="@command('onSalva')"  disabled="@load(vm.selectedFascicolo eq null)" mold="trendy" />
+					<button label="Chiudi" onClick="@command('onAnnulla')" image="/images/afc/16x16/close.png" mold="trendy" />
+				</hlayout>
+			</hlayout>
+
+		</vlayout>
+    </window>
+</zk>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language-addon>
+	<addon-name>myaddon</addon-name>
+	<language-name>xul/html</language-name>
+	<component>
+		<component-name>controlBarGrid</component-name>
+		<macro-uri>/afc/controlBarGrid.zul</macro-uri>
+		<inline>true</inline>
+	</component>
+	<component>
+		<component-name>controlBarRecord</component-name>
+		<macro-uri>/afc/controlBarRecord.zul</macro-uri>
+		<inline>true</inline>
+	</component>	
+	<component>
+	<component-name>cfControlBarGrid</component-name>
+		<macro-uri>/atti/cf/utility/cfGrid.zul</macro-uri>
+		<inline>true</inline>
+	</component>
+	<component>
+		<component-name>cfControlBarRecord</component-name>
+		<macro-uri>/atti/cf/utility/cfRecord.zul</macro-uri>
+		<inline>true</inline>
+	</component>
+	<component>
+        <component-name>bandbox-ruoli</component-name>
+        <extends>bandbox</extends>
+        <component-class>it.finmatica.atti.commons.BandboxRuoliAd4</component-class>
+    </component>
+    <component>
+        <component-name>bandbox-unita</component-name>
+        <extends>bandbox</extends>
+        <component-class>it.finmatica.atti.commons.BandboxUnitaSo4</component-class>
+    </component>
+    
+    <component>
+        <component-name>bandbox-utenti</component-name>
+        <extends>bandbox</extends>
+        <component-class>it.finmatica.atti.commons.BandboxUtenti</component-class>
+    </component>
+    <component>
+        <component-name>bandbox-soggetti</component-name>
+        <extends>bandbox</extends>
+        <component-class>it.finmatica.atti.commons.BandboxSoggetti</component-class>
+    </component>
+
+    <component>
+        <component-name>StatoConservazione</component-name>
+        <extends>label</extends>
+        <component-class>it.finmatica.atti.zk.components.StatoConservazione</component-class>
+    </component>
+    <component>
+        <component-name>EsitoConservazione</component-name>
+        <extends>div</extends>
+        <component-class>it.finmatica.atti.zk.components.EsitoConservazione</component-class>
+    </component>
+
+	<component>
+        <component-name>combobox</component-name>
+        <extends>combobox</extends>               
+        <annotation>
+            <annotation-name>ZKBIND</annotation-name>
+            <property-name>selectedItem</property-name>
+            <attribute>
+                <attribute-name>SAVE_EVENT</attribute-name>
+                <!-- bug #2966241, since 5.0, combobox changes the sequence to fire onChange 
+                then onSelect event when end user select an item from the drop down list(In 3.x,
+                it used to fire onSelect then onChange). This could cause the currently selected 
+                bean to be modified in onChange event if we still trigger binding of the 
+                selectedItem with onSelect event. Thus we change this to be triggered when "onChange" event
+                 -->
+                <attribute-value>onChange</attribute-value>
+            </attribute>
+            <attribute>
+                <attribute-name>LOAD_EVENT</attribute-name>
+                <attribute-value>onAfterRender</attribute-value>
+            </attribute>
+            <attribute>
+                <attribute-name>ACCESS</attribute-name>
+                <attribute-value>both</attribute-value>
+            </attribute>
+            <attribute>
+                <attribute-name>CONVERTER</attribute-name>
+                <attribute-value>org.zkoss.bind.converter.sys.ComboboxSelectedItemConverter</attribute-value>
+            </attribute>
+        </annotation>
+        <annotation>
+            <annotation-name>ZKBIND</annotation-name>
+            <property-name>selectedIndex</property-name>
+            <attribute>
+                <attribute-name>SAVE_EVENT</attribute-name>
+                <attribute-value>onSelect</attribute-value>
+            </attribute>
+            <attribute>
+                <attribute-name>LOAD_EVENT</attribute-name>
+                <attribute-value>onAfterRender</attribute-value>
+            </attribute>
+            <attribute>
+                <attribute-name>ACCESS</attribute-name>
+                <attribute-value>both</attribute-value>
+            </attribute>
+            <attribute>
+                <attribute-name>CONVERTER</attribute-name>
+                <attribute-value>org.zkoss.bind.converter.sys.ComboboxSelectedIndexConverter</attribute-value>
+            </attribute>
+        </annotation>   
+    </component>
+</language-addon>

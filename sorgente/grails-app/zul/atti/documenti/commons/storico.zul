@@ -1,0 +1,34 @@
+<!-- Storico -->
+<listbox xmlns:h="http://www.w3.org/1999/xhtml" model="@load(vm.storico)" emptyMessage="Nessun passaggio da visualizzare." vflex="1">
+	<listhead>
+		<listheader label="Documento" width="20%" />
+		<listheader label="Stato" width="30%" />
+		<listheader label="Operatore" width="20%" />
+		<listheader label="Data" width="20%" />
+		<listheader label="Note" width="32px" />
+		<listheader label="" width="40px" />
+	</listhead>
+	<template name="model" var="s">
+		<listitem>
+			<listcell label="@load(s.descrizione)" />
+			<listcell label="@load(s.titolo)" />
+			<listcell label="@load(s.utente)" />
+			<listcell label="@load(s.data) @converter('formatedDate', format='dd/MM/yyyy HH:mm')" />
+			<listcell style="text-align: center;">
+				<image xmlns:w="client" src="/images/agsde2/22x22/note.png" visible="@load(not empty s.note or not empty s.noteContabili)" popup="@load(c:cat3('storico_popup_', sStatus.index, ', position=overlap_end'))"/>
+				<popup id="@load(c:cat('storico_popup_', sStatus.index))" width="580px" >
+					<h:div><label value="Note" style="font-size: 120%; font-weight: bold;" visible="@load(not empty s.note)"/></h:div>
+					<h:div style="margin-top:8px"><label value="@load(s.note)" visible="@load(not empty s.note)" multiline="true"/></h:div>
+					<h:div><label value="&#160;" visible="@load(not empty s.note and not empty s.noteContabili)"/></h:div>
+					<h:div><label value="@load(c:l('label.storico.noteContabili'))" style="font-size: 120%; font-weight: bold;" visible="@load(not empty s.noteContabili)"/></h:div>
+					<h:div style="margin-top:8px"><label value="@load(s.noteContabili)" visible="@load(not empty s.noteContabili)" multiline="true"/></h:div>
+				</popup>
+			</listcell>
+			<listcell style="text-align: center;">
+				<image src="/images/agsde2/22x22/document.png"
+					onClick="@command('onDownloadTestoStorico', tipoOggetto=s.tipoOggetto, id=s.id, idFileAllegato=s.idFileAllegato)"
+					tooltiptext="Visualizza testo" style="cursor: pointer;" visible="@load(s.idFileAllegato > 0)" />
+			</listcell>
+		</listitem>
+	</template>
+</listbox>

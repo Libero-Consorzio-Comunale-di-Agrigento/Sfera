@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+        viewModel="@id('vm') @init('popupModelloDeliberaViewModel')"
+        border="normal"	sizable="true" width="400px" height="200px"	title=" ">
+
+		<vlayout width="100%" vflex="1" spacing="10px">
+			<h:div class="barraTitoloPagina">
+ 				<label sclass="titoloPagina" value="Crea Testi Delibere"/>
+			</h:div>
+
+			<label value="Selezionare il modello per la creazione del testo" style="padding: 5px" />
+			<combobox model="@load(vm.listaModelli)" hflex="1" mold="rounded" readonly="true"
+				selectedItem="@bind(vm.selectedModello) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)"
+				style="padding: 5px; margin: 0px 0px 20px 0px;">
+				<template name="model" var="mt">
+					<comboitem label="@load(mt.nome)" description="@load(mt.descrizione)" value="@load(mt)" />
+				</template>
+			</combobox>
+
+   			<h:div class="barraPulsanti">
+				<h:div>
+					<button label="Crea Testi Delibere"	onClick="@command('onSalva')" 	mold="trendy" />
+					<button label="Annulla" 	onClick="@command('onAnnulla')" mold="trendy" />
+				</h:div>
+			</h:div>
+		</vlayout>
+    </window>
+</zk>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<!-- standard proposta delibera -->
+	<grid sclass="form">
+		<rows>
+			<row>
+				<cell width="150px">
+					<label value="@load(c:l('label.deliberaFuoriSacco.unita'))" />
+				</cell>
+				<cell>
+					<label value="@load(vm.unitaProponenteDesc)" />
+				</cell>
+				<cell width="150px">
+					<!--label value="@load(c:l('label.deliberaFuoriSacco.eseguibilita'))" visible="@load(vm.mostraEseguibilitaImmediata)" /-->
+				</cell>
+				<cell>
+					<!--radiogroup selectedIndex="@load(vm.delibera.eseguibilitaImmediata ? 0 : 1)" style="text-align: right;" visible="@load(vm.mostraEseguibilitaImmediata)">
+						<radio label="Sì" value="@load(true)"  disabled="true"/>
+						<radio label="No" value="@load(false)" disabled="true"/>
+					</radiogroup-->
+				</cell>
+			</row>
+			<row>
+				<cell>
+					<label value="@load(c:l('label.deliberaFuoriSacco.presidente'))" />
+				</cell>
+				<cell>
+					<label value="@load(vm.soggetti.PRESIDENTE.descrizione)" />
+				</cell>
+				<cell>
+					<label value="@load(c:l('label.deliberaFuoriSacco.segretario'))" />
+				</cell>
+				<cell>
+					<label value="@load(vm.soggetti.SEGRETARIO.descrizione)" />
+				</cell>
+			</row>
+		</rows>
+	</grid>
+</zk>

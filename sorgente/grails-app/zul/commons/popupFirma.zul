@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+        viewModel="@id('vm') @init('popupFirmaViewModel')"
+        title=" "
+		border="normal" sizable="false">
+
+		<iframe src="@load(vm.urlPopupFirma)" height="500px" width="700px"/>
+
+		<h:div class="barraPulsanti">
+			<h:div>
+				<button label="Chiudi" onClick="@command('onChiudi')" mold="trendy"></button>
+			</h:div>
+		</h:div>
+    </window>
+</zk>
