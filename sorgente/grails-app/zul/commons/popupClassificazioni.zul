@@ -20,7 +20,7 @@
 	        	<rows>
 	        		<row>
 	        			<cell width="120px">
-		        			<label value="Ricerca Classifica:"/>
+		        			<label value="@load(c:l('label.ricerca.classifica'))" />
 						</cell>
 						<cell>
 							<textbox mold="rounded" hflex="1"  value="@bind(vm.filtro)" onOK="@command('onCerca')" />
@@ -51,7 +51,7 @@
 
    			<h:div class="barraPulsanti">
 				<h:div>
-					<button label="Seleziona" onClick="@command('onSalva')" disabled="@load(vm.selectedClassificazione eq null)"  mold="trendy" />
+					<button label="Seleziona" onClick="@command('onSalva')" image="/images/afc/16x16/save.png" disabled="@load(vm.selectedClassificazione eq null)"  mold="trendy" />
 					<button label="Chiudi" onClick="@command('onAnnulla')" image="/images/afc/16x16/close.png" mold="trendy" />
 				</h:div>
 			</h:div>

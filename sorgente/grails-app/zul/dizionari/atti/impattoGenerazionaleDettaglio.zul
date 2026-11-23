@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('impattoGenerazionaleDettaglioViewModel')"
+            border="normal"
+            width="500px"
+            height="500px"
+            title=" "
+            sizable="false">
+
+        <vlayout width="100%" spacing="10px" vflex="1">
+
+
+            <h:div class="barraTitoloPagina">
+                <label sclass="titoloPagina" value="@load(c:l('label.impattoGenerazionale'))"/>
+                <image src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+                       tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')"/>
+            </h:div>
+            <tabbox vflex="1">
+                <tabs>
+                    <tab label="Generale"/>
+                </tabs>
+                <tabpanels vflex="1">
+                    <!-- Generale -->
+                    <tabpanel height="285px">
+                        <grid sclass="form" vflex="1">
+                            <rows>
+                                <row>
+                                    <cell colspan="1" align="right">
+                                        <label value="Titolo"/>
+                                    </cell>
+                                    <cell colspan="3">
+                                        <textbox value="@bind(vm.selectedRecord.titolo)" hflex="1"
+                                                 class="noresizable" style="text-transform: uppercase"/>
+                                    </cell>
+                                </row>
+                                <row>
+                                    <cell colspan="1" align="right">
+                                        <label value="Descrizione"/>
+                                    </cell>
+                                    <cell colspan="3">
+                                        <textbox value="@bind(vm.selectedRecord.descrizione)" hflex="1"
+                                                 class="noresizable" multiline="true" rows="3"
+                                                 />
+                                    </cell>
+                                </row>
+                                <row>
+                                    <cell colspan="1" align="right">
+                                        <label value="Frase"/>
+                                    </cell>
+                                    <cell colspan="3">
+                                        <textbox value="@bind(vm.selectedRecord.frase)" hflex="1"
+                                                 class="noresizable" multiline="true" rows="3" />
+                                    </cell>
+                                </row>
+                                <row>
+                                    <cell colspan="1" align="right">
+                                        <label value="Determina"/>
+                                    </cell>
+                                    <cell colspan="1">
+                                        <checkbox checked="@bind(vm.selectedRecord.determina)"/>
+                                    </cell>
+                                    <cell colspan="1" align="right">
+                                        <label value="Delibera"/>
+                                    </cell>
+                                    <cell colspan="1">
+                                        <checkbox checked="@bind(vm.selectedRecord.delibera)"/>
+                                    </cell>
+                                </row>
+                            </rows>
+                        </grid>
+                    </tabpanel>
+                </tabpanels>
+            </tabbox>
+        </vlayout>
+
+        <!-- Inizio informazioni relative al salvataggio e bottoni salva / chiudi -->
+        <vlayout class="datiCreazioneModifica" height="30px">
+            <label value="@bind(vm.datiCreazione)" visible="@bind(not empty vm.selectedRecord.descrizione)"/>
+            <label value="@bind(vm.datiModifica)" visible="@bind(not empty vm.selectedRecord.descrizione)"/>
+        </vlayout>
+
+        <controlBarRecord/>
+
+    </window>
+</zk>

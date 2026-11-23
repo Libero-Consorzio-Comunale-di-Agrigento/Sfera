@@ -54,25 +54,27 @@ abstract class AbstractViewModel<T extends IDocumentoIterabile> implements IMasc
 	}
 
 	void aggiornaPulsanti (IDocumento documento) {
-		def pulsanti = wkfIterService.getPulsanti (documento, this);
+		List<WkfCfgPulsante> pulsanti = []
+		if (documento.valido) {
+			pulsanti = wkfIterService.getPulsanti (documento, this);
 
-		// se sono in stato IN_FIRMA o FIRMATO_DA_SBLOCCARE, mostro solo i pulsanti di firma:
-		if (documento.statoFirma == StatoFirma.IN_FIRMA || documento.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE) {
-			pulsanti = pulsanti.findAll { cfgPulsante -> cfgPulsante.pulsante.azioni.find { azione -> azione.nomeMetodo == "apriPopupFirma" } != null }
-			pulsanti = pulsanti.toDTO()
-			for (def p : pulsanti) {
-				p.etichetta = "Completa ${p.etichetta}"
+			// se sono in stato IN_FIRMA o FIRMATO_DA_SBLOCCARE, mostro solo i pulsanti di firma:
+			if (documento.statoFirma == StatoFirma.IN_FIRMA || documento.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE) {
+				pulsanti = pulsanti.findAll { cfgPulsante -> cfgPulsante.pulsante.azioni.find { azione -> azione.nomeMetodo == "apriPopupFirma" } != null }
+				pulsanti = pulsanti.toDTO()
+				for (def p : pulsanti) {
+					p.etichetta = "Completa ${p.etichetta}"
+				}
+			} else {
+				pulsanti = pulsanti.toDTO()
 			}
-		} else {
-			pulsanti = pulsanti.toDTO()
 		}
+			// imposto i pulsanti sulla maschera e aggiorno il viewModel
+			setPulsanti(pulsanti);
+			BindUtils.postNotifyChange(null, null, this, "pulsanti");
 
-		// imposto i pulsanti sulla maschera e aggiorno il viewModel
-		setPulsanti(pulsanti);
-		BindUtils.postNotifyChange(null, null, this, "pulsanti");
-
-		// questo serve per riallineare la maschera con i pulsanti, senza questo, i pulsanti non si vedranno.
-		invalidate();
+			// questo serve per riallineare la maschera con i pulsanti, senza questo, i pulsanti non si vedranno.
+			invalidate();
 	}
 
 	@Command

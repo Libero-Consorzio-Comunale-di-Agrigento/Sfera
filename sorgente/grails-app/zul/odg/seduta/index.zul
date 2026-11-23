@@ -36,11 +36,10 @@
             <space height="3px"/>
 
             <vlayout hflex="1" vflex="1">
-                <tabbox orient="vertical" vflex="1" onSelect="@global-command('onSelectTabSeduta')">
+                <tabbox orient="vertical" vflex="1">
                     <tabs sclass="docMenuSx">
                         <tab id="tabConvocazione" label="Convocazione" image="/images/agsde2/32x32/calendar.png" onSelect="@global-command('onSelectDatiSeduta')" />
-                        <tab id="tabVerbalizzazione" label="Verbalizzazione" image="/images/agsde2/32x32/legitimate.png"
-                             disabled="@bind(vm.abilitaTabVerbalizzazione)"/>
+                        <tab id="tabVerbalizzazione" label="Verbalizzazione" image="/images/agsde2/32x32/legitimate.png" disabled="@bind(vm.abilitaTabVerbalizzazione)" />
                     </tabs>
                     <tabpanels>
                         <tabpanel>
@@ -49,6 +48,8 @@
                                     <tab id="dataSeduta" label="Dati Seduta" onSelect="@global-command('onSelectDatiSeduta')"/>
                                     <tab id="convocati" label="Convocati" disabled="@load(vm.seduta.id lt 0)"/>
                                     <tab id="proposte" label="@load(c:l('label.odg.inserimentoProposte'))" disabled="@load(vm.seduta.id lt 0)" onSelect="@global-command('onRefreshProposte')"/>
+                                    <tab id="commissioniCollegate" label="@load(c:l('label.odg.inserimentoProposteCommissioniCollegate'))" disabled="@load(vm.seduta.id lt 0)" onSelect="@global-command('onRefreshProposteCommissioniCollegate')"
+                                         visible="@load(vm.abilitaTabCommissioniCollegate)" />
                                 </tabs>
                                 <tabpanels>
                                     <tabpanel>
@@ -60,22 +61,33 @@
                                     <tabpanel fulfill="proposte.onSelect">
                                         <include src="/odg/seduta/proposteSeduta.zul" seduta="#{vm.seduta}"/>
                                     </tabpanel>
+                                    <tabpanel fulfill="commissioniCollegate.onSelect">
+                                        <include src="/odg/seduta/proposteCommissioniCollegate.zul" seduta="#{vm.seduta}"/>
+                                    </tabpanel>
                                 </tabpanels>
                             </tabbox>
                         </tabpanel>
                         <tabpanel>
-                            <tabbox vflex="1">
+                            <tabbox onSelect="@command('onSelectTab', selectedTab=event.reference)" vflex="1" id="gestSedute">
                                 <tabs>
-                                    <tab id="partecipanti" label="Partecipanti" disabled="@load(vm.modificaPartecipanti)"/>
-                                    <tab id="verbalizzazione" label="Esiti trattazione" disabled="@load(vm.abilitaVerbalizzazione)"/>
+                                    <tab id="partecipanti" label="Partecipanti" disabled="@load(vm.modificaPartecipanti)" />
+                                    <tab id="verbalizzazione" label="Esiti trattazione" disabled="@load(vm.abilitaVerbalizzazione)" visible ="@bind(!vm.abilitaOrdinamentoProposteSeparato)"/>
+                                    <tab id="verbalizzazioneOrdina" label="@load(c:l('label.odg.ordinaEsiti'))" disabled="@load(vm.abilitaVerbalizzazione)" visible ="@bind(vm.abilitaOrdinamentoProposteSeparato)"/>
+                                    <tab id="verbalizzazioneModifica" label="@load(c:l('label.odg.modificaEsiti'))" disabled="@load(vm.abilitaVerbalizzazione)" visible ="@bind(vm.abilitaOrdinamentoProposteSeparato)"/>
                                     <tab id="testi" label="Testi Delibere" disabled="@load(vm.abilitaTesti)"/>
                                 </tabs>
                                 <tabpanels>
-                                    <tabpanel fulfill="tabVerbalizzazione.onSelect">
+                                    <tabpanel>
                                         <include src="/odg/seduta/partecipantiSeduta.zul" seduta="#{vm.seduta}" wp="#{vm.self}"/>
                                     </tabpanel>
-                                    <tabpanel fulfill="verbalizzazione.onSelect">
+                                    <tabpanel fulfill="verbalizzazione.onSelect" visible ="@bind(!vm.abilitaOrdinamentoProposteSeparato)">
                                         <include src="/odg/seduta/verbalizzazioneSeduta.zul" seduta="#{vm.seduta}"/>
+                                    </tabpanel>
+                                    <tabpanel visible ="@bind(vm.abilitaOrdinamentoProposteSeparato)">
+                                        <include src="/odg/seduta/verbalizzazioneSedutaOrdina.zul" seduta="#{vm.seduta}"/>
+                                    </tabpanel>
+                                    <tabpanel visible ="@bind(vm.abilitaOrdinamentoProposteSeparato)">
+                                        <include src="/odg/seduta/verbalizzazioneSedutaModifica.zul" seduta="#{vm.seduta}"/>
                                     </tabpanel>
                                     <tabpanel fulfill="testi.onSelect">
                                         <include src="/odg/seduta/testiSeduta.zul" seduta="#{vm.seduta}"/>

@@ -22,6 +22,7 @@ class Esito {
 
 	String 	titolo
 	String 	descrizione
+	String  codiceEsterno
 
 	EsitoStandard	esitoStandard
 	Commissione 	commissione
@@ -68,6 +69,7 @@ class Esito {
 	}
 
     static constraints = {
+		codiceEsterno		nullable: true
 		commissione 		nullable: true
 		commissioneArrivo 	nullable: true
 		descrizione 		nullable: true

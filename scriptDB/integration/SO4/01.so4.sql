@@ -45,3 +45,9 @@ grant select on indirizzi_telematici TO ${global.db.target.username}
 
 grant select on aoo_view TO ${global.db.target.username}
 /
+
+grant select on soggetti_aoo to ${global.db.target.username} with grant option
+/
+
+grant select on soggetti_unita to ${global.db.target.username} with grant option
+/

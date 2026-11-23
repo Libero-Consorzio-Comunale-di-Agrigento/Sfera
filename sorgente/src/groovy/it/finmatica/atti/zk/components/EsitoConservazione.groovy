@@ -20,7 +20,7 @@ class EsitoConservazione extends Div {
         new ZkBuilder({
             div {
                 a (href:"..${logConservazione.urlRicevuta}", target:"_blank", label:"Id Transazione: ${logConservazione.idTransazione}", tooltiptext:"Apre la ricevuta di conservazione")
-                label (value:"Data invio:"+logConservazione.dataInizio?.format("dd/MM/yyyy"), style:"display:block")
+                label (value:" - Data invio:"+logConservazione.dataInizio?.format("dd/MM/yyyy"))
             }
             label (value:logConservazione.esito+": ")
             label (value:logConservazione.log, maxlength:100, popup: popup {

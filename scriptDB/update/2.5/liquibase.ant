@@ -4,7 +4,37 @@
     <taskdef resource="liquibase/integration/ant/antlib.xml" uri="antlib:liquibase.integration.ant"/>
 
     <!-- Alla fine di tutto, rivalido i package e creo le viste/etc -->
-    <target name="-update-2.5">
+    <target name="-update-2.5" depends="-cancella-web-xml">
+
+        <liquibase:updateDatabase databaseref="so4-database" changelogfile="integration/SO4/01.so4.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.target.username" value="${global.db.target.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+
+        <liquibase:updateDatabase databaseref="as4-database" changelogfile="integration/AS4/01.as4.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.target.username" value="${global.db.target.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="commons/agsde2/synonyms/02.sinonimi_ad4_as4_so4.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.so4.username" value="${global.db.so4.username}"/>
+                <liquibase:changeLogParameter name="global.db.ad4.username" value="${global.db.ad4.username}"/>
+                <liquibase:changeLogParameter name="global.db.as4.username" value="${global.db.as4.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="commons/agsde2/synonyms/03.sinonimi_gdm.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.gdm.username" value="${global.db.gdm.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
 
         <!-- ESEGUO L'AGGIORNAMENTO SU GDM -->
         <liquibase:updateDatabase databaseref="gdm-database" changelogfile="update/2.5/update-gdm.xml" classpathref="classpath-liquibase">
@@ -14,13 +44,71 @@
             </liquibase:changeLogParameters>
         </liquibase:updateDatabase>
 
+        <!-- ASSEGNO LE GRANT AD AGSDE2 SU AD4 -->
+        <liquibase:updateDatabase databaseref="ad4-database"
+                                  changelogfile="update/2.5/ad4/02.grant_ad4.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.target.username" value="${global.db.target.username}"/>
+                <liquibase:changeLogParameter name="global.db.ad4.username" value="${global.db.ad4.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+
+        <!-- ESEGUO L'AGGIORNAMENTO SU AD4 -->
+        <liquibase:updateDatabase databaseref="ad4-database" changelogfile="update/2.5/update-ad4.xml" classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.target.username" value="${global.db.target.username}"/>
+                <liquibase:changeLogParameter name="global.db.ad4.username" value="${global.db.ad4.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+
         <!-- ESEGUO L'AGGIORNAMENTO SU AGSDE2 -->
         <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="update/2.5/update-agsde2.xml" classpathref="classpath-liquibase">
             <liquibase:changeLogParameters>
                 <liquibase:changeLogParameter name="global.db.target.username" value="${global.db.target.username}"/>
                 <liquibase:changeLogParameter name="global.db.gdm.username" value="${global.db.gdm.username}"/>
+                <liquibase:changeLogParameter name="global.db.ad4.username" value="${global.db.ad4.username}"/>
             </liquibase:changeLogParameters>
         </liquibase:updateDatabase>
 
+        <!-- ASSEGNO LE GRANT AGLI ALTRI USER SU AGSDE2 -->
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="update/2.5/agsde2/grant/01.grant.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.target.username" value="${global.db.target.username}"/>
+                <liquibase:changeLogParameter name="global.db.gdm.username" value="${global.db.gdm.username}"/>
+                <liquibase:changeLogParameter name="global.db.ad4.username" value="${global.db.ad4.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+    </target>
+
+    <target name="-cancella-web-xml" depends="-da-cancellare" if="da.cancellare" >
+        <echo message="Touch e cancellazione del file web.xml" />
+        <touch file="${global.tomcat.home}/${global.tomcat.webapps}/Atti/WEB-INF/web.xml"/>
+        <delete file="${global.tomcat.home}/${global.tomcat.webapps}/Atti/WEB-INF/web.xml" />
+    </target>
+
+    <!-- provo a cancellare il web.xml solo se sono in aggiornamento -->
+    <target name="-da-cancellare" depends="-da-aggiornare" if="da.aggiornare">
+        <loadproperties srcFile="${global.tomcat.home}/${global.tomcat.webapps}/Atti/WEB-INF/classes/application.properties" />
+
+        <!-- Print the app.version property -->
+        <echo message="Versione nuova: ${versione}" />
+        <echo message="Versione nel contesto: ${app.version}" />
+
+        <!-- eseguo la cancellazione del web.xml solo se le versioni pre e post aggiornamento sono diverse. Se sono uguali non viene aggiornato il contesto -->
+        <condition property="da.cancellare">
+            <not>
+                <equals arg1="${app.version}" arg2="${versione}"/>
+            </not>
+        </condition>
+    </target>
+
+    <!--verifico se esiste il contesto sul tomcat e quindi sono in aggiornamento -->
+    <target name="-da-aggiornare">
+        <condition property="da.aggiornare">
+            <available file="${global.tomcat.home}/${global.tomcat.webapps}/Atti" />
+        </condition>
     </target>
 </project>

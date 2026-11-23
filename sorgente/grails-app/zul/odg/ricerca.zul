@@ -24,9 +24,9 @@
 			</hlayout>
 
 			<groupbox closable="true" open="@load(vm.filtriVisibili)">
-				<caption onClick="@command('openCloseFiltri'))">
+				<caption onClick="@command('openCloseFiltri')">
 					<label visible="@load(vm.filtriVisibili)"     value="Nascondi filtri"/>
-					<label visible="@load(not vm.filtriVisibili)" value="@bind(vm.lbFiltri)"/>
+					<label visible="@load(not vm.filtriVisibili)" value="@load(vm.lbFiltri)"/>
 				</caption>
 
 				<grid sclass="form">

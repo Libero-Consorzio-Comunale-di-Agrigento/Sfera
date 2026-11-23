@@ -70,17 +70,27 @@
 								mold="trendy"
 								label="Testo"
 								onClick="@command('onDownloadTesto')"
-								visible="@load(not empty vm.certificato.testo)" />
+								visible="@load(not empty vm.certificato.testo and (not vm.certificato.tipologia.editaTesto or not vm.competenze.modifica or vm.certificato.statoFirma eq 'IN_FIRMA' or vm.certificato.statoFirma eq 'FIRMATO' or not vm.certificato.testo.modificabile))" />
+						<image src="@load(vm.testoLockato ? '/images/agsde2/22x22/lock.png' : '/images/agsde2/22x22/unlock.png')"
+							   visible="@load(vm.certificato.tipologia.editaTesto and vm.certificato.id gt 0 and (empty vm.certificato.testo or vm.certificato.testo.modificabile) and not (vm.certificato.statoFirma eq 'IN_FIRMA' or vm.certificato.statoFirma eq 'FIRMATO') and vm.competenze.modifica)"/>
+						<button image="/images/agsde2/16x16/pencil.png" mold="trendy" autodisable="self"
+								label="Edita testo"
+								onClick="@command('editaTesto')"
+								visible="@load(vm.certificato.tipologia.editaTesto and vm.certificato.id gt 0 and (empty vm.certificato.testo or vm.certificato.testo.modificabile) and not (vm.certificato.statoFirma eq 'IN_FIRMA' or vm.certificato.statoFirma eq 'FIRMATO') and vm.competenze.modifica)"/>
+						<button image="/images/agsde2/16x16/cancel.png" mold="trendy" label="Elimina testo"
+								disabled="@load(not vm.competenze.modifica or vm.certificato.testo.id eq null)"
+								visible="@load(vm.certificato.tipologia.editaTesto and vm.certificato.id gt 0 and (empty vm.certificato.testo or vm.certificato.testo.modificabile) and not (vm.certificato.statoFirma eq 'IN_FIRMA' or vm.certificato.statoFirma eq 'FIRMATO') and vm.competenze.modifica)"
+								onClick="@command('onEliminaTesto')"/>
 					</cell>
 				</row>
 				<row visible="@load(vm.certificato.tipo eq 'PUBBLICAZIONE' and vm.certificato.stato ne 'CONCLUSO')">
 					<cell>Pubblicazione fino a revoca:</cell>
-					<cell><radiogroup selectedIndex="@load(vm.pubblicaRevoca ? 0 : 1)" selectedItem="@save(vm.pubblicaRevoca)">
-	     				<radio label="Sì" value="@load(true)" 	disabled="@load(not vm.competenze.modifica or vm.certificato.tipo ne 'PUBBLICAZIONE')"/>
-			            <radio label="No" value="@load(false)" 	disabled="@load(not vm.competenze.modifica or vm.certificato.tipo ne 'PUBBLICAZIONE')"/>
+					<cell><radiogroup>
+	     				<radio label="Sì" checked="@load(vm.pubblicaRevoca)"      onCheck="@command('setPubblicarevoca', val=true)"  disabled="@load(not vm.competenze.modifica or vm.certificato.tipo ne 'PUBBLICAZIONE')"/>
+			            <radio label="No" checked="@load(not vm.pubblicaRevoca)" onCheck="@command('setPubblicarevoca', val=false)" disabled="@load(not vm.competenze.modifica or vm.certificato.tipo ne 'PUBBLICAZIONE')"/>
 		            </radiogroup></cell>
 					<cell visible="@load(not vm.pubblicaRevoca)">Giorni di Pubblicazione:</cell>
-					<cell visible="@load(not vm.pubblicaRevoca)"><intbox value="@bind(vm.giorniPubblicazione)" disabled="@load(not vm.competenze.modifica or vm.certificato.tipo ne 'PUBBLICAZIONE')" /></cell>
+					<cell visible="@load(not vm.pubblicaRevoca)"><intbox value="@bind(vm.giorniPubblicazione)" disabled="@load(not vm.competenze.modifica or vm.certificato.tipo ne 'PUBBLICAZIONE')" constraint="no negative,no zero" /></cell>
 				</row>
 				<row visible="@load(not(vm.certificato.tipo eq 'PUBBLICAZIONE' and vm.certificato.stato ne 'CONCLUSO'))">
 					<cell>Data di inizio pubblicazione</cell>

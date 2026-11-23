@@ -69,7 +69,7 @@ class VistoParereCompetenze {
 
 		competenze { VistoParere v, So4UserDetail utente ->
 			if (v != null) {
-				eq ("visto", v)
+				eq ("vistoParere", v)
 			}
 
 			or {

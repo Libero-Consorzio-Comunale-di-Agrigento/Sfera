@@ -31,7 +31,7 @@ class UnitaOrganizzativa {
             if (dal == null)
                 dal = new Date()
             if (progressivo > 0) {
-                return So4UnitaPubb.perOttica(codiceOttica).findByProgrAndDal(progressivo, dal)
+                return So4UnitaPubb.allaData(dal).perOttica(codiceOttica).findByProgr(progressivo)
             } else if (codice?.trim()?.length() > 0) {
                 return So4UnitaPubb.allaData(dal).perOttica(codiceOttica).findByCodice(codice)
             }

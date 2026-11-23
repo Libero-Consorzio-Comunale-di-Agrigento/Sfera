@@ -9,6 +9,7 @@
 			<certificato>
 				<N_DELIBERA>1000</N_DELIBERA>
 				<DATA_DELIBERA>01/05/2014</DATA_DELIBERA>
+				<ANNO_DELIBERA>2014</ANNO_DELIBERA>
 				<REGISTRO_DELIBERA>DELIBERAZIONE DI GIUNTA</REGISTRO_DELIBERA>
 				<N_PROPOSTA>300</N_PROPOSTA>
 				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
@@ -16,7 +17,7 @@
 				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
 				<CODICE_UNITA_PROPONENTE>A_AAGG</CODICE_UNITA_PROPONENTE>
 				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
-				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>				
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
 				<OGGETTO>DELIBERA DI PROVA</OGGETTO>
 				<DATA_FIRMA>01/05/2014</DATA_FIRMA>
 				<DATA_STAMPA>02/05/2014</DATA_STAMPA>
@@ -26,7 +27,7 @@
 				<DATA_PUBBLICAZIONE>01/05/2014</DATA_PUBBLICAZIONE>
 				<DATA_FINE_PUBBLICAZIONE>15/05/2014</DATA_FINE_PUBBLICAZIONE>
 				<DATA_ESECUTIVITA>11/05/2014</DATA_ESECUTIVITA>
-				<GIORNI_PUBBLICAZIONE>15</GIORNI_PUBBLICAZIONE>	
+				<GIORNI_PUBBLICAZIONE>15</GIORNI_PUBBLICAZIONE>
 				<ESEGUIBILITA_IMMEDIATA>La presente deliberazione e' stata dichiarata immediatamente eseguibile.</ESEGUIBILITA_IMMEDIATA>
 				<ESEGUIBILITA_NON_IMMEDIATA>La presente deliberazione e' stata dichiarata non immediatamente eseguibile.</ESEGUIBILITA_NON_IMMEDIATA>
 				<DATA_PROTOCOLLO>02/05/2014</DATA_PROTOCOLLO>
@@ -43,9 +44,9 @@
 			<nomeSimbolico>id</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>id del certificato richiesto</descrizione>
-			<path/>			
+			<path/>
 		</metaDato>
-<!-- DEFINIZIONE CAMPI DELLA QUERY -->		
+<!-- DEFINIZIONE CAMPI DELLA QUERY -->
 		<metaDato>
 			<nomeSimbolico>N_DELIBERA</nomeSimbolico>
 			<tipo>string</tipo>
@@ -59,6 +60,12 @@
 			<path/>
 		</metaDato>
 		<metaDato>
+			<nomeSimbolico>ANNO_DELIBERA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>anno della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
 			<nomeSimbolico>N_PROPOSTA</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>numero della proposta di delibera</descrizione>
@@ -69,7 +76,7 @@
 			<tipo>string</tipo>
 			<descrizione>anno della proposta di delibera</descrizione>
 			<path/>
-		</metaDato>		
+		</metaDato>
 		<metaDato>
 			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
 			<tipo>string</tipo>
@@ -93,7 +100,7 @@
 			<tipo>string</tipo>
 			<descrizione>Servizio dell'unita' proponente della proposta di delibera</descrizione>
 			<path/>
-		</metaDato>	
+		</metaDato>
 		<metaDato>
 			<nomeSimbolico>SUDDIVISIONE</nomeSimbolico>
 			<tipo>string</tipo>
@@ -105,7 +112,7 @@
 			<tipo>string</tipo>
 			<descrizione>Oggetto della delibera</descrizione>
 			<path/>
-		</metaDato>	
+		</metaDato>
 		<metaDato>
 			<nomeSimbolico>DATA_STAMPA</nomeSimbolico>
 			<tipo>string</tipo>
@@ -117,7 +124,7 @@
 			<tipo>string</tipo>
 			<descrizione>Data di firma del certificato</descrizione>
 			<path/>
-		</metaDato>			
+		</metaDato>
 		<metaDato>
 			<nomeSimbolico>FIRMATARIO</nomeSimbolico>
 			<tipo>string</tipo>
@@ -159,7 +166,7 @@
 			<tipo>string</tipo>
 			<descrizione>Giorni di pubblicazione della delibera</descrizione>
 			<path/>
-		</metaDato>	
+		</metaDato>
 		<metaDato>
 			<nomeSimbolico>ESEGUIBILITA_IMMEDIATA</nomeSimbolico>
 			<tipo>string</tipo>
@@ -189,7 +196,7 @@
 			<tipo>string</tipo>
 			<descrizione>Anno di protocollazione della determina</descrizione>
 			<path/>
-		</metaDato>		
+		</metaDato>
 		<metaDato>
 			<nomeSimbolico>NUMERO_PROTOCOLLO</nomeSimbolico>
 			<tipo>string</tipo>
@@ -201,28 +208,29 @@
 			<tipo>string</tipo>
 			<descrizione>Anno di numerazione della determina all'albo pretorio</descrizione>
 			<path/>
-		</metaDato>		
+		</metaDato>
 		<metaDato>
 			<nomeSimbolico>NUMERO_ALBO</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Numero di registro all'albo pretorio della determina</descrizione>
 			<path/>
-		</metaDato>	
+		</metaDato>
 	</definitions>
 	<queryes>
  	<!-- certificato: restituisce i dati del certificato -->
 		<query id='certificato'
 		       help_query_alias="c"
-		       help_field_aliases="ANNO_ALBO, ANNO_PROPOSTA, ANNO_PROTOCOLLO, AREA_PROPONENTE, CODICE_UNITA_PROPONENTE, DATA_DELIBERA, DATA_FINE_PUBBLICAZIONE, DATA_ESECUTIVITA, DATA_FIRMA, DATA_PROTOCOLLO, DATA_PUBBLICAZIONE, DATA_STAMPA, ESEGUIBILITA_IMMEDIATA, ESEGUIBILITA_NON_IMMEDIATA, FIRMATARIO, DESCRIZIONE_FIRMATARIO, DELEGANTE, GIORNI_PUBBLICAZIONE, N_DELIBERA, N_PROPOSTA, NUMERO_ALBO, NUMERO_PROTOCOLLO, OGGETTO, REGISTRO_DELIBERA, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE">
+		       help_field_aliases="ANNO_ALBO, ANNO_PROPOSTA, ANNO_PROTOCOLLO, AREA_PROPONENTE, CODICE_UNITA_PROPONENTE, DATA_DELIBERA, ANNO_DELIBERA, DATA_FINE_PUBBLICAZIONE, DATA_ESECUTIVITA, DATA_FIRMA, DATA_PROTOCOLLO, DATA_PUBBLICAZIONE, DATA_STAMPA, ESEGUIBILITA_IMMEDIATA, ESEGUIBILITA_NON_IMMEDIATA, FIRMATARIO, DESCRIZIONE_FIRMATARIO, DELEGANTE, GIORNI_PUBBLICAZIONE, N_DELIBERA, N_PROPOSTA, NUMERO_ALBO, NUMERO_PROTOCOLLO, OGGETTO, REGISTRO_DELIBERA, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE">
  select d.numero_delibera N_DELIBERA
      , to_char (d.data_adozione, 'dd/mm/yyyy') DATA_DELIBERA
+	 , d.anno_delibera ANNO_DELIBERA
      , pd.numero_proposta N_PROPOSTA
      , pd.anno_proposta ANNO_PROPOSTA
      , utility_pkg.get_suddivisione_uo_prop_deli (pd.id_proposta_delibera) SUDDIVISIONE
-     , utility_pkg.get_unita_prop_delibera (pd.id_proposta_delibera) UNITA_PROPONENTE 
+     , utility_pkg.get_unita_prop_delibera (pd.id_proposta_delibera) UNITA_PROPONENTE
      , utility_pkg.get_codice_unita_prop_delibera(pd.id_proposta_delibera) CODICE_UNITA_PROPONENTE
      , utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_AREA', pd.ente) AREA_PROPONENTE
-     , utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_SERVIZIO', pd.ente) SERVIZIO_PROPONENTE   
+     , utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_SERVIZIO', pd.ente) SERVIZIO_PROPONENTE
      , d.oggetto OGGETTO
      , nvl(to_char(f.data_firma,'dd/mm/yyyy'), '${documentRoot.certificato.DATA_FIRMA}') DATA_FIRMA
      , to_char (sysdate, 'dd/mm/yyyy') DATA_STAMPA
@@ -240,7 +248,7 @@
      ,  d.numero_albo NUMERO_ALBO
      ,  decode(numero_protocollo, null, '', to_char(numero_protocollo)) NUMERO_PROTOCOLLO
      ,  decode(anno_protocollo, null, '', anno_protocollo) ANNO_PROTOCOLLO
-     ,  decode(data_numero_protocollo, null, '', to_char(data_numero_protocollo,'dd/mm/yyyy')) DATA_PROTOCOLLO    
+     ,  decode(data_numero_protocollo, null, '', to_char(data_numero_protocollo,'dd/mm/yyyy')) DATA_PROTOCOLLO
   from firmatari f
      , proposte_delibera pd
      , delibere d
@@ -251,8 +259,8 @@
    and d.registro_delibera = tr.tipo_registro
    and f.id_certificato(+) = c.id_certificato
    and f.firmato(+) = 'N'
-   and f.data_firma(+) is not null   
-   and pd.id_proposta_delibera = d.id_proposta_delibera 
+   and f.data_firma(+) is not null
+   and pd.id_proposta_delibera = d.id_proposta_delibera
 </query>
 	</queryes>
 	<staticData />

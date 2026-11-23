@@ -43,13 +43,24 @@
 				<MSU>-</MSU>
 				<INCARICATO>NOMINATIVO INCARICATO</INCARICATO>
 				<DESCRIZIONE_RADICE_SUDD>RADICE AFFARI GENERALI</DESCRIZIONE_RADICE_SUDD>
+				<ESEGUIBILITA_ORDINARIA>l'atto diventerà eseguibile dopo 10 giorni dalla data di pubblicazione</ESEGUIBILITA_ORDINARIA>
+				<RISERVATO>RISERVATO</RISERVATO>
 			</determina>
+			<ALLEGATI>
+				<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+				<NOME_FILE>FILE 1</NOME_FILE>
+			</ALLEGATI>
+			<ALLEGATI>
+				<ALLEGATO_TITOLO>SECONDO ALLEGATO</ALLEGATO_TITOLO>
+				<NOME_FILE>FILE 2</NOME_FILE>
+			</ALLEGATI>
 			<movimenti>
 				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
 				<M_ANNO_PRENOTAZIONE>2015</M_ANNO_PRENOTAZIONE>
 				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
 				<M_CAPITOLO>4</M_CAPITOLO>
 				<M_NOTE>Acquisto Carta</M_NOTE>
+				<M_ANNO_ESIGIBILITA>2023</M_ANNO_ESIGIBILITA>
 				<M_CIG>13123</M_CIG>
 				<M_CUP>3</M_CUP>
 				<M_SEGNO>-</M_SEGNO>
@@ -60,6 +71,19 @@
 				<M_AZIONE>434</M_AZIONE>
 				<M_ENTRATA_USCITA>S</M_ENTRATA_USCITA>
 				<M_CODICE>1234</M_CODICE>
+				<ATS_ANNO_ESERCIZIO>2024</ATS_ANNO_ESERCIZIO>
+				<ATS_CONTO>202402024</ATS_CONTO>
+				<ATS_CONTO_DESCRIZIONE>Descrizione del conto</ATS_CONTO_DESCRIZIONE>
+				<ATS_BILANCIO>123456</ATS_BILANCIO>
+				<ATS_BILANCIO_DESCRIZIONE>Descrizione del bilancio</ATS_BILANCIO_DESCRIZIONE>
+				<ATS_SOTTO_BUDGET>202420242024.1</ATS_SOTTO_BUDGET>
+				<ATS_SOTTO_BUDGET_DESCRIZIONE>Descrizione del sottobudget</ATS_SOTTO_BUDGET_DESCRIZIONE>
+				<ATS_IMPORTO>100,00</ATS_IMPORTO>
+				<ATS_IMPORTO_INIZIALE>120,00</ATS_IMPORTO_INIZIALE>
+				<ATS_IMPORTO_VARIAZIONE>1030,00</ATS_IMPORTO_VARIAZIONE>
+				<ATS_IMPORTO_RESIDUO>15,00</ATS_IMPORTO_RESIDUO>
+				<ATS_IMPORTO_PROVVEDIMENTO>45,00</ATS_IMPORTO_PROVVEDIMENTO>
+				<ATS_PROGETTO>Progetto di riferimento</ATS_PROGETTO>
 			</movimenti>
 			<movimenti>
 				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
@@ -67,6 +91,7 @@
 				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
 				<M_CAPITOLO>4</M_CAPITOLO>
 				<M_NOTE>Bonus</M_NOTE>
+				<M_ANNO_ESIGIBILITA>2023</M_ANNO_ESIGIBILITA>
 				<M_CIG>13123</M_CIG>
 				<M_CUP>4</M_CUP>
 				<M_SEGNO>+</M_SEGNO>
@@ -77,6 +102,19 @@
 				<M_AZIONE>434</M_AZIONE>
 				<M_ENTRATA_USCITA>E</M_ENTRATA_USCITA>
 				<M_CODICE>1234</M_CODICE>
+				<ATS_ANNO_ESERCIZIO>2024</ATS_ANNO_ESERCIZIO>
+				<ATS_CONTO>202502025</ATS_CONTO>
+				<ATS_CONTO_DESCRIZIONE>Descrizione del secondo conto</ATS_CONTO_DESCRIZIONE>
+				<ATS_BILANCIO>7890123</ATS_BILANCIO>
+				<ATS_BILANCIO_DESCRIZIONE>Descrizione del secondo bilancio</ATS_BILANCIO_DESCRIZIONE>
+				<ATS_SOTTO_BUDGET>202520252025.1</ATS_SOTTO_BUDGET>
+				<ATS_SOTTO_BUDGET_DESCRIZIONE>Descrizione del secondo sottobudget</ATS_SOTTO_BUDGET_DESCRIZIONE>
+				<ATS_IMPORTO>160,00</ATS_IMPORTO>
+				<ATS_IMPORTO_INIZIALE>80,00</ATS_IMPORTO_INIZIALE>
+				<ATS_IMPORTO_VARIAZIONE>940,00</ATS_IMPORTO_VARIAZIONE>
+				<ATS_IMPORTO_RESIDUO>89,00</ATS_IMPORTO_RESIDUO>
+				<ATS_IMPORTO_PROVVEDIMENTO>36,00</ATS_IMPORTO_PROVVEDIMENTO>
+				<ATS_PROGETTO>Secondo progetto di riferimento</ATS_PROGETTO>
 			</movimenti>
 			<movimenti>
 				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
@@ -84,6 +122,7 @@
 				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
 				<M_CAPITOLO>4</M_CAPITOLO>
 				<M_NOTE>Acquisto</M_NOTE>
+				<M_ANNO_ESIGIBILITA>2024</M_ANNO_ESIGIBILITA>
 				<M_CIG>13123</M_CIG>
 				<M_CUP>5</M_CUP>
 				<M_SEGNO>+</M_SEGNO>
@@ -94,6 +133,19 @@
 				<M_AZIONE>434</M_AZIONE>
 				<M_ENTRATA_USCITA>E</M_ENTRATA_USCITA>
 				<M_CODICE>1234</M_CODICE>
+				<ATS_ANNO_ESERCIZIO>2024</ATS_ANNO_ESERCIZIO>
+				<ATS_CONTO>202602026</ATS_CONTO>
+				<ATS_CONTO_DESCRIZIONE>Descrizione del terzo conto</ATS_CONTO_DESCRIZIONE>
+				<ATS_BILANCIO>123456</ATS_BILANCIO>
+				<ATS_BILANCIO_DESCRIZIONE>Descrizione del terzo bilancio</ATS_BILANCIO_DESCRIZIONE>
+				<ATS_SOTTO_BUDGET>202420242024.1</ATS_SOTTO_BUDGET>
+				<ATS_SOTTO_BUDGET_DESCRIZIONE>Descrizione del terzo sottobudget</ATS_SOTTO_BUDGET_DESCRIZIONE>
+				<ATS_IMPORTO>200,00</ATS_IMPORTO>
+				<ATS_IMPORTO_INIZIALE>175,00</ATS_IMPORTO_INIZIALE>
+				<ATS_IMPORTO_VARIAZIONE>4030,00</ATS_IMPORTO_VARIAZIONE>
+				<ATS_IMPORTO_RESIDUO>99,00</ATS_IMPORTO_RESIDUO>
+				<ATS_IMPORTO_PROVVEDIMENTO>66,00</ATS_IMPORTO_PROVVEDIMENTO>
+				<ATS_PROGETTO>Terzo progetto di riferimento</ATS_PROGETTO>
 			</movimenti>
 		</documentRoot>
 	</testStaticData>
@@ -316,7 +368,12 @@
 			<descrizione>Il segno della somma delle uscite (+ o -)</descrizione>
 			<path/>
 		</metaDato>
-        
+		<metaDato>
+			<nomeSimbolico>ESEGUIBILITA_ORDINARIA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione dell'eseguibilità ordinaria</descrizione>
+			<path/>
+		</metaDato>
         <!-- Query dei movimenti -->
         <metaDato>
 			<nomeSimbolico>M_ANNO_IMPEGNO</nomeSimbolico>
@@ -346,6 +403,12 @@
 			<nomeSimbolico>M_NOTE</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Note</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>M_ANNO_ESIGIBILITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di esigibilita'</descrizione>
 			<path/>
 		</metaDato>
 		<metaDato>
@@ -414,13 +477,110 @@
 			<descrizione>Descrizione dell'unità radice in struttura rispetto l'unità proponente</descrizione>
 			<path/>
 		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ALLEGATO_TITOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Titolo del file allegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOME_FILE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nome del file allegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RISERVATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Valorizzato solo se l'atto è riservato</descrizione>
+			<path/>
+		</metaDato>
+		<!--inizio campi specifici per ats-pavia -->
+		<metaDato>
+			<nomeSimbolico>ATS_ANNO_ESERCIZIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno dell'esercizio</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_CONTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Conto economico</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_CONTO_DESCRIZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione conto economico</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_BILANCIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Bilancio</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_BILANCIO_DESCRIZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione bilancio</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_SOTTO_BUDGET</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>SottoBudget</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_SOTTO_BUDGET_DESCRIZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione sottobudget</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_IMPORTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_IMPORTO_INIZIALE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo iniziale</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_IMPORTO_VARIAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo della variazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_IMPORTO_RESIDUO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo residuo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_IMPORTO_PROVVEDIMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo del provvedimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_PROGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Progetto</descrizione>
+			<path/>
+		</metaDato>
 	</definitions>
 	<queryes>
  	<!-- determina: restituisce i dati di una determina -->
  	<query 	id="determina"
  			help_descrizione="Ritorna i dati di una determina."
 			help_query_alias="d"
-			help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, ANNO_PROTOCOLLO, AREA_PROPONENTE, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_PROTOCOLLO, DESCRIZIONE_REGISTRO, DIRIGENTE, REDATTORE, INCARICATO, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_OGGETTO, FUNZIONARIO, NUMERO_DETERMINA, NUMERO_PROPOSTA, NUMERO_PROTOCOLLO, OGGETTO_DETERMINA, OGGETTO_DETERMINA_DEFINITIVO, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, UNITA_PADRE, FIRMATARIO, DESCRIZIONE_FIRMATARIO, DELEGANTE, ASCENDENTI_UNITA, CIG, M_TOTALE_ENTRATE, M_TOTALE_USCITE, MSE, MSU, DESCRIZIONE_RADICE_SUDD">
+			help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, ANNO_PROTOCOLLO, AREA_PROPONENTE, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_PROTOCOLLO, DESCRIZIONE_REGISTRO, DIRIGENTE, REDATTORE, INCARICATO, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_OGGETTO, FUNZIONARIO, NUMERO_DETERMINA, NUMERO_PROPOSTA, NUMERO_PROTOCOLLO, OGGETTO_DETERMINA, OGGETTO_DETERMINA_DEFINITIVO, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, UNITA_PADRE, FIRMATARIO, DESCRIZIONE_FIRMATARIO, DELEGANTE, ASCENDENTI_UNITA, CIG, M_TOTALE_ENTRATE, M_TOTALE_USCITE, MSE, MSU, DESCRIZIONE_RADICE_SUDD, ESEGUIBILITA_ORDINARIA, RISERVATO">
  select decode(numero_proposta, null, '${documentRoot.determina.NUMERO_PROPOSTA}', to_char(numero_proposta)) NUMERO_PROPOSTA
     , decode(anno_proposta, null, '${documentRoot.determina.ANNO_PROPOSTA}', to_char(anno_proposta)) ANNO_PROPOSTA
     , decode(data_numero_determina, null, '${documentRoot.determina.DATA_DETERMINA}', to_char(data_numero_determina,'dd/mm/yyyy')) DATA_DETERMINA
@@ -457,7 +617,9 @@
     , (select decode(sign(sum(m.importo)), -1, '-', '+') from movimenti_contabili m where m.tipo = 'ENTRATA' and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') MSE
     , (select decode(sign(sum(m.importo)), -1, '-', '+') from movimenti_contabili m where m.tipo = 'USCITA'  and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') MSU
 	, utility_pkg.unita_get_radice_determina (d.id_determina) DESCRIZIONE_RADICE_SUDD
-		from firmatari f
+    , decode(d.eseguibilita_immediata, 'Y', decode(data_numero_determina, null, '${documentRoot.determina.ESEGUIBILITA_ORDINARIA}', impostazioni_pkg.get_impostazione('MODELLI_STAMPE_NON_ESEGUIBILITA_DETERMINA', d.ente)|| to_char(data_numero_determina,'dd/mm/yyyy')), impostazioni_pkg.get_impostazione('MODELLI_STAMPE_ESEGUIBILITA_DETERMINA', d.ente)) ESEGUIBILITA_ORDINARIA
+    , decode(d.riservato,'Y','RISERVATO','') RISERVATO
+ from firmatari f
     , determine d
     , tipi_registro tp
  where d.id_determina 				= #id
@@ -469,12 +631,13 @@
 
 <query id="movimenti"
         help_query_alias="m"
-		help_field_aliases="M_ANNO_IMPEGNO, M_ANNO_PRENOTAZIONE, M_ANNO_ACCERTAMENTO, M_CAPITOLO, M_NOTE, M_CIG, M_CUP, M_SEGNO, M_IMPORTO, M_NUMERO_IMPEGNO, M_NUMERO_PRENOTAZIONE, M_NUMERO_ACCERTAMENTO, M_AZIONE, M_ENTRATA_USCITA, M_CODICE"> 
+		help_field_aliases="M_ANNO_IMPEGNO, M_ANNO_PRENOTAZIONE, M_ANNO_ACCERTAMENTO, M_CAPITOLO, M_NOTE, M_ANNO_ESIGIBILITA, M_CIG, M_CUP, M_SEGNO, M_IMPORTO, M_NUMERO_IMPEGNO, M_NUMERO_PRENOTAZIONE, M_NUMERO_ACCERTAMENTO, M_AZIONE, M_ENTRATA_USCITA, M_CODICE, ATS_ANNO_ESERCIZIO, ATS_CONTO, ATS_CONTO_DESCRIZIONE, ATS_M_ANNO_ACCERTAMENTO, ATS_BILANCIO, ATS_BILANCIO_DESCRIZIONE, ATS_SOTTO_BUDGET, ATS_SOTTO_BUDGET_DESCRIZIONE, ATS_IMPORTO, ATS_IMPORTO_INIZIALE, ATS_IMPORTO_VARIAZIONE, ATS_IMPORTO_RESIDUO, ATS_IMPORTO_PROVVEDIMENTO, ATS_PROGETTO">
  select m.anno_competenza               as M_ANNO_IMPEGNO
       , m.anno_crono                    as M_ANNO_PRENOTAZIONE
       , m.anno_esercizio                as M_ANNO_ACCERTAMENTO
       , m.capitolo                      as M_CAPITOLO
       , m.descrizione                   as M_NOTE
+	  , m.anno_esigibilita              as M_ANNO_ESIGIBILITA
       , m.descrizione_finanziamento_1   as M_CIG
       , m.descrizione_finanziamento_2   as M_CUP
       , decode(sign(m.importo), -1, '-', '+') as M_SEGNO
@@ -485,11 +648,38 @@
       , m.opera                         as M_AZIONE
       , m.tipo							as M_ENTRATA_USCITA
       , m.tipo_dettaglio                as M_CODICE
+	  , m.conto 						as ATS_CONTO
+	  , m.conto_Descrizione 			as ATS_CONTO_DESCRIZIONE
+	  , m.bilancio 						as ATS_BILANCIO
+	  , m.bilancio_Descrizione 			as ATS_BILANCIO_DESCRIZIONE
+	  , m.sotto_Budget 					as ATS_SOTTO_BUDGET
+	  , m.sotto_Budget_Descrizione 		as ATS_SOTTO_BUDGET_DESCRIZIONE
+	  , m.progetto 						as ATS_PROGETTO
+	  , m.anno_Esercizio 				as ATS_ANNO_ESERCIZIO
+	  , trim(TO_CHAR(m.importo, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))					as ATS_IMPORTO
+	  , trim(TO_CHAR(m.importo_Iniziale, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))			as ATS_IMPORTO_INIZIALE
+	  , trim(TO_CHAR(m.importo_variazione, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))		as ATS_IMPORTO_VARIAZIONE
+	  , trim(TO_CHAR(m.importo_residuo, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))			as ATS_IMPORTO_RESIDUO
+	  , trim(TO_CHAR(m.importo_Provvedimento, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))		as ATS_IMPORTO_PROVVEDIMENTO
   from movimenti_contabili m
  where m.id_documento     = #id
    and m.tipo_documento   = 'DETERMINA'
- order by m.tipo asc
+ order by m.tipo asc, m.anno_esercizio asc, m.id_movimento_contabile asc
  </query>
+		<query id="allegati"
+			   help_query_alias="a"
+			   help_field_aliases="ALLEGATO_TITOLO, NOME_FILE">
+				  select a.titolo allegato_titolo,
+						 fa.nome nome_file
+					from allegati a,
+						 allegati_file af,
+						 file_allegati fa
+				   where a.id_allegato = af.id_allegato
+					 and af.id_file = fa.id_file_allegato
+					 and a.valido = 'Y'
+					 and a.id_determina = #id
+				order by a.sequenza asc
+		</query>
   	</queryes>
 	<staticData />
 </documentRoot>

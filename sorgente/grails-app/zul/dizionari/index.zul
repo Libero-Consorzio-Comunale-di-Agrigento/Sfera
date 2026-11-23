@@ -24,8 +24,8 @@
 					<tabpanels>
 						<tabpanel>
 							<listbox selectedItem="@bind(vm.selectedSezione)">
-								<listitem label="Determine" 		value="tipoDetermina"  		disabled="@load(vm.attiDisabled)"/>
-								<listitem label="Delibere"  		value="tipoDelibera"		disabled="@load(vm.attiDisabled)"/>
+								<listitem label="@load(c:l('tipoOggetto.determine'))" 		value="tipoDetermina"  		disabled="@load(vm.attiDisabled)"/>
+								<listitem label="@load(c:l('tipoOggetto.delibere'))"  		value="tipoDelibera"		disabled="@load(vm.attiDisabled)"/>
 								<listitem label="Certificati"  	value="tipoCertificato" 		disabled="@load(vm.attiDisabled)"/>
 								<listitem label="Visti/Pareri"  	value="tipoVistoParere" 	disabled="@load(vm.attiDisabled)"/>
 							</listbox>
@@ -35,6 +35,7 @@
 								<listitem label="Notifiche" 		  		value="notifica" 			disabled="@load(vm.attiDisabled)"/>
 								<listitem label="Email" 			  		value="email" 				disabled="@load(vm.attiDisabled)"/>
 								<listitem label="Delega" 			  		value="delega" 				disabled="@load(vm.attiDisabled)"/>
+								<listitem label="Categoria Delega" 			value="categoriaDelega" 	disabled="@load(vm.attiDisabled)"/>
 								<listitem label="Tipo Registro"  			value="tipoRegistro" 		disabled="@load(vm.attiDisabled)"/>
 								<listitem label="Registro Unità"  			value="registroUnita" 		disabled="@load(vm.attiDisabled)"/>
 								<listitem label="Tipo Allegato"  			value="tipoAllegato" 		disabled="@load(vm.attiDisabled)"/>
@@ -42,8 +43,10 @@
 								<listitem label="Indirizzo Delibera"  		value="indirizzoDelibera" 	disabled="@load(vm.attiDisabled)"/>
 								<listitem label="@load(c:l('label.categoria.determina'))"  				value="categoriaDetermina" 			disabled="@load(vm.attiDisabled)" 	visible="@load(not vm.categoriaDeterminaDisabled)"/>
 								<listitem label="@load(c:l('label.categoria.propostaDelibera'))"  		value="categoriaPropostaDelibera" 	disabled="@load(vm.attiDisabled)"   visible="@load(not vm.categoriaPropostaDeliberaDisabled)"/>
+								<listitem label="@load(c:l('label.impattoGenerazionale'))"  	value="impattoGenerazionale"	disabled="@load(vm.attiDisabled)" visible="@load(not vm.impattoGenerazionaleDisabled)"/>
 								<listitem label="Calendario Festività" 		value="calendarioFestivita" disabled="@load(vm.attiDisabled)"   visible="@load(not vm.calendarioFestivitaDisabled)"/>
 								<listitem label="Testi Modello"											value="gestioneTestiModello" 		disabled="@load(vm.attiDisabled)"/>
+
 							</listbox>
 						</tabpanel>
 						<tabpanel>
@@ -52,6 +55,7 @@
 								<listitem label="Esiti" 				value="esito" 					disabled="@load(vm.odgDisabled)"/>
 								<listitem label="Voti"  				value="voto"					disabled="@load(vm.odgDisabled)"/>
 								<listitem label="Organi di Controllo" 	value="organoControllo"			disabled="@load(vm.odgDisabled)"/>
+								<listitem label="Gruppi Politici	" 	value="gruppoPolitico"			disabled="@load(vm.odgDisabled)" visible="@load(not vm.gruppiPoliticiDisabled)"/>
 								<listitem label="Tipi di Seduta" 		value="tipoSeduta"				disabled="@load(vm.odgDisabled)"/>
 								<listitem label="Incarichi"				value="incarichi" 				disabled="@load(vm.odgDisabled)"/>
 								<listitem label="Importo Gettone"		value="importoGettone" 			disabled="@load(vm.odgDisabled)" visible="@load(not vm.gettonePresenzaDisabled)"/>

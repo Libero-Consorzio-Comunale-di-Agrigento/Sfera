@@ -15,7 +15,6 @@ import it.finmatica.atti.integrazioni.lookup.LookupStatoEsecutivo
 import it.finmatica.atti.integrazioni.lookup.LookupUfficio
 import it.finmatica.atti.integrazioni.parametri.CodiceDescrizione
 import it.finmatica.atti.integrazioni.parametri.ParametroIntegrazione
-import it.finmatica.atti.integrazioniws.ads.jworkflow.JWorklistService
 import it.finmatica.atti.integrazioniws.comunemodena.contabilita.AttiAmministrativi
 import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Component

@@ -14,6 +14,7 @@ public interface IntegrazioneAlbo {
     boolean hasRelata(IPubblicabile atto);
     Map getRelata(IPubblicabile atto);
     void pubblicaAtto(IPubblicabile atto);
+    void trascoAtto(IPubblicabile atto,int numero);
     void secondaPubblicazioneAtto(IPubblicabile atto);
     void annullaAtto(IPubblicabile atto, IAtto attoPrincipale);
     void aggiornaDataEsecutivita(IPubblicabile pubblicabile);

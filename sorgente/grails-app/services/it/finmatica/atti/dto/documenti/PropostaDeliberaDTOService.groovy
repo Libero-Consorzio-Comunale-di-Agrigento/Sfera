@@ -43,6 +43,9 @@ class PropostaDeliberaDTOService {
         proposta.priorita = propostaDto.priorita
 		proposta.dataOrdinamento		= propostaDto.dataOrdinamento
         proposta.dataMinimaPubblicazione = propostaDto.dataMinimaPubblicazione
+        proposta.numeroProtocolloRichiesta = propostaDto.numeroProtocolloRichiesta
+        proposta.annoProtocolloRichiesta = propostaDto.annoProtocolloRichiesta
+        proposta.pubblicaCasaDiVetro = propostaDto.pubblicaCasaDiVetro
 
         proposta.save(failOnError: true)
         return proposta.toDTO()

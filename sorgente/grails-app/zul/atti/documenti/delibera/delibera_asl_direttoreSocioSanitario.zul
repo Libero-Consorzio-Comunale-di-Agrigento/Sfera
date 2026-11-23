@@ -66,7 +66,7 @@
 							disabled="@load(not vm.competenze.modifica or vm.campiProtetti.DIRETTORE_GENERALE)"/>
 				</cell>
 				<cell>
-					<label value="@load(c:l('label.deliberaAsl.direttore_socio_sanitario'))" />
+					<label value="@load(c:l('label.deliberaAsl.DIRETTORE_SOCIO_SANITARIO'))" />
 				</cell>
 				<cell>
 					<label value="@load(vm.soggetti.DIRETTORE_SOCIO_SANITARIO.descrizione)" />

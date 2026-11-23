@@ -32,6 +32,7 @@
 			<g:actionSubmit value="Aggiorna Impostazioni" action="aggiornaImpostazioni" />
 			<g:actionSubmit value="Aggiorna Regole di Calcolo" action="aggiornaRegoleCalcolo" />
 			<g:actionSubmit value="Aggiorna Tipi Modello Testo" action="aggiornaTipiModelloTesto" />
+			<g:actionSubmit value="Aggiorna Stati Ricerca" action="aggiornaStatiIter" />
 			</label>
 			<br/>
 			<label style="padding-right: 57px">Job:</label>
@@ -67,6 +68,7 @@
 		<!--g:actionSubmit value="Test Casa di Vetro" action="testCasaDiVetro" /-->
 		<label>invia email a: <g:textField name="email" /></label>
 		<g:actionSubmit value="Test Invio Email" action="testInvioEmail" />
+		<g:actionSubmit value="Test Invio mail errori" action="testInvioMailErrori" />
 		</g:form>
 
 

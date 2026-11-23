@@ -76,9 +76,9 @@
 			        			</cell>
 								<cell>
 			        				<radiogroup selectedItem="@bind(vm.selectedRecord.modalitaInvio)" orient="horizontal">
-			        					<radio value="EMAIL" 		label="Email"		tooltiptext="Invia la notifica tramite EMail."/><h:br/>
+			        					<radio value="EMAIL" 		label="Email"		tooltiptext="Invia la notifica tramite EMail." /><h:br/>
 			        					<radio value="JWORKLIST"	label="JWorklist"	tooltiptext="Invia la notifica tramite JWorklist. Gli utenti che non hanno accesso alla JWorklist riceveranno una email."/><h:br/>
-			        					<radio value="PEC"			label="Pec"			tooltiptext="Invia la notifica tramite PEC. Solo i documenti Protocollati possono essere inviati via PEC."/><h:br/>
+		        					<radio value="PEC"			label="Pec"			tooltiptext="Invia la notifica tramite PEC. Solo i documenti Protocollati possono essere inviati via PEC." /><h:br/>
 			        				</radiogroup>
 			        			</cell>
 			        		</row>
@@ -227,13 +227,19 @@
 
 							<listbox model="@bind(vm.listaNotificaEmail)" vflex="1" hflex="3" droppable="true" onDrop="@command('dropToList2')" selectedItem="@bind(vm.selectedNotificaEmail)">
 								<listhead>
-									<listheader label="Elenco indirizzi associati" />
+									<listheader label="Elenco indirizzi associati" width="90%"/>
+									<listheader label="" width="10%"/>
 								</listhead>
 								<template name="model">
 									<listitem draggable="true" droppable="true"
-										label="@load(c:cat4(c:cat5(each.email.cognome, ' ', each.email.nome, ' ',  each.email.ragioneSociale ), ' (', each.email.indirizzoEmail , ')'))"
 										onDrop="@command('insertToList2', base=each)" attributes.item="@load(each)"
-										value="@load(each)" />
+										value="@load(each)" >
+										<listcell label="@load(c:cat4(c:cat5(each.email.cognome, ' ', each.email.nome, ' ',  each.email.ragioneSociale ), ' (', each.email.indirizzoEmail , ')'))" />
+										<listcell >
+											<image src="@load(each.email.valido? '/images/agsde2/16x16/point_green.png' : '/images/agsde2/16x16/point_red.png')"
+												   tooltiptext="@load(each.email.valido? 'Email attiva' : 'Email disattivata')" />
+										</listcell>
+									</listitem>
 								</template>
 							</listbox>
 						</hlayout>

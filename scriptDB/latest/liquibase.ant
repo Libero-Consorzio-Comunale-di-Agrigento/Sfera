@@ -38,6 +38,14 @@
             </liquibase:changeLogParameters>
         </liquibase:updateDatabase>
 
+        <liquibase:updateDatabase databaseref="agsde2-database"
+                                  changelogfile="commons/GDM/sql/03.agsde2.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.gdm.username" value="${global.db.gdm.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+
         <liquibase:updateDatabase databaseref="gdm-database" changelogfile="commons/compile_all_user.sql" classpathref="classpath-liquibase"/>
     </target>
 </project>

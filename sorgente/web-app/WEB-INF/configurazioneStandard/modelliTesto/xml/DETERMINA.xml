@@ -45,6 +45,10 @@
                 <CUP>9876543210</CUP>
 				<DESCRIZIONE_RADICE_SUDD>RADICE AFFARI GENERALI</DESCRIZIONE_RADICE_SUDD>
                 <ESEGUIBILITA_ORDINARIA>l'atto diventerà eseguibile dopo 10 giorni dalla data di pubblicazione</ESEGUIBILITA_ORDINARIA>
+				<RISERVATO>RISERVATO</RISERVATO>
+				<IMPORTO_DISTINTA>150,00</IMPORTO_DISTINTA>
+				<DATA_SCADENZA_DISPOSIZIONI>31/12/2026</DATA_SCADENZA_DISPOSIZIONI>
+				<IMPORTO_TOTALE>1.500,00</IMPORTO_TOTALE>
 			</determina>
             <budget>
                 <TIPO_BUDGET>BUDGET DI DEFAULT</TIPO_BUDGET>
@@ -76,6 +80,7 @@
                 <IMP_ANNO_PROPOSTA>2013</IMP_ANNO_PROPOSTA>
                 <IMP_UNITA_PROPONENTE>PROP</IMP_UNITA_PROPONENTE>
                 <IMP_NUMERO_PROPOSTA>11</IMP_NUMERO_PROPOSTA>
+				<IMPEGNO_OBBLIGATORIO>SI</IMPEGNO_OBBLIGATORIO>
 			</movimenti>
 			<movimenti>
 				<MOVIMENTO_TIPO>IMPEGNO DI SPESA</MOVIMENTO_TIPO>
@@ -101,6 +106,7 @@
                 <IMP_ANNO_PROPOSTA>2013</IMP_ANNO_PROPOSTA>
                 <IMP_UNITA_PROPONENTE>PROP</IMP_UNITA_PROPONENTE>
                 <IMP_NUMERO_PROPOSTA>11</IMP_NUMERO_PROPOSTA>
+				<IMPEGNO_OBBLIGATORIO>SI</IMPEGNO_OBBLIGATORIO>
 			</movimenti>
 			<movimenti>
 				<MOVIMENTO_TIPO>IMPEGNO DI SPESA</MOVIMENTO_TIPO>
@@ -126,6 +132,7 @@
                 <IMP_ANNO_PROPOSTA>2013</IMP_ANNO_PROPOSTA>
                 <IMP_UNITA_PROPONENTE>PROP</IMP_UNITA_PROPONENTE>
                 <IMP_NUMERO_PROPOSTA>11</IMP_NUMERO_PROPOSTA>
+				<IMPEGNO_OBBLIGATORIO>SI</IMPEGNO_OBBLIGATORIO>
 			</movimenti>
 			<testo_originale>
 				<TESTO_ORIGINALE>TESTO DELL'ALLEGATO ORIGINALE</TESTO_ORIGINALE>
@@ -331,6 +338,24 @@
 			<descrizione>Descrizione del fascicolo</descrizione>
 			<path/>
 		</metaDato>
+		<metaDato>
+		<nomeSimbolico>IMPORTO_DISTINTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo della distinta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_SCADENZA_DISPOSIZIONI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di scadenza delle disposizioni</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>IMPORTO_TOTALE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo totale della determina</descrizione>
+			<path/>
+		</metaDato>
         <metaDato>
             <nomeSimbolico>ESEGUIBILITA_ORDINARIA</nomeSimbolico>
             <tipo>string</tipo>
@@ -505,6 +530,12 @@
             <descrizione>Unita' Proponente Proposta Impegno</descrizione>
             <path/>
         </metaDato>
+		<metaDato>
+			<nomeSimbolico>IMPEGNO_OBBLIGATORIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Riporta l'informazione se l'impegno è obbligatorio o meno in contabilita'</descrizione>
+			<path/>
+		</metaDato>
         <metaDato>
             <nomeSimbolico>ASCENDENTI_UNITA</nomeSimbolico>
             <tipo>string</tipo>
@@ -547,13 +578,19 @@
 			<descrizione>Testo dell'allegato di tipo TESTO_ORIGINALE della determina</descrizione>
 			<path/>
 		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RISERVATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Valorizzato solo se l'atto è riservato</descrizione>
+			<path/>
+		</metaDato>
 	</definitions>
 	<queryes>
  	<!-- determina: restituisce i dati di una determina -->
  	<query 	id="determina"
  			help_descrizione="Ritorna i dati di una determina."
 			help_query_alias="d"
-			help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, ANNO_DETERMINA_2, ANNO_PROTOCOLLO, AREA_PROPONENTE, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_PROTOCOLLO, DESCRIZIONE_REGISTRO, DESCRIZIONE_REGISTRO_2, DIRIGENTE, REDATTORE, INCARICATO, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_OGGETTO, FUNZIONARIO, NUMERO_DETERMINA, NUMERO_DETERMINA_2, NUMERO_PROPOSTA, NUMERO_PROTOCOLLO, OGGETTO_DETERMINA, OGGETTO_DETERMINA_DEFINITIVO, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, UNITA_PROPONENTE_UPPER, UNITA_PADRE, FIRMATARIO, DESCRIZIONE_FIRMATARIO, DELEGANTE, ASCENDENTI_UNITA, CIG, CUP, DESCRIZIONE_RADICE_SUDD, ESEGUIBILITA_ORDINARIA">
+			help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, ANNO_DETERMINA_2, ANNO_PROTOCOLLO, AREA_PROPONENTE, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_PROTOCOLLO, DESCRIZIONE_REGISTRO, DESCRIZIONE_REGISTRO_2, DIRIGENTE, REDATTORE, INCARICATO, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_OGGETTO, FUNZIONARIO, NUMERO_DETERMINA, NUMERO_DETERMINA_2, NUMERO_PROPOSTA, NUMERO_PROTOCOLLO, OGGETTO_DETERMINA, OGGETTO_DETERMINA_DEFINITIVO, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, UNITA_PROPONENTE_UPPER, UNITA_PADRE, FIRMATARIO, DESCRIZIONE_FIRMATARIO, DELEGANTE, ASCENDENTI_UNITA, CIG, CUP, DESCRIZIONE_RADICE_SUDD, ESEGUIBILITA_ORDINARIA, RISERVATO, IMPORTO_DISTINTA, DATA_SCADENZA_DISPOSIZIONI, IMPORTO_TOTALE">
  select decode(numero_proposta, null, '${documentRoot.determina.NUMERO_PROPOSTA}', to_char(numero_proposta)) NUMERO_PROPOSTA
     , decode(anno_proposta, null, '${documentRoot.determina.ANNO_PROPOSTA}', to_char(anno_proposta)) ANNO_PROPOSTA
     , decode(data_numero_determina, null, '${documentRoot.determina.DATA_DETERMINA}', to_char(data_numero_determina,'dd/mm/yyyy')) DATA_DETERMINA
@@ -592,6 +629,16 @@
     , (select valore from dati_aggiuntivi da where da.codice = 'CUP' and da.id_determina = d.id_determina) CUP
 	, utility_pkg.unita_get_radice_determina (d.id_determina) DESCRIZIONE_RADICE_SUDD
     , decode(d.eseguibilita_immediata, 'Y', decode(data_numero_determina, null, '${documentRoot.determina.ESEGUIBILITA_ORDINARIA}', impostazioni_pkg.get_impostazione('MODELLI_STAMPE_NON_ESEGUIBILITA_DETERMINA', d.ente)|| to_char(data_numero_determina,'dd/mm/yyyy')), impostazioni_pkg.get_impostazione('MODELLI_STAMPE_ESEGUIBILITA_DETERMINA', d.ente)) ESEGUIBILITA_ORDINARIA
+	, decode(d.riservato,'Y','RISERVATO','') RISERVATO
+	, (select decode (impostazioni_pkg.get_impostazione ('DB_CHARSET', d.ente)
+		    , 'iso-8859-1', trim (to_char (da.importo, '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))
+		    , trim (to_char (da.importo, 'L999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.''')))
+		 from distinte_atti da
+		where id_proposta = d.id_determina) IMPORTO_DISTINTA
+	, to_char(d.data_scad_disposizioni,'dd/mm/yyyy') DATA_SCADENZA_DISPOSIZIONI
+	, decode (impostazioni_pkg.get_impostazione ('DB_CHARSET', d.ente)
+		    , 'iso-8859-1', trim (to_char (d.importo_totale, '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))
+		    , trim (to_char (d.importo_totale, 'L999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))) IMPORTO_TOTALE
  from firmatari f
     , determine d
     , tipi_registro tp
@@ -605,11 +652,11 @@
  </query>
  <query id="movimenti"
         help_query_alias="m"
-		help_field_aliases="MOVIMENTO_TIPO, MOVIMENTO_CODICE_BENEFICIARIO, MOVIMENTO_DESCRIZIONE, MOVIMENTO_ENTRATA_SPESA, MOVIMENTO_IMPORTO, MOVIMENTO_RAGIONE_SOCIALE, MOVIMENTO_RIF_BIL_PEG, MOVIMENTO_ANNO, MOVIMENTO_NUMERO, MOVIMENTO_COD_LIVELLO_5, MOVIMENTO_CODICE_SIOPE, MOVIMENTO_COD_TRANSAZIONE, MOVIMENTO_CF_PARTITA_IVA, MOVIMENTO_DESCRIZIONE_BIL_PEG, MOVIMENTO_ANNO_IMPEGNO, MOVIMENTO_NUMERO_IMPEGNO, FAT_DATA_SCADENZA, IMP_ANNO_DEL, IMP_NUMERO_DEL, IMP_SEDE_DEL, IMP_ANNO_PROPOSTA,IMP_UNITA_PROPONENTE,IMP_NUMERO_PROPOSTA">
+		help_field_aliases="MOVIMENTO_TIPO, MOVIMENTO_CODICE_BENEFICIARIO, MOVIMENTO_DESCRIZIONE, MOVIMENTO_ENTRATA_SPESA, MOVIMENTO_IMPORTO, MOVIMENTO_RAGIONE_SOCIALE, MOVIMENTO_RIF_BIL_PEG, MOVIMENTO_ANNO, MOVIMENTO_NUMERO, MOVIMENTO_COD_LIVELLO_5, MOVIMENTO_CODICE_SIOPE, MOVIMENTO_COD_TRANSAZIONE, MOVIMENTO_CF_PARTITA_IVA, MOVIMENTO_DESCRIZIONE_BIL_PEG, MOVIMENTO_ANNO_IMPEGNO, MOVIMENTO_NUMERO_IMPEGNO, FAT_DATA_SCADENZA, IMP_ANNO_DEL, IMP_NUMERO_DEL, IMP_SEDE_DEL, IMP_ANNO_PROPOSTA,IMP_UNITA_PROPONENTE,IMP_NUMERO_PROPOSTA, IMPEGNO_OBBLIGATORIO">
  select c.tipo MOVIMENTO_TIPO
      ,  c.descrizione MOVIMENTO_DESCRIZIONE
 	 ,  decode (impostazioni_pkg.get_impostazione ('DB_CHARSET', d.ente)
-	 		,  'iso-8859-1', trim (to_char (c.importo, 'L999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))
+	 		,  'iso-8859-1', trim (to_char (c.importo, '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))
 	 		,  trim (to_char (c.importo, 'L999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))) MOVIMENTO_IMPORTO
      ,  c.ragione_sociale MOVIMENTO_RAGIONE_SOCIALE
      ,  c.rif_bil_peg MOVIMENTO_RIF_BIL_PEG
@@ -624,13 +671,14 @@
  	 ,  c.descr_voce_peg MOVIMENTO_DESCRIZIONE_BIL_PEG
 	 ,  c.anno_imp MOVIMENTO_ANNO_IMPEGNO
      ,  c.numero_imp MOVIMENTO_NUMERO_IMPEGNO
-     ,  c.FAT_DATA_SCADENZA FAT_DATA_SCADENZA
+	 ,  to_char(c.FAT_DATA_SCADENZA,'DD/MM/YYYY') FAT_DATA_SCADENZA
      ,  c.IMP_ANNO_DEL IMP_ANNO_DEL
      ,  c.IMP_NUMERO_DEL IMP_NUMERO_DEL
      ,  c.IMP_SEDE_DEL IMP_SEDE_DEL
      ,  c.IMP_ANNO_PROPOSTA IMP_ANNO_PROPOSTA
      ,  c.IMP_UNITA_PROPONENTE, IMP_UNITA_PROPONENTE
      ,  c.IMP_NUMERO_PROPOSTA IMP_NUMERO_PROPOSTA
+	 ,  c.impegno_obbligatorio IMPEGNO_OBBLIGATORIO
      from cf4_vista_prop_del c, determine d, tipi_registro tr, tipi_determina td
  where d.id_determina = #id
    and d.registro_proposta = tr.tipo_registro
@@ -646,7 +694,7 @@ union
   select c.tipo MOVIMENTO_TIPO
      ,  c.descrizione MOVIMENTO_DESCRIZIONE
 	 ,  decode (impostazioni_pkg.get_impostazione ('DB_CHARSET', d.ente)
-	 		,  'iso-8859-1', trim (to_char (c.importo, 'L999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))
+	 		,  'iso-8859-1', trim (to_char (c.importo, '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))
 	 		,  trim (to_char (c.importo, 'L999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))) MOVIMENTO_IMPORTO
      ,  c.ragione_sociale MOVIMENTO_RAGIONE_SOCIALE
      ,  c.rif_bil_peg MOVIMENTO_RIF_BIL_PEG
@@ -661,13 +709,14 @@ union
  	 ,  c.descr_voce_peg MOVIMENTO_DESCRIZIONE_BIL_PEG
 	 ,  c.anno_imp MOVIMENTO_ANNO_IMPEGNO
      ,  c.numero_imp MOVIMENTO_NUMERO_IMPEGNO
-     ,  c.FAT_DATA_SCADENZA FAT_DATA_SCADENZA
+	 ,  to_char(c.FAT_DATA_SCADENZA,'DD/MM/YYYY') FAT_DATA_SCADENZA
      ,  c.IMP_ANNO_DEL IMP_ANNO_DEL
      ,  c.IMP_NUMERO_DEL IMP_NUMERO_DEL
      ,  c.IMP_SEDE_DEL IMP_SEDE_DEL
      ,  c.IMP_ANNO_PROPOSTA IMP_ANNO_PROPOSTA
      ,  c.IMP_UNITA_PROPONENTE, IMP_UNITA_PROPONENTE
      ,  c.IMP_NUMERO_PROPOSTA IMP_NUMERO_PROPOSTA
+	 ,  c.impegno_obbligatorio IMPEGNO_OBBLIGATORIO
   from cf4_vista_prop_del c, determine d, tipi_registro tr, tipi_determina td
  where d.id_determina = #id
    and d.registro_determina = tr.tipo_registro

@@ -80,7 +80,8 @@
 					 					image="/images/afc/22x22/arrows.png"
 					 					tooltiptext="Marca i documenti selezionati da conservare"
 					 					disabled="@load(empty vm.documentiSelezionati)" 
-					 					onClick="@command('onDaConservare')" />
+					 					onClick="@command('onDaConservare')"
+					 					visible = "false"/>
 									<button
 										mold="trendy"
 										label="Aggiorna Stato"
@@ -189,7 +190,8 @@
 					 					image="/images/afc/22x22/arrows.png"
 					 					tooltiptext="Marca i documenti selezionati da conservare"
 					 					disabled="@load(empty vm.documentiSelezionati)"
-					 					onClick="@command('onDaConservare')"	/>
+					 					onClick="@command('onDaConservare')"
+					 					visible = "false" />
 									<button
 										mold="trendy"
 										label="Aggiorna Stato"

@@ -2,6 +2,7 @@ package it.finmatica.atti.documenti
 
 import grails.plugin.springsecurity.SpringSecurityService
 import it.finmatica.atti.IDocumentoEsterno
+import it.finmatica.atti.IFileAllegato
 import it.finmatica.atti.IGestoreFile
 import it.finmatica.atti.commons.FileAllegato
 import it.finmatica.atti.commons.FileFirmatoDettaglio
@@ -9,12 +10,12 @@ import it.finmatica.grails.firmadigitale.FirmaDigitaleService
 
 class FileFirmatoDettaglioService {
 
-    IGestoreFile            gestoreFile
-    FirmaDigitaleService    firmaDigitaleService
-    SpringSecurityService   springSecurityService
+    IGestoreFile gestoreFile
+    FirmaDigitaleService firmaDigitaleService
+    SpringSecurityService springSecurityService
 
 
-    public void salvaInformazioniFileFirmato(IDocumentoEsterno documento, FileAllegato fileAllegato, def listaFirmatari){
+    public void salvaInformazioniFileFirmato(IDocumentoEsterno documento, FileAllegato fileAllegato, def listaFirmatari) {
         for (utenteFirmatario in listaFirmatari) {
             if (utenteFirmatario.firmatario) {
                 FileFirmatoDettaglio fileFirmatoDettaglio = new FileFirmatoDettaglio()
@@ -29,7 +30,7 @@ class FileFirmatoDettaglioService {
         }
     }
 
-    public void calcolaInformazioniFileFirmato(IDocumentoEsterno documento, FileAllegato fileAllegato){
+    public void calcolaInformazioniFileFirmato(IDocumentoEsterno documento, FileAllegato fileAllegato) {
         FileFirmatoDettaglio fileFirmatoDettaglio = new FileFirmatoDettaglio()
         fileFirmatoDettaglio.stato = FileFirmatoDettaglio.CALCOLATO
         fileFirmatoDettaglio.dataFirma = new Date()
@@ -40,12 +41,14 @@ class FileFirmatoDettaglioService {
         fileFirmatoDettaglio.save()
     }
 
-    public estraiInformazioniFileFirmati(){
+    public estraiInformazioniFileFirmati() {
         List<FileFirmatoDettaglio> fileFirmati = FileFirmatoDettaglio.findAllByStato(FileFirmatoDettaglio.CALCOLATO)
-        for (FileFirmatoDettaglio fileFirmatoDettaglio : fileFirmati){
+        for (FileFirmatoDettaglio fileFirmatoDettaglio : fileFirmati) {
             def documento = DocumentoFactory.getDocumento(fileFirmatoDettaglio.idDocumento)
-            def listaFirmatari = isFileFirmato(gestoreFile.getFile(documento, fileFirmatoDettaglio.fileAllegato))
-            salvaInformazioniFileFirmato(documento, fileFirmatoDettaglio.fileAllegato, listaFirmatari)
+            if (documento) {
+                def listaFirmatari = isFileFirmato(gestoreFile.getFile(documento, fileFirmatoDettaglio.fileAllegato))
+                salvaInformazioniFileFirmato(documento, fileFirmatoDettaglio.fileAllegato, listaFirmatari)
+            }
         }
         fileFirmati*.delete()
     }
@@ -59,6 +62,20 @@ class FileFirmatoDettaglioService {
         salvaInformazioniFileFirmato(documento, fileAllegato, listaFirmatari)
     }
 
+    public void verificaFileFirmato(IDocumentoEsterno documento, IFileAllegato fileAllegato) {
+        if (fileAllegato.isP7m()) {
+            fileAllegato.firmato = 'Y';
+            fileAllegato.save()
+        } else if (fileAllegato.isPdf()) {
+
+            // verifico la firma pades
+            def listaFirmatari = isFileFirmato(gestoreFile.getFile(documento, fileAllegato))
+            if (listaFirmatari?.size() > 0) {
+                fileAllegato.firmato = 'Y';
+                fileAllegato.save()
+            }
+        }
+    }
 
     private def isFileFirmato(InputStream input) {
         try {
@@ -68,5 +85,4 @@ class FileFirmatoDettaglioService {
         }
         return [:]
     }
-
 }

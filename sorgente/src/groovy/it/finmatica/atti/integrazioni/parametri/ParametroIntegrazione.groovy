@@ -21,20 +21,24 @@ class ParametroIntegrazione {
     // Funzione per il calcolo dei possibili valori esterni a sfera
     private final LookupValori lookupValoriEsterni
 
+    //Indica se il parametro deve essere visibile all'apertura della pagina (serve solo se per l'integrazione non ho parametri con multiplo = false)
+    private final boolean visibilePrimoTab = false
+
     ParametroIntegrazione(String codice, String titolo) {
         this(codice, titolo, LookupTutti.INSTANCE, LookupTutti.INSTANCE)
     }
 
-    ParametroIntegrazione(String codice, String titolo, LookupValori lookupValoriInterni) {
-        this(codice, titolo, lookupValoriInterni, LookupTutti.INSTANCE)
+    ParametroIntegrazione(String codice, String titolo, LookupValori lookupValoriInterni, boolean visibilePrimoTab = false) {
+        this(codice, titolo, lookupValoriInterni, LookupTutti.INSTANCE, visibilePrimoTab)
     }
 
-    ParametroIntegrazione(String codice, String titolo, LookupValori lookupValoriInterni, LookupValori lookupValoriEsterni) {
+    ParametroIntegrazione(String codice, String titolo, LookupValori lookupValoriInterni, LookupValori lookupValoriEsterni, boolean visibilePrimoTab = false) {
         this.codice = codice
         this.titolo = titolo
         this.lookup = lookupValoriInterni
         this.lookupValoriEsterni = lookupValoriEsterni
         this.multiplo = (lookupValoriInterni != LookupTutti.INSTANCE && lookupValoriInterni != null)
+        this.visibilePrimoTab = visibilePrimoTab
     }
 
     boolean isMultiplo() {
@@ -63,5 +67,9 @@ class ParametroIntegrazione {
 
     boolean isValoreEsternoLibero() {
         return lookupValoriEsterni == LookupTutti.INSTANCE
+    }
+
+    boolean isVisibilePrimoTab() {
+        return visibilePrimoTab
     }
 }

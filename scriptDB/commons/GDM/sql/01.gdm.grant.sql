@@ -24,7 +24,7 @@ grant select on impronte_file to ${global.db.target.username}
 
 -- il pkg gdm_oggetti_file non è presente in alcune installazioni. per questo motivo metto la grant in execute-immediate.
 begin
-    execute immediate 'grant execute on gdm_oggetti_file to ${global.db.target.username}';
+    execute immediate 'grant execute on gdm_oggetti_file to ${global.db.target.username} with grant option';
 exception when others then
     null;
 end;

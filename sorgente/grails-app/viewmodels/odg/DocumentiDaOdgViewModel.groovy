@@ -72,12 +72,12 @@ class DocumentiDaOdgViewModel {
 							, stepTitolo			: [label: 'Step Titolo',						index:  5, columnType: 'TEXT']
 							, oggetto				: [label: 'Oggetto', 							index:  3, columnType: 'TEXT']
 							, descrizioneUo			: [label: 'Unita Proponente', 					index:  4, columnType: 'TEXT']
-							, statoOdg				: [label: 'Stato Odg',							index: -1, columnType: 'TEXT']
+							, statoOdg				: [label: 'Stato OdG',							index: -1, columnType: 'TEXT']
 							, inOdg		 			: [label: 'In OdG',								index:  6, columnType: 'BOOLEAN']
 						    , sequenza	 			: [label: 'Sequenza In OdG',					index: -1, columnType: 'NUMBER']]
 
 	// stato
-	List statiDocumento 	= ["Istruttoria Completa", "In Istruttoria", "Disponibili per Odg", "Tutti i documenti"]
+	List statiDocumento 	= ["Istruttoria Completa", "In Istruttoria", "Disponibili per OdG", "Non Disponibili per OdG", "Tutti i documenti"]
 	String statoDocumento 	= ""
 	List<CommissioneDTO> 	listaCommissione
 	CommissioneDTO 			selectedCommissione
@@ -176,8 +176,12 @@ class DocumentiDaOdgViewModel {
 
 		// devo trovare tutte le proposte di delibera e determine che hanno lo stato ODG:
 
-		if (statoDocumento == "Disponibili per Odg") {
+		if (statoDocumento == "Disponibili per OdG") {
 			statiOdg = [StatoOdg.COMPLETO, StatoOdg.COMPLETO_IN_ISTRUTTORIA];
+		}
+
+		if (statoDocumento =="Non Disponibili per OdG") {
+			statiOdg = [StatoOdg.DA_COMPLETARE, StatoOdg.IN_ISTRUTTORIA];
 		}
 
 		if (statoDocumento == "Istruttoria Completa") {
@@ -377,9 +381,12 @@ class DocumentiDaOdgViewModel {
 
 		try {
 			caricaLista(true)
-			String staticData = new StreamingMarkupBuilder().bind {
+			StreamingMarkupBuilder builder = new StreamingMarkupBuilder()
+			builder.setEncoding("UTF-8")
+			String staticData = builder.bind {
+				mkp.xmlDeclaration()
 				documentRoot {
-					for (def item: lista){
+					for (def item: lista) {
 						proposte {
 							OGGETTO_PROPOSTA(item.oggetto)
 							TIPO_PROPOSTA(item.titoloTipologia)
@@ -393,14 +400,12 @@ class DocumentiDaOdgViewModel {
 				}
 			}.toString()
 
-			InputStream testo = gestioneTestiService.stampaUnione (new ByteArrayInputStream(modello.domainObject.fileTemplate), staticData, Impostazioni.FORMATO_DEFAULT.valore)
+			InputStream testo = gestioneTestiService.stampaUnione(new ByteArrayInputStream(modello.domainObject.fileTemplate), staticData, Impostazioni.FORMATO_DEFAULT.valore)
 			Filedownload.save(testo, TipoFile.getInstanceByEstensione(Impostazioni.FORMATO_DEFAULT.valore).contentType , "ProposteComplete."+Impostazioni.FORMATO_DEFAULT.valore)
 		}
 		finally {
 			caricaLista()
 		}
-
-
 	}
 
 	@Command
@@ -409,8 +414,29 @@ class DocumentiDaOdgViewModel {
 			throw new AttiRuntimeException ("Attenzione: non è possibile eseguire la stampa perchè non è presente il modello di testo ODG_PROPOSTE_COMPLETE_MODENA");
 		}
 
-		InputStream is = gestioneTestiService.stampaUnione(stampa.domainObject, [:], Impostazioni.FORMATO_DEFAULT.valore, true)
+		def mappaParametri 		= [:]
+		String valore = "('X')"
+		if (statoDocumento == "Disponibili per OdG") {
+			valore = "--COMPLETO--COMPLETO_IN_ISTRUTTORIA--";
+		}
+
+		if (statoDocumento == "Non Disponibili per OdG") {
+			valore = "--DA_COMPLETARE--IN_ISTRUTTORIA--";
+		}
+
+		if (statoDocumento == "Istruttoria Completa") {
+			valore = "--DA_COMPLETARE--COMPLETO--";
+		}
+		if (statoDocumento == "In Istruttoria") {
+			valore = "--IN_ISTRUTTORIA--COMPLETO_IN_ISTRUTTORIA--";
+		}
+
+		if (statoDocumento == "Tutti i documenti") {
+			valore = "--DA_COMPLETARE--COMPLETO--IN_ISTRUTTORIA--COMPLETO_IN_ISTRUTTORIA--";
+		}
+		mappaParametri["stato_odg"] = valore
+
+		InputStream is = gestioneTestiService.stampaUnione(stampa.domainObject, mappaParametri, Impostazioni.FORMATO_DEFAULT.valore, true)
 		Filedownload.save(is, TipoFile.getInstanceByEstensione(Impostazioni.FORMATO_DEFAULT.valore).contentType , "ProposteComplete."+Impostazioni.FORMATO_DEFAULT.valore)
 	}
-
 }

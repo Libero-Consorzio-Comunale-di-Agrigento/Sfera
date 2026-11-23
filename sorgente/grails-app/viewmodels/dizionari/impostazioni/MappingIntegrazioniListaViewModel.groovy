@@ -41,7 +41,7 @@ class MappingIntegrazioniListaViewModel extends AfcAbstractGrid {
     }
 
     List<ModuloIntegrazione> getListaIntegrazioni() {
-        return integrazioni.findAll{it.visibile}.sort { it.descrizione }
+        return integrazioni.findAll{it.visibile}.sort { it.codice }
     }
 
     @NotifyChange(["listaMappingIntegrazioni", "totalSize"])

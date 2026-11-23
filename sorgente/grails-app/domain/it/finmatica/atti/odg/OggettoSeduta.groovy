@@ -28,6 +28,9 @@ class OggettoSeduta {
 	Delega 			delega
 	FileAllegato 	fileAllegato
 
+	Set<OggettoSedutaDelega> altreDeleghe
+	static hasMany = [altreDeleghe: OggettoSedutaDelega]
+
 	Date 	dataDiscussione
 	String 	oraDiscussione
 	String 	note

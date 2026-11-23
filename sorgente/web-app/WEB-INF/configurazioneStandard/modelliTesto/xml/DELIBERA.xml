@@ -17,6 +17,8 @@
 				<ASSENTI>1</ASSENTI>
 				<ASSENTI_OGGETTO>1</ASSENTI_OGGETTO>
 				<ASTENUTI>1</ASTENUTI>
+				<NON_VOTANTI>1</NON_VOTANTI>
+				<FAVOREVOLI_CONTRARI_ASTENUTI>3</FAVOREVOLI_CONTRARI_ASTENUTI>
 				<COGNOME_PRESIDENTE>COGNOME PRESIDENTE</COGNOME_PRESIDENTE>
 				<COGNOME_RELATORE>COGNOME RELATORE</COGNOME_RELATORE>
 				<COGNOME_SEGRETARIO>COGNOME SEGRETARIO</COGNOME_SEGRETARIO>
@@ -72,6 +74,8 @@
                 <UNITA_PROPONENTE_UPPER>AREA AFFARI GENERALI</UNITA_PROPONENTE_UPPER>
 				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
 				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<REDATTORE>NOMINATIVO REDATTORE</REDATTORE>
+				<INCARICATO>NOMINATIVO INCARICATO</INCARICATO>
 				<SCRUTATORI_PRESENTI_OGGETTO>NOMINATIVO SCRUTATORI PRESENTI OGGETTO</SCRUTATORI_PRESENTI_OGGETTO>
 				<SCRUTATORI_PRESENTI_SEDUTA>NOMINATIVO SCRUTATORI PRESENTI SEDUTA</SCRUTATORI_PRESENTI_SEDUTA>>
 				<SEGRETARIO>SEGRETARIO SEDUTA</SEGRETARIO>
@@ -83,6 +87,7 @@
 				<VOTANTI_ASTENUTI>NOMINATIVO VOTANTI ASTENUTI</VOTANTI_ASTENUTI>
 				<VOTANTI_CONTRARI>NOMINATIVO VOTANTI CONTRARI</VOTANTI_CONTRARI>
 				<VOTANTI_FAVOREVOLI>NOMINATIVO VOTANTI FAVOREVOLI</VOTANTI_FAVOREVOLI>
+				<ELENCO_NON_VOTANTI>NOMINATIVO NON VOTANTI</ELENCO_NON_VOTANTI>
                 <CODICE_UNITA_PROPONENTE>A_AAGG</CODICE_UNITA_PROPONENTE>
 				<DIRETTORE_AMMINISTRATIVO>Nome Direttore Amministrativo</DIRETTORE_AMMINISTRATIVO>
 				<DIRETTORE_SANITARIO>Nome Direttore Sanitario</DIRETTORE_SANITARIO>
@@ -101,21 +106,44 @@
 				<NUMERO_PROTOCOLLO>2500</NUMERO_PROTOCOLLO>
                 <DATA_PROPOSTA>01/05/2014</DATA_PROPOSTA>
                 <DATA_FIRMA_PROPOSTA>01/05/2014</DATA_FIRMA_PROPOSTA>
-                <ALLEGATI>
-                    <ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
-                    <NOME_FILE>FILE 1</NOME_FILE>
-                </ALLEGATI>
-                <ALLEGATI>
-                    <ALLEGATO_TITOLO>SECONDO ALLEGATO</ALLEGATO_TITOLO>
-                    <NOME_FILE>FILE 2</NOME_FILE>
-                </ALLEGATI>
+				<DATA_FIRMA_PARERE_DA>02/09/2024</DATA_FIRMA_PARERE_DA>
+				<DATA_FIRMA_PARERE_DS>03/09/2024</DATA_FIRMA_PARERE_DS>
+				<allegati>
+					<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+					<NOME_FILE>FILE 1</NOME_FILE>
+					<FIRMATARI_ALLEGATO>NOMINATIVO 1, NOMINATIVO 2</FIRMATARI_ALLEGATO>
+					<FILE_HASH>AAA9BCF1E8206350DC87D22CBDE8CECE6E2C9154B4A46C90E2EA64A323CE208C2E9767CB1BC8392F49CE8E960B74C719C07BA7B197D8AF435451FFB95F212FAA</FILE_HASH>
+				</allegati>
+				<allegati>
+					<ALLEGATO_TITOLO>SECONDO ALLEGATO</ALLEGATO_TITOLO>
+					<NOME_FILE>FILE 2</NOME_FILE>
+					<FIRMATARI_ALLEGATO>NOMINATIVO 1, NOMINATIVO 2</FIRMATARI_ALLEGATO>
+					<FILE_HASH>FCF9BCF1E8206350DC87D22CBDE8CECE6E2C9154B4A46C90E2EA64A323CE208C2E9767CB1BC8392F49CE8E960B74C719C07BA7B197D8AF435451FFB95F212FAA</FILE_HASH>
+				</allegati>
             </delibera>
+            <deleghe>
+                <ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+                <COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+                <NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+            </deleghe>
+            <deleghe>
+                <ALTRO_RELATORE>NOMINATIVO RELATORE 2</ALTRO_RELATORE>
+                <COGNOME_ALTRO_RELATORE>COGNOME RELATORE 2</COGNOME_ALTRO_RELATORE>
+                <NOME_ALTRO_RELATORE>NOME RELATORE 2</NOME_ALTRO_RELATORE>
+            </deleghe>
 			<partecipanti>
 				<PARTECIPANTE>PRIMO PARTECIPANTE</PARTECIPANTE>
 				<INCARICO_PARTECIPANTE>INCARICO PRIMO PARTECIPANTE</INCARICO_PARTECIPANTE>
                 <RUOLO_PARTECIPANTE>PRESIDENTE</RUOLO_PARTECIPANTE>
 				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
 				<PRESENTE_ASSENTE_OGGETTO>Presente</PRESENTE_ASSENTE_OGGETTO>
+				<DELEGA_PRESENTE>*</DELEGA_PRESENTE>
+				<DELEGATO>NOMINATIVO DELEGATO</DELEGATO>
+				<NUMERO_PROTOCOLLO_DELEGA>100</NUMERO_PROTOCOLLO_DELEGA>
+				<ANNO_PROTOCOLLO_DELEGA>2022</ANNO_PROTOCOLLO_DELEGA>
+				<DATA_PROTOCOLLO_DELEGA>01/10/2022</DATA_PROTOCOLLO_DELEGA>
+				<INCARICO_DELEGATO>INCARICO DELEGATO</INCARICO_DELEGATO>
+				<RUOLO_DELEGATO>RUOLO DELEGATO</RUOLO_DELEGATO>
 			</partecipanti>
 			<partecipanti>
 				<PARTECIPANTE>SECONDO PARTECIPANTE</PARTECIPANTE>
@@ -123,6 +151,13 @@
                 <RUOLO_PARTECIPANTE>SEGRETARIO</RUOLO_PARTECIPANTE>
 				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
 				<PRESENTE_ASSENTE_OGGETTO>Presente</PRESENTE_ASSENTE_OGGETTO>
+				<DELEGA_PRESENTE></DELEGA_PRESENTE>
+				<DELEGATO></DELEGATO>
+				<NUMERO_PROTOCOLLO_DELEGA></NUMERO_PROTOCOLLO_DELEGA>
+				<ANNO_PROTOCOLLO_DELEGA></ANNO_PROTOCOLLO_DELEGA>
+				<DATA_PROTOCOLLO_DELEGA></DATA_PROTOCOLLO_DELEGA>
+				<INCARICO_DELEGATO></INCARICO_DELEGATO>
+				<RUOLO_DELEGATO></RUOLO_DELEGATO>
 			</partecipanti>
 			<partecipanti>
 				<PARTECIPANTE>TERZO PARTECIPANTE</PARTECIPANTE>
@@ -130,6 +165,13 @@
                 <RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
 				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
 				<PRESENTE_ASSENTE_OGGETTO>Assente</PRESENTE_ASSENTE_OGGETTO>
+				<DELEGA_PRESENTE>*</DELEGA_PRESENTE>
+				<DELEGATO>NOMINATIVO SECONDO DELEGATO</DELEGATO>
+				<NUMERO_PROTOCOLLO_DELEGA>101</NUMERO_PROTOCOLLO_DELEGA>
+				<ANNO_PROTOCOLLO_DELEGA>2022</ANNO_PROTOCOLLO_DELEGA>
+				<DATA_PROTOCOLLO_DELEGA>02/10/2022</DATA_PROTOCOLLO_DELEGA>
+				<INCARICO_DELEGATO>INCARICO DELEGATO</INCARICO_DELEGATO>
+				<RUOLO_DELEGATO>RUOLO DELEGATO</RUOLO_DELEGATO>
 			</partecipanti>
 			<partecipanti>
 				<PARTECIPANTE>QUARTO PARTECIPANTE</PARTECIPANTE>
@@ -137,10 +179,38 @@
                 <RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
 				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
 				<PRESENTE_ASSENTE_OGGETTO>Presente</PRESENTE_ASSENTE_OGGETTO>
+				<DELEGA_PRESENTE></DELEGA_PRESENTE>
+				<DELEGATO></DELEGATO>
+				<NUMERO_PROTOCOLLO_DELEGA></NUMERO_PROTOCOLLO_DELEGA>
+				<ANNO_PROTOCOLLO_DELEGA></ANNO_PROTOCOLLO_DELEGA>
+				<DATA_PROTOCOLLO_DELEGA></DATA_PROTOCOLLO_DELEGA>
+				<INCARICO_DELEGATO></INCARICO_DELEGATO>
+				<RUOLO_DELEGATO></RUOLO_DELEGATO>
 			</partecipanti>
 			<proposta>
 				<TESTO_PROPOSTA>TESTO DELLA PROPOSTA</TESTO_PROPOSTA>
 			</proposta>
+			<allegati>
+				<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+				<NOME_FILE>FILE 1</NOME_FILE>
+				<FIRMATARI_ALLEGATO>NOMINATIVO 1, NOMINATIVO 2</FIRMATARI_ALLEGATO>
+				<FILE_HASH>AAA9BCF1E8206350DC87D22CBDE8CECE6E2C9154B4A46C90E2EA64A323CE208C2E9767CB1BC8392F49CE8E960B74C719C07BA7B197D8AF435451FFB95F212FAA</FILE_HASH>
+			</allegati>
+			<allegati>
+				<ALLEGATO_TITOLO>SECONDO ALLEGATO</ALLEGATO_TITOLO>
+				<NOME_FILE>FILE 2</NOME_FILE>
+				<FIRMATARI_ALLEGATO>NOMINATIVO 1, NOMINATIVO 2</FIRMATARI_ALLEGATO>
+				<FILE_HASH>FCF9BCF1E8206350DC87D22CBDE8CECE6E2C9154B4A46C90E2EA64A323CE208C2E9767CB1BC8392F49CE8E960B74C719C07BA7B197D8AF435451FFB95F212FAA</FILE_HASH>
+			</allegati>
+			<destinatari>
+				<DENOMINAZIONE_DESTINATARIO>GRUPPO FINMATICA</DENOMINAZIONE_DESTINATARIO>
+			</destinatari>
+			<destinatari>
+				<DENOMINAZIONE_DESTINATARIO>NOMINATIVO 1</DENOMINAZIONE_DESTINATARIO>
+			</destinatari>
+			<destinatari>
+				<DENOMINAZIONE_DESTINATARIO>NOMINATIVO 2</DENOMINAZIONE_DESTINATARIO>
+			</destinatari>
 		</documentRoot>
 	</testStaticData>
 	<definitions>
@@ -361,7 +431,19 @@
 			<tipo>string</tipo>
 			<descrizione>Relatore della seduta durante la discussione dell'oggetto</descrizione>
 			<path/>
-		</metaDato>	
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>REDATTORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Redattore della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INCARICATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Incaricato della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
 		<metaDato>
 			<nomeSimbolico>COGNOME_RELATORE</nomeSimbolico>
 			<tipo>string</tipo>
@@ -372,6 +454,24 @@
 			<nomeSimbolico>NOME_RELATORE</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Nome del relatore della seduta durante la discussione dell'oggetto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ALTRO_RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nominativo del relatore nell'elenco delle deleghe (principale e aggiuntive) della seduta o della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>COGNOME_ALTRO_RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Cognome del relatore nell'elenco delle deleghe (principale e aggiuntive) della seduta o della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOME_ALTRO_RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nome del relatore nell'elenco delle deleghe (principale e aggiuntive) della seduta o della proposta di delibera</descrizione>
 			<path/>
 		</metaDato>
 		<metaDato>
@@ -407,13 +507,13 @@
 		<metaDato>
 			<nomeSimbolico>INCARICO_PRESIDENTE</nomeSimbolico>
 			<tipo>string</tipo>
-			<descrizione>Incarico del segretario</descrizione>
+			<descrizione>Incarico del presidente</descrizione>
 			<path/>
 		</metaDato>
         <metaDato>
             <nomeSimbolico>INCARICO_SEGRETARIO</nomeSimbolico>
             <tipo>string</tipo>
-            <descrizione>Incarico del presidente</descrizione>
+            <descrizione>Incarico del segretario</descrizione>
             <path/>
         </metaDato>
         <metaDato>
@@ -456,6 +556,18 @@
 			<nomeSimbolico>ASTENUTI</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Numero di astenuti</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+		<nomeSimbolico>FAVOREVOLI_CONTRARI_ASTENUTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di votanti favorevoli, contrari o astenuti</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NON_VOTANTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di non votanti</descrizione>
 			<path/>
 		</metaDato>
 		<metaDato>
@@ -621,6 +733,12 @@
 			<path/>
 		</metaDato>
 		<metaDato>
+			<nomeSimbolico>ELENCO_NON_VOTANTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco dei non votanti</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
 			<nomeSimbolico>DIRETTORE_AMMINISTRATIVO</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Direttore Amministrativo</descrizione>
@@ -692,7 +810,18 @@
             <descrizione>Data in cui la proposta è stata firmata</descrizione>
             <path/>
         </metaDato>
-
+		<metaDato>
+		<nomeSimbolico>DATA_FIRMA_PARERE_DA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data in cui il parere del direttore amministrativo è stato firmato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+		<nomeSimbolico>DATA_FIRMA_PARERE_DS</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data in cui il parere del direttore sanitario è stato firmato</descrizione>
+			<path/>
+		</metaDato>
 		<!-- dati per i MOVIMENTI -->
 		<metaDato>
 			<nomeSimbolico>MOVIMENTO_TIPO</nomeSimbolico>
@@ -814,12 +943,72 @@
             <descrizione>Nome del file allegato</descrizione>
             <path/>
         </metaDato>
+		<metaDato>
+			<nomeSimbolico>DELEGA_PRESENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Riporta un * in caso di delega presente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DELEGATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nominativo del delegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROTOCOLLO_DELEGA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di protocollo della delega</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROTOCOLLO_DELEGA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di protocollo della delega</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PROTOCOLLO_DELEGA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di protocollo della delega</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RUOLO_DELEGATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ruolo del delegato all'interno della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INCARICO_DELEGATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Incarico del delegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FILE_HASH</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>La HASH del singolo file allegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FIRMATARI_ALLEGATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco dei firmatari di un singolo allegato alla delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+		<nomeSimbolico>DENOMINAZIONE_DESTINATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Denominazione di un destinatario di comunicazione per l'atto</descrizione>
+			<path/>
+		</metaDato>
 	</definitions>
 	<queryes>
 		<query id='delibera'
-               child="allegati"
+			   child="allegati"
 		       help_query_alias="d"
-		       help_field_aliases="ANNO_DELIBERA, ANNO_LETTERE_SEDUTA, ANNO_LETTERE_INIZIO_SEDUTA, ANNO_PROPOSTA, ANNO_SEDUTA, ANNO_INIZIO_SEDUTA, OGGETTO_PROPOSTA, FIRMATARIO_PROPOSTA, FUNZIONARIO_PROPOSTA, AREA_PROPONENTE, ASSENTI, ASSENTI_OGGETTO, ASTENUTI, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, COGNOME_PRESIDENTE, COGNOME_RELATORE, COGNOME_SEGRETARIO, CONTRARI, DATA_SEDUTA, DATA_INIZIO_SEDUTA, DATA_FINE_SEDUTA, ELENCO_ASSENTI, ELENCO_ASSENTI_OGGETTO, ELENCO_PRESENTI, ELENCO_PRESENTI_OGGETTO, ESEGUIBILITA_IMMEDIATA, ESEGUIBILITA_NON_IMMEDIATA, MOTIVAZIONI_ESEGUIBILITA, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_DESCRIZIONE, FAVOREVOLI, GIORNO_LETTERE_SEDUTA, GIORNO_LETTERE_INIZIO_SEDUTA, GIORNO_SEDUTA, GIORNO_INIZIO_SEDUTA, GIORNO_SETTIMANA_SEDUTA, GIORNO_SETTIMANA_INIZIO_SEDUTA, INCARICO_PRESIDENTE, INCARICO_SEGRETARIO, INCARICO_DIRETTORE_AMM, INCARICO_DIRETTORE_SANITARIO, INCARICO_DIRETTORE_GENERALE, INCARICO_DIRETTORE_SOCIO_SAN, INVITATI_PRESENTI_SEDUTA, INVITATI_PRESENTI_OGGETTO, MESE_LETTERE_SEDUTA, MESE_LETTERE_INIZIO_SEDUTA, MESE_SEDUTA, MESE_INIZIO_SEDUTA, NOME_PRESIDENTE, NOME_RELATORE, NOME_SEGRETARIO, NUMERO_PROPOSTA, NUMERO_SEDUTA, N_DELIBERA, OGGETTO, ORA_SEDUTA, ORA_INIZIO_SEDUTA, ORA_FINE_SEDUTA, PRESENTI, PRESENTI_OGGETTO, PRESIDENTE, RELATORE, SCRUTATORI_PRESENTI_OGGETTO, SCRUTATORI_PRESENTI_SEDUTA, SEGRETARIO, SEQUENZA_CONVOCAZIONE, SEQUENZA_DISCUSSIONE, SERVIZIO_PROPONENTE, ORA_DISCUSSIONE, TIPO_SEDUTA, UNITA_PROPONENTE, UNITA_PROPONENTE_UPPER, VOTANTI_ASTENUTI, VOTANTI_CONTRARI, VOTANTI_FAVOREVOLI, DIRETTORE_SANITARIO, DIRETTORE_AMMINISTRATIVO, DIRETTORE_GENERALE, DIRETTORE_SOCIO_SANITARIO, SEDE_SEDUTA, DATA_ADOZIONE, PARERE_REVISORE_CONTI, NOTE_VERBALIZZAZIONE, DESCRIZIONE_RADICE_SUDD, DATA_PROTOCOLLO, NUMERO_PROTOCOLLO, ANNO_PROTOCOLLO, DATA_PROPOSTA, CODICE_UNITA_PROPONENTE, DATA_FIRMA_PROPOSTA">
+		       help_field_aliases="ANNO_DELIBERA, ANNO_LETTERE_SEDUTA, ANNO_LETTERE_INIZIO_SEDUTA, ANNO_PROPOSTA, ANNO_SEDUTA, ANNO_INIZIO_SEDUTA, OGGETTO_PROPOSTA, FIRMATARIO_PROPOSTA, FUNZIONARIO_PROPOSTA, AREA_PROPONENTE, ASSENTI, ASSENTI_OGGETTO, ASTENUTI, FAVOREVOLI_CONTRARI_ASTENUTI, NON_VOTANTI, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, COGNOME_PRESIDENTE, COGNOME_RELATORE, COGNOME_SEGRETARIO, CONTRARI, DATA_SEDUTA, DATA_INIZIO_SEDUTA, DATA_FINE_SEDUTA, ELENCO_ASSENTI, ELENCO_ASSENTI_OGGETTO, ELENCO_PRESENTI, ELENCO_PRESENTI_OGGETTO, ESEGUIBILITA_IMMEDIATA, ESEGUIBILITA_NON_IMMEDIATA, MOTIVAZIONI_ESEGUIBILITA, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_DESCRIZIONE, FAVOREVOLI, GIORNO_LETTERE_SEDUTA, GIORNO_LETTERE_INIZIO_SEDUTA, GIORNO_SEDUTA, GIORNO_INIZIO_SEDUTA, GIORNO_SETTIMANA_SEDUTA, GIORNO_SETTIMANA_INIZIO_SEDUTA, INCARICO_PRESIDENTE, INCARICO_SEGRETARIO, INCARICO_DIRETTORE_AMM, INCARICO_DIRETTORE_SANITARIO, INCARICO_DIRETTORE_GENERALE, INCARICO_DIRETTORE_SOCIO_SAN, INVITATI_PRESENTI_SEDUTA, INVITATI_PRESENTI_OGGETTO, MESE_LETTERE_SEDUTA, MESE_LETTERE_INIZIO_SEDUTA, MESE_SEDUTA, MESE_INIZIO_SEDUTA, NOME_PRESIDENTE, NOME_RELATORE, NOME_SEGRETARIO, NUMERO_PROPOSTA, NUMERO_SEDUTA, N_DELIBERA, OGGETTO, ORA_SEDUTA, ORA_INIZIO_SEDUTA, ORA_FINE_SEDUTA, PRESENTI, PRESENTI_OGGETTO, PRESIDENTE, RELATORE, SCRUTATORI_PRESENTI_OGGETTO, SCRUTATORI_PRESENTI_SEDUTA, SEGRETARIO, SEQUENZA_CONVOCAZIONE, SEQUENZA_DISCUSSIONE, SERVIZIO_PROPONENTE, , REDATTORE, INCARICATO, ORA_DISCUSSIONE, TIPO_SEDUTA, UNITA_PROPONENTE, UNITA_PROPONENTE_UPPER, VOTANTI_ASTENUTI, VOTANTI_CONTRARI, VOTANTI_FAVOREVOLI, ELENCO_NON_VOTANTI, DIRETTORE_SANITARIO, DIRETTORE_AMMINISTRATIVO, DIRETTORE_GENERALE, DIRETTORE_SOCIO_SANITARIO, SEDE_SEDUTA, DATA_ADOZIONE, PARERE_REVISORE_CONTI, NOTE_VERBALIZZAZIONE, DESCRIZIONE_RADICE_SUDD, DATA_PROTOCOLLO, NUMERO_PROTOCOLLO, ANNO_PROTOCOLLO, DATA_PROPOSTA, CODICE_UNITA_PROPONENTE, DATA_FIRMA_PROPOSTA, DATA_FIRMA_PARERE_DA, DATA_FIRMA_PARERE_DS">
 	  select decode(numero_delibera, null, '${documentRoot.delibera.N_DELIBERA}', to_char(numero_delibera))  N_DELIBERA
           , decode(anno_delibera, null, '${documentRoot.delibera.ANNO_DELIBERA}', to_char(anno_delibera))    ANNO_DELIBERA
           , d.oggetto OGGETTO
@@ -863,6 +1052,8 @@
           , InitCap(utility_pkg.get_cognome(deleghe.ni_assessore)) COGNOME_RELATORE
           , InitCap(utility_pkg.get_nome(deleghe.ni_assessore)) NOME_RELATORE
           , utility_pkg.get_unita_prop_delibera (d.id_proposta_delibera) UNITA_PROPONENTE
+		  , utility_pkg.get_nominativo_sogg_prop_deli (d.id_proposta_delibera, 'REDATTORE') REDATTORE
+		  , utility_pkg.get_nominativo_sogg_prop_deli (d.id_proposta_delibera, 'INCARICATO') INCARICATO
           , upper(utility_pkg.get_unita_prop_delibera (d.id_proposta_delibera)) UNITA_PROPONENTE_UPPER
           , utility_pkg.get_suddivisione_prop_delibera (d.id_proposta_delibera, 'SO4_SUDDIVISIONE_AREA', d.ente) AREA_PROPONENTE
           , utility_pkg.get_suddivisione_prop_delibera (d.id_proposta_delibera, 'SO4_SUDDIVISIONE_SERVIZIO', d.ente) SERVIZIO_PROPONENTE
@@ -968,11 +1159,21 @@
               where id_oggetto_seduta = d.id_oggetto_seduta
                 and oop.id_voto = ov.id_voto
                 and ov.codice = 'ASTENUTO') ASTENUTI
+			, (select count (1)
+				 from odg_oggetti_partecipanti oop, odg_voti ov
+			    where id_oggetto_seduta = d.id_oggetto_seduta
+			      and oop.id_voto = ov.id_voto
+			      and ov.codice = 'NON_VOTANTE') NON_VOTANTI
           , (select count (1)
                from odg_oggetti_partecipanti oop, odg_voti ov
               where id_oggetto_seduta = d.id_oggetto_seduta
                 and oop.id_voto = ov.id_voto
                 and (ov.codice in ('FAVOREVOLE', 'CONTRARIO'))) VOTANTI
+			, (select count (1)
+				from odg_oggetti_partecipanti oop, odg_voti ov
+			   where id_oggetto_seduta = d.id_oggetto_seduta
+				 and oop.id_voto = ov.id_voto
+				 and (ov.codice in ('FAVOREVOLE', 'CONTRARIO', 'ASTENUTO'))) FAVOREVOLI_CONTRARI_ASTENUTI
           , (select count (1)
                from odg_sedute_partecipanti osp
               where osp.id_seduta = os.id_seduta
@@ -1016,6 +1217,7 @@
           , utility_pkg.get_votanti_oggetto_seduta (d.id_oggetto_seduta, 'FAVOREVOLE') VOTANTI_FAVOREVOLI
           , utility_pkg.get_votanti_oggetto_seduta (d.id_oggetto_seduta, 'CONTRARIO') VOTANTI_CONTRARI
           , utility_pkg.get_votanti_oggetto_seduta (d.id_oggetto_seduta, 'ASTENUTO') VOTANTI_ASTENUTI
+	      , utility_pkg.get_votanti_oggetto_seduta (d.id_oggetto_seduta, 'NON_VOTANTE') ELENCO_NON_VOTANTI
           , decode(d.eseguibilita_immediata,'Y', impostazioni_pkg.get_impostazione('MODELLI_STAMPE_ESEGUIBILITA_DELIBERA', d.ente), '') ESEGUIBILITA_IMMEDIATA
           , decode(d.eseguibilita_immediata,'N', impostazioni_pkg.get_impostazione('MODELLI_STAMPE_NON_ESEGUIBILITA_DELIBERA', d.ente), '') ESEGUIBILITA_NON_IMMEDIATA
 		  , d.motivazioni_eseguibilita MOTIVAZIONI_ESEGUIBILITA
@@ -1036,6 +1238,26 @@
                             from firmatari f
                             where f.firmato = 'Y' and f.id_proposta_delibera = d.id_proposta_delibera)
                  , 'dd/mm/yyyy'), '${documentRoot.delibera.DATA_FIRMA_PROPOSTA}') DATA_FIRMA_PROPOSTA
+		  , nvl (to_char ((select max (data_firma)
+			                 from firmatari          f,
+							 visti_pareri       vp,
+							 tipi_visto_parere  tvp
+							where f.firmato = 'Y'
+							  and f.id_visto_parere = vp.id_visto_parere
+							  and vp.id_proposta_delibera = d.id_proposta_delibera
+							  and vp.id_tipologia = tvp.id_tipo_visto_parere
+							  and tvp.codice = impostazioni_pkg.get_impostazione('CODICE_PARERE_DIRETTORE_AMMINISTRATIVO', d.ente)), 'dd/mm/yyyy'),
+					'')    DATA_FIRMA_PARERE_DA
+		  , nvl (to_char ((select max (data_firma)
+			                 from firmatari          f,
+							 visti_pareri       vp,
+							 tipi_visto_parere  tvp
+							where f.firmato = 'Y'
+							  and f.id_visto_parere = vp.id_visto_parere
+							  and vp.id_proposta_delibera = d.id_proposta_delibera
+							  and vp.id_tipologia = tvp.id_tipo_visto_parere
+							  and tvp.codice = impostazioni_pkg.get_impostazione('CODICE_PARERE_DIRETTORE_SANITARIO', d.ente)), 'dd/mm/yyyy'),
+					'')    DATA_FIRMA_PARERE_DS
           , utility_pkg.get_codice_unita_prop_delibera(d.id_proposta_delibera) CODICE_UNITA_PROPONENTE
           , d.id_delibera ID_DELIBERA
 		from  odg_oggetti_seduta oos
@@ -1051,35 +1273,89 @@
        and pd.id_proposta_delibera  = d.id_proposta_delibera
        and d.id_delibera            = #id
 </query>
+        <!-- deleghe: restituisce l'elenco delle deleghe (principale e aggiuntive) associate all'oggetto seduta della delibera -->
+        <query id="deleghe"
+               help_descrizione="Ritorna l'elenco delle deleghe (principale e aggiuntive) dell'oggetto seduta della delibera."
+               help_query_alias="del"
+               help_field_aliases="ALTRO_RELATORE, COGNOME_ALTRO_RELATORE, NOME_ALTRO_RELATORE">
+SELECT utility_pkg.get_nominativo_soggetto(del.ni_assessore, d.ente) ALTRO_RELATORE,
+       InitCap(utility_pkg.get_cognome(del.ni_assessore))            COGNOME_ALTRO_RELATORE,
+       InitCap(utility_pkg.get_nome(del.ni_assessore))                NOME_ALTRO_RELATORE
+  FROM delibere d,
+       deleghe  del,
+       (
+         -- Diretto da odg_oggetti_seduta
+         SELECT oos.id_delega,
+                0 AS ordinamento
+           FROM odg_oggetti_seduta oos,
+                delibere           d2
+          WHERE d2.id_delibera = #id
+            AND oos.id_oggetto_seduta = d2.id_oggetto_seduta
+            AND oos.id_delega IS NOT NULL
+         UNION ALL
+         -- Tramite odg_oggetti_seduta_deleghe
+         SELECT osd.id_delega,
+                osd.id_oggetto_seduta_delega AS ordinamento
+           FROM odg_oggetti_seduta_deleghe osd,
+                delibere                   d2
+          WHERE d2.id_delibera = #id
+            AND osd.id_oggetto_seduta = d2.id_oggetto_seduta
+       ) deleghe_ord
+ WHERE d.id_delibera = #id
+   AND del.valido = 'Y'
+   AND del.id_delega = deleghe_ord.id_delega
+   AND impostazioni_pkg.get_impostazione('DELEGHE_MULTIPLE', d.ente) = 'Y'
+ ORDER BY deleghe_ord.ordinamento ASC
+        </query>
 		<query id='partecipanti'
 			   help_query_alias="p"
-		       help_field_aliases="INCARICO_PARTECIPANTE, PARTECIPANTE, PRESENTE_ASSENTE, PRESENTE_ASSENTE_OGGETTO, RUOLO_PARTECIPANTE">
-  select decode (osp.id_commissione_componente, null, utility_pkg.get_cognome_nome(osp.ni_componente_esterno), utility_pkg.get_cognome_nome(occ.ni_componente))  PARTECIPANTE
-       ,  nvl (i_osp.titolo, i.titolo) INCARICO_PARTECIPANTE
-       ,  orp.descrizione RUOLO_PARTECIPANTE
-       ,  decode (osp.presente, 'Y', 'Presente', 'Assente') PRESENTE_ASSENTE
-       ,  decode (oop.presente, 'Y', 'Presente', 'Assente') PRESENTE_ASSENTE_OGGETTO
-    from  odg_oggetti_partecipanti oop
-       ,  odg_sedute_partecipanti osp
-       ,  odg_oggetti_seduta oos
-	   ,  odg_sedute os
-       ,  delibere d
-       ,  odg_commissioni_componenti occ
-       ,  odg_incarichi i
-       ,  odg_incarichi i_osp
-       ,  odg_ruoli_partecipanti orp
-   where d.id_delibera = #id
-     and d.id_oggetto_seduta = oos.id_oggetto_seduta
-     and oos.id_oggetto_seduta = oop.id_oggetto_seduta
-	 and oos.id_seduta = os.id_seduta
-     and oop.id_seduta_partecipante = osp.id_seduta_partecipante
-     and occ.id_commissione_componente(+) = osp.id_commissione_componente
-     and nvl (oop.ruolo_partecipante, 'J') not in ('S', 'I')
-	 and not(nvl (oop.ruolo_partecipante, 'J') in ('P') and os.voto_presidente = 'N')
-     and i.id_incarico(+) = occ.id_incarico
-     and i_osp.id_incarico(+) = osp.id_incarico
-     and oop.ruolo_partecipante = orp.ruolo_partecipante(+)
-order by osp.sequenza_partecipante, utility_pkg.get_cognome_nome(occ.ni_componente), utility_pkg.get_cognome_nome(osp.ni_componente_esterno) asc 
+		       help_field_aliases="INCARICO_PARTECIPANTE, PARTECIPANTE, PRESENTE_ASSENTE, PRESENTE_ASSENTE_OGGETTO, RUOLO_PARTECIPANTE, DELEGA_PRESENTE, DELEGATO, NUMERO_PROTOCOLLO_DELEGA, ANNO_PROTOCOLLO_DELEGA, DATA_PROTOCOLLO_DELEGA, INCARICO_DELEGATO, RUOLO_DELEGATO">
+			  select decode (osp.id_commissione_componente,
+							 null, utility_pkg.get_cognome_nome (osp.ni_componente_esterno, d.ente),
+							 utility_pkg.get_cognome_nome (occ.ni_componente, d.ente))
+						PARTECIPANTE,
+					 nvl (i_osp.titolo, i.titolo) INCARICO_PARTECIPANTE,
+					 orp.descrizione RUOLO_PARTECIPANTE,
+					 decode (osp.presente, 'Y', 'Presente', 'Assente') PRESENTE_ASSENTE,
+					 decode (oop.presente, 'Y', 'Presente', 'Assente') PRESENTE_ASSENTE_OGGETTO,
+					 decode (oop.delega, 'Y', '*', '') DELEGA_PRESENTE,
+					 decode (oop.delega, 'Y', utility_pkg.get_cognome_nome (nvl (occ_DELEGATO.ni_componente, osp_DELEGATO.ni_componente_esterno), d.ente)) DELEGATO,
+					 decode (oop.delega, 'Y', oop.numero_protocollo_delega, '') NUMERO_PROTOCOLLO_DELEGA,
+					 decode (oop.delega, 'Y', oop.anno_protocollo_delega, '') ANNO_PROTOCOLLO_DELEGA,
+					 decode ( oop.delega, 'Y', decode (oop.data_numero_protocollo_delega, '', '', to_char (oop.data_numero_protocollo_delega, 'dd/mm/yyyy')),'') DATA_PROTOCOLLO_DELEGA,
+					 decode (oop.delega, 'Y', i_osp_delegato.titolo, '') INCARICO_DELEGATO,
+					 decode (oop.delega, 'Y', orp_delegato.descrizione, '') RUOLO_DELEGATO
+				from odg_oggetti_partecipanti oop,
+					 odg_sedute_partecipanti osp,
+					 odg_oggetti_seduta oos,
+					 odg_sedute os,
+					 delibere d,
+					 odg_commissioni_componenti occ,
+					 odg_incarichi i,
+					 odg_incarichi i_osp,
+					 odg_ruoli_partecipanti orp,
+					 odg_commissioni_componenti occ_delegato,
+					 odg_sedute_partecipanti osp_delegato,
+					 odg_incarichi i_osp_delegato,
+					 odg_ruoli_partecipanti orp_delegato
+			   where d.id_delibera = #id
+				 and d.id_oggetto_seduta = oos.id_oggetto_seduta
+				 and oos.id_oggetto_seduta = oop.id_oggetto_seduta
+				 and oos.id_seduta = os.id_seduta
+				 and oop.id_seduta_partecipante = osp.id_seduta_partecipante
+				 and occ.id_commissione_componente(+) = osp.id_commissione_componente
+				 and nvl (oop.ruolo_partecipante, 'J') not in ('S', 'I')
+				 and not (nvl (oop.ruolo_partecipante, 'J') in ('P') and os.voto_presidente = 'N')
+				 and i.id_incarico(+) = occ.id_incarico
+				 and i_osp.id_incarico(+) = osp.id_incarico
+				 and oop.ruolo_partecipante = orp.ruolo_partecipante(+)
+				 and osp_delegato.id_seduta_partecipante(+) = oop.id_partecipante_delegato
+				 and occ_delegato.id_commissione_componente(+) = osp_delegato.id_commissione_componente
+				 and i_osp_delegato.id_incarico(+) = osp_delegato.id_incarico
+				 and osp_delegato.ruolo_partecipante = orp_delegato.ruolo_partecipante(+)
+			order by osp.sequenza_partecipante,
+					 utility_pkg.get_cognome_nome (occ.ni_componente, d.ente),
+					 utility_pkg.get_cognome_nome (osp.ni_componente_esterno, d.ente) asc
  		</query>
 		<query id='proposta'
 			   help_query_alias="prop"
@@ -1089,50 +1365,82 @@ order by osp.sequenza_partecipante, utility_pkg.get_cognome_nome(occ.ni_componen
 
         <query id="allegati"
 		   help_query_alias="a"
-		   help_field_aliases="ALLEGATO_TITOLO, NOME_FILE">
-            SELECT *
-              FROM (  SELECT a.titolo allegato_titolo, fa.nome nome_file
-                        FROM allegati a, allegati_file af, file_allegati fa
-                       WHERE     a.id_allegato = af.id_allegato
-                             AND af.id_file = fa.id_file_allegato
-                             AND a.valido = 'Y'
-                             AND a.id_delibera = @ID_DELIBERA
-                    ORDER BY a.sequenza ASC)
+		   help_field_aliases="ALLEGATO_TITOLO, NOME_FILE, FIRMATARI_ALLEGATO, FILE_HASH">
+		select a.titolo allegato_titolo,
+			   fa.nome nome_file,
+			   utility_pkg.get_firmatari_allegato (fa.id_file_allegato) firmatari_allegato,
+			   gif.hashcode file_hash,
+			   a.sequenza sequenza
+		  from allegati a,
+			   allegati_file af,
+			   file_allegati fa,
+			   gdm_impronte_file gif
+		 where a.id_allegato = af.id_allegato
+		   and af.id_file = fa.id_file_allegato
+		   and a.valido = 'Y'
+		   and a.id_delibera = @ID_DELIBERA
+		   and gif.id_documento = a.id_documento_esterno
+		   and gif.filename = fa.nome
+		union
+		select '' allegato_titolo,
+			   '' nome_file,
+			   '' firmatari_allegato,
+			   '' file_hash,
+			   1 sequenza
+		  from dual
+		 where not exists
+				  (select 1
+					 from allegati
+					where valido = 'Y' and id_delibera = @ID_DELIBERA)
+		order by sequenza asc
 </query>
-   <!-- 
- <query id="movimenti"
-        help_query_alias="m"
-		help_field_aliases="MOVIMENTO_TIPO, MOVIMENTO_DESCRIZIONE, MOVIMENTO_IMPORTO, MOVIMENTO_RAGIONE_SOCIALE, MOVIMENTO_RIF_BIL_PEG, MOVIMENTO_ANNO, MOVIMENTO_NUMERO"> 
- select c.tipo MOVIMENTO_TIPO
-     ,  c.descrizione MOVIMENTO_DESCRIZIONE
-     ,  c.importo MOVIMENTO_IMPORTO
-     ,  c.ragione_sociale MOVIMENTO_RAGIONE_SOCIALE
-     ,  c.rif_bil_peg MOVIMENTO_RIF_BIL_PEG
-     ,  c.anno MOVIMENTO_ANNO
-     ,  c.numero MOVIMENTO_NUMERO
-  from cf4_vista_prop_del c, proposte_delibera pd, delibere d, tipi_registro tr
+
+		<query id="destinatari"
+			   help_query_alias="dest"
+			   help_field_aliases="DENOMINAZIONE_DESTINATARIO">
+select avsc.cognome || ' ' || avsc.nome DENOMINAZIONE_DESTINATARIO
+  from delibere                d,
+       destinatari_notifiche   dn,
+       as4_v_soggetti_correnti avsc
  where d.id_delibera = #id
-   and d.id_proposta_delibera = pd.id_proposta_delibera
-   and pd.registro_proposta = tr.tipo_registro
-   and c.anno_prop = pd.anno_proposta
-   and c.numero_prop = pd.numero_proposta
-   and tr.registro_esterno = c.unita_prop
- union
- select c.tipo MOVIMENTO_TIPO
-     ,  c.descrizione MOVIMENTO_DESCRIZIONE
-     ,  c.importo MOVIMENTO_IMPORTO
-     ,  c.ragione_sociale MOVIMENTO_RAGIONE_SOCIALE
-     ,  c.rif_bil_peg MOVIMENTO_RIF_BIL_PEG
-     ,  c.anno MOVIMENTO_ANNO
-     ,  c.numero MOVIMENTO_NUMERO
-  from cf4_vista_prop_del c, delibere d, tipi_registro tr
+   and dn.id_proposta_delibera = d.id_proposta_delibera
+   and dn.tipo_destinatario = 'INTERNO'
+   and dn.utente_ad4 = avsc.utente
+union
+select so4_util.anuo_get_descrizione (unita_progr, unita_dal)
+  from delibere                d,
+       destinatari_notifiche   dn
  where d.id_delibera = #id
-   and d.registro_delibera = tr.tipo_registro
-   and c.anno_del = d.anno_delibera
-   and c.numero_del = d.numero_delibera
-   and tr.registro_esterno = c.sede_del
-  order by movimento_anno, movimento_numero  
- </query>    -->
-	</queryes>
+   and dn.id_proposta_delibera = d.id_proposta_delibera
+   and dn.tipo_destinatario = 'INTERNO'
+   and dn.unita_progr is not null
+   and dn.utente_ad4 is null
+union
+select TRIM(NVL(E.RAGIONE_SOCIALE, DECODE(E.COGNOME || ' ' || E.NOME, ' ', E.INDIRIZZO_EMAIL, E.COGNOME || ' ' || E.NOME)))
+  from delibere                d,
+       destinatari_notifiche   dn,
+       email                   e
+ where d.id_delibera = #id
+   and dn.id_proposta_delibera = d.id_proposta_delibera
+   and dn.tipo_destinatario = 'ESTERNO'
+   and dn.id_email = e.id_email
+union
+select dn.cognome||' '||dn.nome
+  from delibere                d,
+       destinatari_notifiche   dn
+ where d.id_delibera = #id
+   and dn.id_proposta_delibera = d.id_proposta_delibera
+   and dn.tipo_destinatario = 'PITRE'
+   and dn.tipo_corrispondente_esterno = 'P'
+union
+select dn.cognome
+  from delibere                d,
+       destinatari_notifiche   dn
+ where d.id_delibera = #id
+   and dn.id_proposta_delibera = d.id_proposta_delibera
+   and dn.tipo_destinatario = 'PITRE'
+   and dn.tipo_corrispondente_esterno = 'U'
+		</query>
+ 	</queryes>
 	<staticData />
 </documentRoot>

@@ -32,11 +32,11 @@ class BandboxUnitaSo4 extends Bandbox implements EventListener {
 
 	private So4UnitaPubbDTO unita;
 	private MascheraRicercaDocumento ricerca;
+	private Listbox listaServiziUnitaSo4;
 
 	public BandboxUnitaSo4 () {
 		Executions.createComponents("/commons/bandboxUnitaSo4.zul", this, null);
 
-		Selectors.wireVariables(this, this, null);
 		Selectors.wireComponents(this, this, false);
 		Selectors.wireEventListeners(this, this);
 
@@ -84,9 +84,9 @@ class BandboxUnitaSo4 extends Bandbox implements EventListener {
 	}
 
 	private void loadUnita (String filtro) {
-		def results = executeQuery (filtro)
-		paging.setTotalSize(results.totalCount);
-		listaUnitaSo4.setModel(new ListModelList<?>(results.lista));
+		def results = executeQuery(filtro)
+		paging.setTotalSize(results.totalCount)
+		listaUnitaSo4.setModel(new ListModelList<>(results.lista))
 	}
 	
 	public def executeQuery (String filtro) {

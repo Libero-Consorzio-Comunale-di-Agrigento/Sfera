@@ -137,5 +137,8 @@ class DocumentoGenerico implements IDocumento, DTO<DocumentoGenerico> {
     @Override
     void setStatoMarcatura(StatoMarcatura statoMarcatura) { }
 
-
+    @Override
+    String getTipoFirma() {
+        return null
+    }
 }

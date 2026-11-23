@@ -18,9 +18,10 @@
 		<tabbox vflex="1">
 			<tabs>
 				<tab label="Informazioni" />
-				<tab id="componenti" 			label="Componenti"			visible="@load(not empty vm.selectedRecord.id)" />
-				<tab id="componentiStorico" 	label="Storico Componenti"	visible="@load(not empty vm.selectedRecord.id)" />
-				<tab id="stampe" 				label="Stampe" 				visible="@load(not empty vm.selectedRecord.id)" />
+				<tab id="componenti" 			label="Componenti"			  visible="@load(not empty vm.selectedRecord.id)" />
+				<tab id="componentiStorico" 	label="Storico Componenti"	  visible="@load(not empty vm.selectedRecord.id)" />
+				<tab id="stampe" 				label="Stampe" 				  visible="@load(not empty vm.selectedRecord.id)" />
+				<tab id="commissioniCollegate"	label="Commissioni collegate" visible="@load(not empty vm.selectedRecord.id)" />
 			</tabs>
 			<tabpanels>
 				<tabpanel>
@@ -30,14 +31,14 @@
 								<cell width="30%" align="right">
 									<h:span class="mandatoryLabel">*</h:span><label value="Titolo" />
 								</cell>
-								<cell>
+								<cell colspan="3">
 									<textbox value="@bind(vm.selectedRecord.titolo)" hflex="1" />
 								</cell>
 							</row>
 
 							<row>
 								<cell align="right"><label value="Descrizione" /></cell>
-								<cell>
+								<cell colspan="3">
 									<textbox multiline="true" rows="3" value="@bind(vm.selectedRecord.descrizione)" hflex="1" />
 								</cell>
 							</row>
@@ -45,7 +46,7 @@
 								<cell align="right">
 									<h:span class="mandatoryLabel">*</h:span><label value="Registro Numerazione Delibera" />
 								</cell>
-								<cell>
+								<cell colspan="3">
 									<combobox hflex="1" readonly="true"
 										selectedItem="@bind(vm.selectedRecord.tipoRegistro) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')"
 										model="@load(vm.listaTipoRegistro)">
@@ -59,7 +60,7 @@
 								<cell align="right">
 									<h:span class="mandatoryLabel">*</h:span><label value="Registro Numerazione Seduta" />
 								</cell>
-								<cell>
+								<cell colspan="3">
 									<combobox hflex="1" readonly="true"
 										selectedItem="@bind(vm.selectedRecord.tipoRegistroSeduta) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')"
 										model="@load(vm.listaTipoRegistro)">
@@ -73,7 +74,7 @@
 								<cell align="right">
 									<label value="Seconda Convocazione" />
 								</cell>
-								<cell>
+								<cell colspan="3">
 									<radiogroup selectedIndex="@load(vm.selectedRecord.secondaConvocazione ? 0 : 1)" selectedItem="@save(vm.selectedRecord.secondaConvocazione)" >
 					     				<radio label="Sì" value="@load(true)"  />
 							            <radio label="No" value="@load(false)" />
@@ -84,7 +85,7 @@
 								<cell align="right">
 									<label value="Seduta Pubblica" />
 								</cell>
-								<cell>
+								<cell colspan="2">
 									<radiogroup selectedIndex="@load(vm.selectedRecord.sedutaPubblica ? 0 : 1)" selectedItem="@save(vm.selectedRecord.sedutaPubblica)" >
 					     				<radio label="Sì" value="@load(true)"  />
 							            <radio label="No" value="@load(false)" />
@@ -101,6 +102,15 @@
 							            <radio label="No" value="@load(false)" />
 						            </radiogroup>
 								</cell>
+								<cell align="right">
+									<label value="Visibile solo ai convocati" />
+								</cell>
+								<cell>
+									<radiogroup selectedIndex="@load(vm.selectedRecord.visibileSoloConvocati ? 0 : 1)" selectedItem="@save(vm.selectedRecord.visibileSoloConvocati)" >
+										<radio label="Sì" value="@load(true)"  />
+										<radio label="No" value="@load(false)" />
+									</radiogroup>
+								</cell>
 							</row>
 							<row>
 								<cell align="right">
@@ -112,8 +122,6 @@
 							            <radio label="No" value="@load(false)" />
 						            </radiogroup>
 								</cell>
-							</row>
-							<row>
 								<cell align="right">
 									<label value="Il presidente ha diritto di voto ?" />
 								</cell>
@@ -128,7 +136,7 @@
 								<cell align="right">
 									<h:span class="mandatoryLabel">*</h:span><label value="Ruolo di Competenza" />
 								</cell>
-								<cell>
+								<cell colspan="3">
 									<combobox hflex="1" model="@load(vm.listaRuoli)" readonly="true"
 										selectedItem="@bind(vm.selectedRecord.ruoloCompetenze) @converter('it.finmatica.zkutils.PropertyConverter', property='ruolo')">
 										<template name="model">
@@ -141,7 +149,7 @@
 								<cell align="right">
 									<label value="Ruolo di Visualizzazione" />
 								</cell>
-								<cell>
+								<cell colspan="3">
 									<combobox hflex="1" model="@load(vm.listaRuoli)" readonly="true"
 										selectedItem="@bind(vm.selectedRecord.ruoloVisualizza) @converter('it.finmatica.zkutils.PropertyConverter', property='ruolo')">
 										<template name="model">
@@ -154,7 +162,7 @@
 								<cell align="right">
 									<label value="Iter Delibere" />
 								</cell>
-								<cell>
+								<cell colspan="3">
 									<combobox hflex="1" readonly="true"
 										selectedItem="@bind(vm.selectedRecord.progressivoCfgIter) @converter('it.finmatica.zkutils.PropertyConverter', defaultValue=-1)"
 										model="@load(vm.listaIter)">
@@ -170,6 +178,35 @@
 								</cell>
 								<cell>
 									<radiogroup selectedIndex="@load(vm.selectedRecord.controlloFirmatari ? 0 : 1)" selectedItem="@save(vm.selectedRecord.controlloFirmatari)" >
+										<radio label="Sì" value="@load(true)"  />
+										<radio label="No" value="@load(false)" />
+									</radiogroup>
+								</cell>
+								<cell align="right">
+									<label value="I firmatari devono essere presenti in discussione ?" />
+								</cell>
+								<cell>
+									<radiogroup selectedIndex="@load(vm.selectedRecord.firmatariPresenti ? 0 : 1)" selectedItem="@save(vm.selectedRecord.firmatariPresenti)" >
+										<radio label="Sì" value="@load(true)"  />
+										<radio label="No" value="@load(false)" />
+									</radiogroup>
+								</cell>
+							</row>
+							<row>
+								<cell align="right">
+									<label value="La seduta ammette un solo presidente ?" />
+								</cell>
+								<cell>
+									<radiogroup selectedIndex="@load(vm.selectedRecord.singoloPresidente ? 0 : 1)" selectedItem="@save(vm.selectedRecord.singoloPresidente)" >
+										<radio label="Sì" value="@load(true)"  />
+										<radio label="No" value="@load(false)" />
+									</radiogroup>
+								</cell>
+								<cell align="right">
+									<label value="Il gettone è calcolato per presenza giornaliera ?" />
+								</cell>
+								<cell>
+									<radiogroup selectedIndex="@load(vm.selectedRecord.gettonePresenzaGiornaliera ? 0 : 1)" selectedItem="@save(vm.selectedRecord.gettonePresenzaGiornaliera)" >
 										<radio label="Sì" value="@load(true)"  />
 										<radio label="No" value="@load(false)" />
 									</radiogroup>
@@ -285,6 +322,30 @@
 						</template>
 					</listbox>
 				</tabpanel>
+
+				<tabpanel vflex="1">
+					<listbox vflex="1" model="@load(vm.listaCommissioniCollegate)" emptyMessage="Nessuna commissione inserita">
+						<listhead>
+							<listheader label="Elenco commissioni collegate inserite"/>
+							<listheader label="Valido dal" 	hflex="1"	/>
+							<listheader label="Valido al"  	hflex="1"	/>
+							<listheader label="" 			width="5%">
+								<space width="3px"/>
+								<image width="15px" style="cursor: pointer" src="/images/afc/16x16/add.png" onClick="@command('onApriPopupCommissioneCollegata')" />
+							</listheader>
+						</listhead>
+						<template name="model" var="each">
+							<listitem>
+								<listcell label="@load(each.commissioneCollegata.titolo)"/>
+								<listcell label="@load(each.validoDal) @converter('formattedDate', format='dd/MM/yyyy')"/>
+								<listcell label="@load(each.validoAl)  @converter('formattedDate', format='dd/MM/yyyy')"/>
+								<listcell>
+									<image src="/images/agsde2/22x22/trash.png" onClick="@command('onEliminaCommissioneCollegata', commissione=each)"/>
+								</listcell>
+							</listitem>
+						</template>
+					</listbox>
+				</tabpanel>
 			</tabpanels>
 		</tabbox>
 
@@ -313,73 +374,125 @@
 			</h:div>
 		</h:div>
 
+<!--
+    Popup di Aggiunta Commissione collegata
+-->
+		<window id="popupSceltaCommissioneCollegata" border="normal" width="500px" height="150px" sizable="false" title=" " visible="false">
+			<h:div class="barraTitoloPagina">
+				<label sclass="titoloPagina" value="Commissione Collegata" />
+			</h:div>
+
+			<grid sclass="form">
+				<rows>
+					<row>
+						<cell align="right">
+							<h:span class="mandatoryLabel">*</h:span><label value="Commissione" />
+						</cell>
+						<cell>
+							<combobox model="@load(vm.listaCommissioni)"  selectedItem="@bind(vm.commissioneCollegata)" hflex="1" readonly="true">
+								<template name="model" var="commissioneCollegata">
+									<comboitem label="@load(commissioneCollegata.titolo)" value="@load(commissioneCollegata)" />
+								</template>
+							</combobox>
+						</cell>
+					</row>
+				</rows>
+			</grid>
+
+			<h:div class="barraPulsanti">
+				<h:div>
+					<button mold="trendy" label="Salva"     onClick="@command('onAggiungiCommissioneCollegata')" />
+					<button mold="trendy" label="Chiudi" 	onClick="@command('onChiudiCommissioneCollegata')" />
+				</h:div>
+			</h:div>
+		</window>
+
 		<!--
 			Popup di Modifica Stampa
 		-->
-		<window id="popupSceltaStampa" border="normal" width="500px" height="350px" sizable="false" title=" " visible="false">
+		<window id="popupSceltaStampa" border="normal" width="600px" height="450px" sizable="false" title=" " visible="false">
 			<h:div class="barraTitoloPagina">
 				<label sclass="titoloPagina" value="Stampa di Commissione" />
 			</h:div>
 
-            <grid sclass="form" vflex="1">
-                <rows>
-                    <row>
-                        <cell width="150px"><h:span class="mandatoryLabel">*</h:span><label value="Titolo" /></cell>
-                        <cell><textbox value="@load(vm.commissioneStampa.titolo) @save(vm.commissioneStampa.titolo)" hflex="1" /></cell>
-                    </row>
-                    <row>
-                        <cell><label value="Descrizione" /></cell>
-                        <cell><textbox value="@bind(vm.commissioneStampa.descrizione)" hflex="1" multiline="true" rows="1" sclass="noresizable"/></cell>
-                    </row>
-                    <row>
-                        <cell><label value="Tipo di Stampa" /></cell>
-                        <cell><combobox hflex="1" selectedItem="@bind(vm.commissioneStampa.codice)" onSelect="@command('onSelectTipoStampa')" readonly="true">
-                            <comboitem label="Verbale"      value="VERBALE" />
-                            <comboitem label="Convocazione" value="CONVOCAZIONE" />
-                            <comboitem label="Delibera"     value="DELIBERA" />
-                        </combobox></cell>
-                    </row>
-                    <row>
-                        <cell><label value="Modello di Testo" /></cell>
-                        <cell>
-                            <combobox visible="@load(not empty vm.listaModelli)" model="@load(vm.listaModelli)" hflex="1" readonly="true"
-                                      selectedItem="@bind(vm.commissioneStampa.modelloTesto) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)">
-                                <template name="model" var="mt">
-                                    <comboitem label="@load(mt.nome)" description="@load(mt.descrizione)" value="@load(mt)" />
-                                </template>
-                            </combobox>
-                        </cell>
-                    </row>
-                    <row>
-                        <cell><label value="Uso nel Visualizzatore:"/></cell>
-                        <cell>
-                            <radiogroup selectedIndex="@load(vm.commissioneStampa.usoNelVisualizzatore ? 0 : 1)" selectedItem="@save(vm.commissioneStampa.usoNelVisualizzatore)">
-                                <radio label="Sì" value="@load(true)"  />
-                                <radio label="No" value="@load(false)" />
-                            </radiogroup>
-                        </cell>
-                    </row>
-                    <row if="#{i:impostazione('STAMPE_SEDUTA_DOCUMENTI').abilitato}">
-                        <cell><label value="Caratteristica" /></cell>
-                        <cell>
-                            <combobox model="@load(vm.listaCaratteristiche)" hflex="1" selectedItem="@bind(vm.commissioneStampa.caratteristicaTipologia) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)" readonly="true">
-                                <template name="model" var="caratteristica">
-                                    <comboitem label="@load(caratteristica.titolo)" value="@load(caratteristica)" />
-                                </template>
-                            </combobox>
-                        </cell>
-                    </row>
-                    <row if="#{i:impostazione('STAMPE_SEDUTA_DOCUMENTI').abilitato}">
-                        <cell><label value="Configurazione Iter" /></cell>
-                        <cell><combobox model="@load(vm.listaCfgIter)" hflex="1" selectedItem="@bind(vm.commissioneStampa.progressivoCfgIter) @converter('it.finmatica.zkutils.PropertyConverter', defaultValue=-1)" readonly="true">
-                            <template name="model" var="cfgIter">
-                                <comboitem label="@load(cfgIter.nome)" value="@load(cfgIter.progressivo)" />
-                            </template>
-                        </combobox></cell>
+			<grid sclass="form" vflex="1">
+				<rows>
+					<row>
+						<cell width="150px"></cell>
+						<cell></cell>
+						<cell width="150px"></cell>
+						<cell></cell>
+					</row>
+					<row>
+						<cell><h:span class="mandatoryLabel">*</h:span><label value="Titolo" /></cell>
+						<cell colspan="3"><textbox value="@load(vm.commissioneStampa.titolo) @save(vm.commissioneStampa.titolo)" hflex="1" /></cell>
+					</row>
+					<row>
+						<cell><label value="Descrizione" /></cell>
+						<cell colspan="3"><textbox value="@bind(vm.commissioneStampa.descrizione)" hflex="1" multiline="true" rows="1" sclass="noresizable"/></cell>
+					</row>
+					<row>
+						<cell><h:span class="mandatoryLabel">*</h:span><label value="Tipo di Stampa" /></cell>
+						<cell colspan="3"><combobox hflex="1" selectedItem="@bind(vm.commissioneStampa.codice)" onSelect="@command('onSelectTipoStampa')" onChange="@command('onChangeTipoStampa')" readonly="true">
+							<comboitem label="Verbale"      value="VERBALE" />
+							<comboitem label="Convocazione" value="CONVOCAZIONE" />
+							<comboitem label="Delibera"     value="DELIBERA" />
+						</combobox></cell>
+					</row>
+					<row>
+						<cell><h:span class="mandatoryLabel">*</h:span><label value="Modello di Testo" /></cell>
+						<cell colspan="3">
+							<combobox visible="@load(not empty vm.listaModelli)" model="@load(vm.listaModelli)" hflex="1" readonly="true"
+									  selectedItem="@bind(vm.modelloTestoSelezionato) @converter('it.finmatica.zkutils.PropertyConverter', property='id')">
+								<template name="model" var="mt">
+									<comboitem label="@load(mt.nome)" description="@load(mt.descrizione)" value="@load(mt)" />
+								</template>
+							</combobox>
+						</cell>
+					</row>
+					<row>
+						<cell><label value="Uso nel Visualizzatore:"/></cell>
+						<cell colspan="3">
+							<radiogroup selectedIndex="@load(vm.commissioneStampa.usoNelVisualizzatore ? 0 : 1)" selectedItem="@save(vm.commissioneStampa.usoNelVisualizzatore)">
+								<radio label="Sì" value="@load(true)"  />
+								<radio label="No" value="@load(false)" />
+							</radiogroup>
+						</cell>
+					</row>
+					<row if="#{i:impostazione('STAMPE_SEDUTA_DOCUMENTI').abilitato}">
+						<cell><label value="Caratteristica" /></cell>
+						<cell colspan="3">
+							<combobox model="@load(vm.listaCaratteristiche)" hflex="1" selectedItem="@bind(vm.commissioneStampa.caratteristicaTipologia) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)" readonly="true">
+								<template name="model" var="caratteristica">
+									<comboitem label="@load(caratteristica.titolo)" value="@load(caratteristica)" />
+								</template>
+							</combobox>
+						</cell>
+					</row>
+					<row if="#{i:impostazione('STAMPE_SEDUTA_DOCUMENTI').abilitato}">
+						<cell><label value="Configurazione Iter" /></cell>
+						<cell colspan="3"><combobox model="@load(vm.listaCfgIter)" hflex="1" selectedItem="@bind(vm.commissioneStampa.progressivoCfgIter) @converter('it.finmatica.zkutils.PropertyConverter', defaultValue=-1)" readonly="true">
+							<template name="model" var="cfgIter">
+								<comboitem label="@load(cfgIter.nome)" value="@load(cfgIter.progressivo)" />
+							</template>
+						</combobox></cell>
+					</row>
+					<row if="#{i:impostazione('STAMPE_SEDUTA_DOCUMENTI').abilitato}">
+						<cell><label value="Pubblicazione:"/></cell>
+						<cell>
+							<radiogroup selectedIndex="@load(vm.commissioneStampa.pubblicazione ? 0 : 1)" selectedItem="@save(vm.commissioneStampa.pubblicazione)">
+								<radio label="Sì" value="@load(true)"/>
+								<radio label="No" value="@load(false)"/>
+							</radiogroup>
+						</cell>
+						<cell><label value="Giorni di Pubblicazione:" /></cell>
+						<cell>
+							<intbox value="@bind(vm.commissioneStampa.giorniPubblicazione)" width="150px" disabled="@load(not vm.commissioneStampa.pubblicazione)"/>
+						</cell>
                     </row>
 					<row if="#{i:impostazione('PROTOCOLLO').valore eq 'protocolloEsternoGdm'}" >
-						<cell><label value="Tipo di Protocollo:"/></cell>
-						<cell>
+						<cell><label value="Tipo di Documento (Protocollo):"/></cell>
+						<cell colspan="3">
 							<combobox model="@load(vm.listaTipiDocumento)" hflex="1" readonly="true" selectedItem="@bind(vm.tipoDocumentoEsterno) @converter('it.finmatica.zkutils.PropertyConverter', default='')">
 								<template name="model" var="mt">
 									<comboitem label="@load(mt.descrizione)" value="@load(mt.codice)" />

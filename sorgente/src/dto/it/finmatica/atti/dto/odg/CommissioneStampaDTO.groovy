@@ -21,6 +21,8 @@ public class CommissioneStampaDTO implements it.finmatica.dto.DTO<CommissioneSta
     CaratteristicaTipologiaDTO caratteristicaTipologia;
     Long progressivoCfgIter;
     boolean usoNelVisualizzatore;
+    boolean pubblicazione;
+    Integer giorniPubblicazione;
     Date dateCreated;
     Date lastUpdated;
     boolean valido;

@@ -7,7 +7,12 @@ class GestioneTestiLogService {
 	 *
 	 * @param log
 	 */
-	void log(GestioneTestiLog log) {
-		log.save(flush: true)
+	void log(GestioneTestiLog testoLog) {
+		try {
+		testoLog.save(flush: true)
+		}
+		catch (RuntimeException) {
+			log.error("Problema nel salvataggio nella tabella gte_log")
+		}
 	}
 }

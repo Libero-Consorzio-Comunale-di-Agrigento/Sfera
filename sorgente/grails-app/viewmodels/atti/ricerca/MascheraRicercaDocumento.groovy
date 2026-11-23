@@ -1,5 +1,6 @@
 package atti.ricerca
 
+import grails.orm.PagedResultList
 import it.finmatica.ad4.autenticazione.Ad4Utente
 import it.finmatica.ad4.dto.autenticazione.Ad4UtenteDTO
 import it.finmatica.as4.dto.As4SoggettoCorrenteDTO
@@ -7,6 +8,8 @@ import it.finmatica.atti.commons.AttiUtils
 import it.finmatica.atti.contabilita.MovimentoContabile
 import it.finmatica.atti.dizionari.Categoria
 import it.finmatica.atti.dizionari.Delega
+import it.finmatica.atti.dizionari.ImpattoGenerazionale
+import it.finmatica.atti.dizionari.StatoIter
 import it.finmatica.atti.dizionari.TipoAllegato
 import it.finmatica.atti.dizionari.TipoBudget
 import it.finmatica.atti.dizionari.TipoRegistro
@@ -21,6 +24,7 @@ import it.finmatica.atti.dto.dizionari.CategoriaDTO
 import it.finmatica.atti.dto.dizionari.DelegaDTO
 import it.finmatica.atti.dto.dizionari.OggettoRicorrenteDTO
 import it.finmatica.atti.dto.dizionari.TipoAllegatoDTO
+import it.finmatica.atti.dto.dizionari.ImpattoGenerazionaleDTO
 import it.finmatica.atti.dto.dizionari.TipoBudgetDTO
 import it.finmatica.atti.dto.dizionari.TipoRegistroDTO
 import it.finmatica.atti.dto.documenti.tipologie.TipoDeliberaDTO
@@ -30,8 +34,11 @@ import it.finmatica.atti.impostazioni.TipoSoggetto
 import it.finmatica.atti.odg.Commissione
 import it.finmatica.so4.dto.strutturaPubblicazione.So4UnitaPubbDTO
 import it.finmatica.so4.login.So4UserDetail
+import it.finmatica.so4.strutturaPubblicazione.So4UnitaPubb
 import org.hibernate.FetchMode
 import org.hibernate.criterion.CriteriaSpecification
+import org.zkoss.bind.annotation.Command
+import org.zkoss.bind.annotation.NotifyChange
 
 import static it.finmatica.zkutils.LabelUtils.getLabel as l
 
@@ -52,23 +59,23 @@ class MascheraRicercaDocumento {
                                                                , labelCategoria         : l("label.categoria.determina")
                                                                , zul                    : "/atti/documenti/determina.zul"
                                                                , icona                  : "/images/agsde2/22x22/logo_determina_22.png"]
-                         , (Delibera.TIPO_OGGETTO)          : [ricercabile: true, domainRicerca: RicercaDelibera, domainTipologia: TipoDelibera, tipoAllegato: "idTipoAllegatoDelibera", tipoAllegatoVistoParere: "idTipoAllegatoParere", tipoCategoria: Categoria.TIPO_OGGETTO_PROPOSTA_DELIBERA,
+                         , (Delibera.TIPO_OGGETTO)          : [ricercabile: true, domainRicerca: RicercaDelibera, domainTipologia: TipoDelibera, tipoAllegato: "idTipoAllegatoDelibera", tipoAllegatoVistoParere: "idTipoAllegatoParere",  tipoCategoria: Categoria.TIPO_OGGETTO_PROPOSTA_DELIBERA,
                                                                popup      : "/atti/popupRicercaDocumenti.zul", nome: l(
             "tipoOggetto.delibere"), labelCategoria                       : l(
             "label.categoria.propostaDelibera"), zul                              : "/atti/documenti/delibera.zul", icona: "/images/agsde2/22x22/logo_delibera_22.png"]
-                         , (PropostaDelibera.TIPO_OGGETTO)  : [ricercabile: false, domainRicerca: RicercaDelibera, domainTipologia: TipoDelibera, tipoAllegato: "idTipoAllegatoDelibera", tipoAllegatoVistoParere: "idTipoAllegatoParere", tipoCategoria: Categoria.TIPO_OGGETTO_PROPOSTA_DELIBERA,
+                         , (PropostaDelibera.TIPO_OGGETTO)  : [ricercabile: false, domainRicerca: RicercaDelibera, domainTipologia: TipoDelibera, tipoAllegato: "idTipoAllegatoDelibera", tipoAllegatoVistoParere: "idTipoAllegatoParere" ,  tipoCategoria: Categoria.TIPO_OGGETTO_PROPOSTA_DELIBERA,
                                                                popup      : "/atti/popupRicercaDocumenti.zul", nome: l(
             "tipoOggetto.proposteDelibere"), labelCategoria               : l(
             "label.categoria.propostaDelibera"), zul                      : "/atti/documenti/propostaDelibera.zul", icona: "/images/agsde2/22x22/logo_proposta_delibera_22.png"]
-                         , (VistoParere.TIPO_OGGETTO)       : [ricercabile: true, domainRicerca: RicercaVisto, domainTipologia: TipoVistoParere, tipoAllegato: null, tipoAllegatoVistoParere: null, tipoCategoria: "",
+                         , (VistoParere.TIPO_OGGETTO)       : [ricercabile: true, domainRicerca: RicercaVisto, domainTipologia: TipoVistoParere, tipoAllegato: null, tipoAllegatoVistoParere: null,   tipoCategoria: "",
                                                                popup      : "/atti/popupRicercaDocumentiCollegati.zul", nome: l(
             "tipoOggetto.visti"), labelCategoria                          : l(
             "label.categoria.determina"), zul                             : "/atti/documenti/visto.zul", icona: "/images/agsde2/22x22/logo_visto_22.png"]
-                         , (VistoParere.TIPO_OGGETTO_PARERE): [ricercabile: true, domainRicerca: RicercaParere, domainTipologia: TipoVistoParere, tipoAllegato: null, tipoAllegatoVistoParere: null, tipoCategoria: "",
+                         , (VistoParere.TIPO_OGGETTO_PARERE): [ricercabile: true, domainRicerca: RicercaParere, domainTipologia: TipoVistoParere, tipoAllegato: null, tipoAllegatoVistoParere: null,  tipoCategoria: "",
                                                                popup      : "/atti/popupRicercaDocumentiCollegati.zul", nome: l(
             "tipoOggetto.pareri"), labelCategoria                         : l(
             "label.categoria.propostaDelibera"), zul                      : "/atti/documenti/parere.zul", icona: "/images/agsde2/22x22/logo_parere_22.png"]
-                         , (Certificato.TIPO_OGGETTO)       : [ricercabile: true, domainRicerca: RicercaCertificato, domainTipologia: TipoCertificato, tipoAllegato: null, tipoAllegatoVistoParere: null, tipoCategoria: "",
+                         , (Certificato.TIPO_OGGETTO)       : [ricercabile: true, domainRicerca: RicercaCertificato, domainTipologia: TipoCertificato, tipoAllegato: null, tipoAllegatoVistoParere: null,  tipoCategoria: "",
                                                                popup      : "/atti/popupRicercaDocumentiCollegati.zul", nome: l(
             "tipoOggetto.certificati"), labelCategoria                    : "", zul: "/atti/documenti/certificato.zul", icona: "/images/agsde2/22x22/logo_certificato_22.png"]]
 
@@ -99,11 +106,13 @@ class MascheraRicercaDocumento {
     // dati dei soggetti
     As4SoggettoCorrenteDTO relatore
     So4UnitaPubbDTO        unitaProponente
+    So4UnitaPubbDTO        servizio
     Ad4UtenteDTO           redattore
     Ad4UtenteDTO           firmatario
     Ad4UtenteDTO           presidente
     Ad4UtenteDTO           segretario
     Ad4UtenteDTO           incaricato
+    Ad4UtenteDTO           funzionario
 
     // parametri di ricerca "esterni"
     Long numeroAtto
@@ -141,6 +150,9 @@ class MascheraRicercaDocumento {
     Long   numeroProtocolloAl
     Long   annoProtocollo
     String registroProtocollo
+    String classificaCodice
+    Integer fascicoloAnno
+    String fascicoloNumero
 
     // dati della tipologia
     def     tipologia            // ATTENZIONE: la tipologia va lasciata "def" perché può essere sia TipoDeliberaDTO che TipoDeterminaDTO.
@@ -168,8 +180,24 @@ class MascheraRicercaDocumento {
     CommissioneDTO       commissione
     TipoAllegatoDTO      tipoAllegato
     TipoAllegatoDTO      tipoAllegatoVistoParere
+    ImpattoGenerazionaleDTO impattoGenerazionale
     OggettoRicorrenteDTO oggettoRicorrente
     TipoBudgetDTO        tipoBudget
+
+    //utilizzati dai ws di ricerca (http://svi-redmine/issues/63219)
+    //nelle viste sono valorizzati solo per DELIBERA, PROPOSTA_DELIBERA e DETERMINA
+    String 	uoProponenteCodice
+    String  codiceEsternoTipologia
+    String  tipoPubblicazioneAlbo
+
+    //campi richiesti da integrazione contabilità ats pavia (https://redmine.finmatica.it/issues/69066)
+    Integer     inEvidenza = 0   // 0: tutti, 1: in Evidenza, 2: non in Evidenza
+    Date 	    dataInEvidenzaDa
+    Date 	    dataInEvidenzaA
+
+    // ricerca per importo totale (range)
+    BigDecimal  importoTotaleDal
+    BigDecimal  importoTotaleAl
 
     // eventuale filtro aggiuntivo:
     Closure filtroAggiuntivo = null
@@ -182,6 +210,9 @@ class MascheraRicercaDocumento {
     List<Ad4UtenteDTO> listaRedattori
     List<Ad4UtenteDTO> listaPresidenti
     List<Ad4UtenteDTO> listaSegretari
+    List<Ad4UtenteDTO> listaFunzionari
+    List<So4UnitaPubbDTO> listaUnita
+    List<So4UnitaPubbDTO> listaServizi
 
     List<String>               listaStatiDocumento
     List<Ad4UtenteDTO>         listaUnitaProponenti
@@ -190,6 +221,7 @@ class MascheraRicercaDocumento {
     List<TipoRegistroDTO>      listaTuttiRegistriAtto
     List<CategoriaDTO>         listaCategorie
     List<TipoAllegatoDTO>      listaTipiAllegato
+    List<ImpattoGenerazionaleDTO> listaImpattiGenerazionali
     List<OggettoRicorrenteDTO> listaOggettiRicorrenti
     List<TipoBudgetDTO>        listaBudget
 
@@ -227,32 +259,41 @@ class MascheraRicercaDocumento {
 
     int i = 0
     //Attenzione: l'ordine della mappa corrisponde all'ordine delle colonne nel file di excel
-	def exportOptions =   [   idDocumento 				: [label:'ID', 								        index: -1, columnType: 'NUMBER']
-							, idDocumentoPrincipale		: [label:'ID Documento Principale', 			    index: -1, columnType: 'TEXT']
-							, tipoDocumento				: [label:'Tipo Documento', 					        index: -1, columnType: 'TEXT']
-							, tipoDocumentoPrincipale 	: [label:'Tipo documento Principale', 			    index: -1, columnType: 'TEXT']
-                            , stato 					: [label:'Stato', 								    index: -1, columnType: 'TEXT']
-                            , logConservazione			: [label:'Conservazione', 						    index: -1, columnType: 'TEXT']
-							, numeroAtto2				: [label:l("feature.secondaNumerazione.numero"),    index:  Impostazioni.SECONDO_NUMERO_DETERMINA.abilitato?i++:-1, columnType: 'NUMBER']
-							, annoAtto2					: [label:l("feature.secondaNumerazione.anno"),	    index:  Impostazioni.SECONDO_NUMERO_DETERMINA.abilitato?i++:-1, columnType: 'NUMBER']
-                            , numeroAtto				: [label:'Numero Atto', 						    index:  i++, columnType: 'NUMBER']
-                            , annoAtto					: [label:'Anno Atto', 							    index:  i++, columnType: 'NUMBER']
-                            , dataAdozione 				: [label:'Data Adozione', 						    index:  i++, columnType: 'DATE', formato:'dd/MM/yyyy']
-						    , dataEsecutivita			: [label:l("label.ricerca.dataEsecutivita"),	    index:  i++, columnType: 'DATE', formato:'dd/MM/yyyy']
-                            , titoloTipologia			: [label:'Tipologia', 							    index:  i++, columnType: 'TEXT']
-                            , oggetto					: [label:'Oggetto', 							    index:  i++, columnType: 'TEXT']
-                            , numeroProposta			: [label:l("label.ricerca.numeroProposta"),		    index:  i++, columnType: 'NUMBER']
-                            , annoProposta				: [label:l("label.ricerca.annoProposta"),		    index:  i++, columnType: 'NUMBER']
-                            , uoProponenteDescrizione	: [label:'Unita Proponente', 					    index:  i++, columnType: 'TEXT']
-							, titoloStep				: [label:'Stato', 								    index:  i++, columnType: 'TEXT']
-   						    , dataScadenza				: [label:Impostazioni.RICHIESTA_ESECUTIVITA_LABEL.valore, index: Impostazioni.RICHIESTA_ESECUTIVITA_COLONNA.abilitato?i++:-1, columnType: 'DATE', formato:'dd/MM/yyyy']
-                            , statoConservazione        : [label: 'Stato Conservazione',                    index: -1,   columnType: 'TEXT']
-                            , dataConservazione         : [label: 'Data Conservazione',                     index: -1,   columnType: 'DATE']
-                            , cup                       : [label: 'CUP',                                    index: -1,   columnType: 'TEXT']
-                            , titoloTipoBudget          : [label: 'Tipo Budget',                            index: i++,  columnType: 'TEXT']
-                            , contoEconomico            : [label: 'Conto Economico',                        index: i++,  columnType: 'TEXT']
-                            , codiceProgetto            : [label: 'Codice Progetto',                        index: i++,  columnType: 'TEXT']
-                            , importo                   : [label: 'Importo',                                index: i++,  columnType: 'NUMBER']
+	def exportOptions =   [   idDocumento 				  : [label:'ID', 								              index: -1, columnType: 'NUMBER']
+							, idDocumentoPrincipale		  : [label:'ID Documento Principale', 			          index: -1, columnType: 'TEXT']
+							, tipoDocumento				  : [label:'Tipo Documento', 					              index: -1, columnType: 'TEXT']
+							, tipoDocumentoPrincipale 	  : [label:'Tipo documento Principale', 			          index: -1, columnType: 'TEXT']
+                            , logConservazione			  : [label:'Conservazione', 						          index: -1, columnType: 'TEXT']
+							, numeroAtto2				  : [label:l("feature.secondaNumerazione.numero"),    index:  Impostazioni.SECONDO_NUMERO_DETERMINA.abilitato?i++:-1, columnType: 'NUMBER']
+							, annoAtto2					  : [label:l("feature.secondaNumerazione.anno"),      index:  Impostazioni.SECONDO_NUMERO_DETERMINA.abilitato?i++:-1, columnType: 'NUMBER']
+                            , numeroAtto				  : [label:'Numero Atto', 						          index:  i++, columnType: 'NUMBER']
+                            , annoAtto					  : [label:'Anno Atto', 							          index:  i++, columnType: 'NUMBER']
+                            , dataAdozione 				  : [label:'Data Adozione', 						          index:  i++, columnType: 'DATE', formato:'dd/MM/yyyy']
+						    , dataEsecutivita			  : [label:l("label.ricerca.dataEsecutivita"),	      index:  i++, columnType: 'DATE', formato:'dd/MM/yyyy']
+                            , titoloTipologia			  : [label:'Tipologia', 							          index:  i++, columnType: 'TEXT']
+                            , oggetto					  : [label:'Oggetto', 							          index:  i++, columnType: 'TEXT']
+                            , numeroProposta			  : [label:l("label.ricerca.numeroProposta"),	      index:  i++, columnType: 'NUMBER']
+                            , annoProposta				  : [label:l("label.ricerca.annoProposta"),		      index:  i++, columnType: 'NUMBER']
+                            , uoProponenteDescrizione	  : [label:'Unita Proponente', 					          index:  i++, columnType: 'TEXT']
+                            , elencoFirmatari             : [label:'Firmatari', 					                  index:  Impostazioni.EXCEL_ELENCO_FIRMATARI.abilitato?i++:-1, columnType: 'TEXT']
+							, titoloStep				  : [label:'Stato', 								          index:  -1, columnType: 'TEXT']
+                            , stato 					  : [label:'Stato', 								          index:  -1, columnType: 'TEXT']
+                            , descrizioneStato			  : [label:'Stato', 								          index:  i++, columnType: 'TEXT']
+   						    , dataScadenza				  : [label:Impostazioni.RICHIESTA_ESECUTIVITA_LABEL.valore, index: Impostazioni.RICHIESTA_ESECUTIVITA_COLONNA.abilitato?i++:-1, columnType: 'DATE', formato:'dd/MM/yyyy']
+                            , statoConservazione          : [label: 'Stato Conservazione',                          index: -1,   columnType: 'TEXT']
+                            , dataConservazione           : [label: 'Data Conservazione',                           index: -1,   columnType: 'DATE']
+                            , cup                         : [label: 'CUP',                                          index: -1,   columnType: 'TEXT']
+                            , cig                         : [label: 'CIG',                                          index: -1,   columnType: 'TEXT']
+                            , titoloImpattoGenerazionale  : [label: l("label.impattoGenerazionale"),           index: Impostazioni.IMPATTO_GENERAZIONALE.abilitato?i++:-1,  columnType: 'TEXT']
+                            , note                        : [label: 'NOTE',                                          index: -1,   columnType: 'TEXT']
+                            , titoloTipoBudget            : [label: 'Tipo Budget',                                  index: (Impostazioni.CONTABILITA.valore == "integrazioneContabilitaCe4")?i++:-1,  columnType: 'TEXT']
+                            , contoEconomico          : [label: 'Conto Economico',                              index: (Impostazioni.CONTABILITA.valore == "integrazioneContabilitaCe4")?i++:-1,  columnType: 'TEXT']
+                            , codiceProgetto            : [label: 'Codice Progetto',                              index: (Impostazioni.CONTABILITA.valore == "integrazioneContabilitaCe4")?i++:-1,  columnType: 'TEXT']
+                            , importo                      : [label: 'Importo',                                      index: (Impostazioni.CONTABILITA.valore == "integrazioneContabilitaCe4")?i++:-1,  columnType: 'NUMBER']
+                            , importoLiquidazione      : [label: 'Importo Liquidazione',                         index: (("integrazioneContabilitaCfa".equals(Impostazioni.CONTABILITA.valore)) && (Impostazioni.CONTABILITA_CFA_EXCEL_IMPORTO.abilitato))?i++:-1,  columnType: 'NUMBER']
+                            , dataControlloGestione   : [label: 'Data per controllo di gestione',               index: (TipoDatoAggiuntivo.isAbilitato(TipoDatoAggiuntivo.DATA_CONTROLLO_GESTIONE))?i++:-1, columnType: 'DATE', formato:'dd/MM/yyyy']
+                            , numeroPassaggi           : [label: 'Numero passaggi',               index:  Impostazioni.EXCEL_NUMERO_PASSAGGI.abilitato?i++:-1, columnType: 'NUMBER']
+                            , ultimoAttoreFlusso        : [label: 'Ultimo attore flusso',           index:  Impostazioni.EXCEL_ULTIMO_ATTORE_FLUSSO.abilitato?i++:-1, columnType: 'TEXT']
 			]
 
 
@@ -260,17 +301,24 @@ class MascheraRicercaDocumento {
      * Variabili di stato e configurazione
      */
     boolean categoriaAbilitata
+    boolean impattoGenerazionaleAbilitato
     boolean corteContiAbilitata
+    boolean mostraImportoTotale
     boolean ricercaConservazione = false // indica se si è nella sezione della conservazione
     boolean cercaNelTesto        = false // indica se si deve ricercare il testo dell'oggetto anche nel blob dell'allegato
     boolean abilitaRichiestaEsecutivita
+    boolean abilitaRicercaNelTesto
     boolean abilitaIncaricato
+    boolean abilitaRicercaServizio
+    boolean abilitaBudget
     boolean ricercaMarcatura = false
     boolean daMarcare = false
     boolean attoConcluso = true
     String cup
+    String cig
     String contoEconomico
     String codiceProgetto
+    String note
 
     // elenco dei documenti trovati
     def listaDocumenti
@@ -283,7 +331,11 @@ class MascheraRicercaDocumento {
     MascheraRicercaDocumento () {
         corteContiAbilitata = Impostazioni.GESTIONE_CORTE_CONTI.abilitato
         abilitaRichiestaEsecutivita = Impostazioni.RICHIESTA_ESECUTIVITA.abilitato
+        abilitaRicercaNelTesto = Impostazioni.RICERCA_NEL_TESTO.abilitato
         abilitaIncaricato = Impostazioni.INCARICATO.abilitato
+        abilitaRicercaServizio = Impostazioni.RICERCA_PER_SERVIZIO.abilitato
+        mostraImportoTotale = Impostazioni.GESTIONE_IMPORTO_TOTALE.abilitato
+        abilitaBudget = Impostazioni.GESTIONE_BUDGET.abilitato
     }
 
     private def getProp (String prop) {
@@ -297,6 +349,8 @@ class MascheraRicercaDocumento {
             categoriaAbilitata = Impostazioni.CATEGORIA_PROPOSTA_DELIBERA.abilitato
         }
 
+        impattoGenerazionaleAbilitato=Impostazioni.IMPATTO_GENERAZIONALE.abilitato
+
         caricaListaRegistri()
         caricaListaTipologia()
         caricaListaCommissioni()
@@ -304,8 +358,10 @@ class MascheraRicercaDocumento {
         caricaListaOggettiRicorrenti()
         caricaListaBudget()
         listaTipiAllegato()
+        caricaImpattiGenerazionali()
         caricaListaStatiDocumento()
         caricaListaRelatori()
+        caricaListaServizi()
     }
 
     void caricaListaRegistri () {
@@ -348,11 +404,13 @@ class MascheraRicercaDocumento {
 			categoria 		        	!= null	||
 			relatore 		        	!= null	||
 			unitaProponente         	!= null	||
+            servizio                    != null ||
 			redattore  					!= null ||
 			firmatario 			    	!= null || 
 			presidente 			    	!= null || 
 			segretario 			    	!= null ||
             incaricato                  != null ||
+            funzionario                 != null ||
 			numeroAttoDal           	!= null || 
 			numeroAttoAl            	!= null || 
 			annoAtto                	!= null || 
@@ -390,14 +448,20 @@ class MascheraRicercaDocumento {
 			commissione             	!= null || 
 			tipoAllegato            	!= null || 
 			tipoAllegatoVistoParere 	!= null ||
+            impattoGenerazionale        != null ||
             oggettoRicorrente           != null ||
             tipoBudget                  != null ||
             contoEconomico              != null ||
             codiceProgetto              != null ||
+            note                        != null ||
             esito                       != TUTTI ||
             tipoCertificato             != TUTTI ||
             (ricercaConservazione && !attoConcluso) ||
-            cup                         != null)
+            cup                         != null ||
+            cig                         != null ||
+            importoTotaleDal            != null ||
+            importoTotaleAl             != null
+        )
 	}
 
 	String getTooltip () {
@@ -406,10 +470,12 @@ class MascheraRicercaDocumento {
 		if (categoria 					!= null) tooltip.add("Categoria: ${categoria.codice}");
 		if (relatore 					!= null) tooltip.add("Relatore: ${relatore.denominazione}");
 		if (unitaProponente     		!= null) tooltip.add("Unità Proponente: ${unitaProponente.descrizione}");
+        if (servizio       		        != null) tooltip.add("Servizio: ${servizio.descrizione}");
 		if (redattore 		        	!= null) tooltip.add("Redattore: ${redattore.nominativoSoggetto}");
 		if (firmatario		        	!= null) tooltip.add("Firmatario: ${firmatario.nominativoSoggetto}");
 		if (presidente		        	!= null) tooltip.add("Presidente: ${presidente.nominativoSoggetto}");
 		if (segretario		        	!= null) tooltip.add("Segretario: ${segretario.nominativoSoggetto}");
+        if (funzionario		        	!= null) tooltip.add("Funzionario: ${funzionario.nominativoSoggetto}");
 		if (numeroAttoDal           	!= null) tooltip.add("Numero Atto Dal: ${numeroAttoDal}");
 		if (numeroAttoAl            	!= null) tooltip.add("Numero Atto Al: ${numeroAttoAl}");
 		if (annoAtto                	!= null) tooltip.add("Anno Atto: ${annoAtto}");
@@ -441,13 +507,15 @@ class MascheraRicercaDocumento {
 		if (annoAlbo                	!= null) tooltip.add("Anno Albo: ${annoAlbo}");
 		if (dataPubblicazioneDal    	!= null) tooltip.add("Data Pubblicazione Dal: ${format(dataPubblicazioneDal)}");
 		if (dataPubblicazioneAl     	!= null) tooltip.add("Data Pubblicazione Al: ${format(dataPubblicazioneAl)}");
-		if (statoInvioCorteConti    	!= null) tooltip.add("Stato invio Corte dei conti: ${statoInvioCorteConti}");
-		if (dataInvioCorteContiDal  	!= null) tooltip.add("Data Invio Corte dei Conti Dal: ${format(dataInvioCorteContiDal)}");
-		if (dataInvioCorteContiAl   	!= null) tooltip.add("Data Invio Corte dei Conti Al: ${format(dataInvioCorteContiAl)}");
+		if (statoInvioCorteConti    	!= null) tooltip.add(l("label.ricerca.tooltip.corteConti.statoInvio", statoInvioCorteConti));
+		if (dataInvioCorteContiDal  	!= null) tooltip.add(l("label.ricerca.tooltip.corteConti.dataInvioDal", dataInvioCorteContiDal));
+		if (dataInvioCorteContiAl   	!= null) tooltip.add(l("label.ricerca.tooltip.corteConti.dataInvioAl", dataInvioCorteContiAl));
 		if (commissione             	!= null) tooltip.add("Organo Deliberante: ${commissione.titolo}");
 		if (tipoAllegato            	!= null) tooltip.add("Tipo Allegato: ${tipoAllegato.titolo}");
 		if (tipoAllegatoVistoParere 	!= null) tooltip.add("Tipo Allegato Visto/Parere: ${tipoAllegatoVistoParere.titolo}");
+        if(impattoGenerazionale         != null) tooltip.add(l("label.impattoGenerazionale")+"${impattoGenerazionale.titolo}");
         if (cup            	            != null) tooltip.add("CUP: ${cup}");
+        if (cig            	            != null) tooltip.add("CIG: ${cig}");
 		if (esito						!= "TUTTI") tooltip.add("Esito: ${listaEsiti[esito]}");
 		if (tipoCertificato				!= "TUTTI") tooltip.add("Tipo Certificato: ${listaTipiCertificato[tipoCertificato]}");
         if (daMarcare	               ) tooltip.add("Da Marcare temporalente");
@@ -465,11 +533,16 @@ class MascheraRicercaDocumento {
         if (codiceProgetto != null && !codiceProgetto.isEmpty()) {
             tooltip.add("Codice Progetto: ${codiceProgetto}")
         }
+        if (note != null && !note.isEmpty()) {
+            tooltip.add("Note: ${note}")
+        }
         if (incaricato != null) {
             tooltip.add("Incaricato: ${incaricato.nominativoSoggetto}")
         }
         if (dataConservazioneDal != null) tooltip.add("Data conservazione Dal: ${format(dataConservazioneDal)}");
         if (dataConservazioneAl != null)  tooltip.add("Data conservazione Al: ${format(dataConservazioneAl)}");
+        if (importoTotaleDal != null) tooltip.add("Importo Totale Dal: ${importoTotaleDal}");
+        if (importoTotaleAl != null)  tooltip.add("Importo Totale Al: ${importoTotaleAl}");
 
         StringBuffer text = new StringBuffer()
 		for (String t : tooltip) {
@@ -488,36 +561,71 @@ class MascheraRicercaDocumento {
         listaTipologie.add(0, DomainTipologia.newInstance(id: -1, titolo: '-- Non Valorizzato --').toDTO())
 	}
 
+    private void caricaImpattiGenerazionali(){
+        listaImpattiGenerazionali = ImpattoGenerazionale.list([sort: 'titolo', order: 'asc']).toDTO()
+        listaImpattiGenerazionali.add(0, new ImpattoGenerazionaleDTO(id: -1, titolo: NESSUN_VALORE))
+    }
+
     private void listaTipiAllegato () {
         listaTipiAllegato = TipoAllegato.list([sort: 'titolo', order: 'asc']).toDTO()
         listaTipiAllegato.add(0, new TipoAllegatoDTO(id: -1, titolo: NESSUN_VALORE))
     }
 
     private void caricaListaStatiDocumento () {
-        Class DomainRicercaDocumento = getProp("domainRicerca")
-
-        listaStatiDocumento = [NESSUN_VALORE] + DomainRicercaDocumento.createCriteria().list {
+        listaStatiDocumento = [NESSUN_VALORE] + StatoIter.createCriteria().list {
             projections {
-                groupProperty("stato")
+                property ("stato")
             }
-            isNotNull("stato")
+            eq('tipoDocumento', tipoDocumento)
             order("stato", "asc")
         }
     }
 
     private void caricaListaRelatori () {
-        listaRelatori = Delega.createCriteria().list {
-            eq('valido', true)
-            projections {
-                distinct("assessore")
+        listaRelatori = []
+        listaRelatori.add(0, new As4SoggettoCorrenteDTO(id: -1, denominazione: "-- Non Valorizzato --"))
+        List<Long> idSoggetti = []
+        idSoggetti.add(-1)
+        //leggo le deleghe valide e le ordino per il campo sequenza
+        List<Delega> listaDeleghe = Delega.findAllByValido(true, [sort: "sequenza", order: "asc"])
+        for (delega in listaDeleghe) {
+            //se ho già letto inserito nell'elenco l'ni di un assessore, evito di riaggiungerlo
+            if (!(idSoggetti.contains(delega.assessore.id))) {
+                listaRelatori.add(new As4SoggettoCorrenteDTO(id: delega.assessore.id, denominazione: delega.assessore.denominazione))
+                idSoggetti.add(delega.assessore.id)
             }
-            fetchMode ("assessore", FetchMode.JOIN)
-        }.toDTO()
-
-        if (listaRelatori != null) {
-            listaRelatori.add(0, new As4SoggettoCorrenteDTO(id: -1, denominazione: "-- Non Valorizzato --"))
         }
+    }
 
+    def caricaListaServizi() {
+        if (abilitaRicercaServizio && tipoDocumento in (['DETERMINA','DELIBERA'])) {
+            // ottengo la domain class che mappa la vista di ricerca
+            Class DomainRicercaDocumento = getProp("domainRicerca")
+
+            PagedResultList resultList = DomainRicercaDocumento.createCriteria().list(
+                    max: pageSize,
+                    offset: pageSize * activePage
+            ) {
+                eq('tipoSoggetto', TipoSoggetto.UO_SERVIZIO)
+
+                projections {
+                    groupProperty('uoServizio')
+                    groupProperty('uoServizioDescrizione')
+                }
+
+                order('uoServizioDescrizione', 'asc')
+            }
+
+            listaServizi = resultList.collect { row -> row[0].toDTO() }
+
+            totalSize = DomainRicercaDocumento.createCriteria().list {
+                eq('tipoSoggetto', TipoSoggetto.UO_SERVIZIO)
+
+                projections {
+                    groupProperty("uoServizio")
+                }
+            }.size()
+        }
     }
 
     private void caricaListaCategorie () {
@@ -558,6 +666,9 @@ class MascheraRicercaDocumento {
     }
 
     void pagina (So4UserDetail userDetail, boolean tutti = false) {
+        //tutti indica se il risultato deve essere paginato o meno (in visualizzazione è paginato, nell'excel no)
+        //inoltre con tutti i dati vengono raggruppati per budget (integrazione contabilita CE4). Nell'excel bisogna mostrare un
+        //atto più volte (una volta per ogni budget), a video invece l'atto deve essere sempre uno
 
         // ottengo la domain class che mappa la vista di ricerca
         Class DomainRicercaDocumento = getProp("domainRicerca")
@@ -606,12 +717,27 @@ class MascheraRicercaDocumento {
                     groupProperty ("statoConservazione")        // 22
                     groupProperty ("logConservazione") 		    // 23
                     groupProperty ("cup")                       // 24
-                    if (tutti) {
-                        groupProperty("tipoBudget")                // 25
-                        groupProperty("contoEconomico")            // 26
-                        groupProperty("codiceProgetto")            // 27
-                        groupProperty("importo")                   // 28
+                    groupProperty ("cig")                       // 25
+                    groupProperty ("dataControlloGestione")     // 26
+                    groupProperty ("impattoGenerazionale")      // 27
+                    if (note) {
+                        groupProperty("note")                   // 28
                     }
+                    else {
+                        groupProperty ("idDocumento")           // 28
+                    }
+                    groupProperty ("numeroPassaggi")         // 29
+                    groupProperty ("ultimoAttoreFlusso")      // 30
+                    if (tutti) {
+                        groupProperty ("elencoFirmatari")           // 31
+                        groupProperty ("importoLiquidazione")     // 32
+                        groupProperty("tipoBudget")                 // 33
+                        groupProperty("contoEconomico")         // 34
+                        groupProperty("codiceProgetto")          // 35
+                        groupProperty("importo")                    // 36
+
+                    }
+
                 }
 
                 // se ho l'utente, controllo le competenze
@@ -626,6 +752,9 @@ class MascheraRicercaDocumento {
                 if (! tutti){
                     firstResult (pageSize * activePage)
                     maxResults  (pageSize)
+
+                    //max e' il numero di righe per pagina
+                    //pagina e' il numero di pagina e parte da 0
                 }
             }.collect { row -> [idDocumento               	: row[0],
                                 idDocumentoPrincipale	 	: row[1],
@@ -652,16 +781,26 @@ class MascheraRicercaDocumento {
                                 statoConservazione          : getDescrizioneStatoConservazione(row[22]),
                                 logConservazione 		 	: row[23],
                                 cup                         : row[24],
-                                tipoBudget                  : tutti ? row[25]: null,
-                                contoEconomico              : tutti ? row[26]: null,
-                                codiceProgetto              : tutti ? row[27]: null,
-                                importo                     : tutti ? row[28]: null,
-                                titoloTipoBudget            : tutti ? row[25]?.titolo: null
+                                cig                         : row[25],
+                                dataControlloGestione       : row[26],
+                                titoloImpattoGenerazionale  : getTitoloImpattoGenerazionale(row[27]),
+                                note                        : row[28],
+                                numeroPassaggi              : row[29],
+                                ultimoAttoreFlusso          : row[30],
+                                elencoFirmatari             : tutti ? row[31]: null,
+                                importoLiquidazione         : tutti ? row[32]: null,
+                                //tipoBudget                  : tutti ? row[29]: null,
+                                titoloTipoBudget            : tutti ? row[33]?.titolo: null,
+                                contoEconomico              : tutti ? row[34]: null,
+                                codiceProgetto              : tutti ? row[35]: null,
+                                importo                     : tutti ? row[36]: null,
+
+
+                                descrizioneStato            : getDescrizioneStatoAtto(row[10], row[5]?.toString(), row[14]?.toString())
             ]}
         } else {
             listaDocumenti = []
         }
-
     }
 
 	private def controllaFiltri (def delegate) {
@@ -911,6 +1050,11 @@ class MascheraRicercaDocumento {
                 eq("categoria.id", categoria.id)
             }
 
+            if (impattoGenerazionaleAbilitato && impattoGenerazionale?.id > 0) {
+                eq("impattoGenerazionale.id",impattoGenerazionale.id)
+            }
+
+
             // campo aggiunto per la ricerca dell'oggetto ricorrente: http://svi-redmine/issues/22462
             if (oggettoRicorrente != null) {
                 if (oggettoRicorrente.id > 0) {
@@ -928,6 +1072,9 @@ class MascheraRicercaDocumento {
             }
             if (codiceProgetto != null && !codiceProgetto.isEmpty()){
                 eq("codiceProgetto", codiceProgetto)
+            }
+            if (note != null && !note.isEmpty()){
+                ilike("note", "%${note}%")
             }
 
             // gestione della corte dei conti: http://svi-redmine/issues/12267
@@ -983,16 +1130,35 @@ class MascheraRicercaDocumento {
                 filtroAggiuntivo()
             }
 
+            if (inEvidenza>0) {
+                if(inEvidenza==1) {
+                    eq("inEvidenza", true)
+
+                    if (dataInEvidenzaDa != null) {
+                        ge("dataInEvidenzaDa", dataInEvidenzaDa)
+                    }
+
+                    if (dataInEvidenzaA != null) {
+                        le("dataInEvidenzaA", dataInEvidenzaA)
+                    }
+                }
+                if(inEvidenza==2) {
+                    eq("inEvidenza", false)
+                }
+            }
+
+            if (importoTotaleDal != null) {
+                ge("importoTotale", importoTotaleDal)
+            }
+
+            if (importoTotaleAl != null) {
+                le("importoTotale", importoTotaleAl)
+            }
+
             or {
                 if (relatore != null && relatore.id > -1) {
-                    or {
-                        oggettoSeduta {
-                            delega {
-                                eq("assessore.id", relatore.id)
-                            }
-                        }
-                        eq("relatore.id", relatore.id)
-                    }
+                    // il campo relatore della vista contiene gli id di tutte le deleghe (principale + aggiuntive) separati da '#'
+                    sqlRestriction "'#'||ni_relatore||'#' like '%#${relatore.id}#%'"
                 }
                 if (redattore != null) {
                     and {
@@ -1024,12 +1190,26 @@ class MascheraRicercaDocumento {
                         eq("tipoSoggetto", TipoSoggetto.INCARICATO)
                     }
                 }
+                if (funzionario != null) {
+                    and {
+                        eq("controlloFunzionario", true)
+                        eq("utenteSoggetto.id", funzionario.id)
+                        eq("tipoSoggetto", TipoSoggetto.FUNZIONARIO)
+                    }
+                }
                 if (unitaProponente != null) {
                     and {
                         eq("uoProponente.progr", unitaProponente.progr)
                         eq("uoProponente.ottica.codice", unitaProponente.ottica.codice)
                         //eq("uoProponente.dal", 			unitaProponente.dal) 		// #21542
                         eq("tipoSoggetto", TipoSoggetto.UO_PROPONENTE)
+                    }
+                }
+                if (servizio != null) {
+                    and {
+                        eq("uoServizio.progr", servizio.progr)
+                        eq("uoServizio.ottica.codice", servizio.ottica.codice)
+                        eq("tipoSoggetto", TipoSoggetto.UO_SERVIZIO)
                     }
                 }
 
@@ -1064,6 +1244,37 @@ class MascheraRicercaDocumento {
 
             if (cup != null){
                 ilike("cup", "%${cup}%")
+            }
+
+            if (cig != null){
+                ilike("cig", "%${cig}%")
+            }
+
+            // utilizzati dai ws di ricerca (http://svi-redmine/issues/63219)
+            //nelle viste sono valorizzati solo per DELIBERA, PROPOSTA_DELIBERA e DETERMINA
+            if (uoProponenteCodice != null) {
+                eq("uoProponenteCodice", uoProponenteCodice)
+            }
+
+            if (codiceEsternoTipologia != null) {
+                eq("codiceEsternoTipologia", codiceEsternoTipologia)
+            }
+
+            if (tipoPubblicazioneAlbo != null) {
+                eq("tipoPubblicazioneAlbo", tipoPubblicazioneAlbo)
+            }
+
+            //campi relativi a classifica e fascicolo usati solo dal ws di ricerca (http://svi-redmine/issues/63219)
+            if (classificaCodice != null) {
+                eq("classificaCodice", classificaCodice)
+            }
+
+            if (fascicoloAnno != null) {
+                eq("fascicoloAnno", fascicoloAnno)
+            }
+
+            if (fascicoloNumero != null) {
+                eq("fascicoloNumero", fascicoloNumero)
             }
         }
 
@@ -1115,27 +1326,39 @@ class MascheraRicercaDocumento {
         // ottengo la domain class che mappa la vista di ricerca
         Class DomainRicercaDocumento = getProp("domainRicerca");
 
-        // Sembra che non sia fattibile contare il n. di record con una group by su più colonne. Sono benvenute soluzioni migliori di questa.
-        def listaUnita = DomainRicercaDocumento.createCriteria().list {
+        PagedResultList resultList = DomainRicercaDocumento.createCriteria().list(
+                max: pageSize,
+                offset: pageSize * activePage
+        ) {
+            eq('tipoSoggetto', TipoSoggetto.UO_PROPONENTE)
+
             projections {
-                groupProperty("uoProponente")            // 0
-                uoProponente {
-                    groupProperty("descrizione")    // 1
-                }
+                groupProperty("uoProponente")
+                groupProperty("uoProponenteDescrizione")
             }
 
-            uoProponente {
-                if (filtro) {
-                    ilike("descrizione", "%${filtro}%")
-                }
-                order("descrizione", "asc")
+            if (filtro) {
+                ilike("uoProponenteDescrizione", "%${filtro}%")
+            }
+            order("uoProponenteDescrizione", "asc")
+
+        }
+
+        listaUnita = resultList.collect { row -> row[0].toDTO() }
+
+        totalSize = DomainRicercaDocumento.createCriteria().list {
+            eq('tipoSoggetto', TipoSoggetto.UO_PROPONENTE)
+
+            projections {
+                groupProperty("uoProponente")
             }
 
-        }.collect { row -> row[0].toDTO() }
+            if (filtro) {
+                ilike("uoProponenteDescrizione", "%${filtro}%")
+            }
+        }.size()
 
-        // siccome non riesco a fare la count per paginare con grails, faccio la paginazione manuale.
-        // confido che le unità proponenti non siano mai troppe.
-        return [totalCount: listaUnita.size(), lista: listaUnita.drop(pageSize * activePage).take(pageSize)]
+        return [totalCount: totalSize, lista: listaUnita]
     }
 
     /**
@@ -1193,6 +1416,52 @@ class MascheraRicercaDocumento {
         }
         if (it.finmatica.atti.documenti.StatoConservazione.CONSERVATO.toString() == stato) {
             return "Conservato";
+        }
+    }
+
+    private String getTitoloImpattoGenerazionale(ImpattoGenerazionale impattoGenerazionale){
+        return impattoGenerazionale?.titolo?:""
+
+    }
+
+    private String getDescrizioneStatoAtto(String stato, String numeroAtto, String dataEsecutivita){
+        if (stato == null || stato.isEmpty()) {
+            return "";
+        }
+
+        if ("ANNULLATO".equals(stato) && (numeroAtto == null || numeroAtto.isEmpty())) {
+            return l("label.ricerca.propostaAnnullata")
+        }
+
+        if ("NON_ESECUTIVO".equals(stato) && (!(numeroAtto == null || numeroAtto.isEmpty())) && (dataEsecutivita == null || dataEsecutivita.isEmpty())) {
+            //l'atto è stato numerato ma non è mai diventato esecutivo (visto contabile contrario)
+            return l("label.ricerca.attoNonEsecutivo")
+        }
+
+        if ("ANNULLATO".equals(stato) && (!(numeroAtto == null || numeroAtto.isEmpty())) && (dataEsecutivita == null || dataEsecutivita.isEmpty())) {
+            //l'atto è stato numerato ma non è mai diventato esecutivo (visto contabile contrario) ed è annullato da un altro atto (già esecutivo)
+            return l("label.ricerca.attoAnnullato")
+        }
+
+        if (("ANNULLATO".equals(stato) || "NON_ESECUTIVO".equals(stato)) && (!(dataEsecutivita == null || dataEsecutivita.isEmpty()))) {
+            return l("label.ricerca.attoAnnullato")
+        }
+
+        return stato
+    }
+
+    void setCategoriaDaCodice(String tipoDocumento, String codiceCategoria) {
+        if (tipoDocumento == Determina.TIPO_OGGETTO) {
+            categoriaAbilitata = Impostazioni.CATEGORIA_DETERMINA.abilitato
+        } else if (tipoDocumento == Delibera.TIPO_OGGETTO || tipoDocumento == PropostaDelibera.TIPO_OGGETTO) {
+            categoriaAbilitata = Impostazioni.CATEGORIA_PROPOSTA_DELIBERA.abilitato
+        }
+
+        if (categoriaAbilitata) {
+            categoria = Categoria.createCriteria().get {
+                eq("codice", codiceCategoria)
+                eq("tipoOggetto", tipoDocumento)
+            }.toDTO()
         }
     }
 }

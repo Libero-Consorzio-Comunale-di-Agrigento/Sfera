@@ -1,6 +1,7 @@
 package it.finmatica.atti.documenti.tipologie
 
 import it.finmatica.ad4.autenticazione.Ad4Utente
+import it.finmatica.atti.dizionari.TipoAllegato
 import it.finmatica.atti.documenti.ITipologia;
 import it.finmatica.atti.impostazioni.CaratteristicaTipologia
 import it.finmatica.gestionetesti.reporter.GestioneTestiModello;
@@ -31,10 +32,13 @@ class TipoVistoParere implements ITipologia {
 	boolean stampaUnica 			= false // deve andare in stampa unica
 	boolean pubblicazione			= false // deve andare in pubblicazione all'albo?
 	boolean testoObbligatorio		= false // il testo è obbligatorio?
+	boolean testoModificabileNoIter	= true  // indica se si può modificare il testo anche se l'iter non è stato ancora attivato
 	boolean pubblicaAllegati		= false
 	boolean pubblicaAllegatiDefault = false
+	boolean multiOccorrenze         = true //indica se un visto può essere istanziato più volte per lo stesso atto
 
     boolean queryMovimenti          = true  // effettuare le query dei movimenti contabili nei modelli
+	boolean ricalcoloFirmatario     = false
 
 	// contiene i progressivi delle unità concatenati con # che potranno gestire i visti di questa tipologia.
 	String unitaDestinatarie
@@ -43,6 +47,10 @@ class TipoVistoParere implements ITipologia {
 	Date validoDal  // da valorizzare alla creazione del record
 	Date validoAl   // deve essere valorizzato con la data di sistema quando valido = false
 					// quando valido = true deve essere null
+
+	String tipoFirma //se valorizzato indica il tipo di firma da usare per i documenti (PADES o CADES)
+
+	TipoAllegato tipoAllegato
 
 	So4Amministrazione ente
 	Date 		dateCreated
@@ -56,6 +64,7 @@ class TipoVistoParere implements ITipologia {
 		descrizione 	length: 4000
 		caratteristicaTipologia	column: 'id_caratteristica_tipologia'
 		modelloTesto			column: 'id_modello_testo'
+		tipoAllegato            column: 'id_tipo_allegato'
 
 		valido 					type: 'yes_no'
 		contabile               type: 'yes_no'
@@ -65,9 +74,12 @@ class TipoVistoParere implements ITipologia {
 		stampaUnica             type: 'yes_no'
 		pubblicazione           type: 'yes_no'
 		testoObbligatorio		type: 'yes_no'
+		testoModificabileNoIter type: 'yes_no'
 		pubblicaAllegati		type: 'yes_no'
 		pubblicaAllegatiDefault type: 'yes_no'
         queryMovimenti          type: 'yes_no'
+		multiOccorrenze			type: 'yes_no'
+		ricalcoloFirmatario     column: 'ricalcolo_firmatario', type: 'yes_no'
 
 		ente 			column: 'ente'
 		dateCreated 	column: 'data_ins'
@@ -77,13 +89,15 @@ class TipoVistoParere implements ITipologia {
 	}
 
 	static constraints = {
-		progressivoCfgIter	nullable: true
-		unitaDestinatarie	nullable: true
-		descrizione			nullable: true
-		validoAl			nullable: true
-		modelloTesto		nullable: true
-		progressivoCfgIterDelibera	nullable:true
-        descrizioneNotifica nullable: true
+		progressivoCfgIter			nullable: true
+		unitaDestinatarie			nullable: true
+		descrizione					nullable: true
+		validoAl					nullable: true
+		modelloTesto				nullable: true
+		progressivoCfgIterDelibera	nullable: true
+        descrizioneNotifica 		nullable: true
+		tipoFirma					nullable: true
+		tipoAllegato                nullable: true
 	}
 
 	public void addUnitaDestinataria (long progressivo) {

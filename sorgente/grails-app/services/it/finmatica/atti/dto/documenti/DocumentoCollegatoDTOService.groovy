@@ -28,6 +28,7 @@ class DocumentoCollegatoDTOService {
 
         documentoCollegato.determinaCollegata = documentoCollegatoDto.determinaCollegata?.domainObject
         documentoCollegato.deliberaCollegata = documentoCollegatoDto.deliberaCollegata?.domainObject
+        documentoCollegato.propostaDeliberaCollegata = documentoCollegatoDto.propostaDeliberaCollegata?.domainObject
         documentoCollegato.riferimentoEsternoCollegato = getRiferimentoEsterno(documentoCollegatoDto.riferimentoEsternoCollegato)
         documentoCollegato.operazione = documentoCollegatoDto.operazione
 
@@ -83,15 +84,30 @@ class DocumentoCollegatoDTOService {
    }
 
     List<DocumentoCollegatoDTO> getListaDocumentiCollegati (IDocumento documento) {
-        List<DocumentoCollegatoDTO> documentiCollegati = getDocumentiCollegatiDiretti(documento).toDTO(
-                ["determinaCollegata", "deliberaCollegata", "riferimentoEsternoCollegato"])
+        def directDomain = getDocumentiCollegatiDiretti(documento)
+        List<DocumentoCollegatoDTO> documentiCollegati = directDomain.toDTO(
+                ["determinaCollegata", "deliberaCollegata", "propostaDeliberaCollegata", "riferimentoEsternoCollegato"])
         documentiCollegati*.collegamentoInverso = false
+        documentiCollegati.eachWithIndex { dto, i ->
+            def dc = directDomain[i]
+            dto.tipologiaTitolo = dc.determinaCollegata?.tipologia?.titolo ?:
+                                  dc.deliberaCollegata?.propostaDelibera?.tipologia?.titolo ?:
+                                  dc.propostaDeliberaCollegata?.tipologia?.titolo
+        }
 
-        List<DocumentoCollegatoDTO> documentiCollegatiInversi = getDocumentiCollegatiInversi(documento).toDTO(
+        def inverseDomain = getDocumentiCollegatiInversi(documento)
+        List<DocumentoCollegatoDTO> documentiCollegatiInversi = inverseDomain.toDTO(
                 ["determinaPrincipale", "propostaDeliberaPrincipale", "deliberaPrincipale", "riferimentoEsternoCollegato"])
         documentiCollegatiInversi*.collegamentoInverso = true
+        documentiCollegatiInversi.eachWithIndex { dto, i ->
+            def dc = inverseDomain[i]
+            dto.tipologiaTitolo = dc.determinaPrincipale?.tipologia?.titolo ?:
+                                  dc.deliberaPrincipale?.propostaDelibera?.tipologia?.titolo ?:
+                                  dc.propostaDeliberaPrincipale?.tipologia?.titolo
+        }
 
         documentiCollegati.addAll(documentiCollegatiInversi)
+        documentiCollegati.sort { it.id }
         return documentiCollegati
     }
 
@@ -113,7 +129,7 @@ class DocumentoCollegatoDTOService {
 
     // per la proposta di delibera non ho documenti "inversi"
     List<DocumentoCollegatoDTO> getDocumentiCollegatiInversi (PropostaDelibera propostaDelibera) {
-        return new ArrayList<DocumentoCollegatoDTO>()
+        return DocumentoCollegato.findAllByPropostaDeliberaCollegata(propostaDelibera)
     }
 
     List<DocumentoCollegatoDTO> getDocumentiCollegatiInversi (Delibera delibera) {

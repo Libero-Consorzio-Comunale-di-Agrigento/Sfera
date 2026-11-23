@@ -129,4 +129,26 @@ class PropostaDeliberaAction {
 		return d
 	}
 
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [PropostaDelibera.TIPO_OGGETTO],
+			nome		= "Crea una copia della proposta di delibera compreso il testo",
+			descrizione	= "Crea una copia della proposta di delibera compreso il testo. Non vengono copiati gli allegati")
+	public PropostaDelibera duplicaTesto (PropostaDelibera d) {
+		propostaDeliberaService.duplica(d, true, false, true)
+		return d
+	}
+
+	@Action(tipo		= TipoAzione.PULSANTE,
+			tipiOggetto	= [PropostaDelibera.TIPO_OGGETTO],
+			nome		= "Crea una copia della proposta di delibera compreso il testo e la visualizza",
+			descrizione	= "Crea una copia della proposta di delibera compreso il testo (non gli allegati) e la visualizza")
+	public PropostaDelibera duplicaTestoEApri (PropostaDelibera d, PropostaDeliberaViewModel v) {
+		v.self.detach()
+		PropostaDelibera copia = propostaDeliberaService.duplica(d, true, false, true)
+
+		Window w = Executions.createComponents("/atti/documenti/propostaDelibera.zul", null, [id: copia.id])
+		w.doModal()
+		return d
+	}
+
 }

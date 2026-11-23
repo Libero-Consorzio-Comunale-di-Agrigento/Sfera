@@ -42,8 +42,11 @@ class TipoDelibera implements ITipologiaPubblicazione {
 	// Se non impostato, verrà usato il valore di default scritto nell'impostazione ALBO_COSTANTI_DELIBERA
 	String tipoPubblicazioneAlbo
 
+	boolean impattoGenerazionale = false
+
 	boolean copiaTestoProposta			= false // indica se il testo della delibera sarà la copia del testo firmato della proposta
     boolean allegatoTestoProposta       = false // indica se il testo della proposta sarà il primo allegato della delibera
+	boolean rigeneraFileProposta		= false // indica se gli allegati della delibera mantengono i file originali (non firmati) della proposta
 	boolean delega  					= false // indica se la tipologia prevede o meno delega
 	boolean delegaObbligatoria 			= false	// indica se la delega è obbligatoria
 	boolean vistiPareri					= false	// prevede l'aggiunta run-time di visti
@@ -53,8 +56,15 @@ class TipoDelibera implements ITipologiaPubblicazione {
 	boolean categoriaObbligatoria		= false
 	boolean eseguibilitaImmediata		= false
 	boolean diventaEsecutiva
+	boolean gestioneGruppiPolitici		= false
 	boolean testoObbligatorio			= true  // indica se il testo deve essere presente tra uno step e l'altro.
 	boolean adottabile					= true  // indica se la proposta di delibera può essere numerata o no.
+	boolean visImportoTotale			= false
+	boolean importoTotaleObbligatorio	= false
+
+	//riservatezza: flag per stabilire se gli atti hanno il flag riservato modificabile
+	boolean gestioneRiservato				= true
+	boolean gestioneRiservatoAllegati		= true
 
 	// dati di pubblicazione
 	boolean pubblicazione					= false
@@ -70,10 +80,13 @@ class TipoDelibera implements ITipologiaPubblicazione {
 	boolean pubblicaVisualizzatore			= false
     boolean pubblicaAllegatiVisualizzatore	= true
 
+	boolean impegnoObbligatorio         = false
+
 	boolean movimentiContabili			= true 	// con movimenti contabili
 	boolean scritturaMovimentiContabili	= false // i movimenti contabili sono inseribili / modificabili
 	boolean esecutivitaMovimenti 		= true	// i movimenti contabili diventano esecutivi all'esecutività del documento
     boolean queryMovimenti              = true  // effettuare le query dei movimenti contabili nei modelli
+	boolean contabilitaCheckRiservato	= false // se l'atto è riservato, solo chi accede al testo può accedere alla sezione contabilità
 
 	// certificati
 	TipoCertificato tipoCertPubb
@@ -97,6 +110,13 @@ class TipoDelibera implements ITipologiaPubblicazione {
 	boolean 	incaricatoObbligatorio = false
 	Long 		sequenza
     String      ruoloRiservato
+	String tipoFirma //se valorizzato indica il tipo di firma da usare per i documenti (PADES o CADES)
+
+	//PiTre
+	String fascicoloNumero
+	Long fascicoloAnno
+	String fascicoloOggetto
+	String idFascicoloEsterno
 
 	static mapping = {
 		table 				'tipi_delibera'
@@ -120,6 +140,7 @@ class TipoDelibera implements ITipologiaPubblicazione {
 		caratteristicaTipologiaDelibera			column: 'id_caratteristica_delibera'
 		funzionarioObbligatorio 				column: 'funz_obbligatorio', type: 'yes_no'
         pubblicaAllegatiVisualizzatore          column: 'pubblica_allegati_vis', type: 'yes_no'
+		impattoGenerazionale					column: 'impatto_generazionale', type: 'yes_no'
 
 		tipoCertPubb                column: 'id_tipo_cert_pubb'
 		tipoCertPubb2               column: 'id_tipo_cert_pubb2'
@@ -134,6 +155,7 @@ class TipoDelibera implements ITipologiaPubblicazione {
 		commissione					column: 'id_commissione'
 		copiaTestoProposta			type: 'yes_no'
         allegatoTestoProposta       type: 'yes_no'
+		rigeneraFileProposta		column: 'rigenera_file_proposta', type: 'yes_no'
 		delega						type: 'yes_no'
 		delegaObbligatoria			type: 'yes_no'
 
@@ -143,6 +165,10 @@ class TipoDelibera implements ITipologiaPubblicazione {
 		categoriaObbligatoria		type: 'yes_no'
 		eseguibilitaImmediata       type: 'yes_no'
 		testoObbligatorio			type: 'yes_no'
+		gestioneGruppiPolitici		type: 'yes_no'
+		visImportoTotale			column: 'vis_importo_totale', type: 'yes_no'
+		importoTotaleObbligatorio	type: 'yes_no'
+
 
 		pubblicazione					type: 'yes_no'
 		secondaPubblicazione			type: 'yes_no'
@@ -154,10 +180,17 @@ class TipoDelibera implements ITipologiaPubblicazione {
 		giorniPubblicazioneModificabile type: 'yes_no'
 		pubblicazioneFutura				type: 'yes_no'
 
+		gestioneRiservato				type: 'yes_no'
+		gestioneRiservatoAllegati		type: 'yes_no'
+
+		impegnoObbligatorio         column: 'impegno_obbligatorio', type: 'yes_no'
+
 		movimentiContabili			type: 'yes_no'
 		scritturaMovimentiContabili	type: 'yes_no'
         esecutivitaMovimenti    	type: 'yes_no'
         queryMovimenti              type: 'yes_no'
+		contabilitaCheckRiservato	type: 'yes_no'
+
 		diventaEsecutiva			type: 'yes_no'
 		incaricatoObbligatorio		type: 'yes_no'
 		pubblicaAllegatiDefault		type: 'yes_no'
@@ -169,6 +202,11 @@ class TipoDelibera implements ITipologiaPubblicazione {
 		utenteIns 	column: 'utente_ins'
 		lastUpdated column: 'data_upd'
 		utenteUpd 	column: 'utente_upd'
+
+		fascicoloNumero		column: 'fascicolo_numero'
+		fascicoloAnno		column: 'fascicolo_anno'
+		fascicoloOggetto	column: 'fascicolo_oggetto'
+		idFascicoloEsterno	column: 'id_fascicolo_esterno'
 
 		modelliTesto joinTable: [name: 'TIPI_DELIBERA_MODELLI_TESTO', column: 'ID_MODELLO', key: 'ID_TIPO_DELIBERA']
 	}
@@ -188,19 +226,24 @@ class TipoDelibera implements ITipologiaPubblicazione {
 		modelloTestoDelibera				nullable: true
 		modelloTesto						nullable: true
 		giorniPubblicazione					nullable: true
-		tipoCertPubb    			nullable: true
-		tipoCertAvvPubb     		nullable: true
-		tipoCertPubb2    			nullable: true
-		tipoCertAvvPubb2     		nullable: true
-		tipoCertEsec        		nullable: true
-		tipoCertImmEseg        		nullable: true
-		codiceEsterno				nullable: true
-		tipoPubblicazioneAlbo		nullable: true
-		incaricatoObbligatorio		nullable: true
-		sequenza					nullable: true
-        ruoloRiservato              nullable: true
-        descrizioneNotifica         nullable: true
-        descrizioneNotificaDelibera nullable: true
+		tipoCertPubb    					nullable: true
+		tipoCertAvvPubb     				nullable: true
+		tipoCertPubb2    					nullable: true
+		tipoCertAvvPubb2     				nullable: true
+		tipoCertEsec        				nullable: true
+		tipoCertImmEseg        				nullable: true
+		codiceEsterno						nullable: true
+		tipoPubblicazioneAlbo				nullable: true
+		incaricatoObbligatorio				nullable: true
+		sequenza							nullable: true
+        ruoloRiservato              		nullable: true
+        descrizioneNotifica         		nullable: true
+        descrizioneNotificaDelibera 		nullable: true
+		tipoFirma							nullable: true
+		fascicoloAnno                       nullable: true
+		fascicoloNumero                     nullable: true
+		fascicoloOggetto                    nullable: true
+		idFascicoloEsterno					nullable: true
     }
 
 	public transient WkfCfgIter getCfgIter () {

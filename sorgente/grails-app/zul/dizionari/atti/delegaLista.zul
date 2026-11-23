@@ -50,6 +50,7 @@
 			<listhead>
 				<listheader label="Cognome Nome" />
 				<listheader label="Assessorato" />
+				<listheader width="80px" label="Sequenza" style="text-align: center"/>
 				<listheader width="80px" label="Valido Dal" style="text-align: center"/>
 				<listheader width="80px" label="Valido Al" style="text-align: center"/>
 				<listheader width="30px" />
@@ -58,6 +59,7 @@
 				<listitem onDoubleClick="@command('onModifica', isNuovoRecord=false)">
 					<listcell label="@load(delega.assessore.denominazione)" />
 					<listcell label="@load(delega.descrizioneAssessorato)" />
+					<listcell label="@load(delega.sequenza)" style="text-align: center" />
 					<listcell label="@load(c:formatDate(delega.validoDal, 'dd/MM/yyyy'))" style="text-align: center"/>
 					<listcell label="@load(not empty delega.validoAl ? c:formatDate(delega.validoAl, 'dd/MM/yyyy'): '')" style="text-align: center"/>
 					<listcell image="@load(delega.valido  ? '/images/agsde2/16x16/point_green.png' : '/images/agsde2/16x16/point_red.png')" />

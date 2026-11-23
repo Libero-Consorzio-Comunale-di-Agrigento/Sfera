@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <documentRoot>
-	<descrizione>Visto Contabile</descrizione>
+	<descrizione>Visto Contabile (Contabilità Sfera)</descrizione>
 	<connections>
 		<connectionJNDI>jdbc/agsde2</connectionJNDI>
 	</connections>
@@ -45,6 +45,7 @@
 				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
 				<M_CAPITOLO>4</M_CAPITOLO>
 				<M_NOTE>Acquisto Carta</M_NOTE>
+				<M_ANNO_ESIGIBILITA>2023</M_ANNO_ESIGIBILITA>
 				<M_CIG>13123</M_CIG>
 				<M_CUP>3</M_CUP>
 				<M_SEGNO>-</M_SEGNO>
@@ -55,6 +56,19 @@
 				<M_AZIONE>434</M_AZIONE>
 				<M_ENTRATA_USCITA>S</M_ENTRATA_USCITA>
 				<M_CODICE>1234</M_CODICE>
+				<ATS_ANNO_ESERCIZIO>2024</ATS_ANNO_ESERCIZIO>
+				<ATS_CONTO>202402024</ATS_CONTO>
+				<ATS_CONTO_DESCRIZIONE>Descrizione del conto</ATS_CONTO_DESCRIZIONE>
+				<ATS_BILANCIO>123456</ATS_BILANCIO>
+				<ATS_BILANCIO_DESCRIZIONE>Descrizione del bilancio</ATS_BILANCIO_DESCRIZIONE>
+				<ATS_SOTTO_BUDGET>202420242024.1</ATS_SOTTO_BUDGET>
+				<ATS_SOTTO_BUDGET_DESCRIZIONE>Descrizione del sottobudget</ATS_SOTTO_BUDGET_DESCRIZIONE>
+				<ATS_IMPORTO>100,00</ATS_IMPORTO>
+				<ATS_IMPORTO_INIZIALE>120,00</ATS_IMPORTO_INIZIALE>
+				<ATS_IMPORTO_VARIAZIONE>1030,00</ATS_IMPORTO_VARIAZIONE>
+				<ATS_IMPORTO_RESIDUO>15,00</ATS_IMPORTO_RESIDUO>
+				<ATS_IMPORTO_PROVVEDIMENTO>45,00</ATS_IMPORTO_PROVVEDIMENTO>
+				<ATS_PROGETTO>Progetto di riferimento</ATS_PROGETTO>
 			</movimenti>
 			<movimenti>
 				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
@@ -62,6 +76,7 @@
 				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
 				<M_CAPITOLO>4</M_CAPITOLO>
 				<M_NOTE>Bonus</M_NOTE>
+				<M_ANNO_ESIGIBILITA>2023</M_ANNO_ESIGIBILITA>
 				<M_CIG>13123</M_CIG>
 				<M_CUP>4</M_CUP>
 				<M_SEGNO>+</M_SEGNO>
@@ -72,6 +87,19 @@
 				<M_AZIONE>434</M_AZIONE>
 				<M_ENTRATA_USCITA>E</M_ENTRATA_USCITA>
 				<M_CODICE>1234</M_CODICE>
+				<ATS_ANNO_ESERCIZIO>2024</ATS_ANNO_ESERCIZIO>
+				<ATS_CONTO>202502025</ATS_CONTO>
+				<ATS_CONTO_DESCRIZIONE>Descrizione del secondo conto</ATS_CONTO_DESCRIZIONE>
+				<ATS_BILANCIO>7890123</ATS_BILANCIO>
+				<ATS_BILANCIO_DESCRIZIONE>Descrizione del secondo bilancio</ATS_BILANCIO_DESCRIZIONE>
+				<ATS_SOTTO_BUDGET>202520252025.1</ATS_SOTTO_BUDGET>
+				<ATS_SOTTO_BUDGET_DESCRIZIONE>Descrizione del secondo sottobudget</ATS_SOTTO_BUDGET_DESCRIZIONE>
+				<ATS_IMPORTO>160,00</ATS_IMPORTO>
+				<ATS_IMPORTO_INIZIALE>80,00</ATS_IMPORTO_INIZIALE>
+				<ATS_IMPORTO_VARIAZIONE>940,00</ATS_IMPORTO_VARIAZIONE>
+				<ATS_IMPORTO_RESIDUO>89,00</ATS_IMPORTO_RESIDUO>
+				<ATS_IMPORTO_PROVVEDIMENTO>36,00</ATS_IMPORTO_PROVVEDIMENTO>
+				<ATS_PROGETTO>Secondo progetto di riferimento</ATS_PROGETTO>
 			</movimenti>
 			<movimenti>
 				<M_ANNO_IMPEGNO>2015</M_ANNO_IMPEGNO>
@@ -79,6 +107,7 @@
 				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
 				<M_CAPITOLO>4</M_CAPITOLO>
 				<M_NOTE>Acquisto</M_NOTE>
+				<M_ANNO_ESIGIBILITA>2024</M_ANNO_ESIGIBILITA>
 				<M_CIG>13123</M_CIG>
 				<M_CUP>5</M_CUP>
 				<M_SEGNO>+</M_SEGNO>
@@ -89,6 +118,19 @@
 				<M_AZIONE>434</M_AZIONE>
 				<M_ENTRATA_USCITA>E</M_ENTRATA_USCITA>
 				<M_CODICE>1234</M_CODICE>
+				<ATS_ANNO_ESERCIZIO>2024</ATS_ANNO_ESERCIZIO>
+				<ATS_CONTO>202602026</ATS_CONTO>
+				<ATS_CONTO_DESCRIZIONE>Descrizione del terzo conto</ATS_CONTO_DESCRIZIONE>
+				<ATS_BILANCIO>123456</ATS_BILANCIO>
+				<ATS_BILANCIO_DESCRIZIONE>Descrizione del terzo bilancio</ATS_BILANCIO_DESCRIZIONE>
+				<ATS_SOTTO_BUDGET>202420242024.1</ATS_SOTTO_BUDGET>
+				<ATS_SOTTO_BUDGET_DESCRIZIONE>Descrizione del terzo sottobudget</ATS_SOTTO_BUDGET_DESCRIZIONE>
+				<ATS_IMPORTO>200,00</ATS_IMPORTO>
+				<ATS_IMPORTO_INIZIALE>175,00</ATS_IMPORTO_INIZIALE>
+				<ATS_IMPORTO_VARIAZIONE>4030,00</ATS_IMPORTO_VARIAZIONE>
+				<ATS_IMPORTO_RESIDUO>99,00</ATS_IMPORTO_RESIDUO>
+				<ATS_IMPORTO_PROVVEDIMENTO>66,00</ATS_IMPORTO_PROVVEDIMENTO>
+				<ATS_PROGETTO>Terzo progetto di riferimento</ATS_PROGETTO>
 			</movimenti>
 		</documentRoot>
 	</testStaticData>
@@ -328,6 +370,12 @@
 			<path/>
 		</metaDato>
 		<metaDato>
+			<nomeSimbolico>M_ANNO_ESIGIBILITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di esigibilita'</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
 			<nomeSimbolico>M_CIG</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>CIG</descrizione>
@@ -387,11 +435,91 @@
 			<descrizione>Il Segno dell'importo (+ o -)</descrizione>
 			<path/>
 		</metaDato>
+
+		<!--inizio campi specifici per ats-pavia -->
+		<metaDato>
+			<nomeSimbolico>ATS_ANNO_ESERCIZIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno dell'esercizio</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_CONTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Conto economico</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_CONTO_DESCRIZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione conto economico</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_BILANCIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Bilancio</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_BILANCIO_DESCRIZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione bilancio</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_SOTTO_BUDGET</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>SottoBudget</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_SOTTO_BUDGET_DESCRIZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione sottobudget</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_IMPORTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_IMPORTO_INIZIALE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo iniziale</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_IMPORTO_VARIAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo della variazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_IMPORTO_RESIDUO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo residuo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_IMPORTO_PROVVEDIMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo del provvedimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ATS_PROGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Progetto</descrizione>
+			<path/>
+		</metaDato>
 	</definitions>
 	<queryes>
 		<query id='visto'
 			   help_query_alias="v"
-			   help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, AREA_PROPONENTE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_FIRMA, DATA_STAMPA, DIRIGENTE_VISTO, ESITO_VISTO, ESITO_VISTO_DEFINITIVO, FIRMATARIO, NOTE_CONTABILI, NOTE_VISTO, NUMERO_DETERMINA, NUMERO_PROPOSTA, OGGETTO_DETERMINA, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, ASCENDENTI_UNITA, CIG, M_TOTALE_ENTRATE, M_TOTALE_USCITE, MSE, MSU, DESCRIZIONE_FIRMATARIO, TIPOLOGIA_PROPOSTA, TIPOLOGIA_VISTO, CODICE_UNITA_VISTO, SUDDIVISIONE_VISTO, UNITA_VISTO">
+			   help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, AREA_PROPONENTE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_FIRMA, DATA_STAMPA, DIRIGENTE_VISTO, ESITO_VISTO, ESITO_VISTO_DEFINITIVO, FIRMATARIO, NOTE_CONTABILI, NOTE_VISTO, NUMERO_DETERMINA, NUMERO_PROPOSTA, OGGETTO_DETERMINA, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, ASCENDENTI_UNITA, CIG, M_TOTALE_ENTRATE, M_TOTALE_USCITE, MSE, MSU, DESCRIZIONE_FIRMATARIO, DELEGANTE, TIPOLOGIA_PROPOSTA, TIPOLOGIA_VISTO, CODICE_UNITA_VISTO, SUDDIVISIONE_VISTO, UNITA_VISTO">
   select decode(d.numero_determina, null, '${documentRoot.visto.NUMERO_DETERMINA}', d.numero_determina) NUMERO_DETERMINA
      ,  decode(d.numero_determina, null, '${documentRoot.visto.DATA_DETERMINA}', to_char (d.data_numero_determina, 'dd/mm/yyyy')) DATA_DETERMINA
      ,  decode(d.numero_determina, null, '${documentRoot.visto.ANNO_DETERMINA}', d.anno_determina) ANNO_DETERMINA
@@ -413,7 +541,7 @@
      ,  nvl(utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), d.ente), '${documentRoot.visto.FIRMATARIO}') FIRMATARIO
 	 ,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), d.ente)) DESCRIZIONE_FIRMATARIO
 	 ,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, d.ente)) DELEGANTE
-     ,  nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario)), '${documentRoot.visto.DIRIGENTE_VISTO}') DIRIGENTE_VISTO
+     ,  nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario), vp.ente), '${documentRoot.visto.DIRIGENTE_VISTO}') DIRIGENTE_VISTO
      ,  utility_pkg.get_desc_ascendenti_unita(utility_pkg.get_codice_unita_prop_dete (d.id_determina), null, impostazioni_pkg.get_impostazione('OTTICA_SO4', d.ente), null) ASCENDENTI_UNITA
      ,  utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_AREA', d.ente) AREA_PROPONENTE
      ,  utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_SERVIZIO', d.ente) SERVIZIO_PROPONENTE       
@@ -440,28 +568,41 @@
  
  		<query id="movimenti"
         help_query_alias="m"
-		help_field_aliases="M_ANNO_IMPEGNO, M_ANNO_PRENOTAZIONE, M_ANNO_ACCERTAMENTO, M_CAPITOLO, M_NOTE, M_CIG, M_CUP, M_SEGNO, M_IMPORTO, M_NUMERO_IMPEGNO, M_NUMERO_PRENOTAZIONE, M_NUMERO_ACCERTAMENTO, M_AZIONE, M_ENTRATA_USCITA, M_CODICE"> 
- select m.anno_competenza               as M_ANNO_IMPEGNO
-      , m.anno_crono                    as M_ANNO_PRENOTAZIONE
-      , m.anno_esercizio                as M_ANNO_ACCERTAMENTO
-      , m.capitolo                      as M_CAPITOLO
-      , m.descrizione                   as M_NOTE
-      , m.descrizione_finanziamento_1   as M_CIG
-      , m.descrizione_finanziamento_2   as M_CUP
-      , decode(sign(m.importo), -1, '-', '+') as M_SEGNO
-      , trim(TO_CHAR(abs(m.importo), '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) as M_IMPORTO
-      , m.numero                        as M_NUMERO_IMPEGNO
-      , m.numero_crono                  as M_NUMERO_PRENOTAZIONE
-      , m.numero_det                    as M_NUMERO_ACCERTAMENTO
-      , m.opera                         as M_AZIONE
-      , m.tipo							as M_ENTRATA_USCITA
-      , m.tipo_dettaglio                as M_CODICE
-  from movimenti_contabili m, visti_pareri vp
- where vp.id_visto_parere = #id
-   and m.id_documento   = vp.id_determina
-   and m.tipo_documento = 'DETERMINA'
- order by m.tipo asc 
+		help_field_aliases="M_ANNO_IMPEGNO, M_ANNO_PRENOTAZIONE, M_ANNO_ACCERTAMENTO, M_CAPITOLO, M_NOTE, M_ANNO_ESIGIBILITA, M_CIG, M_CUP, M_SEGNO, M_IMPORTO, M_NUMERO_IMPEGNO, M_NUMERO_PRENOTAZIONE, M_NUMERO_ACCERTAMENTO, M_AZIONE, M_ENTRATA_USCITA, M_CODICE, ATS_ANNO_ESERCIZIO, ATS_CONTO, ATS_CONTO_DESCRIZIONE, ATS_M_ANNO_ACCERTAMENTO, ATS_BILANCIO, ATS_BILANCIO_DESCRIZIONE, ATS_SOTTO_BUDGET, ATS_SOTTO_BUDGET_DESCRIZIONE, ATS_IMPORTO, ATS_IMPORTO_INIZIALE, ATS_IMPORTO_VARIAZIONE, ATS_IMPORTO_RESIDUO, ATS_IMPORTO_PROVVEDIMENTO, ATS_PROGETTO">
+			  select m.anno_competenza as M_ANNO_IMPEGNO,
+					 m.anno_crono as M_ANNO_PRENOTAZIONE,
+					 m.anno_esercizio as M_ANNO_ACCERTAMENTO,
+					 m.capitolo as M_CAPITOLO,
+					 m.descrizione as M_NOTE,
+					 m.anno_esigibilita as M_ANNO_ESIGIBILITA,
+					 m.descrizione_finanziamento_1 as M_CIG,
+					 m.descrizione_finanziamento_2 as M_CUP,
+					 decode (sign (m.importo), -1, '-', '+') as M_SEGNO,
+					 trim (to_char (abs (m.importo), '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) as M_IMPORTO,
+					 m.numero                           as M_NUMERO_IMPEGNO,
+					 m.numero_crono                     as M_NUMERO_PRENOTAZIONE,
+					 m.numero_det                       as M_NUMERO_ACCERTAMENTO,
+					 m.opera                            as M_AZIONE,
+					 m.tipo							    as M_ENTRATA_USCITA,
+					 m.tipo_dettaglio                   as M_CODICE,
+					 m.conto 						    as ATS_CONTO,
+					 m.conto_Descrizione 			    as ATS_CONTO_DESCRIZIONE,
+					 m.bilancio 						as ATS_BILANCIO,
+					 m.bilancio_Descrizione 			as ATS_BILANCIO_DESCRIZIONE,
+					 m.sotto_Budget 					as ATS_SOTTO_BUDGET,
+					 m.sotto_Budget_Descrizione 		as ATS_SOTTO_BUDGET_DESCRIZIONE,
+					 m.progetto 						as ATS_PROGETTO,
+					 m.anno_Esercizio 				    as ATS_ANNO_ESERCIZIO,
+					 trim(TO_CHAR(m.importo, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))					as ATS_IMPORTO,
+					 trim(TO_CHAR(m.importo_Iniziale, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))			as ATS_IMPORTO_INIZIALE,
+					 trim(TO_CHAR(m.importo_variazione, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))		as ATS_IMPORTO_VARIAZIONE,
+					 trim(TO_CHAR(m.importo_residuo, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))			as ATS_IMPORTO_RESIDUO,
+					 trim(TO_CHAR(m.importo_Provvedimento, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))	as ATS_IMPORTO_PROVVEDIMENTO
+				from movimenti_contabili m, visti_pareri vp
+			   where vp.id_visto_parere = #id and m.id_documento = vp.id_determina and m.tipo_documento = 'DETERMINA'
+			order by m.tipo asc, m.anno_esercizio asc, m.id_movimento_contabile asc
  </query>
+
 	</queryes>
 	<staticData />
 </documentRoot>

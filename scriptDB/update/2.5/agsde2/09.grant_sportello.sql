@@ -1,0 +1,14 @@
+--liquibase formatted sql
+--changeset mfrancesconi:2.5_20220428_09_grant_sportello runOnChange:true stripComments:false failOnError:false
+
+GRANT SELECT ON SURF_DETERMINE TO SPORTELLO
+/
+
+GRANT SELECT ON SURF_DETERMINE_FILE TO SPORTELLO
+/
+
+GRANT SELECT ON SURF_DELIBERE TO SPORTELLO
+/
+
+GRANT SELECT ON SURF_DELIBERE_FILE TO SPORTELLO
+/

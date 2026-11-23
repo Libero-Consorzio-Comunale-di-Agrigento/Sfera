@@ -24,6 +24,11 @@
 							<cell style="width:70px;">
 							    <textbox value="@bind(vm.seduta.oraInizioSeduta)" hflex="1"/>
 							</cell>
+							<cell style="width:140px;text-align:center;">
+								<button mold="trendy" image="/images/afc/16x16/arrows.png" label="Propaga Orario" 	visible="@load(vm.dataOraPresenzaComponenti)"
+										disabled="@load(vm.seduta.dataInizioSeduta eq null or (vm.seduta.oraInizioSeduta eq null or vm.seduta.oraInizioSeduta.length()==0)  or vm.seduta.dataFineSeduta eq null or (vm.seduta.oraFineSeduta eq null or vm.seduta.oraFineSeduta.length()==0)   )"
+										onClick="@command('onSovrascriviOrari')" />
+							</cell>
 							<cell style="text-align:right;">
 								<button mold="trendy" image="/images/agsde2/16x16/doc_send.png" label="Assegna Esito" 	disabled="@load(not(not empty vm.selectedProposta and vm.seduta.secondaSeduta eq null and vm.assegna))"  onClick="@command('onAssegnaEsito',  lista=listaProposte)" />
 						       	<button mold="trendy" image="/images/agsde2/16x16/viewok.png" 	label="Conferma Esito"  disabled="@load(not(not empty vm.selectedProposta and vm.seduta.secondaSeduta eq null and vm.conferma))" onClick="@command('onConfermaEsito', lista=listaProposte)" />
@@ -45,6 +50,7 @@
 								<!-- quando cambio la data di seduta faccio refresh delle proposte per ricaricare l'icona dello stato-odg -->
 						        <textbox value="@bind(vm.seduta.oraFineSeduta)" onChange="@command('onRefreshVerbalizzazione')" hflex="1"/>
 							</cell>
+							<cell></cell>
 							<cell style="text-align:right;">
 								<label value="@load(c:l('label.odg.proposteConEsitoConfermato'))" style="color: green;" /><label value="@load(vm.proposteEsitoConfermato)" style="color: green; font-weight: bold; padding-left: 3px;" />
 						        <label value="@load(c:l('label.odg.proposteConEsitoDaAssegnare'))" style="color: red; margin-left: 20px;" /><label value="@load(vm.proposteEsitoDaConfermare)" style="color: red; font-weight: bold; padding-left: 3px;" />
@@ -57,11 +63,11 @@
 				 	<listbox id="listaProposte" hflex="1" vflex="1"
 				 		multiple="true" checkmark="true" nonselectableTags="*"
 						onSelect="@command('settaSelezione', lista=listaProposte)"
-						model="@load(vm.listaProposte)"
+						model="@bind(vm.listaProposte)"
 						selectedItem="@bind(vm.selectedProposta)"
 						emptyMessage="Nessun dato trovato">
 						<listhead>
-					 		<listheader label="" width="30px"/>
+							<listheader label="" width="30px"/>
 							<listheader label="" width="30px" />
 					 		<listheader label="@load(c:l('label.proposta'))" hflex="5"/>
 							<listheader label="Esito" hflex="2" />
@@ -71,7 +77,7 @@
 							<listitem draggable="@bind(vm.isDrop)" droppable="@bind(vm.isDrop)"
 								attributes.item="@load(each)" value="@load(each)"
 								onDrop="@command('spostaOggetto', base=each)">
-								<listcell label=""/>
+								<listcell/>
 							 	<listcell style="text-align: center">
 									<image src="@load(each.iconaStatoOdg.url)" tooltiptext="@load(each.iconaStatoOdg.tooltip)"/>
 								</listcell>
@@ -81,7 +87,7 @@
 											label="@load(not empty each.propostaDelibera ? c:cat4(c:cat3(c:cat(c:l('label.proposta'),' n. '), each.propostaDelibera.numeroProposta, '/'), each.propostaDelibera.annoProposta, ' - ', each.propostaDelibera.tipologia.titolo) : c:cat4(c:cat3('Determina n. ', each.determina.numeroProposta, '/'), each.determina.annoProposta, ' - ', each.determina.tipologia.titolo))"
 											style="text-decoration:underline; color:black;" />
 						                <label value="@load(each.getClass().getSimpleName() eq 'PropostaDeliberaDTO' ? c:cat3('Relatore', ': ', each.delega.assessore.denominazione) : '')" visible="@load(each.getClass().getSimpleName() eq 'PropostaDeliberaDTO' and not empty each.delega.assessore.denominazione)" />
-						                <label onCreate="@command('getUnita', oggetto=((not empty each.propostaDelibera) ? each.propostaDelibera : each.determina))" />
+						                <label value="@load(each.unitaProponente)" />
 										<label value="@load(not empty each.propostaDelibera ? c:cat3('Oggetto', ': ',  each.propostaDelibera.oggetto) : c:cat3('Oggetto', ': ',  each.determina.oggetto))" />
 									</vlayout>
 								</listcell>
@@ -90,21 +96,21 @@
 						                <image visible="@load(not empty each.esito)"
 						                	tooltiptext="Esito Confermato"
 						                	src="@load(each.confermaEsito ? '/images/agsde2/22x22/viewok.png' : '')"/>
-										<label value="@bind(each.esito.titolo)"/>
+										<label value="@load(each.esito.titolo)"/>
 									</hlayout>
 								</listcell>
-								<listcell onCreate="@command('checkDelibera', oggetto=each)" style="text-decoration:underline; color:black;" onClick="@command('onLinkDelibera', oggetto=each)"/>
+								<listcell label="@load(each.labelDelibera)" style="text-decoration:underline; color:black;" onClick="@command('onLinkDelibera', oggetto=each)"/>
 							</listitem>
 						</template>
 					</listbox>
 				</hlayout>
 			</vlayout>
-
-			<vbox pack="middle" vflex="1" align="center">
-				<button image="/images/afc/22x22/up_blu.png" onClick="@command('onSuSequenza', lista=listaProposte)"
-					disabled="@bind((not empty vm.selectedProposta and vm.seduta.secondaSeduta eq null)?(!vm.up):true)" orient="vertical"/>
+			<!-- lato di destra: pulsanti per riordinare le proposte. -->
+			<vbox pack="middle" align="center" vflex="1">
+				<button image="/images/afc/22x22/up_blu.png"   onClick="@command('onSuSequenza', lista=listaProposte)"
+						orient="vertical" disabled="@load(empty vm.selectedProposta or not empty vm.seduta.secondaSeduta or lista.getSelectedIndex() eq 0)"/>
 				<button image="/images/afc/22x22/down_blu.png" onClick="@command('onGiuSequenza', lista=listaProposte)"
-					disabled="@bind((not empty vm.selectedProposta and vm.seduta.secondaSeduta eq null)?(!vm.down):true)" orient="vertical"/>
+						orient="vertical" disabled="@load(empty vm.selectedProposta or not empty vm.seduta.secondaSeduta or lista.getSelectedIndex() eq vm.listaProposte.size() -1)"/>
 			</vbox>
 		</hlayout>
     </window>

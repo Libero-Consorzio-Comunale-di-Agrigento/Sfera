@@ -7,6 +7,7 @@ import it.finmatica.atti.dto.commons.FileAllegatoDTO
 import it.finmatica.atti.dto.dizionari.CategoriaDTO
 import it.finmatica.atti.dto.dizionari.OggettoRicorrenteDTO
 import it.finmatica.atti.dto.dizionari.TipoRegistroDTO
+import it.finmatica.atti.dto.dizionari.ImpattoGenerazionaleDTO
 import it.finmatica.atti.dto.documenti.tipologie.TipoDeterminaDTO
 import it.finmatica.atti.dto.odg.CommissioneDTO
 import it.finmatica.atti.dto.odg.OggettoSedutaDTO
@@ -104,6 +105,13 @@ public class DeterminaDTO implements it.finmatica.dto.DTO<Determina> {
     boolean eseguibilitaImmediata;
     String motivazioniEseguibilita;
     Set<BudgetDTO> budgets;
+    ImpattoGenerazionaleDTO impattoGenerazionale;
+    Date dataScadenzaDisposizioni;
+
+    String idFascicoloEsterno;
+    String idApplicativoEsterno;
+    boolean attoSoggettoControllo;
+    String macrocategoria;
 
     Date dataNumeroDetermina2
     Integer numeroDetermina2
@@ -111,6 +119,13 @@ public class DeterminaDTO implements it.finmatica.dto.DTO<Determina> {
     TipoRegistroDTO registroDetermina2
     OggettoRicorrenteDTO oggettoRicorrente;
     boolean controllaDestinatari;
+
+    boolean     inEvidenza;
+    Date 	    dataInEvidenzaDa;
+    Date 	    dataInEvidenzaA;
+    BigDecimal  importo;
+    BigDecimal  importoTotale;
+
 
     public void addToAllegati (AllegatoDTO allegato) {
         if (this.allegati == null) {
@@ -256,7 +271,12 @@ public class DeterminaDTO implements it.finmatica.dto.DTO<Determina> {
         if (numeroDetermina > 0) {
             return "${numeroDetermina} / ${annoDetermina} (${registroDetermina.codice})";
         }
-        return "${numeroProposta} / ${annoProposta} (${registroProposta.codice})";
+
+        if (numeroProposta > 0) {
+            return "${numeroProposta} / ${annoProposta} (${registroProposta.codice})";
+        }
+
+        return ""
     }
 
     /**

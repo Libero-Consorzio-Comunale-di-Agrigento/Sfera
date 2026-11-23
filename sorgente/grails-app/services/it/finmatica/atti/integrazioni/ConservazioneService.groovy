@@ -36,7 +36,7 @@ class ConservazioneService {
 
         JConsLogConservazioneDTO dto = logConservazione.toDTO()
         dto.statoConservazione = statoConservazione
-        dto.urlRicevuta = gestoreDocumentaleEsterno.getUrlDocumento(logConservazione)
+        dto.urlRicevuta = gestoreDocumentaleEsterno.getUrlRicevutaConservazione(logConservazione)
 
         return dto
     }

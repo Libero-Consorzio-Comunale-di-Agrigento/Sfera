@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset rdestasio:AGSPR_PROCEDURE_COMPILE_ALL runOnChange:true stripComments:false
+--changeset rdestasio:AGSPR_PROCEDURE_COMPILE_ALL runAlways:true failOnError:false stripComments:false
 
 CREATE OR REPLACE PROCEDURE compile_all
 /******************************************************************************

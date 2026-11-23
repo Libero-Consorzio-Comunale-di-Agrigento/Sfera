@@ -53,7 +53,7 @@ class IntegrazioneLetteraAgsprConfig extends AbstractWebServiceConfig {
                 new ParametroIntegrazione("INSERISCI_ALLEGATI_VISTI", "Inserisci gli allegati dei visti?", LookupTutti.INSTANCE, LookupSiNo.INSTANCE),
                 new ParametroIntegrazione("INSERISCI_CERTIFICATI", "Inserisci i certificati?", LookupTutti.INSTANCE, LookupSiNo.INSTANCE),
                 new ParametroIntegrazione(MAPPING_ENTE, "Codice Ente", LookupEnti.INSTANCE),
-                new ParametroIntegrazione(MAPPING_TIPO_PROTOCOLLO, "Codice Commissione", LookupCommissioniStampe.INSTANCE)]
+                new ParametroIntegrazione(MAPPING_TIPO_PROTOCOLLO, "Codice Lettera - Commissione", LookupCommissioniStampe.INSTANCE)]
     }
 
     @Override

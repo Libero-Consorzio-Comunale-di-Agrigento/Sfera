@@ -528,8 +528,8 @@ class StampaUnicaService {
     }
 
     void addDocumentoToZip (ZipOutputStream zipFile, String zipDirectory, IDocumento documento) {
-        // aggiungo il testo principale:
-        if (documento.testo != null) {
+        // aggiungo il testo principale se non è riservato
+        if ((documento.testo != null) && (!(documento.riservato))) {
             String entryName = zipDirectory+sanitize(documento.testo.nome)
             addFileToZip (zipFile, entryName, documento, documento.testo)
         }
@@ -550,6 +550,16 @@ class StampaUnicaService {
             if (!allegato.valido) {
                 continue
             }
+
+			if (allegato.riservato) {
+				continue
+			}
+
+//			if (allegato.riservato) {
+//				if (!(gestoreCompetenze.utenteCorrenteVedeRiservato(documento))) {
+//					continue
+//				}
+//			}
 
             String zipAllegatoDirectory = zipDirectory+sanitize("${index}_${allegato.titolo}")+"/"
             int fileIndex = 1
@@ -604,7 +614,7 @@ class StampaUnicaService {
 		is = (storico ? gestoreFile.getFileStorico(documento, fileAllegato) : gestoreFile.getFile(documento, fileAllegato))
 		try {
 			// se devo sbustare, sbusto e scarico il file
-			if (sbusta && fileAllegato.isP7m()) {
+			if (sbusta && (fileAllegato.isP7m() || fileAllegato.firmato)) {
 				PKCS7ReaderStream reader = new PKCS7ReaderStream (is)
 				is 			= reader.getOriginalContent()
 				nomeFile 	= fileAllegato.getNomeFileSbustato()
@@ -673,7 +683,7 @@ class StampaUnicaService {
 			over.setTextRenderingMode(PdfContentByte.TEXT_RENDER_MODE_FILL);
 			over.setFontAndSize(bf, 8);
 
-			Phrase frase = new Phrase("Riproduzione cartacea del documento informatico sottoscritto digitalmente da", fontTesto);
+			Phrase frase = new Phrase(Impostazioni.COPIA_CONFORME_FRASE_INIZIALE.valore, fontTesto);
 			ColumnText.showTextAligned(over, Element.ALIGN_CENTER, frase, posx, posy, 0);
 
 			//Aggiungo la dicitura per i firmatari
@@ -689,7 +699,7 @@ class StampaUnicaService {
 
 						//solo all'ultimo firmatario inserisco i riferimenti di legge
 						if (utenteFirmatario == listaFirmatari.last())
-							testo = testo + " ai sensi dell'art. 20 e 23 del D.lgs 82/2005";
+							testo = testo + " " + Impostazioni.COPIA_CONFORME_FRASE_FIRMATARI.valore;
 						posy = posy - incy;
 						frase = new Phrase(testo, fontTesto);
 						ColumnText.showTextAligned(over, Element.ALIGN_CENTER, frase, posx, posy, 0);

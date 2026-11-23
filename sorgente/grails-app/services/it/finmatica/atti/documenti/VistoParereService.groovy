@@ -224,6 +224,11 @@ class VistoParereService {
 		// scarto i visti che sono già stati trattati dal flusso
 		codiciVisto -= proposta?.getListaCodiciVistiTrattati()
 
+		// scarto i visti già presenti nella proposta e che non prevedono multi-occorrenze
+		for (VistoParere v in getElencoVistiNonIstanziabili(proposta)) {
+			codiciVisto -= v.tipologia?.codice
+		}
+
 		if (!(codiciVisto?.size() > 0)) {
 			return []
 		}
@@ -242,6 +247,17 @@ class VistoParereService {
 			eq ("valido", true)
 			tipologia {
 				eq "contabile", true
+			}
+		}
+	}
+
+	//restituisce l'elenco dei visti già agganciati alla proposta e che non prevendono multi-occorrenze
+	List<VistoParere> getElencoVistiNonIstanziabili (IProposta proposta) {
+		return VistoParere.createCriteria().list() {
+			eq ((proposta instanceof Determina)?"determina":"propostaDelibera",	proposta)
+			eq ("valido", true)
+			tipologia {
+				eq "multiOccorrenze", false
 			}
 		}
 	}

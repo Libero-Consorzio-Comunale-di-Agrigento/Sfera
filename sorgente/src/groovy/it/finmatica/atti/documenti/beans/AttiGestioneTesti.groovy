@@ -254,9 +254,25 @@ class AttiGestioneTesti {
 		}
 	}
 
-	@Transactional(propagation = Propagation.NOT_SUPPORTED)
-	InputStream convertiStreamInPdf(InputStream is, String nomeFile, IDocumento documento) {
+	@Transactional
+	void ripristinaTestoDaPdf(IDocumento documento) {
+		//rimuovo il testo dell'atto
+		IFileAllegato testo = documento.testo
+		documento.testo = null
+		gestoreFile.removeFile(documento, testo)
 
+		//imposto l'odt/docx come testo principale dell'atto
+		documento.testo = documento.testoOdt
+		//tolgo dall'estensione l'eventuale .HD
+		documento.testo.nome = documento.testo.getNomeFileOdtOriginale()
+		documento.testoOdt = null
+		gestoreFile.updateFile(documento.testo)
+
+		documento.save()
+	}
+
+	@Transactional(propagation = Propagation.NOT_SUPPORTED)
+	InputStream convertiStreamInPdf(InputStream is, String nomeFile, IDocumentoEsterno documento) {
 		GestioneTestiLog testiLog = saveLogBeforeConversion(nomeFile, documento)
 		return convertAndLog(is, testiLog)
 	}
@@ -265,33 +281,45 @@ class AttiGestioneTesti {
 	InputStream convertAndLog(InputStream is, GestioneTestiLog testiLog) {
 		try {
 			InputStream inputStream = gestioneTestiService.converti(is, TipoFile.PDF.estensione)
-			testiLog.stato = GestioneTestiLog.Stato.SUCCESSO
-			gestioneTestiLogService.log(testiLog)
+			if (testiLog) {
+				testiLog.stato = GestioneTestiLog.Stato.SUCCESSO
+				gestioneTestiLogService.log(testiLog)
+			}
 			return inputStream
 		}
 		catch (RuntimeException e) {
-
-			testiLog.errore = e.localizedMessage
-			testiLog.stato = GestioneTestiLog.Stato.ERRORE
-			gestioneTestiLogService.log(testiLog)
+			if (testiLog) {
+				testiLog.errore = e.localizedMessage
+				testiLog.stato = GestioneTestiLog.Stato.ERRORE
+				gestioneTestiLogService.log(testiLog)
+			}
 
 			throw e
 		}
 		finally {
-			testiLog.dataFineElaborazione = new Date()
-			gestioneTestiLogService.log(testiLog)
+			if (testiLog) {
+				testiLog.dataFineElaborazione = new Date()
+				gestioneTestiLogService.log(testiLog)
+			}
 		}
 	}
 
-	GestioneTestiLog saveLogBeforeConversion(String nomeFile, IDocumento documento) {
-		GestioneTestiLog testiLog = new GestioneTestiLog()
-		testiLog.nomeFile = nomeFile
-		testiLog.idDocumento = documento.id
-		testiLog.estremiDocumento = getInfoDatiNumerazione(documento)
-		testiLog.operazione = GestioneTestiLog.Operazione.CONVERSIONE_PDF
-		testiLog.applicativo = "SFERA"
-		gestioneTestiLogService.log(testiLog)
-		return testiLog
+	GestioneTestiLog saveLogBeforeConversion(String nomeFile, IDocumentoEsterno documento) {
+		try {
+			GestioneTestiLog testiLog = new GestioneTestiLog()
+			testiLog.nomeFile = nomeFile
+			testiLog.idDocumento = documento.id
+			testiLog.estremiDocumento = getInfoDatiNumerazione(documento)
+			testiLog.operazione = GestioneTestiLog.Operazione.CONVERSIONE_PDF
+			testiLog.applicativo = "SFERA"
+			gestioneTestiLogService.log(testiLog)
+			return testiLog
+		}
+		catch (RuntimeException) {
+			log.error("Problema nel salvataggio nella tabella gte_log (saveLogBeforeConversion)")
+			return null
+		}
+
 	}
 
 
@@ -551,7 +579,7 @@ class AttiGestioneTesti {
         FileAllegato fileAllegato = documento.testo
 
 		attiAd4Service.logAd4("Edita testo "+documento.TIPO_OGGETTO, "Edita testo con id="+documento.id.toString())
-		
+
 		// controllo il riservato:
 		if (!gestoreCompetenze.controllaRiservato(documento)) {
 			return false
@@ -568,7 +596,7 @@ class AttiGestioneTesti {
 			Clients.showNotification("Il testo risulta non più modificabile.", Clients.NOTIFICATION_TYPE_WARNING, null, "middle_center", 3000, true)
 			return false
 		}
-		
+
 		// se ho già un documento aperto non faccio nulla.
 		if (gestioneTestiService.isEditorAperto()) {
 			Clients.showNotification("Il testo risulta già aperto nell'editor.", Clients.NOTIFICATION_TYPE_WARNING, null, "middle_center", 3000, true);
@@ -601,11 +629,11 @@ class AttiGestioneTesti {
             }
 
 			gestoreFile.addFile(doc, file, inputStream)
-			
+
 			documentoDto.version = doc.version
 			Clients.showNotification("Testo Salvato", Clients.NOTIFICATION_TYPE_INFO, null, "before_center", 3000, true)
 		})
-		
+
 		if (!esito.esitoLock) {
 			Messagebox.show("Non è possibile aprire il documento: ${esito.messaggio}. Vuoi scaricare il testo in sola lettura?", "Attenzione!", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION,
 				new org.zkoss.zk.ui.event.EventListener() {
@@ -620,7 +648,7 @@ class AttiGestioneTesti {
 
 		// allineo la versione del DTO per non avere problemi in interfaccia
 		documentoDto.version = documento.version
-		
+
 		return esito.esitoLock
 	}
 
@@ -679,7 +707,7 @@ class AttiGestioneTesti {
 			try { uploadedStream?.close() } catch (Exception e) {}
 		}
 	}
-	
+
 	boolean isEditorAperto () {
 		return gestioneTestiService.isEditorAperto()
 	}
@@ -696,7 +724,7 @@ class AttiGestioneTesti {
 		if (documento.testo == null) {
 			return
 		}
-		
+
 		if (gestioneTestiService.isEditorAperto()) {
 			// se ho un documento ancora aperto, do errore:
 			throw new AttiRuntimeException ("Per proseguire è necessario chiudere il documento aperto.")
@@ -764,17 +792,25 @@ class AttiGestioneTesti {
 		}
 	}
 
-	boolean isPdf (File file) {
+	/**
+	 * Legge i primi byte di un file per determinare se è un pdf o no.
+	 *
+	 * @param file il file da verificare
+	 * @return true se è un pdf, false altrimenti.
+	 */
+	boolean isPdf(File file) {
 		FileInputStream fis
 		try {
-			fis = new FileInputStream (file)
-			byte[] buffer = new byte[4];
+			fis = new FileInputStream(file)
+			byte[] buffer = new byte[1024]
 			if (fis.read(buffer) != buffer.length) {
 				return false
 			}
-			return ("%PDF".equals(new String(buffer)))
+			return (new String(buffer).contains("%PDF"))
 		} finally {
-			fis?.close()
+			if (fis != null) {
+				fis?.close()
+			}
 		}
 	}
 

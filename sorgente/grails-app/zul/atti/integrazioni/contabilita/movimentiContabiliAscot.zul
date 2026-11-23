@@ -88,8 +88,8 @@
 				        	<listheader width=""    label="Eser.Prov." />
 							<listheader width="100px"    label="N. Movimento" />
  							<listheader width="100px"    label="Data Movimento" />
-							<listheader width="100px"    label="Importo" />
-				        	<listheader width=""    label="CIG" />
+							<listheader width="70px"    label="Importo" />
+				        	<listheader width="100px"    label="CIG" />
 							<listheader width="150px"    label="PdCF" />
 				        </listhead>
 			        	<template name="model" var="m">
@@ -102,7 +102,7 @@
 			        			<listcell label="@load(m.numeroMovimento 		gt 0 ? m.numeroMovimento: '')"									   style="text-align: right;"/>
 								<listcell label="@load(not empty m.dataMovimento ? c:formatDate(m.dataMovimento, 'dd/MM/yyyy'):'')" 			   style="text-align: right;"/>
 								<listcell label="@load(m.importo) @converter('formatedNumber', format='###,##0.00')" style="text-align: right;" />
-			        			<listcell label="@load(m.CIG)"					style="text-align: center;"/>
+			        			<listcell label="@load(m.cig)"					style="text-align: center;"/>
 								<listcell label="@load(m.codicePdcf)"			style="text-align: center;"/>
 				       		</listitem>
 				      	</template>

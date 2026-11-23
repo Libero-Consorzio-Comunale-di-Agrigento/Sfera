@@ -80,6 +80,10 @@ public class PropostaDeliberaStoricoDTO implements it.finmatica.dto.DTO<Proposta
     String motivazione
     Integer priorita
     String xmlDatiAggiuntivi
+    boolean     inEvidenza;
+    Date 	    dataInEvidenzaDa;
+    Date 	    dataInEvidenzaA;
+    BigDecimal  importo;
 
 
     public PropostaDeliberaStorico getDomainObject () {

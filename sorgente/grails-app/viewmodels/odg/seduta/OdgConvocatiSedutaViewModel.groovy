@@ -175,21 +175,69 @@ class OdgConvocatiSedutaViewModel {
 		)
 	}
 
+	/*
 	@NotifyChange(["listaPartecipanti", "selectedPartecipante"])
 	@Command onSuSequenza (@BindingParam("listaConvocati") Listbox listaConvocati) {
-		def precedente = listaConvocati.getSelectedIndex()-1
-		convocatiSedutaDTOService.spostaConvocatoSu(selectedPartecipante, listaConvocati.getItemAtIndex(precedente).value, listaConvocati.getSelectedIndex());
-		def tmp = listaConvocati.find { it.id == selectedPartecipante.id }
-		caricaListaPartecipanti()
-		selectedPartecipante = tmp
+		int index = listaConvocati.getSelectedIndex()
+		if(index>0 && index <= listaConvocati.getItems().size()-1) {
+			def precedente = listaConvocati.getSelectedIndex() - 1
+			convocatiSedutaDTOService.spostaConvocatoSu(selectedPartecipante, listaConvocati.getItemAtIndex(precedente).value, index);
+			def tmp = listaConvocati.find { it.id == selectedPartecipante.id }
+			caricaListaPartecipanti()
+			selectedPartecipante = tmp
+		}
+	}
+	*/
+
+	@NotifyChange(["listaPartecipanti", "selectedPartecipante", "listaConvocati"])
+	@Command
+	onSuSequenza(@BindingParam("listaConvocati") Listbox listaConvocati) {
+		if (listaConvocati.getSelectedIndex() > 0) {
+			def corrente = listaConvocati.getItemAtIndex(listaConvocati.getSelectedIndex()).value
+			def precedente = listaConvocati.getItemAtIndex(listaConvocati.getSelectedIndex() - 1).value
+
+			Long sequenzaTmpCampo = precedente.sequenza
+			precedente.sequenza = corrente.sequenza
+			corrente.sequenza = sequenzaTmpCampo
+
+			listaPartecipanti.sort { it.sequenza }
+
+			selectedPartecipante = corrente
+
+			convocatiSedutaDTOService.spostaConvocatoSu(selectedPartecipante, precedente)
+		}
 	}
 
+	/*
 	@NotifyChange(["listaPartecipanti", "selectedPartecipante"])
 	@Command onGiuSequenza (@BindingParam("listaConvocati") Listbox listaConvocati) {
-		def successivo = listaConvocati.getSelectedIndex()+1
-		convocatiSedutaDTOService.spostaConvocatoGiu(selectedPartecipante, listaConvocati.getItemAtIndex(successivo).value, listaConvocati.getSelectedIndex());
-		def tmp = listaConvocati.find { it.id == selectedPartecipante.id }
-		caricaListaPartecipanti()
-		selectedPartecipante = tmp
+		int index = listaConvocati.getSelectedIndex()
+		if(index < listaConvocati.getItems().size()-1 && index>=0) {
+			def successivo = index + 1
+			convocatiSedutaDTOService.spostaConvocatoGiu(selectedPartecipante, listaConvocati.getItemAtIndex(successivo).value, index);
+			def tmp = listaConvocati.find { it.id == selectedPartecipante.id }
+			caricaListaPartecipanti()
+			selectedPartecipante = tmp
+		}
+	}
+	*/
+
+	@NotifyChange(["listaPartecipanti", "selectedPartecipante", "listaConvocati"])
+	@Command
+	onGiuSequenza(@BindingParam("listaConvocati") Listbox listaConvocati) {
+		if (listaConvocati.getSelectedIndex() >= 0 && listaConvocati.getSelectedIndex() < listaPartecipanti.size() - 1) {
+			def corrente = listaConvocati.getItemAtIndex(listaConvocati.getSelectedIndex()).value
+			def successivo = listaConvocati.getItemAtIndex(listaConvocati.getSelectedIndex() + 1).value
+
+			Long sequenzaTmpCampo = successivo.sequenza
+			successivo.sequenza = corrente.sequenza
+			corrente.sequenza = sequenzaTmpCampo
+
+			listaPartecipanti.sort { it.sequenza }
+
+			selectedPartecipante = corrente
+
+			convocatiSedutaDTOService.spostaConvocatoGiu(selectedPartecipante, successivo)
+		}
 	}
 }

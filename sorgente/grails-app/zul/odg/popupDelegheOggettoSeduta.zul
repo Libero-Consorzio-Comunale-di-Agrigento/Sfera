@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer"
+		viewModel="@id('vm') @init('popupDelegheOggettoSedutaViewModel')"
+		border="normal"
+		title=" "
+		width="500px"
+		height="400px">
+		<vlayout vflex="1">
+			<h:div class="barraTitoloPagina">
+				<label sclass="titoloPagina" value="Deleghe"/>
+			</h:div>
+			<listbox model="@load(vm.listaAltreDeleghe)" emptyMessage="@load(c:l('label.delega.lista.nessunRisultato'))" vflex="1">
+				<listhead>
+					<listheader label="@load(c:l('label.delega.relatore'))" hflex="1" />
+					<listheader label="@load(c:l('label.delega.assessorato'))" hflex="1" />
+					<listheader label="" width="24px" align="center">
+						<image width="15px" src="/images/afc/16x16/add.png"
+							   onClick="@command('onAggiungiDelega')"
+							   tooltiptext="@load(c:l('label.delega.pulsante.aggiungi'))"
+							   style="cursor: pointer;" />
+					</listheader>
+				</listhead>
+				<template name="model" var="ad">
+					<listitem>
+						<listcell label="@load(ad.delega.assessore.denominazione)" />
+						<listcell label="@load(ad.delega.descrizioneAssessorato)" />
+						<listcell>
+							<image src="/images/agsde2/16x16/trash.png"
+								   onClick="@command('onEliminaDelega', altraDelega=ad)"
+								   tooltiptext="@load(c:l('label.delega.pulsante.togli'))"
+								   style="cursor: pointer;" />
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</vlayout>
+
+		<h:div class="barraPulsanti">
+			<h:div>
+				<button mold="trendy" image="/images/afc/16x16/close.png"
+					label="Chiudi" onClick="@command('onChiudi')" />
+			</h:div>
+		</h:div>
+	</window>
+</zk>

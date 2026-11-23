@@ -37,6 +37,9 @@ class PopupSceltaDestinatariEsterniViewModel {
             destinatarioOutput.email.indirizzoEmail = destinatarioInput?.email?.indirizzoEmail
             destinatarioOutput.email.ragioneSociale = destinatarioInput?.email?.ragioneSociale
             destinatarioOutput.tipoNotifica = destinatarioInput?.tipoNotifica
+            destinatarioOutput.importo = destinatarioInput?.importo
+            destinatarioOutput.giorniScadenza = destinatarioInput?.giorniScadenza
+            destinatarioOutput.dataScadenza = destinatarioInput?.dataScadenza
         } else {
             //altrimenti imposto solo il tipo di notifica di default per il radio button
             destinatarioOutput.tipoNotifica = DestinatarioNotifica.TIPO_NOTIFICA_COMPETENZA

@@ -6,7 +6,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
 	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
 
-	<window apply="grailsBindComposer" viewModel="@id('vm') @init('popupCalcoloGettoneViewModel')" border="normal" width="600px" sizable="false">
+	<window apply="grailsBindComposer" viewModel="@id('vm') @init('popupCalcoloGettoneViewModel')" border="normal" width="750px" sizable="false">
 
 		<vlayout width="100%" spacing="10px">
 			<h:div class="barraTitoloPagina">
@@ -50,7 +50,7 @@
 								<combobox model="@load(vm.listaPartecipanti)" hflex="1" readonly="true"
 									selectedItem="@bind(vm.selectedPartecipante)">
 									<template name="model" var="part">
-										<comboitem label="@load(c:cat3(part.nome,' ', part.cognome))"
+										<comboitem label="@load(c:cat3(part.cognome,' ', part.nome))"
 											value="@load(part)" />
 									</template>
 								</combobox>
@@ -62,9 +62,11 @@
 		</vlayout>
 		<h:div class="barraPulsanti">
 			<h:div>
-				<button mold="trendy" label="Calcola Gettone" onClick="@command('onCalcola')" />
-				<button mold="trendy" label="Statistiche di Presenza" onClick="@command('onStampaStatistiche')" />
-				<button mold="trendy" label="Annulla" onClick="@command('onAnnulla')" />
+				<button image="/images/afc/16x16/xls.png" mold="trendy" label="Esporta Excel" onClick="@command('onExportExcel')" />
+				<button image="/images/afc/16x16/print.png" mold="trendy" label="Calcola Gettone" onClick="@command('onCalcola')" />
+				<button image="/images/afc/16x16/print.png" mold="trendy" label="Attestazione di Presenza" onClick="@command('onStampaAttestazionePresenza')" visible="@load(vm.stampaAttestazioneVisible)"/>
+				<button image="/images/afc/16x16/print.png" mold="trendy" label="Statistiche di Presenza" onClick="@command('onStampaStatistiche')" />
+				<button image="/images/afc/16x16/close.png" mold="trendy" label="Annulla" onClick="@command('onAnnulla')" />
 			</h:div>
 		</h:div>
 	</window>

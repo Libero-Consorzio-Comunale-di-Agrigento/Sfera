@@ -6,20 +6,12 @@ import groovyx.net.http.RESTClient
 import it.finmatica.atti.contabilita.MovimentoContabile
 import it.finmatica.atti.contabilita.MovimentoContabileInterno
 import it.finmatica.atti.dizionari.DatiAggiuntiviService
-import it.finmatica.atti.documenti.DatoAggiuntivo
-import it.finmatica.atti.documenti.Determina
-import it.finmatica.atti.documenti.IAtto
-import it.finmatica.atti.documenti.IDocumento
-import it.finmatica.atti.documenti.IProposta
-import it.finmatica.atti.documenti.PropostaDelibera
-import it.finmatica.atti.documenti.TipoDatoAggiuntivo
+import it.finmatica.atti.documenti.*
 import it.finmatica.atti.dto.documenti.DatoAggiuntivoDTO
 import it.finmatica.atti.exceptions.AttiRuntimeException
 import it.finmatica.atti.impostazioni.MappingIntegrazione
-import it.finmatica.gestionetesti.GestioneTestiService
-import it.finmatica.gestionetesti.TipoFile
-import it.finmatica.gestionetesti.reporter.GestioneTestiModello
-import it.finmatica.gestionetesti.reporter.GestioneTestiTipoModello
+import it.finmatica.atti.impostazioni.TipoSoggetto
+import it.finmatica.so4.strutturaPubblicazione.So4UnitaPubb
 import net.sf.json.JSONArray
 import net.sf.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
@@ -51,13 +43,12 @@ class IntegrazioneContabilitaAscotWeb extends AbstractIntegrazioneContabilita {
         if (gestioneInterna == 'N') {
             return (MovimentoContabile.countByIdDocumentoAndTipoDocumento(documentoPrincipale.id, documentoPrincipale.TIPO_OGGETTO) > 0)
         } else {
-              if (documento instanceof Determina) {
+              if (documentoPrincipale instanceof Determina) {
                 return (MovimentoContabileInterno.countByDetermina(documentoPrincipale) > 0)
             } else {
                 return (MovimentoContabileInterno.countByPropostaDelibera(documentoPrincipale) > 0)
             }
         }
-
     }
 
     @Override
@@ -129,11 +120,12 @@ class IntegrazioneContabilitaAscotWeb extends AbstractIntegrazioneContabilita {
             def response = rest.post(path: new URI(integrazioneContabilitaAscotWebConfig.getUrlWebService()).getPath()+"/delibere/insertProposta",
                     requestContentType: ContentType.URLENC,
                     contentType: ContentType.JSON,
-                    body: [esercizioProposta: proposta.annoProposta,
-                           numeroProposta   : proposta.numeroProposta,
-                           dataProposta     : proposta.dataNumeroProposta.format("yyyy-MM-dd"),
-                           tipoDelibera     : null,
-                           oggetto          : proposta.oggetto])
+                    body: [esercizioProposta  : proposta.annoProposta,
+                           numeroProposta     : proposta.numeroProposta,
+                           dataProposta       : proposta.dataNumeroProposta.format("yyyy-MM-dd"),
+                           tipoDelibera       : getCodiceProposta(proposta),
+                           codiceUfficioAscot : getCodiceUfficio(proposta),
+                           oggetto            : proposta.oggetto])
             HttpResponseDecorator decorato = (HttpResponseDecorator) response;
             JSONObject json = (JSONObject) decorato.getData()
             if (json.esito?.status == 'OK') {
@@ -165,11 +157,12 @@ class IntegrazioneContabilitaAscotWeb extends AbstractIntegrazioneContabilita {
             def response = rest.post(path: new URI(integrazioneContabilitaAscotWebConfig.getUrlWebService()).getPath()+"/delibere/esecutivita",
                     requestContentType: ContentType.URLENC,
                     contentType: ContentType.JSON,
-                    body: [esercizioAscot   : valori[0],
-                           progressivoAscot : valori[1],
-                           tipoDelibera     : null,
-                           numeroEsecutivita: documento.numeroAtto,
-                           dataEsecutivita  : documento.getDataEsecutivita().format("yyyy-MM-dd")])
+                    body: [esercizioAscot     : valori[0],
+                           progressivoAscot   : valori[1],
+                           tipoDelibera       : getCodiceAttoEsecutivita(proposta), //pr pisa vuole null mentre unione terre di castelli vuole il codice: getCodiceAtto(proposta),
+                           codiceUfficioAscot : getCodiceUfficio(proposta),
+                           numeroEsecutivita  : documento.numeroAtto,
+                           dataEsecutivita    : documento.getDataEsecutivita().format("yyyy-MM-dd")])
             HttpResponseDecorator decorato = (HttpResponseDecorator) response;
             JSONObject json = (JSONObject) decorato.getData()
             if (json.esito?.status == 'KO') {
@@ -191,13 +184,14 @@ class IntegrazioneContabilitaAscotWeb extends AbstractIntegrazioneContabilita {
             def response = rest.post(path: new URI(integrazioneContabilitaAscotWebConfig.getUrlWebService()).getPath()+"/delibere/adozione",
                     requestContentType: ContentType.URLENC,
                     contentType: ContentType.JSON,
-                    body: [esercizioAscot  : valori[0],
-                           progressivoAscot: valori[1],
-                           tipoDelibera    : getCodiceRegistroEsterno(proposta),
-                           numeroAdozione  : documento.numeroAtto,
-                           dataAdozione    : documento.getDataAtto().format("yyyy-MM-dd")])
-            HttpResponseDecorator decorato = (HttpResponseDecorator) response;
-            JSONObject json = (JSONObject) decorato.getData()
+                    body: [esercizioAscot     : valori[0],
+                           progressivoAscot   : valori[1],
+                           tipoDelibera       : getCodiceAtto(proposta), //PR PISA vuole il codiceatto...UNIONE adesso ha il campo null ma vorrebbe un altro codice
+                           codiceUfficioAscot : getCodiceUfficio(proposta),
+                           numeroAdozione     : documento.numeroAtto,
+                           dataAdozione       : documento.getDataAtto().format("yyyy-MM-dd")])
+            HttpResponseDecorator decorator = (HttpResponseDecorator) response;
+            JSONObject json = (JSONObject) decorator.getData()
             if (json.esito?.status == 'KO') {
                 log.error(json.esito.message)
                 throw new AttiRuntimeException("Errore durante la richiesta di adozione dell'atto in contabilità: " + json.esito.message)
@@ -239,12 +233,42 @@ class IntegrazioneContabilitaAscotWeb extends AbstractIntegrazioneContabilita {
         }
     }
 
-    private String getCodiceRegistroEsterno(IProposta proposta) {
-        if (proposta instanceof Determina) {
-            return proposta.tipologia.tipoRegistro?.registroEsterno
-        } else if (proposta instanceof PropostaDelibera) {
-            return (proposta.tipologia.tipoRegistroDelibera?.registroEsterno) ?: (proposta.commissione?.tipoRegistro?.registroEsterno)
+    private String getCodiceAtto(IProposta proposta) {
+        //UNIONE TERRE DI CASTELLI utilizza il mapping per trovare la tipologia dell'atto, mentre PISA usa il codice registro
+        //prima controlliamo il mapping....se vuoto andiamo a cercare il codice registro
+        String registro = integrazioneContabilitaAscotWebConfig.getTipologiaAtto(proposta, '')
+        if ((registro == null) || (registro == '')) {
+            if (proposta instanceof Determina) {
+                registro =  proposta.tipologia.tipoRegistro?.registroEsterno
+            } else if (proposta instanceof PropostaDelibera) {
+                registro =  (proposta.tipologia.tipoRegistroDelibera?.registroEsterno) ?: (proposta.commissione?.tipoRegistro?.registroEsterno)
+            }
         }
+        return registro
+    }
+
+    private String getCodiceAttoEsecutivita(IProposta proposta) {
+        //UNIONE TERRE DI CASTELLI utilizza il mapping per trovare la tipologia dell'atto, mentre PISA vuole il valore null
+        //Quindi per PISA il mapping deve essere vuoto
+        return integrazioneContabilitaAscotWebConfig.getTipologiaAttoEsecutivita(proposta, '')
+    }
+
+    private String getCodiceProposta(IProposta proposta) {
+        //pr pisa non valorizza questo campo....unione terre di castelli lo legge dalla mappatura
+        String codice
+        codice = integrazioneContabilitaAscotWebConfig.getTipologiaProposta(proposta, '')
+        if (codice == '')
+            codice = null
+        return codice
+    }
+
+    private String getCodiceUfficio(IProposta proposta) {
+        String codice
+        So4UnitaPubb so4UnitaPubb = proposta.getSoggetto(TipoSoggetto.UO_PROPONENTE)?.unitaSo4
+        if (so4UnitaPubb) {
+            codice = integrazioneContabilitaAscotWebConfig.getUnitaProtocollo(so4UnitaPubb)
+        }
+        return codice
     }
 
     @Transactional

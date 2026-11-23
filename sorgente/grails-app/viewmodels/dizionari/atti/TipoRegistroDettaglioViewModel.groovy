@@ -105,7 +105,17 @@ class TipoRegistroDettaglioViewModel extends AfcAbstractRecord {
 	}
 
 	@Command onEliminaRegistro (@BindingParam("reg") RegistroDTO registroDto) {
-		Messagebox.show("Sei sicuro di voler chiudere il Registro?", "Chiudere Registro",
+		String messaggio
+		String titolo
+		if (registroDto.valido) {
+			messaggio = "Sei sicuro di voler chiudere il Registro?"
+			titolo = "Chiusura registro"
+		}
+		else {
+			messaggio = "Sei sicuro di voler riaprire il Registro?"
+			titolo = "Riapertura registro"
+		}
+		Messagebox.show(messaggio, titolo,
 				Messagebox.OK | Messagebox.CANCEL, Messagebox.EXCLAMATION,
 				new org.zkoss.zk.ui.event.EventListener() {
 					void onEvent(Event e) {

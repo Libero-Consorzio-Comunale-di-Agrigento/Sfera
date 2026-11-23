@@ -79,15 +79,17 @@
                                             <label value="Unità"/>
                                         </cell>
                                         <cell hflex="3">
-                                            <bandbox-unita width="400px" hflex="1" mold="rounded" autodrop="true" unita="@bind(vm.selectedRecord.unitaSo4)"  disabled="@load(vm.selectedRecord.id > 0)"/>
+                                            <textbox readonly="true" hflex="1" value="@load(vm.denominazioneUnita)"/>
+                                            <button style="float:right;" image="/images/afc/16x16/add.png" onClick="@command('onSceltaUnita')" visible="@load(!(vm.selectedRecord.id > 0))" />
                                         </cell>
                                     </row>
                                     <row>
                                         <cell hflex="1" align="left">
                                             <label value="Firmatario"/>
                                         </cell>
-                                        <cell hflex="3">
-                                            <bandbox-utenti width="400px" mold="rounded" autodrop="true" utente="@bind(vm.selectedRecord.utenteAd4)"  disabled="@load(vm.selectedRecord.id > 0)"/>
+                                        <cell>
+                                            <textbox readonly="true" hflex="1" value="@load(vm.soggettoFirmatario.denominazione)"/>
+                                            <button style="float:right;" image="/images/afc/16x16/add.png" onClick="@command('onCercaSoggetto')" visible="@load(!(vm.selectedRecord.id > 0))" />
                                         </cell>
                                     </row>
                                     <row>

@@ -7,6 +7,7 @@ import it.finmatica.atti.documenti.StatoDocumento
 import it.finmatica.atti.documenti.StatoFirma
 import it.finmatica.atti.documenti.StatoMarcatura
 import it.finmatica.atti.dto.commons.FileAllegatoDTO
+import it.finmatica.atti.dto.dizionari.ImpattoGenerazionaleDTO
 import it.finmatica.atti.dto.dizionari.TipoRegistroDTO
 import it.finmatica.atti.dto.odg.OggettoSedutaDTO
 import it.finmatica.dto.DtoUtils
@@ -54,6 +55,7 @@ public class DeliberaDTO implements it.finmatica.dto.DTO<Delibera> {
     Integer giorniPubblicazione;
     Long idDocumentoAlbo;
     Long idDocumentoEsterno;
+    ImpattoGenerazionaleDTO impattoGenerazionale;
     WkfIterDTO iter;
     Date lastUpdated;
     GestioneTestiModelloDTO modelloTesto;
@@ -85,6 +87,9 @@ public class DeliberaDTO implements it.finmatica.dto.DTO<Delibera> {
     boolean pubblicaVisualizzatore;
     Set<DatoAggiuntivoDTO> datiAggiuntivi;
     Set<DocumentoCollegatoDTO> documentiCollegati;
+
+    String idFascicoloEsterno;
+    String idApplicativoEsterno;
 
     public void addToAllegati (AllegatoDTO allegato) {
         if (this.allegati == null)
@@ -177,7 +182,8 @@ public class DeliberaDTO implements it.finmatica.dto.DTO<Delibera> {
     /* * * codice personalizzato * * */ // attenzione: non modificare questa riga se si vuole mantenere il codice personalizzato che segue.
     // qui è possibile inserire codice personalizzato che non verrà eliminato dalla rigenerazione dei DTO.
 
-	String firmatariOggetto;
+	String firmatariOggetto
+	String unitaProponente
 	
 	// Questo è solo un alias per la propostaDelibera siccome ne ho cambiato il nome perché andava in conflitto con l'interfaccia IAtto
 	public PropostaDeliberaDTO getProposta() {

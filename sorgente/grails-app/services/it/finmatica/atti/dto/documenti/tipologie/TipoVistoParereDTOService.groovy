@@ -29,9 +29,14 @@ class TipoVistoParereDTOService {
 		tipoVistoParere.unitaDestinatarie		= tipoVistoParereDTO.unitaDestinatarie
 		tipoVistoParere.sequenzaStampaUnica     = tipoVistoParereDTO.sequenzaStampaUnica
 		tipoVistoParere.testoObbligatorio     	= tipoVistoParereDTO.testoObbligatorio
+		tipoVistoParere.testoModificabileNoIter	= tipoVistoParereDTO.testoModificabileNoIter
 		tipoVistoParere.pubblicaAllegati		= tipoVistoParereDTO.pubblicaAllegati
 		tipoVistoParere.pubblicaAllegatiDefault = tipoVistoParereDTO.pubblicaAllegatiDefault && tipoVistoParereDTO.pubblicaAllegati
         tipoVistoParere.queryMovimenti          = tipoVistoParereDTO.queryMovimenti
+		tipoVistoParere.multiOccorrenze			= tipoVistoParereDTO.multiOccorrenze
+		tipoVistoParere.ricalcoloFirmatario		= tipoVistoParereDTO.ricalcoloFirmatario
+		tipoVistoParere.tipoFirma				= tipoVistoParereDTO.tipoFirma
+		tipoVistoParere.tipoAllegato            = tipoVistoParereDTO.tipoAllegato?.domainObject
 
 		tipoVistoParere.save(failOnError: true)
 

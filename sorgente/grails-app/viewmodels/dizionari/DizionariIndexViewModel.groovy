@@ -27,6 +27,7 @@ class DizionariIndexViewModel {
 	, "tipoVistoParere" 			: "/dizionari/atti/tipoVistoParereLista.zul"
 	, "email"              			: "/dizionari/atti/emailLista.zul"
 	, "delega"              		: "/dizionari/atti/delegaLista.zul"
+    , "categoriaDelega"             : "/dizionari/atti/categoriaDelegaLista.zul"
 	, "notifica"           			: "/dizionari/atti/notificaLista.zul"
 	, "tipoRegistro"           		: "/dizionari/atti/tipoRegistroLista.zul"
 	, "registroUnita"           	: "/dizionari/atti/registroUnitaLista.zul"
@@ -36,6 +37,7 @@ class DizionariIndexViewModel {
 	, "gestioneTestiModello"        : "/dizionari/impostazioni/gestioneTestiModelloLista.zul"
 	, "calendarioFestivita"         : "/dizionari/atti/calendarioFestivitaLista.zul"
     , "datiAggiuntivi"              : "/dizionari/atti/tipoDatoAggiuntivoValoreLista.zul"
+    , "impattoGenerazionale" : "/dizionari/atti/impattoGenerazionaleLista.zul"
 	]
 
     def pagineDizionarioControlloRegolarita = [
@@ -48,6 +50,7 @@ class DizionariIndexViewModel {
             , "esito"          : "/dizionari/odg/esitoLista.zul"
             , "voto"           : "/dizionari/odg/votoLista.zul"
             , "organoControllo": "/dizionari/odg/organoControlloLista.zul"
+            , "gruppoPolitico": "/dizionari/odg/gruppoPoliticoLista.zul"
             , "tipoSeduta"     : "/dizionari/odg/tipoSedutaLista.zul"
             , "incarichi"      : "/dizionari/odg/incaricoLista.zul"
             , "importoGettone" : "/dizionari/odg/importoGettoneLista.zul"
@@ -79,9 +82,11 @@ class DizionariIndexViewModel {
     boolean categoriaDeterminaDisabled = true
     boolean datoAggiuntivoDisabled = true
     boolean categoriaPropostaDeliberaDisabled = true
+    boolean impattoGenerazionaleDisabled = true
     boolean gettonePresenzaDisabled = true
     boolean calendarioFestivitaDisabled = true
     boolean configuratoreIterDisabled = true
+    boolean gruppiPoliticiDisabled = true
 
     StrutturaOrganizzativaService strutturaOrganizzativaService
     SpringSecurityService springSecurityService
@@ -110,6 +115,13 @@ class DizionariIndexViewModel {
         }
 
         gettonePresenzaDisabled = !Impostazioni.ODG_GETTONE_PRESENZA_ATTIVO.abilitato
+
+        gruppiPoliticiDisabled = !Impostazioni.GESTIONE_GRUPPI_POLITICI.abilitato
+
+        if(!Impostazioni.IMPATTO_GENERAZIONALE.abilitato){
+            impattoGenerazionaleDisabled=true
+        } else
+            impattoGenerazionaleDisabled=false
 
         if (!Impostazioni.CATEGORIA_PROPOSTA_DELIBERA.abilitato) {
             categoriaPropostaDeliberaDisabled = true

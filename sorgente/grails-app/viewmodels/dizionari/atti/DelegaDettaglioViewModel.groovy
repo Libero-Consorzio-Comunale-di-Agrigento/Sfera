@@ -4,8 +4,10 @@ import afc.AfcAbstractRecord
 import grails.orm.PagedResultList
 import it.finmatica.as4.As4SoggettoCorrente
 import it.finmatica.as4.dto.As4SoggettoCorrenteDTO
+import it.finmatica.atti.dizionari.CategoriaDelega
 import it.finmatica.atti.dizionari.Delega
 import it.finmatica.atti.dto.dizionari.DelegaDTO
+import it.finmatica.atti.dto.dizionari.CategoriaDelegaDTO
 import it.finmatica.atti.dto.dizionari.DelegaDTOService
 import it.finmatica.atti.exceptions.AttiRuntimeException
 import org.hibernate.FetchMode
@@ -26,6 +28,8 @@ class DelegaDettaglioViewModel extends AfcAbstractRecord {
 	String 		filtroSoggetti
 	String 		assessore
 	boolean 	modificabile = false
+	CategoriaDelegaDTO categoriaDelega
+	List<CategoriaDelega> listaCategorieDeleghe = new ArrayList<CategoriaDelega>()
 
 	List<As4SoggettoCorrenteDTO> soggettiList
 	List<DelegaDTO> storico
@@ -44,6 +48,10 @@ class DelegaDettaglioViewModel extends AfcAbstractRecord {
 		// Inizializo le variabili di classe
 		activePage = 0
 		filtroSoggetti = ""
+		listaCategorieDeleghe = CategoriaDelega.createCriteria().list {
+			eq("valido",true)
+			order("descrizione", "asc")
+		}.toDTO()
 
 	//	soggettiList = loadSoggetti().toDTO()
 
@@ -51,6 +59,10 @@ class DelegaDettaglioViewModel extends AfcAbstractRecord {
 			selectedRecord = caricaDelegaDto(id)
 			aggiornaDatiCreazione(selectedRecord.utenteIns.id, selectedRecord.dateCreated)
 			aggiornaDatiModifica(selectedRecord.utenteUpd.id, selectedRecord.lastUpdated)
+			if(selectedRecord.idCategoriaDelega!=null){
+				categoriaDelega=CategoriaDelega.get(selectedRecord.idCategoriaDelega).toDTO()
+			}
+
 			assessore = (selectedRecord?.assessore?.cognome?:"") + (selectedRecord?.assessore?.nome?(" "+selectedRecord?.assessore?.nome):"")
 			caricaStorico()
 		} else {
@@ -83,6 +95,18 @@ class DelegaDettaglioViewModel extends AfcAbstractRecord {
 		}
 
 	}
+
+	@NotifyChange(["categoriaDelega", "selectedRecord"])
+	@Command onChangeCategoria() {
+
+		if(categoriaDelega.id!=null) {
+			selectedRecord.idCategoriaDelega = categoriaDelega.id
+		}else{
+			selectedRecord.idCategoriaDelega=null
+		}
+	}
+
+
 
 	//////////////////////////////////////////
 	//				SOGGETTI				//
@@ -139,8 +163,14 @@ class DelegaDettaglioViewModel extends AfcAbstractRecord {
 	@NotifyChange(["selectedRecord", "datiCreazione", "datiModifica"])
 	@Command onSalva () {
 		boolean isNuovaDelega = (selectedRecord.id == null)
+		if(categoriaDelega!=null){
+			selectedRecord.idCategoriaDelega=categoriaDelega.id
+		}else{
+			selectedRecord.idCategoriaDelega=null
+		}
 		def idDelega = delegaDTOService.salva(selectedRecord).id
 		selectedRecord = caricaDelegaDto(idDelega)
+
 		if (isNuovaDelega){
 			aggiornaDatiCreazione(selectedRecord.utenteIns.id, selectedRecord.dateCreated)
 		}
@@ -187,7 +217,7 @@ class DelegaDettaglioViewModel extends AfcAbstractRecord {
 
 	@NotifyChange(["selectedRecord", "datiCreazione", "datiModifica", "modificabile"])
 	@Command onStoricizza () {
-		selectedRecord = new DelegaDTO(valido:true, sequenza:1, idDelegaStorico: selectedRecord.id, assessore: selectedRecord.assessore, descrizioneAssessorato: selectedRecord.descrizioneAssessorato)
+		selectedRecord = new DelegaDTO(valido:true, sequenza:selectedRecord.sequenza, idDelegaStorico: selectedRecord.id, assessore: selectedRecord.assessore, descrizioneAssessorato: selectedRecord.descrizioneAssessorato)
 		modificabile = true
 		storico = null
 	}

@@ -4,6 +4,7 @@ import atti.actions.commons.CampiDocumentoAction
 import grails.plugin.springsecurity.SpringSecurityService
 import groovy.sql.Sql
 import it.finmatica.ad4.autenticazione.Ad4Ruolo
+import it.finmatica.atti.commons.AttiUtils
 import it.finmatica.atti.dizionari.*
 import it.finmatica.atti.documenti.*
 import it.finmatica.atti.documenti.beans.AttiGestoreCompetenze
@@ -68,7 +69,7 @@ class AdminService {
 								  , predefinito: "FINMATICA"
 								  , descrizione: "Elenco enti (separati da #) gestiti dall'applicativo per installazione"
 								  , etichetta:"ENTI SO4").save();
-			} else {
+			} else if (!entiSo4.valore.split(Impostazioni.SEPARATORE).contains(ottica.amministrazione.codice)) {
 				entiSo4.valore += Impostazioni.SEPARATORE+ottica.amministrazione.codice;
 				entiSo4.save()
 			}
@@ -87,6 +88,10 @@ class AdminService {
 				, descrizione: "Prefisso per il filtro dei ruoli"
 				, etichetta:"PREFISSO RUOLI AD4").save();
 		}
+
+		// filtro le entità multi-ente sull'ente che sto installando: i controlli "list().size() == 0" devono guardare solo i suoi dati.
+		// va abilitato dopo le WkfImpostazione, che lavorano anche sull'ente "*" (con il filtro attivo non verrebbero trovate)
+		AttiUtils.abilitaMultiEnteFilter(amministrazione.codice)
 
 		// installo le configurazioni per l'iter:
 
@@ -131,18 +136,18 @@ class AdminService {
 	public def inizializzaDizionari () {
 		log.debug ("installo i dizionari")
 
-		if (TipoRegistro.list().size() == 0) {
-			log.debug("Installo i Tipi Registro");
-
-			new TipoRegistro (codice: "PROP", 	descrizione: "Registro per le Proposte", 	automatico: true, valido: true).save()
-			new TipoRegistro (codice: "DETE", 	descrizione: "Registro per le Determine", 	automatico: true, valido: true).save()
-			new TipoRegistro (codice: "DELG", 	descrizione: "Registro per le Delibere di Giunta", 		automatico: true, valido: true).save()
-			new TipoRegistro (codice: "DELC", 	descrizione: "Registro per le Delibere di Consiglio", 	automatico: true, valido: true).save()
-			new TipoRegistro (codice: "SEDUG", 	descrizione: "Registro per le Sedute di Giunta", 		automatico: true, valido: true).save()
-			new TipoRegistro (codice: "SEDUC", 	descrizione: "Registro per le Sedute di Consiglio", 	automatico: true, valido: true).save()
-
-			["DETE", "PROP", "DELC", "DELG", "SEDUG", "SEDUC"].each {
-				registroService.rinnovaRegistro(TipoRegistro.get(it), Calendar.getInstance().get(Calendar.YEAR))
+		// installo solo i tipi registro mancanti (la tabella potrebbe già contenerne altri)
+		def tipiRegistro = [PROP:  "Registro per le Proposte"
+						  , DETE:  "Registro per le Determine"
+						  , DELG:  "Registro per le Delibere di Giunta"
+						  , DELC:  "Registro per le Delibere di Consiglio"
+						  , SEDUG: "Registro per le Sedute di Giunta"
+						  , SEDUC: "Registro per le Sedute di Consiglio"]
+		for (def tipo : tipiRegistro) {
+			if (TipoRegistro.get(tipo.key) == null) {
+				log.debug("Installo il Tipo Registro ${tipo.key}")
+				TipoRegistro tipoRegistro = new TipoRegistro (codice: tipo.key, descrizione: tipo.value, automatico: true, valido: true).save()
+				registroService.rinnovaRegistro(tipoRegistro, Calendar.getInstance().get(Calendar.YEAR))
 			}
 		}
 
@@ -178,6 +183,10 @@ class AdminService {
         TipoSoggetto.findOrSaveWhere (codice: TipoSoggetto.DIRETTORE_SANITARIO, 	 categoria: TipoSoggetto.CATEGORIA_COMPONENTE,	titolo: "Direttore Sanitario")
         TipoSoggetto.findOrSaveWhere (codice: TipoSoggetto.DIRETTORE_SOCIO_SANITARIO,categoria: TipoSoggetto.CATEGORIA_COMPONENTE,	titolo: "Direttore Socio Sanitario")
 
+		TipoSoggetto.findOrSaveWhere (codice: TipoSoggetto.COMMISSARIO_1, 	categoria: TipoSoggetto.CATEGORIA_COMPONENTE,	titolo: "Commissario 1")
+		TipoSoggetto.findOrSaveWhere (codice: TipoSoggetto.COMMISSARIO_2, 	categoria: TipoSoggetto.CATEGORIA_COMPONENTE,	titolo: "Commissario 2")
+		TipoSoggetto.findOrSaveWhere (codice: TipoSoggetto.COMMISSARIO_3,	categoria: TipoSoggetto.CATEGORIA_COMPONENTE,	titolo: "Commissario 3")
+
 		if (TipoSeduta.list().size() == 0) {
 			log.debug("Installo i Tipi Seduta");
 
@@ -204,6 +213,9 @@ class AdminService {
 			new RuoloPartecipante(codice: RuoloPartecipante.CODICE_DIRETTORE_AMMINISTRATIVO, 	descrizione: "DIRETTORE AMMINISTRATIVO").save()
             new RuoloPartecipante(codice: RuoloPartecipante.CODICE_DIRETTORE_GENERALE, 			descrizione: "DIRETTORE GENERALE").save()
             new RuoloPartecipante(codice: RuoloPartecipante.CODICE_DIRETTORE_SOCIO_SANITARIO, 	descrizione: "DIRETTORE SOCIO SANITARIO").save()
+			new RuoloPartecipante(codice: RuoloPartecipante.CODICE_COMMISSARIO_1, 	descrizione: "COMMISSARIO 1").save()
+			new RuoloPartecipante(codice: RuoloPartecipante.CODICE_COMMISSARIO_2, 	descrizione: "COMMISSARIO 2").save()
+			new RuoloPartecipante(codice: RuoloPartecipante.CODICE_COMMISSARIO_3, 	descrizione: "COMMISSARIO 3").save()
 			
 //			new RuoloPartecipante(codice: RuoloPartecipante.CODICE_VICE_SEGRETARIO, descrizione: 'VICE SEGRETARIO').save()
 //			new RuoloPartecipante(codice: RuoloPartecipante.CODICE_VICE_PRESIDENTE, descrizione: 'VICE PRESIDENTE').save()
@@ -316,48 +328,70 @@ class AdminService {
 
 		aggiornamentoService.aggiornaRegoleCalcolo();
 
-		if (CaratteristicaTipologia.list().size() == 0) {
-			log.debug("Installo le Caretteristiche Tipologia");
-
-			CaratteristicaTipologia c = new CaratteristicaTipologia (titolo: "Determina", 	descrizione: "Determina", 	tipoOggetto: WkfTipoOggetto.get(Determina.TIPO_OGGETTO), 	layoutSoggetti: "/atti/documenti/determina/determina_standard.zul");
+		// installo solo le caratteristiche standard mancanti (con il filtro multi-ente la ricerca è sull'ente in installazione)
+		CaratteristicaTipologia c
+		if (CaratteristicaTipologia.findByTitolo("Determina") == null) {
+			log.debug("Installo la Caratteristica Tipologia Determina")
+			c = new CaratteristicaTipologia (titolo: "Determina", 	descrizione: "Determina", 	tipoOggetto: WkfTipoOggetto.get(Determina.TIPO_OGGETTO), 	layoutSoggetti: "/atti/documenti/determina/determina_standard.zul");
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.REDATTORE, 	"getComponentePerUtenteCorrente", "getListaComponentiPerUtenteConRuoloInOttica", null, "AGDRED"));
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.UO_PROPONENTE, "getUnitaSoggettoConRuolo", "getListaUnitaOttica", TipoSoggetto.REDATTORE, "AGDRED"));
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.FUNZIONARIO, 	"getResponsabileConRuoloInUnita", "getListaComponentiConRuoloInOttica", TipoSoggetto.UO_PROPONENTE, "AGDFUNZ"));
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.DIRIGENTE, 	"getResponsabileConRuoloInUnita", "getListaComponentiConRuoloInOttica", TipoSoggetto.UO_PROPONENTE, "AGDFIRMA"));
 			c.save();
+		}
 
+		if (CaratteristicaTipologia.findByTitolo("Ordinanza sindacale") == null) {
+			log.debug("Installo la Caratteristica Tipologia Ordinanza sindacale")
 			c = new CaratteristicaTipologia (titolo: "Ordinanza sindacale", 		descrizione: "Ordinanza del sindaco", 	tipoOggetto: WkfTipoOggetto.get(Determina.TIPO_OGGETTO), 	layoutSoggetti: "/atti/documenti/determina/determina_standard.zul");
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.REDATTORE, 	"getComponentePerUtenteCorrente", "getListaComponentiPerUtenteConRuoloInOttica", null, "AGDRED"));
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.UO_PROPONENTE, "getUnitaSoggettoConRuolo", "getListaUnitaOttica", TipoSoggetto.REDATTORE, "AGDRED"));
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.FUNZIONARIO, 	"getResponsabileConRuoloInUnita", "getListaComponentiConRuoloInOttica",  TipoSoggetto.UO_PROPONENTE, "AGDFUNZ"));
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.DIRIGENTE, 	"getResponsabileConRuoloInOttica", "getListaComponentiConRuoloInOttica", TipoSoggetto.UO_PROPONENTE, "AGDDECF"));
 			c.save();
+		}
 
+		if (CaratteristicaTipologia.findByTitolo("Proposta Delibera") == null) {
+			log.debug("Installo la Caratteristica Tipologia Proposta Delibera")
 			c = new CaratteristicaTipologia (titolo: "Proposta Delibera", 	descrizione: "Proposta Delibera", 	tipoOggetto: WkfTipoOggetto.get(PropostaDelibera.TIPO_OGGETTO), 	layoutSoggetti: "/atti/documenti/propostaDelibera/propostaDelibera_standard.zul").save()
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.REDATTORE, 	"getComponentePerUtenteCorrente", "getListaComponentiPerUtenteConRuoloInOttica", null, "AGDRED"));
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.UO_PROPONENTE, "getUnitaSoggettoConRuolo", "getListaUnitaOttica", TipoSoggetto.REDATTORE, "AGDRED"));
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.FUNZIONARIO, 	"getResponsabileConRuoloInUnita", "getListaComponentiConRuoloInOttica", TipoSoggetto.UO_PROPONENTE, "AGDFUNZ"));
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.DIRIGENTE, 	"getResponsabileConRuoloInUnita", "getListaComponentiConRuoloInOttica", TipoSoggetto.UO_PROPONENTE, "AGDFIRMA"));
 			c.save();
+		}
 
+		if (CaratteristicaTipologia.findByTitolo("Parere") == null) {
+			log.debug("Installo la Caratteristica Tipologia Parere")
 			c = new CaratteristicaTipologia (titolo: "Parere", 				descrizione: "Parere", 				tipoOggetto: WkfTipoOggetto.get(VistoParere.TIPO_OGGETTO), 	layoutSoggetti: "--nessuno--").save()
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.UO_DESTINATARIA, 	"getUnitaInTipologia", "getListaUnitaInTipologia", null, null));
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.FIRMATARIO, 		"getComponenteConRuoloInUnita", "getListaComponentiConRuoloInOttica", TipoSoggetto.UO_DESTINATARIA, "AGDVISF"));
 			c.save();
+		}
 
+		if (CaratteristicaTipologia.findByTitolo("Parere Tecnico") == null) {
+			log.debug("Installo la Caratteristica Tipologia Parere Tecnico")
 			c = new CaratteristicaTipologia (titolo: "Parere Tecnico", 				descrizione: "Parere Tecnico", 				tipoOggetto: WkfTipoOggetto.get(VistoParere.TIPO_OGGETTO), 	layoutSoggetti: "--nessuno--").save()
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.UO_DESTINATARIA, 	"getUnitaProponenteDocumentoPrincipale", "getListaUnitaInTipologiaInRamoUoProponente", null, null));
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.FIRMATARIO, 		"getDirigenteDocumentoPrincipale", "getListaComponentiConRuoloInOttica", TipoSoggetto.UO_DESTINATARIA, "AGDFIRMA"));
 			c.save();
+		}
 
+		if (CaratteristicaTipologia.findByTitolo("Certificato Esecutività") == null) {
+			log.debug("Installo la Caratteristica Tipologia Certificato Esecutività")
 			c = new CaratteristicaTipologia (titolo: "Certificato Esecutività", 		descrizione: "Certificato Esecutività", 		tipoOggetto: WkfTipoOggetto.get(Certificato.TIPO_OGGETTO), 	layoutSoggetti: "--nessuno--").save()
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.FIRMATARIO, 	"getComponentePerUtenteCorrente", "getListaComponentiConRuoloInOttica", null, "AGDESECF"));
 			c.save();
+		}
 
+		if (CaratteristicaTipologia.findByTitolo("Certificato") == null) {
+			log.debug("Installo la Caratteristica Tipologia Certificato")
 			c = new CaratteristicaTipologia (titolo: "Certificato", 		descrizione: "Certificato", 		tipoOggetto: WkfTipoOggetto.get(Certificato.TIPO_OGGETTO), 	layoutSoggetti: "--nessuno--").save()
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.FIRMATARIO, 	"getComponentePerUtenteCorrente", "getListaComponentiConRuoloInOttica", null, "AGDCERTF"));
 			c.save();
+		}
 
+		if (CaratteristicaTipologia.findByTitolo("Visto") == null) {
+			log.debug("Installo la Caratteristica Tipologia Visto")
 			c = new CaratteristicaTipologia (titolo: "Visto", 				descrizione: "Visto", 				tipoOggetto: WkfTipoOggetto.get(VistoParere.TIPO_OGGETTO), 	layoutSoggetti: "--nessuno--").save()
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.UO_DESTINATARIA, 	"getUnitaInTipologia", "getListaUnitaInTipologia", null, null));
 			c.addToCaratteristicheTipiSoggetto(createCaratteristicaTipoSoggetto(TipoSoggetto.FIRMATARIO, 		"getComponenteConRuoloInUnita", "getListaComponentiConRuoloInOttica", TipoSoggetto.UO_DESTINATARIA, "AGDVISF"));
@@ -581,11 +615,14 @@ class AdminService {
 			modello.fileTemplate = file.getBytes();
 			modello.save()
 
-			new GestioneTestiModelloCompetenza(gestioneTestiModello: modello
-											, lettura: 	true
-											, modifica: true
-											, titolo: 	"Visibile a Tutti"
-											, ruoloAd4: Ad4Ruolo.get(Impostazioni.RUOLO_ACCESSO_APPLICATIVO.valore)).save();
+			// creo la competenza solo se non c'è già (installazione rilanciata)
+			if (GestioneTestiModelloCompetenza.findByGestioneTestiModelloAndTitolo(modello, "Visibile a Tutti") == null) {
+				new GestioneTestiModelloCompetenza(gestioneTestiModello: modello
+												, lettura: 	true
+												, modifica: true
+												, titolo: 	"Visibile a Tutti"
+												, ruoloAd4: Ad4Ruolo.get(Impostazioni.RUOLO_ACCESSO_APPLICATIVO.valore)).save();
+			}
 		}
 	}
 
@@ -606,6 +643,14 @@ class AdminService {
 			log.debug("installo la configurazione: ${file}")
 
 			String xml = file.getText();
+
+			// se l'iter è già configurato (installazione rilanciata) non lo reimporto
+			String nomeIter = new XmlSlurper().parseText(xml).nome.text()
+			if (WkfCfgIter.findByNome(nomeIter) != null) {
+				log.debug("configurazione già presente, non la reinstallo: ${nomeIter}")
+				return
+			}
+
 			def cfgIter = wkfCfgIterXMLSerializer.importFromXml(xml, -1);
 			cfgIter.stato = WkfCfgIter.STATO_IN_USO;
 			cfgIter.save(failOnError:true, flush:true)

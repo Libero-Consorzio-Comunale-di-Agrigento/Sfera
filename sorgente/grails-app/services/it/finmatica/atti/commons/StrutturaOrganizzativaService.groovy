@@ -658,4 +658,21 @@ class StrutturaOrganizzativaService {
 		}
 		return unita
 	}
+
+	So4UnitaPubb getUnitaVerticeCompleta(So4UnitaPubb unita, long idSuddivisione = -1) {
+		So4UnitaPubb unitaTemp=So4UnitaPubb.get(unita)
+		while (unitaTemp != null && unitaTemp.suddivisione.id != idSuddivisione && unitaTemp.progrPadre > 0) {
+			unitaTemp = unitaTemp.getUnitaPubbPadre(unita.al?:new Date());
+		}
+		return unitaTemp
+	}
+
+	So4UnitaPubb getServizio(So4UnitaPubb unita){
+		So4UnitaPubb ret=null
+		So4SuddivisioneStruttura suddivisione = So4SuddivisioneStruttura.getSuddivisione(Impostazioni.SO4_SUDDIVISIONE_SERVIZIO.valore, Impostazioni.OTTICA_SO4.valore).get()
+		if(suddivisione){
+			ret = getUnitaVerticeCompleta(unita, suddivisione.id)
+		}
+		return ret
+	}
 }

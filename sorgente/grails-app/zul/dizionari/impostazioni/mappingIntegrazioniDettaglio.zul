@@ -20,9 +20,10 @@
             <tabpanels children="@load(vm.tabs)">
                 <template name="children" var="tab">
                     <tabpanel if="#{not tab.parametro.multiplo}">
+                        <div hflex="1" vflex="1" style="overflow:auto;">
                         <grid model="@load(tab.valori)" sclass="form">
                             <columns>
-                                <column label="Parametro"  width="20%"/>
+                                <column label="Parametro"  width="35%"/>
                                 <column label="Valore Esterno" />
                             </columns>
                             <template name="model" var="valore">
@@ -41,6 +42,7 @@
                                 </row>
                             </template>
                         </grid>
+                        </div>
                     </tabpanel>
                     <tabpanel if="#{tab.parametro.multiplo}">
                         <h:div style="padding: 5px">

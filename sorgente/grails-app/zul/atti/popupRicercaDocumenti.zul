@@ -128,17 +128,17 @@
 						</cell>
 					</row>
 					<row visible="@load(vm.ricerca.corteContiAbilitata)">
-						<cell align="right" ><label value="Stato Corte dei Conti" /></cell>
+						<cell align="right" ><label value="@load(c:l('label.ricerca.corteContiStato'))" /></cell>
 						<cell>
 							<combobox hflex="1" readonly="true" 	selectedItem="@bind(vm.ricerca.statoInvioCorteConti)">
 								<comboitem label="-- nessuno --" 	value="NESSUNO"/>
-								<comboitem label="Da Inviare" 		value="DA_INVIARE"/>
-								<comboitem label="Da Non Inviare" 	value="DA_NON_INVIARE"/>
-								<comboitem label="Inviate" 			value="INVIATO"/>
-								<comboitem label="Da Non Inviare" 	value="NON_INVIATO"/>
+								<comboitem label="@load(c:l('label.ricerca.corteContiStato.valore.da_inviare'))" 		value="DA_INVIARE" visible="@load(c:l('label.ricerca.corteContiStato.valore.da_inviare') eq '' ? false: true)"/>
+								<comboitem label="@load(c:l('label.ricerca.corteContiStato.valore.da_non_inviare'))" 	value="DA_NON_INVIARE" visible="@load(c:l('label.ricerca.corteContiStato.valore.da_non_inviare') eq '' ? false: true)"/>
+								<comboitem label="@load(c:l('label.ricerca.corteContiStato.valore.inviato'))" 			value="INVIATO" visible="@load(c:l('label.ricerca.corteContiStato.valore.inviato') eq '' ? false: true)" />
+								<comboitem label="@load(c:l('label.ricerca.corteContiStato.valore.non_inviato'))"	 	value="NON_INVIATO" visible="@load(c:l('label.ricerca.corteContiStato.valore.non_inviato') eq '' ? false: true)"/>
 	      					</combobox>
 						</cell>
-						<cell align="right" ><label value="Data di Invio Corte dei Conti" /></cell>
+						<cell align="right" ><label value="@load(c:l('label.ricerca.DataInvioCorteConti'))" /></cell>
 						<cell>
 							<label value="Dal " />
 							<datebox value="@bind(vm.ricerca.dataInvioCorteContiDal)" format="dd/MM/yyyy" />
@@ -165,6 +165,15 @@
 						</cell>
 					</row>
 					<row>
+						<cell align="right"><label value="Note"/></cell>
+						<cell>
+							<textbox mold="rounded" hflex="1" width="100%" value="@bind(vm.ricerca.note)"/>
+						</cell>
+						<cell align="right"></cell>
+						<cell>
+						</cell>
+					</row>
+					<row>
 						<cell align="right">
 							<label value="Stato" />
 						</cell>
@@ -184,6 +193,16 @@
 						<cell align="right"><label value="Segretario"/></cell>
 						<cell>
 							<bandbox-utenti hflex="1" mold="rounded" autodrop="true" utente="@bind(vm.ricerca.segretario)" tipoSoggetto="SEGRETARIO" mascheraRicerca="@load(vm.ricerca)" />
+						</cell>
+					</row>
+					<row visible="@load(vm.ricerca.impattoGenerazionaleAbilitato)">
+						<cell align="right"><label value="@load(c:l('label.impattoGenerazionale'))"/></cell>
+						<cell>
+							<combobox hflex="1" model="@load(vm.ricerca.listaImpattiGenerazionali)" selectedItem="@bind(vm.ricerca.impattoGenerazionale) @converter('it.finmatica.zkutils.PropertyConverter', property='id', default=-1)" readonly="true">
+								<template name="model" var="ig">
+									<comboitem label="@load(ig.titolo)" description="@load(ig.descrizione)"  />
+								</template>
+							</combobox>
 						</cell>
 					</row>
 					<row visible="@load(not vm.ricerca.ricercaConservazione)">
@@ -295,19 +314,66 @@
 								</template>
 							</combobox>
 						</cell>
+						<cell align="right" visible="@load(vm.ricerca.mostraImportoTotale)"><label value="Importo Totale" /></cell>
+						<cell width="295px" visible="@load(vm.ricerca.mostraImportoTotale)">
+							<label value="Dal " />
+							<doublebox value="@bind(vm.ricerca.importoTotaleDal)" format=",###.#00"/>
+							<label value=" Al " />
+							<doublebox value="@bind(vm.ricerca.importoTotaleAl)" format=",###.#00"/>
+						</cell>
 					</row>
 					<row>
-						<cell align="right"><label value="Unità proponente"/></cell>
+						<cell align="right"><label value="@load(c:l('label.ricerca.unitaProponente'))"/></cell>
 						<cell>
 							<bandbox-unita hflex="1" mold="rounded" autodrop="true" unita="@bind(vm.ricerca.unitaProponente)" mascheraRicerca="@load(vm.ricerca)" />
 						</cell>
-						<cell align="right"><label value="Redattore"/></cell>
+						<cell align="right"><label value="@load(c:l('label.ricerca.redattore'))"/></cell>
 						<cell>
 							<bandbox-utenti hflex="1" mold="rounded" autodrop="true" utente="@bind(vm.ricerca.redattore)" tipoSoggetto="REDATTORE" mascheraRicerca="@load(vm.ricerca)" />
 						</cell>
 					</row>
+					<row visible="@load(vm.ricerca.abilitaRicercaServizio and (vm.ricerca.tipoDocumento eq 'DETERMINA' or vm.ricerca.tipoDocumento eq 'DELIBERA'))">
+						<cell align="right"><label value="@load(c:l('label.ricerca.servizio'))"/></cell>
+						<cell>
+							<!-- onChanging non funziona correttamente-->
+							<bandbox id="bandboxServizi"
+									 width="100%"
+									 mold="rounded"
+									 autodrop="true"
+									 onChange="@command('deselezionaServizio', target=bandboxServizi, listbox=listboxServizi)">
+								<bandpopup id="bandpopupServizi">
+									<listbox id="listboxServizi"
+										width="500px"
+										height="250px"
+										multiple="false"
+										model="@load(vm.ricerca.listaServizi)"
+										selectedItem="@bind(vm.ricerca.servizio)"
+										onSelect="@command('selezionaServizio', target=bandboxServizi)">
+										<listhead>
+											<listheader label="Codice"/>
+											<listheader label="Descrizione"/>
+											<listheader label="Valido Dal"/>
+										</listhead>
+										<template name="model" var="each">
+											<listitem>
+												<listcell label="@load(each.codice)"/>
+												<listcell label="@load(each.descrizione)"/>
+												<listcell label="@load(empty each.dal ? '' : c:formatDate(each.dal, 'dd/MM/yyyy'))"/>
+											</listitem>
+										</template>
+									</listbox>
+									<paging
+										activePage="@bind(vm.ricerca.activePage)"
+										pageSize="@bind(vm.ricerca.pageSize)"
+										totalSize="@load(vm.ricerca.totalSize)"
+										onPaging="@command('caricaListaServizi')"/>
+								</bandpopup>
+							</bandbox>
+						</cell>
+						<cell colspan="2"/>
+					</row>
 					<row>
-						<cell align="right"><label value="Firmatario"/></cell>
+						<cell align="right"><label value="@load(c:l('label.ricerca.firmatario'))"/></cell>
 						<cell>
 							<bandbox-utenti hflex="1" mold="rounded" autodrop="true" utente="@bind(vm.ricerca.firmatario)" tipoSoggetto="DIRIGENTE" mascheraRicerca="@load(vm.ricerca)" />
 						</cell>
@@ -321,21 +387,31 @@
 							</combobox>
 						</cell>
 					</row>
-					<row visible="@load(vm.ricerca.abilitaIncaricato)">
+					<row>
 						<cell align="right" visible="@load(vm.ricerca.abilitaIncaricato)"><label value="@load(c:l('label.ricerca.incaricato'))"/></cell>
 						<cell visible="@load(vm.ricerca.abilitaIncaricato)">
 							<bandbox-utenti hflex="1" mold="rounded" autodrop="true" utente="@bind(vm.ricerca.incaricato)" tipoSoggetto="INCARICATO" mascheraRicerca="@load(vm.ricerca)" />
 						</cell>
-						<cell align="right"></cell>
-						<cell></cell>
-					</row>
-                    <row if="#{da:isAbilitato('CUP')}" visible="@load(vm.ricerca.tipoDocumento eq 'DETERMINA')">
-                        <cell align="right" if="#{da:isAbilitato('CUP')}"><label value="CUP"/></cell>
-                        <cell if="#{da:isAbilitato('CUP')}">
-                            <textbox mold="rounded" hflex="1" width="100%" value="@bind(vm.ricerca.cup)"/>
+						<cell colspan="2" visible="@load(not vm.ricerca.abilitaIncaricato)">
+						</cell>
+						<cell align="right"><label value="@load(c:l('label.ricerca.funzionario'))"/></cell>
+                        <cell>
+                            <bandbox-utenti hflex="1" mold="rounded" autodrop="true" utente="@bind(vm.ricerca.funzionario)" tipoSoggetto="FUNZIONARIO" mascheraRicerca="@load(vm.ricerca)" />
                         </cell>
+					</row>
+                    <row visible="@load(vm.ricerca.tipoDocumento eq 'DETERMINA')">
+						<cell align="right">
+							<label value="CIG" />
+						</cell>
+						<cell>
+							<textbox mold="rounded" hflex="1" width="100%" value="@bind(vm.ricerca.cig)"/>
+						</cell>
+						<cell align="right" if="#{da:isAbilitato('CUP')}"><label value="CUP"/></cell>
+						<cell if="#{da:isAbilitato('CUP')}">
+							<textbox mold="rounded" hflex="1" width="100%" value="@bind(vm.ricerca.cup)"/>
+						</cell>
                     </row>
-					<row>
+					<row visible="@load(vm.ricerca.abilitaBudget)">
 						<cell align="right">
 							<label value="Tipo Budget" />
 						</cell>
@@ -353,13 +429,33 @@
     						<textbox mold="rounded" hflex="1" width="100%" value="@bind(vm.ricerca.contoEconomico)"/>
                         </cell>
 					</row>
-					<row>
+					<row visible="@load(vm.ricerca.abilitaBudget)">
 						<cell align="right">
 							<label value="Codice Progetto" />
 						</cell>
 						<cell>
     						<textbox mold="rounded" hflex="1" width="100%" value="@bind(vm.ricerca.codiceProgetto)"/>
                         </cell>
+					</row>
+					<row>
+						<cell align="right">
+							<label value="In evidenza" />
+						</cell>
+						<cell>
+							<radiogroup selectedItem="@save(vm.ricerca.inEvidenza)" >
+								<radio label="Tutti" value="0" checked="true"/>
+								<radio label="In evidenza" value="1" />
+								<radio label="Non in evidenza" value="2" />
+							</radiogroup>
+						</cell>
+						<cell align="right">
+							<label value="In evidenza dal" />
+						</cell>
+						<cell width="295px">
+							<datebox value="@bind(vm.ricerca.dataInEvidenzaDa)" format="dd/MM/yyyy"/>
+							<label value=" Al " />
+							<datebox value="@bind(vm.ricerca.dataInEvidenzaA)" format="dd/MM/yyyy"/>
+						</cell>
 					</row>
 				</rows>
 			</grid>

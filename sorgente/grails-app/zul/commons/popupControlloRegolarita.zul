@@ -248,30 +248,36 @@
 							<rows>
 								<row>
 									<cell>
-										<label value="Aree:" />
+										<label value="Area" />
 									</cell>
-									<cell colspan="2">
+									<cell colspan="2" visible="@load(!(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista))">
 										<combobox mold="rounded" hflex="1"
 												  selectedItem="@bind(vm.area)" onSelect="@command('onChangeArea')"
-												  model="@load(vm.listaAree)" disabled="@load(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista)">
+												  model="@load(vm.listaAree)">
 											<template name="model">
 												<comboitem label="@load(each.descrizione)" value="@load(each)" />
 											</template>
 										</combobox>
+									</cell>
+									<cell colspan="2" visible="@load(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista)">
+										<label value="@bind(vm.area.descrizione)" />
 									</cell>
 								</row>
 								<row>
 									<cell>
 										<label value="Servizi:" />
 									</cell>
-									<cell colspan="2">
+									<cell colspan="2" visible="@load(!(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista))">
 										<combobox mold="rounded" hflex="1"
 												  selectedItem="@bind(vm.servizio)" onSelect="@command('onSelectServizio')"
-												  model="@load(vm.listaServizi)" disabled="@load(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista)">
+												  model="@load(vm.listaServizi)">
 											<template name="model">
 												<comboitem label="@load(each.descrizione)" value="@load(each)" />
 											</template>
 										</combobox>
+									</cell>
+									<cell colspan="2" visible="@load(vm.controlloRegolarita.id &gt; 0 and not empty vm.lista)">
+										<label value="@bind(vm.servizio.descrizione)" />
 									</cell>
 								</row>
 							</rows>

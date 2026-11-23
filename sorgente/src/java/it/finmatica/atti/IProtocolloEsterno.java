@@ -1,19 +1,34 @@
 package it.finmatica.atti;
 
+import it.finmatica.ad4.autenticazione.Ad4Utente;
 import it.finmatica.atti.documenti.IFascicolabile;
 import it.finmatica.atti.documenti.IProtocollabile;
 import it.finmatica.docer.atti.anagrafiche.DatiRicercaDocumento;
+import it.finmatica.so4.strutturaPubblicazione.So4UnitaPubb;
 import org.apache.poi.hpsf.ClassID;
 
 import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface IProtocolloEsterno {
+
+	/**
+	 * @return il path dello zul da includere nella maschera di delibera/determina/proposta
+	 */
+	String getZulClassifica ();
+
+	/**
+	 * @return il path dello zul da includere nella maschera di delibera/determina/proposta
+	 */
+	String getZulFascicolo ();
 
 	void fascicola (IFascicolabile documento);
 
 	void protocolla (IProtocollabile documento);
+
+	void registra (IProtocollabile documento);
 
 	List<Classifica> getListaClassificazioni (String filtro, String codiceUoProponente);
 
@@ -21,7 +36,13 @@ public interface IProtocolloEsterno {
 
 	Fascicolo getFascicolo (Classifica classifica, String numero, int anno);
 
-	List<Fascicolo> getListaFascicoli (String filtro, String codiceClassifica, Date lassificaDal, String codiceUoProponente);
+	List<Fascicolo> getListaFascicoli (String filtro, String codiceClassifica, Date classificaDal, String codiceUoProponente);
+
+	Map<String, Object> getListaFascicoli(String filtro, String codiceClassifica, Date classificaDal, String codiceUoProponente, Integer annoDal, Integer annoAl, String numeroDal, String numeroAl, Integer size, Integer offset);
+
+	List<Fascicolo> getListaFascicoli (String codice, String descrizione, int anno, So4UnitaPubb unitaProponente, String tipologia, Ad4Utente utenteRedattore);
+
+	List<Fascicolo> getListaFascicoliAnno (int anno, String filtro, String codiceClassifica, Date classificaDal, String codiceUoProponente);
 
 	void creaFascicolo (String numero, String anno, String descrizione, String parent_progressivo, String classifica);
 
@@ -250,6 +271,7 @@ public interface IProtocolloEsterno {
 		private String numero;
 		private String oggetto;
 		private String sub;
+		private boolean riservato;
 
 		public Classifica getClassifica () {
 			return classifica;
@@ -291,5 +313,8 @@ public interface IProtocolloEsterno {
 			this.sub = sub;
 		}
 
+		public boolean isRiservato() {return riservato;}
+
+		public void setRiservato(boolean riservato) {this.riservato = riservato;}
 	}
 }

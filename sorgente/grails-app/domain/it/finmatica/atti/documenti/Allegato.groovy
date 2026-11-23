@@ -6,6 +6,8 @@ import it.finmatica.ad4.autenticazione.Ad4Utente
 import it.finmatica.atti.IDocumentoEsterno
 import it.finmatica.atti.commons.FileAllegato
 import it.finmatica.atti.dizionari.TipoAllegato
+import it.finmatica.atti.dizionari.TipologieFirma
+import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.so4.struttura.So4Amministrazione
 
 class Allegato implements IDocumentoEsterno, IDocumentoCollegato {
@@ -47,6 +49,9 @@ class Allegato implements IDocumentoEsterno, IDocumentoCollegato {
     // indica se il documento è valido o no, cioè se è stato "cancellato" oppure no
     boolean valido = true
 
+    // indica se il documento e tutti i suoi file contenuti) è BLOCCATO
+    boolean bloccato = false
+
     // Se valorizzato, indica che l'allegato è generato automaticamente e quindi non eliminabile. Può assumere i valori:
     // SCHEDA_CONTABILE per la gestione Contabilità finanziaria, altrimenti nullo.
     // FRONTESPIZIO		per la gestione del frontespizio della determina.
@@ -78,6 +83,7 @@ class Allegato implements IDocumentoEsterno, IDocumentoCollegato {
         riservato type: 'yes_no'
 
         valido type: 'yes_no'
+        bloccato type: 'yes_no'
         ente column: 'ente'
         dateCreated column: 'data_ins'
         utenteIns column: 'utente_ins'
@@ -145,7 +151,7 @@ class Allegato implements IDocumentoEsterno, IDocumentoCollegato {
             eq("id", idAllegato)
 
             fileAllegati {
-                eq("nome", nomeFile)
+                ilike("nome",nomeFile)
             }
         }
     }
@@ -189,5 +195,21 @@ class Allegato implements IDocumentoEsterno, IDocumentoCollegato {
 
     transient String getNomeFile () {
         return ((tipoAllegato.titolo) ?: codice) ?: TIPO_OGGETTO
+    }
+
+    transient String getTipoFirma () {
+        String tipoFirma
+        if (this.determina) {
+            tipoFirma = this.determina.tipoFirma
+        } else if (this.propostaDelibera) {
+            tipoFirma = this.propostaDelibera.tipoFirma
+        } else if (this.delibera) {
+            tipoFirma = this.delibera.tipoFirma
+        } else if (this.vistoParere) {
+            tipoFirma = this.vistoParere.tipoFirma
+        } else {
+            tipoFirma = Impostazioni.FIRMA_PADES.abilitato ? TipologieFirma.PDF : TipologieFirma.P7M
+        }
+        return tipoFirma
     }
 }

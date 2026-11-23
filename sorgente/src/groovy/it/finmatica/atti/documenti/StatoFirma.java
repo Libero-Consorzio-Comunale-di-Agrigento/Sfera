@@ -9,5 +9,6 @@ public enum StatoFirma {
 								//  dopo aver già salvato i documenti firmati su db,
 								//  ma prima di procedere con l'operazione di sblocco del flusso.
 	, FIRMATO					// indica che il documento è stato firmato
+	, FIRMATO_DA_CONFERMARE		// per gestire il caso in cui firma ma poi annulla prima di proseguire
 //	, FIRMATO_DA_FIRMARE		// indica che il documento è stato firmato ed è da firmare nuovamente.
 }

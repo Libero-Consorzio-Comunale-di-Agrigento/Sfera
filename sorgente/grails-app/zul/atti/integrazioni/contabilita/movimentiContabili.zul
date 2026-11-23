@@ -25,6 +25,20 @@
 			</tabs>
 			<tabpanels>
 				<tabpanel>
+					<grid sclass="form">
+						<rows>
+							<row>
+								<cell width="100px">Totale entrata: </cell>
+								<cell>
+									<label value="@load(vm.importoEntrata)  @converter('formatedNumber', format='###,##0.00')"/> €
+								</cell>
+								<cell width="100px">Totale spesa: </cell>
+								<cell>
+									<label value="@load(vm.importoSpesa)  @converter('formatedNumber', format='###,##0.00')"/> €
+								</cell>
+							</row>
+						</rows>
+					</grid>
 					<listbox model="@load(vm.listaMovimenti)" emptyMessage="Nessun Movimento Contabile" vflex="1">
 				        <listhead>
 				        	<listheader width="3em" label="S/E" />
@@ -35,6 +49,7 @@
 				        	<listheader width="" 	label="Prenotazione" />
 				        	<listheader width=""    label="Impegno" />
 				        	<listheader width=""    label="Accertamento" />
+							<listheader width=""    label="Anno esigibilità" />
 				        	<listheader width=""    label="CIG" />
 				        	<listheader width=""    label="CUP" />
 				        	<listheader width="20px">
@@ -57,7 +72,8 @@
 			        			<listcell label="@load(m.numeroPrenotazione gt 0 ? c:cat3(m.numeroPrenotazione, '/', m.annoPrenotazione):'')"	style="text-align: right;"/>
 			        			<listcell label="@load(m.numeroImpegno 		gt 0 ? c:cat3(m.numeroImpegno, 		'/', m.annoImpegno):'')"		style="text-align: right;"/>
 			        			<listcell label="@load(m.numeroAccertamento gt 0 ? c:cat3(m.numeroAccertamento, '/', m.annoAccertamento):'')"	style="text-align: right;"/>
-			        			<listcell label="@load(m.CIG)"					style="text-align: center;"/>
+								<listcell label="@load(m.annoEsigibilita)"		style="text-align: center;"/>
+								<listcell label="@load(m.CIG)"					style="text-align: center;"/>
 			        			<listcell label="@load(m.CUP)"					style="text-align: center;"/>
 			        			<listcell>
 				        			<image src="/images/agsde2/16x16/trash.png"
@@ -102,7 +118,7 @@
 					<row>
 						<cell><h:span class="mandatoryLabel">*</h:span><label value="Codice:" /></cell>
 						<cell><textbox value="@bind(vm.movimento.codice)" /></cell>
-						<cell><h:span class="mandatoryLabel">*</h:span><label value="Azione:" /></cell>
+						<cell><label value="Azione:" /></cell>
 						<cell><textbox value="@bind(vm.movimento.azione)" /></cell>
 					</row>
 
@@ -128,6 +144,10 @@
 					<row>
 						<cell><label value="Numero:" /></cell><cell><decimalbox value="@bind(vm.movimento.numeroAccertamento)" /></cell>
 						<cell><label value="Anno:" /></cell><cell><decimalbox value="@bind(vm.movimento.annoAccertamento)" /></cell>
+					</row>
+
+					<row>
+						<cell><label value="Anno esigibilità:" /></cell><cell><decimalbox value="@bind(vm.movimento.annoEsigibilita)" /></cell>
 					</row>
 
 					<row>

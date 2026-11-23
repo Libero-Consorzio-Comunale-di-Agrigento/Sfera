@@ -14,8 +14,10 @@ import it.finmatica.atti.dto.documenti.ControlloRegolaritaDocumentoDTO
 import it.finmatica.atti.dto.documenti.tipologie.TipoDeliberaDTO
 import it.finmatica.atti.dto.documenti.tipologie.TipoDeterminaDTO
 import it.finmatica.atti.exceptions.AttiRuntimeException
+import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.gestionetesti.reporter.GestioneTestiModello
 import it.finmatica.gestionetesti.reporter.dto.GestioneTestiModelloDTO
+import it.finmatica.so4.dto.strutturaPubblicazione.So4UnitaPubbDTO
 import it.finmatica.so4.strutturaPubblicazione.So4UnitaPubb
 import org.hibernate.criterion.CriteriaSpecification
 import org.zkoss.bind.BindUtils
@@ -29,6 +31,7 @@ import org.zkoss.zk.ui.select.annotation.Wire
 import org.zkoss.zk.ui.util.Clients
 import org.zkoss.zul.Messagebox
 import org.zkoss.zul.Window
+
 import static it.finmatica.zkutils.LabelUtils.getLabel as l
 
 class PopupControlloRegolaritaViewModel {
@@ -62,14 +65,15 @@ class PopupControlloRegolaritaViewModel {
     int numeroAttiDaEstrarre = 0
     int percentualeAttiDaEstrarre = 0
 
-    List<So4UnitaPubb> listaAree
-    So4UnitaPubb area
-    List<So4UnitaPubb> listaServizi = new ArrayList<So4UnitaPubb>()
-    So4UnitaPubb servizio
+    List<So4UnitaPubbDTO> listaAree
+    So4UnitaPubbDTO area
+    List<So4UnitaPubbDTO> listaServizi = new ArrayList<So4UnitaPubbDTO>()
+    So4UnitaPubbDTO servizio
     List strutture = new ArrayList();
 
     @Init
     void init(@ContextParam(ContextType.COMPONENT) Window w, @ExecutionArgParam("id") Long idControlloRegolarita) {
+
         this.self = w
 
         if (idControlloRegolarita > 0) {
@@ -91,8 +95,8 @@ class PopupControlloRegolaritaViewModel {
                 else if (controlloRegolarita.ambito == Determina.TIPO_OGGETTO)
                     tipologie = map.tipologie.collect { new TipoDeterminaDTO(id: it.id, titolo: it.titolo) }
                 if (map.area?.id) {
-                    area = So4UnitaPubb.getUnita(Long.valueOf(map.area.id), it.finmatica.atti.impostazioni.Impostazioni.OTTICA_SO4.valore).get()
-                    servizio = map.servizio?.id ? So4UnitaPubb.getUnita(Long.valueOf(map.servizio.id), it.finmatica.atti.impostazioni.Impostazioni.OTTICA_SO4.valore).get() : null
+                    area = So4UnitaPubb.getUnita(Long.valueOf(map.area.id), it.finmatica.atti.impostazioni.Impostazioni.OTTICA_SO4.valore).get()?.toDTO()
+                    servizio = map.servizio?.id ? So4UnitaPubb.getUnita(Long.valueOf(map.servizio.id), it.finmatica.atti.impostazioni.Impostazioni.OTTICA_SO4.valore).get()?.toDTO() : null
                 }
                 strutture = map.strutture.collect { it.id }
                 onChangeAmbito()
@@ -120,12 +124,13 @@ class PopupControlloRegolaritaViewModel {
 
         listaAree = So4UnitaPubb.createCriteria().list {
             createAlias("suddivisione", "sud", CriteriaSpecification.LEFT_JOIN)
-            eq("ottica.codice", it.finmatica.atti.impostazioni.Impostazioni.OTTICA_SO4.valore)
-            eq("sud.codice", it.finmatica.atti.impostazioni.Impostazioni.SO4_SUDDIVISIONE_AREA.valore)
+            eq("ottica.codice", Impostazioni.OTTICA_SO4.valore)
+            eq("sud.codice", Impostazioni.SO4_SUDDIVISIONE_AREA.valore)
             isNull("al")
-        }
+        }.toDTO()
 
         caricaListaServizi()
+
     }
 
     @AfterCompose
@@ -174,7 +179,7 @@ class PopupControlloRegolaritaViewModel {
         }.toDTO()
 
         listaCategorie = Categoria.createCriteria().list() {
-            eq("valido", true)
+          //  eq("valido", true)
             if (controlloRegolarita.ambito == Delibera.TIPO_OGGETTO)
                 eq("tipoOggetto", Categoria.TIPO_OGGETTO_PROPOSTA_DELIBERA)
             else if (controlloRegolarita.ambito == Determina.TIPO_OGGETTO)
@@ -218,6 +223,7 @@ class PopupControlloRegolaritaViewModel {
                 codice:
                 it.progr
             }
+
             strutture.add(0, servizio.progr)
         } else {
             caricaListaServizi()
@@ -231,6 +237,23 @@ class PopupControlloRegolaritaViewModel {
             lista = controlloRegolaritaDTOService.getListaDocumenti(controlloRegolarita).toDTO();
         } else if (controlloRegolarita.id != null) {
             def criteriRicerca = creaCriteriRicerca()
+
+            //se ho selezionato l'area ma non il servizio...aggiungo alla lista tutte le unità figlie dell'area
+            if (criteriRicerca.area && (!(criteriRicerca.servizio))) {
+                List<So4UnitaPubb> unitaFiglie = strutturaOrganizzativaService.getUnitaFiglieNLivello (area.progr, area.ottica.codice, area.dal, -1)
+                for (So4UnitaPubb s in unitaFiglie) {
+                    criteriRicerca.strutture.add([ "id": s.progr])
+                }
+            }
+            else {
+                if (criteriRicerca.servizio) {
+                    List<So4UnitaPubb> unitaFiglie = strutturaOrganizzativaService.getUnitaFiglieNLivello (servizio.progr, servizio.ottica.codice, servizio.dal, -1)
+                    for (So4UnitaPubb s in unitaFiglie) {
+                        criteriRicerca.strutture.add([ "id": s.progr])
+                    }
+                }
+            }
+
             lista = controlloRegolaritaDTOService.calcolaListaDocumentiRandom(controlloRegolarita, criteriRicerca);
             controlloRegolarita.dataEstrazione = new Date()
             onSalva()
@@ -247,6 +270,7 @@ class PopupControlloRegolaritaViewModel {
     @Command
     void onNotifica() {
         def result = controlloRegolaritaDTOService.notifica(controlloRegolarita, notifica)
+        lista = controlloRegolaritaDTOService.getListaDocumenti(controlloRegolarita).toDTO();
         boolean erroreInvio = result.erroreInvio
         if (erroreInvio) {
             Clients.showNotification("Non è stato possibile inviare alcune notifiche.\nPer i seguenti firmatari sono non è configurata alcuna email: " + result.elencoFirmatariVuoti, Clients.NOTIFICATION_TYPE_ERROR, null, "before_center", 5000, true)
@@ -261,6 +285,15 @@ class PopupControlloRegolaritaViewModel {
         }
         daNotificare = false
 
+        caricaListaDocumenti(false)
+
+        if ((!(daNotificare)) && (attiEstratti >0)) {
+            if (controlloRegolarita.stato == ControlloRegolarita.STATO_REDAZIONE) {
+                controlloRegolarita.stato = ControlloRegolarita.STATO_INVIATO
+                onSalva()
+            }
+        }
+
         Clients.showNotification("Notifiche inviate", Clients.NOTIFICATION_TYPE_INFO, null, "before_center", 3000, true)
         BindUtils.postNotifyChange(null, null, this, "controlloRegolarita")
         BindUtils.postNotifyChange(null, null, this, "lista")
@@ -269,6 +302,7 @@ class PopupControlloRegolaritaViewModel {
 
     @Command
     void onInvia() {
+
     }
 
     @Command
@@ -395,7 +429,6 @@ class PopupControlloRegolaritaViewModel {
                    , strutture     : parsed.strutture.struttura.collect { [id: it.id.text().toInteger()] }
         ]
         return map
-
     }
 
     private String convertiJsonInXML(Map map) {
@@ -467,20 +500,29 @@ class PopupControlloRegolaritaViewModel {
         if (controlloRegolarita.dataEsecutivitaAl == null) {
             throw new AttiRuntimeException(l("message.controlloRegolarita.dataEsecutivitaAl"));
         }
-		if (controlloRegolarita.attiDaEstrarre == 0){
-			throw new AttiRuntimeException("Campo obbligatorio: Numero o Percentuale atti da estrarre");
+        if (controlloRegolarita.attiDaEstrarre == 0) {
+            throw new AttiRuntimeException("Campo obbligatorio: Numero o Percentuale atti da estrarre");
         }
     }
 
     @Command
     void caricaListaServizi() {
         if (area && !strutture.contains(area.progr)) {
-            listaServizi = strutturaOrganizzativaService.getUnitaFiglieNLivello(area.progr, area.ottica.codice, area.dal).findAll({
-                it.suddivisione.codice == it.finmatica.atti.impostazioni.Impostazioni.SO4_SUDDIVISIONE_SERVIZIO.valore
-            })
-			strutture = strutturaOrganizzativaService.getUnitaFiglieNLivello(area.progr, area.ottica.codice, area.dal).collect{  codice : it.progr }
+            listaServizi = []
+            strutture = []
+            List<So4UnitaPubb> uoFiglie = area.domainObject.getUnitaPubbFiglie(new Date())
+
+            String codiceServizio = Impostazioni.SO4_SUDDIVISIONE_SERVIZIO.valore
+
+            for (So4UnitaPubb s in uoFiglie) {
+                strutture.add(s.progr)
+                if (codiceServizio.equals(s.suddivisione.codice)) {
+                    listaServizi.add(s.toDTO())
+                }
+            }
+
             strutture.add(0, area.progr)
-            listaServizi.add(0, new So4UnitaPubb(codice: "", descrizione: ""))
+            listaServizi.add(0, new So4UnitaPubb(codice: "", descrizione: "").toDTO())
         }
     }
 }

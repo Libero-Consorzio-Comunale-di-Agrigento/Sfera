@@ -94,6 +94,11 @@ class CambioUtenteListaViewModel {
 				}
 			}
 		}
+
+		if ((tipoDocumento == VistoParere.TIPO_OGGETTO_PARERE) || (tipoDocumento == VistoParere.TIPO_OGGETTO))  {
+			ricerca.firmatarioVisto = soggetto
+		}
+		ricerca.pageSize=100	//71291 bug
 		ricerca.ricerca (null)
 	}
 
@@ -236,7 +241,7 @@ class CambioUtenteListaViewModel {
 				isNull("step.dataFine")
 				eq ("valido", true)
 				isNotNull("determina")
-				
+
 				if ("UTENTE_IN_CARICO" == tipoSoggetto.codice) {
 					isNotNull("attori.utenteAd4")
 				} else {
@@ -254,8 +259,11 @@ class CambioUtenteListaViewModel {
 				}
 				isNull("step.dataFine")
 				eq ("valido", true)
-				isNotNull("propostaDelibera")
-                
+				or {
+					isNotNull("propostaDelibera")
+					isNotNull("delibera")
+				}
+
 				if ("UTENTE_IN_CARICO" == tipoSoggetto.codice) {
 					isNotNull("attori.utenteAd4")
 				} else {

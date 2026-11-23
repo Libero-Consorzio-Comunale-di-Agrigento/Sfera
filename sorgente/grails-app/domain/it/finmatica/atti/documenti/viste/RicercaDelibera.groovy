@@ -1,27 +1,40 @@
 package it.finmatica.atti.documenti.viste
 
-import it.finmatica.as4.As4SoggettoCorrente
-import it.finmatica.as4.dto.As4SoggettoCorrenteDTO
 import it.finmatica.atti.dizionari.OggettoRicorrente
 import it.finmatica.atti.documenti.ricerca.RicercaDocumento
 import it.finmatica.atti.odg.Commissione
 import it.finmatica.atti.odg.OggettoSeduta
+import it.finmatica.so4.strutturaPubblicazione.So4UnitaPubb
 
 class RicercaDelibera extends RicercaDocumento {
 
-	OggettoSeduta 	oggettoSeduta
+	Long 			idOggettoSeduta
 	Commissione		commissione
 	Long 			idTipoAllegatoDelibera
 	Long 			idTipoAllegatoParere
-	As4SoggettoCorrente relatore
+	// elenco degli id assessore (ni_assessore) di tutte le deleghe collegate alla proposta (principale + aggiuntive), separati da '#'
+	String relatore
 	// campo aggiunto per la ricerca dell'oggetto ricorrente: http://svi-redmine/issues/22462
 	OggettoRicorrente oggettoRicorrente
+
+	//campi richiesti da integrazione contabilita' ats pavia: https://redmine.finmatica.it/issues/69066
+	boolean     inEvidenza = false
+	Date 	    dataInEvidenzaDa
+	Date 	    dataInEvidenzaA
+
+	//campo richiesto da AO Croce Carle: https://redmine.finmatica.it/issues/90151
+	BigDecimal  importoTotale
+
+	//campi richiesti in ricerca servizio
+	So4UnitaPubb uoServizio
+	String 			uoServizioDescrizione
+	String 			uoServizioCodice
 
 	static mapping = {
 		// mapping per questa domain
 		table 			'ricerca_delibera'
 		commissione		column: 'id_commissione'
-		oggettoSeduta 	column: 'id_oggetto_seduta'
+		idOggettoSeduta	column: 'id_oggetto_seduta'
 
 		// mapping comuni per la RicercaDocumento
 		version false
@@ -30,14 +43,15 @@ class RicercaDelibera extends RicercaDocumento {
 		ente 	column: 'ente'
 		step	column: 'id_step'
 
-		compLettura         type: 'yes_no'
-		compModifica        type: 'yes_no'
-		compCancellazione	type: 'yes_no'
+		compLettura          type: 'yes_no'
+		compModifica         type: 'yes_no'
+		compCancellazione	 type: 'yes_no'
 
-		riservato 			type: 'yes_no'
-		daInviareCorteConti	type: 'yes_no'
-		conImpegnoSpesa		type: 'yes_no'
-		attoConcluso		type: 'yes_no'
+		riservato 			 type: 'yes_no'
+		controlloFunzionario type: 'yes_no'
+		daInviareCorteConti	 type: 'yes_no'
+		conImpegnoSpesa		 type: 'yes_no'
+		attoConcluso		 type: 'yes_no'
 
 		compUtente column: 'comp_utente'
 		compRuolo  column: 'comp_ruolo'
@@ -59,6 +73,12 @@ class RicercaDelibera extends RicercaDocumento {
 				column name: 'step_unita_dal'
 				column name: 'step_unita_ottica'
 			}
+
+			uoServizio {
+				column name: 'uo_servizio_progr'
+				column name: 'uo_servizio_dal'
+				column name: 'uo_servizio_ottica'
+			}
 		}
 
 		utenteSoggetto 		column: 'utente_soggetto'
@@ -68,6 +88,7 @@ class RicercaDelibera extends RicercaDocumento {
 		testo				column: 'id_testo'
 		allegato			column: 'id_file_allegato'
 		relatore			column: 'ni_relatore'
+		impattoGenerazionale column: 'id_impatto_generazionale'
 
 		// campi aggiunti per la seconda numerazione: http://svi-redmine/issues/22205
 		registroAtto2  		column: 'registro_atto_2'
@@ -77,6 +98,12 @@ class RicercaDelibera extends RicercaDocumento {
 		oggettoRicorrente 	column: 'id_oggetto_ricorrente'
 		dataNumeroAtto2		column: 'data_numero_atto_2'
         tipoBudget          column: 'id_tipo_budget'
+
+		//campi aggiunti per ricerca dati contabili Ats-pavia: https://redmine.finmatica.it/issues/69066
+		inEvidenza          type: 'yes_no'
+		dataInEvidenzaDa    column: 'data_in_evidenza_da'
+		dataInEvidenzaA     column: 'data_in_evidenza_a'
+		importoTotale       column: 'importo_totale', scale: 2
     }
 
 	static hibernateFilters = {

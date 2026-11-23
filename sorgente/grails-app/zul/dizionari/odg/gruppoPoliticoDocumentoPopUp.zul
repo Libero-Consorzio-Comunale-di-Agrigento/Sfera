@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer" viewModel="@id('vm') @init('gruppoPoliticoDocumentoPopUpViewModel')"
+	 	border="normal"	sizable="true" width="760px" height="600px"	title =" ">
+	 	<grid sclass="documentoBandaTitolo">
+	 		<rows>
+	 			<row>
+	 				<cell width="50px">
+	 					<image src="/images/agsde2/48x48/user.png" />
+	 				</cell>
+	 				<cell>
+	 					<!-- titolo della pagina -->
+	 					<label value="Ricerca Componenti Gruppi Politici" sclass="documentoTitolo" />
+	 				</cell>
+	 			</row>
+	 		</rows>
+	 	</grid>
+
+		<space height="3px" />
+		<!-- TIPOLOGIA E POSIZIONE FLUSSO -->
+		<grid sclass="form">
+			<rows>
+				<row>
+					<cell colspan="2" align="right">
+						<label value="Gruppi Politici:" />
+					</cell>
+					<cell colspan="4">
+						<combobox model="@load(vm.listaGruppiPolitici)"  hflex="1"
+       						   selectedItem="@bind(vm.gruppoPolitico) @converter('it.finmatica.zkutils.PropertyConverter', property='id')"
+							   onSelect="@command('onCambiaGruppoPolitico')" onChange="@command('onCambiaGruppoPolitico')">
+       							<template name="model" var="gruppoPolitico">
+									<comboitem label="@load(c:cat3(gruppoPolitico.titolo,' - ', gruppoPolitico.descrizione))" value="@load(gruppoPolitico)" />
+								</template>
+     					</combobox>
+					</cell>
+				</row>
+			</rows>
+		</grid>
+
+		<listbox model="@load(vm.listaComponentiGruppoPolitico)"
+				 selectedItems="@bind(vm.listaComponentiSelezionati)"
+				 emptyMessage="Nessun Componente Presente" vflex="1"
+				 checkmark="true"
+				 multiple="true"
+				 >
+	        <listhead>
+	        	<listheader label="Cognome" width="50%"/>
+				<listheader label="Nome" width="40%"/>
+				<listheader label="" width="10%"/>
+	        </listhead>
+	       	<template name="model" var="a">
+	        	<listitem>
+	        		<listcell label="@load(a.componente.cognome)"/>
+					<listcell label="@load(a.componente.nome)"/>
+					<listcell label="@load(a.gruppoPolitico.titolo)"/>
+	       		</listitem>
+	       	</template>
+        </listbox>
+
+		<!-- - - - - - - - - - - - - - - -->
+		<!-- Pulsanti -->
+		<!-- - - - - - - - - - - - - - - -->
+		<h:div class="pulsantiIter">
+			<button label="Chiudi" onClick="@command('onChiudi')" mold="trendy"
+				image="/images/afc/16x16/close.png" />
+			<button label="Salva e chiudi" onClick="@command('onSalvaChiudi')" mold="trendy"
+				image="/images/afc/16x16/save.png"
+				visible="true"
+        		/>
+		</h:div>
+	</window>
+
+</zk>

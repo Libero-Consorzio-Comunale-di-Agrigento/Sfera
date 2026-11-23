@@ -29,11 +29,13 @@ class IndexViewModel {
 	boolean gestioneSeduteVisible = false
 	boolean conservazioneVisible  = false
 	boolean dizionariVisible  	  = false
+	boolean abilitaChatbot = false
 
 	@NotifyChange("urlSezione")
     @org.zkoss.bind.annotation.Init
     init (@ContextParam(ContextType.PAGE) Page page) {
 		gestioneTestiService.setDefaultEditor(Impostazioni.EDITOR_DEFAULT.valore, Impostazioni.EDITOR_DEFAULT_PATH.valore);
+		abilitaChatbot = Impostazioni.CHATBOT_AI_ABILITA.abilitato
 	
 		urlSezione = sezioni.atti
 		boolean isUtenteAmministratore = AttiUtils.isUtenteAmministratore();

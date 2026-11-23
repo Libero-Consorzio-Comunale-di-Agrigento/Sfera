@@ -16,7 +16,7 @@
 				<listitem>
 					<listcell label="#{each.codice}" 		/>
 					<listcell label="#{each.descrizione}" 	/>
-					<listcell label="#{c:formatDate(each.dal, 'dd/MM/yyyy')}" />
+					<listcell label="#{empty each.dal ? '' : c:formatDate(each.dal , 'dd/MM/yyyy')}" />
 				</listitem>
 			</template>
 		</listbox>

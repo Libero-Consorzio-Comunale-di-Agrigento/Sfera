@@ -25,14 +25,15 @@ class Email {
 	Ad4Utente 	utenteUpd
 
 	static mapping = {
-		table 				'email'
-		id 			column: 'id_email'
-		ente 		column: 'ente'
-		valido 		type: 	'yes_no'
-		dateCreated column: 'data_ins'
-		utenteIns 	column: 'utente_ins'
-		lastUpdated column: 'data_upd'
-		utenteUpd 	column: 'utente_upd'
+		table 			'email'
+		id 				column: 'id_email'
+		indirizzoEmail 	length: 4000
+		ente 			column: 'ente'
+		valido 			type: 	'yes_no'
+		dateCreated 	column: 'data_ins'
+		utenteIns 		column: 'utente_ins'
+		lastUpdated 	column: 'data_upd'
+		utenteUpd 		column: 'utente_upd'
 	}
 
     static constraints = {

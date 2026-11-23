@@ -38,6 +38,7 @@ class PropostaDeliberaService {
 	AttiGestoreCompetenze   gestoreCompetenze
 	SpringSecurityService   springSecurityService
 	CaratteristicaTipologiaService caratteristicaTipologiaService
+	VistoParereService		vistoParereService
 
     public PropostaDelibera numeraProposta (PropostaDelibera propostaDelibera) {
 		if (propostaDelibera.annoProposta > 0 && propostaDelibera.numeroProposta > 0) {
@@ -66,7 +67,7 @@ class PropostaDeliberaService {
 		}
 
 		for (VistoParere v : proposta.visti) {
-			if (v.iter != null && v.iter?.dataFine != null && v.valido) {
+			if (v.iter != null && v.iter?.dataFine == null && v.valido) {
 				wkfIterService.terminaIter(v.iter)
 			}
 		}
@@ -84,6 +85,12 @@ class PropostaDeliberaService {
 
         // elimino tutte le notifiche di cambio step
 		notificheService.eliminaNotifiche(proposta, TipoNotifica.ASSEGNAZIONE)
+
+		//elimino le notifiche di cambio step per le proposte
+		for (VistoParere v : proposta.visti) {
+			notificheService.eliminaNotifiche(v, TipoNotifica.ASSEGNAZIONE)
+		}
+
 		// elimino tutte le "altre" notifiche
 		notificheService.eliminaNotifiche(proposta)
 		// notifico l'annullamento della proposta
@@ -96,45 +103,46 @@ class PropostaDeliberaService {
 
 		copia.tipologia = propDeli.tipologia
 
-		copia.stato = propDeli.stato
-		copia.statoFirma = propDeli.statoFirma
-		copia.statoOdg = propDeli.statoOdg
+		if (testo == false) {
+			// copia dei file allegati se deciso in fase di duplicazione
+			if (fileAllegato == true) {
+				if (propDeli.testo != null) {
+					FileAllegato testoPropostaDelibera = propDeli.testo
+					FileAllegato copiaTesto = new FileAllegato()
+					copiaTesto.nome = testoPropostaDelibera.nome
 
-		// copia dei file allegati se deciso in fase di duplicazione
-		if (fileAllegato == true) {
-			if (propDeli.testo != null) {
-				FileAllegato testoPropostaDelibera = propDeli.testo
-				FileAllegato copiaTesto = new FileAllegato()
-				copiaTesto.nome            = testoPropostaDelibera.nome
+					copiaTesto.contentType = testoPropostaDelibera.contentType
+					copiaTesto.dimensione = testoPropostaDelibera.dimensione
+					copiaTesto.testo = testoPropostaDelibera.testo
 
-				copiaTesto.contentType     = testoPropostaDelibera.contentType
-				copiaTesto.dimensione      = testoPropostaDelibera.dimensione
-				copiaTesto.testo           = testoPropostaDelibera.testo
+					gestoreFile.addFile(copia, copiaTesto, gestoreFile.getFile(propDeli, propDeli.testo))
+					copia.testo = copiaTesto
+				}
 
-				gestoreFile.addFile(copia, copiaTesto, gestoreFile.getFile(propDeli, propDeli.testo))
-				copia.testo = copiaTesto
-			}
-
-			if (propDeli.testoOdt != null) {
-				FileAllegato testoOdt = propDeli.testoOdt
-				FileAllegato copiaStampaUnica 	 = new FileAllegato()
-				copiaStampaUnica.nome            = testoOdt.nome
-				copiaStampaUnica.contentType     = testoOdt.contentType
-				copiaStampaUnica.dimensione      = testoOdt.dimensione
-				copiaStampaUnica.testo           = testoOdt.testo
-				gestoreFile.addFile(copia, copiaStampaUnica, gestoreFile.getFile(propDeli, propDeli.stampaUnica))
-				copia.testoOdt = copiaStampaUnica
+				if (propDeli.testoOdt != null) {
+					FileAllegato testoOdt = propDeli.testoOdt
+					FileAllegato copiaStampaUnica = new FileAllegato()
+					copiaStampaUnica.nome = testoOdt.nome
+					copiaStampaUnica.contentType = testoOdt.contentType
+					copiaStampaUnica.dimensione = testoOdt.dimensione
+					copiaStampaUnica.testo = testoOdt.testo
+					gestoreFile.addFile(copia, copiaStampaUnica, gestoreFile.getFile(propDeli, propDeli.stampaUnica))
+					copia.testoOdt = copiaStampaUnica
+				}
 			}
 		}
+
+		copia.stato	 	 	= StatoDocumento.PROPOSTA
+		copia.statoFirma 	= null
+		copia.statoOdg   	= StatoOdg.INIZIALE
+		copia.oggettoSeduta = null
 
 		copia.modelloTesto 	= propDeli.modelloTesto
 
 		copia.categoria 	= propDeli.categoria
 		copia.commissione 	= propDeli.commissione
-		copia.oggettoSeduta = propDeli.oggettoSeduta
 		copia.dataProposta 	= new Date()
 		copia.oggetto 		= propDeli.oggetto
-		copia.dataScadenza  = propDeli.dataScadenza
 		copia.motivazione   = propDeli.motivazione
 		copia.indirizzo		= propDeli.indirizzo
 		copia.daInviareCorteConti = propDeli.daInviareCorteConti
@@ -146,8 +154,7 @@ class PropostaDeliberaService {
 		copia.motivazioniEseguibilita = propDeli.motivazioniEseguibilita
 
 		copia.note 				= propDeli.note
-		copia.noteTrasmissione 	= propDeli.noteTrasmissione
-		copia.noteContabili 	= propDeli.noteContabili
+//		copia.noteContabili 	= propDeli.noteContabili
 
 		copia.classificaCodice 		= propDeli.classificaCodice
 		copia.classificaDal 		= propDeli.classificaDal
@@ -158,12 +165,14 @@ class PropostaDeliberaService {
 
 		copia.pubblicaRevoca = propDeli.pubblicaRevoca
 		copia.giorniPubblicazione = propDeli.giorniPubblicazione
-		copia.dataMinimaPubblicazione = propDeli.dataMinimaPubblicazione
-
-		copia.campiProtetti = propDeli.campiProtetti
 		copia.parereRevisoriConti = propDeli.parereRevisoriConti
 		copia.delega = propDeli.delega
-		copia.codiciVistiTrattati = propDeli.codiciVistiTrattati
+
+		copia.impattoGenerazionale = propDeli.impattoGenerazionale
+
+		copia.pubblicaCasaDiVetro = propDeli.pubblicaCasaDiVetro
+		copia.annoProtocolloRichiesta = propDeli.annoProtocolloRichiesta
+		copia.numeroProtocolloRichiesta = propDeli.numeroProtocolloRichiesta
 
 		copia.valido = propDeli.valido
 
@@ -193,7 +202,6 @@ class PropostaDeliberaService {
 				temp.titolo           =  i.titolo
 				temp.descrizione      =  i.descrizione
 				temp.tipoAllegato     =  i.tipoAllegato
-				temp.statoFirma       =  i.statoFirma
 				temp.ubicazione       =  i.ubicazione
 				temp.origine          =  i.origine
 				temp.quantita	      =  i.quantita
@@ -233,25 +241,43 @@ class PropostaDeliberaService {
 			copia.addToDestinatariNotifiche(temp)
 		}
 
+		for (DatoAggiuntivo d in propDeli.datiAggiuntivi) {
+			DatoAggiuntivo temp = new DatoAggiuntivo()
+			temp.codice			= d.codice
+			temp.valore			= d.valore
+			temp.valoreTipoDato = d.valoreTipoDato
+			copia.addToDatiAggiuntivi(temp)
+		}
+
+		copia = copia.save()
+
+		//copio il file (se NON è firmato prendo il file, altrimenti la copia prima della firma)
+		if (testo) {
+			FileAllegato testoPropostaDelibera
+			if (propDeli.testo?.firmato) {
+				testoPropostaDelibera = propDeli.testoOdt
+			}
+			else {
+				testoPropostaDelibera = propDeli.testo
+			}
+
+			if (testoPropostaDelibera) {
+				FileAllegato copiaTesto 	= new FileAllegato()
+				copiaTesto.nome            	= copia.getNomeFile()
+				copiaTesto.contentType     	= testoPropostaDelibera.contentType
+				copiaTesto.dimensione      	= testoPropostaDelibera.dimensione
+				copiaTesto.testo           	= testoPropostaDelibera.testo
+				copiaTesto.modificabile     = true
+
+				gestoreFile.addFile(copia, copiaTesto, gestoreFile.getFile(propDeli, testoPropostaDelibera))
+				copia.testo = copiaTesto
+			}
+		}
+
 		if (visti == true) {
 			for (VistoParere i in propDeli.visti) {
-				VistoParere temp = new VistoParere()
-				temp.tipologia 		= i.tipologia
-				temp.firmatario 	= i.firmatario
-				temp.unitaSo4 		= i.unitaSo4
-				temp.note 			= i.note
-				temp.dataAdozione 	= i.dataAdozione
-				temp.automatico 	= i.automatico
-				temp.esito 			= i.esito
-				temp.modelloTesto	= i.modelloTesto
-
-				temp.stato = i.stato
-				temp.statoFirma = i.statoFirma
-
-				temp.id = null
-				copia.addToVisti(temp)
-				copia.save()
-
+				if (!i.valido) continue;
+				VistoParere temp = vistoParereService.creaVistoParere(copia, i.tipologia, i.automatico, i.firmatario, i.unitaSo4)
 				// leggo le competenze dei visti parere
 				List<VistoParereCompetenze> competenze = VistoParereCompetenze.createCriteria().list() {
 					eq("vistoParere.id", i.id)
@@ -271,18 +297,8 @@ class PropostaDeliberaService {
 			}
 		}
 
-		for (DatoAggiuntivo d in propDeli.datiAggiuntivi) {
-			DatoAggiuntivo temp = new DatoAggiuntivo()
-			temp.codice			= d.codice
-			temp.valore			= d.valore
-			temp.valoreTipoDato = d.valoreTipoDato
-			copia.addToDatiAggiuntivi(temp)
-		}
-
-		copia = copia.save()
-
 		// viene ricreato un iter della stesso tipo dell'originale
-		def id_iter = WkfCfgIter.getIterIstanziabile(copia?.tipologia?.progressivoCfgIter?:((long)-1)).get()
+		WkfCfgIter id_iter = WkfCfgIter.getIterIstanziabile(propDeli.iter?.cfgIter?.progressivo?:((long)-1)).get()
 		wkfIterService.istanziaIter(id_iter, copia);
 
 		//assegna le competenze

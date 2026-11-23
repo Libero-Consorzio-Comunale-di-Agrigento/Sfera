@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset rdestasio:install_20200221_pkg_02
+--changeset mfrancesconi:install_20220307_pkg runOnChange:true
 
 CREATE OR REPLACE PACKAGE        impostazioni_pkg AS
 /******************************************************************************

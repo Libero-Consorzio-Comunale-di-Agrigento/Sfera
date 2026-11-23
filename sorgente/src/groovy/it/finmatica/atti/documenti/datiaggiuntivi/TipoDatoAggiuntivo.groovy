@@ -27,7 +27,9 @@ class TipoDatoAggiuntivo {
     public static final String NOTE_CONVOCAZIONE                = "NOTE_CONVOCAZIONE"
     public static final String CONTABILITA_ASCOT                = "CONTABILITA_ASCOT"
     public static final String CUP                              = "CUP"
-
+    public static final String ID_PRATICA_SPORTELLO             = "ID_PRATICA_SPORTELLO"
+    public static final String ID_DOCUMENTO_AURIGA              = "ID_DOCUMENTO_AURIGA"
+    public static final String DATA_CONTROLLO_GESTIONE          = "DATA_CONTROLLO_GESTIONE"
 
     private static final List<TipoDatoAggiuntivo> DATI_AGGIUNTIVI = [
             // http://svi-redmine/issues/16225
@@ -47,20 +49,42 @@ class TipoDatoAggiuntivo {
                                    tipiDocumento: [Determina.TIPO_OGGETTO, Delibera.TIPO_OGGETTO]),
             new TipoDatoAggiuntivo(codice: MOTIVAZIONE_ASSENZA_DOPPIA_FIRMA, descrizione: "Motivazione Doppia Firma Assente",
                     tipiDocumento: [Determina.TIPO_OGGETTO, Delibera.TIPO_OGGETTO]),
+
+            //http://svi-redmine/issues/30201
             new TipoDatoAggiuntivo(codice: PROTOCOLLO_SIAV_STRUTTURA, descrizione: "Settore Protocollo",
                     tipiDocumento: [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, Delibera.TIPO_OGGETTO]),
+
+            //http://svi-redmine/issues/17007
             new TipoDatoAggiuntivo(codice: ESTRATTO, descrizione: "Estratto",
                     tipiDocumento: [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, Delibera.TIPO_OGGETTO]),
+
+            //http://svi-redmine/issues/35086
             new TipoDatoAggiuntivo(codice: DATA_ISTANZA, descrizione: "Data di Presentazione Istanza",
                     tipiDocumento: [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO]),
             new TipoDatoAggiuntivo(codice: COMMISSIONE_CONSILIARE, descrizione: "Commissioni Consiliari",
                     tipiDocumento: [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO]),
             new TipoDatoAggiuntivo(codice: NOTE_CONVOCAZIONE, descrizione: "Note per Convocazione",
                     tipiDocumento: [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO]),
+
+            //http://svi-redmine/issues/35340
             new TipoDatoAggiuntivo(codice: CONTABILITA_ASCOT, descrizione: "ContabilitaAscot",
                     tipiDocumento: [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, Delibera.TIPO_OGGETTO]),
+
+            //http://svi-redmine/issues/42025
             new TipoDatoAggiuntivo(codice: CUP, descrizione: "CUP",
-                tipiDocumento: [Determina.TIPO_OGGETTO])
+                tipiDocumento: [Determina.TIPO_OGGETTO]),
+
+            //http://svi-redmine/issues/63477
+            new TipoDatoAggiuntivo(codice: ID_PRATICA_SPORTELLO, descrizione: "ID_PRATICA_SPORTELLO",
+                    tipiDocumento: [Determina.TIPO_OGGETTO]),
+
+            //http://svi-redmine/issues/63222
+            new TipoDatoAggiuntivo(codice: ID_DOCUMENTO_AURIGA, descrizione: "ID_DOCUMENTO_AURIGA",
+                    tipiDocumento: [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, Delibera.TIPO_OGGETTO]),
+
+            //https://redmine.finmatica.it/issues/83607
+            new TipoDatoAggiuntivo(codice: DATA_CONTROLLO_GESTIONE, descrizione: "Data per controllo di gestione ",
+                    tipiDocumento: [Determina.TIPO_OGGETTO])
 
     ].asImmutable()
 

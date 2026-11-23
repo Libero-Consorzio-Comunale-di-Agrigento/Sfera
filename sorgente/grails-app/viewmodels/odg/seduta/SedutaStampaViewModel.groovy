@@ -6,6 +6,7 @@ import it.finmatica.atti.commons.TokenIntegrazioneService
 import it.finmatica.atti.documenti.DocumentoFactory
 import it.finmatica.atti.documenti.IDocumento
 import it.finmatica.atti.documenti.NotificheService
+import it.finmatica.atti.documenti.StatoFirma
 import it.finmatica.atti.documenti.beans.AttiFileDownloader
 import it.finmatica.atti.documenti.beans.AttiGestoreCompetenze
 import it.finmatica.atti.documenti.storico.SedutaStampaStoricoService
@@ -23,6 +24,10 @@ import it.finmatica.atti.odg.CommissioneStampa
 import it.finmatica.atti.odg.SedutaStampa
 import it.finmatica.atti.zk.documenti.ViewModelSoggetti
 import it.finmatica.dto.DTO
+import it.finmatica.ad4.autenticazione.Ad4Utente
+import it.finmatica.atti.dto.documenti.viste.So4DelegaService
+import it.finmatica.gestioneiter.Attore
+import it.finmatica.gestioneiter.configuratore.dizionari.WkfTipoOggetto
 import it.finmatica.gestioneiter.configuratore.iter.WkfCfgIter
 import org.zkoss.bind.BindUtils
 import org.zkoss.bind.annotation.*
@@ -45,8 +50,12 @@ class SedutaStampaViewModel extends AbstractViewModel<SedutaStampa> implements V
     AttiGestoreCompetenze gestoreCompetenze
     NotificheService notificheService
     TokenIntegrazioneService tokenIntegrazioneService
+    So4DelegaService so4DelegaService
 
     private String tipoStampa
+
+    // utente per conto del quale si sta operando (delega So4)
+    Ad4Utente delegante
 
     List storico
     SedutaStampaDTO sedutaStampa
@@ -69,9 +78,11 @@ class SedutaStampaViewModel extends AbstractViewModel<SedutaStampa> implements V
             @ContextParam(ContextType.COMPONENT) Window w,
             @ExecutionArgParam("seduta") SedutaDTO seduta, @ExecutionArgParam("tipo") String tipoStampa,
             @ExecutionArgParam("id") Long idSedutaStampa,
-            @ExecutionArgParam("idDocumentoEsterno") Long idDocumentoEsterno) {
+            @ExecutionArgParam("idDocumentoEsterno") Long idDocumentoEsterno,
+            @ExecutionArgParam("delegante") Ad4Utente delegante) {
         this.self = w
         this.tipoStampa = tipoStampa
+        this.delegante = delegante
 
         if (idSedutaStampa > 0) {
             aggiornaMaschera(SedutaStampa.get(idSedutaStampa))
@@ -223,8 +234,7 @@ class SedutaStampaViewModel extends AbstractViewModel<SedutaStampa> implements V
     @Command
     void apriFascicoli() {
         Window w = Executions.createComponents("/commons/popupFascicoli.zul", self,
-                [classificaCodice: sedutaStampa.classificaCodice, classificaDescrizione: sedutaStampa.classificaDescrizione, classificaDal: sedutaStampa.classificaDal, codiceUoProponente: soggetti
-                [TipoSoggetto.REDATTORE].unita.codice])
+                [classificaCodice: sedutaStampa.classificaCodice, classificaDescrizione: sedutaStampa.classificaDescrizione, classificaDal: sedutaStampa.classificaDal, codiceUoProponente: soggetti[TipoSoggetto.REDATTORE].unita.codice])
         w.onClose { event ->
             if (event.data) {
                 // se ho cambiato la classificazione, la riaggiorno
@@ -338,6 +348,16 @@ class SedutaStampaViewModel extends AbstractViewModel<SedutaStampa> implements V
         soggetti = caratteristicaTipologiaService.calcolaSoggettiDto(sedutaStampa)
         competenze = gestoreCompetenze.getCompetenze(sedutaStampa)
 
+        if (hasDelegaValida()) {
+            if (sedutaStampa.statoFirma == StatoFirma.DA_FIRMARE) {
+                gestoreCompetenze.assegnaCompetenze(sedutaStampa, WkfTipoOggetto.get(SedutaStampa.TIPO_OGGETTO), new Attore(utenteAd4: springSecurityService.principal.soggetto.utenteAd4), true, true, false, null)
+                competenze.modifica = true
+            } else {
+                // il documento è stato rimandato indietro: il delegante non ha più diritti di modifica
+                competenze.modifica = false
+            }
+        }
+
         isNotificaPresente = notificheService.isNotificaPresente(sedutaStampa, springSecurityService.currentUser)
 
         caricaStorico()
@@ -390,6 +410,10 @@ class SedutaStampaViewModel extends AbstractViewModel<SedutaStampa> implements V
     @NotifyChange(["lockPermanente"])
     @Command onToggleLockPermanente () {
         lockPermanente = !lockPermanente;
+    }
+
+    private boolean hasDelegaValida() {
+        return delegante != null && !so4DelegaService.getDeleghe(springSecurityService.currentUser, delegante).isEmpty()
     }
 
 }

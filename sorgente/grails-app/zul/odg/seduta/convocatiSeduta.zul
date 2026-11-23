@@ -9,7 +9,7 @@
 
 		<hlayout hflex="1" vflex="1">
 			<vlayout hflex="1" vflex="1">
-				<label sclass="msgErrore" value="@bind(vm.lbRuoliObbligatori)" />
+				<label sclass="msgErrore" value="@load(vm.lbRuoliObbligatori)" />
 
 				<listbox id="listaConvocati" model="@load(vm.listaPartecipanti)" vflex="1"
 					selectedItem="@bind(vm.selectedPartecipante)"
@@ -23,7 +23,7 @@
 						<listheader label="" 				width="5%" style="text-align:center;">
 							<image style="cursor: pointer;" tooltiptext="Aggiungi un partecipante alla seduta"
 								src="/images/afc/16x16/add.png" onClick="@command('onCreaPartecipante')"
-								visible="@bind((vm.seduta.secondaSeduta eq null)?true:false)"></image>
+								visible="@load(vm.seduta.secondaSeduta eq null)"></image>
 						</listheader>
 					</listhead>
 					<template name="model" var="partecipante">
@@ -33,7 +33,7 @@
 							</listcell>
 							<listcell label="@load(not empty partecipante.commissioneComponente ? partecipante.commissioneComponente.componente.denominazione : partecipante.componenteEsterno.denominazione )" />
 							<listcell label="@load(partecipante.ruoloPartecipante.descrizione)" />
-							<listcell label="@load(not empty partecipante.incarico ? partecipante.incarico.titolo : partecipante.commissioneComponente.incarico.titolo )" />
+							<listcell label="@load(partecipante.incarico.titolo)" />
 							<listcell style="text-align: center">
 								<label style="float:left;" visible="@load(partecipante.firmatario)" value="@load(c:cat(partecipante.sequenzaFirma,'°'))" />
 								<image style="float:right;" src="@load(partecipante.firmatario ? '/images/afc/16x16/legitimate.png' : '')" />

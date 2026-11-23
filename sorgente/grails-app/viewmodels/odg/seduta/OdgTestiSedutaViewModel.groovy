@@ -3,6 +3,7 @@ package odg.seduta
 import it.finmatica.atti.documenti.Delibera
 import it.finmatica.atti.documenti.DeliberaService
 import it.finmatica.atti.documenti.PropostaDelibera
+import it.finmatica.atti.documenti.PropostaDeliberaSoggetto
 import it.finmatica.atti.dto.documenti.DeliberaDTO
 import it.finmatica.atti.dto.documenti.PropostaDeliberaDTO
 import it.finmatica.atti.dto.odg.SedutaDTO
@@ -17,6 +18,7 @@ import org.zkoss.bind.annotation.*
 import org.zkoss.zk.ui.Executions
 import org.zkoss.zk.ui.event.Event
 import org.zkoss.zul.Label
+import org.zkoss.zul.ListModelList
 import org.zkoss.zul.Listbox
 import org.zkoss.zul.Messagebox
 import org.zkoss.zul.Window
@@ -34,7 +36,8 @@ class OdgTestiSedutaViewModel {
 	// dati
 	SedutaDTO			seduta
 	DeliberaDTO			selectedDelibera
-	List<DeliberaDTO>	listaDelibere
+	//List<DeliberaDTO>	listaDelibere
+	ListModelList<DeliberaDTO> listaDelibere = new ListModelList<>()
 
 	// stato
 	boolean attivaDelibera		= false
@@ -47,12 +50,15 @@ class OdgTestiSedutaViewModel {
         this.self = w
 		this.seduta = seduta
 		ordinamento = "ANNO_NUMERO"
-		caricaListaDelibere ()
+
+		caricaListaDelibere()
+		calcolaNumeroDelibere()
 	}
 
 	@GlobalCommand
 	public void onRefreshTesti (Event e) {
-		caricaListaDelibere ();
+		caricaListaDelibere ()
+		calcolaNumeroDelibere()
 	}
 
 	private void caricaListaDelibere () {
@@ -78,13 +84,23 @@ class OdgTestiSedutaViewModel {
 
 			def elencoFirmatariOggetto = [];
 			for (OggettoPartecipante f : firmatari) {
-				elencoFirmatariOggetto.add(f.sequenzaFirma+ ". "+ (f.sedutaPartecipante.componenteEsterno?.denominazione?:f.sedutaPartecipante.commissioneComponente?.componente?.denominazione))
+				String descrizione = f.sequenzaFirma+ ". "+ (f.sedutaPartecipante.componenteEsterno?.denominazione?:f.sedutaPartecipante.commissioneComponente?.componente?.denominazione)
+				if (f.presente == false) {
+					String descrizioneRuolo = f.ruoloPartecipante?.descrizione?:""
+					if (descrizioneRuolo)
+						descrizione = descrizione + " ("+descrizioneRuolo+" assente)"
+					else
+						descrizione = descrizione + " (assente)"
+				}
+				elencoFirmatariOggetto.add(descrizione)
 			}
 
 			deliberaDto.firmatariOggetto = StringUtils.join(elencoFirmatariOggetto, "\n")
 		}
-		calcolaNumeroDelibere()
 
+		caricaUnitaProponenti(listaDelibere)
+
+		listaDelibere.setMultiple(true)
 		BindUtils.postNotifyChange(null,null, this, "listaDelibere")
     }
 
@@ -128,6 +144,7 @@ class OdgTestiSedutaViewModel {
 		Window w = Executions.createComponents("/atti/documenti/propostaDelibera.zul", self, [id : proposta.id])
 		w.onClose {
 			caricaListaDelibere()
+			calcolaNumeroDelibere()
 		}
 		w.doModal()
 	}
@@ -136,6 +153,7 @@ class OdgTestiSedutaViewModel {
 		Window w = Executions.createComponents("/atti/documenti/delibera.zul", self, [id : delibera.id])
 		w.onClose {
 			caricaListaDelibere()
+			calcolaNumeroDelibere()
 		}
 		w.doModal()
 	}
@@ -145,13 +163,15 @@ class OdgTestiSedutaViewModel {
 		w.onClose { event ->
 			if (event.data.esito == "OK") {
 				GestioneTestiModelloDTO gestioneTestiModelloDto = event.data.modello;
+				Long idModelloTestoScelto = gestioneTestiModelloDto.id
 				for (def deliberaDto : lista.getSelectedItems()*.value) {
-					if (gestioneTestiModelloDto.id == -1 && deliberaDto.domainObject.tipologiaDocumento?.modelloTestoDelibera != null) {
+					if (idModelloTestoScelto == -1 && deliberaDto.domainObject.tipologiaDocumento?.modelloTestoDelibera != null) {
 						gestioneTestiModelloDto = deliberaDto.domainObject.tipologiaDocumento?.modelloTestoDelibera.toDTO()
 					}
 					sedutaDTOService.generaTestoDelibera (deliberaDto, gestioneTestiModelloDto);
 				}
-				caricaListaDelibere();
+				caricaListaDelibere()
+				calcolaNumeroDelibere()
 			}
 		}
 		w.doModal()
@@ -208,12 +228,26 @@ class OdgTestiSedutaViewModel {
 
 	private void attivaDelibera(DeliberaDTO deliberaDTO){
 		deliberaService.attivaDelibera(deliberaDTO.domainObject)
-		caricaListaDelibere();
+		caricaListaDelibere()
+		calcolaNumeroDelibere()
 	}
 
 	@NotifyChange(["listaDelibere"])
 	@Command onCambiaOrdinamento () {
 		caricaListaDelibere()
+		calcolaNumeroDelibere()
 	}
 
+	private void caricaUnitaProponenti(List lista) {
+		def ids = lista*.proposta*.id.findAll { it != null }
+		if (!ids) return
+		def rows = PropostaDeliberaSoggetto.executeQuery(
+			"select s.propostaDelibera.id, s.unitaSo4.descrizione from PropostaDeliberaSoggetto s " +
+			"where s.propostaDelibera.id in :ids and s.tipoSoggetto.codice = :codice and s.attivo = true",
+			[ids: ids, codice: TipoSoggetto.UO_PROPONENTE])
+		Map unitaMap = rows.collectEntries { [(it[0]): (it[1] ?: "")] }
+		lista.each { d ->
+			if (d.proposta) d.unitaProponente = "Unità Proponente: " + (unitaMap[d.proposta.id] ?: "")
+		}
+	}
 }

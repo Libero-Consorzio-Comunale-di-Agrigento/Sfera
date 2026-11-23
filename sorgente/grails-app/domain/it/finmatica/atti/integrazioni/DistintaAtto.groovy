@@ -18,6 +18,7 @@ class DistintaAtto implements Serializable {
 	String elencoImpegni
 	String elencoFornitori
 	BigDecimal importo
+	String titolo
 
 	static mapping = {	
 		table 		'distinte_atti'

@@ -67,13 +67,14 @@ class BudgetDTOService {
             budget = budget.save()
             return budget
         }
-        if (tipoBudget?.importoDisponibile - budgetDTO.importo < 0) {
+        BigDecimal importoBudgetInserito = budgetDTO.importo.setScale(2, BigDecimal.ROUND_DOWN)
+        if (tipoBudget?.importoDisponibile - importoBudgetInserito < 0) {
             throw new AttiRuntimeException("Non è possibile effettuare il salvataggio del budget ${tipoBudget.titolo}, l'importo richiesto supera quello disponibile.")
         }
-        else if (Impostazioni.GESTIONE_FONDI.abilitato && budgetDTO.importo > Impostazioni.GESTIONE_BUDGET_IMPORTO_MASSIMO.valoreInt) {
+        else if (Impostazioni.GESTIONE_FONDI.abilitato && importoBudgetInserito > Impostazioni.GESTIONE_BUDGET_IMPORTO_MASSIMO.valoreInt) {
             throw new AttiRuntimeException("Non è possibile effettuare il salvataggio del budget ${tipoBudget.titolo}, l'importo richiesto supera l'importo massimo.")
         }
-        else if (Impostazioni.GESTIONE_FONDI.abilitato && !controllaImportoMensile(budgetDTO.getProposta().domainObject, budgetDTO.importo)) {
+        else if (Impostazioni.GESTIONE_FONDI.abilitato && !controllaImportoMensile(budgetDTO.getProposta().domainObject, importoBudgetInserito)) {
             throw new AttiRuntimeException("Non è possibile effettuare il salvataggio del budget ${tipoBudget.titolo}, viene superato l'importo massimo mensile.")
         }
         else{
@@ -94,7 +95,7 @@ class BudgetDTOService {
             budget.dataInizioValidita   = budgetDTO.dataInizioValidita
             budget.dataFineValidita     = budgetDTO.dataFineValidita
 
-            budget.importo              = budgetDTO.importo
+            budget.importo              = importoBudgetInserito
             budget.sequenza             = sequenza
             budget.approvato            = budgetDTO.approvato
             budget.valido               = budgetDTO.valido
@@ -105,8 +106,8 @@ class BudgetDTOService {
             budget = budget.save()
 
             // controllo la disponibilità dei budget
-            tipoBudget.importoDisponibile -= budgetDTO.importo
-            tipoBudget.importoPrenotato   += budgetDTO.importo
+            tipoBudget.importoDisponibile -= importoBudgetInserito
+            tipoBudget.importoPrenotato   += importoBudgetInserito
             tipoBudget.save(failOnError: true)
         }
 
@@ -128,8 +129,9 @@ class BudgetDTOService {
                 throw new AttiRuntimeException("Non è possibile eliminare un budget già approvato")
             } else {
                 TipoBudget tipoBudget = getTipoBudget(budgetDTO.tipoBudget)
-                tipoBudget.importoDisponibile += budgetDTO.importo
-                tipoBudget.importoPrenotato -= budgetDTO.importo
+                BigDecimal importoBudgetInserito = budgetDTO.importo.setScale(2, BigDecimal.ROUND_DOWN)
+                tipoBudget.importoDisponibile += importoBudgetInserito
+                tipoBudget.importoPrenotato -= importoBudgetInserito
                 tipoBudget.save(failOnError: true)
             }
             budget.delete(failOnError: true)
@@ -150,8 +152,9 @@ class BudgetDTOService {
     public void autorizzaBudget (BudgetDTO budgetDTO) {
         Budget budget = budgetDTO.getDomainObject()
         TipoBudget tipoBudget = getTipoBudget(budgetDTO.tipoBudget)
-        tipoBudget.importoAutorizzato += budgetDTO.importo
-        tipoBudget.importoPrenotato -= budgetDTO.importo
+        BigDecimal importoBudgetInserito = budgetDTO.importo.setScale(2, BigDecimal.ROUND_DOWN)
+        tipoBudget.importoAutorizzato += importoBudgetInserito
+        tipoBudget.importoPrenotato -= importoBudgetInserito
         tipoBudget.save(failOnError: true)
     }
 
@@ -159,8 +162,9 @@ class BudgetDTOService {
         Budget budget = budgetDTO.getDomainObject()
         TipoBudget tipoBudget = getTipoBudget(budgetDTO.tipoBudget)
         if ( !budget.annullato ) {
-            tipoBudget.importoPrenotato -= budgetDTO.importo
-            tipoBudget.importoDisponibile += budgetDTO.importo
+            BigDecimal importoBudgetInserito = budgetDTO.importo.setScale(2, BigDecimal.ROUND_DOWN)
+            tipoBudget.importoPrenotato -= importoBudgetInserito
+            tipoBudget.importoDisponibile += importoBudgetInserito
             tipoBudget.save(failOnError: true)
             budget.annullato = true
             budget.save(failOnError: true)

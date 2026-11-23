@@ -10,12 +10,13 @@ class VotoDTOService {
 		if(voto.version != votoDto.version) {
 			throw new AttiRuntimeException(AttiRuntimeException.ERRORE_MODIFICA_CONCORRENTE)
 		}
-		voto.codice		 = votoDto.codice
-		voto.descrizione = votoDto.descrizione
-		voto.predefinito = votoDto.predefinito
-		voto.valore 	 = votoDto.valore
-		voto.sequenza 	 = votoDto.sequenza
-		voto.valido 	 = votoDto.valido
+		voto.codice		 	= votoDto.codice
+		voto.codiceEsterno	= votoDto.codiceEsterno
+		voto.descrizione 	= votoDto.descrizione
+		voto.predefinito 	= votoDto.predefinito
+		voto.valore 	 	= votoDto.valore
+		voto.sequenza 	 	= votoDto.sequenza
+		voto.valido 	 	= votoDto.valido
 		voto.save (failOnError: true)
 		return voto.toDTO()
 	}

@@ -1,6 +1,7 @@
 package it.finmatica.atti.dto.odg
 
 import it.finmatica.ad4.dto.autenticazione.Ad4UtenteDTO
+import it.finmatica.atti.dizionari.TipoRegistro
 import it.finmatica.atti.dto.odg.dizionari.RuoloPartecipanteDTO
 import it.finmatica.atti.dto.odg.dizionari.VotoDTO
 import it.finmatica.atti.odg.OggettoPartecipante
@@ -23,11 +24,21 @@ public class OggettoPartecipanteDTO implements it.finmatica.dto.DTO<OggettoParte
     Boolean presente;
     RuoloPartecipanteDTO ruoloPartecipante;
     SedutaPartecipanteDTO sedutaPartecipante;
+    boolean delega
+    SedutaPartecipanteDTO sedutaPartecipanteDelegato
+    Date   dataNumeroProtocolloDelega
+    Integer numeroProtocolloDelega
+    Integer annoProtocolloDelega
+    TipoRegistro registroProtocolloDelega
     int sequenza;
     int sequenzaFirma;
     Ad4UtenteDTO utenteIns;
     Ad4UtenteDTO utenteUpd;
     VotoDTO voto;
+    Date dataEntrata;
+    Date dataUscita;
+    String oraEntrata;
+    String oraUscita;
 
 
     public OggettoPartecipante getDomainObject () {

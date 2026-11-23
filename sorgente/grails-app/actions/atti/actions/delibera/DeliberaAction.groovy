@@ -91,8 +91,33 @@ class DeliberaAction {
 	@Action(tipo	= TipoAzione.AUTOMATICA,
 		tipiOggetto	= [Delibera.TIPO_OGGETTO],
 		nome		= "Numera la delibera.",
-		descrizione = "Numera la delibera.")
+		descrizione = "Numera la delibera. La data di adozione dipende dalla presenza della seduta e dall'impostazione DATA_ADOZIONE_DELIBERE")
 	public def numeraDelibera (Delibera delibera) {
+		deliberaService.adottaDelibera(delibera)
+		return delibera
+	}
+
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [Delibera.TIPO_OGGETTO],
+			nome		= "Numera la delibera (data di adozione uguale a oggi)",
+			descrizione = "Numera la delibera e imposta la data di adozione uguale ad oggi")
+	public def numeraDeliberaDataAdozioneOdierna (Delibera delibera) {
+		if (delibera.dataAdozione == null) {
+			delibera.dataAdozione = new Date()
+		}
+
+		deliberaService.adottaDelibera(delibera)
+		return delibera
+	}
+
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [Delibera.TIPO_OGGETTO],
+			nome		= "Numera la delibera (data di adozione uguale data discussione)",
+			descrizione = "Numera la delibera e imposta la data di adozione uguale alla data di discussione")
+	public def numeraDeliberaDataSeduta (Delibera delibera) {
+		if (delibera.dataAdozione == null) {
+			deliberaService.setDataAdozioneSeduta(delibera)
+		}
 		deliberaService.adottaDelibera(delibera)
 		return delibera
 	}
@@ -130,6 +155,26 @@ class DeliberaAction {
 		descrizione	= "Rende esecutiva la delibera. Crea il certificato di eseguibilità se richiesto dalla tipologia.")
 	public Delibera rendiEsecutiva (Delibera delibera) {
 		deliberaService.rendiEsecutiva(delibera)
+		return delibera
+	}
+
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [Delibera.TIPO_OGGETTO],
+			nome		= "Rende esecutiva oggi la delibera",
+			descrizione	= "Rende esecutiva oggi (usando la data di sistema) la delibera. Crea il certificato di eseguibilità se richiesto dalla tipologia.")
+	public Delibera rendiEsecutivaOggi (Delibera delibera) {
+		deliberaService.rendiEsecutiva(delibera, new Date())
+		return delibera
+	}
+
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [Delibera.TIPO_OGGETTO],
+			nome		= "Rende esecutiva oggi la delibera se immediatamente eseguibile",
+			descrizione	= "Rende esecutiva oggi (usando la data di sistema) la delibera solo se è immediatamente eseguibile. Crea il certificato di eseguibilità se richiesto dalla tipologia.")
+	public Delibera rendiEsecutivaOggiImmEseguibile (Delibera delibera) {
+		if (isImmediatamenteEseguibile(delibera)) {
+			deliberaService.rendiEsecutiva(delibera, new Date())
+		}
 		return delibera
 	}
 

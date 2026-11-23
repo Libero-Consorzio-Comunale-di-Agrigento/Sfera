@@ -57,6 +57,11 @@ class ProtocolloGdm extends AbstractProtocolloEsterno {
     private static String QUERY_ALLEGATI_GDM = "SELECT ID_DOCUMENTO FROM SEG_ALLEGATI_PROTOCOLLO WHERE IDRIF = :idrif and descrizione = :descrizione"
 
     @Override
+    public String getZulFascicolo() {
+        return "/commons/popupFascicoliGdm.zul";
+    }
+
+    @Override
     @Transactional
     void sincronizzaClassificazioniEFascicoli() {
         try {
@@ -372,22 +377,20 @@ class ProtocolloGdm extends AbstractProtocolloEsterno {
 
     @Transactional(readOnly = true)
     List<Classifica> getListaClassificazioni(String filtro, String codiceUoProponente) {
-        String query = """select * from  
-							 (select class_cod 						codice
-								 , seg_classificazioni.class_descr 	descrizione
-								 , seg_classificazioni.class_dal 	dal
-							  from seg_classificazioni
-								 , documenti docu_clas
-								 , cartelle cart_clas
-							 where (upper(seg_classificazioni.nome) like upper(:filtro) or upper(class_cod) like upper(:filtro))
-							   and trunc (sysdate) between class_dal and nvl (class_al,  to_date ('01/01/2999', 'dd/mm/yyyy'))
-							   and docu_clas.id_documento = seg_classificazioni.id_documento
-							   and nvl (docu_clas.stato_documento, 'BO') not in ('CA', 'RE', 'PB')
-							   and cart_clas.id_documento_profilo = docu_clas.id_documento
-							   and nvl (cart_clas.stato, 'BO') <> 'CA'
-                               and seg_classificazioni.contenitore_documenti = 'Y'
-							 order by codice, descrizione asc) 
-							where rownum < 50""";
+        String query = """select class_cod 						 codice
+                               , seg_classificazioni.class_descr descrizione
+                               , seg_classificazioni.class_dal 	 dal
+                            from seg_classificazioni
+                               , documenti docu_clas
+                               , cartelle cart_clas
+                           where (upper(seg_classificazioni.nome) like upper(:filtro) or upper(class_cod) like upper(:filtro))
+                             and trunc (sysdate) between class_dal and nvl (class_al,  to_date ('01/01/2999', 'dd/mm/yyyy'))
+                             and docu_clas.id_documento = seg_classificazioni.id_documento
+                             and nvl (docu_clas.stato_documento, 'BO') not in ('CA', 'RE', 'PB')
+                             and cart_clas.id_documento_profilo = docu_clas.id_documento
+                             and nvl (cart_clas.stato, 'BO') <> 'CA'
+                             and seg_classificazioni.contenitore_documenti = 'Y'
+                           order by codice, descrizione asc """;
         Sql sql = new Sql(dataSource_gdm);
         def rows = sql.rows(query, [filtro: "%" + filtro + "%"]);
         def listaClassifiche = []
@@ -405,19 +408,17 @@ class ProtocolloGdm extends AbstractProtocolloEsterno {
 								, clas.class_dal			dal
 								, fasc.fascicolo_anno 		anno
 								, fasc.fascicolo_numero 	numero
-								, fasc.fascicolo_oggetto 	oggetto
-							 FROM seg_fascicoli fasc
+								, decode(nvl(fasc.riservato,'N'), 'N', fasc.fascicolo_oggetto, 'RISERVATO') oggetto
+							 from seg_fascicoli fasc
 								, seg_classificazioni clas
 								, documenti docu_clas
 								, documenti docu_fasc
 								, cartelle cart_clas
 								, cartelle cart_fasc
 								, view_cartella vica_fasc
-							WHERE """ + (classificaDal != null ? "clas.class_dal = :classificaDal and" : "") +
+							where """ + (classificaDal != null ? "clas.class_dal = :classificaDal and" : "") +
                 """ fasc.class_cod = clas.class_cod
 							  and fasc.class_dal = clas.class_dal
-							  and TRUNC (SYSDATE) BETWEEN fasc.class_dal 
-							  and NVL (fasc.class_al, TO_DATE ('01/01/2999', 'dd/mm/yyyy'))
 							  and fasc.stato_fascicolo   = 1
 							  and docu_clas.id_documento = clas.id_documento
 							  and docu_fasc.id_documento = fasc.id_documento
@@ -428,19 +429,19 @@ class ProtocolloGdm extends AbstractProtocolloEsterno {
 							  and NVL (cart_clas.stato, 'BO') <> 'CA'
 							  and cart_fasc.id_documento_profilo = docu_fasc.id_documento
 							  and NVL (cart_fasc.stato, 'BO') <> 'CA'
-							  and (NVL (UPPER (fasc.fascicolo_oggetto), ' ') 	LIKE UPPER (:filtro) OR 
-								   UPPER(fasc.class_cod)					 	LIKE UPPER (:filtro) OR 
-								   UPPER(to_char(fasc.fascicolo_anno))			LIKE UPPER (:filtro) OR 
+							  and (NVL (UPPER (fasc.fascicolo_oggetto), ' ') 	LIKE UPPER (:filtro) or 
+								   UPPER(fasc.class_cod)					 	LIKE UPPER (:filtro) or 
+								   UPPER(to_char(fasc.fascicolo_anno))			LIKE UPPER (:filtro) or 
 								   UPPER(to_char(fasc.fascicolo_numero 	))		LIKE UPPER (:filtro))
 							  and fasc.class_cod = nvl(:classifica, fasc.class_cod)
                               and fasc.fascicolo_numero is not null
                               and fasc.fascicolo_anno is not null
-						    order by clas.class_cod, fasc.fascicolo_anno desc, ag_fascicolo_utility.get_numero_fasc_ord (fascicolo_numero) asc, fasc.fascicolo_oggetto) 
+                            order by clas.class_cod, fasc.fascicolo_anno desc, ag_fascicolo_utility.get_numero_fasc_ord (fascicolo_numero) asc, fasc.fascicolo_oggetto) 
 							where rownum < 100"""
 
         Sql sql = new Sql(dataSource_gdm);
         def rows = sql.rows(query, [filtro: "%" + filtro + "%", classifica: codiceClassifica, classificaDal: classificaDal ? new java.sql.Date(
-                classificaDal.getTime()) : null]);
+                classificaDal.getTime()) : null, utente: springSecurityService.currentUser.id]);
         def listaFascicoli = []
         for (def row : rows) {
             listaFascicoli << new Fascicolo(classifica: new Classifica(codice: row.codice, descrizione: row.descrizione, dal: row.dal)
@@ -449,6 +450,110 @@ class ProtocolloGdm extends AbstractProtocolloEsterno {
                     , oggetto: row.oggetto);
         }
         return listaFascicoli;
+    }
+
+    @Transactional(readOnly = true)
+    Map<String, Object> getListaFascicoli(String filtro, String codiceClassifica, Date classificaDal, String codiceUoProponente, Integer annoDal, Integer annoAl, String numeroDal, String numeroAl, Integer size, Integer offset) {
+        String numeroDalOrd = numeroDal ? numeroOrdinato(numeroDal) : null
+        String numeroAlOrd  = numeroAl  ? numeroOrdinato(numeroAl) : null
+
+        String query = """select * from
+                             (select f.*, rownum rnum from   
+                                 (select fasc.class_cod 		codice
+                                    , clas.class_descr			descrizione
+                                    , clas.class_dal			dal
+                                    , fasc.fascicolo_anno 		anno
+                                    , fasc.fascicolo_numero 	numero
+                                    , decode(nvl(fasc.riservato,'N'), 'N', fasc.fascicolo_oggetto, 'RISERVATO') oggetto
+                                 from seg_fascicoli fasc
+                                    , seg_classificazioni clas
+                                    , documenti docu_clas
+                                    , documenti docu_fasc
+                                    , cartelle cart_clas
+                                    , cartelle cart_fasc
+                                    , view_cartella vica_fasc
+                                where """ + (classificaDal != null ? "clas.class_dal = :classificaDal and" : "") +
+                    """ fasc.class_cod = clas.class_cod
+                                  and fasc.class_dal = clas.class_dal
+                                  and fasc.stato_fascicolo   = 1
+                                  and docu_clas.id_documento = clas.id_documento
+                                  and docu_fasc.id_documento = fasc.id_documento
+                                  and NVL (docu_clas.stato_documento, 'BO') NOT IN ('CA', 'RE', 'PB')
+                                  and NVL (docu_fasc.stato_documento, 'BO') NOT IN ('CA', 'RE', 'PB')
+                                  and cart_clas.id_documento_profilo = docu_clas.id_documento
+                                  and vica_fasc.id_cartella = cart_fasc.id_cartella
+                                  and NVL (cart_clas.stato, 'BO') <> 'CA'
+                                  and cart_fasc.id_documento_profilo = docu_fasc.id_documento
+                                  and NVL (cart_fasc.stato, 'BO') <> 'CA'
+                                  and NVL (UPPER (fasc.fascicolo_oggetto), ' ') LIKE UPPER (:filtro)
+                                  and (:annoDal is null or fasc.fascicolo_anno >= :annoDal)
+                                  and (:annoAl  is null or fasc.fascicolo_anno <= :annoAl)
+                                  and (:numeroDalOrd is null or UPPER (ag_fascicolo_utility.get_numero_fasc_ord(fasc.fascicolo_numero)) >= UPPER (:numeroDalOrd))
+                                  and (:numeroAlOrd  is null or UPPER (ag_fascicolo_utility.get_numero_fasc_ord(fasc.fascicolo_numero)) <= UPPER (:numeroAlOrd))         
+                                  and fasc.class_cod = nvl(:classifica, fasc.class_cod)
+                                  and fasc.fascicolo_numero is not null
+                                  and fasc.fascicolo_anno is not null
+                                order by clas.class_cod, fasc.fascicolo_anno desc, ag_fascicolo_utility.get_numero_fasc_ord (fascicolo_numero) asc, fasc.fascicolo_oggetto) f
+                             where rownum <= :size + :offset
+                         )
+                         where rnum > :offset"""
+
+        String queryCount = """select count(*) total   
+                                 from seg_fascicoli fasc
+                                    , seg_classificazioni clas
+                                    , documenti docu_clas
+                                    , documenti docu_fasc
+                                    , cartelle cart_clas
+                                    , cartelle cart_fasc
+                                    , view_cartella vica_fasc
+                                where """ + (classificaDal != null ? "clas.class_dal = :classificaDal and" : "") +
+                    """ fasc.class_cod = clas.class_cod
+                                  and fasc.class_dal = clas.class_dal
+                                  and fasc.stato_fascicolo   = 1
+                                  and docu_clas.id_documento = clas.id_documento
+                                  and docu_fasc.id_documento = fasc.id_documento
+                                  and NVL (docu_clas.stato_documento, 'BO') NOT IN ('CA', 'RE', 'PB')
+                                  and NVL (docu_fasc.stato_documento, 'BO') NOT IN ('CA', 'RE', 'PB')
+                                  and cart_clas.id_documento_profilo = docu_clas.id_documento
+                                  and vica_fasc.id_cartella = cart_fasc.id_cartella
+                                  and NVL (cart_clas.stato, 'BO') <> 'CA'
+                                  and cart_fasc.id_documento_profilo = docu_fasc.id_documento
+                                  and NVL (cart_fasc.stato, 'BO') <> 'CA'
+                                  and NVL (UPPER (fasc.fascicolo_oggetto), ' ') LIKE UPPER (:filtro)
+                                  and (:annoDal is null or fasc.fascicolo_anno >= :annoDal)
+                                  and (:annoAl  is null or fasc.fascicolo_anno <= :annoAl)
+                                  and (:numeroDalOrd is null or UPPER (ag_fascicolo_utility.get_numero_fasc_ord(fasc.fascicolo_numero)) >= UPPER (:numeroDalOrd))
+                                  and (:numeroAlOrd  is null or UPPER (ag_fascicolo_utility.get_numero_fasc_ord(fasc.fascicolo_numero)) <= UPPER (:numeroAlOrd))      
+                                  and fasc.class_cod = nvl(:classifica, fasc.class_cod)
+                                  and fasc.fascicolo_numero is not null
+                                  and fasc.fascicolo_anno is not null"""
+
+        Sql sql = new Sql(dataSource_gdm);
+
+        def params = [
+            filtro        : "%" + filtro + "%",
+            classifica    : codiceClassifica,
+            classificaDal : classificaDal ? new java.sql.Date(classificaDal.getTime()) : null,
+            annoDal       : annoDal,
+            annoAl        : annoAl,
+            numeroDalOrd  : numeroDalOrd,
+            numeroAlOrd   : numeroAlOrd,
+            size          : size,
+            offset        : offset,
+            utente        : springSecurityService.currentUser.id
+        ]
+
+        def rows = sql.rows(query, params)
+        def listaFascicoli = []
+        for (def row : rows) {
+            listaFascicoli << new Fascicolo(classifica: new Classifica(codice: row.codice, descrizione: row.descrizione, dal: row.dal)
+                    , anno: row.anno
+                    , numero: row.numero
+                    , oggetto: row.oggetto);
+        }
+        def total = sql.firstRow(queryCount, params)?.total ?: 0
+
+        return [lista: listaFascicoli, total: total, page: offset / size, size: size]
     }
 
     @Transactional(readOnly = true)
@@ -573,5 +678,20 @@ class ProtocolloGdm extends AbstractProtocolloEsterno {
             throw new AttiRuntimeException("Errore nel salvare l'allegato: ${p.getError()}")
 
         }
+    }
+
+    private String numeroOrdinato(String numero, int padding = 7) {
+        if (!numero) {
+            return "0".padLeft(padding, '0')
+        }
+
+        String[] tokens = numero.split(/\./)
+        StringBuilder sb = new StringBuilder()
+
+        for (def t : tokens) {
+            sb.append(t.padLeft(padding, '0'))
+        }
+
+        return sb.toString()
     }
 }

@@ -44,7 +44,7 @@
 			<template name="model" var="imp">
 				<listitem>
 					<listcell label="@load(imp.impostazione.ente)"   		style="@load(imp.impostazione.modificabile ? '' : 'color:red')" />
-					<listcell label="@load(imp.impostazione.codice)"   		style="@load(imp.impostazione.modificabile ? '' : 'color:red')" />
+					<listcell label="@load(imp.impostazione.codice eq 'IMPATTO_GENERAZIONALE' ? imp.impostazione.etichetta.toUpperCase() : imp.impostazione.codice)" style="@load(imp.impostazione.modificabile ? '' : 'color:red')" />
 					<listcell label="@load(imp.impostazione.descrizione)" 	style="@load(imp.impostazione.modificabile ? '' : 'color:red')" />
 					<listcell>
 						<textbox  visible="@bind(empty imp.impostazione.caratteristiche)"

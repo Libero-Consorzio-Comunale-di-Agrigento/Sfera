@@ -3,7 +3,7 @@
 <?component name="storico" macroURI="commons/storico.zul" inline="true"?>
 <?component name="destinatari" macroURI="commons/destinatari.zul" inline="true"?>
 <?component name="movimentiCF4" macroURI="commons/movimentiCF4.zul" inline="true"?>
-<?xel-method prefix="i" name="impostazione" class="it.finmatica.atti.impostazioni.Impostazioni" signature="it.finmatica.atti.impostazioni.Impostazioni valueOf (java.lang.String)" ?>
+<!--<?xel-method prefix="i" name="impostazione" class="it.finmatica.atti.impostazioni.Impostazioni" signature="it.finmatica.atti.impostazioni.Impostazioni valueOf (java.lang.String)" ?>-->
 <?xel-method prefix="da" name="isAbilitato" class="it.finmatica.atti.documenti.TipoDatoAggiuntivo" signature="boolean isAbilitato (java.lang.String)" ?>
 <?xel-method prefix="da" name="descrizione" class="it.finmatica.atti.documenti.TipoDatoAggiuntivo" signature="java.lang.String getDescrizione (java.lang.String)" ?>
 
@@ -22,16 +22,17 @@
 	 				<cell sclass="documentoTitolo" align="left" valign="center">
 	 					<!-- titolo della pagina -->
 	 					<label sclass="@load(vm.determina.numeroDetermina2 gt 0 ? 'visible titolo' : 'hidden')" value="@load(c:cat5(vm.determina.registroDetermina2.descrizione, ': ', vm.determina.numeroDetermina2, ' / ', vm.determina.annoDetermina2))"/>
-	 					<label sclass="@load(vm.determina.numeroDetermina  gt 0 ? (vm.determina.numeroDetermina2 gt 0 ? 'visible' : 'visible titolo') : 'hidden')" value="@load(c:cat5('Atto: ', vm.determina.numeroDetermina, ' / ', vm.determina.annoDetermina, c:cat(' - ', vm.determina.registroDetermina.descrizione)))" />
+	 					<label sclass="@load(vm.numeroDeterminaEffettivo gt 0 ? (vm.determina.numeroDetermina2 gt 0 ? 'visible' : 'visible titolo') : 'hidden')" value="@load(c:cat5('Atto: ', vm.numeroDeterminaEffettivo, ' / ', vm.annoDeterminaEffettivo, c:cat(' - ', vm.descrizioneRegistroDeterminaEffettivo)))" />
 	 					<label sclass="@load(c:cat(vm.determina.numeroProposta gt 0 ? (vm.determina.numeroDetermina gt 0 ? 'visible' : 'visible titolo') : 'hidden', vm.determina.numeroDetermina gt 0 ? ' sottoTitolo' : ''))" value="@load(c:cat5(c:cat(c:l('label.proposta'),': '), vm.determina.numeroProposta, ' / ', vm.determina.annoProposta, c:cat(' del ', not empty vm.determina.dataNumeroProposta ? c:formatDate(vm.determina.dataNumeroProposta, 'dd/MM/yyyy') : '')))" />
 	 					<label sclass="@load(empty vm.determina.numeroProposta  ? 'visible titolo' : 'hidden')" value="@load(c:l('label.nuovaProposta'))" />
 	 				</cell>
 	 				<cell sclass="documentoSottoTitolo" align="right" valign="center">
-                        <label style="color: #FF0000; font-weight: bold;" value="PROPOSTA ANNULLATA"  visible="@load(vm.determina.stato eq 'ANNULLATO' and empty vm.determina.numeroDetermina)" />
-                        <label style="color: #FF0000; font-weight: bold;" value="ATTO ANNULLATO"      visible="@load((vm.determina.stato eq 'ANNULLATO' or vm.determina.stato eq 'NON_ESECUTIVO') and vm.determina.numeroDetermina gt 0 and empty vm.determina.dataEsecutivita)" />
-                        <label style="color: #FF0000; font-weight: bold;" value="NON ESECUTIVO"       visible="@load( (vm.determina.stato eq 'ANNULLATO' or vm.determina.stato eq 'NON_ESECUTIVO') and not empty vm.determina.dataEsecutivita)" />
+                        <label style="color: #FF0000; font-weight: bold;" value="@load(c:l('label.determina.propostaAnnullata'))" visible="@load(vm.determina.stato eq 'ANNULLATO' and empty vm.determina.numeroDetermina)" />
+                        <label style="color: #FF0000; font-weight: bold;" value="@load(c:l('label.determina.attoNonEsecutivo'))"  visible="@load((vm.determina.stato eq 'NON_ESECUTIVO') and vm.determina.numeroDetermina gt 0 and empty vm.determina.dataEsecutivita)" />
+						<label style="color: #FF0000; font-weight: bold;" value="@load(c:l('label.determina.attoAnnullato'))"     visible="@load((vm.determina.stato eq 'ANNULLATO') and vm.determina.numeroDetermina gt 0 and empty vm.determina.dataEsecutivita)" />
+                        <label style="color: #FF0000; font-weight: bold;" value="@load(c:l('label.determina.attoAnnullato'))"     visible="@load( (vm.determina.stato eq 'ANNULLATO' or vm.determina.stato eq 'NON_ESECUTIVO') and not empty vm.determina.dataEsecutivita)" />
 
-	 					<label style="color: #FF0000; font-weight: bold;" value="ATTO INTEGRATO" visible="@load(vm.determina.stato eq 'INTEGRATO')" />
+	 					<label style="color: #FF0000; font-weight: bold;" value="@load(c:l('label.determina.attoIntegrato'))" visible="@load(vm.determina.stato eq 'INTEGRATO')" />
 	 					<label value="@load(vm.determina.numeroDetermina eq null ? ' ' : c:cat('Atto adottato il ', c:formatDate(vm.determina.dataNumeroDetermina, 'dd/MM/yyyy')) )" />
 
                         <label value="@load(vm.determina.dataEsecutivita eq null ? '' : c:l2('label.determina.esecutiva',  c:formatDate(vm.determina.dataEsecutivita, 'dd/MM/yyyy').split('-')))" />
@@ -61,9 +62,10 @@
 						<label value="Stato:" visible="@load(vm.determina.id > 0)" />
 					</cell>
 					<cell>
-                        <label sclass="redText" value="PROPOSTA ANNULLATA"  visible="@load(vm.determina.stato eq 'ANNULLATO' and empty vm.determina.numeroDetermina)" />
-                        <label sclass="redText" value="ATTO ANNULLATO"      visible="@load((vm.determina.stato eq 'ANNULLATO' or vm.determina.stato eq 'NON_ESECUTIVO') and vm.determina.numeroDetermina gt 0 and empty vm.determina.dataEsecutivita)" />
-                        <label sclass="redText" value="NON ESECUTIVO"       visible="@load( (vm.determina.stato eq 'ANNULLATO' or vm.determina.stato eq 'NON_ESECUTIVO') and not empty vm.determina.dataEsecutivita)" />
+                        <label sclass="redText" value="@load(c:l('label.determina.propostaAnnullata'))"  visible="@load(vm.determina.stato eq 'ANNULLATO' and empty vm.determina.numeroDetermina)" />
+                        <label sclass="redText" value="@load(c:l('label.determina.attoNonEsecutivo'))"   visible="@load((vm.determina.stato eq 'NON_ESECUTIVO') and vm.determina.numeroDetermina gt 0 and empty vm.determina.dataEsecutivita)" />
+						<label sclass="redText" value="@load(c:l('label.determina.attoAnnullato'))"      visible="@load((vm.determina.stato eq 'ANNULLATO') and vm.determina.numeroDetermina gt 0 and empty vm.determina.dataEsecutivita)" />
+                        <label sclass="redText" value="@load(c:l('label.determina.attoAnnullato'))"      visible="@load( (vm.determina.stato eq 'ANNULLATO' or vm.determina.stato eq 'NON_ESECUTIVO') and not empty vm.determina.dataEsecutivita)" />
 
 						<label value="@load(vm.determina.iter.stepCorrente.cfgStep.titolo eq null ? vm.determina.stato : vm.determina.iter.stepCorrente.cfgStep.titolo)" visible="@load((vm.determina.id > 0) and !(vm.determina.stato eq 'ANNULLATO' or vm.determina.stato eq 'NON_ESECUTIVO' or vm.determina.iter.stepCorrente.cfgStep.titolo eq 'ANNULLATO'))"/>
 						<label sclass="redText" value="ANNULLATO" visible="@load(vm.determina.id > 0 and vm.determina.iter.stepCorrente.cfgStep.titolo eq 'ANNULLATO')" />
@@ -113,12 +115,12 @@
 							<tab label="Testo e Allegati" />
 							<tab label="Immediata eseguibilità"	visible="@load(vm.mostraEseguibilitaImmediata)" image="@load((vm.determina.eseguibilitaImmediata)? '/images/agsde2/16x16/viewok.png' : '')"/>
 							<tab label="Visti" 			visible="@load(vm.determina.id gt 0)" />
+							<tab label="@load(c:l('label.tab.budget'))" visible="@load(vm.determina.id gt 0 and vm.budgetAbilitato)"/>
 							<tab label="@load(c:l('label.tab.doppiaFirma'))" visible="@load(vm.determina.id gt 0)" if="#{da:isAbilitato('ASSENZA_DOPPIA_FIRMA')}"/>
 							<tab label="@load(vm.abilitaPriorita ? c:l('label.priorita') : vm.scadenzaTabLabel)" visible="@load(vm.abilitaRichiestaEsecutivita or vm.abilitaPriorita)" />
 							<tab label="Riferimenti" 	visible="@load(vm.determina.id gt 0 or vm.protocollo)" onClick="@command('onApriTabRiferimenti')" />
 							<tab label="Dati Tesoriere" visible="@load(vm.determina.id gt 0 and vm.mostraDatiTesoriere)"/>
 							<tab label="Pubblicazione"  visible="@load(vm.determina.id gt 0 and vm.determina.tipologia.pubblicazione and not(vm.determina.numeroDetermina eq null and not vm.abilitaPubblicazioneProposte))" />
-							<tab label="@load(c:l('label.tab.budget'))" visible="@load(vm.determina.id gt 0 and vm.budgetAbilitato)"/>
 						</tabs>
 						<tabpanels>
 							<!-- Testo e Allegati-->
@@ -126,12 +128,12 @@
 								<grid sclass="form">
 									<rows>
 										<row>
-											<cell width="90px">
+											<cell width="110px">
 												<label value="Modello Testo: " />
 											</cell>
 											<cell>
-												<label value="@load(vm.determina.modelloTesto.nome)" visible="@load(vm.determina.testo.id >0)"/>
-												<combobox model="@load(vm.listaModelliTesto)" visible="@load(vm.determina.testo.id eq null)"
+												<label value="@load(vm.determina.modelloTesto.nome)" visible="@load(vm.determina.testo.id >0 )"/>
+												<combobox model="@load(vm.listaModelliTesto)" visible="@load(vm.mostraComboModelloTesti)"
 											  				hflex="1" readonly="true"
 														  selectedItem="@bind(vm.determina.modelloTesto) @converter('it.finmatica.zkutils.PropertyConverter', property='id')"
 														  disabled="@load(not vm.competenze.modifica or vm.determina.statoFirma eq 'IN_FIRMA' or vm.determina.statoFirma eq 'FIRMATO' or vm.campiProtetti.TESTO)">
@@ -171,10 +173,10 @@
 										</row>
 										<row>
 											<cell>
-												<label value="Riservato:" visible="@load(vm.abilitaRiservato)"/>
+												<label value="Riservato:" visible="@load(vm.riservatoVisibile)"/>
 											</cell>
 											<cell>
-												<radiogroup selectedIndex="@load(vm.determina.riservato ? 0 : 1)" selectedItem="@save(vm.determina.riservato)" visible="@load(vm.abilitaRiservato)">
+												<radiogroup selectedIndex="@load(vm.determina.riservato ? 0 : 1)" selectedItem="@save(vm.determina.riservato)" visible="@load(vm.riservatoVisibile)">
 								     				<radio label="Sì" value="@load(true)"  disabled="@load(not vm.competenze.modifica or not vm.riservatoModificabile or vm.campiProtetti.RISERVATO)"/>
 										            <radio label="No" value="@load(false)" disabled="@load(not vm.competenze.modifica or not vm.riservatoModificabile or vm.campiProtetti.RISERVATO)"/>
 									            </radiogroup>
@@ -211,31 +213,80 @@
                                                 <textbox hflex="1" multiline="false" sclass="noresizable z-textbox" use="it.finmatica.atti.zk.components.DatoAggiuntivoTextArea" datoAggiuntivo="CUP" documento="@load(vm.determina)" disabled="@load(not vm.competenze.modifica)" maxlength="15"/>
                                             </cell>
 										</row>
-                                        <row if="#{da:isAbilitato('RIFLESSI_CONTABILI')}">
-                                            <cell if="#{da:isAbilitato('RIFLESSI_CONTABILI')}">
+										<row visible="@load(vm.mostraImportoTotale)">
+											<cell>
+												<label sclass="mandatoryLabel" visible="@load(vm.determina.tipologia.importoTotaleObbligatorio)" value="*"/>
+												<label value="Importo Totale:" />
+											</cell>
+											<cell>
+												<doublebox value="@bind(vm.determina.importoTotale)" format=",###.#00" readonly="@load(not vm.competenze.modifica)" />
+											</cell>
+										</row>
+										<row visible="@load(vm.mostraDataControlloGestione or vm.mostraDataScadenzaDisposizioni)">
+											<cell visible="@load(vm.mostraDataScadenzaDisposizioni)">
+												<label sclass="mandatoryLabel" value="*"/>
+												<label value="Scad. disposizioni:" />
+											</cell>
+											<cell visible="@load(vm.mostraDataScadenzaDisposizioni)">
+												<datebox value="@bind(vm.determina.dataScadenzaDisposizioni)" format="dd/MM/yyyy" width="90px" readonly="@load(not vm.competenze.modifica)" />
+											</cell>
+											<cell colspan="2" visible="@load(vm.mostraDataControlloGestione)">
+												<label value="#{da:descrizione('DATA_CONTROLLO_GESTIONE')}"/>
+												<space height="3px" />
+
+												<datebox format="dd/MM/yyyy" use="it.finmatica.atti.zk.components.DatoAggiuntivoDateBox" datoAggiuntivo="DATA_CONTROLLO_GESTIONE" documento="@load(vm.determina)" disabled="@load(not vm.competenze.modifica)"/>
+											</cell>
+										</row>
+<!--										<row visible="@load(vm.mostraDataControlloGestione)">-->
+<!--											<cell colspan="2">-->
+<!--												<label value="#{da:descrizione('DATA_CONTROLLO_GESTIONE')}"/>-->
+<!--												<space height="3px" />-->
+
+<!--												<datebox format="dd/MM/yyyy" use="it.finmatica.atti.zk.components.DatoAggiuntivoDateBox" datoAggiuntivo="DATA_CONTROLLO_GESTIONE" documento="@load(vm.determina)" disabled="@load(not vm.competenze.modifica)"/>-->
+<!--											</cell>-->
+<!--										</row>-->
+                                        <row visible="@bind(vm.mostraRiflessiContabili or vm.mostraImpattoGenerazionale)">
+                                            <cell visible="@bind(vm.mostraRiflessiContabili)">
                                                 <label value="#{da:descrizione('RIFLESSI_CONTABILI')}"/>
                                             </cell>
-                                            <cell if="#{da:isAbilitato('RIFLESSI_CONTABILI')}">
+                                            <cell visible="@bind(vm.mostraRiflessiContabili)">
                                                 <combobox use="it.finmatica.atti.zk.components.DatoAggiuntivoComboBox" documento="@load(vm.determina)" datoAggiuntivo="@load('RIFLESSI_CONTABILI')" hflex="1" readonly="true">
                                                     <template name="model">
                                                         <comboitem label="#{each.descrizione}" />
                                                     </template>
                                                 </combobox>
                                             </cell>
+											<cell colspan="2" visible="@bind(not vm.mostraRiflessiContabili)" />
+											<cell visible="@bind(vm.mostraImpattoGenerazionale)">
+												<h:span class="mandatoryLabel">*</h:span>
+												<label value="@load(c:l('label.impattoGenerazionale'))"/>
+											</cell>
+											<cell visible="@bind(vm.mostraImpattoGenerazionale)">
+												<combobox model="@load(vm.listaImpattoGenerazionale)"
+														  hflex="1"
+														  selectedItem="@bind(vm.impattoGenerazionale) @converter('it.finmatica.zkutils.PropertyConverter', property='id')"
+														  disabled="@load(not vm.competenze.modifica or vm.campiProtetti.IMPATTO_GENERAZIONALE_ARGOMENTO)">
+													<template name="model" var="ig">
+														<comboitem label="@load(ig.titolo)" description="@load(ig.descrizione)" value="@load(ig)"/>
+													</template>
+												</combobox>
+											</cell>
                                         </row>
 									</rows>
 								</grid>
 								<space height="3px" />
 								<groupbox closable="false" vflex="1">
 									<caption>Allegati</caption>
-									<listbox model="@load(vm.listaAllegati)" emptyMessage="Nessun Allegato" vflex="1" onDoubleClick="@command('onModificaAllegato', nuovo=false)">
+									<listbox model="@load(vm.listaAllegati)" emptyMessage="Nessun Allegato"
+										vflex="1" onDoubleClick="@command('onModificaAllegato', nuovo=false)">
 								        <listhead>
 											<listheader label="" 				width="30px" />
 								        	<listheader label="Titolo" 			width="40%" />
                                             <listheader label="Descrizione" 	width="40%" />
                                             <listheader label="Riservato"    	width="70px" align="center" />
 								        	<listheader label="Da firmare" 		width="80px" align="center" />
-								        	<listheader label="" width="50px" align="center">
+								        	<listheader label="N. file"         width="60px" align="center" />
+								        	<listheader label=""                width="50px" align="center">
 					        					<image width="15px" src="/images/afc/16x16/add.png"
 					        						onClick="@command('onModificaAllegato', nuovo=true)"
 					        						tooltiptext="Aggiungi allegati"
@@ -254,12 +305,13 @@
 												<listcell style="text-align: center">
 													<image src="@load((a.statoFirma eq 'DA_FIRMARE') ? '/images/afc/16x16/legitimate.png' : ((a.statoFirma eq 'FIRMATO') ? (a.marcato ? '/images/agsde2/16x16/marksigned.png' : '/images/agsde2/16x16/testo_firmato.png') : ''))"/>
 												</listcell>
+												<listcell label="@load(empty a.fileAllegati ? 0 : a.fileAllegati.size())" style="text-align: center" />
 												<listcell>
 								        			<image src="/images/agsde2/16x16/trash.png"
 								        				   onClick="@command('onEliminaAllegato', allegato=a)"
 								        				   tooltiptext="Elimina allegati"
 				        						   		   style="cursor: pointer;"
-				        						   		   visible="@load((vm.competenze.modifica or vm.forzaCompetenzeLettura) and (a.codice eq 'ALLEGATO_COPIA_TESTO' or (a.statoFirma eq 'DA_FIRMARE' or a.statoFirma eq 'DA_NON_FIRMARE')) and not vm.campiProtetti.ALLEGATI)" />
+				        						   		   visible="@load((vm.competenze.modifica or vm.forzaCompetenzeLettura) and (a.codice eq 'ALLEGATO_COPIA_TESTO' or (a.statoFirma eq 'DA_FIRMARE' or a.statoFirma eq 'DA_NON_FIRMARE')) and not vm.campiProtetti.ALLEGATI and not (a.bloccato) )" />
 								        		</listcell>
 							        		</listitem>
 							        	</template>
@@ -326,7 +378,9 @@
 											<listcell label="@load(v.firmatario.nominativoSoggetto)" />
 											<listcell label="@load(c:l(c:cat('visto.esito.', v.esito)))" />
 											<listcell label="@load(c:l(c:cat('visto.stato.', v.stato)))" />
-											<listcell image="@load(v.valido ? '/images/agsde2/16x16/point_green.png' : '/images/agsde2/16x16/point_red.png')" />
+											<listcell>
+												<image src="@load(v.valido ? '/images/agsde2/16x16/point_green.png' : '/images/agsde2/16x16/point_red.png')" />
+											</listcell>
 											<listcell>
 							        			<image src="/images/agsde2/16x16/trash.png"
 							        				   onClick="@command('onEliminaVistoParere', visto=v)"
@@ -337,6 +391,132 @@
 						        		</listitem>
 						        	</template>
 						        </listbox>
+							</tabpanel>
+
+							<!-- Budget -->
+							<tabpanel>
+								<listbox model="@load(vm.listaBudget)" emptyMessage="Nessun Budget" vflex="1">
+									<listhead>
+										<listheader label="Budget" 	width="25%" />
+										<listheader label="Importo"	width="15%" />
+										<listheader label="Periodo di validità"	width="20%" visible="@load(!vm.gestioneFondi)"/> <!--if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"-->
+										<listheader label="Conto Economico"	width="23%" />
+										<listheader label="Conto Fornitore" width="23%" visible="@load(!vm.gestioneFondi)"/> <!--if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"-->
+										<listheader label="Cod. Progetto" width="15%" />
+										<listheader label="Approvato" width="8%" visible="@load(!vm.gestioneFondi)"/> <!--if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"-->
+										<listheader label="" width="40px" align="center">
+											<image width="15px" src="/images/afc/16x16/add.png"
+												   onClick="@command('onAggiungiBudget', nuovo=true)"
+												   tooltiptext="Aggiungi Budget"
+												   style="cursor: pointer;"
+												   visible="@load((vm.competenze.modifica or vm.forzaCompetenzeLettura) and vm.determina.id > 0 and not vm.campiProtetti.BUDGET)" />
+
+											<image width="15px" src="/images/agsde2/22x22/xls.png"
+												   onClick="@command('onExportBudgetExcel')"
+												   tooltiptext="Esporta in Excel"
+												   style="cursor: pointer;"
+												   visible="@load((vm.competenze.modifica or vm.forzaCompetenzeLettura) and vm.determina.id > 0 and not vm.campiProtetti.BUDGET)" />
+										</listheader>
+
+									</listhead>
+
+									<template name="model" var="c">
+										<listitem>
+											<listcell>
+												<combobox hflex="1" model="@load(vm.listaTipiBudget)"
+														  selectedItem="@bind(c.tipoBudget) @converter('it.finmatica.zkutils.PropertyConverter', property='id')"
+														  readonly="true" visible="@load(c.id &lt; 0)" >
+													<template name="model" var="tipo">
+														<comboitem label="@load(c:cat(tipo.titolo, empty tipo.contoEconomico ? '' : c:cat3(' [', tipo.contoEconomico, ']')))" value="@load(tipo)" />
+													</template>
+												</combobox>
+												<label value="@load(c.tipoBudget.titolo)" visible="@load(c.id > 0)"/>
+											</listcell>
+											<listcell>
+												<decimalbox value="@bind(c.importo)" format="#,##0.00" constraint="no empty,no negative" disabled="@load(c.id > 0)"/>
+											</listcell>
+											<listcell visible="@load(!vm.gestioneFondi)"> <!--if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"-->
+												dal<h:br /><datebox value="@bind(c.dataInizioValidita)" format="dd/MM/yyyy" width="90px" disabled="@load(c.id > 0)"/> <h:br />
+												al<h:br /><datebox value="@bind(c.dataFineValidita)" format="dd/MM/yyyy" width="90px" disabled="@load(c.id > 0)"/>
+											</listcell>
+											<listcell>
+												<textbox value="@bind(c.contoEconomico)" readonly="@load(c.approvato)" visible="@load(vm.gestioneFondi)"/> <!--if="#{i:impostazione('GESTIONE_FONDI').abilitato}"-->
+												<bandbox width="120px" mold="rounded" disabled="@load(c.id > 0)" autodrop="true" visible="@load(!vm.gestioneFondi)"
+														 value="@bind(c.contoEconomico)" onChanging="@command('onRicercaCe4Conto', search=event.value)"
+														 onOpen="@command('onRicercaCe4Conto', search=event.value)" onChange="@command('onRicercaCe4Conto', search=event.value)"> <!--if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"-->
+													<bandpopup width="350px">
+														<listbox width="350px" height="250px"
+																 model="@load(vm.listaCe4Conti)"
+																 multiple="false"
+																 onSelect="@command('onSelectCe4Conto', target=self, ent=c,  sel=self.selectedItem)"
+														>
+															<listhead>
+																<listheader label="Conto"/>
+																<listheader label="Descrizione"/>
+															</listhead>
+															<template name="model" var="item">
+																<listitem>
+																	<listcell label="@load(item.contoEsteso)" hflex="1"/>
+																	<listcell label="@load(item.descrizione)" hflex="2"/>
+																</listitem>
+															</template>
+														</listbox>
+														<paging
+																activePage="@bind(vm.activePage)"
+																pageSize="@bind(vm.pageSize)"
+																totalSize="@load(vm.totalSize)"
+																onPaging="@command('onPaginaCe4Conto')"/>
+													</bandpopup>
+												</bandbox>
+											</listcell>
+											<listcell visible="@load(!vm.gestioneFondi)"> <!--if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"-->
+												<bandbox width="120px" mold="rounded" disabled="@load(c.id > 0)" autodrop="true" visible="@load(!vm.gestioneFondi)"
+														 value="@bind(c.codiceFornitore)" onChanging="@command('onRicercaCe4Fornitore', search=event.value)"
+														 onOpen="@command('onRicercaCe4Fornitore', search=event.value)" onChange="@command('onRicercaCe4Fornitore', search=event.value)"> <!--if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"-->
+													<bandpopup width="350px">
+														<listbox width="350px" height="250px"
+																 model="@load(vm.listaCe4Fornitori)"
+																 multiple="false"
+																 onSelect="@command('onSelectCe4Fornitore', target=self, ent=c,  sel=self.selectedItem)"
+														>
+															<listhead>
+																<listheader label="Conto"/>
+																<listheader label="Ragione Sociale"/>
+															</listhead>
+															<template name="model" var="item">
+																<listitem>
+																	<listcell label="@load(item.contoFornitore)" hflex="1"/>
+																	<listcell label="@load(item.ragioneSociale)" hflex="2"/>
+																</listitem>
+															</template>
+														</listbox>
+														<paging
+																activePage="@bind(vm.activePage)"
+																pageSize="@bind(vm.pageSize)"
+																totalSize="@load(vm.totalSize)"
+																onPaging="@command('onPaginaCe4Fornitore')"/>
+													</bandpopup>
+												</bandbox>
+											</listcell>
+											<listcell>
+												<textbox value="@bind(c.codiceProgetto)" readonly="@load(c.approvato)"/>
+											</listcell>
+											<listcell label="@load(c.approvato ? 'Si':'No')" visible="@load(!vm.gestioneFondi)"/> <!--if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"-->
+											<listcell>
+												<image src="/images/agsde2/16x16/trash.png"
+													   onClick="@command('onEliminaBudget', budget=c)"
+													   tooltiptext="Elimina Budget"
+													   style="cursor: pointer;"
+													   visible="@load((vm.competenze.modifica or vm.forzaCompetenzeLettura) and (not c.approvato) and (not vm.campiProtetti.BUDGET)) and (not vm.gestioneFondi)"/> <!--if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"-->
+												<image src="/images/agsde2/16x16/trash.png"
+													   onClick="@command('onEliminaBudget', budget=c)"
+													   tooltiptext="Elimina Budget"
+													   style="cursor: pointer;"
+													   visible="@load((vm.competenze.modifica or vm.forzaCompetenzeLettura) and (empty vm.determina.dataEsecutivita) and (not vm.campiProtetti.BUDGET)) and (vm.gestioneFondi)"/> <!--if="#{i:impostazione('GESTIONE_FONDI').abilitato}"-->
+											</listcell>
+										</listitem>
+									</template>
+								</listbox>
 							</tabpanel>
 
 							<!-- Tab doppia firma-->
@@ -402,7 +582,7 @@
 									<caption>Archiviazioni</caption>
 									<grid sclass="form">
 										<rows>
-											<row visible="@load(vm.mostraArchiviazioni)">
+											<row visible="@load(vm.mostraArchiviazioni and !vm.isIntegrazioneProtocolloPiTre)">
 												<cell width="90px">
 													<label sclass="mandatoryLabel" visible="@load(vm.classifica_obb)" value="*"/>
 													<label value="Classifica:" />
@@ -441,20 +621,52 @@
 													<label value="@load(c:cat5(vm.determina.numeroProtocollo,' / ', vm.determina.annoProtocollo, '  del ', (vm.determina.dataNumeroProtocollo ne null ? c:formatDate(vm.determina.dataNumeroProtocollo, 'dd/MM/yyyy') : ' ')))" />
 												</cell>
 											</row>
-											<row visible="@load(vm.mostraCorteConti)">
-												<cell>
-													<label value="Da Inviare in Corte dei Conti" />
+											<!--row visible="@load(not(vm.determina.idApplicativoEsterno eq null))">
+												<cell width="130px">
+													<label value="ID Applicativo Esterno:" />
 												</cell>
-												<cell>
+												<cell colspan="3">
+													<label
+															value="@load(vm.determina.idApplicativoEsterno)" />
+												</cell>
+											</row-->
+											<row visible="@load(vm.mostraAttoSoggettoControllo)">
+												<cell colspan="2">
+													<label value="Atto soggetto a controllo" />
+												</cell>
+												<cell colspan="2">
+													<radiogroup  selectedItem="@bind(vm.determina.attoSoggettoControllo)"
+																onCheck="@command('onCambioMacroCategoria')">
+														<radio label="Sì" value="@load(true)"  disabled="@load(not vm.competenze.modifica or vm.campiProtetti.DATI_PROTOCOLLO)" />
+														<radio label="No" value="@load(false)" disabled="@load(not vm.competenze.modifica or vm.campiProtetti.DATI_PROTOCOLLO)" />
+													</radiogroup>
+												</cell>
+											</row>
+											<row visible="@load(vm.mostraMacrocategoria)">
+												<cell colspan="2">
+													<label value="Macrocategoria" />
+												</cell>
+												<cell colspan="2">
+													<combobox hflex="1" model="@load(vm.listaMacrocategorie)"
+															  selectedItem="@bind(vm.determina.macrocategoria) @converter('it.finmatica.zkutils.PropertyConverter', property='id')"
+															  readonly="true"
+															  disabled="@load(not vm.competenze.modifica or vm.campiProtetti.DATI_PROTOCOLLO)">
+														<template name="model" var="macrocategoria">
+															<comboitem label="@load(macrocategoria)" description="@load(macrocategoria)" value="@load(macrocategoria)" />
+														</template>
+													</combobox>
+												</cell>
+											</row>
+											<row visible="@load(vm.mostraCorteConti)">
+												<cell colspan="3">
+													<label value="@load(c:l('label.corteConti.daInviare'))" />
 													<radiogroup selectedIndex="@load(vm.determina.daInviareCorteConti ? 0 : 1)" selectedItem="@save(vm.determina.daInviareCorteConti)">
 									     				<radio label="Sì" value="@load(true)"  disabled="@load(not vm.competenze.modifica)"/>
 											            <radio label="No" value="@load(false)" disabled="@load(not vm.competenze.modifica)"/>
 										            </radiogroup>
 												</cell>
 												<cell>
-													<label value="Data Invio in Corte dei Conti" />
-												</cell>
-												<cell>
+													<label value="@load(c:l('label.corteConti.dataInvio'))" />
 													<datebox value="@bind(vm.determina.dataInvioCorteConti)" format="dd/MM/yyyy" disabled="@load(not vm.competenze.modifica or not vm.determina.daInviareCorteConti)"/>
 												</cell>
 											</row>
@@ -478,16 +690,24 @@
 													</combobox>
 												</cell>
 											</row>
+											<row visible="@load(not empty vm.determina.statoConservazione )">
+												<cell width="90px" colspan="2">
+													<label value="Esito Conservazione:" />
+												</cell>
+												<cell colspan="2">
+													<EsitoConservazione logConservazione="@load(vm.logConservazione)"/>
+												</cell>
+											</row>
 										</rows>
 									</grid>
 								</groupbox>
 								<space height="3px" />
-								<groupbox closable="false" vflex="1" visible="@load(vm.determina.id > 0)">
+								<groupbox closable="false" height="90%" visible="@load(vm.determina.id > 0)">
 									<caption>Documenti collegati</caption>
 									<listbox vflex="1" model="@load(vm.listaDocumentiCollegati)" emptyMessage="Nessun documento collegato.">
 								        <listhead>
 								        	<listheader width="15%" label="Operazione"	/>
-								        	<listheader width="15%" label="Documento" 	/>
+								        	<listheader width="25%" label="Documento" 	/>
 								        	<listheader label="Oggetto"		/>
 								        	<listheader width="5%"  align="center">
 					        					<image width="15px" src="/images/afc/16x16/add.png"
@@ -502,7 +722,7 @@
 									        		<label value="@load(doc.collegamentoInverso and doc.operazione eq 'ANNULLA' ? 'ANNULLATO DA' : doc.operazione)" />
 								        		</listcell>
 								        		<listcell>
-									        		<label value="@load(doc.tipoDocumento)" />
+									        		<label value="@load(empty doc.tipologiaTitolo ? doc.tipoDocumento : doc.tipologiaTitolo)" />
 								        		</listcell>
 								        		<listcell>
 									        		<label value="@load(doc.oggetto)" />
@@ -593,7 +813,9 @@
 									            </radiogroup>
 									        </cell>
 											<cell if="#{not(da:isAbilitato('PUBBLICAZIONE_PORTALE_REGIONALE') or da:isAbilitato('PUBBLICAZIONE_TRASPARENZA') or da:isAbilitato('PUBBLICAZIONE_BURC'))}">Giorni di Pubblicazione:</cell>
-										    <cell if="#{not(da:isAbilitato('PUBBLICAZIONE_PORTALE_REGIONALE') or da:isAbilitato('PUBBLICAZIONE_TRASPARENZA') or da:isAbilitato('PUBBLICAZIONE_BURC'))}"><textbox value="@bind(vm.determina.giorniPubblicazione)" width="50px" disabled="@load(vm.determina.pubblicaRevoca or not vm.determina.tipologia.giorniPubblicazioneModificabile)" readonly="@load(not empty vm.determina.dataPubblicazione or vm.campiProtetti.PUBBLICAZIONE)"/></cell>
+										    <cell if="#{not(da:isAbilitato('PUBBLICAZIONE_PORTALE_REGIONALE') or da:isAbilitato('PUBBLICAZIONE_TRASPARENZA') or da:isAbilitato('PUBBLICAZIONE_BURC'))}">
+										        <textbox value="@bind(vm.determina.giorniPubblicazione)" width="50px" disabled="@load(vm.determina.pubblicaRevoca or not vm.determina.tipologia.giorniPubblicazioneModificabile)" readonly="@load(not empty vm.determina.dataPubblicazione or vm.campiProtetti.PUBBLICAZIONE)"/>
+										    </cell>
 										</row>
 										<row visible="@load(vm.determina.tipologia.pubblicazioneFutura)">
 											<cell width="180px">Data Minima di Pubblicazione: </cell>
@@ -627,134 +849,6 @@
 						        	</template>
 						        </listbox>
 							</tabpanel>
-
-							<!-- Budget -->
-							<tabpanel>
-								<listbox model="@load(vm.listaBudget)" emptyMessage="Nessun Budget" vflex="1">
-
-							        <listhead>
-							        	<listheader label="Budget" 	width="25%" />
-							        	<listheader label="Importo"	width="15%" />
-										<listheader label="Periodo di validità"	width="20%" if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"/>
-							        	<listheader label="Conto Economico"	width="23%" />
-										<listheader label="Conto Fornitore" width="23%" if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"/>
-							        	<listheader label="Cod. Progetto" width="15%" />
-							        	<listheader label="Approvato" width="8%" if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"/>
-                                        <listheader label="" width="40px" align="center">
-                                            <image width="15px" src="/images/afc/16x16/add.png"
-                                                onClick="@command('onAggiungiBudget', nuovo=true)"
-                                                tooltiptext="Aggiungi Budget"
-                                                style="cursor: pointer;"
-                                                visible="@load((vm.competenze.modifica or vm.forzaCompetenzeLettura) and vm.determina.id > 0 and not vm.campiProtetti.BUDGET)" />
-                                                                     						   
-                                                <image width="15px" src="/images/agsde2/22x22/xls.png"
-                                                                                                onClick="@command('onExportBudgetExcel')"
-                                                                                                tooltiptext="Esporta in Excel"
-                                                                                                style="cursor: pointer;"
-                                                                                                visible="@load((vm.competenze.modifica or vm.forzaCompetenzeLettura) and vm.determina.id > 0 and not vm.campiProtetti.BUDGET)" />
-                                        </listheader>
-
-							        </listhead>
-
-						        	<template name="model" var="c">
-							        	<listitem>
-						        			<listcell>
-						        			    <combobox hflex="1" model="@load(vm.listaTipiBudget)"
-                                                    selectedItem="@bind(c.tipoBudget) @converter('it.finmatica.zkutils.PropertyConverter', property='id')"
-                                                    readonly="true" visible="@load(c.id &lt; 0)" >
-                                                    <template name="model" var="tipo">
-                                                        <comboitem label="@load(c:cat(tipo.titolo, empty tipo.contoEconomico ? '' : c:cat3(' [', tipo.contoEconomico, ']')))" value="@load(tipo)" />
-                                                    </template>
-                                                </combobox>
-                                                <label value="@load(c.tipoBudget.titolo)" visible="@load(c.id > 0)"/>
-                                            </listcell>
-                                            <listcell>
-											    <doublebox value="@bind(c.importo)" format=",##0.00" constraint="no empty,no negative" disabled="@load(c.id > 0)" />
-                                            </listcell>
-											<listcell if="#{i:impostazione('GESTIONE_FONDI').disabilitato}">
-												dal<h:br /><datebox value="@bind(c.dataInizioValidita)" format="dd/MM/yyyy" width="90px" disabled="@load(c.id > 0)"/> <h:br />
-												al<h:br /><datebox value="@bind(c.dataFineValidita)" format="dd/MM/yyyy" width="90px" disabled="@load(c.id > 0)"/>
-                                            </listcell>
-                                            <listcell>
-											    <textbox value="@bind(c.contoEconomico)" readonly="@load(c.approvato)" if="#{i:impostazione('GESTIONE_FONDI').abilitato}"/>
-												<bandbox width="120px" mold="rounded" disabled="@load(c.id > 0)" autodrop="true" if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"
-														 value="@bind(c.contoEconomico)" onChanging="@command('onRicercaCe4Conto', search=event.value)"
-														 onOpen="@command('onRicercaCe4Conto', search=event.value)" onChange="@command('onRicercaCe4Conto', search=event.value)">
-													<bandpopup width="350px">
-														<listbox width="350px" height="250px"
-																 model="@load(vm.listaCe4Conti)"
-																 multiple="false"
-																 onSelect="@command('onSelectCe4Conto', target=self, ent=c,  sel=self.selectedItem)"
-														>
-															<listhead>
-																<listheader label="Conto"/>
-																<listheader label="Descrizione"/>
-															</listhead>
-															<template name="model" var="item">
-																<listitem>
-																	<listcell label="@load(item.contoEsteso)" hflex="1"/>
-																	<listcell label="@load(item.descrizione)" hflex="2"/>
-																</listitem>
-															</template>
-														</listbox>
-														<paging
-															activePage="@bind(vm.activePage)"
-															pageSize="@bind(vm.pageSize)"
-															totalSize="@load(vm.totalSize)"
-															onPaging="@command('onPaginaCe4Conto')"/>
-													</bandpopup>
-												</bandbox>
-                                            </listcell>
-											<listcell if="#{i:impostazione('GESTIONE_FONDI').disabilitato}">
-												<bandbox width="120px" mold="rounded" disabled="@load(c.id > 0)" autodrop="true" if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"
-															 value="@bind(c.codiceFornitore)" onChanging="@command('onRicercaCe4Fornitore', search=event.value)"
-															 onOpen="@command('onRicercaCe4Fornitore', search=event.value)" onChange="@command('onRicercaCe4Fornitore', search=event.value)">
-													<bandpopup width="350px">
-														<listbox width="350px" height="250px"
-																 model="@load(vm.listaCe4Fornitori)"
-																 multiple="false"
-																 onSelect="@command('onSelectCe4Fornitore', target=self, ent=c,  sel=self.selectedItem)"
-														>
-															<listhead>
-																<listheader label="Conto"/>
-																<listheader label="Ragione Sociale"/>
-															</listhead>
-															<template name="model" var="item">
-																<listitem>
-																	<listcell label="@load(item.contoFornitore)" hflex="1"/>
-																	<listcell label="@load(item.ragioneSociale)" hflex="2"/>
-																</listitem>
-															</template>
-														</listbox>
-														<paging
-															activePage="@bind(vm.activePage)"
-															pageSize="@bind(vm.pageSize)"
-															totalSize="@load(vm.totalSize)"
-															onPaging="@command('onPaginaCe4Fornitore')"/>
-													</bandpopup>
-												</bandbox>
-                                            </listcell>
-                                            <listcell>
-											    <textbox value="@bind(c.codiceProgetto)" readonly="@load(c.approvato)"/>
-                                            </listcell>
-											<listcell label="@load(c.approvato ? 'Si':'No')" if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"/>
-											<listcell>
-                                                <image src="/images/agsde2/16x16/trash.png"
-                                                       onClick="@command('onEliminaBudget', budget=c)"
-                                                       tooltiptext="Elimina Budget"
-                                                       style="cursor: pointer;"
-                                                       visible="@load((vm.competenze.modifica or vm.forzaCompetenzeLettura) and not c.approvato)"  if="#{i:impostazione('GESTIONE_FONDI').disabilitato}"/>
-                                                <image src="/images/agsde2/16x16/trash.png"
-                                                       onClick="@command('onEliminaBudget', budget=c)"
-                                                       tooltiptext="Elimina Budget"
-                                                       style="cursor: pointer;"
-                                                       visible="@load((vm.competenze.modifica or vm.forzaCompetenzeLettura) and empty vm.determina.dataEsecutivita)"  if="#{i:impostazione('GESTIONE_FONDI').abilitato}"/>
-                                           </listcell>
-						        		</listitem>
-						        	</template>
-						        </listbox>
-							</tabpanel>
-
 						</tabpanels>
 					</tabbox>
 				</tabpanel>
@@ -820,7 +914,38 @@
 
 				<!-- Contabilità -->
 				<tabpanel fulfill="contabilita.onSelect">
-					<include src="@load(vm.zulContabilita)" onCreate="@command('onAggiornaContabilita')"/>
+					<!--INIZIO campi sulla determina specifici per contabilita ATS Pavia -->
+					<grid sclass="form" visible="@bind(vm.isIntegrazioneContabilitaAtsPavia and vm.visContabilita)">
+						<rows>
+							<row>
+								<cell width="180px" align="right">In evidenza: </cell>
+								<cell width="100px">
+									<radiogroup selectedIndex="@load(vm.determina.inEvidenza ? 0 : 1)" selectedItem="@save(vm.determina.inEvidenza)" >
+										<radio label="Sì" value="@load(true)"  disabled="@load(not vm.competenze.modifica)"/>
+										<radio label="No" value="@load(false)" disabled="@load(not vm.competenze.modifica)"/>
+									</radiogroup>
+								</cell>
+								<cell>
+									<label value=" da "/><datebox value="@bind(vm.determina.dataInEvidenzaDa)" format="dd/MM/yyyy" disabled="@bind((not vm.competenze.modifica) or (not vm.determina.inEvidenza))" />
+									<label value=" a "/><datebox value="@bind(vm.determina.dataInEvidenzaA)" format="dd/MM/yyyy" disabled="@bind((not vm.competenze.modifica) or (not vm.determina.inEvidenza))" />
+								</cell>
+							</row>
+							<row>
+								<cell width="100px" align="right">Importo Totale del Contratto:</cell>
+								<cell width="100px">
+									<doublebox value="@bind(vm.determina.importo)" format=",###.#00" />
+								</cell>
+								<cell>
+									<button disabled="@load(not vm.competenze.modifica)" label="Somma importi"
+											onClick="@command('aggiornaTotaleImporto')" mold="trendy"
+											image="/images/pulsanti/16x16/calculator.png" />
+								</cell>
+							</row>
+						</rows>
+					</grid>
+					<!--FINE campi sulla determina specifici per contabilita ATS Pavia -->
+					<include src="@load(vm.zulContabilita)" onCreate="@command('onAggiornaContabilita')" visible="@load(vm.visContabilita)" vflex="1"/>
+					<label value="@load(c:l('message.contabilita.erroreAttoRiservato'))" visible="@load(!vm.visContabilita)" />
 				</tabpanel>
 
 				<!-- Storico -->

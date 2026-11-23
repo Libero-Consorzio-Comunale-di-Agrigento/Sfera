@@ -45,15 +45,17 @@
 			selectedItem="@bind(vm.selectedRecord)"
 			emptyMessage="Nessuna unita trovata">
 			<listhead>
-				<listheader label="Unità Organizzativa" />
+				<listheader label="Codice" />
+				<listheader width="50%" label="Unità Organizzativa" />
 				<listheader label="Valida Dal" />
 				<listheader label="Valida Al" />
 			</listhead>
 			<template name="model" var="unita">
 				<listitem>
+					<listcell label="@load(unita.codice)"></listcell>
 	                <listcell label="@load(unita.descrizione)"></listcell>
-	                <listcell label="@load(unita.dal)"></listcell>
-	                <listcell label="@load(unita.al)"></listcell>
+	                <listcell label="@load(unita.dal) @converter('formattedDate', format='dd/MM/yyyy')"></listcell>
+	                <listcell label="@load(unita.al) @converter('formattedDate', format='dd/MM/yyyy')"></listcell>
 				</listitem>
 			</template>
 		</listbox>
@@ -63,11 +65,13 @@
 				<button
 				 	mold="trendy"
 					label="Seleziona"
-					onClick="@command('onSelezionaUnita')" />
+					onClick="@command('onSelezionaUnita')"
+					image="/images/afc/16x16/save.png" />
 				<button
 				 	mold="trendy"
 					label="Annulla"
-					onClick="@command('onAnnulla')"  />
+					onClick="@command('onAnnulla')"
+					image="/images/afc/16x16/close.png" />
 			</h:div>
 		</h:div>
     </window>

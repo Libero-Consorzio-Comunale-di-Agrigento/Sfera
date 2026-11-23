@@ -46,6 +46,14 @@
 				</row>
 				<row>
 					<cell align="right">
+						<label value="Codice"/>
+					</cell>
+					<cell>
+						<textbox value="@bind(vm.selectedRecord.codiceEsterno)" hflex="1"/>
+					</cell>
+				</row>
+				<row>
+					<cell align="right">
 						<label value="Predefinito" />
 					</cell>
 					<cell>

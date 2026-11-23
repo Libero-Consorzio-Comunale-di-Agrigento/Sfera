@@ -60,16 +60,18 @@ class OdgDatiSedutaViewModel {
 			order ("titolo", "asc")
 		}?.toDTO()
 
-		// Nel caso in cui ci sia una sola commissione valida viene inserita direttamente in seduta (#16577)
-		if (listaCommissione?.size() == 1){
-			CommissioneDTO commissione 	= listaCommissione.get(0)
-			this.seduta.commissione 	= commissione
-			this.seduta.votoPresidente 	= commissione.votoPresidente
-			this.seduta.pubblica		= commissione.sedutaPubblica
-		}
-		// Nel caso in cui ci sia un solo tipo seduta valido viene inserito direttamente in seduta (#16577)
-		if (listaTipoSeduta?.size() == 1){
-			this.seduta.tipoSeduta = listaTipoSeduta.get(0)
+		if (this.seduta?.id < 0) {
+			// Nel caso in cui ci sia una sola commissione valida viene inserita direttamente in seduta (#16577)
+			if (listaCommissione?.size() == 1) {
+				CommissioneDTO commissione = listaCommissione.get(0)
+				this.seduta.commissione = commissione
+				this.seduta.votoPresidente = commissione.votoPresidente
+				this.seduta.pubblica = commissione.sedutaPubblica
+			}
+			// Nel caso in cui ci sia un solo tipo seduta valido viene inserito direttamente in seduta (#16577)
+			if (listaTipoSeduta?.size() == 1) {
+				this.seduta.tipoSeduta = listaTipoSeduta.get(0)
+			}
 		}
 
 		modificaDataSeduta = !sedutaDTOService.esistonoOggettiSedutaConfermati(seduta.domainObject)

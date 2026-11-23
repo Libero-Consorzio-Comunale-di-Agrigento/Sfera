@@ -65,14 +65,58 @@ class DestinatarioNotificaDTOService {
         DestinatarioNotifica d = new DestinatarioNotifica()
         d.tipoDestinatario = DestinatarioNotifica.TIPO_DESTINATARIO_ESTERNO
         d.tipoNotifica = destinatarioDTO.tipoNotifica
-        d.email = destinatarioDTO.email?.id > 0 ? destinatarioDTO.email.getDomainObject() : new Email()
-        if (!(destinatarioDTO.email?.id > 0)) {
-            d.email.nome = destinatarioDTO.email.nome
-            d.email.cognome = destinatarioDTO.email.cognome
-            d.email.indirizzoEmail = destinatarioDTO.email.indirizzoEmail
-            d.email.ragioneSociale = destinatarioDTO.email.ragioneSociale
-            d.email.save()
+        if ('PND'.equals(destinatarioDTO.tipoNotifica)) {
+            d.soggetto = destinatarioDTO.soggetto.domainObject
+            d.importo = destinatarioDTO.importo
+            d.dataScadenza = destinatarioDTO.dataScadenza
+            d.giorniScadenza = destinatarioDTO.giorniScadenza
+
+            d.idRecapito = destinatarioDTO.idRecapito
+            d.idContatto = destinatarioDTO.idContatto
+            d.cognome = destinatarioDTO.cognome
+            d.nome = destinatarioDTO.nome
+            d.codiceFiscale = destinatarioDTO.codiceFiscale
+            d.indirizzo = destinatarioDTO.indirizzo
+            d.comune = destinatarioDTO.comune
+            d.provincia = destinatarioDTO.provincia
+            d.cap = destinatarioDTO.cap
+            d.indirizzoEmail = destinatarioDTO.indirizzoEmail
         }
+        else {
+            d.email = destinatarioDTO.email?.id > 0 ? destinatarioDTO.email.getDomainObject() : new Email()
+            if (!(destinatarioDTO.email?.id > 0)) {
+                d.email.nome = destinatarioDTO.email.nome
+                d.email.cognome = destinatarioDTO.email.cognome
+                d.email.indirizzoEmail = destinatarioDTO.email.indirizzoEmail
+                d.email.ragioneSociale = destinatarioDTO.email.ragioneSociale
+                d.email.save()
+            }
+        }
+        documento.addToDestinatariNotifiche(d)
+        documento.save()
+
+        return documento.toDTO()
+    }
+
+    def aggiungiDestinatarioPiTre (def documentoDto, DestinatarioNotificaDTO destinatarioDTO) {
+        def documento = documentoDto.domainObject
+
+        DestinatarioNotifica d = new DestinatarioNotifica()
+        d.tipoDestinatario = DestinatarioNotifica.TIPO_DESTINATARIO_PITRE
+        d.tipoNotifica = destinatarioDTO.tipoNotifica
+        d.idSoggettoEsterno=destinatarioDTO.idSoggettoEsterno
+        d.tipoSoggettoEsterno=destinatarioDTO.tipoSoggettoEsterno
+        d.tipoCorrispondenteEsterno=destinatarioDTO.tipoCorrispondenteEsterno
+        d.tipoRubricaEsterna=destinatarioDTO.tipoRubricaEsterna
+        d.nome=destinatarioDTO.nome
+        d.cognome=destinatarioDTO.cognome
+        d.tipoNotifica=DestinatarioNotifica.TIPO_NOTIFICA_COMPETENZA
+        d.indirizzo=destinatarioDTO.indirizzo
+        d.email=destinatarioDTO.email?.domainObject
+        d.comune=destinatarioDTO.comune
+        d.provincia=destinatarioDTO.provincia
+        d.cap = destinatarioDTO.cap
+        d.indirizzoEmail=destinatarioDTO.indirizzoEmail
 
         documento.addToDestinatariNotifiche(d)
         documento.save()
@@ -125,6 +169,24 @@ class DestinatarioNotificaDTOService {
             eq(nomeCampoDocumentoId, documento.id)
             eq("tipoDestinatario", DestinatarioNotifica.TIPO_DESTINATARIO_ESTERNO)
             fetchMode("email", FetchMode.JOIN)
+            fetchMode("soggetto", FetchMode.JOIN)
+        }.toDTO()
+    }
+
+    def getListaDestinatariPiTre (def documento) {
+        String nomeCampoDocumentoId
+        if (documento instanceof DeterminaDTO) {
+            nomeCampoDocumentoId = "determina.id"
+        }
+        if (documento instanceof PropostaDeliberaDTO) {
+            nomeCampoDocumentoId = "propostaDelibera.id"
+        }
+        if (documento instanceof SedutaStampaDTO) {
+            nomeCampoDocumentoId = "sedutaStampa.id"
+        }
+        return DestinatarioNotifica.createCriteria().list {
+            eq(nomeCampoDocumentoId, documento.id)
+            eq("tipoDestinatario", DestinatarioNotifica.TIPO_DESTINATARIO_PITRE)
         }.toDTO()
     }
 }

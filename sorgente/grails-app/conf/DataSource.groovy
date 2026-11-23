@@ -28,11 +28,12 @@ environments {
 			dbCreate = "validate"
 //			jndiName = "jdbc/agsde2"		// questo serve per generare i DTO
 			jndiName = "java:comp/env/jdbc/agsde2"
+//			logSql = true
 		}
 		
 		dataSource_gdm {
 			jndiName = "java:comp/env/jdbc/gdm"
-            dialect 	= MyDialect //'org.hibernate.dialect.OracleDialect'
+			dialect 	= MyDialect //'org.hibernate.dialect.OracleDialect'
 //			jndiName = "jdbc/gdm"
 		}
 
@@ -48,14 +49,14 @@ environments {
 //			jndiName = "java:comp/env/jdbc/gs4"
 //		}
 	}
-	
+
 	test {
 		dataSource {
 //			pooled = true
 //		    url = "jdbc:oracle:thin:@test-consags:1521:aggags"
 //		    driverClassName = "oracle.jdbc.driver.OracleDriver"
 //		    username = "agsde2"
-//		    password = ""
+//		    password = "agsde2"
             dialect  = MyDialect //'org.hibernate.dialect.OracleDialect'
 			jndiName = "java:comp/env/jdbc/agsde2"
 		}
@@ -67,10 +68,10 @@ environments {
 
 		dataSource_cf {
 			dbCreate = 'none'
-			jndiName = "java:comp/env/jdbc/cf"
+			jndiName = "java:comp/env/jdbc/cfarm"
             dialect  = MyDialect //'org.hibernate.dialect.OracleDialect'
 		}
-		
+
 		// questo bean viene utilizzato solo dall'integrazione con gs4
 //		dataSource_gs4 {
 //			jndiName = "java:comp/env/jdbc/gs4"
@@ -84,27 +85,26 @@ environments {
             dialect  = MyDialect //'org.hibernate.dialect.OracleDialect'
 			jndiName = "java:comp/env/jdbc/agsde2"
 		}
-		
+
 		dataSource_gdm {
             dialect  = MyDialect //'org.hibernate.dialect.OracleDialect'
 			jndiName = "java:comp/env/jdbc/gdm"
 		}
-		
+
 		// i datasource che seguono non vengono installati di default.
 		// per attivarli in produzione dai clienti che li richiedono, bisogna fare:
 		// 1) modificare il file conf/Catalina/localhost/Atti.xml aggiungendo l'opportuna configurazione jndi
 		// 2) modificare il file confapps/Atti/DataSource.groovy specificando i datasource
-		
+
 		// questo bean viene utilizzato solo dall'integrazione con la contabilità finanziaria tramite plugin
 //		dataSource_cf {
 //			dbCreate = 'none'
 //			jndiName = "java:comp/env/jdbc/cf"
 //		}
-		
+
 		// questo bean viene utilizzato solo dall'integrazione con gs4
 //		dataSource_gs4 {
 //			jndiName = "java:comp/env/jdbc/gs4"
 //		}
 	}
 }
-

@@ -18,6 +18,7 @@ import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.integrazioni.odg.SedutaConfig
 import it.finmatica.atti.odg.dizionari.EsitoStandard
 import it.finmatica.atti.odg.dizionari.RuoloPartecipante
+import it.finmatica.atti.odg.dizionari.Voto
 import it.finmatica.gestioneiter.motore.WkfIterService
 import it.finmatica.gestionetesti.GestioneTestiService
 import org.apache.commons.io.IOUtils
@@ -85,6 +86,32 @@ class SedutaService {
             fetchMode("ruoloCompetenze", FetchMode.JOIN)
             order("titolo", "asc")
         }
+    }
+
+    List<Seduta> elencoSedute(String titolo, String dataDal, String dataAl, String pubblicate){
+        List<Seduta> elenco = Seduta.createCriteria().list() {
+            if(pubblicate!=null && !pubblicate.equals("")){
+                if(pubblicate.equals("S")) {
+                    eq("pubblicaWeb", true)
+                }
+                if(pubblicate.equals("N")) {
+                    eq("pubblicaWeb", false)
+                }
+            }
+
+            if(dataDal!=null) {
+                    gt ("dataSeduta",  text2Date(dataDal) )
+            }
+            if(dataAl!=null) {
+                lt ("dataSeduta",  text2Date(dataAl) )
+            }
+            commissione {
+                eq("titolo", titolo)
+            }
+            fetchMode("commissione", FetchMode.JOIN)
+            order("dataSeduta","asc")
+        }
+        return elenco
     }
 
     def cercaSedute (Date date, long idCommissione, boolean seduteDaVerbalizzare) {
@@ -272,8 +299,7 @@ class SedutaService {
                             builder.nominativo(
                                     partecipanteSeduta.commissioneComponente != null && partecipanteSeduta.commissioneComponente != "" ? partecipanteSeduta.commissioneComponente?.componente?.denominazione : partecipanteSeduta.componenteEsterno?.denominazione)
                             builder.ruolo(partecipanteSeduta.ruoloPartecipante?.descrizione)
-                            builder.incarico(
-                                    partecipanteSeduta.incarico != null && partecipanteSeduta.incarico != "" ? partecipanteSeduta.incarico?.titolo : partecipanteSeduta.commissioneComponente?.incarico?.titolo)
+                            builder.incarico(partecipanteSeduta.incarico?.titolo)
                             builder.presenza(partecipanteSeduta.presente ? "SI" : "NO")
                         }
                     }
@@ -301,8 +327,7 @@ class SedutaService {
                                             builder.nominativo(
                                                     oggettoPartecipante.sedutaPartecipante.commissioneComponente != null && oggettoPartecipante.sedutaPartecipante.commissioneComponente != "" ? oggettoPartecipante.sedutaPartecipante.commissioneComponente?.componente?.denominazione : oggettoPartecipante.sedutaPartecipante.componenteEsterno?.denominazione)
                                             builder.ruolo(oggettoPartecipante.ruoloPartecipante?.descrizione)
-                                            builder.incarico(
-                                                    oggettoPartecipante.sedutaPartecipante.incarico != null && oggettoPartecipante.sedutaPartecipante.incarico != "" ? oggettoPartecipante.sedutaPartecipante.incarico?.titolo : oggettoPartecipante.sedutaPartecipante.commissioneComponente?.incarico?.titolo)
+                                            builder.incarico(oggettoPartecipante.sedutaPartecipante.incarico?.titolo)
                                             builder.presenza(oggettoPartecipante.presente ? "SI" : "NO")
                                         }
                                     }
@@ -385,6 +410,79 @@ class SedutaService {
         }
 
         return (oggettiSeduta.size() > 0 && oggettiConfermati == oggettiSeduta.size())
+    }
+
+    List<OggettoSeduta> getElencoOggettiSeduta (Seduta seduta) {
+        return OggettoSeduta.createCriteria().list {
+            eq("seduta.id", seduta.id)
+            order("sequenzaDiscussione", "asc")
+            order("sequenzaConvocazione", "asc")
+        }
+    }
+
+    //restituisco il partecipante alla seduta se il soggetto è convocato (come componente della commissione o come esterno)
+    SedutaPartecipante getPartecipanteSeduta(Seduta seduta, As4SoggettoCorrente soggetto) {
+        SedutaPartecipante sedutaPartecipante
+        for (SedutaPartecipante partecipante in seduta.partecipanti) {
+            if (partecipante.commissioneComponente?.componente?.id == soggetto.id) {
+                sedutaPartecipante = partecipante
+              //  break
+            } else {
+                if (partecipante.componenteEsterno?.id == soggetto.id) {
+                    sedutaPartecipante = partecipante
+          //          break
+                }
+            }
+        }
+        return sedutaPartecipante
+    }
+
+    //restituisco il soggetto collegato alla proposta
+    OggettoPartecipante getPartecipanteOggettoSeduta(OggettoSeduta oggettoSeduta, As4SoggettoCorrente soggetto) {
+        List<OggettoPartecipante> elencoPartecipanti = OggettoPartecipante.createCriteria().list {
+            eq("oggettoSeduta.id", oggettoSeduta.id)
+        }
+
+        SedutaPartecipante sedutaPartecipante
+        OggettoPartecipante oggettoPartecipante
+        for (OggettoPartecipante partecipante in elencoPartecipanti) {
+            sedutaPartecipante = partecipante.sedutaPartecipante
+            if (sedutaPartecipante.commissioneComponente?.componente?.id == soggetto.id) {
+                oggettoPartecipante = partecipante
+                //  break
+            } else {
+                if (sedutaPartecipante.componenteEsterno?.id == soggetto.id) {
+                    oggettoPartecipante = partecipante
+                    //          break
+                }
+            }
+        }
+        return oggettoPartecipante
+    }
+
+    //restituisco il soggetto collegato alla proposta
+    SedutaPartecipante getSedutaPartecipanteRuolo(Seduta seduta, String codiceRuolo) {
+        SedutaPartecipante partecipante = SedutaPartecipante.createCriteria().get() {
+            eq("seduta.id", seduta.id)
+            eq("presente", true)
+            ruoloPartecipante {
+                eq("codice", codiceRuolo)
+            }
+
+        }
+        return partecipante
+    }
+
+    java.util.Date text2Date(String data) throws Exception{
+        java.util.Date ret= null
+        if(data!=null && data.length()>0) {
+            try {
+                ret = new SimpleDateFormat("dd/MM/yyyy").parse(data)
+            }catch (Exception ex){
+                throw new Exception("Errore nel formato della data ["+data+"] ",ex )
+            }
+        }
+        return ret
     }
 }
 

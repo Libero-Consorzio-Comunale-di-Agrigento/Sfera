@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <documentRoot>
-	<descrizione>Determina</descrizione>
+	<descrizione>Frontespizio Determina</descrizione>
 	<connections>
 		<!-- <connectionFileExt>dbconnection.xml</connectionFileExt>-->
 		<connectionJNDI>jdbc/agsde2</connectionJNDI>
@@ -29,6 +29,9 @@
 				<SUDDIVISIONE>AREA</SUDDIVISIONE>
 				<UNITA_PADRE>AREA AMMINISTRATIVA</UNITA_PADRE>
 				<FIRMATARIO>NOMINATIVO FIRMATARIO</FIRMATARIO>
+				<REDATTORE>NOMINATIVO REDATTORE</REDATTORE>
+				<INCARICATO>NOMINATIVO INCARICATO</INCARICATO>
+				<FUNZIONARIO>NOMINATIVO FUNZIONARIO</FUNZIONARIO>
 				<ASCENDENTI_UNITA>AREA: STRUTTURA AZIENDE SANITARIE</ASCENDENTI_UNITA>
 				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
 				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
@@ -40,8 +43,10 @@
 				<NUMERO_ALLEGATI_STAMPA_UNICA>1</NUMERO_ALLEGATI_STAMPA_UNICA>
 				<ANNO_DETERMINA_2>2014</ANNO_DETERMINA_2>
 				<NUMERO_DETERMINA_2>1231</NUMERO_DETERMINA_2>
+				<DESCRIZIONE_REGISTRO>REGISTRO DETERMINAZIONI</DESCRIZIONE_REGISTRO>
 				<DESCRIZIONE_REGISTRO_2>REGISTRO DIPARTIMENTALE</DESCRIZIONE_REGISTRO_2>
 				<DESCRIZIONE_RADICE_SUDD>RADICE AFFARI GENERALI</DESCRIZIONE_RADICE_SUDD>
+				<RISERVATO>RISERVATO</RISERVATO>
 			</determina>
 			<allegati>
 				<ALLEGATO_TITOLO>Piano di struttura</ALLEGATO_TITOLO>
@@ -260,6 +265,24 @@
 			<nomeSimbolico>GIORNI_PUBBLICAZIONE</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Giorni di pubblicazione della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FUNZIONARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Funzionario della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>REDATTORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Redattore della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INCARICATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Incaricato della determina</descrizione>
 			<path/>
 		</metaDato>
 		<metaDato>
@@ -575,6 +598,12 @@
 			<path/>
 		</metaDato>
 		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_REGISTRO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del registro di numerazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
 			<nomeSimbolico>DESCRIZIONE_REGISTRO_2</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Descrizione del registro di seconda numerazione</descrizione>
@@ -586,12 +615,18 @@
 			<descrizione>Descrizione dell'unità radice in struttura rispetto l'unità proponente</descrizione>
 			<path/>
 		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RISERVATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Valorizzato solo se l'atto è riservato</descrizione>
+			<path/>
+		</metaDato>
 	</definitions>
 	<queryes>
 		<!-- determina: restituisce i dati di una determina -->
 		<query 	id="determina"
 				  help_query_alias="d"
-				  help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, ANNO_PROTOCOLLO, AREA_PROPONENTE, ASCENDENTI_UNITA, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_ESECUTIVITA, DATA_PROTOCOLLO, DIRIGENTE, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_OGGETTO, FIRMATARIO, NUMERO_DETERMINA, NUMERO_PROPOSTA, NUMERO_PROTOCOLLO, OGGETTO_DETERMINA, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, UNITA_PADRE, NUMERO_PAGINE, NUMERO_ALLEGATI, NUMERO_ALLEGATI_STAMPA_UNICA, DATA_PUBBLICAZIONE, DATA_FINE_PUBBLICAZIONE, ANNO_DETERMINA_2, NUMERO_DETERMINA_2, DESCRIZIONE_REGISTRO_2, DESCRIZIONE_RADICE_SUDD">
+				  help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, ANNO_PROTOCOLLO, AREA_PROPONENTE, ASCENDENTI_UNITA, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_ESECUTIVITA, DATA_PROTOCOLLO, DIRIGENTE, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_OGGETTO, REDATTORE, INCARICATO, FUNZIONARIO, FIRMATARIO, NUMERO_DETERMINA, NUMERO_PROPOSTA, NUMERO_PROTOCOLLO, OGGETTO_DETERMINA, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, UNITA_PADRE, NUMERO_PAGINE, NUMERO_ALLEGATI, NUMERO_ALLEGATI_STAMPA_UNICA, DATA_PUBBLICAZIONE, DATA_FINE_PUBBLICAZIONE, ANNO_DETERMINA_2, NUMERO_DETERMINA_2, DESCRIZIONE_REGISTRO, DESCRIZIONE_REGISTRO_2, DESCRIZIONE_RADICE_SUDD, RISERVATO">
 			select decode(numero_proposta, null, '', to_char(numero_proposta)) NUMERO_PROPOSTA
 			,  decode(anno_proposta, null, '', to_char(anno_proposta)) ANNO_PROPOSTA
 			,  decode(data_numero_determina, null, '', to_char(data_numero_determina,'dd/mm/yyyy')) DATA_DETERMINA
@@ -612,6 +647,9 @@
 			,  utility_pkg.get_codice_unita_prop_dete (d.id_determina) CODICE_UNITA_PROPONENTE
 			,  utility_pkg.get_suddivisione_uo_determina (d.id_determina) SUDDIVISIONE
 			,  utility_pkg.get_uo_padre_determina (d.id_determina) UNITA_PADRE
+			, decode(d.controllo_funzionario,'N',null, utility_pkg.get_nominativo_sogg_dete (d.id_determina, 'FUNZIONARIO')) FUNZIONARIO
+			, utility_pkg.get_nominativo_sogg_dete (d.id_determina, 'REDATTORE') REDATTORE
+			, utility_pkg.get_nominativo_sogg_dete (d.id_determina, 'INCARICATO') INCARICATO
 			,  utility_pkg.get_primo_firmatario_determina(d.id_determina) FIRMATARIO
 			,  utility_pkg.get_desc_ascendenti_unita(utility_pkg.get_codice_unita_prop_dete (d.id_determina), null, impostazioni_pkg.get_impostazione('OTTICA_SO4', d.ente), null) ASCENDENTI_UNITA
 			,  utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_AREA', d.ente) AREA_PROPONENTE
@@ -625,10 +663,14 @@
 			,  decode(d.anno_determina_2, null, '${documentRoot.determina.ANNO_DETERMINA_2}', d.anno_determina_2) ANNO_DETERMINA_2
 			,  decode(d.numero_determina_2, null, '${documentRoot.determina.NUMERO_DETERMINA_2}', to_char(d.numero_determina_2)) NUMERO_DETERMINA_2
 			,  decode(tp2.descrizione, null, '${documentRoot.determina.DESCRIZIONE_REGISTRO_2}', tp2.descrizione) DESCRIZIONE_REGISTRO_2
+			,  decode(tp1.descrizione, null, '${documentRoot.determina.DESCRIZIONE_REGISTRO}', tp1.descrizione) DESCRIZIONE_REGISTRO
 			, utility_pkg.unita_get_radice_determina (d.id_determina) DESCRIZIONE_RADICE_SUDD
+			, decode(d.riservato,'Y','RISERVATO','') RISERVATO
 			from determine d
+			, tipi_registro tp1
 			, tipi_registro tp2
 			where d.id_determina 				= #id
+			and tp1.tipo_registro (+) 	    = d.registro_determina
 			and tp2.tipo_registro (+) 	    = d.registro_determina_2
 		</query>
 
@@ -637,7 +679,7 @@
 			   help_field_aliases="VISTO_CODICE, VISTO_TIPO, VISTO_FIRMATARIO, VISTO_UNITA, VISTO_FIRMATO, VISTO_ESITO">
 			select tv.titolo                VISTO_TIPO
 			,  tv.codice                VISTO_CODICE
-			,  utility_pkg.get_cognome_nome (utility_pkg.get_ni_soggetto (v.utente_firmatario)) VISTO_FIRMATARIO
+			,  utility_pkg.get_cognome_nome (utility_pkg.get_ni_soggetto (v.utente_firmatario), v.ente) VISTO_FIRMATARIO
 			,  utility_pkg.get_uo_descrizione (v.unita_progr, v.unita_dal) VISTO_UNITA
 			,  decode(v.stato_firma, 'FIRMATO', 'Si', 'No') VISTO_FIRMATO
 			,  case V.ESITO
@@ -724,7 +766,7 @@
 			   help_field_aliases="PASSAGGIO_DATA, PASSAGGIO_TITOLO, PASSAGGIO_ATTORE">
 			select step.data_inizio             PASSAGGIO_DATA
 			, upper(cfg_step.titolo)         PASSAGGIO_TITOLO
-			, nvl(utility_pkg.get_uo_descrizione (a_step.unita_progr, a_step.unita_dal),utility_pkg.get_cognome_nome (utility_pkg.get_ni_soggetto (a_step.utente))) PASSAGGIO_ATTORE
+			, nvl(utility_pkg.get_uo_descrizione (a_step.unita_progr, a_step.unita_dal),utility_pkg.get_cognome_nome (utility_pkg.get_ni_soggetto (a_step.utente), dete.ente)) PASSAGGIO_ATTORE
 			from determine dete,
 			wkf_engine_step step,
 			wkf_engine_step_attori a_step,

@@ -1,17 +1,20 @@
 package commons
 
 import grails.orm.PagedResultList
-import it.finmatica.atti.dizionari.Email
+import it.finmatica.as4.As4SoggettoCorrente
+import it.finmatica.as4.dto.As4SoggettoCorrenteDTO
 import it.finmatica.atti.documenti.DestinatarioNotifica
+import it.finmatica.atti.documenti.Determina
+import it.finmatica.atti.documenti.IDocumento
+import it.finmatica.atti.documenti.tipologie.TipoDetermina
 import it.finmatica.atti.dto.dizionari.EmailDTOService
 import it.finmatica.atti.dto.documenti.DestinatarioNotificaDTO
+import it.finmatica.atti.integrazioni.pnd.SmartPnd
+import org.zkoss.bind.BindUtils
 import org.zkoss.bind.annotation.*
 import org.zkoss.zk.ui.Component
 import org.zkoss.zk.ui.Executions
-import org.zkoss.zk.ui.event.Events
-import org.zkoss.zk.ui.event.InputEvent
-import org.zkoss.zk.ui.event.OpenEvent
-import org.zkoss.zk.ui.event.SelectEvent
+import org.zkoss.zk.ui.event.*
 import org.zkoss.zul.Messagebox
 import org.zkoss.zul.Window
 
@@ -21,6 +24,13 @@ class PopupSceltaDestinatariEsterniEsistentiViewModel {
 
     String filtroSoggetti
     DestinatarioNotificaDTO destNotifica
+    As4SoggettoCorrenteDTO soggetto
+    SmartPnd smartPnd
+    boolean pndNotifica
+    boolean pndPagamento
+    BigDecimal importo
+    Integer giorniScadenza
+    Date dataScadenza
 
     String email
 
@@ -31,14 +41,16 @@ class PopupSceltaDestinatariEsterniEsistentiViewModel {
 
     Window self
 
-    String tipoNotificaCompetenza = DestinatarioNotifica.TIPO_NOTIFICA_COMPETENZA
-    String tipoNotificaConoscenza = DestinatarioNotifica.TIPO_NOTIFICA_CONOSCENZA
+    String tipoNotificaCompetenza   = DestinatarioNotifica.TIPO_NOTIFICA_COMPETENZA
+    String tipoNotificaConoscenza   = DestinatarioNotifica.TIPO_NOTIFICA_CONOSCENZA
+    String tipoNotificaPnd          = DestinatarioNotifica.TIPO_NOTIFICA_PND
     int indiceNotifica = 0
 
-    @NotifyChange(["destNotifica", "destinatariList", "totalSize"])
+    @NotifyChange(["destNotifica", "destinatariList", "totalSize", "pndNotifica"])
     @Init
     void init(@ContextParam(ContextType.COMPONENT) Window w,
-            @ExecutionArgParam("destinatarioEsterno") DestinatarioNotificaDTO input) {
+            @ExecutionArgParam("destinatarioEsterno") DestinatarioNotificaDTO input,
+            @ExecutionArgParam("documento") IDocumento documento) {
         this.self = w
 
         // Inizializo le variabili di classe
@@ -46,7 +58,39 @@ class PopupSceltaDestinatariEsterniEsistentiViewModel {
         filtroSoggetti = ""
         destNotifica = new DestinatarioNotificaDTO()
         destNotifica.tipoNotifica = DestinatarioNotifica.TIPO_NOTIFICA_COMPETENZA
-        indiceNotifica = destNotifica.tipoNotifica == DestinatarioNotifica.TIPO_NOTIFICA_COMPETENZA ? 0 : 1
+
+        switch (destNotifica.tipoNotifica) {
+            case DestinatarioNotifica.TIPO_NOTIFICA_COMPETENZA:
+                indiceNotifica = 0
+                break
+            case DestinatarioNotifica.TIPO_NOTIFICA_CONOSCENZA:
+                indiceNotifica = 1
+                break
+            case DestinatarioNotifica.TIPO_NOTIFICA_PND:
+                indiceNotifica = 2
+                break
+        }
+
+        if (documento instanceof Determina) {
+            TipoDetermina tipoDetermina = documento.tipologiaDocumento
+            if (tipoDetermina) {
+                pndNotifica = tipoDetermina.pndNotifica
+                if (pndNotifica) {
+                    pndPagamento = smartPnd.isNotificaPagamento(tipoDetermina.id)
+                }
+                if (pndPagamento) {
+                    giorniScadenza = smartPnd.getGiorniScadenza(tipoDetermina.id)
+                }
+            }
+            else {
+                pndNotifica  = false
+                pndPagamento = false
+            }
+        }
+        else {
+            pndNotifica = false
+            pndPagamento = false
+        }
     }
 
     //////////////////////////////////////////
@@ -108,6 +152,26 @@ class PopupSceltaDestinatariEsterniEsistentiViewModel {
 
     @Command
     void onSalva() {
+        if (DestinatarioNotifica.TIPO_NOTIFICA_PND.equals(destNotifica.tipoNotifica)) {
+            if (pndNotifica) {
+                if (pndPagamento) {
+                    if (importo == null) {
+                        Messagebox.show("Inserire l'importo del pagamento", "Attenzione!", Messagebox.OK , Messagebox.EXCLAMATION)
+                        return
+                    }
+
+                    if (dataScadenza == null && giorniScadenza == null) {
+                        Messagebox.show("Inserire i giorni o la data di scadenza del pagamento", "Attenzione!", Messagebox.OK , Messagebox.EXCLAMATION)
+                        return
+                    }
+
+                    destNotifica.importo = importo
+                    destNotifica.dataScadenza = dataScadenza
+                    destNotifica.giorniScadenza = giorniScadenza
+                }
+            }
+        }
+
         Events.postEvent(Events.ON_CLOSE, self, destNotifica)
     }
 
@@ -124,6 +188,38 @@ class PopupSceltaDestinatariEsterniEsistentiViewModel {
                 if (event.data instanceof DestinatarioNotificaDTO) {
                     Events.postEvent(Events.ON_CLOSE, self, event.data)
                 }
+            }
+        }
+        w.doModal()
+    }
+
+    @Command onCercaSoggettoAs4 () {
+        Window w = Executions.createComponents("/commons/popupRicercaSoggetti.zul", self, [id : -1, ricercaAs4: true, pndNotifica: pndNotifica])
+        w.onClose { Event event ->
+            if (event.data != null) {
+                if (pndNotifica) {
+                  //  this.destNotifica.ni = event.data.cognome
+                    As4SoggettoCorrente soggettoCorrente = As4SoggettoCorrente.get(event.data.ni)
+                    if (soggettoCorrente) {
+                        this.destNotifica.soggetto = soggettoCorrente.toDTO()
+                    }
+                    if (event.data.idRecapito)
+                        this.destNotifica.idRecapito = event.data.idRecapito
+                    if (event.data.idContatto)
+                        this.destNotifica.idContatto = event.data.idContatto
+                    this.destNotifica.cognome = event.data.cognome
+                    this.destNotifica.nome = event.data.nome
+                    this.destNotifica.codiceFiscale = event.data.codiceFiscale
+                    this.destNotifica.indirizzo = event.data.indirizzo
+                    this.destNotifica.comune = event.data.comune
+                    this.destNotifica.provincia = event.data.provincia
+                    this.destNotifica.cap = event.data.cap
+                    this.destNotifica.indirizzoEmail = event.data.email
+                }
+                else {
+                    this.destNotifica.soggetto = event.data;
+                }
+                BindUtils.postNotifyChange(null, null, this, "destNotifica")
             }
         }
         w.doModal()

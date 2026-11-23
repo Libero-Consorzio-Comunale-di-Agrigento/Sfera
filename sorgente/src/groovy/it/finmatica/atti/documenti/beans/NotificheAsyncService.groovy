@@ -53,7 +53,7 @@ class NotificheAsyncService {
                         } catch (Exception ex){
                             log.error("Errore durante l'eliminazione della notifica con id: ${n.idAttivita} e id riferimento: ${n.idRiferimento}", ex)
                             def doc = jworklistDispatcher.getDocumento(n.idRiferimento)
-                            notificheErroreService.creaErroreNotifica(NotificaErrore.OPERAZIONE_ELIMINA, null, n.idRiferimento, doc.iter.stepCorrente)
+                            notificheErroreService.creaErroreNotifica(NotificaErrore.OPERAZIONE_ELIMINA, null, n.idRiferimento, doc.iter?.stepCorrente?:"")
                         }
 
                     }
@@ -75,11 +75,11 @@ class NotificheAsyncService {
                     def documento = operazione.documentoClass.get(operazione.documentoId)
                     def notifica = Notifica.get(operazione.idNotifica)
                     try {
-                        jworklistDispatcher.notifica(documento, notifica, operazione.oggetto, operazione.testo, operazione.utenti, operazione.priorita, operazione.stepCorrente)
+                        jworklistDispatcher.notifica(documento, notifica, operazione.oggetto?.trim(), operazione.testo, operazione.utenti, operazione.priorita, operazione.stepCorrente)
                     } catch (Exception ex){
                         String idRiferimento = jworklistDispatcher.getIdRiferimento(documento, notifica.tipoNotifica)
                         log.error("Errore durante l'invio della notifica ${notifica.tipoNotifica} riferimento: ${idRiferimento}", ex)
-                        notificheErroreService.creaErroreNotifica(NotificaErrore.OPERAZIONE_INVIO, notifica, idRiferimento, documento.iter.stepCorrente)
+                        notificheErroreService.creaErroreNotifica(NotificaErrore.OPERAZIONE_INVIO, notifica, idRiferimento, documento.iter?.stepCorrente?:"")
                     }
 
                     break

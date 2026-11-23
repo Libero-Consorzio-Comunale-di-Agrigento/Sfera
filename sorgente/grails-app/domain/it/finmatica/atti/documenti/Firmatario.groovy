@@ -127,6 +127,11 @@ class Firmatario {
 			order ("sequenza", "desc")
 			maxResults (1)
 		}
+
+		firmePresenti {IDocumento documento ->
+			perDocumento(documento)
+			eq ("firmato", true)
+		}
 	}
 
 	private SpringSecurityService getSpringSecurityService () {

@@ -19,6 +19,7 @@ public class DocumentoCollegatoDTO implements it.finmatica.dto.DTO<DocumentoColl
     Date dateCreated;
     DeliberaDTO deliberaCollegata;
     DeterminaDTO determinaCollegata;
+    PropostaDeliberaDTO propostaDeliberaCollegata;
     DeterminaDTO determinaPrincipale;
     DeliberaDTO deliberaPrincipale;
     So4AmministrazioneDTO ente;
@@ -42,6 +43,7 @@ public class DocumentoCollegatoDTO implements it.finmatica.dto.DTO<DocumentoColl
     // qui è possibile inserire codice personalizzato che non verrà eliminato dalla rigenerazione dei DTO.
 
     boolean collegamentoInverso
+    String tipologiaTitolo
 
     String getTipoDocumento () {
         if (collegamentoInverso) {
@@ -63,6 +65,10 @@ public class DocumentoCollegatoDTO implements it.finmatica.dto.DTO<DocumentoColl
 
             if (determinaCollegata != null) {
                 return Determina.TIPO_OGGETTO
+            }
+
+            if (propostaDeliberaCollegata != null) {
+                return PropostaDelibera.TIPO_OGGETTO
             }
 
             if (riferimentoEsternoCollegato != null) {
@@ -95,6 +101,10 @@ public class DocumentoCollegatoDTO implements it.finmatica.dto.DTO<DocumentoColl
                 return "${determinaCollegata.estremiAtto} - ${determinaCollegata.oggetto}"
             }
 
+            if (propostaDeliberaCollegata != null) {
+                return "${propostaDeliberaCollegata.estremiAtto} - ${propostaDeliberaCollegata.oggetto}"
+            }
+
             if (riferimentoEsternoCollegato != null) {
                 return riferimentoEsternoCollegato.titolo
             }
@@ -123,6 +133,10 @@ public class DocumentoCollegatoDTO implements it.finmatica.dto.DTO<DocumentoColl
 
             if (determinaCollegata != null) {
                 return determinaCollegata
+            }
+
+            if (propostaDeliberaCollegata != null) {
+                return propostaDeliberaCollegata
             }
 
             if (riferimentoEsternoCollegato != null) {

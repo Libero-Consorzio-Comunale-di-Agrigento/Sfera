@@ -46,7 +46,7 @@
                                 onClick="@command('onDownloadTesto')"
                                 visible="@load(not empty vm.sedutaStampa.testo and (not vm.sedutaStampa.testo.modificabile or vm.sedutaStampa.statoFirma eq 'IN_FIRMA' or vm.sedutaStampa.statoFirma eq 'FIRMATO' or not vm.competenze.modifica or vm.campiProtetti.TESTO or vm.campiProtetti.TESTO_MANUALE))"/>
 
-                        <image src="@load(vm.testoLockato ? '/images/agsde2/22x22/lock.png' : '/images/agsde2/22x22/unlock.png'))"
+                        <image src="@load(vm.testoLockato ? '/images/agsde2/22x22/lock.png' : '/images/agsde2/22x22/unlock.png')"
                                visible="@load(vm.sedutaStampa.id gt 0 and (empty vm.sedutaStampa.testo or vm.sedutaStampa.testo.modificabile) and not(vm.sedutaStampa.statoFirma eq 'IN_FIRMA' or vm.sedutaStampa.statoFirma eq 'FIRMATO' or vm.campiProtetti.TESTO) and vm.competenze.modifica)"/>
 
                         <button image="/images/agsde2/16x16/pencil.png" mold="trendy" autodisable="self"
@@ -67,7 +67,7 @@
             <tabs>
                 <tab label="Destinatari" />
                 <tab label="Riferimenti"/>
-                <tab label="Pubblicazione"/>
+                <tab label="Pubblicazione" visible="@load(vm.sedutaStampa.tipologia.pubblicazione)" />
                 <tab label="Storico" />
             </tabs>
             <tabpanels>

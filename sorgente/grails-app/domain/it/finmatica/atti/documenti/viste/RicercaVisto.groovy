@@ -24,14 +24,15 @@ class RicercaVisto extends RicercaDocumento {
 		ente 	column: 'ente'
 		step	column: 'id_step'
 
-		compLettura         type: 'yes_no'
-		compModifica        type: 'yes_no'
-		compCancellazione	type: 'yes_no'
+		compLettura          type: 'yes_no'
+		compModifica         type: 'yes_no'
+		compCancellazione	 type: 'yes_no'
 
-		riservato 			type: 'yes_no'
-		daInviareCorteConti	type: 'yes_no'
-		conImpegnoSpesa		type: 'yes_no'
-		attoConcluso		type: 'yes_no'
+		riservato 			 type: 'yes_no'
+		controlloFunzionario type: 'yes_no'
+		daInviareCorteConti	 type: 'yes_no'
+		conImpegnoSpesa		 type: 'yes_no'
+		attoConcluso		 type: 'yes_no'
 
 		utenteFirmatario	column: 'utente_firmatario'
 
@@ -70,6 +71,7 @@ class RicercaVisto extends RicercaDocumento {
 		testo				column: 'id_testo'
 		allegato			column: 'id_file_allegato'
         tipoBudget          column: 'id_tipo_budget'
+		impattoGenerazionale column: 'id_impatto_generazionale'
 
 		// campi aggiunti per la seconda numerazione: http://svi-redmine/issues/22205
 		registroAtto2  		column: 'registro_atto_2'

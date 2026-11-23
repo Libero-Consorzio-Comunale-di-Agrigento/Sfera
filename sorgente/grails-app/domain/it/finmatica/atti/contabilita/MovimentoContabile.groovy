@@ -32,6 +32,7 @@ class MovimentoContabile {
     Integer annoCompetenza 		 	 // ANNO_COMPETENZA                     // ANNO_IMPEGNO
     Integer annoCrono			 	 // ANNO_CRONO                          // ANNO_PRENOTAZIONE
     Integer annoEsercizio			 // ANNO_ESERCIZIO                      // ANNO_ACCERTAMENTO
+	Integer annoEsigibilita			 // ANNO_ESIGIBILITA
     String articolo				 	 // ARTICOLO                            //
     String capitolo				 	 // CAPITOLO                            // CAPITOLO
     String codiceFinanziamento1	 	 // CODICE_FINANZIAMENTO_1              //
@@ -101,6 +102,46 @@ class MovimentoContabile {
 	String 	descrizionePdcf
 	String 	esecutivita
 
+	//campi aggiuntivi per integrazione JSerfin
+	MovimentoAnagrafica anagrafica
+	String 	descrizionePdcLiv5		// Descrizione livello 5
+	String 	idEsterno 				//id del movimento in contabilità
+	String 	idCapitolo 				//id del capitolo scelto in contabilità
+	String 	idProgrammazione			//id della programmazione
+	String 	numeroProgrammazione     //numero della programmazione
+	String 	numeroImpegnoPadre     	//numero dell'impegno padre per il subimpegno'
+	String 	idImpegno 				//id dell'impegno scelto in contabilità
+	String 	idProgetto
+	String 	codProgetto
+	String 	copFpv
+	String 	sigCpt
+	String 	desCpt
+	String 	codcentrocosto
+	String 	descentrocosto
+	String 	codtipofinanz
+	String 	destipofinanz
+	String 	codlavoro
+	String 	deslavoro
+	String 	codtipospesa
+	String 	destipospesa
+	String 	codiceGlobale				//campo codice del movimento restituito da jserfin
+	Integer annoCompetenzaVariazione	//A Trento la variazioni possono avere anno di competenza diverso rispetto all'impegno originale
+	String  codCentroGestore         	// corrisponde al campo codrespservcapitolo del ws
+	String  desCentroGestore    		// corrisponde al campo desrespservcapitolo del ws
+
+	//Campi aggiunti per ATS PAVIA
+	String conto
+	String contoDescrizione
+	String bilancio
+	String bilancioDescrizione
+	String sottoBudget
+	String sottoBudgetDescrizione
+	String note
+	BigDecimal importoIniziale
+	BigDecimal importoVariazione
+	BigDecimal importoResiduo
+	BigDecimal importoProvvedimento
+
 	// i soliti dati...
 	So4Amministrazione ente
 	Date 		dateCreated
@@ -112,9 +153,11 @@ class MovimentoContabile {
 		id				column: 'id_movimento_contabile'
 		table			'movimenti_contabili'
 
+		anagrafica					column: 'ID_MOVIMENTO_ANAGRAFICA'
 		annoCompetenza 		 	 	column: 'ANNO_COMPETENZA'
 		annoCrono			 	 	column: 'ANNO_CRONO'
 		annoEsercizio			 	column: 'ANNO_ESERCIZIO'
+		annoEsigibilita				column: 'ANNO_ESIGIBILITA'
 		articolo				 	column: 'ARTICOLO'
 		capitolo				 	column: 'CAPITOLO'
 		codiceFinanziamento1	 	column: 'CODICE_FINANZIAMENTO_1'
@@ -181,19 +224,62 @@ class MovimentoContabile {
 		codicePdcf					column: 'CODICE_PDCF'
 		descrizionePdcf				column: 'DESCRIZIONE_PDCF'
 		esecutivita					column: 'ESECUTIVITA'
+		idEsterno					column: 'ID_ESTERNO'
+		idCapitolo					column: 'ID_CAPITOLO'
+		idProgrammazione			column: 'ID_PROGRAMMAZIONE'
+		numeroProgrammazione		column: 'NUMERO_PROGRAMMAZIONE'
+		numeroImpegnoPadre			column: 'NUMERO_IMPEGNO_PADRE'
+		idImpegno					column: 'ID_IMPEGNO'
+		descrizionePdcLiv5			column: 'DESCRIZIONE_PDC_LIV_5'
+		idProgetto					column: 'ID_PROGETTO'
+		codProgetto					column: 'CODICE_PROGETTO'
+		copFpv						column: 'COP_FPV'
+		sigCpt						column: 'SIG_CPT'
+		desCpt						column: 'DES_CPT'
+		codcentrocosto				column: 'COD_CENTRO_COSTO'
+		descentrocosto				column: 'DES_CENTRO_COSTO'
 
-		ente 			column: 'ente'
-		dateCreated 	column: 'data_ins'
-		utenteIns 		column: 'utente_ins'
-		lastUpdated 	column: 'data_upd'
-		utenteUpd 		column: 'utente_upd'
+		codCentroGestore			column: 'CODICE_CENTRO_GESTORE'
+		desCentroGestore			column: 'DESCRIZIONE_CENTRO_GESTORE', length: 4000
+
+		codtipofinanz				column: 'COD_TIPO_FINANZ'
+		destipofinanz				column: 'DES_TIPO_FINANZ'
+		codlavoro					column: 'COD_LAVORO'
+		deslavoro					column: 'DES_LAVORO'
+		codtipospesa				column: 'COD_TIPO_SPESA'
+		destipospesa				column: 'DES_TIPO_SPESA'
+		codiceGlobale				column: 'CODICE_GLOBALE'
+		annoCompetenzaVariazione	column: 'ANNO_COMPETENZA_VARIAZIONE'
+
+		conto						column: 'CONTO'
+		contoDescrizione			column: 'CONTO_DESCRIZIONE'			, length: 4000
+		bilancio					column: 'BILANCIO'
+		bilancioDescrizione			column: 'BILANCIO_DESCRIZIONE'		, length: 4000
+		sottoBudget					column: 'SOTTO_BUDGET'
+		sottoBudgetDescrizione		column: 'SOTTO_BUDGET_DESCRIZIONE'	, length: 4000
+		note						column: 'NOTE', length: 4000
+		importoIniziale				column: 'IMPORTO_INIZIALE'           , scale: 2
+		importoVariazione			column: 'IMPORTO_VARIAZIONE'         , scale: 2
+		importoResiduo				column: 'IMPORTO_RESIDUO'            , scale: 2
+		importoProvvedimento		column: 'IMPORTO_PROVVEDIMENTO'      , scale: 2
+		ente 						column: 'ente'
+		dateCreated 				column: 'data_ins'
+		utenteIns 					column: 'utente_ins'
+		lastUpdated 				column: 'data_upd'
+		utenteUpd 					column: 'utente_upd'
+
+		descrizionePdcLiv5			length: 4000
+		desCpt						length: 4000
 	}
 
 	static constraints = {
+		anagrafica					nullable: true
         statoDescrizione            nullable: true
 		annoCompetenza 		 	    nullable: true
         annoCrono			 	    nullable: true
         annoEsercizio			    nullable: true
+		annoEsigibilita				nullable: true
+		annoCompetenzaVariazione	nullable: true
         articolo				    nullable: true
         capitolo				    nullable: true
         codiceFinanziamento1	    nullable: true
@@ -257,7 +343,41 @@ class MovimentoContabile {
 		codicePdcf					nullable: true
 		descrizionePdcf				nullable: true
 		esecutivita					nullable: true
-    }
+		descrizionePdcLiv5			nullable: true
+		idProgetto					nullable: true
+		codProgetto					nullable: true
+		copFpv						nullable: true
+		sigCpt						nullable: true
+		desCpt						nullable: true
+		codcentrocosto				nullable: true
+		descentrocosto				nullable: true
+		codtipofinanz				nullable: true
+		destipofinanz				nullable: true
+		codlavoro					nullable: true
+		deslavoro					nullable: true
+		codCentroGestore			nullable: true
+		desCentroGestore	nullable: true
+		codtipospesa				nullable: true
+		destipospesa				nullable: true
+		codiceGlobale				nullable: true
+		idEsterno					nullable: true
+		idCapitolo					nullable: true
+		idProgrammazione			nullable: true
+		numeroProgrammazione		nullable: true
+		numeroImpegnoPadre			nullable: true
+		idImpegno					nullable: true
+		conto						nullable: true
+		contoDescrizione			nullable: true
+		bilancio					nullable: true
+		bilancioDescrizione			nullable: true
+		sottoBudget					nullable: true
+		sottoBudgetDescrizione		nullable: true
+		note						nullable: true
+		importoIniziale				nullable: true
+		importoVariazione			nullable: true
+		importoResiduo				nullable: true
+		importoProvvedimento		nullable: true
+	}
 
 	private SpringSecurityService getSpringSecurityService () {		return Holders.applicationContext.getBean("springSecurityService")    }
 
@@ -334,6 +454,14 @@ class MovimentoContabile {
     	annoCrono = value;
     }
 
+	public Integer getAnnoEsigibilita () {
+		return annoEsigibilita;
+	}
+
+	public void setAnnoEsigibilita (Integer value) {
+		annoEsigibilita = value;
+	}
+
 	public Integer getNumeroAccertamento () {
 		return numeroDet;
 	}
@@ -397,7 +525,8 @@ class MovimentoContabile {
 		c.tipoDocumento                = this.tipoDocumento
 		c.annoCompetenza 		 	   = this.annoCompetenza 		 	
 		c.annoCrono			 	       = this.annoCrono			 	
-		c.annoEsercizio			       = this.annoEsercizio			
+		c.annoEsercizio			       = this.annoEsercizio
+		c.annoEsigibilita			   = this.annoEsigibilita
 		c.articolo				       = this.articolo				
 		c.capitolo				       = this.capitolo				
 		c.codiceFinanziamento1	       = this.codiceFinanziamento1	

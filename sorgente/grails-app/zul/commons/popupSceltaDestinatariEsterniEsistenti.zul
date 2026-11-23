@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
 <?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
 
 <zk xmlns="http://www.zkoss.org/2005/zul"
@@ -14,85 +15,130 @@
         sizable="false"
         title=" ">
         <vlayout>
-		<h:div class="barraTitoloPagina">
-   			<label sclass="titoloPagina" value="Gestione Destinatari Esterni"/>
+			<h:div class="barraTitoloPagina">
+				<label sclass="titoloPagina" value="Gestione Destinatari Esterni"/>
 
-   		</h:div>
+			</h:div>
 
-        <grid sclass="form">
-        	<rows>
-        		<row>
-        			<cell align="right" valign="top" width="30%">
-	        			<label value="Nominativo / Ragione Sociale"/>
-					</cell>
-					<cell>
-						<bandbox hflex="1"
-							id="bdx"
-							mold="rounded"
-							autodrop="true"
-							value="@bind(vm.email)"
-							onChanging="@command('onChangingDestinatario')"
-							onOpen="@command('onOpenDestinatario')"
-							onChange="@command('onChangeDestinatario')">
-							<bandpopup >
-								<listbox
-									model="@load(vm.destinatariList)"
-									multiple="false"
-									onSelect="@command('onSelectDestinatario', target=bdx)"
-									width="500px"
-									height="280px">
-									<listhead>
-										<listheader label="Cognome"/>
-										<listheader label="Nome"/>
-										<listheader label="Ragione Sociale"/>
-										<listheader label="Email" width="40%"/>
-									</listhead>
-							        <template name="model" var="item">
-							            <listitem>
-							                <listcell label="@load(item.cognome)"></listcell>
-							                <listcell label="@load(item.nome)"></listcell>
-							                <listcell label="@load(item.ragioneSociale)"></listcell>
-							                <listcell label="@load(item.indirizzoEmail)"></listcell>
-							            </listitem>
-							        </template>
-								</listbox>
-								<paging
-									activePage="@bind(vm.activePage)"
-									pageSize="@bind(vm.pageSize)"
-									totalSize="@load(vm.totalSize)"
-								 	onPaging="@command('onPaginaDestinatario')"/>
-							</bandpopup>
-						</bandbox>
-						<button
-							onClick ="@command('onAggiungi')"
-							label = "Nuovo">
+			<grid sclass="form">
+				<rows>
+					<row>
+						<cell></cell>
+						<cell></cell>
+						<cell></cell>
+						<cell></cell>
+					</row>
+					<row>
+						<cell hflex="1" align="right">
+							<label value="Tipo Notifica"/>
+						</cell>
+						<cell colspan="3">
+							<radiogroup selectedIndex="@load(vm.indiceNotifica)" selectedItem="@save(vm.destNotifica.tipoNotifica)" >
+								<radio label="@load(vm.tipoNotificaCompetenza)" value="@load(vm.tipoNotificaCompetenza)" />
+								<radio label="@load(vm.tipoNotificaConoscenza)" value="@load(vm.tipoNotificaConoscenza)" />
+								<radio label="@load(vm.tipoNotificaPnd)" value="@load(vm.tipoNotificaPnd)" visible="@load(vm.pndNotifica)"/>
+							</radiogroup>
+						</cell>
+					</row>
+					<row visible="@bind(!(vm.destNotifica.tipoNotifica eq vm.tipoNotificaPnd))">
+						<cell align="right" valign="top" width="30%">
+							<label value="Nominativo / Ragione Sociale"/>
+						</cell>
+						<cell colspan="3">
+							<bandbox hflex="1"
+								id="bdx"
+								mold="rounded"
+								autodrop="true"
+								value="@bind(vm.email)"
+								onChanging="@command('onChangingDestinatario')"
+								onOpen="@command('onOpenDestinatario')"
+								onChange="@command('onChangeDestinatario')">
+								<bandpopup >
+									<listbox
+										model="@load(vm.destinatariList)"
+										multiple="false"
+										onSelect="@command('onSelectDestinatario', target=bdx)"
+										width="500px"
+										height="280px">
+										<listhead>
+											<listheader label="Cognome"/>
+											<listheader label="Nome"/>
+											<listheader label="Ragione Sociale"/>
+											<listheader label="Email" width="40%"/>
+										</listhead>
+										<template name="model" var="item">
+											<listitem>
+												<listcell label="@load(item.cognome)"></listcell>
+												<listcell label="@load(item.nome)"></listcell>
+												<listcell label="@load(item.ragioneSociale)"></listcell>
+												<listcell label="@load(item.indirizzoEmail)"></listcell>
+											</listitem>
+										</template>
+									</listbox>
+									<paging
+										activePage="@bind(vm.activePage)"
+										pageSize="@bind(vm.pageSize)"
+										totalSize="@load(vm.totalSize)"
+										onPaging="@command('onPaginaDestinatario')"/>
+								</bandpopup>
+							</bandbox>
+							<button
+								onClick ="@command('onAggiungi')"
+								label = "Nuovo">
 
-						</button>
-					</cell>
-        		</row>
-        		<row>
-			        		<cell hflex="1" align="right">
-		    	    			<label value="Tipo Notifica"/>
-		        			</cell>
-							<cell hflex="3">
-								<radiogroup selectedIndex="@load(vm.indiceNotifica)" selectedItem="@save(vm.destNotifica.tipoNotifica)" >
-				     				<radio label="@load(vm.tipoNotificaCompetenza)" value="@load(vm.tipoNotificaCompetenza)" />
-						            <radio label="@load(vm.tipoNotificaConoscenza)" value="@load(vm.tipoNotificaConoscenza)" />
-					            </radiogroup>
-		        			</cell>
-		        		</row>
-		        	</rows>
-		        </grid>
-				<h:div class="barraPulsanti">
-					<h:div>
-						<button label="Seleziona" onClick="@command('onSalva')" mold="trendy"></button>
-						<button label="Annulla" onClick="@command('onAnnulla')" mold="trendy"></button>
-					</h:div>
+							</button>
+						</cell>
+					</row>
+
+					<row visible="@bind(vm.destNotifica.tipoNotifica eq vm.tipoNotificaPnd)">
+						<cell align="right" valign="top" width="20%">
+							<h:span class="mandatoryLabel">*</h:span>
+							<label value="Soggetto" />
+						</cell>
+						<cell colspan="3">
+							<label value="@load(vm.destNotifica.soggetto.denominazione)"/>
+							<button style="float:right;" image="/images/agsde2/16x16/users.png" onClick="@command('onCercaSoggettoAs4')"/>
+						</cell>
+					</row>
+					<row visible="@bind((vm.destNotifica.tipoNotifica eq vm.tipoNotificaPnd) and (vm.pndPagamento))">
+						<cell colspan="4" />
+					</row>
+					<row visible="@bind((vm.destNotifica.tipoNotifica eq vm.tipoNotificaPnd) and (vm.pndPagamento))">
+						<cell colspan="4">
+							<label value="@load(c:l('label.pnd.descrizioneScadenza'))"/>
+						</cell>
+					</row>
+					<row visible="@bind((vm.destNotifica.tipoNotifica eq vm.tipoNotificaPnd) and (vm.pndPagamento))">
+						<cell align="right">
+							<h:span class="mandatoryLabel">*</h:span>
+							<label value="Importo" />
+						</cell>
+						<cell colspan="3">
+							<doublebox value="@bind(vm.importo)" format=",###.#00" constraint="no empty,no negative" />
+						</cell>
+					</row>
+					<row visible="@bind((vm.destNotifica.tipoNotifica eq vm.tipoNotificaPnd) and (vm.pndPagamento))">
+						<cell align="right">
+							<label value="Giorni Scadenza"/>
+						</cell>
+						<cell>
+							<intbox value="@bind(vm.giorniScadenza)"/>
+						</cell>
+						<cell align="right">
+							<label value="Data Scadenza"/>
+						</cell>
+						<cell>
+							<datebox format="dd/MM/yyyy" value="@bind(vm.dataScadenza)" />
+						</cell>
+					</row>
+				</rows>
+			</grid>
+			<h:div class="barraPulsanti">
+				<h:div>
+					<button label="Seleziona" onClick="@command('onSalva')" mold="trendy"></button>
+					<button label="Annulla" onClick="@command('onAnnulla')" mold="trendy"></button>
 				</h:div>
-
-
-
-
+			</h:div>
 		</vlayout>
     </window>
 </zk>

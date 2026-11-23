@@ -2,10 +2,12 @@ package dizionari.atti
 
 import afc.AfcAbstractRecord
 import grails.plugin.springsecurity.SpringSecurityService
+import it.finmatica.atti.dizionari.TipoAllegato
 import it.finmatica.atti.documenti.VistoParere
 import it.finmatica.atti.documenti.tipologie.TipoDelibera
 import it.finmatica.atti.documenti.tipologie.TipoDetermina
 import it.finmatica.atti.documenti.tipologie.TipoVistoParere
+import it.finmatica.atti.dto.dizionari.TipoAllegatoDTO
 import it.finmatica.atti.dto.documenti.tipologie.TipoVistoParereDTO
 import it.finmatica.atti.dto.documenti.tipologie.TipoVistoParereDTOService
 import it.finmatica.atti.dto.impostazioni.CaratteristicaTipologiaDTO
@@ -40,16 +42,18 @@ class TipoVistoParereDettaglioViewModel extends AfcAbstractRecord {
 	TipoVistoParereDTO 	selectedRecord
 	List<WkfCfgIterDTO> listaCfgIter
 	List<CaratteristicaTipologiaDTO> listaCaratteristiche
+	List<TipoAllegatoDTO> listaTipiAllegato
 	List<So4UnitaPubbDTO> listaUnita
 	def listaModelliTesto
-
-	// stato
 
 	@NotifyChange("selectedRecord")
     @Init init(@ContextParam(ContextType.COMPONENT) Window w, @ExecutionArgParam("id") long id) {
 		this.self = w
 		if (id > 0) {
 			selectedRecord = TipoVistoParere.get(id).toDTO()
+			selectedRecord.tipoFirma = selectedRecord.tipoFirma?:""
+			aggiornaDatiCreazione(selectedRecord.utenteIns.id, selectedRecord.dateCreated)
+			aggiornaDatiModifica (selectedRecord.utenteUpd.id, selectedRecord.lastUpdated)
 		} else {
 			selectedRecord = new TipoVistoParereDTO(id: -1, valido:true)
 		}
@@ -57,6 +61,8 @@ class TipoVistoParereDettaglioViewModel extends AfcAbstractRecord {
 		listaCaratteristiche 	= CaratteristicaTipologia.findAllByTipoOggettoAndValido(WkfTipoOggetto.get(VistoParere.TIPO_OGGETTO), true, [sort: "titolo", order: "asc"]).toDTO()
 		listaCfgIter 			= WkfCfgIter.iterValidi.findAllByTipoOggetto(WkfTipoOggetto.get(VistoParere.TIPO_OGGETTO), [sort: "nome", order: "asc"]).toDTO()
 		listaModelliTesto 		= gestioneTestiModelloDTOService.getListaModelli([VistoParere.TIPO_OGGETTO, VistoParere.TIPO_OGGETTO_PARERE, "VISTO_CONTABILE_MODENA"])
+		listaTipiAllegato       = TipoAllegato.where { valido == true && (tipologia == null || tipologia in ["VISTO", "PARERE"]) }.list(sort: "titolo", order: "asc").toDTO()
+		listaTipiAllegato.add(0, new TipoAllegatoDTO([id: null, titolo: ""]))
 
 		aggiornaUnitaDestinatarie ()
     }

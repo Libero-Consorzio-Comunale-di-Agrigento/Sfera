@@ -50,6 +50,7 @@ public class DocumentoStepDTO implements it.finmatica.dto.DTO<DocumentoStep> {
     VistoParereDTO vistoParere;
     Integer priorita;
     Date dataOrdinamento;
+    String tipoFirma;
 
 
     public DocumentoStep getDomainObject () {

@@ -50,8 +50,12 @@
 	    <location>/system/error.zul</location>
 	</error-page>
 	<system-config>
-    	<label-location>/WEB-INF/zk-label.properties</label-location>
-	</system-config>
+    <label-location>/WEB-INF/zk-label.properties</label-location>
+</system-config>
+    <!-- Gestione ID FISSI per TEST DI CARICO -->
+    <!--system-config>
+        <id-generator-class>it.finmatica.atti.zk.StableIdGenerator</id-generator-class>
+    </system-config-->
 	<language-config>
 		<addon-uri>/WEB-INF/lang-addon.xml</addon-uri>
 	</language-config>

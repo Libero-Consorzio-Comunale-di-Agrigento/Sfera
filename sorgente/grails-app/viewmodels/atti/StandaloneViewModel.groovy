@@ -24,6 +24,8 @@ class StandaloneViewModel {
 	SpringSecurityService springSecurityService
 	GestioneTestiService gestioneTestiService
 
+	boolean abilitaChatbot = false
+
 	// componenti
 	Window self
 
@@ -41,10 +43,14 @@ class StandaloneViewModel {
 				@QueryParam("id") 					 String id,
 				@QueryParam("tipoDocumento") 		 String tipoDocumento,
                 @QueryParam("idDocumentoEsterno") 	 String idDocumentoEsterno,
+				@QueryParam("class") 				 String classificazione,
+				@QueryParam("numeroFasc") 			 String numeroFascicolo,
+				@QueryParam("annoFasc") 			 String annoFascicolo,
+				@QueryParam("idPratSportello")		 String idPraticaSportello,
                 @QueryParam("refreshAPP") 	         String refreshAPP) {
 		this.self = w
 		gestioneTestiService.setDefaultEditor(Impostazioni.EDITOR_DEFAULT.valore, Impostazioni.EDITOR_DEFAULT_PATH.valore)
-
+		abilitaChatbot = Impostazioni.CHATBOT_AI_ABILITA.abilitato
         boolean refresh = refreshAPP != null ? Boolean.parseBoolean(refreshAPP) : true;
 
 		// switch case di selezione dell'operazione
@@ -61,7 +67,9 @@ class StandaloneViewModel {
 					}
 				}
 
-				creaPopup(tipiOggetto[tipoDocumento], [id: idDoc, idDocumentoEsterno : idDocEst], refresh).doModal()
+				creaPopup(tipiOggetto[tipoDocumento],
+						  [id: idDoc, idDocumentoEsterno : idDocEst, classificazione: classificazione, numeroFascicolo: numeroFascicolo, annoFascicolo: annoFascicolo, idPraticaSportello: idPraticaSportello],
+						  refresh).doModal()
 				break
 
 			case "DA_FIRMARE":

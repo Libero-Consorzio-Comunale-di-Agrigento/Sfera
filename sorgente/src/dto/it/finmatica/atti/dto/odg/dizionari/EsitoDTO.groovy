@@ -28,6 +28,7 @@ public class EsitoDTO implements it.finmatica.dto.DTO<Esito> {
     int sequenza;
     boolean testoAutomatico;
     String titolo;
+    String codiceEsterno;
     Ad4UtenteDTO utenteIns;
     Ad4UtenteDTO utenteUpd;
     boolean valido;

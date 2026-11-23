@@ -27,18 +27,26 @@ class PopupUnitaOrganizzativaViewModel extends AfcAbstractGrid {
 	@NotifyChange("listaUnita")
 	@Init init(@ContextParam(ContextType.COMPONENT) Window w) {
 		this.self = w
+		this.filtro = ""
 	}
 
 	private void caricaListaUnita () {
 		def list = So4UnitaPubb.allaData(new Date()).perOttica(springSecurityService.principal.ottica().codice) {
-			ilike ("descrizione", "%"+filtro+"%")
+			or {
+				ilike ("descrizione", "%"+filtro+"%")
+				ilike ("codice", "%"+filtro+"%")
+			}
+
 			maxResults(pageSize)
 			firstResult(pageSize * activePage)
 		}
 
 		listaUnita = list.toDTO()
 		totalSize  = So4UnitaPubb.allaData(new Date()).perOttica(springSecurityService.principal.ottica().codice).count() {
-			ilike ("descrizione", "%"+filtro+"%")
+			or {
+				ilike ("descrizione", "%"+filtro+"%")
+				ilike ("codice", "%"+filtro+"%")
+			}
 		}
 
 		BindUtils.postNotifyChange(null, null, this, "listaUnita")

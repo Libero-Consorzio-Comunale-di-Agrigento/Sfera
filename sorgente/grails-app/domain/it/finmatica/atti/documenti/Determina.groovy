@@ -5,9 +5,12 @@ import grails.util.Holders
 import it.finmatica.ad4.autenticazione.Ad4Utente
 import it.finmatica.atti.commons.FileAllegato
 import it.finmatica.atti.dizionari.Categoria
+import it.finmatica.atti.dizionari.ImpattoGenerazionale
 import it.finmatica.atti.dizionari.OggettoRicorrente
 import it.finmatica.atti.dizionari.TipoRegistro
+import it.finmatica.atti.dizionari.TipologieFirma
 import it.finmatica.atti.documenti.tipologie.TipoDetermina
+import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.impostazioni.TipoSoggetto
 import it.finmatica.atti.odg.Commissione
 import it.finmatica.atti.odg.OggettoSeduta
@@ -46,7 +49,7 @@ class Determina implements IAtto, IProposta {
     Categoria categoria
     Commissione commissione        // commissione che dovrà discutere la determina
     OggettoSeduta oggettoSeduta
-
+    ImpattoGenerazionale impattoGenerazionale
     // dati proposta
     String oggetto
 
@@ -75,10 +78,19 @@ class Determina implements IAtto, IProposta {
     boolean riservato = false
     boolean eseguibilitaImmediata = false
 
+    //campi richiesti da integrazione contabilità ats pavia
+    boolean     inEvidenza = false
+    Date 	    dataInEvidenzaDa
+    Date 	    dataInEvidenzaA
+    BigDecimal  importo = 0  //Importo Totale del Contratto
+
+    BigDecimal  importoTotale
+
     // gestione corte dei conti
     boolean daInviareCorteConti
     Date dataInvioCorteConti
 
+    Date dataScadenzaDisposizioni  //campo richiesto da San Lazzaro di Savena
     // note
     String note
     String noteTrasmissione
@@ -118,6 +130,13 @@ class Determina implements IAtto, IProposta {
 	String  motivazione
 	Integer priorita
     Date    dataOrdinamento
+
+    //Integrazione con PiTre client ma usabile per fascicoli esterni
+    String idFascicoloEsterno
+    String idApplicativoEsterno
+
+    boolean attoSoggettoControllo
+    String macrocategoria
 
     // campo che contiene la lista dei campi non modificabili
     String campiProtetti
@@ -196,6 +215,12 @@ class Determina implements IAtto, IProposta {
         inviatoTesoriere type: 'yes_no'
         controllaDestinatari type: 'yes_no'
 
+        inEvidenza          type: 'yes_no'
+        dataInEvidenzaDa    column: 'data_in_evidenza_da'
+        dataInEvidenzaA     column: 'data_in_evidenza_a'
+        importo				column: 'importo', scale: 2
+        importoTotale		column: 'importo_totale', scale: 2
+
         oggetto length: 4000
         note length: 4000
         noteTrasmissione length: 4000
@@ -205,10 +230,15 @@ class Determina implements IAtto, IProposta {
         noteTesoriere length: 4000
         classificaDescrizione length: 4000
 
+        idFascicoloEsterno length: 256, column: 'id_fascicolo_esterno'
+        idApplicativoEsterno length: 256, column: 'id_applicativo_esterno'
+
+
         dataPubblicazione2 column: 'data_pubblicazione_2'
         dataFinePubblicazione2 column: 'data_fine_pubblicazione_2'
 		dataMinimaPubblicazione	column: 'data_min_pubblicazione'
 		daPubblicare			column: 'da_pubblicare', type: 'yes_no'
+        impattoGenerazionale    column: 'id_impatto_generazionale'
         pubblicaRevoca type: 'yes_no'
         pubblicaVisualizzatore type: 'yes_no'
 
@@ -217,13 +247,17 @@ class Determina implements IAtto, IProposta {
 		
 		modelloTesto	        column: 'id_modello_testo'
 
-		valido					type: 	'yes_no'
-        ente 					column: 'ente'
-		dateCreated 			column: 'data_ins'
-		utenteIns 				column: 'utente_ins'
-		lastUpdated 			column: 'data_upd'
-		utenteUpd 				column: 'utente_upd'
-        motivazioniEseguibilita column: 'motivazioni_eseguibilita'
+
+        attoSoggettoControllo    column: 'atto_soggetto_controllo', type: 'yes_no'
+        macrocategoria           column: 'macrocategoria'
+		valido					 type: 	'yes_no'
+        ente 					 column: 'ente'
+		dateCreated 			 column: 'data_ins'
+		utenteIns 				 column: 'utente_ins'
+		lastUpdated 			 column: 'data_upd'
+		utenteUpd 				 column: 'utente_upd'
+        motivazioniEseguibilita  column: 'motivazioni_eseguibilita'
+        dataScadenzaDisposizioni column: 'data_scad_disposizioni'
 	}
 
     static constraints = {
@@ -257,6 +291,10 @@ class Determina implements IAtto, IProposta {
         numeroProtocollo nullable: true
         annoProtocollo nullable: true
         registroProtocollo nullable: true
+
+        idFascicoloEsterno nullable: true
+        idApplicativoEsterno nullable: true
+        macrocategoria  nullable: true
 
         dataInvioCorteConti nullable: true
 
@@ -304,6 +342,14 @@ class Determina implements IAtto, IProposta {
 
 		oggettoRicorrente		nullable: true
         motivazioniEseguibilita nullable: true
+
+        dataInEvidenzaDa        nullable: true
+        dataInEvidenzaA         nullable: true
+        importo				 	nullable: true
+        importoTotale		 	nullable: true
+
+        impattoGenerazionale     nullable: true
+        dataScadenzaDisposizioni nullable: true
     }
 
 	long getIdDocumento () {
@@ -543,5 +589,14 @@ class Determina implements IAtto, IProposta {
     @Override
     List<DestinatarioNotifica> getDestinatari () {
         return []
+    }
+
+    transient String getTipoFirma () {
+        if (this.tipologia.tipoFirma) {
+            return this.tipologia.tipoFirma
+        }
+        else {
+            return Impostazioni.FIRMA_PADES.abilitato ? TipologieFirma.PDF : TipologieFirma.P7M
+        }
     }
 }

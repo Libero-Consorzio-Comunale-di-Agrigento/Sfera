@@ -25,6 +25,11 @@ public class AbstractAlboEsterno implements IntegrazioneAlbo {
 
     }
 
+    @Override
+    public void trascoAtto(IPubblicabile atto, int numero) {
+
+    }
+
     public void secondaPubblicazioneAtto(IPubblicabile atto) {
 
     }

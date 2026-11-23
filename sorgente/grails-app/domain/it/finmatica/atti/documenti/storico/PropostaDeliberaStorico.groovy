@@ -100,6 +100,12 @@ class PropostaDeliberaStorico implements IDocumentoStoricoEsterno, IDocumentoSto
 	boolean	fuoriSacco 			= false
 	boolean parereRevisoriConti = false
 
+	//campi richiesti da integrazione contabilità ats pavia
+	boolean     inEvidenza = false
+	Date 	    dataInEvidenzaDa
+	Date 	    dataInEvidenzaA
+	BigDecimal  importo
+
 	// note
 	String note
 	String noteTrasmissione
@@ -161,6 +167,11 @@ class PropostaDeliberaStorico implements IDocumentoStoricoEsterno, IDocumentoSto
 		pubblicaRevoca			type: 'yes_no'
 		fuoriSacco				type: 'yes_no'
 		parereRevisoriConti		type: 'yes_no'
+
+		inEvidenza          type: 'yes_no'
+		dataInEvidenzaDa    column: 'data_in_evidenza_da'
+		dataInEvidenzaA     column: 'data_in_evidenza_a'
+		importo				column: 'importo', scale: 2
 
 		oggetto 				length: 4000
 		note 					length: 4000
@@ -228,13 +239,12 @@ class PropostaDeliberaStorico implements IDocumentoStoricoEsterno, IDocumentoSto
 		statoFirma				nullable: true
 		statoOdg				nullable: true
 
-		dataNumeroProposta 		nullable: true
-		numeroProposta 			nullable: true
-		annoProposta 			nullable: true
-		registroProposta 		nullable: true
-
 		motivazione				nullable: true
 		priorita				nullable: true
+
+		dataInEvidenzaDa        nullable: true
+		dataInEvidenzaA         nullable: true
+		importo				 	nullable: true
     }
 
 	private SpringSecurityService getSpringSecurityService () {		return Holders.applicationContext.getBean("springSecurityService")    }

@@ -58,69 +58,59 @@ class RicercaAllegatiProtocolli implements RicercaAllegatiDocumentiEsterni {
     PagedList<AllegatoEsterno> ricerca (CampiRicerca campiRicerca) {
         Sql sql = new Sql(dataSource_gdm)
 
-        String select = """  SELECT  descrizione_tipo_registro,
-                                         anno,
-                                         numero,
-                                         TO_CHAR (p.data, 'dd/mm/yyyy') data,
-                                         d.id_documento
-                                            id_documento_esterno,
-                                         ogfi.ID_OGGETTO_FILE id_file_esterno,
-                                         ogfi.ID_OGGETTO_FILE id_oggetto_file,
-                                         ogfi.FILENAME nome_file,
-                                         fofi.nome formato_file,
-                                         p.oggetto
-                                    FROM (SELECT data,
-                                                 anno,
-                                                 numero,
-                                                 descrizione_tipo_registro,
-                                                 oggetto,
-                                                 id_documento
-                                            FROM (SELECT p.data,
-                                                         p.anno,
-                                                         p.numero,
-                                                         p.tipo_registro,
-                                                         p.descrizione_tipo_registro,
-                                                         p.oggetto,
-                                                         p.id_documento
-                                                    FROM proto_view p, documenti d
-                                                   WHERE     p.id_documento = d.id_documento
-                                                         AND ( :anno IS NULL OR p.anno = :anno)
-                                                         AND (numero BETWEEN :numero_dal AND :numero_al)
-                                                         AND (p.data BETWEEN :data_dal AND :data_al)
-                                                         AND p.oggetto LIKE decode(:oggetto, '', p.oggetto,  '%'||UPPER(:oggetto)||'%') 
-                                                         AND p.tipo_registro LIKE decode(UPPER(:tipo_registro), '', p.tipo_registro, UPPER(:tipo_registro))
-                                                         AND p.modalita LIKE decode(UPPER(:modalita), '', p.modalita, UPPER(:modalita))
-                                                         AND NVL(p.tipo_documento, ' ') LIKE decode(UPPER(:tipo_documento), '', NVL(p.tipo_documento, ' '), UPPER(:tipo_documento))
-                                                     
-                                                  UNION ALL
-                                                  SELECT TO_DATE (NULL),
-                                                         TO_NUMBER (NULL),
-                                                         TO_NUMBER (NULL),
-                                                         TO_CHAR (NULL),
-                                                         TO_CHAR (NULL),
-                                                         TO_CHAR (NULL),
-                                                         TO_NUMBER (NULL)
-                                                    FROM DUAL) p,
-                                                 DUAL
-                                           WHERE    gdm_competenza.gdm_verifica ('DOCUMENTI',
-                                                                                 p.id_documento,
-                                                                                 'L',
-                                                                                 :utente,
-                                                                                 'GDM')
-                                                 || dummy = '1X') p,
-                                                 oggetti_file ogfi,
-                                                 formati_file fofi,
-                                                 documenti d,
-                                                 modelli m
-                                           WHERE     ogfi.id_formato = fofi.id_formato
-                                                 AND fofi.visibile = 'S'
-                                                 AND d.id_documento = ogfi.id_documento
-                                                 AND d.id_tipodoc = m.id_tipodoc
-                                                 AND d.stato_documento NOT IN ('CA', 'RE', 'PB')
-                                                 AND ogfi.id_documento = d.id_documento
-                                                 and (d.id_documento = p.id_documento
-                                                 or d.id_documento_padre = p.id_documento)
-                                           ORDER BY anno DESC, numero ASC"""
+        String select = """   select descrizione_tipo_registro,
+                                     anno,
+                                     numero,
+                                     to_char (p.data, 'dd/mm/yyyy') data,
+                                     alh.ogfi_id_documento id_documento_esterno,
+                                     alh.id_oggetto_file id_file_esterno,
+                                     p.oggetto,
+                                     alh.ogfi_id_documento id_documento,
+                                     alh.id_oggetto_file id_oggetto_file,
+                                     alh.filename nome_file,
+                                     alh.nome_formato formato_file
+                                from (select data,
+                                             anno,
+                                             numero,
+                                             descrizione_tipo_registro,
+                                             oggetto,
+                                             id_documento
+                                        from (select p.data,
+                                                     p.anno,
+                                                     p.numero,
+                                                     p.tipo_registro,
+                                                     p.descrizione_tipo_registro,
+                                                     p.oggetto,
+                                                     p.id_documento
+                                                from proto_view p
+                                               where ( :anno is null or p.anno = :anno)
+                                                 and (numero between :numero_dal and :numero_al)
+                                                 and (p.data between :data_dal and :data_al)
+                                                 and p.oggetto like decode ( :oggetto, '', p.oggetto, '%' || upper ( :oggetto) || '%')
+                                                 and p.tipo_registro like decode (upper ( :tipo_registro), '', p.tipo_registro, upper ( :tipo_registro))
+                                                 and p.modalita like decode (upper ( :modalita), '', p.modalita, upper ( :modalita))
+                                                 and nvl (p.tipo_documento, ' ') like
+                                                        decode (upper ( :tipo_documento), '', nvl (p.tipo_documento, ' '), upper ( :tipo_documento))
+                                              union all
+                                              select to_date (null),
+                                                     to_number (null),
+                                                     to_number (null),
+                                                     to_char (null),
+                                                     to_char (null),
+                                                     to_char (null),
+                                                     to_number (null)
+                                                from dual) prot,
+                                             dual
+                                       where    gdm_competenza.gdm_verifica ('DOCUMENTI',
+                                                                             prot.id_documento,
+                                                                             'L',
+                                                                             :utente,
+                                                                             'GDM')
+                                             || dummy = '1X') p,
+                                     allegati_lista_html alh,
+                                     documenti d
+                               where alh.id_documento = p.id_documento and d.stato_documento = 'BO' and d.id_documento = p.id_documento
+                            order by anno desc, numero asc """
         Map params = [anno          : campiRicerca.filtri.ANNO ?: "",
                       numero_dal    : campiRicerca.filtri.NUMERO_DAL ?: Integer.MIN_VALUE,
                       numero_al     : campiRicerca.filtri.NUMERO_AL ?: Integer.MAX_VALUE,

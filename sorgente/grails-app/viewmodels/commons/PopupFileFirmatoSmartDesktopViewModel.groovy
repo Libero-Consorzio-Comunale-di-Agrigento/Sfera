@@ -10,7 +10,9 @@ import it.finmatica.atti.dto.odg.SedutaStampaDTO
 import it.finmatica.dto.DTO
 import it.finmatica.grails.firmadigitale.FirmaDigitaleService
 import org.zkoss.bind.annotation.*
+import org.zkoss.zk.ui.Executions
 import org.zkoss.zk.ui.event.Events
+import org.zkoss.zk.ui.util.Clients
 import org.zkoss.zul.Filedownload
 import org.zkoss.zul.Window
 
@@ -25,13 +27,14 @@ class PopupFileFirmatoSmartDesktopViewModel {
 	Window self
 
 	// dati
+	Long idDoc
+	Long idFile
+	String tipo
 	def documentoDto
-	long idFileAllegato
+	def fileAllegatoDto
 	def risultatiVerifica
 	String nomeFile
-	DTO fileAllegatoDto
-    boolean p7m = true
-
+	boolean firmato = true
 
 	@Init init (@ContextParam(ContextType.COMPONENT)Window 	w
 			  , @QueryParam("file") 	String file
@@ -39,13 +42,16 @@ class PopupFileFirmatoSmartDesktopViewModel {
 			  , @QueryParam("tipo") 	String tipo) {
 
 		self				= w
-		FileAllegato fileAllegato = FileAllegato.get(file)
-        documentoDto 		= DocumentoFactory.getDocumento(Long.parseLong(doc), tipo).toDTO()
+		this.idDoc = Long.parseLong(doc)
+		this.idFile = Long.parseLong(file)
+		this.tipo = tipo
 
-		this.idFileAllegato = Long.parseLong(file)
-		this.fileAllegatoDto= fileAllegato.toDTO()
-		this.nomeFile 		= fileAllegato.nome
-        this.p7m            = fileAllegato.isP7m()
+		this.documentoDto = DocumentoFactory.getDocumento(idDoc, tipo).toDTO()
+		FileAllegato fileAllegato = FileAllegato.get(idFile)
+		this.fileAllegatoDto = fileAllegato.toDTO()
+		this.nomeFile = fileAllegato.nome
+		// retro compatibilità
+		this.firmato = fileAllegato.firmato || fileAllegato.isP7m()
 	}
 
 	@Command onChiudi () {
@@ -53,15 +59,39 @@ class PopupFileFirmatoSmartDesktopViewModel {
 	}
 
 	@Command onP7m () {
-		def documento = documentoDto.getDomainObject()
-		def fAllegato = fileAllegatoDto.getDomainObject()
-		attiFileDownloader.downloadFile(documento, fAllegato, false, false)
+		//def documento = documentoDto.getDomainObject()
+		//def fAllegato = fileAllegatoDto.getDomainObject()
+		//attiFileDownloader.downloadFile(documento, fAllegato, false, false)
+
+		// Costruisco l'URL del controller
+		String url = "${Executions.getCurrent().contextPath}/smartDesktop/downloadFile" +
+				"?file=${idFile}" +
+				"&doc=${idDoc}" +
+				"&tipo=${tipo}" +
+				"&trasformaInPdf=false" +
+				"&sbusta=false"
+
+		// Download diretto
+		//Executions.getCurrent().sendRedirect(url)
+		Clients.evalJavaScript("window.open('${url}', '_blank')")
 	}
 
 	@Command onSbusta () {
-		def documento = documentoDto.getDomainObject()
-		def fAllegato = fileAllegatoDto.getDomainObject()
-		attiFileDownloader.downloadFile(documento, fAllegato, false, true)
+		//def documento = documentoDto.getDomainObject()
+		//def fAllegato = fileAllegatoDto.getDomainObject()
+		//attiFileDownloader.downloadFile(documento, fAllegato, false, true)
+
+		// Costruisco l'URL del controller
+		String url = "${Executions.getCurrent().contextPath}/smartDesktop/downloadFile" +
+				"?file=${idFile}" +
+				"&doc=${idDoc}" +
+				"&tipo=${tipo}" +
+				"&trasformaInPdf=false" +
+				"&sbusta=true"
+
+		// Download diretto
+		//Executions.getCurrent().sendRedirect(url)
+		Clients.evalJavaScript("window.open('${url}', '_blank')")
 	}
 
 	@Command onCopia () {

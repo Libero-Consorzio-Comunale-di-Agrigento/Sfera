@@ -1,12 +1,20 @@
 package atti.actions.commons
 
 import grails.plugin.springsecurity.SpringSecurityService
+import it.finmatica.atti.documenti.Determina
+import it.finmatica.atti.documenti.PropostaDelibera
 import it.finmatica.atti.impostazioni.CampiDocumento
+import it.finmatica.atti.impostazioni.Impostazioni
+import it.finmatica.gestioneiter.IDocumentoIterabile
+import it.finmatica.gestioneiter.annotations.Action
 import it.finmatica.gestioneiter.annotations.Action.TipoAzione
 import it.finmatica.gestioneiter.configuratore.dizionari.WkfAzione
 import it.finmatica.gestioneiter.configuratore.dizionari.WkfAzioneService
+import org.apache.log4j.Logger
 
 class CampiDocumentoAction {
+
+	private static final Logger log = Logger.getLogger(CampiDocumentoAction.class)
 
 	public static final String METODO_ABILITA_BLOCCO 	= "abilitaBlocco_";
 	public static final String METODO_PROTEGGI_BLOCCO 	= "proteggiBlocco_";
@@ -73,7 +81,12 @@ class CampiDocumentoAction {
 	}
 
 	public void aggiornaAzioni () {
-		CampiDocumento.list().each { CampiDocumento c ->
+		def campi = CampiDocumento.list()
+		long inizio = System.currentTimeMillis()
+		int indice = 0
+		campi.each { CampiDocumento c ->
+			indice++
+			log.info("campiDocumentoAction.aggiornaAzioni: ${indice}/${campi.size()} ${c.tipoOggetto?.codice} ${c.blocco}.${c.campo} (${(System.currentTimeMillis() - inizio) / 1000}s)")
 
 			wkfAzioneService.insertOrUpdate(new WkfAzione([ nome: 		 "Abilita il blocco ${c.blocco}"
 														  , descrizione: "Abilita i campi del blocco ${c.blocco}"
@@ -107,6 +120,7 @@ class CampiDocumentoAction {
 							, tipo: 		 TipoAzione.AUTOMATICA
 							, ente: 		 springSecurityService.principal.amministrazione]), c.tipoOggetto.codice)
 		}
+		log.info("campiDocumentoAction.aggiornaAzioni: terminato (${(System.currentTimeMillis() - inizio) / 1000}s)")
 	}
 
 	/* 			********************
@@ -139,5 +153,50 @@ class CampiDocumentoAction {
 		documento.campiProtetti = abilitaCampiBlocco (documento.TIPO_OGGETTO, "TESTO_MANUALE", documento.campiProtetti);
 		documento.save();
 		return documento;
+	}
+
+	/* funzioni specifiche per ATS-PAVIA */
+	@Action(tipo = TipoAzione.AUTOMATICA,
+			tipiOggetto = [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO],
+			nome = "Contabilità ATS Pavia: abilita campi per unità proponente",
+			descrizione = "Contabilità ATS Pavia: abilita campi per unità proponente")
+	IDocumentoIterabile abilitaCampiContabili(IDocumentoIterabile documentoIterabile) {
+		if (Impostazioni.CONTABILITA.valore == "integrazioneContabilitaAtsPavia") {
+			documentoIterabile.campiProtetti = CampiDocumento.abilitaCampo (documentoIterabile.campiProtetti, "ATS_PAVIA_CAMPI_CONTABILI");
+		}
+		return documentoIterabile
+	}
+
+	@Action(tipo = TipoAzione.AUTOMATICA,
+			tipiOggetto = [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO],
+			nome = "Contabilità ATS Pavia: disabilita campi per unità proponente",
+			descrizione = "Contabilità ATS Pavia: disabilita campi per unità proponente")
+	IDocumentoIterabile proteggiCampiContabili(IDocumentoIterabile documentoIterabile) {
+		if (Impostazioni.CONTABILITA.valore == "integrazioneContabilitaAtsPavia") {
+			documentoIterabile.campiProtetti = CampiDocumento.proteggiCampo (documentoIterabile.campiProtetti, "ATS_PAVIA_CAMPI_CONTABILI");
+		}
+		return documentoIterabile
+	}
+
+	@Action(tipo = TipoAzione.AUTOMATICA,
+			tipiOggetto = [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO],
+			nome = "Contabilità ATS Pavia: abilita campi per la ragioneria",
+			descrizione = "Contabilità ATS Pavia: abilita campi per la ragioneria")
+	IDocumentoIterabile abilitaCampiRagioneria(IDocumentoIterabile documentoIterabile) {
+		if (Impostazioni.CONTABILITA.valore == "integrazioneContabilitaAtsPavia") {
+			documentoIterabile.campiProtetti = CampiDocumento.abilitaCampo (documentoIterabile.campiProtetti, "ATS_PAVIA_RAGIONERIA");
+		}
+		return documentoIterabile
+	}
+
+	@Action(tipo = TipoAzione.AUTOMATICA,
+			tipiOggetto = [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO],
+			nome = "Contabilità ATS Pavia: disabilita campi per la ragioneria",
+			descrizione = "Contabilità ATS Pavia: disabilita campi per la ragioneria")
+	IDocumentoIterabile proteggiCampiRagioneria(IDocumentoIterabile documentoIterabile) {
+		if (Impostazioni.CONTABILITA.valore == "integrazioneContabilitaAtsPavia") {
+			documentoIterabile.campiProtetti = CampiDocumento.proteggiCampo (documentoIterabile.campiProtetti, "ATS_PAVIA_RAGIONERIA")
+		}
+		return documentoIterabile
 	}
 }

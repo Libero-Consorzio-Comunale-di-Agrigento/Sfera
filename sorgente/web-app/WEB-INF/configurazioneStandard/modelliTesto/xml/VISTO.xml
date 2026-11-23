@@ -39,6 +39,7 @@
 				<TIPOLOGIA_PROPOSTA>DETERMINAZIONE CON IMPEGNO DI SPESA</TIPOLOGIA_PROPOSTA>
 				<TIPOLOGIA_VISTO>VISTO CONTABILE</TIPOLOGIA_VISTO>
                 <DATA_FIRMA_PROPOSTA>01/05/2014</DATA_FIRMA_PROPOSTA>
+				<IMPORTO_DISTINTA>150,00</IMPORTO_DISTINTA>
 			</visto>
 			<movimenti>
 				<MOVIMENTO_TIPO>IMPEGNO DI SPESA</MOVIMENTO_TIPO>
@@ -65,6 +66,7 @@
                 <IMP_ANNO_PROPOSTA>2013</IMP_ANNO_PROPOSTA>
                 <IMP_UNITA_PROPONENTE>PROP</IMP_UNITA_PROPONENTE>
                 <IMP_NUMERO_PROPOSTA>11</IMP_NUMERO_PROPOSTA>
+				<IMPEGNO_OBBLIGATORIO>SI</IMPEGNO_OBBLIGATORIO>
             </movimenti>
 			<movimenti>
 				<MOVIMENTO_TIPO>IMPEGNO DI SPESA</MOVIMENTO_TIPO>
@@ -91,6 +93,7 @@
                 <IMP_ANNO_PROPOSTA>2013</IMP_ANNO_PROPOSTA>
                 <IMP_UNITA_PROPONENTE>PROP</IMP_UNITA_PROPONENTE>
                 <IMP_NUMERO_PROPOSTA>11</IMP_NUMERO_PROPOSTA>
+				<IMPEGNO_OBBLIGATORIO>SI</IMPEGNO_OBBLIGATORIO>
 			</movimenti>
 			<movimenti>
 				<MOVIMENTO_TIPO>IMPEGNO DI SPESA</MOVIMENTO_TIPO>
@@ -117,6 +120,7 @@
                 <IMP_ANNO_PROPOSTA>2013</IMP_ANNO_PROPOSTA>
                 <IMP_UNITA_PROPONENTE>PROP</IMP_UNITA_PROPONENTE>
                 <IMP_NUMERO_PROPOSTA>11</IMP_NUMERO_PROPOSTA>
+				<IMPEGNO_OBBLIGATORIO>SI</IMPEGNO_OBBLIGATORIO>
 			</movimenti>
 		</documentRoot>
 	</testStaticData>
@@ -306,6 +310,12 @@
             <path/>
         </metaDato>
 		<metaDato>
+			<nomeSimbolico>IMPORTO_DISTINTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo della distinta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
 			<nomeSimbolico>MOVIMENTO_TIPO</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Tipologia di movimento contabile</descrizione>
@@ -462,6 +472,12 @@
             <path/>
         </metaDato>
 		<metaDato>
+			<nomeSimbolico>IMPEGNO_OBBLIGATORIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Riporta l'informazione se l'impegno è obbligatorio o meno in contabilita'</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
 			<nomeSimbolico>CIG</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Codice Identificativo Gara</descrizione>
@@ -483,7 +499,7 @@
 	<queryes>
 		<query id='visto'
 			   help_query_alias="v"
-			   help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, ANNO_DETERMINA_2, AREA_PROPONENTE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_FIRMA, DATA_STAMPA, DATA_PROPOSTA, DIRIGENTE_VISTO, ESITO_VISTO, ESITO_VISTO_DEFINITIVO, FIRMATARIO, NOTE_CONTABILI, NOTE_VISTO, NUMERO_DETERMINA, NUMERO_DETERMINA_2, NUMERO_PROPOSTA, OGGETTO_DETERMINA, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, ASCENDENTI_UNITA, CIG, DESCRIZIONE_FIRMATARIO, DELEGANTE, TIPOLOGIA_PROPOSTA, TIPOLOGIA_VISTO, CODICE_UNITA_VISTO, SUDDIVISIONE_VISTO, UNITA_VISTO, DATA_FIRMA_PROPOSTA">
+			   help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, ANNO_DETERMINA_2, AREA_PROPONENTE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_FIRMA, DATA_STAMPA, DATA_PROPOSTA, DIRIGENTE_VISTO, ESITO_VISTO, ESITO_VISTO_DEFINITIVO, FIRMATARIO, NOTE_CONTABILI, NOTE_VISTO, NUMERO_DETERMINA, NUMERO_DETERMINA_2, NUMERO_PROPOSTA, OGGETTO_DETERMINA, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, ASCENDENTI_UNITA, CIG, DESCRIZIONE_FIRMATARIO, DELEGANTE, TIPOLOGIA_PROPOSTA, TIPOLOGIA_VISTO, CODICE_UNITA_VISTO, SUDDIVISIONE_VISTO, UNITA_VISTO, DATA_FIRMA_PROPOSTA, IMPORTO_DISTINTA">
  select decode(d.numero_determina, null, '${documentRoot.visto.NUMERO_DETERMINA}', d.numero_determina) NUMERO_DETERMINA
      ,  decode(d.numero_determina, null, '${documentRoot.visto.DATA_DETERMINA}', to_char (d.data_numero_determina, 'dd/mm/yyyy')) DATA_DETERMINA
      ,  decode(d.numero_determina, null, '${documentRoot.visto.ANNO_DETERMINA}', d.anno_determina) ANNO_DETERMINA
@@ -508,7 +524,7 @@
      ,  nvl(utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), d.ente), '${documentRoot.visto.FIRMATARIO}') FIRMATARIO
      ,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), d.ente)) DESCRIZIONE_FIRMATARIO
      ,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, d.ente)) DELEGANTE
-     ,  nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario)), '${documentRoot.visto.DIRIGENTE_VISTO}') DIRIGENTE_VISTO
+     ,  nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario), vp.ente), '${documentRoot.visto.DIRIGENTE_VISTO}') DIRIGENTE_VISTO
      ,  utility_pkg.get_desc_ascendenti_unita(utility_pkg.get_codice_unita_prop_dete (d.id_determina), null, impostazioni_pkg.get_impostazione('OTTICA_SO4', d.ente), null) ASCENDENTI_UNITA
      ,  utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_AREA', d.ente) AREA_PROPONENTE
      ,  utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_SERVIZIO', d.ente) SERVIZIO_PROPONENTE       
@@ -519,6 +535,11 @@
             from firmatari fp
             where fp.firmato = 'Y' and fp.id_determina = d.id_determina)
             , 'dd/mm/yyyy'), '${documentRoot.visto.DATA_FIRMA_PROPOSTA}') DATA_FIRMA_PROPOSTA
+	 , (select decode (impostazioni_pkg.get_impostazione ('DB_CHARSET', d.ente)
+	      , 'iso-8859-1', trim (to_char (da.importo, '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))
+	      , trim (to_char (da.importo, 'L999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.''')))
+	     from distinte_atti da
+ 	    where id_proposta = d.id_determina) IMPORTO_DISTINTA
   from  determine d
      ,  visti_pareri vp
      ,  firmatari f
@@ -534,7 +555,7 @@
 		</query>
 		<query id="movimenti"
         help_query_alias="m"
-		help_field_aliases="MOVIMENTO_TIPO, MOVIMENTO_CODICE_BENEFICIARIO, MOVIMENTO_DESCRIZIONE, MOVIMENTO_ENTRATA_SPESA, MOVIMENTO_IMPORTO, MOVIMENTO_IMPORTO_ATTUALE, MOVIMENTO_RAGIONE_SOCIALE, MOVIMENTO_RIF_BIL_PEG, MOVIMENTO_ANNO, MOVIMENTO_NUMERO, MOVIMENTO_COD_LIVELLO_5, MOVIMENTO_CODICE_SIOPE, MOVIMENTO_COD_TRANSAZIONE, MOVIMENTO_CF_PARTITA_IVA, MOVIMENTO_DESCRIZIONE_BIL_PEG, MOVIMENTO_ANNO_IMPEGNO, MOVIMENTO_NUMERO_IMPEGNO, FAT_DATA_SCADENZA, IMP_ANNO_DEL, IMP_NUMERO_DEL, IMP_SEDE_DEL, IMP_ANNO_PROPOSTA,IMP_UNITA_PROPONENTE,IMP_NUMERO_PROPOSTA">
+		help_field_aliases="MOVIMENTO_TIPO, MOVIMENTO_CODICE_BENEFICIARIO, MOVIMENTO_DESCRIZIONE, MOVIMENTO_ENTRATA_SPESA, MOVIMENTO_IMPORTO, MOVIMENTO_IMPORTO_ATTUALE, MOVIMENTO_RAGIONE_SOCIALE, MOVIMENTO_RIF_BIL_PEG, MOVIMENTO_ANNO, MOVIMENTO_NUMERO, MOVIMENTO_COD_LIVELLO_5, MOVIMENTO_CODICE_SIOPE, MOVIMENTO_COD_TRANSAZIONE, MOVIMENTO_CF_PARTITA_IVA, MOVIMENTO_DESCRIZIONE_BIL_PEG, MOVIMENTO_ANNO_IMPEGNO, MOVIMENTO_NUMERO_IMPEGNO, FAT_DATA_SCADENZA, IMP_ANNO_DEL, IMP_NUMERO_DEL, IMP_SEDE_DEL, IMP_ANNO_PROPOSTA,IMP_UNITA_PROPONENTE,IMP_NUMERO_PROPOSTA, IMPEGNO_OBBLIGATORIO">
  select distinct c.tipo MOVIMENTO_TIPO
      ,  c.descrizione MOVIMENTO_DESCRIZIONE
 	 ,  decode (impostazioni_pkg.get_impostazione ('DB_CHARSET', d.ente)
@@ -556,13 +577,14 @@
  	 ,  c.descr_voce_peg MOVIMENTO_DESCRIZIONE_BIL_PEG
 	 ,  c.anno_imp MOVIMENTO_ANNO_IMPEGNO
      ,  c.numero_imp MOVIMENTO_NUMERO_IMPEGNO
-     ,  c.FAT_DATA_SCADENZA FAT_DATA_SCADENZA
+     ,  to_char(c.FAT_DATA_SCADENZA,'DD/MM/YYYY') FAT_DATA_SCADENZA
      ,  c.IMP_ANNO_DEL IMP_ANNO_DEL
      ,  c.IMP_NUMERO_DEL IMP_NUMERO_DEL
      ,  c.IMP_SEDE_DEL IMP_SEDE_DEL
      ,  c.IMP_ANNO_PROPOSTA IMP_ANNO_PROPOSTA
      ,  c.IMP_UNITA_PROPONENTE, IMP_UNITA_PROPONENTE
      ,  c.IMP_NUMERO_PROPOSTA IMP_NUMERO_PROPOSTA
+	 ,  c.impegno_obbligatorio IMPEGNO_OBBLIGATORIO
   from cf4_vista_prop_del c, visti_pareri vp, determine d, tipi_registro tr, tipi_visto_parere tv
  where vp.id_visto_parere = #id
    and vp.id_determina = d.id_determina
@@ -597,13 +619,14 @@ union
  	 ,  c.descr_voce_peg MOVIMENTO_DESCRIZIONE_BIL_PEG
 	 ,  c.anno_imp MOVIMENTO_ANNO_IMPEGNO
      ,  c.numero_imp MOVIMENTO_NUMERO_IMPEGNO
-     ,  c.FAT_DATA_SCADENZA FAT_DATA_SCADENZA
+	 ,  to_char(c.FAT_DATA_SCADENZA,'DD/MM/YYYY') FAT_DATA_SCADENZA
      ,  c.IMP_ANNO_DEL IMP_ANNO_DEL
      ,  c.IMP_NUMERO_DEL IMP_NUMERO_DEL
      ,  c.IMP_SEDE_DEL IMP_SEDE_DEL
      ,  c.IMP_ANNO_PROPOSTA IMP_ANNO_PROPOSTA
      ,  c.IMP_UNITA_PROPONENTE, IMP_UNITA_PROPONENTE
      ,  c.IMP_NUMERO_PROPOSTA IMP_NUMERO_PROPOSTA
+	 ,  c.impegno_obbligatorio IMPEGNO_OBBLIGATORIO
   from cf4_vista_prop_del c,  visti_pareri vp, determine d, tipi_registro tr, tipi_visto_parere tv
  where vp.id_visto_parere = #id
    and vp.id_determina = d.id_determina

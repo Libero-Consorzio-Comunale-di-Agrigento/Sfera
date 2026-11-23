@@ -32,9 +32,7 @@ AS
     WHERE     vp.id_file_allegato_testo = fa.id_file_allegato
           AND tvp.id_tipo_visto_parere = vp.id_tipologia
           AND vp.valido = 'Y'
-          AND f.id_visto_parere = vp.id_visto_parere
-          AND f.firmato = 'Y'
-          AND f.data_firma IS NOT NULL
+          AND f.id_visto_parere (+) = vp.id_visto_parere
    UNION
    SELECT 'ALLEGATO',
           a.id_determina,

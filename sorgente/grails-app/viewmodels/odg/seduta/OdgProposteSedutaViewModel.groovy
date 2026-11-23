@@ -2,6 +2,7 @@ package odg.seduta
 
 import it.finmatica.atti.documenti.DeterminaService
 import it.finmatica.atti.documenti.PropostaDelibera
+import it.finmatica.atti.documenti.PropostaDeliberaSoggetto
 import it.finmatica.atti.documenti.StatoOdg
 import it.finmatica.atti.dto.documenti.DeterminaDTO
 import it.finmatica.atti.dto.documenti.PropostaDeliberaDTO
@@ -37,7 +38,7 @@ class OdgProposteSedutaViewModel {
 	Window self
 
 	// dati
-	List listaProposte 		= []
+	List 						listaProposte 		= []
 	List<OggettoSedutaDTO> 		listaProposteOdg	= []
 	def							selectedProposta
 	OggettoSedutaDTO 			selectedPropostaOdg
@@ -79,6 +80,7 @@ class OdgProposteSedutaViewModel {
 		}
 
 		listaProposteOdg = listaProposteOdg.toDTO(["delega.assessore"])
+		caricaUnitaProponenti(listaProposteOdg)
 
 		BindUtils.postNotifyChange(null, null, this, "listaProposteOdg")
 		numProposteInserite = listaProposteOdg.size()
@@ -143,6 +145,7 @@ class OdgProposteSedutaViewModel {
 			}
 		}
 		selectedProposta = null
+		caricaUnitaProponentiProposta(listaProposte)
 		BindUtils.postNotifyChange(null, null, this, "selectedProposta")
 		BindUtils.postNotifyChange(null, null, this, "listaProposte")
 	}
@@ -199,7 +202,7 @@ class OdgProposteSedutaViewModel {
 
 		caricaListeProposteOdg();
 		selectedProposta = null;
-		BindUtils.postGlobalCommand(null, null, "onRefreshVerbalizzazione", null);
+	//	BindUtils.postGlobalCommand(null, null, "onRefreshVerbalizzazione", null);
 	}
 
 	@Command
@@ -234,6 +237,10 @@ class OdgProposteSedutaViewModel {
 		if (selectedPropostaOdg.sequenzaConvocazione == 1)
 			return;
 
+		if (sedutaDTOService.esisteSedutaSuccessivaConEsitoConfermato(seduta)) {
+			Clients.showNotification ("Esiste una seduta successiva con proposte con esito confermato!", Clients.NOTIFICATION_TYPE_ERROR, null, "before_center", 5000, true);
+			return
+		}
 		sedutaDTOService.spostaOggettoSedutaSu(selectedPropostaOdg);
 		caricaListeProposteOdg()
 		selectedPropostaOdg = listaProposteOdg.find { it.id == selectedPropostaOdg.id }
@@ -244,6 +251,11 @@ class OdgProposteSedutaViewModel {
 	@Command onGiuSequenza () {
 		if (selectedPropostaOdg.sequenzaConvocazione == listaProposteOdg.size())
 			return;
+
+		if (sedutaDTOService.esisteSedutaSuccessivaConEsitoConfermato(seduta)) {
+			Clients.showNotification ("Esiste una seduta successiva con proposte con esito confermato!", Clients.NOTIFICATION_TYPE_ERROR, null, "before_center", 5000, true);
+			return
+		}
 
 		sedutaDTOService.spostaOggettoSedutaGiu(selectedPropostaOdg);
 		caricaListeProposteOdg()
@@ -264,7 +276,6 @@ class OdgProposteSedutaViewModel {
 			// tolgo il flag dell'oggetto seduta aperto:
 			idOggettoSedutaAperto = -1;
 			caricaListeProposteOdg()
-			BindUtils.postNotifyChange(null,null, this, "listaProposteOdg")
 		}
 		w.doModal()
 	}
@@ -287,5 +298,33 @@ class OdgProposteSedutaViewModel {
 		So4UnitaPubb rs = oggetto.domainObject.getSoggetto(TipoSoggetto.UO_PROPONENTE)?.unitaSo4
 		String unita = "Unità Proponente: "
 		lc.value = ((rs) ? (unita + rs.descrizione ) : unita)
+	}
+
+	// batch-load UO_PROPONENTE per OggettoSedutaDTO (right list)
+	private void caricaUnitaProponenti(List lista) {
+		def ids = lista*.propostaDelibera*.id.findAll { it != null }
+		if (!ids) return
+		def rows = PropostaDeliberaSoggetto.executeQuery(
+			"select s.propostaDelibera.id, s.unitaSo4.descrizione from PropostaDeliberaSoggetto s " +
+			"where s.propostaDelibera.id in :ids and s.tipoSoggetto.codice = :codice and s.attivo = true",
+			[ids: ids, codice: TipoSoggetto.UO_PROPONENTE])
+		Map unitaMap = rows.collectEntries { [(it[0]): (it[1] ?: "")] }
+		lista.each { o ->
+			if (o.propostaDelibera) o.unitaProponente = "Unità Proponente: " + (unitaMap[o.propostaDelibera.id] ?: "")
+		}
+	}
+
+	// batch-load UO_PROPONENTE per PropostaDeliberaDTO (left list)
+	private void caricaUnitaProponentiProposta(List lista) {
+		def ids = lista*.id.findAll { it != null }
+		if (!ids) return
+		def rows = PropostaDeliberaSoggetto.executeQuery(
+			"select s.propostaDelibera.id, s.unitaSo4.descrizione from PropostaDeliberaSoggetto s " +
+			"where s.propostaDelibera.id in :ids and s.tipoSoggetto.codice = :codice and s.attivo = true",
+			[ids: ids, codice: TipoSoggetto.UO_PROPONENTE])
+		Map unitaMap = rows.collectEntries { [(it[0]): (it[1] ?: "")] }
+		lista.each { p ->
+			if (p instanceof PropostaDeliberaDTO) p.unitaProponente = "Unità Proponente: " + (unitaMap[p.id] ?: "")
+		}
 	}
 }

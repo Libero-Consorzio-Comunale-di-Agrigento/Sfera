@@ -63,11 +63,19 @@ public class Mail {
 			gm.setProject("AGSDE2", "AGSDE2", null);
 			gm.setSender(senderCim);
 
+			String[] listaEmail;
 			Iterator<String> iteratorDestinatari = listaDestinatari.iterator();
 			while (iteratorDestinatari.hasNext()) {
-				Contact destContact  = new Contact();
-				destContact.setEmail(iteratorDestinatari.next());
-				gm.addBcc(destContact);
+
+				listaEmail=iteratorDestinatari.next().split(";");
+				for(String email:listaEmail)
+				{
+					if(email!=null && email.trim().length()>0) {
+						Contact destContact = new Contact();
+						destContact.setEmail(email.trim());
+						gm.addBcc(destContact);
+					}
+				}
 			}
 
 			if (testo != null) {

@@ -69,7 +69,7 @@ class DeliberaCompetenze {
 
 		competenze { Delibera d, So4UserDetail utente ->
 			if (d != null) {
-				eq ("determina", d)
+				eq ("delibera", d)
 			}
 
 			or {

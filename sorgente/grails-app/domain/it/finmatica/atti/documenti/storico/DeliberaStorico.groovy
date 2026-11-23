@@ -118,7 +118,6 @@ class DeliberaStorico implements IDocumentoStoricoEsterno, IDocumentoStorico {
 		giorniPubblicazione		nullable: true
 		dataEsecutivita			nullable: true
 		dataAdozione			nullable: true
-		giorniPubblicazione     nullable: true
 		dataPubblicazione       nullable: true
 		dataFinePubblicazione   nullable: true
 		dataPubblicazione2      nullable: true

@@ -50,122 +50,366 @@
 				<ID_OGGETTO_SEDUTA>80735</ID_OGGETTO_SEDUTA>
 				<OGGETTO_PROPOSTA>PRIMA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
 				<ESTREMI_PROPOSTA>2014/414</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>414</NUMERO_PROPOSTA>
 				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
 				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
 				<SEQUENZA_CONVOCAZIONE>1</SEQUENZA_CONVOCAZIONE>
 				<RELATORE>NOMINATIVO RELATORE 1</RELATORE>
 				<ESEGUIBILITA_IMMEDIATA>No</ESEGUIBILITA_IMMEDIATA>
 				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<OGGETTO_AGGIUNTIVO>No</OGGETTO_AGGIUNTIVO>
+				<allegati>
+					<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<allegati>
+					<ALLEGATO_TITOLO>SECONDO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<deleghe>
+					<ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+					<COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+					<NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+				</deleghe>
+				<deleghe>
+					<ALTRO_RELATORE>NOMINATIVO RELATORE 2</ALTRO_RELATORE>
+					<COGNOME_ALTRO_RELATORE>COGNOME RELATORE 2</COGNOME_ALTRO_RELATORE>
+					<NOME_ALTRO_RELATORE>NOME RELATORE 2</NOME_ALTRO_RELATORE>
+				</deleghe>
 			</proposte>
 			<proposte>
 				<ID_OGGETTO_SEDUTA>81138</ID_OGGETTO_SEDUTA>
 				<OGGETTO_PROPOSTA>SECONDA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
 				<ESTREMI_PROPOSTA>2014/417</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>417</NUMERO_PROPOSTA>
 				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
 				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
 				<SEQUENZA_CONVOCAZIONE>2</SEQUENZA_CONVOCAZIONE>
 				<RELATORE>NOMINATIVO RELATORE 2</RELATORE>
 				<ESEGUIBILITA_IMMEDIATA>Si</ESEGUIBILITA_IMMEDIATA>
 				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<OGGETTO_AGGIUNTIVO>No</OGGETTO_AGGIUNTIVO>
+				<allegati>
+					<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<deleghe>
+					<ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+					<COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+					<NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+				</deleghe>
 			</proposte>
 			<proposte>
 				<ID_OGGETTO_SEDUTA>81381</ID_OGGETTO_SEDUTA>
 				<OGGETTO_PROPOSTA>TERZA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
 				<ESTREMI_PROPOSTA>2014/420</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>420</NUMERO_PROPOSTA>
 				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
 				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
 				<SEQUENZA_CONVOCAZIONE>3</SEQUENZA_CONVOCAZIONE>
 				<RELATORE>NOMINATIVO RELATORE 3</RELATORE>
 				<ESEGUIBILITA_IMMEDIATA>No</ESEGUIBILITA_IMMEDIATA>
 				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<OGGETTO_AGGIUNTIVO>Si</OGGETTO_AGGIUNTIVO>
+				<allegati>
+					<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<allegati>
+					<ALLEGATO_TITOLO>SECONDO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<deleghe>
+					<ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+					<COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+					<NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+				</deleghe>
 			</proposte>
 			<proposte>
 				<ID_OGGETTO_SEDUTA>81382</ID_OGGETTO_SEDUTA>
 				<OGGETTO_PROPOSTA>QUARTA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
 				<ESTREMI_PROPOSTA>2014/419</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>419</NUMERO_PROPOSTA>
 				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
 				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
 				<SEQUENZA_CONVOCAZIONE>4</SEQUENZA_CONVOCAZIONE>
 				<RELATORE>NOMINATIVO RELATORE 4</RELATORE>
 				<ESEGUIBILITA_IMMEDIATA>No</ESEGUIBILITA_IMMEDIATA>
 				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<OGGETTO_AGGIUNTIVO>No</OGGETTO_AGGIUNTIVO>
+				<deleghe>
+					<ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+					<COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+					<NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+				</deleghe>
 			</proposte>
 			<proposte>
 				<ID_OGGETTO_SEDUTA>81640</ID_OGGETTO_SEDUTA>
 				<OGGETTO_PROPOSTA>QUINTA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
 				<ESTREMI_PROPOSTA>2014/422</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>422</NUMERO_PROPOSTA>
 				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
 				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
 				<SEQUENZA_CONVOCAZIONE>5</SEQUENZA_CONVOCAZIONE>
 				<RELATORE>NOMINATIVO RELATORE 5</RELATORE>
 				<ESEGUIBILITA_IMMEDIATA>No</ESEGUIBILITA_IMMEDIATA>
 				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<OGGETTO_AGGIUNTIVO>Si</OGGETTO_AGGIUNTIVO>
+				<allegati>
+					<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<allegati>
+					<ALLEGATO_TITOLO>SECONDO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<deleghe>
+					<ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+					<COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+					<NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+				</deleghe>
 			</proposte>
 			<proposte>
 				<ID_OGGETTO_SEDUTA>81889</ID_OGGETTO_SEDUTA>
 				<OGGETTO_PROPOSTA>SESTA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
 				<ESTREMI_PROPOSTA>2014/428</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>428</NUMERO_PROPOSTA>
 				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
 				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
 				<SEQUENZA_CONVOCAZIONE>6</SEQUENZA_CONVOCAZIONE>
 				<RELATORE>NOMINATIVO RELATORE 6</RELATORE>
 				<ESEGUIBILITA_IMMEDIATA>Si</ESEGUIBILITA_IMMEDIATA>
 				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<OGGETTO_AGGIUNTIVO>Si</OGGETTO_AGGIUNTIVO>
+				<allegati>
+					<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<deleghe>
+					<ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+					<COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+					<NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+				</deleghe>
 			</proposte>
 			<proposte>
 				<ID_OGGETTO_SEDUTA>83189</ID_OGGETTO_SEDUTA>
 				<OGGETTO_PROPOSTA>SETTIMA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
 				<ESTREMI_PROPOSTA>2014/452</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>452</NUMERO_PROPOSTA>
 				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
 				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
 				<SEQUENZA_CONVOCAZIONE>7</SEQUENZA_CONVOCAZIONE>
 				<RELATORE>NOMINATIVO RELATORE 7</RELATORE>
 				<ESEGUIBILITA_IMMEDIATA>No</ESEGUIBILITA_IMMEDIATA>
 				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<OGGETTO_AGGIUNTIVO>No</OGGETTO_AGGIUNTIVO>
+				<deleghe>
+					<ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+					<COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+					<NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+				</deleghe>
 			</proposte>
 			<proposte>
 				<ID_OGGETTO_SEDUTA>83190</ID_OGGETTO_SEDUTA>
 				<OGGETTO_PROPOSTA>OTTAVA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
 				<ESTREMI_PROPOSTA>2014/451</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>451</NUMERO_PROPOSTA>
 				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
 				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
 				<SEQUENZA_CONVOCAZIONE>8</SEQUENZA_CONVOCAZIONE>
 				<RELATORE>NOMINATIVO RELATORE 8</RELATORE>
 				<ESEGUIBILITA_IMMEDIATA>No</ESEGUIBILITA_IMMEDIATA>
 				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<OGGETTO_AGGIUNTIVO>No</OGGETTO_AGGIUNTIVO>
+				<allegati>
+					<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<allegati>
+					<ALLEGATO_TITOLO>SECONDO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<deleghe>
+					<ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+					<COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+					<NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+				</deleghe>
 			</proposte>
 			<proposte>
 				<ID_OGGETTO_SEDUTA>83332</ID_OGGETTO_SEDUTA>
 				<OGGETTO_PROPOSTA>NONA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
 				<ESTREMI_PROPOSTA>2014/453</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>453</NUMERO_PROPOSTA>
 				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
 				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
 				<SEQUENZA_CONVOCAZIONE>9</SEQUENZA_CONVOCAZIONE>
 				<RELATORE>NOMINATIVO RELATORE 9</RELATORE>
 				<ESEGUIBILITA_IMMEDIATA>Si</ESEGUIBILITA_IMMEDIATA>
 				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<OGGETTO_AGGIUNTIVO>Si</OGGETTO_AGGIUNTIVO>
+				<allegati>
+					<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<allegati>
+					<ALLEGATO_TITOLO>SECONDO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<deleghe>
+					<ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+					<COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+					<NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+				</deleghe>
 			</proposte>
-			<informative>
-				<ID_OGGETTO_SEDUTA>180735</ID_OGGETTO_SEDUTA>
-				<OGGETTO_PROPOSTA>PRIMA INFORMATIVA DI PROVA</OGGETTO_PROPOSTA>
-				<ESTREMI_PROPOSTA>2016/1</ESTREMI_PROPOSTA>
-				<TIPO_PROPOSTA>INFORMATIVA</TIPO_PROPOSTA>
+			<proposte_commissioni_collegate>
+				<ID_OGGETTO_SEDUTA>83342</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>PRIMA PROPOSTA COMMISSIONE CONSILIARE</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2022/12</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2022</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>12</NUMERO_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
 				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
 				<SEQUENZA_CONVOCAZIONE>1</SEQUENZA_CONVOCAZIONE>
 				<RELATORE>NOMINATIVO RELATORE 1</RELATORE>
 				<ESEGUIBILITA_IMMEDIATA>Si</ESEGUIBILITA_IMMEDIATA>
 				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<DATA_SEDUTA>01/09/2022</DATA_SEDUTA>
+				<ORA_SEDUTA>11:00</ORA_SEDUTA>
+				<NUMERO_SEDUTA>16</NUMERO_SEDUTA>
+				<TITOLO_COMMISSIONE>CONSILIARE</TITOLO_COMMISSIONE>
+				<allegati>
+					<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<allegati>
+					<ALLEGATO_TITOLO>SECONDO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<deleghe>
+					<ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+					<COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+					<NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+				</deleghe>
+			</proposte_commissioni_collegate>
+			<proposte_commissioni_collegate>
+				<ID_OGGETTO_SEDUTA>83343</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>seconda PROPOSTA COMMISSIONE CONSILIARE</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2022/13</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2022</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>13</NUMERO_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>2</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 2</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>Si</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<DATA_SEDUTA>01/09/2022</DATA_SEDUTA>
+				<ORA_SEDUTA>11:00</ORA_SEDUTA>
+				<NUMERO_SEDUTA>16</NUMERO_SEDUTA>
+				<TITOLO_COMMISSIONE>CONSILIARE</TITOLO_COMMISSIONE>
+				<allegati>
+					<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<allegati>
+					<ALLEGATO_TITOLO>SECONDO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<deleghe>
+					<ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+					<COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+					<NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+				</deleghe>
+			</proposte_commissioni_collegate>
+			<proposte_commissioni_collegate>
+				<ID_OGGETTO_SEDUTA>83344</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>TERZA PROPOSTA COMMISSIONE CONSILIARE</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2022/14</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2022</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>14</NUMERO_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>3</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 3</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>Si</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<DATA_SEDUTA>01/09/2022</DATA_SEDUTA>
+				<ORA_SEDUTA>11:00</ORA_SEDUTA>
+				<NUMERO_SEDUTA>16</NUMERO_SEDUTA>
+				<TITOLO_COMMISSIONE>CONSILIARE</TITOLO_COMMISSIONE>
+				<allegati>
+					<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<deleghe>
+					<ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+					<COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+					<NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+				</deleghe>
+			</proposte_commissioni_collegate>
+			<informative>
+				<ID_OGGETTO_SEDUTA>180735</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>PRIMA INFORMATIVA DI PROVA</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2016/1</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2016</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>1</NUMERO_PROPOSTA>
+				<TIPO_PROPOSTA>INFORMATIVA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>1</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 1</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>Si</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<OGGETTO_AGGIUNTIVO>No</OGGETTO_AGGIUNTIVO>
+				<allegati>
+					<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<allegati>
+					<ALLEGATO_TITOLO>SECONDO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<deleghe>
+					<ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+					<COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+					<NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+				</deleghe>
 			</informative>
 			<informative>
 				<ID_OGGETTO_SEDUTA>180736</ID_OGGETTO_SEDUTA>
 				<OGGETTO_PROPOSTA>SECONDA INFORMATIVA DI PROVA</OGGETTO_PROPOSTA>
 				<ESTREMI_PROPOSTA>2016/2</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2016</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>2</NUMERO_PROPOSTA>
 				<TIPO_PROPOSTA>INFORMATIVA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
 				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
 				<SEQUENZA_CONVOCAZIONE>2</SEQUENZA_CONVOCAZIONE>
 				<RELATORE>NOMINATIVO RELATORE 2</RELATORE>
 				<ESEGUIBILITA_IMMEDIATA>No</ESEGUIBILITA_IMMEDIATA>
 				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<OGGETTO_AGGIUNTIVO>Si</OGGETTO_AGGIUNTIVO>
+				<deleghe>
+					<ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+					<COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+					<NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+				</deleghe>
 			</informative>
 			<convocati>
 				<CONVOCATO>PRIMO CONVOCATO</CONVOCATO>
@@ -197,6 +441,14 @@
                 <RUOLO_CONVOCATO>SEGRETARIO</RUOLO_CONVOCATO>
 				<SEQUENZA_CONVOCAZIONE>5</SEQUENZA_CONVOCAZIONE>
 			</convocati>
+			<allegati>
+				<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+			</allegati>
+			<deleghe>
+				<ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+				<COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+				<NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+			</deleghe>
 		</documentRoot>
 	</testStaticData>
 	<definitions>
@@ -345,7 +597,19 @@
 			<tipo>string</tipo>
 			<descrizione>Anno / Numero della proposta</descrizione>
 			<path/>
-		</metaDato>	
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della proposta</descrizione>
+			<path/>
+		</metaDato>
 		<metaDato>
 			<nomeSimbolico>TIPO_PROPOSTA</nomeSimbolico>
 			<tipo>string</tipo>
@@ -363,7 +627,19 @@
 			<tipo>string</tipo>
 			<descrizione>ID dell'oggetto inserito in seduta</descrizione>
 			<path/>
-		</metaDato>	
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>AREA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Area dell'unita' proponente della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SERVIZIO_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Servizio dell'unita' proponente della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
 		<metaDato>
 			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
 			<tipo>string</tipo>
@@ -508,6 +784,42 @@
             <descrizione>Utente Firmatario</descrizione>
             <path/>
         </metaDato>
+		<metaDato>
+			<nomeSimbolico>ID_PROPOSTA_DELIBERA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>ID della proposta discussa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ALLEGATO_TITOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Titolo dell'allegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+		<nomeSimbolico>OGGETTO_AGGIUNTIVO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se la proposta è stata inserita in seduta dopo la convocazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ALTRO_RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nominativo del relatore nell'elenco delle deleghe (principale e aggiuntive) della seduta o della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>COGNOME_ALTRO_RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Cognome del relatore nell'elenco delle deleghe (principale e aggiuntive) della seduta o della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOME_ALTRO_RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nome del relatore nell'elenco delle deleghe (principale e aggiuntive) della seduta o della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
 	</definitions>
 	<queryes>
         <query id='stampa' help_query_alias="ss" help_field_aliases="NUMERO_PROTOCOLLO, ANNO_PROTOCOLLO, DATA_PROTOCOLLO, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_OGGETTO, FIRMATARIO">
@@ -520,13 +832,15 @@
                 , decode(ss.classifica_codice, null, decode(ss.fascicolo_anno, null, '${documentRoot.stampa.FASCICOLO_ANNO}', fascicolo_anno), fascicolo_anno) FASCICOLO_ANNO
                 , decode(ss.classifica_codice, null, decode(ss.fascicolo_numero, null, '${documentRoot.stampa.FASCICOLO_NUMERO}', fascicolo_numero), fascicolo_numero) FASCICOLO_NUMERO
                 , decode(ss.classifica_codice, null, decode(ss.fascicolo_oggetto, null, '${documentRoot.stampa.FASCICOLO_OGGETTO}', fascicolo_oggetto), fascicolo_oggetto) FASCICOLO_OGGETTO
-                , nvl(utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto( nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), ss.ente), '${documentRoot.stampa.FIRMATARIO}' ) FIRMATARIO
-            from odg_sedute_stampe ss
-               , firmatari f
-            where ss.id_seduta_stampa = #id_seduta_stampa
-                and f.id_documento(+) = ss.id_seduta_stampa
-                and f.firmato(+) 	  = 'N'
-                and f.data_firma(+)   is not null
+			    , nvl(utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto( nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), gd.ente), '${documentRoot.stampa.FIRMATARIO}' ) FIRMATARIO
+			from gdo_documenti gd
+			   , odg_sedute_stampe ss
+			   , firmatari f
+			where ss.id_seduta_stampa = #id_seduta_stampa
+			  and ss.id_seduta_stampa = gd.id_documento
+              and f.id_documento(+) = ss.id_seduta_stampa
+              and f.firmato(+) 	  = 'N'
+              and f.data_firma(+)   is not null
         </query>
 
 		<!-- seduta: restituisce i dati della seduta -->
@@ -555,7 +869,7 @@
       , to_char (sed.data_seconda_convocazione, 'DD/MM/YYYY') DATA_SECONDA_CONVOCAZIONE
       , sed.ora_seconda_convocazione ORA_SECONDA_CONVOCAZIONE
 	  , sed.note NOTE
-	  , (select utility_pkg.get_cognome_nome (nvl (com_presidente.ni_componente, osp_presidente.ni_componente_esterno))
+	  , (select utility_pkg.get_cognome_nome (nvl (com_presidente.ni_componente, osp_presidente.ni_componente_esterno), com.ente)
 		   from odg_sedute_partecipanti osp_presidente, odg_commissioni_componenti com_presidente
           where osp_presidente.id_seduta = sed.id_seduta
 			and osp_presidente.ruolo_partecipante = 'P'
@@ -579,26 +893,39 @@
 		<!-- proposte: restituisce i dati delle proposte in seduta -->
 		<query id='proposte'
 			   help_query_alias="p"
-			   help_field_aliases="ESEGUIBILITA_IMMEDIATA, ESTREMI_PROPOSTA, ID_OGGETTO_SEDUTA, OGGETTO_PROPOSTA, RELATORE, SEQUENZA_CONVOCAZIONE, TIPO_PROPOSTA, UNITA_PROPONENTE, FIRMATARIO_PROPOSTA">
+			   child="allegati, deleghe"
+			   help_field_aliases="ESEGUIBILITA_IMMEDIATA, ESTREMI_PROPOSTA, ANNO_PROPOSTA, NUMERO_PROPOSTA, ID_OGGETTO_SEDUTA, OGGETTO_PROPOSTA, RELATORE, SEQUENZA_CONVOCAZIONE, TIPO_PROPOSTA, AREA_PROPONENTE, SERVIZIO_PROPONENTE, UNITA_PROPONENTE, FIRMATARIO_PROPOSTA, OGGETTO_AGGIUNTIVO">
 			     select ID_OGGETTO_SEDUTA
+			          , ID_PROPOSTA_DELIBERA
 					  , OGGETTO_PROPOSTA
 					  , ESTREMI_PROPOSTA
+			          , ANNO_PROPOSTA
+			          , NUMERO_PROPOSTA
 					  , TIPO_PROPOSTA
+					  , AREA_PROPONENTE
+					  , SERVIZIO_PROPONENTE
 					  , UNITA_PROPONENTE
 					  , rownum SEQUENZA_CONVOCAZIONE
 					  , RELATORE
 					  , ESEGUIBILITA_IMMEDIATA
 					  , FIRMATARIO_PROPOSTA
+				      , OGGETTO_AGGIUNTIVO
 				  from (
-					  select os.id_oggetto_seduta ID_OGGETTO_SEDUTA
+					  select  os.id_oggetto_seduta ID_OGGETTO_SEDUTA
+			               ,  pd.id_proposta_delibera ID_PROPOSTA_DELIBERA
 						   ,  pd.oggetto OGGETTO_PROPOSTA
 						   ,  pd.anno_proposta || '/' || pd.numero_proposta ESTREMI_PROPOSTA
+			               ,  pd.anno_proposta ANNO_PROPOSTA
+			               ,  pd.numero_proposta NUMERO_PROPOSTA
 						   ,  td.titolo TIPO_PROPOSTA
+						   ,  utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_AREA', pd.ente) AREA_PROPONENTE
+						   ,  utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_SERVIZIO', pd.ente) SERVIZIO_PROPONENTE
 						   ,  utility_pkg.get_unita_prop_delibera(pd.id_proposta_delibera) UNITA_PROPONENTE
 						   ,  os.sequenza_convocazione SEQUENZA_CONVOCAZIONE
-						   ,  utility_pkg.get_cognome_nome(dele.ni_assessore) RELATORE
+						   ,  utility_pkg.get_cognome_nome(dele.ni_assessore, pd.ente) RELATORE
 						   ,  decode(pd.ESEGUIBILITA_IMMEDIATA,'Y','Si','No') ESEGUIBILITA_IMMEDIATA
 						   , nvl (utility_pkg.get_primo_firmatario_prop_deli(pd.id_proposta_delibera), utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'DIRIGENTE')) FIRMATARIO_PROPOSTA
+			               , decode(os.OGGETTO_AGGIUNTIVO,'Y','Si','No') OGGETTO_AGGIUNTIVO
 						 from proposte_delibera pd
 						   , deleghe dele
 						   , odg_oggetti_seduta os
@@ -611,28 +938,98 @@
 					   order by os.sequenza_convocazione asc)  
 		</query>
 
+		<!-- proposte_commissioni_collegate: restituisce i dati delle proposte collegate alla seduta -->
+		<query id='proposte_commissioni_collegate'
+			   help_query_alias="pc"
+			   child="allegati, deleghe"
+			   help_field_aliases="ESEGUIBILITA_IMMEDIATA, ESTREMI_PROPOSTA, ANNO_PROPOSTA, NUMERO_PROPOSTA, ID_OGGETTO_SEDUTA, OGGETTO_PROPOSTA, RELATORE, SEQUENZA_CONVOCAZIONE, TIPO_PROPOSTA, AREA_PROPONENTE, SERVIZIO_PROPONENTE, UNITA_PROPONENTE, FIRMATARIO_PROPOSTA, TITOLO_COMMISSIONE, DATA_SEDUTA, ORA_SEDUTA, NUMERO_SEDUTA">
+				select ID_OGGETTO_SEDUTA,
+				   ID_PROPOSTA_DELIBERA,
+				   OGGETTO_PROPOSTA,
+				   ESTREMI_PROPOSTA,
+				   ANNO_PROPOSTA,
+				   NUMERO_PROPOSTA,
+				   TIPO_PROPOSTA,
+				   AREA_PROPONENTE,
+				   SERVIZIO_PROPONENTE,
+				   UNITA_PROPONENTE,
+				   rownum SEQUENZA_CONVOCAZIONE,
+				   RELATORE,
+				   ESEGUIBILITA_IMMEDIATA,
+				   FIRMATARIO_PROPOSTA,
+			       TITOLO_COMMISSIONE,
+			       DATA_SEDUTA,
+			       ORA_SEDUTA,
+			       NUMERO_SEDUTA
+			  from (  select os.id_oggetto_seduta ID_OGGETTO_SEDUTA,
+							 pd.id_proposta_delibera ID_PROPOSTA_DELIBERA,
+							 pd.oggetto OGGETTO_PROPOSTA,
+							 pd.anno_proposta || '/' || pd.numero_proposta ESTREMI_PROPOSTA,
+							 pd.anno_proposta ANNO_PROPOSTA,
+							 pd.numero_proposta NUMERO_PROPOSTA,
+							 td.titolo TIPO_PROPOSTA,
+							 utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_AREA', pd.ente) AREA_PROPONENTE,
+							 utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_SERVIZIO', pd.ente) SERVIZIO_PROPONENTE,
+							 utility_pkg.get_unita_prop_delibera (pd.id_proposta_delibera) UNITA_PROPONENTE,
+							 os.sequenza_convocazione SEQUENZA_CONVOCAZIONE,
+							 utility_pkg.get_cognome_nome (dele.ni_assessore, pd.ente) RELATORE,
+							 decode (pd.ESEGUIBILITA_IMMEDIATA, 'Y', 'Si', 'No') ESEGUIBILITA_IMMEDIATA,
+							 nvl (utility_pkg.get_primo_firmatario_prop_deli (pd.id_proposta_delibera),
+								  utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'DIRIGENTE')) FIRMATARIO_PROPOSTA,
+							com.titolo TITOLO_COMMISSIONE,
+							to_char (sed.data_seduta, 'DD/MM/YYYY') DATA_SEDUTA,
+							sed.ora_seduta ORA_SEDUTA,
+							sed.numero NUMERO_SEDUTA,
+							 utility_pkg.oggetto_coll_visibile_seduta (osc.id_seduta, osc.id_oggetto_seduta) VISIBILE
+						from proposte_delibera pd,
+							 deleghe dele,
+							 odg_oggetti_seduta os,
+							 odg_oggetti_seduta_collegati osc,
+							 odg_sedute sed,
+							 tipi_delibera td,
+							 odg_commissioni com
+					   where osc.id_seduta = #id
+						 and osc.id_oggetto_seduta = os.id_oggetto_seduta
+						 and sed.id_seduta = os.id_seduta
+						 and com.id_commissione = sed.id_commissione
+						 and os.id_proposta_delibera = pd.id_proposta_delibera
+						 and pd.id_tipo_delibera = td.id_tipo_delibera
+						 and os.id_delega = dele.id_delega(+)
+					order by os.sequenza_convocazione asc)
+			 where visibile = 1
+		</query>
+
 		<query id='informative'
 			   help_query_alias="i"
-			   help_field_aliases="ESEGUIBILITA_IMMEDIATA, ESTREMI_PROPOSTA, ID_OGGETTO_SEDUTA, OGGETTO_PROPOSTA, RELATORE, SEQUENZA_CONVOCAZIONE, TIPO_PROPOSTA, UNITA_PROPONENTE, FIRMATARIO_PROPOSTA">
+			   child="allegati, deleghe"
+			   help_field_aliases="ESEGUIBILITA_IMMEDIATA, ESTREMI_PROPOSTA, ID_OGGETTO_SEDUTA, OGGETTO_PROPOSTA, RELATORE, SEQUENZA_CONVOCAZIONE, TIPO_PROPOSTA, AREA_PROPONENTE, SERVIZIO_PROPONENTE, UNITA_PROPONENTE, FIRMATARIO_PROPOSTA, OGGETTO_AGGIUNTIVO">
 			     select ID_OGGETTO_SEDUTA
+			          , ID_PROPOSTA_DELIBERA
 					  , OGGETTO_PROPOSTA
 					  , ESTREMI_PROPOSTA
 					  , TIPO_PROPOSTA
+					  , AREA_PROPONENTE
+					  , SERVIZIO_PROPONENTE
 					  , UNITA_PROPONENTE
 					  , rownum SEQUENZA_CONVOCAZIONE
 					  , RELATORE
 					  , ESEGUIBILITA_IMMEDIATA
 					  , FIRMATARIO_PROPOSTA
+			          , OGGETTO_AGGIUNTIVO
 				  from (
 					  select os.id_oggetto_seduta ID_OGGETTO_SEDUTA
+			               ,  pd.id_proposta_delibera ID_PROPOSTA_DELIBERA
 						   ,  pd.oggetto OGGETTO_PROPOSTA
 						   ,  pd.anno_proposta || '/' || pd.numero_proposta ESTREMI_PROPOSTA
 						   ,  td.titolo TIPO_PROPOSTA
+						   ,  utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_AREA', pd.ente) AREA_PROPONENTE
+					       ,  utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_SERVIZIO', pd.ente) SERVIZIO_PROPONENTE
 						   ,  utility_pkg.get_unita_prop_delibera(pd.id_proposta_delibera) UNITA_PROPONENTE
 						   ,  os.sequenza_convocazione SEQUENZA_CONVOCAZIONE
-						   ,  utility_pkg.get_cognome_nome(dele.ni_assessore) RELATORE
+						   ,  utility_pkg.get_cognome_nome(dele.ni_assessore, pd.ente) RELATORE
 						   ,  decode(pd.ESEGUIBILITA_IMMEDIATA,'Y','Si','No') ESEGUIBILITA_IMMEDIATA
-						   , nvl (utility_pkg.get_primo_firmatario_prop_deli(pd.id_proposta_delibera), utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'DIRIGENTE')) FIRMATARIO_PROPOSTA
+						   ,  nvl (utility_pkg.get_primo_firmatario_prop_deli(pd.id_proposta_delibera), utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'DIRIGENTE')) FIRMATARIO_PROPOSTA
+			               ,  decode(os.OGGETTO_AGGIUNTIVO,'Y','Si','No') OGGETTO_AGGIUNTIVO
 						 from proposte_delibera pd
 						   , deleghe dele
 						   , odg_oggetti_seduta os
@@ -652,7 +1049,7 @@
      select SEQUENZA_CONVOCAZIONE, CONVOCATO, RUOLO, RUOLO_CONVOCATO
 	   from (
 		 select  osp.sequenza SEQUENZA_CONVOCAZIONE
-			   , nvl(utility_pkg.get_cognome_nome(occ.ni_componente), utility_pkg.get_cognome_nome(osp.ni_componente_esterno)) CONVOCATO
+			   , nvl(utility_pkg.get_cognome_nome(occ.ni_componente, oc.ente), utility_pkg.get_cognome_nome(osp.ni_componente_esterno, oc.ente)) CONVOCATO
 			   , i.titolo RUOLO
 			   , orp.descrizione RUOLO_CONVOCATO
 			from odg_sedute os
@@ -660,14 +1057,86 @@
 			   , odg_incarichi i
 			   , odg_ruoli_partecipanti orp
 			   , odg_commissioni_componenti occ
+			   , odg_commissioni oc
 		   where os.id_seduta = #id
 				 and osp.id_seduta = os.id_seduta
 				 and i.id_incarico(+) = osp.id_incarico
+			     and os.id_commissione = oc.id_commissione
 				 and osp.id_commissione_componente = occ.id_commissione_componente (+)
 				 and osp.convocato = 'Y'
 				 and osp.ruolo_partecipante = orp.ruolo_partecipante(+)
 		 order by osp.sequenza, osp.convocato asc)
 		</query>
+		<query id="allegati"
+			   help_query_alias="a"
+			   help_field_aliases="ALLEGATO_TITOLO,">
+			select a.titolo ALLEGATO_TITOLO
+			  from allegati a
+			 where a.valido = 'Y'
+			   and a.id_proposta_delibera = @ID_PROPOSTA_DELIBERA
+          order by a.sequenza asc
+		</query>
+
+        <!-- deleghe: restituisce l'elenco delle deleghe (principale e aggiuntive) associate all'oggetto seduta
+             della proposta di delibera; se la proposta non è associata a nessun oggetto seduta, restituisce
+             le deleghe (principale e aggiuntive) della proposta di delibera.
+             Restituisce sempre almeno un record (con campi vuoti se non ci sono deleghe), altrimenti
+             la region annidata TableStart:deleghe va in NullPointerException in XmlMailMergeDataTable -->
+        <query id="deleghe"
+               help_descrizione="Ritorna l'elenco delle deleghe (principale e aggiuntive) dell'oggetto seduta, oppure della proposta di delibera se non presente in un oggetto seduta. Se non ci sono deleghe ritorna un record vuoto."
+               help_query_alias="del"
+               help_field_aliases="ALTRO_RELATORE, COGNOME_ALTRO_RELATORE, NOME_ALTRO_RELATORE">
+SELECT utility_pkg.get_cognome_nome(del.ni_assessore, pd.ente) ALTRO_RELATORE,
+       InitCap(utility_pkg.get_cognome(del.ni_assessore))      COGNOME_ALTRO_RELATORE,
+       InitCap(utility_pkg.get_nome(del.ni_assessore))         NOME_ALTRO_RELATORE
+  FROM proposte_delibera pd,
+       deleghe           del,
+       (
+         -- Diretto da odg_oggetti_seduta
+         SELECT oos.id_delega,
+                0 AS ordinamento
+           FROM odg_oggetti_seduta oos
+          WHERE oos.id_proposta_delibera = @ID_PROPOSTA_DELIBERA
+            AND oos.id_delega IS NOT NULL
+         UNION ALL
+         -- Tramite odg_oggetti_seduta_deleghe
+         SELECT osd.id_delega,
+                osd.id_oggetto_seduta_delega AS ordinamento
+           FROM odg_oggetti_seduta         oos,
+                odg_oggetti_seduta_deleghe osd
+          WHERE oos.id_proposta_delibera = @ID_PROPOSTA_DELIBERA
+            AND osd.id_oggetto_seduta = oos.id_oggetto_seduta
+         UNION ALL
+         -- Diretto da proposte_delibera (solo se non esiste in odg_oggetti_seduta)
+         SELECT pd2.id_delega,
+                0 AS ordinamento
+           FROM proposte_delibera pd2
+          WHERE pd2.id_proposta_delibera = @ID_PROPOSTA_DELIBERA
+            AND pd2.id_delega IS NOT NULL
+            AND NOT EXISTS (
+                  SELECT 1
+                    FROM odg_oggetti_seduta oos2
+                   WHERE oos2.id_proposta_delibera = @ID_PROPOSTA_DELIBERA
+                )
+         UNION ALL
+         -- Tramite proposte_delibera_deleghe (solo se non esiste in odg_oggetti_seduta)
+         SELECT pdd.id_delega,
+                pdd.id_proposta_delibera_delega AS ordinamento
+           FROM proposte_delibera_deleghe pdd
+          WHERE pdd.id_proposta_delibera = @ID_PROPOSTA_DELIBERA
+            AND NOT EXISTS (
+                  SELECT 1
+                    FROM odg_oggetti_seduta oos2
+                   WHERE oos2.id_proposta_delibera = @ID_PROPOSTA_DELIBERA
+                )
+       ) deleghe_ord
+ WHERE pd.id_proposta_delibera = @ID_PROPOSTA_DELIBERA
+   AND del.valido = 'Y'
+   AND del.id_delega = deleghe_ord.id_delega
+   AND impostazioni_pkg.get_impostazione('DELEGHE_MULTIPLE', pd.ente) = 'Y'
+ ORDER BY deleghe_ord.ordinamento ASC
+        </query>
+
 	</queryes>
 	<staticData />
 </documentRoot>

@@ -40,6 +40,7 @@ class Notifica {
 	// possibilità di invio della notifica:
 	// - email
 	// - jworklist
+	// - PEC
 
 
 	So4Amministrazione 	ente
@@ -111,6 +112,16 @@ class Notifica {
 		perTipo { String tipoNotifica, String oggetto = null ->
 			eq ("tipoNotifica", tipoNotifica)
 			eq ("valido", 		true)
+			if (oggetto != null) {
+				// che bruttura... ma è per evitare brutture ancora peggiori...
+				sqlRestriction "'#'||oggetti||'#' like '%#${oggetto}#%'"
+			}
+		}
+
+		perTipoCommissione { String tipoNotifica, String oggetto, Commissione commissione ->
+			eq ("tipoNotifica", tipoNotifica)
+			eq ("valido", 		true)
+			eq ("commissione.id", commissione.id)
 			if (oggetto != null) {
 				// che bruttura... ma è per evitare brutture ancora peggiori...
 				sqlRestriction "'#'||oggetti||'#' like '%#${oggetto}#%'"

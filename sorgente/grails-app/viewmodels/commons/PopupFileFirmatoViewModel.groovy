@@ -7,7 +7,12 @@ import it.finmatica.atti.documenti.beans.AttiFileDownloader
 import it.finmatica.atti.dto.odg.SedutaStampaDTO
 import it.finmatica.dto.DTO
 import it.finmatica.grails.firmadigitale.FirmaDigitaleService
-import org.zkoss.bind.annotation.*
+import org.zkoss.bind.annotation.Command
+import org.zkoss.bind.annotation.ContextParam
+import org.zkoss.bind.annotation.ContextType
+import org.zkoss.bind.annotation.ExecutionArgParam
+import org.zkoss.bind.annotation.Init
+import org.zkoss.bind.annotation.NotifyChange
 import org.zkoss.zk.ui.event.Events
 import org.zkoss.zul.Filedownload
 import org.zkoss.zul.Window
@@ -50,7 +55,9 @@ class PopupFileFirmatoViewModel {
 		this.solalettura 	= solalettura
 		this.storico 		= storico
 		this.nomeFile 		= nomeFile
-        this.p7m            = fileAllegatoDto.getDomainObject().isP7m()
+		// retro compatibilità
+		//fileAllegatoDto potrebbe essere un FileAllegato o un FileAllegatoStorico
+		this.p7m            = fileAllegatoDto.getDomainObject().firmato || fileAllegatoDto.getDomainObject().isP7m()
 
         // FIXME: ho aggiunto doc instanceof SedutaStampaDTO per fare in fretta ma bisognerà verificare meglio come capire se il documento ha o no un testoOdt.
 		this.copiaTesto		= !storico && ((doc.hasProperty("testoOdt") && doc.testoOdt != null) || doc instanceof SedutaStampaDTO)

@@ -9,7 +9,7 @@
   <window apply="grailsBindComposer"
         viewModel="@id('vm') @init('popupSceltaDelegaViewModel')"
         border="normal"
-        title="Seleziona una delega tra quelle disponibili"
+        title="@load(c:l('label.delega.lista.titolo'))"
         closable="true"
         width="500px"
         height="500px">
@@ -28,10 +28,10 @@
 
 			<listbox vflex="1" model="@load(vm.listaDeleghe)"
 				selectedItem="@bind(vm.selectedRecord)"
-				emptyMessage="Nessuna delega disponibile">
+				emptyMessage="@load(c:l('label.delega.lista.nessunRisultato'))">
 				<listhead>
-					<listheader label="Assessore" />
-					<listheader label="Assessorato" />
+					<listheader label="@load(c:l('label.delega.relatore'))" />
+					<listheader label="@load(c:l('label.delega.assessorato'))" />
 				</listhead>
 				<template name="model" var="s">
 					<listitem onDoubleClick="@command('onSeleziona')">
@@ -47,11 +47,12 @@
 				<button
 					disabled="@load(empty vm.selectedRecord)"
 				 	mold="trendy"
-					label="Seleziona"
+					label="@load(c:l('label.delega.pulsante.aggiungi'))"
 					onClick="@command('onSeleziona')" />
 				<button
 				 	mold="trendy"
-					label="Togli Delega"
+					label="@load(c:l('label.delega.pulsante.togli'))"
+					visible="@load(vm.mostraTogliDelega)"
 					onClick="@command('onTogliDelega')"  />
 				<button
 				 	mold="trendy"

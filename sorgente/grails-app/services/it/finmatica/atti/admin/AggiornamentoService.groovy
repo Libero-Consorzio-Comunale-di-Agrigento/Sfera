@@ -136,9 +136,12 @@ class AggiornamentoService {
 
     def aggiornaAzioni () {
         log.info("Aggiorno le azioni")
+        long inizio = System.currentTimeMillis()
         // per prima cosa valido le azioni così poi quando ricreo quelle "fittizie" le rimetto a Y.
+        log.info("aggiornaAzioni: valido le azioni")
         wkfAzioneService.validaAzioni()
 
+        log.info("aggiornaAzioni: elimino i campi documento (${(System.currentTimeMillis() - inizio) / 1000}s)")
         CampiDocumento.list()*.delete()
 
 		// creo i campi dei documenti:
@@ -166,6 +169,9 @@ class AggiornamentoService {
                               [tipoOggetto: WkfTipoOggetto.get(Delibera.TIPO_OGGETTO), 	        blocco:"SOGGETTI",   		campo:"DIRETTORE_SANITARIO"],
                               [tipoOggetto: WkfTipoOggetto.get(Delibera.TIPO_OGGETTO), 	        blocco:"SOGGETTI",   		campo:"DIRETTORE_GENERALE"],
                               [tipoOggetto: WkfTipoOggetto.get(Delibera.TIPO_OGGETTO), 	        blocco:"SOGGETTI",   		campo:"DIRETTORE_SOCIO_SANITARIO"],
+                              [tipoOggetto: WkfTipoOggetto.get(Delibera.TIPO_OGGETTO), 	        blocco:"SOGGETTI",   		campo:"COMMISSARIO_1"],
+                              [tipoOggetto: WkfTipoOggetto.get(Delibera.TIPO_OGGETTO), 	        blocco:"SOGGETTI",   		campo:"COMMISSARIO_2"],
+                              [tipoOggetto: WkfTipoOggetto.get(Delibera.TIPO_OGGETTO), 	        blocco:"SOGGETTI",   		campo:"COMMISSARIO_3"],
                               [tipoOggetto: WkfTipoOggetto.get(Delibera.TIPO_OGGETTO), 	        blocco:"SOGGETTI",   		campo:"FIRMATARIO"],
                               [tipoOggetto: WkfTipoOggetto.get(Delibera.TIPO_OGGETTO), 	        blocco:"SOGGETTI",   		campo:"PRESIDENTE"],
                               [tipoOggetto: WkfTipoOggetto.get(Delibera.TIPO_OGGETTO), 	        blocco:"SOGGETTI",   		campo:"SEGRETARIO"],
@@ -187,6 +193,9 @@ class AggiornamentoService {
 							  [tipoOggetto: WkfTipoOggetto.get(PropostaDelibera.TIPO_OGGETTO), 	blocco:"TESTO_E_ALLEGATI", 	campo:"DELEGA"],
 							  [tipoOggetto: WkfTipoOggetto.get(VistoParere.TIPO_OGGETTO), 		blocco:"TESTO_E_ALLEGATI", 	campo:"CATEGORIA"],
 							  [tipoOggetto: WkfTipoOggetto.get(Delibera.TIPO_OGGETTO), 			blocco:"TESTO_E_ALLEGATI", 	campo:"CATEGORIA"],
+                              [tipoOggetto: WkfTipoOggetto.get(Determina.TIPO_OGGETTO), 		blocco:"TESTO_E_ALLEGATI", 	campo:"IMPATTO_GENERAZIONALE_ARGOMENTO"],
+                              [tipoOggetto: WkfTipoOggetto.get(PropostaDelibera.TIPO_OGGETTO), 	blocco:"TESTO_E_ALLEGATI", 	campo:"IMPATTO_GENERAZIONALE_ARGOMENTO"],
+                              [tipoOggetto: WkfTipoOggetto.get(Delibera.TIPO_OGGETTO), 	        blocco:"TESTO_E_ALLEGATI", 	campo:"IMPATTO_GENERAZIONALE_ARGOMENTO"],
 							  [tipoOggetto: WkfTipoOggetto.get(Determina.TIPO_OGGETTO), 		blocco:"RISERVATO", 		campo:"RISERVATO"],
 							  [tipoOggetto: WkfTipoOggetto.get(PropostaDelibera.TIPO_OGGETTO), 	blocco:"RISERVATO", 		campo:"RISERVATO"],
 							  [tipoOggetto: WkfTipoOggetto.get(Determina.TIPO_OGGETTO), 		blocco:"RIFERIMENTI", 		campo:"DOCUMENTI_COLLEGATI"],
@@ -234,13 +243,16 @@ class AggiornamentoService {
                               [tipoOggetto: WkfTipoOggetto.get(Delibera.TIPO_OGGETTO), 	        blocco:"ESEGUIBILITA_IMMEDIATA", campo:"ESEGUIBILITA_IMMEDIATA"],
                               [tipoOggetto: WkfTipoOggetto.get(Determina.TIPO_OGGETTO), 	    blocco:"BUDGET",            campo:"BUDGET"],
                               [tipoOggetto: WkfTipoOggetto.get(PropostaDelibera.TIPO_OGGETTO), 	blocco:"BUDGET",            campo:"BUDGET"],
+                              [tipoOggetto: WkfTipoOggetto.get(Delibera.TIPO_OGGETTO), 	        blocco:"BUDGET",            campo:"BUDGET"],
                               [tipoOggetto: WkfTipoOggetto.get(PropostaDelibera.TIPO_OGGETTO), 	blocco:"COMMISSIONE",       campo:"COMMISSIONE"]
         ]
 
+        log.info("aggiornaAzioni: creo ${campidocumenti.size()} campi documento (${(System.currentTimeMillis() - inizio) / 1000}s)")
         for (def c : campidocumenti) {
             CampiDocumento.findOrSaveWhere(c)
         }
 
+        log.info("aggiornaAzioni: aggiorno le azioni dei campi documento (${(System.currentTimeMillis() - inizio) / 1000}s)")
         campiDocumentoAction.aggiornaAzioni();
 
         // creo le azioni per il calcolo dei soggetti:
@@ -261,10 +273,11 @@ class AggiornamentoService {
                          , soggettiUnita : []],
 
                         [tipoOggetto     : WkfTipoOggetto.get(Delibera.TIPO_OGGETTO)
-                         , soggettiUtente: [TipoSoggetto.PRESIDENTE, TipoSoggetto.SEGRETARIO, TipoSoggetto.DIRETTORE_AMMINISTRATIVO, TipoSoggetto.DIRETTORE_SANITARIO, TipoSoggetto.DIRETTORE_GENERALE, TipoSoggetto.FIRMATARIO, TipoSoggetto.DIRETTORE_SOCIO_SANITARIO]
+                         , soggettiUtente: [TipoSoggetto.PRESIDENTE, TipoSoggetto.SEGRETARIO, TipoSoggetto.DIRETTORE_AMMINISTRATIVO, TipoSoggetto.DIRETTORE_SANITARIO, TipoSoggetto.DIRETTORE_GENERALE, TipoSoggetto.FIRMATARIO, TipoSoggetto.DIRETTORE_SOCIO_SANITARIO, TipoSoggetto.COMMISSARIO_1, TipoSoggetto.COMMISSARIO_2, TipoSoggetto.COMMISSARIO_3]
                          , soggettiUnita : []]]
 
         for (def doc : soggetti) {
+            log.info("aggiornaAzioni: creo le azioni dei soggetti per ${doc.tipoOggetto?.codice} (${(System.currentTimeMillis() - inizio) / 1000}s)")
 
             for (def s : doc.soggettiUtente) {
                 wkfAzioneService.insertOrUpdate(new WkfAzione([nome         : "Ritorna l'utente ${s}"
@@ -308,7 +321,9 @@ class AggiornamentoService {
         }
 
         // aggiorno le azioni:
+        log.info("aggiornaAzioni: aggiorno le azioni del configuratore iter (${(System.currentTimeMillis() - inizio) / 1000}s)")
         wkfAzioneService.aggiornaAzioni();
+        log.info("aggiornaAzioni: terminato (${(System.currentTimeMillis() - inizio) / 1000}s)")
     }
 
     def sostituisciVecchieAzioniConNuove (def params) {
@@ -465,13 +480,18 @@ end;""")
         regole << [tipo: RegolaCalcolo.TIPO_LISTA, categoria: TipoSoggetto.CATEGORIA_UNITA, nomeBean: "regolaCalcoloService", nomeMetodo: "getListaUnitaConRuolo", titolo: "Le unità appartenenti all'ottica con almeno un componente con il RUOLO specificato"]
         regole << [tipo: RegolaCalcolo.TIPO_DEFAULT, categoria: TipoSoggetto.CATEGORIA_COMPONENTE, nomeBean: "regolaCalcoloService", nomeMetodo: "getComponenteConRuoloInUnitaEUnitaPadri", titolo: "L'utente con ruolo nell'unità del soggetto e nelle sue unità padri."]
         regole << [tipo: RegolaCalcolo.TIPO_DEFAULT, categoria: TipoSoggetto.CATEGORIA_COMPONENTE, nomeBean: "regolaCalcoloService", nomeMetodo: "getFirmatariSeduta", titolo: "I firmatari delle delibere in seduta."]
+        regole << [tipo: RegolaCalcolo.TIPO_DEFAULT, categoria: TipoSoggetto.CATEGORIA_COMPONENTE, nomeBean: "regolaCalcoloService", nomeMetodo: "getElencoPresidentiConvocati", titolo: "I Presidenti convocati in Seduta."]
 
         regole << [tipo: RegolaCalcolo.TIPO_DEFAULT, categoria: TipoSoggetto.CATEGORIA_COMPONENTE, nomeBean: "regolaCalcoloService", nomeMetodo: "getComponentePresidente", titolo: "Il Presidente della Seduta o quello dichiarato in Commissione."]
         regole << [tipo: RegolaCalcolo.TIPO_DEFAULT, categoria: TipoSoggetto.CATEGORIA_COMPONENTE, nomeBean: "regolaCalcoloService", nomeMetodo: "getComponenteSegretario", titolo: "Il Segretario della Seduta o quello dichiarato in Commissione."]
+        regole << [tipo: RegolaCalcolo.TIPO_DEFAULT, categoria: TipoSoggetto.CATEGORIA_COMPONENTE, nomeBean: "regolaCalcoloService", nomeMetodo: "getComponentePresidenteSegretarioPresente", titolo: "Il Presidente e il Segretario presenti in Seduta."]
         regole << [tipo: RegolaCalcolo.TIPO_DEFAULT, categoria: TipoSoggetto.CATEGORIA_COMPONENTE, nomeBean: "regolaCalcoloService", nomeMetodo: "getComponenteDirettoreAmministrativo", titolo: "Il Direttore Amministrativo in Seduta o quello dichiarato in Commissione."]
         regole << [tipo: RegolaCalcolo.TIPO_DEFAULT, categoria: TipoSoggetto.CATEGORIA_COMPONENTE, nomeBean: "regolaCalcoloService", nomeMetodo: "getComponenteDirettoreSanitario", titolo: "Il Direttore Sanitario in Seduta o quello dichiarato in Commissione."]
         regole << [tipo: RegolaCalcolo.TIPO_DEFAULT, categoria: TipoSoggetto.CATEGORIA_COMPONENTE, nomeBean: "regolaCalcoloService", nomeMetodo: "getComponenteDirettoreGenerale", titolo: "Il Direttore Generale in Seduta o quello dichiarato in Commissione."]
         regole << [tipo: RegolaCalcolo.TIPO_DEFAULT, categoria: TipoSoggetto.CATEGORIA_COMPONENTE, nomeBean: "regolaCalcoloService", nomeMetodo: "getComponenteDirettoreSocioSanitario", titolo: "Il Direttore Socio Sanitario in Seduta o quello dichiarato in Commissione."]
+        regole << [tipo: RegolaCalcolo.TIPO_DEFAULT, categoria: TipoSoggetto.CATEGORIA_COMPONENTE, nomeBean: "regolaCalcoloService", nomeMetodo: "getComponenteCommissario1", titolo: "Il Commissario 1 in Seduta o quello dichiarato in Commissione."]
+        regole << [tipo: RegolaCalcolo.TIPO_DEFAULT, categoria: TipoSoggetto.CATEGORIA_COMPONENTE, nomeBean: "regolaCalcoloService", nomeMetodo: "getComponenteCommissario2", titolo: "Il Commissario 2 in Seduta o quello dichiarato in Commissione."]
+        regole << [tipo: RegolaCalcolo.TIPO_DEFAULT, categoria: TipoSoggetto.CATEGORIA_COMPONENTE, nomeBean: "regolaCalcoloService", nomeMetodo: "getComponenteCommissario3", titolo: "Il Commissario 3 in Seduta o quello dichiarato in Commissione."]
 
         log.info("aggiorno le regole esistenti")
         for (def regola : regole) {

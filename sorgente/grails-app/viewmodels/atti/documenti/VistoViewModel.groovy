@@ -11,6 +11,10 @@ import it.finmatica.atti.dto.documenti.*
 import it.finmatica.atti.exceptions.AttiRuntimeException
 import it.finmatica.atti.impostazioni.*
 import it.finmatica.dto.DTO
+import it.finmatica.ad4.autenticazione.Ad4Utente
+import it.finmatica.atti.dto.documenti.viste.So4DelegaService
+import it.finmatica.gestioneiter.Attore
+import it.finmatica.gestioneiter.configuratore.dizionari.WkfTipoOggetto
 import it.finmatica.gestioneiter.configuratore.iter.WkfCfgIter
 import org.zkoss.bind.BindUtils
 import org.zkoss.bind.annotation.*
@@ -34,6 +38,7 @@ class VistoViewModel extends AbstractViewModel<VistoParere> {
     NotificheService               notificheService
     RegolaCampoService             regolaCampoService
     TokenIntegrazioneService       tokenIntegrazioneService
+    So4DelegaService               so4DelegaService
 
     // componenti
     Window popupCambiaTipologia
@@ -62,6 +67,7 @@ class VistoViewModel extends AbstractViewModel<VistoParere> {
     // gestione contabilità
     boolean conDocumentiContabili = false
     boolean contabilitaAbilitata  = false
+    boolean visContabilita        = true //indica se l'utente può visualizzare il folder della contabilità
     String  zulContabilita
 
     // gestione delle note di trasmissione
@@ -77,16 +83,21 @@ class VistoViewModel extends AbstractViewModel<VistoParere> {
     // indica se il documento deve essere comunque aperto in lettura (delegato)
     boolean forzaCompetenzeLettura
 
+    // utente per conto del quale si sta operando (delega So4)
+    Ad4Utente delegante
+
     @NotifyChange(["visto"])
     @Init
     void init (
             @ContextParam(ContextType.COMPONENT) Window w,
             @ExecutionArgParam("id") long idVisto,
-            @ExecutionArgParam("documento") def d, @ExecutionArgParam("idDocumentoEsterno") Long idDocumentoEsterno, @ExecutionArgParam("competenzeLettura") Boolean competenzeLettura) {
+            @ExecutionArgParam("documento") def d, @ExecutionArgParam("idDocumentoEsterno") Long idDocumentoEsterno, @ExecutionArgParam("competenzeLettura") Boolean competenzeLettura,
+            @ExecutionArgParam("delegante") Ad4Utente delegante) {
         this.self = w
 
         firmaRemotaAbilitata = Impostazioni.FIRMA_REMOTA.abilitato;
         forzaCompetenzeLettura = competenzeLettura
+        this.delegante = delegante
 
         if (idVisto != null) {
             visto = new VistoParereDTO([id: idVisto])
@@ -305,7 +316,7 @@ class VistoViewModel extends AbstractViewModel<VistoParere> {
             eq("vistoParere.id", visto.id)
             order("sequenza", "asc")
             order("titolo", "asc")
-        }.toDTO()
+        }.toDTO(['fileAllegati'])
         BindUtils.postNotifyChange(null, null, this, "listaAllegati")
     }
 
@@ -349,7 +360,7 @@ class VistoViewModel extends AbstractViewModel<VistoParere> {
     @Command
     void onSalva () {
         if (soggetti[TipoSoggetto.UO_DESTINATARIA] == null || soggetti[TipoSoggetto.FIRMATARIO] == null) {
-            throw new AttiRuntimeException("Attenzione<br />Unità destinataria e firmatario sono obbligatori")
+            throw new AttiRuntimeException("Attenzione: unità destinataria e firmatario sono obbligatori")
         }
 
         VistoParere.withTransaction {
@@ -429,6 +440,17 @@ class VistoViewModel extends AbstractViewModel<VistoParere> {
                     "L'utente ${springSecurityService.principal.username} non ha i diritti di lettura sul documento con id ${v.id}")
         }
 
+        if (hasDelegaValida()) {
+            if (v.statoFirma == StatoFirma.DA_FIRMARE) {
+                gestoreCompetenze.assegnaCompetenze(v, WkfTipoOggetto.get(VistoParere.TIPO_OGGETTO), new Attore(utenteAd4: springSecurityService.principal.soggetto.utenteAd4), true, true, false, null)
+                competenze.modifica = true
+            } else {
+                // il documento è stato rimandato indietro: il delegante non ha più diritti di modifica
+                competenze.modifica = false
+                forzaCompetenzeLettura=false
+            }
+        }
+
         if (v.statoFirma == StatoFirma.IN_FIRMA || v.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE || v.statoFirma == StatoFirma.FIRMATO) {
             competenze.modifica = false
             competenze.cancellazione = false
@@ -467,6 +489,14 @@ class VistoViewModel extends AbstractViewModel<VistoParere> {
         if (contabilitaAbilitata) {
             conDocumentiContabili = integrazioneContabilita.isConDocumentiContabili(v)
             zulContabilita = integrazioneContabilita.getZul(v)
+            //se l'utente non può vedere i riservati e la tipologia prevede questo controllo, allora non potrà visualizzare il folder contabilità
+            def documentoPrincipale = v.documentoPrincipale
+            if (documentoPrincipale.riservato) {
+                def tipologiaDocumento = documentoPrincipale.tipologiaDocumento
+                if (tipologiaDocumento?.contabilitaCheckRiservato) {
+                    visContabilita = gestoreCompetenze.utenteCorrenteVedeRiservato(documentoPrincipale)
+                }
+            }
             aggiornaContabilita(v)
 
             BindUtils.postNotifyChange(null, null, this, "conDocumentiContabili")
@@ -491,5 +521,9 @@ class VistoViewModel extends AbstractViewModel<VistoParere> {
         BindUtils.postNotifyChange(null, null, this, "soggetti")
         BindUtils.postNotifyChange(null, null, this, "isNotificaPresente")
         BindUtils.postNotifyChange(null, null, this, "contabilitaAbilitata")
+    }
+
+    private boolean hasDelegaValida() {
+        return delegante != null && !so4DelegaService.getDeleghe(springSecurityService.currentUser, delegante).isEmpty()
     }
 }

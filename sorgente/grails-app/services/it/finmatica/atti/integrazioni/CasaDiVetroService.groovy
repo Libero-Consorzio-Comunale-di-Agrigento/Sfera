@@ -7,24 +7,19 @@ import it.finmatica.atti.IDocumentoEsterno
 import it.finmatica.atti.IGestoreFile
 import it.finmatica.atti.commons.FileAllegato
 import it.finmatica.atti.documenti.*
+import it.finmatica.atti.exceptions.AttiRuntimeException
 import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.impostazioni.TipoSoggetto
 import it.finmatica.atti.integrazioni.l190.CasaDiVetroConfig
 import it.finmatica.atti.integrazioniws.ads.l190.PubblicaAttoService
-import it.finmatica.atti.integrazioniws.ads.l190.PubblicaAttoServiceName
 import it.finmatica.atti.integrazioniws.ads.l190.WSPasswordEncrypter
+import it.finmatica.atti.utility.InvioMail
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.IOUtils
-import org.apache.cxf.endpoint.Client
-import org.apache.cxf.frontend.ClientProxy
-import org.apache.cxf.transport.http.HTTPConduit
-import org.apache.cxf.transports.http.configuration.HTTPClientPolicy
 
 import javax.activation.DataHandler
 import javax.activation.FileDataSource
 import javax.sql.DataSource
-import javax.xml.ws.BindingProvider
-import javax.xml.ws.soap.SOAPBinding
 
 class CasaDiVetroService {
 
@@ -41,8 +36,8 @@ class CasaDiVetroService {
     private static String QUERY_CONTRATTI                    = '''select 1 from l190_contratti where cig = :cig and numero_proposta = :numero_proposta and anno_proposta = :anno_proposta'''
     //private static String QUERY_CONTRATTI_DATA_INIZIO_LAVORI = '''select 1 from l190_contratti where data_inizio is null and cig = :cig and numero_proposta = :numero_proposta and anno_proposta = :anno_proposta'''
     private static String QUERY_CONTRATTI_DATA_INIZIO_LAVORI = '''select 1 from l190_contratti where data_inizio is null and cig = :cig'''
-
-
+    private static String QUERY_SUPERAMENTO_SOGLIA_AFFIDI = '''select l190_controlla_contr_soglia (null, :p_anno_proposta, :p_numero_proposta, :p_registro_proposta) messaggio from dual'''
+    
     DataSource dataSource
 
     String login (String username) {
@@ -117,6 +112,7 @@ class CasaDiVetroService {
 
     private String getCodici (IProposta proposta) {
         String codicePubblicazione
+        String risultato = ""
         if (proposta instanceof PropostaDelibera) {
             codicePubblicazione = casaDiVetroConfig.getTipologia(proposta, casaDiVetroConfig.getSezioneDelibere())
         } else if (proposta instanceof Determina) {
@@ -125,7 +121,29 @@ class CasaDiVetroService {
 
         String codiciOggettiRicorrenti = proposta.oggettoRicorrente?.id ? casaDiVetroConfig.getOggettoRicorrente(proposta, null) : null;
 
-        return codiciOggettiRicorrenti ?: casaDiVetroConfig.getCategoria(proposta) ?: codicePubblicazione
+        //se l'impostazione stabilisce che l'atto va in tutte le sezioni, allora concateno il risultato (verificando che la mappatura sia presente)
+        if (casaDiVetroConfig.getSezioneTutte()) {
+            if (codiciOggettiRicorrenti)
+                risultato = codiciOggettiRicorrenti
+            if (casaDiVetroConfig.getCategoria(proposta)) {
+                if (risultato)
+                    risultato = risultato +','+casaDiVetroConfig.getCategoria(proposta)
+                else
+                    risultato = casaDiVetroConfig.getCategoria(proposta)
+            }
+            if (codicePubblicazione) {
+                if (risultato)
+                    risultato = risultato +','+codicePubblicazione
+                else
+                    risultato = codicePubblicazione
+            }
+        }
+        else {
+            //se il documento deve essere pubblicato solo in una sezione seguo una priorità (oggetto_ricorrente - categoria - default sezione)
+            risultato = codiciOggettiRicorrenti ?: casaDiVetroConfig.getCategoria(proposta) ?: codicePubblicazione
+        }
+
+        return risultato
     }
 
     String getUrlDocumento (IDocumento doc) {
@@ -243,6 +261,31 @@ class CasaDiVetroService {
         }
     }
 
+    void collegaSezione (def documento) {
+        IProposta proposta = (documento instanceof IAtto) ? documento.proposta : documento;
+        IAtto atto = (documento instanceof IAtto) ? documento : documento.atto;
+
+        PubblicaAttoService port = l190ServiceClient
+        String token = login(port, casaDiVetroConfig.getUtenteWebService())
+        try {
+
+            // se l'atto è stato già portato sulla casa di vetro, non lo reinserisco.
+//            if (esisteAtto(port, proposta)) {
+//                return;
+//            }
+            port.collegaSezione(
+                    token
+                    , String.valueOf(proposta.annoProposta)
+                    , String.valueOf(proposta.numeroProposta)
+                    , proposta.registroProposta.codice
+                    , getCodici(proposta)
+            );
+
+        } finally {
+            logout(port, token);
+        }
+    }
+
     void aggiorna (def documento) {
         IProposta proposta = (documento instanceof IAtto) ? documento.proposta : documento;
         IAtto atto = (documento instanceof IAtto) ? documento : documento.atto;
@@ -290,8 +333,9 @@ class CasaDiVetroService {
 
     void pubblica (IAtto doc) {
         PubblicaAttoService port = l190ServiceClient
-        String token = login(port, casaDiVetroConfig.getUtenteWebService())
+        String token = null
         try {
+            token = login(port, casaDiVetroConfig.getUtenteWebService())
 
             // se l'atto non è stato già portato sulla casa di vetro, non lo pubblico.
             if (!esisteAtto(port, doc.proposta, token)) {
@@ -327,9 +371,30 @@ class CasaDiVetroService {
                          , doc.proposta.getSoggetto(TipoSoggetto.UO_PROPONENTE)?.unitaSo4?.ottica?.codice ?: ""
             );
 
-        } finally {
-            logout(port, token);
+        }catch(Throwable e){
+            log.error("Errore in fase di pubblicazione in casa di vetro: ${e.getMessage()}", e)
+            InvioMail.inviaMailErrori("Errore in fase di pubblicazione in casa di vetro"
+                    ,getDatiAtto(doc,e.getMessage()) + "\n Utente operazione: " + springSecurityService.currentUser?.id
+                    ,e.getStackTrace().toString())
+            throw new AttiRuntimeException("Errore in fase di pubblicazione in casa di vetro: ${e.message ?: e.class.simpleName}", e)
+        }finally {
+            if (token != null) {
+                logout(port, token);
+            }
         }
+    }
+
+    static String getDatiAtto(def doc,String message) {
+        String ret = ""
+        ret = "Id: " + doc.id
+        def proposta = (doc instanceof IAtto) ? doc.proposta : doc;
+        ret += "\nTipologia: " + proposta.tipologiaDocumento.titolo
+        ret += "\nAnno Proposta: " + proposta.annoProposta
+        ret += "\nNumero Proposta: " + proposta.numeroProposta
+        if(message!=null && message.length()>0){
+            ret+="\n Dettaglio Errore: "+ message
+        }
+        return ret;
     }
 
     void aggiungiAllegati (PubblicaAttoService port, def doc) {
@@ -376,9 +441,9 @@ class CasaDiVetroService {
 
         // aggiungo gli allegati se l'impostazione lo richiede.
         if (Impostazioni.CASA_DI_VETRO_PUBBLICA_ALLEGATI.abilitato) {
-            for (Allegato allegato : atto.allegati) {
+            for (Allegato allegato : atto.allegati.sort{ it.sequenza }) {
                 if (allegato.valido && (!allegato.riservato || Impostazioni.CASA_DI_VETRO_RISERVATI.abilitato) && allegato.pubblicaCasaDiVetro) {
-                    for (FileAllegato fileAllegato : allegato.fileAllegati) {
+                    for (FileAllegato fileAllegato : allegato.fileAllegati.sort{ it.id }) {
                         aggiungiFileAllegato(port, token, atto, allegato, fileAllegato, false);
                     }
                 }
@@ -405,9 +470,9 @@ class CasaDiVetroService {
                 }
 
                 if (Impostazioni.CASA_DI_VETRO_PUBBLICA_ALLEGATI_VISTO.abilitato) {
-                    for (Allegato allegato : visto.allegati) {
+                    for (Allegato allegato : visto.allegati.sort{ it.sequenza }) {
                         if (allegato.valido && (!allegato.riservato || Impostazioni.CASA_DI_VETRO_RISERVATI.abilitato)) {
-                            for (FileAllegato fileAllegato : allegato.fileAllegati) {
+                            for (FileAllegato fileAllegato : allegato.fileAllegati.sort{ it.id }) {
                                 if (fileAllegato != null) {
                                     aggiungiFileAllegato(port, token, atto, allegato, fileAllegato, false);
                                 }
@@ -441,7 +506,9 @@ class CasaDiVetroService {
     }
 
     private void aggiungiDocumentoPrincipale (PubblicaAttoService port, String token, IAtto atto, FileAllegato file) {
-        aggiungiFileAllegato(port, token, atto, atto, file, true)
+        if (file) {
+            aggiungiFileAllegato(port, token, atto, atto, file, true)
+        }
     }
 
     private void aggiungiFileAllegato (PubblicaAttoService port, token, IAtto atto, IDocumentoEsterno documentoEsterno, FileAllegato file, boolean filePrincipale) {
@@ -481,5 +548,11 @@ class CasaDiVetroService {
     boolean esisteContrattoSenzaDataInizio (String cig, Long numero_proposta, Long anno_proposta) {
         Sql sql = new Sql(dataSource);
         return sql.rows(QUERY_CONTRATTI_DATA_INIZIO_LAVORI, [cig: cig, numero_proposta: numero_proposta, anno_proposta: anno_proposta]).size() > 0
+    }
+
+    //:p_anno_riferimento, :p_anno_proposta, :p_numero_proposta, :p_registro_proposta
+    String superamentoSogliaAvvisi (Long annoProposta, Long numeroProposta, String registroProposta) {
+        Sql sql = new Sql(dataSource);
+        return sql.rows(QUERY_SUPERAMENTO_SOGLIA_AFFIDI, [p_anno_proposta: annoProposta, p_numero_proposta: numeroProposta, p_registro_proposta: registroProposta ])[0].messaggio
     }
 }

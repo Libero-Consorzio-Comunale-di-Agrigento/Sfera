@@ -13,12 +13,13 @@ class MappingIntegrazioneDTOService {
         MappingIntegrazione mappingIntegrazione = MappingIntegrazione.get(mappingIntegrazioneDto.id) ?: new MappingIntegrazione()
 
         // se non ho il valore esterno, non tento neanche di salvare il nuovo mapping
-        if (!(mappingIntegrazioneDto.id > 0) && (mappingIntegrazioneDto.valoreEsterno == null || mappingIntegrazioneDto.valoreEsterno.trim().length() == 0)) {
+        /*
+        if (!(mappingIntegrazioneDto?.id.toLong() > 0) && (mappingIntegrazioneDto.valoreEsterno == null || mappingIntegrazioneDto.valoreEsterno.trim().length() == 0)) {
             return null
         }
+        */
 
-        if (mappingIntegrazione.id > 0 && (mappingIntegrazioneDto.valoreEsterno == null || mappingIntegrazioneDto.valoreEsterno.trim().length() == 0)) {
-            mappingIntegrazione.delete()
+        if (mappingIntegrazione?.id == null && (mappingIntegrazioneDto.valoreEsterno == null || mappingIntegrazioneDto.valoreEsterno.trim().length() == 0)) {
             return null
         }
 
@@ -27,7 +28,20 @@ class MappingIntegrazioneDTOService {
         mappingIntegrazione.valoreInterno = mappingIntegrazioneDto.valoreInterno
         mappingIntegrazione.valoreEsterno = mappingIntegrazioneDto.valoreEsterno
         mappingIntegrazione.descrizione = mappingIntegrazioneDto.descrizione
-        mappingIntegrazione.save()
+
+        if (mappingIntegrazione.id == null) {
+            mappingIntegrazione.id = -RandomUtils.nextInt()
+        }
+
+        if (mappingIntegrazione.valoreEsterno == null) {
+            if (mappingIntegrazioneDto) {
+                elimina(mappingIntegrazioneDto)
+            }
+        }
+        else {
+            mappingIntegrazione.save()
+        }
+
         return mappingIntegrazione.toDTO()
     }
 
@@ -53,29 +67,35 @@ class MappingIntegrazioneDTOService {
         // faccio il "merge" tra i parametri dell'integrazione e quelli effettivamente inseriti su db:
         List<Map> tabs = []
         Map dati = [titolo: "Dati Integrazione", valori: []]
-        for (ParametroIntegrazione par : integrazione.listaParametri) {
-            if (par.multiplo) {
-                Map tab = [titolo: par.titolo, parametro: par, valori: []]
-                tabs << tab
-                if(par.titolo.equals(tabSelected)) {
-                    List<MappingIntegrazioneDTO> parametri = MappingIntegrazione.findAllByCategoriaAndCodice(integrazione.codice, par.codice)?.toDTO()
-                    List elenco = par.lookup.valori
-                    for (MappingIntegrazioneDTO parametro : parametri){
-                        parametro.descrizione = elenco.find { it.codice == parametro.valoreInterno}?.descrizione + " ("+parametro.valoreInterno+")"
-                    }
+        if (integrazione.listaParametri) {
+            for (ParametroIntegrazione par : integrazione.listaParametri) {
+                if (par.multiplo) {
+                    Map tab = [titolo: par.titolo, parametro: par, valori: []]
+                    tabs << tab
+                    //se il parametro riguarda il tab selezionato, oppure sono nel primo tab e il parametro � indicato come visibile in prima pagina
+                    if(par.titolo.equals(tabSelected) || ("".equals(tabSelected) && par.visibilePrimoTab)) {
+                        List<MappingIntegrazioneDTO> parametri = MappingIntegrazione.findAllByCategoriaAndCodice(integrazione.codice, par.codice)?.toDTO()
+                        List elenco = par.lookup.valori
+                        for (MappingIntegrazioneDTO parametro : parametri){
+                            parametro.descrizione = elenco.find { it.codice == parametro.valoreInterno}?.descrizione + " ("+parametro.valoreInterno+")"
+                        }
 
-                    tab.valori.addAll(parametri.sort {it.descrizione} )
-                tab.valori*.setParametroIntegrazione(par)
-                }
-            } else if(!par.multiplo) {
-                MappingIntegrazioneDTO parametro = MappingIntegrazione.findByCategoriaAndCodice(integrazione.codice, par.codice)?.toDTO()
-                if (parametro == null) {
-                    dati.valori << new MappingIntegrazioneDTO(id: -RandomUtils.nextInt(), codice: par.codice, categoria: integrazione.codice, parametroIntegrazione: par, valoreInterno: par.lookup.valori[0].codice)
-                } else {
-                    parametro.parametroIntegrazione = par
-                    dati.valori << parametro
+                        tab.valori.addAll(parametri.sort {it.descrizione} )
+                    tab.valori*.setParametroIntegrazione(par)
+                    }
+                } else if(!par.multiplo) {
+                    MappingIntegrazioneDTO parametro = MappingIntegrazione.findByCategoriaAndCodice(integrazione.codice, par.codice)?.toDTO()
+                    if (parametro == null) {
+                        dati.valori << new MappingIntegrazioneDTO(id: -RandomUtils.nextInt(), codice: par.codice, categoria: integrazione.codice, parametroIntegrazione: par, valoreInterno: par.lookup.valori[0].codice)
+                    } else {
+                        parametro.parametroIntegrazione = par
+                        dati.valori << parametro
+                    }
                 }
             }
+        }
+        else {
+            //
         }
 
         if (dati.valori.size() > 0) {

@@ -59,7 +59,7 @@ class AllegatoViewModel {
 	FileAllegatoDTO testo
 	boolean	abilitaCercaDocumenti
 	boolean riservatoModificabile
-	boolean abilitaRiservato
+	boolean riservatoVisibile
 	boolean abilitaConversionePdf
 	boolean abilitaModificaPubblicazione
 	
@@ -73,13 +73,15 @@ class AllegatoViewModel {
 	boolean forzaCompetenzeLettura
 	String paginaLog
 
+	boolean soloPdf = true
+	boolean padesBloccatoStatoDaNonFirmare = false
+
 	@NotifyChange(["allegato", "listaTipoAllegato", "abilitaCreaFascicolo"])
     @Init init(@ContextParam(ContextType.COMPONENT) Window w, @ExecutionArgParam("id") long idAllegato, @ExecutionArgParam("documento") def documento, @ExecutionArgParam("competenzeLettura") Boolean competenzeLettura, @ExecutionArgParam("paginaLog") String paginaLog) {
 		this.self = w
 
 		this.documento			= documento;
-		abilitaRiservato 		= Impostazioni.RISERVATO.abilitato
-		riservatoModificabile	= abilitaRiservato;
+		riservatoVisibile 		= Impostazioni.RISERVATO.abilitato
 		abilitaCasaDiVetro 		= Impostazioni.INTEGRAZIONE_CASA_DI_VETRO.abilitato
 		abilitaConversionePdf   = Impostazioni.ALLEGATO_CONVERTI_PDF.abilitato
 
@@ -89,13 +91,20 @@ class AllegatoViewModel {
 
 		if (documento instanceof DeterminaDTO) {
 			tipoDocumento = "determina"
+			riservatoModificabile = riservatoVisibile && documento.domainObject.tipologiaDocumento.gestioneRiservatoAllegati
 		} else if(documento instanceof PropostaDeliberaDTO) {
 			tipoDocumento = "propostaDelibera"
+			riservatoModificabile = riservatoVisibile && documento.domainObject.tipologiaDocumento.gestioneRiservatoAllegati
 		} else if(documento instanceof DeliberaDTO) {
 			tipoDocumento = "delibera"
+			riservatoModificabile = riservatoVisibile && documento.domainObject.proposta.tipologiaDocumento.gestioneRiservatoAllegati
 		} else if(documento instanceof VistoParereDTO) {
 			tipoDocumento = "vistoParere"
+			riservatoModificabile = riservatoVisibile && documento.domainObject.documentoPrincipale.tipologiaDocumento.gestioneRiservatoAllegati
 		}
+
+		caricaListaTipoAllegato()
+		listaTipoAllegato.add(0, new TipoAllegatoDTO([id: null, titolo: ""]))
 
 		if (idAllegato > 0) {
 			Allegato a 	= Allegato.get(idAllegato)
@@ -107,7 +116,9 @@ class AllegatoViewModel {
 			allegato 	= a.toDTO()
 			ricaricaFileAllegati()
 			// verifico che l'utente possa gestire il riservato:
-			riservatoModificabile 	= (!allegato.riservato || gestoreCompetenze.utenteCorrenteVedeRiservato(a.getDocumentoPrincipale()));
+			if (riservatoModificabile) {
+				riservatoModificabile 	= (!allegato.riservato || gestoreCompetenze.utenteCorrenteVedeRiservato(a.getDocumentoPrincipale()) || gestoreCompetenze.utenteCorrenteHaRuoloRiservatoInTipologia(a.getDocumentoPrincipale()))
+			}
 		} else {
 			allegato = new AllegatoDTO([id: idAllegato, (tipoDocumento): documento, valido:true])
 			competenze = [lettura: true, modifica: true, cancellazione: true]
@@ -117,11 +128,17 @@ class AllegatoViewModel {
 			allegato.quantita 		= 1
 			allegato.statoFirma 	= Impostazioni.ALLEGATO_STATO_FIRMA_DEFAULT.valore
 			allegato.sequenza 		= caricaNumeroSequenza(documento)
-			allegato.riservato		= abilitaRiservato && Impostazioni.RISERVATO_DEFAULT.abilitato
+			allegato.riservato		= riservatoVisibile && riservatoModificabile && Impostazioni.RISERVATO_DEFAULT.abilitato
 
 			allegato.pubblicaCasaDiVetro = Impostazioni.INTEGRAZIONE_CASA_DI_VETRO.abilitato && documento.domainObject.tipologiaDocumento.pubblicazione && documento.domainObject.tipologiaDocumento.pubblicaAllegati
 			allegato.pubblicaAlbo = documento.domainObject.tipologiaDocumento.pubblicazione && documento.domainObject.tipologiaDocumento.pubblicaAllegati && documento.domainObject.tipologiaDocumento.pubblicaAllegatiDefault
 			allegato.pubblicaVisualizzatore = allegato.pubblicaAlbo
+
+			if(documento instanceof VistoParereDTO) {
+				allegato.tipoAllegato = documento.domainObject.tipologiaDocumento.tipoAllegato?.toDTO()
+
+				onCambiaTipoAllegato()
+			}
 		}
 
 		if ((allegato.codice == Allegato.ALLEGATO_OMISSIS || allegato.codice == Allegato.ALLEGATO_SCHEDA_CONTABILE  || allegato.codice == Allegato.ALLEGATO_MODIFICABILE) && fileAllegati.size() > 0) {
@@ -132,9 +149,7 @@ class AllegatoViewModel {
 		abilitaModificaPubblicazione = documento.domainObject.tipologiaDocumento.pubblicaAllegati;
 
 		// inizializzo i parametri necessari all'accettazione dell'allegato inserito
-		uploadAttributeValue	= "true,maxsize=${(Integer.parseInt(Impostazioni.ALLEGATO_DIMENSIONE_MASSIMA.valore)*1024)}, native"
-
-		caricaListaTipoAllegato()
+		uploadAttributeValue = "true,maxsize=${(Integer.parseInt(Impostazioni.ALLEGATO_DIMENSIONE_MASSIMA.valore)*1024)}, native"
     }
 
 	@NotifyChange(["allegato", "modificaCampi"])
@@ -145,12 +160,12 @@ class AllegatoViewModel {
 			return
 		}
 
-		allegato.pubblicaCasaDiVetro = allegato.tipoAllegato.pubblicaCasaDiVetro && Impostazioni.INTEGRAZIONE_CASA_DI_VETRO.abilitato && documento.domainObject.tipologiaDocumento.pubblicazione && documento.domainObject.tipologiaDocumento.pubblicaAllegati
-		allegato.pubblicaAlbo 		= allegato.tipoAllegato.pubblicaAlbo && documento.domainObject.tipologiaDocumento.pubblicazione && documento.domainObject.tipologiaDocumento.pubblicaAllegati && documento.domainObject.tipologiaDocumento.pubblicaAllegatiDefault
+		allegato.pubblicaCasaDiVetro 	= allegato.tipoAllegato.pubblicaCasaDiVetro && Impostazioni.INTEGRAZIONE_CASA_DI_VETRO.abilitato && documento.domainObject.tipologiaDocumento.pubblicazione && documento.domainObject.tipologiaDocumento.pubblicaAllegati
+		allegato.pubblicaAlbo 			= allegato.tipoAllegato.pubblicaAlbo && documento.domainObject.tipologiaDocumento.pubblicazione && documento.domainObject.tipologiaDocumento.pubblicaAllegati //&& documento.domainObject.tipologiaDocumento.pubblicaAllegatiDefault
 		allegato.pubblicaVisualizzatore = allegato.tipoAllegato.pubblicaVisualizzatore
-		allegato.stampaUnica		 = allegato.tipoAllegato.stampaUnica
-		allegato.statoFirma			 = allegato.tipoAllegato.statoFirma ?: Impostazioni.ALLEGATO_STATO_FIRMA_DEFAULT.valore
-		allegato.codice				 = allegato.tipoAllegato.codice
+		allegato.stampaUnica		 	= allegato.tipoAllegato.stampaUnica
+		allegato.statoFirma			 	= allegato.tipoAllegato.statoFirma ?: Impostazioni.ALLEGATO_STATO_FIRMA_DEFAULT.valore
+		allegato.codice				 	= allegato.tipoAllegato.codice
 
 		modificaCampi = allegato.tipoAllegato.modificaCampi
 	}
@@ -199,6 +214,7 @@ class AllegatoViewModel {
 	}
 
 	private void ricaricaFileAllegati () {
+
 		fileAllegati = Allegato.createCriteria().list {
 			projections {
 				fileAllegati {
@@ -222,7 +238,28 @@ class AllegatoViewModel {
 				order("id", "asc")
 			}
 		}.collect { row -> new FileAllegatoDTO(nome: row[0], id: row[1], contentType: row[2], modificabile:row[3], firmato:row[4], dimensione:row[5], version: row[6]) }
+
 		BindUtils.postNotifyChange(null, null, this, "fileAllegati")
+
+		if (Impostazioni.FIRMA_PADES.abilitato && Impostazioni.PADES_FIRMA_ALLE_CON_SOLO_PDF.abilitato) {
+			padesBloccatoStatoDaNonFirmare = false
+			soloPdf = true
+			for (FileAllegatoDTO f : fileAllegati) {
+				if (!f.isPdf()) {
+					soloPdf = false
+					break
+				}
+			}
+			if (!soloPdf && allegato.statoFirma == StatoFirma.DA_FIRMARE) {
+				allegato.statoFirma = StatoFirma.DA_NON_FIRMARE
+				BindUtils.postNotifyChange(null, null, this, "allegato.statoFirma")
+			}
+			if (!soloPdf && (allegato.statoFirma == StatoFirma.DA_NON_FIRMARE)) {
+				padesBloccatoStatoDaNonFirmare = true
+			}
+			BindUtils.postNotifyChange(null, null, this, "padesBloccatoStatoDaNonFirmare")
+		}
+
 	}
 
 	@NotifyChange(["fileAllegati", "allegato"])
@@ -396,7 +433,7 @@ class AllegatoViewModel {
 
 	@NotifyChange("allegato")
 	@Command onSalva () {
-		boolean presenzaFormatiFileEscludi
+		boolean presenzaFormatiFileEscludi = false
 
 		if (!validaMaschera()) {
 			return true;
@@ -404,15 +441,21 @@ class AllegatoViewModel {
 		
 		// controllo se ci sono file non permessi in stampa unica
 		// se si, blocco e avviso
-		for (i in  fileAllegati.first()) {
-			if (Impostazioni.SU_FORMATI_ESCLUSI.valori.contains(FilenameUtils.getExtension(i.nome).toLowerCase())) {
-				presenzaFormatiFileEscludi = true
+		if (allegato.stampaUnica) {
+			for (i in  fileAllegati) {
+				if (!presenzaFormatiFileEscludi) {
+					for (v in Impostazioni.SU_FORMATI_ESCLUSI.valori) {
+						if (v.toLowerCase() == FilenameUtils.getExtension(i.nome).toLowerCase()) {
+							presenzaFormatiFileEscludi = true
+						}
+					}
+				}
 			}
-		}
 
-		if (presenzaFormatiFileEscludi && allegato.stampaUnica) {
-			Clients.showNotification("Sono presenti file con estensione non ammessa in Stampa Unica.", Clients.NOTIFICATION_TYPE_ERROR, self, "before_center", 3000, true);
-			return false
+			if (presenzaFormatiFileEscludi) {
+				Clients.showNotification("Sono presenti file con estensione non ammessa in Stampa Unica.", Clients.NOTIFICATION_TYPE_ERROR, self, "before_center", 3000, true);
+				return false
+			}
 		}
 
 		allegato = allegatoDTOService.salva(allegato).toDTO()
@@ -466,4 +509,5 @@ class AllegatoViewModel {
 			operazioniLogService.creaLog(allegato.id, Allegato.TIPO_OGGETTO, paginaLog, operazione, descrizione)
 		}
 	}
+
 }

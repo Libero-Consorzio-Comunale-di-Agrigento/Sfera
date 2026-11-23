@@ -46,6 +46,28 @@
 									<textbox mold="rounded" value="@bind(vm.selectedRecord.descrizioneAssessorato)" hflex="1" disabled="@load(not vm.modificabile)"/>
 								</cell>
 							</row>
+							<row>
+								<cell align="right">
+									<h:span class="mandatoryLabel">*</h:span><label value="Sequenza"/>
+								</cell>
+								<cell colspan="2">
+								    <spinner value="@bind(vm.selectedRecord.sequenza)" format=",###" constraint="min 0" disabled="@load(not vm.modificabile)" />
+								</cell>
+							</row>
+							<row>
+								<cell align="right"><label value="Categoria Delega"/></cell>
+								<cell>
+									<combobox hflex="1"
+											  selectedItem="@bind(vm.categoriaDelega) @converter('it.finmatica.zkutils.PropertyConverter', property='id')"
+											  model="@load(vm.listaCategorieDeleghe)"
+											  disabled="@load(not vm.modificabile)"
+									>
+										<template name="model">
+											<comboitem label="@load(each.titolo)" value="@load(each)" />
+										</template>
+									</combobox>
+								</cell>
+							</row>
 						</rows>
 					</grid>
 				</tabpanel>

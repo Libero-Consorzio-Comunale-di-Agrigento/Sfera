@@ -5,6 +5,7 @@ import it.finmatica.atti.documenti.IDocumento;
 import it.finmatica.atti.documenti.IProposta;
 
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface IntegrazioneContabilita {
@@ -95,4 +96,8 @@ public interface IntegrazioneContabilita {
 	 */
 	boolean isMovimentiCigCompleti(IDocumento documento);
 
+	/**
+	 * Restituisce la somma degli importi di entrata e uscita (usata da Contabilitò Sfera
+	 */
+	BigDecimal totaleImporto(IDocumento documento, String tipo);
 }

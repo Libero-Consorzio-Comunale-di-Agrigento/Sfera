@@ -5,7 +5,6 @@ import grails.util.Holders
 import it.finmatica.ad4.autenticazione.Ad4Ruolo
 import it.finmatica.ad4.autenticazione.Ad4Utente
 import it.finmatica.atti.dizionari.TipoRegistro
-import it.finmatica.gestionetesti.reporter.GestioneTestiModello
 import it.finmatica.so4.struttura.So4Amministrazione
 
 /**
@@ -24,12 +23,17 @@ class Commissione {
 	Ad4Ruolo 	 ruoloCompetenze		// indica il ruolo SO4 che ha diritto di gestione sulla seduta di questa commissione
 	Ad4Ruolo 	 ruoloVisualizza		// indica il ruolo SO4 che ha diritto di visualizzare tutti i dati delle sedute su AGSVIS
 
-	boolean secondaConvocazione = false // indica se la commissione prevede una seconda convocazione
-	boolean sedutaPubblica		= true  // indica se la seduta è pubblica o no. Se è pubblica e se è pubblicaWeb=true, allora anche gli utenti anonimi potranno visualizzare la seduta dal visualizzatore.
-	boolean pubblicaWeb 		= true  // indica se le sedute della commissione devono essere visibili dal visualizzatore
-	boolean ruoliObbligatori    = true  // indica se i ruoli PRESIDENTE e SEGRETARIO siano obbligatori
-	boolean votoPresidente      = true  // indica se il PRESIDENTE deve poter votare
-	boolean controlloFirmatari  = true  // indica se bloccare l'attivazione se non sono presenti tutti i firmatari dell'atto
+	boolean secondaConvocazione 		= false // indica se la commissione prevede una seconda convocazione
+	boolean sedutaPubblica				= true  // indica se la seduta è pubblica o no. Se è pubblica e se è pubblicaWeb=true, allora anche gli utenti anonimi potranno visualizzare la seduta dal visualizzatore.
+	boolean pubblicaWeb 				= true  // indica se le sedute della commissione devono essere visibili dal visualizzatore
+	boolean ruoliObbligatori    		= true  // indica se i ruoli PRESIDENTE e SEGRETARIO siano obbligatori
+	boolean votoPresidente      		= true  // indica se il PRESIDENTE deve poter votare
+	boolean controlloFirmatari  		= true  // indica se bloccare l'attivazione se non sono presenti tutti i firmatari dell'atto
+	boolean firmatariPresenti   		= true  // indica se i firmatari devono essere presenti in discussione dell'oggetto seduta. True: devono essere presenti
+	boolean singoloPresidente 			= true  // Indica che la seduta può avere al massimo un solo presidente
+	boolean gettonePresenzaGiornaliera 	= true  // Indica se il gettone è per presenza giornaliera o per seduta: True Giornaliera, False Seduta
+	boolean visibileSoloConvocati		= false // indica se solo i convocati e chi ha il ruoloCompetenze/ruoloVisualizza può vedere la seduta nel visualizzatore
+												// queste sedute non devono essere visibile ai cittadini anche se indicate come pubblica
 
 	boolean valido = true
 	Date 	validoDal
@@ -57,13 +61,17 @@ class Commissione {
 		ruoloCompetenze 	column: 'ruolo_competenze', index: 'odgcom_ruocom_fk'
 		ruoloVisualizza		column: 'ruolo_visualizza'
 
-		secondaConvocazione type: 'yes_no'
-		sedutaPubblica 		type: 'yes_no'
-		pubblicaWeb 		type: 'yes_no'
-		valido 				type: 'yes_no'
-		ruoliObbligatori 	type: 'yes_no'
-		votoPresidente      type: 'yes_no'
-		controlloFirmatari  type: 'yes_no'
+		secondaConvocazione 		type: 'yes_no'
+		sedutaPubblica 				type: 'yes_no'
+		visibileSoloConvocati		type: 'yes_no'
+		pubblicaWeb 				type: 'yes_no'
+		valido 						type: 'yes_no'
+		ruoliObbligatori 			type: 'yes_no'
+		votoPresidente      		type: 'yes_no'
+		controlloFirmatari  		type: 'yes_no'
+		firmatariPresenti   		type: 'yes_no'
+		singoloPresidente 			type: 'yes_no'
+		gettonePresenzaGiornaliera 	type: 'yes_no'
 
 		ente 		column: 'ente'
 		dateCreated column: 'data_ins'

@@ -49,6 +49,8 @@ class SedutaStampaDTO extends DocumentoDTO implements it.finmatica.dto.DTO<Sedut
     Integer         annoProtocollo
     TipoRegistroDTO registroProtocollo
 
+    String idFascicoloEsterno
+
     // destinatari notifiche
     Set<DestinatarioNotificaDTO> destinatariNotifiche
 

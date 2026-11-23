@@ -9,7 +9,7 @@
 
     <window apply="grailsBindComposer" border="normal"
         viewModel="@id('vm') @init('popupNotificheOrganiDiControlloViewModel')"
-		width="900px" height="600px" sizable="true" title=" " closable="true">
+		width="900px" height="600px" sizable="true" title=" " closable="false">
 
 		<vlayout width="100%" vflex="1" spacing="10px">
 			<h:div class="barraTitoloPagina">
@@ -99,8 +99,7 @@
 					</row>
 
 					<row>
-						<cell colspan="6">
-							<space hflex="1" />
+						<cell colspan="6" align="right">
 							<button label="Visualizza Dati" onClick="@command('onVisualizza')" mold="trendy" visible="@load(vm.organoControlloNotifica.stato ne 'INVIATA')"/>
 						</cell>
 					</row>
@@ -136,7 +135,7 @@
 
    			<h:div class="barraPulsanti">
 				<h:div>
-					<button label="Invia notifiche..."	onClick="@command('onNotifica', lista=listaDocumenti)" 	mold="trendy" disabled="@bind(empty vm.organoControlloNotifica.tipoOrganoControllo or empty vm.organoControlloNotifica.tipoRegistro.codice or empty vm.organoControlloNotifica.ambito or empty vm.lista)" />
+					<button label="Invia notifiche..."	onClick="@command('onNotifica', lista=listaDocumenti)" 	mold="trendy" autodisable="self" disabled="@bind(empty vm.organoControlloNotifica.tipoOrganoControllo or empty vm.organoControlloNotifica.tipoRegistro.codice or empty vm.organoControlloNotifica.ambito or empty vm.lista)" />
 					<button label="Cancella"			onClick="@command('onCancellaNotifica')"				mold="trendy" disabled="@bind(vm.organoControlloNotifica.stato eq 'INVIATA')"/>
 					<button label="Chiudi" 				onClick="@command('onChiudi')" 							mold="trendy" />
 				</h:div>
@@ -165,8 +164,8 @@
 				<h:div class="barraPulsanti">
 					<h:div>
 						<button label="Stampa Elenco" 	onClick="@command('onStampa')" 	mold="trendy" />
-						<button label="Invia Notifica" 	onClick="@command('onInvia')"	mold="trendy" />
-						<button label="Annulla" 		onClick="@command('onAnnulla')" mold="trendy" />
+						<button id="btnInvia" 		label="Invia Notifica" 	onClick="@command('onInvia')"	mold="trendy" autodisable="btnInvia,btnAnnulla" />
+						<button id="btnAnnulla" 	label="Annulla" 		onClick="@command('onAnnulla')" mold="trendy" autodisable="btnInvia,btnAnnulla" />
 					</h:div>
 				</h:div>
 			</vlayout>

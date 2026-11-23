@@ -82,6 +82,17 @@
 								</combobox>
 							</cell>
 						</row>
+						<row>
+							<cell>
+								<label value="Edita Testo:" />
+							</cell>
+							<cell>
+								<radiogroup>
+									<radio label="Sì" checked="@load(vm.selectedRecord.editaTesto)"      onCheck="@command('setEditaTesto', val=true)" />
+									<radio label="No" checked="@load(not vm.selectedRecord.editaTesto)"  onCheck="@command('setEditaTesto', val=false)" />
+								</radiogroup>
+							</cell>
+						</row>
 					</rows>
 				</grid>
 			</vlayout>

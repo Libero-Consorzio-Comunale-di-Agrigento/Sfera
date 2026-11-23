@@ -156,10 +156,10 @@ target (publishPatch: "Pubblica la Patch su FTP") {
 	}
 
 	// tento subito di creare la directory se non esiste già:
-	ant.ftp (server:"ftp.ads.it", userid:"genftp", password:"", remotedir:"passa/sasdo/SFERA", binary:"false", action:"mkdir", ignoreNoncriticalErrors:"true")
+	ant.ftp (server:"ftp.ads.it", userid:"genftp", password:"lavoro17", remotedir:"passa/sasdo/SFERA", binary:"false", action:"mkdir", ignoreNoncriticalErrors:"true")
 
 	// scarico il file updates.xml da ftp://ftp.ads.it/passa/sasdo/SFERA/updates.xml
-	ant.ftp (server:"ftp.ads.it", userid:"genftp", password:"", remotedir:"passa/sasdo/SFERA", action:"get", verbose:"yes", skipFailedTransfers:"true") {
+	ant.ftp (server:"ftp.ads.it", userid:"genftp", password:"lavoro17", remotedir:"passa/sasdo/SFERA", action:"get", verbose:"yes", skipFailedTransfers:"true") {
 		fileset (dir:"target/work/temp") {
 			include (name:"updates.xml")
 		}
@@ -186,14 +186,14 @@ target (publishPatch: "Pubblica la Patch su FTP") {
 	updatesXml << XmlUtil.serialize(xml)
 
 	// carico la patch su ftp
-	ant.ftp (server:"ftp.ads.it", userid:"genftp", password:"", remotedir:"passa/sasdo/SFERA", binary:"false", action:"put") {
+	ant.ftp (server:"ftp.ads.it", userid:"genftp", password:"lavoro17", remotedir:"passa/sasdo/SFERA", binary:"false", action:"put") {
 		fileset (dir:"target/dist") {
 			include (name:"${appVersion}.zip")
 		}
 	}
 
 	// carico il file updates.xml
-	ant.ftp (server:"ftp.ads.it", userid:"genftp", password:"", remotedir:"passa/sasdo/SFERA", binary:"false", action:"put") {
+	ant.ftp (server:"ftp.ads.it", userid:"genftp", password:"lavoro17", remotedir:"passa/sasdo/SFERA", binary:"false", action:"put") {
 		fileset (dir:"target/work/temp") {
 			include (name:"updates.xml")
 		}

@@ -149,6 +149,16 @@ class CaratteristicaTipologiaDettaglioViewModel extends AfcAbstractRecord {
 * UNITA DESTINATARIA:	unità aggiuntiva di controllo"""
 					, soggetti: [TipoSoggetto.REDATTORE, TipoSoggetto.UO_PROPONENTE, TipoSoggetto.FUNZIONARIO, TipoSoggetto.DIRIGENTE, TipoSoggetto.UO_DESTINATARIA]],
 
+					[ label: 		"Determina con solo redattore e dirigente (senza funzionario)"
+											 , tipoOggetto:	Determina.TIPO_OGGETTO
+											 , descrizione: 	"Mostra il Proponente, Unità Proponente, Dirigente"
+											 , url:			"/atti/documenti/determina/determina_redattore_dirigente.zul"
+											 , suggerimento:	"""Mostra i soggetti:
+* REDATTORE:		tipicamente è l'utente corrente. Può appartenere a più unità.
+* UO_PROPONENTE:	tipicamente corrisponde all'unità del redattore.
+* DIRIGENTE:		il dirigente della determina è anche colui che la firma."""
+											 , soggetti: [TipoSoggetto.REDATTORE, TipoSoggetto.UO_PROPONENTE, TipoSoggetto.DIRIGENTE]],
+
 					[ label: 		"Decreto"
 					, tipoOggetto:	Determina.TIPO_OGGETTO
 					, descrizione: 	"Mostra il Proponente, Unità Proponente, Dirigente, Funzionario, Dirigente Aggiuntivo"
@@ -218,8 +228,16 @@ class CaratteristicaTipologiaDettaglioViewModel extends AfcAbstractRecord {
 * DIRIGENTE:		il dirigente della proposta è anche colui che la firma.
 * INCARICATO:		incaricato."""
 					 , soggetti: [TipoSoggetto.REDATTORE, TipoSoggetto.UO_PROPONENTE, TipoSoggetto.FUNZIONARIO, TipoSoggetto.DIRIGENTE, TipoSoggetto.INCARICATO]],
-
-					 [ label: 		"Delibera"
+					[ label: 		"Proposta Delibera con solo redattore e dirigente (senza funzionario)"
+					 , tipoOggetto:	PropostaDelibera.TIPO_OGGETTO
+					 , descrizione: 	"Mostra il Proponente, Unità Proponente, Dirigente"
+					 , url:			"/atti/documenti/propostaDelibera/propostaDelibera_redattore_dirigente.zul"
+					 , suggerimento:	"""Mostra i soggetti:
+* REDATTORE:		tipicamente è l'utente corrente. Può appartenere a più unità.
+* UO_PROPONENTE:	tipicamente corrisponde all'unità del redattore.
+* DIRIGENTE:		il dirigente della proposta è anche colui che la firma."""
+				                             , soggetti: [TipoSoggetto.REDATTORE, TipoSoggetto.UO_PROPONENTE, TipoSoggetto.DIRIGENTE]],
+	               [ label: 		"Delibera"
 					, tipoOggetto:	Delibera.TIPO_OGGETTO
 					, descrizione: 	"Mostra il Segretario e il Presidente."
 					, url:			"/atti/documenti/delibera/delibera_standard.zul"
@@ -248,7 +266,19 @@ class CaratteristicaTipologiaDettaglioViewModel extends AfcAbstractRecord {
 * SEGRETARIO:					Il Segretario della seduta
 * FIRMATARIO:					Ulteriori firmatari della Delibera"""
 					, soggetti: [TipoSoggetto.DIRETTORE_AMMINISTRATIVO, TipoSoggetto.DIRETTORE_SANITARIO, TipoSoggetto.DIRETTORE_GENERALE, TipoSoggetto.SEGRETARIO, TipoSoggetto.FIRMATARIO]],
-				
+
+				   [ label: 		"Delibera ASL con Commissari"
+					 , tipoOggetto:	Delibera.TIPO_OGGETTO
+					 , descrizione: 	"Mostra il Direttore Amministrativo, Sanitario e tre commissari."
+					 , url:			"/atti/documenti/delibera/delibera_asl_commissari.zul"
+					 , suggerimento:	"""Mostra i soggetti:
+* DIRETTORE_AMMINISTRATIVO:		Il Direttore Amministrativo.
+* DIRETTORE_SANITARIO:			Il Direttore Sanitario.
+* COMMISSARIO_1:				Il Primo Commissario.
+* COMMISSARIO_2:				Il Secodno Commissario.
+* COMMISSARIO_3:				Il Terzo Commissario."""
+											 , soggetti: [TipoSoggetto.DIRETTORE_AMMINISTRATIVO, TipoSoggetto.DIRETTORE_SANITARIO, TipoSoggetto.COMMISSARIO_1, TipoSoggetto.COMMISSARIO_2, TipoSoggetto.COMMISSARIO_3]],
+
 					[ label: 		"Delibera ASL Senza Segretario"
 					, tipoOggetto:	Delibera.TIPO_OGGETTO
 					, descrizione: 	"Mostra il Direttore Amministrativo, Sanitario e Generale."

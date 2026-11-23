@@ -126,85 +126,73 @@
                	<caption>Soggetto</caption>
 
                				<grid sclass="form">
-                                                          									<rows>
+                                <rows>
+                                    <row>
+                                          <cell align='center'>
+                                            <label value="Cognome / Rag. Sociale"/><space/><h:span class="optionalLabel">*</h:span>
+                                          </cell>
+                                          <cell align='center'>
+                                            <label value="Nome"/><space/><h:span class="optionalLabel">*</h:span>
+                                          </cell>
+                                          <cell align='center'>
+                                            <label value="Codice Fiscale"/>
+                                          </cell>
+                                          <cell align='center'>
+                                            <label value="Partita Iva"/>
+                                          </cell>
+                                          <cell align='center'>
+                                            <label value="Progr. Soggetto"/><space/><h:span class="optionalLabel">*</h:span>
+                                          </cell>
+                                    </row>
 
-                                                          									<row>
-                                                                              <cell align='center'>
-                                                                                <label value="Cognome/Ragione Sociale"/><space/><h:span class="optionalLabel">*</h:span>
-                                                                              </cell>
-                                                                              <cell align='center'>
-                                                                                <label value="Nome"/><space/><h:span class="optionalLabel">*</h:span>
-                                                                              </cell>
+                                    <row>
+                                        <cell>
+                                          <textbox value="@bind(vm.cognome)" hflex='1' />
+                                        </cell>
+                                        <cell>
+                                          <textbox value="@bind(vm.nome)" hflex='1'  />
+                                        </cell>
+                                        <cell>
+                                          <textbox value="@bind(vm.cf)" hflex='1' />
+                                        </cell>
+                                        <cell>
+                                          <textbox value="@bind(vm.piva)" hflex="1" />
+                                        </cell>
+                                        <cell>
+                                          <textbox value="@bind(vm.idSoggetto)" hflex="1" />
+                                        </cell>
+                                    </row>
 
-                                                                              <cell align='center'>
-                                                                                <label value="Codice Fiscale"/>
-                                                                              </cell>
-                                                                              <cell align='center'>
-                                                                                <label value="Partita Iva"/>
-                                                                              </cell>
-                                                                              <cell align='center'>
-                                                                                <label value="Progressivo Soggetto"/>
-                                                                              </cell>
-                                                                            </row>
+                                     <row>
+                                       <cell colspan='4'></cell>
+                                       <cell>
+                                           <button image="/images/afc/16x16/search.png" mold="trendy" label="Ricerca Soggetto" onClick="@command('onCercaSoggetti')"/>
+                                       </cell>
+                                    </row>
 
-                                                                            <row>
-                                                                            <cell>
-                                                                              <textbox value="@bind(vm.cognome)" hflex='1' />
-                                                                            </cell>
-                                                                            <cell>
-                                                                              <textbox value="@bind(vm.nome)" hflex='1'  />
-                                                                            </cell>
-                                                                            <cell>
-                                                                              <textbox value="@bind(vm.cf)" hflex='1' />
-                                                                            </cell>
-                                                                            <cell>
-                                                                              <textbox value="@bind(vm.piva)" hflex="1" />
-                                                                            </cell>
-                                                                            <cell>
-                                                                              <textbox value="@bind(vm.idSoggetto)" hflex="1" />
-                                                                            </cell>
-                                                                         </row>
-
-                                                                         <row>
-                                                                           <cell colspan='4'>
-
-                                                                           </cell>
-
-                                                                           <cell>
-                                                                          <button image="/images/afc/16x16/search.png" mold="trendy" label="Ricerca Soggetto"
-                                                                                                    			onClick="@command('onCercaSoggetti')"/>
-                                                                           </cell>
-                                                                        </row>
-
-                                                                        <row>
-                                                                             <cell>
-                                                                                  <label value="Elenco beneficiari"/><space/><h:span class="mandatoryLabel">*</h:span>
-                                                                             </cell>
-                                                                             <cell colspan="4">
-                                                                                <combobox model="@load(vm.listaSoggettiFiltrati)" hflex="1" readonly="true"
-                                                                                    selectedItem="@bind(vm.soggettoSelezionato)">
-                                                                                <template name="model" var="soggetto">
-                                                                                    <comboitem label="@load(soggetto.combo)" value="@load(soggetto)" />
-                                                                                </template>
-                                                                        </combobox>
-                                                                             </cell>
-
-                                                                          </row>
-                                                                    <row>
-                                                                             <cell>
-                                                                                  <label value="Note:"/>
-                                                                             </cell>
-                                                                             <cell colspan="4">
-                                                                               <textbox rows='3' value="@bind(vm.note)" hflex="1" />
-                                                                             </cell>
-
-                                                                          </row>
-
-
-
-                                                          									</rows>
-
-                                                          								</grid >
+                                    <row>
+                                         <cell>
+                                              <label value="Elenco beneficiari"/><space/><h:span class="mandatoryLabel">*</h:span>
+                                         </cell>
+                                         <cell colspan="4">
+                                            <combobox model="@load(vm.listaSoggettiFiltrati)" hflex="1" readonly="true"
+                                                selectedItem="@bind(vm.soggettoSelezionato)">
+                                                <template name="model" var="soggetto">
+                                                    <comboitem label="@load(soggetto.combo)" value="@load(soggetto)" />
+                                                </template>
+                                            </combobox>
+                                         </cell>
+                                    </row>
+                                    <row>
+                                         <cell>
+                                              <label value="Note:"/>
+                                         </cell>
+                                         <cell colspan="4">
+                                           <textbox rows='3' value="@bind(vm.note)" hflex="1" />
+                                         </cell>
+                                    </row>
+                                </rows>
+                            </grid >
               </groupbox>
 
 

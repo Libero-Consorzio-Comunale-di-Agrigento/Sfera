@@ -9,6 +9,7 @@ import it.finmatica.atti.dto.dizionari.TipoRegistroDTO
 import it.finmatica.atti.dto.impostazioni.CaratteristicaTipologiaDTO
 import it.finmatica.atti.dto.odg.CommissioneComponenteDTO
 import it.finmatica.atti.dto.odg.CommissioneDTO
+import it.finmatica.atti.dto.odg.CommissioneCollegataDTO
 import it.finmatica.atti.dto.odg.CommissioneStampaDTO
 import it.finmatica.atti.dto.odg.dizionari.CommissioneDTOService
 import it.finmatica.atti.dto.odg.dizionari.IncaricoDTO
@@ -17,9 +18,7 @@ import it.finmatica.atti.exceptions.AttiRuntimeException
 import it.finmatica.atti.impostazioni.CaratteristicaTipologia
 import it.finmatica.atti.impostazioni.Impostazione
 import it.finmatica.atti.impostazioni.Impostazioni
-import it.finmatica.atti.impostazioni.MappingIntegrazione
 import it.finmatica.atti.integrazioni.parametri.CodiceDescrizione
-import it.finmatica.atti.integrazioni.protocollo.ProtocolloGdm
 import it.finmatica.atti.integrazioni.protocollo.ProtocolloGdmConfig
 import it.finmatica.atti.odg.*
 import it.finmatica.atti.odg.dizionari.Incarico
@@ -51,6 +50,8 @@ class CommissioneDettaglioViewModel extends AfcAbstractRecord {
     Window  popupSceltaStampa
     @Wire("#popupModificaComponente")
     Window  popupModificaComponente
+    @Wire("#popupSceltaCommissioneCollegata")
+    Window  popupCommissioneCollegata
 
     // dati
     List<TipoRegistroDTO> listaTipoRegistro
@@ -59,6 +60,7 @@ class CommissioneDettaglioViewModel extends AfcAbstractRecord {
 
     // dati per le stampe
     CommissioneStampaDTO             commissioneStampa
+    GestioneTestiModelloDTO          modelloTestoSelezionato
     List<CommissioneStampaDTO>       listaStampe
     List<GestioneTestiModelloDTO>    listaModelli
     List<WkfCfgIterDTO>              listaCfgIter // iter per le stampe
@@ -66,6 +68,13 @@ class CommissioneDettaglioViewModel extends AfcAbstractRecord {
     boolean                          visualizzaTutti = false
     String                           tipoDocumentoEsterno
     List<CodiceDescrizione>          listaTipiDocumento
+
+    //dati per le commissioni collegate
+    boolean                             visualizzaTutteCommissioni = false
+    CommissioneDTO                      commissioneCollegata
+    List<CommissioneCollegataDTO>       listaCommissioniCollegate
+    List<CommissioneDTO>                listaCommissioni
+
 
     // dati per i componenti
     List<CommissioneComponenteDTO> listaComponenti
@@ -106,6 +115,8 @@ class CommissioneDettaglioViewModel extends AfcAbstractRecord {
 
         caricaListaStampe();
         caricaListaComponenti();
+        caricaListaCommissioniCollegate();
+
         listaRuoliPartecipante = RuoloPartecipante.list().toDTO()
         listaRuoliPartecipante.add(0, new RuoloPartecipanteDTO(codice: "", descrizione: "-- nessuno --"))
     }
@@ -254,6 +265,24 @@ class CommissioneDettaglioViewModel extends AfcAbstractRecord {
         listaCaratteristiche.add(0, new CaratteristicaTipologiaDTO(id:-1, titolo: "-- nessuno --", descrizione: ""))
     }
 
+    private void caricaListaModelliTesto (String codiceStampa) {
+        if (codiceStampa == null) {
+            listaModelli = []
+            BindUtils.postNotifyChange(null, null, this, "listaModelli")
+            return
+        }
+        listaModelli = GestioneTestiModello.createCriteria().list {
+            tipoModello {
+                like("codice", codiceStampa)
+            }
+
+            fetchMode("tipoModello", FetchMode.JOIN)
+        }.toDTO()
+        listaModelli.add(0, new GestioneTestiModelloDTO(id: null, nome: ""))
+
+        BindUtils.postNotifyChange(null, null, this, "listaModelli")
+    }
+
     @Command
     void caricaListaStampe () {
         listaStampe = CommissioneStampa.createCriteria().list() {
@@ -265,29 +294,85 @@ class CommissioneDettaglioViewModel extends AfcAbstractRecord {
         BindUtils.postNotifyChange(null, null, this, "listaStampe")
     }
 
-    private void caricaListaModelliTesto (String codiceStampa) {
-        // ottiene le stampe che ha la commissione e le esclude dalla lista
-        listaModelli = GestioneTestiModello.createCriteria().list {
-            tipoModello {
-                like("codice", codiceStampa)
+    @Command
+    void caricaListaCommissioniCollegate () {
+        listaCommissioniCollegate = CommissioneCollegata.createCriteria().list() {
+            eq ('commissione.id', selectedRecord.id)
+            if (!visualizzaTutti) {
+                eq ("valido", true)
             }
-
-            fetchMode("tipoModello", FetchMode.JOIN)
-        }.toDTO()
-
-        BindUtils.postNotifyChange(null, null, this, "listaModelli")
+        }.toDTO(['commissioneCollegata'])
+        BindUtils.postNotifyChange(null, null, this, "listaCommissioniCollegate")
     }
 
-    @NotifyChange(["listaCfgIter", "listaCaratteristiche", "commissioneStampa", "listaTipiDocumento"])
+    @Command
+    void caricaListaCommissioni () {
+        listaCommissioni = Commissione.createCriteria().list() {
+                eq ("valido", true)
+            }.toDTO()
+        BindUtils.postNotifyChange(null, null, this, "listaCommissioni")
+    }
+
+
+    @NotifyChange(["listaCommissioni"])
+    @Command
+    void onApriPopupCommissioneCollegata (@BindingParam("commissione") CommissioneDTO commissioneCollegata) {
+        caricaListaCommissioni()
+//        if (commissioneCollegata == null) {
+//            commissioneCollegata = new CommissioneCollegataDTO(id: -1, valido: true)
+//        }
+    //    this.commissioneCollegata = commissioneCollegata
+        popupCommissioneCollegata.doModal()
+    }
+
+    @Command
+    @NotifyChange(["visualizzaTutteCommissioni"])
+    void onVisualizzaTutteCommissioniCollegate () {
+        visualizzaTutteCommissioni = !visualizzaTutteCommissioni
+        caricaListaCommissioniCollegate()
+    }
+
+    @Command
+    void onAggiungiCommissioneCollegata () {
+        commissioneDTOService.aggiungiCommissioneCollegata(selectedRecord, commissioneCollegata)
+        onChiudiCommissioneCollegata()
+    }
+
+    @Command
+    @NotifyChange(["visualizzaTutteCommissioni"])
+    void onEliminaCommissioneCollegata (@BindingParam("commissione") CommissioneCollegataDTO collegata) {
+        commissioneDTOService.togliCommissioneCollegata(collegata)
+//        collegata.validoAl = new Date()
+//        collegata.valido = false
+//        dataValiditaComponente = new Date()
+//        collegata.save()
+        caricaListaCommissioniCollegate()
+    }
+
+    @Command
+    void onChiudiCommissioneCollegata () {
+        popupCommissioneCollegata.visible = false
+        caricaListaCommissioniCollegate()
+    }
+
+
+    @NotifyChange(["listaCfgIter", "listaCaratteristiche", "commissioneStampa", "listaTipiDocumento", "listaModelli", "modelloTestoSelezionato", "tipoDocumentoEsterno"])
     @Command
     void onApriPopupStampa (@BindingParam("stampa") CommissioneStampaDTO commissioneStampa) {
         if (commissioneStampa == null) {
-            commissioneStampa = new CommissioneStampaDTO(id: -1, valido: true)
+            this.commissioneStampa = new CommissioneStampaDTO(id: -1, valido: true)
+            this.modelloTestoSelezionato = null
         }
-        this.commissioneStampa = commissioneStampa
+        else {
+            this.commissioneStampa = commissioneStampa
+            this.modelloTestoSelezionato = this.commissioneStampa.modelloTesto
+        }
+        listaTipiDocumento = new ArrayList(getListaTipiDocumentoProtocollo())
+        listaTipiDocumento.add(0, new CodiceDescrizione("", ""))
         if (this.commissioneStampa.id > 0) {
-            listaTipiDocumento = getListaTipiDocumentoProtocollo ()
             tipoDocumentoEsterno = protocolloGdmConfig?.getTipoDocumento(this.commissioneStampa.id)?:""
+        } else {
+            tipoDocumentoEsterno = ""
         }
         caricaListaModelliTesto(getCodiceModelloTesto(this.commissioneStampa.codice))
         caricaCfgIter()
@@ -311,6 +396,12 @@ class CommissioneDettaglioViewModel extends AfcAbstractRecord {
     @Command
     void onSelectTipoStampa () {
         caricaListaModelliTesto(getCodiceModelloTesto(commissioneStampa.codice))
+    }
+
+    @NotifyChange("modelloTestoSelezionato")
+    @Command
+    void onChangeTipoStampa () {
+        modelloTestoSelezionato = null
     }
 
     @NotifyChange("listaStampe")
@@ -342,6 +433,13 @@ class CommissioneDettaglioViewModel extends AfcAbstractRecord {
 
     @Command
     void onAggiungiStampa () {
+        if (!commissioneStampa.titolo) {
+            throw new AttiRuntimeException("Il campo 'Titolo' è obbligatorio")
+        }
+        commissioneStampa.modelloTesto = (modelloTestoSelezionato?.id != null) ? modelloTestoSelezionato : null
+        if (commissioneStampa.modelloTesto == null) {
+            throw new AttiRuntimeException("I campi 'Tipo di Stampa' e 'Modello di Testo' sono obbligatori")
+        }
         commissioneDTOService.salvaStampa(selectedRecord, commissioneStampa, tipoDocumentoEsterno)
         onChiudiStampa()
     }

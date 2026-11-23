@@ -45,8 +45,8 @@
             <listbox model="@load(vm.listaDocumenti)" selectedItems="@bind(vm.listaDocumentiSelezionati)" emptyMessage="Nessun documento trovato"
                      vflex="1" checkmark="true" multiple="true" height="100%">
                 <listhead>
-                    <listheader label="Estremi" width="40%"/>
-                    <listheader label="Oggetto" width="60%"/>
+                    <listheader label="Estremi" width="30%"/>
+                    <listheader label="Oggetto" width="70%"/>
                 </listhead>
                 <template name="model" var="documento">
                     <listitem>
@@ -67,8 +67,10 @@
 
         <h:div class="barraPulsanti">
             <h:div>
+                <button label="Emendamento" mold="trendy"
+                        onClick="@command('onCollegaDocumento', operazione='EMENDAMENTO')" visible="@load(vm.tipoRicercaIndex gt 0 and vm.emendamentoAbilitato)" />
                 <button label="@load(c:cat('Collega ', vm.selectedRicerca.titolo))" mold="trendy"
-                        onClick="@command('onCollegaDocumento', operazione='COLLEGA')" visible="@load(vm.tipoRicercaIndex gt 0)" />
+                        onClick="@command('onCollegaDocumento', operazione='COLLEGA')" visible="@load(vm.tipoRicercaIndex gt 0 and vm.collegaAbilitato)" />
                 <button label="@load(c:cat('Integra ', vm.selectedRicerca.titolo))" mold="trendy"
                         onClick="@command('onCollegaDocumento', operazione='INTEGRA')" visible="@load(vm.tipoRicercaIndex gt 0 and vm.integraAbilitato)" />
                 <!--visible="@load(vm.tipoDocumento eq 'determina' and vm.selectedTipoAtto eq 'determina')"/>-->

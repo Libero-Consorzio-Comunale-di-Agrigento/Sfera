@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <documentRoot>
-	<descrizione>Determina (Contabilità Sfera)</descrizione>
+	<descrizione>Determina (Contabilità Ascot)</descrizione>
 	<connections>
 		<connectionJNDI>jdbc/agsde2</connectionJNDI>
 	</connections>
@@ -37,12 +37,15 @@
 				<ASCENDENTI_UNITA>AREA: STRUTTURA AZIENDE SANITARIE</ASCENDENTI_UNITA>
 				<DESCRIZIONE_REGISTRO>REGISTRO DETERMINAZIONI DIRIGENZIALI</DESCRIZIONE_REGISTRO>
 				<CIG>0123456789</CIG>
+				<CUP>9876543210</CUP>
 				<M_TOTALE_ENTRATE>205,33</M_TOTALE_ENTRATE>
 				<M_TOTALE_USCITE>133,00</M_TOTALE_USCITE>
 				<MSE>+</MSE>
 				<MSU>-</MSU>
+				<TOTALE_MOVIMENTI_INTERNI>338,33</TOTALE_MOVIMENTI_INTERNI>
 				<INCARICATO>NOMINATIVO INCARICATO</INCARICATO>
 				<DESCRIZIONE_RADICE_SUDD>RADICE AFFARI GENERALI</DESCRIZIONE_RADICE_SUDD>
+				<RISERVATO>RISERVATO</RISERVATO>
 			</determina>
 			<movimenti>
 				<M_TIPO>MOVI</M_TIPO>
@@ -80,7 +83,7 @@
 				<I_INDIRIZZO>Via del Corso, 12</I_INDIRIZZO>
 				<I_LOCALITA>Bolognina</I_LOCALITA>
 				<I_CAP>40121</I_CAP>
-				<I_COMUME>Bologna</I_COMUME>
+				<I_COMUNE>Bologna</I_COMUNE>
 				<I_PROVINCIA>BO</I_PROVINCIA>
 				<I_EMAIL>indirizzo@email.ir</I_EMAIL>
 				<I_PEC>indirizzo@pec.it</I_PEC>
@@ -284,7 +287,13 @@
             <tipo>string</tipo>
             <descrizione>Codice Identificativo Gara</descrizione>
             <path/>
-        </metaDato>	
+        </metaDato>
+		<metaDato>
+			<nomeSimbolico>CUP</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice Unico di Progetto</descrizione>
+			<path/>
+		</metaDato>
         <metaDato>
 			<nomeSimbolico>M_TOTALE_ENTRATE</nomeSimbolico>
 			<tipo>string</tipo>
@@ -307,6 +316,12 @@
 			<nomeSimbolico>MSU</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Il segno della somma delle uscite (+ o -)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+		<nomeSimbolico>TOTALE_MOVIMENTI_INTERNI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Somma degli importi dei movimenti interni</descrizione>
 			<path/>
 		</metaDato>
 		<!-- Query dei movimenti -->
@@ -557,13 +572,19 @@
 			<descrizione>Note del movimento</descrizione>
 			<path/>
 		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RISERVATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Valorizzato solo se l'atto è riservato</descrizione>
+			<path/>
+		</metaDato>
 	</definitions>
 	<queryes>
  	<!-- determina: restituisce i dati di una determina -->
  	<query 	id="determina"
  			help_descrizione="Ritorna i dati di una determina."
 			help_query_alias="d"
-			help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, ANNO_PROTOCOLLO, AREA_PROPONENTE, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_PROTOCOLLO, DESCRIZIONE_REGISTRO, DIRIGENTE, REDATTORE, INCARICATO, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_OGGETTO, FUNZIONARIO, NUMERO_DETERMINA, NUMERO_PROPOSTA, NUMERO_PROTOCOLLO, OGGETTO_DETERMINA, OGGETTO_DETERMINA_DEFINITIVO, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, UNITA_PADRE, FIRMATARIO, DESCRIZIONE_FIRMATARIO, DELEGANTE, ASCENDENTI_UNITA, CIG, M_TOTALE_ENTRATE, M_TOTALE_USCITE, MSE, MSU, DESCRIZIONE_RADICE_SUDD">
+			help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, ANNO_PROTOCOLLO, AREA_PROPONENTE, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_PROTOCOLLO, DESCRIZIONE_REGISTRO, DIRIGENTE, REDATTORE, INCARICATO, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_OGGETTO, FUNZIONARIO, NUMERO_DETERMINA, NUMERO_PROPOSTA, NUMERO_PROTOCOLLO, OGGETTO_DETERMINA, OGGETTO_DETERMINA_DEFINITIVO, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, UNITA_PADRE, FIRMATARIO, DESCRIZIONE_FIRMATARIO, DELEGANTE, ASCENDENTI_UNITA, CIG, CUP, M_TOTALE_ENTRATE, M_TOTALE_USCITE, MSE, MSU, TOTALE_MOVIMENTI_INTERNI, DESCRIZIONE_RADICE_SUDD, RISERVATO">
  select decode(numero_proposta, null, '${documentRoot.determina.NUMERO_PROPOSTA}', to_char(numero_proposta)) NUMERO_PROPOSTA
     , decode(anno_proposta, null, '${documentRoot.determina.ANNO_PROPOSTA}', to_char(anno_proposta)) ANNO_PROPOSTA
     , decode(data_numero_determina, null, '${documentRoot.determina.DATA_DETERMINA}', to_char(data_numero_determina,'dd/mm/yyyy')) DATA_DETERMINA
@@ -595,12 +616,15 @@
     , utility_pkg.get_desc_ascendenti_unita(utility_pkg.get_codice_unita_prop_dete (d.id_determina), null, impostazioni_pkg.get_impostazione('OTTICA_SO4', d.ente), null) ASCENDENTI_UNITA
     , decode(tp.descrizione, null, '${documentRoot.determina.DESCRIZIONE_REGISTRO}', tp.descrizione) DESCRIZIONE_REGISTRO
     , d.cig CIG
+	, (select valore from dati_aggiuntivi da where da.codice = 'CUP' and da.id_determina = d.id_determina) CUP
     , (select trim(TO_CHAR(abs(sum(m.importo)),       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m where m.tipo = 'ENTRATA' and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') M_TOTALE_ENTRATE
     , (select trim(TO_CHAR(abs(sum(m.importo)),       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m where m.tipo = 'USCITA'  and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') M_TOTALE_USCITE
     , (select decode(sign(sum(m.importo)), -1, '-', '+') from movimenti_contabili m where m.tipo = 'ENTRATA' and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') MSE
     , (select decode(sign(sum(m.importo)), -1, '-', '+') from movimenti_contabili m where m.tipo = 'USCITA'  and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') MSU
+	, (select sum(m.importo) from movimenti_contabili_interni m where m.id_determina = d.id_determina) TOTALE_MOVIMENTI_INTERNI
 	, utility_pkg.unita_get_radice_determina (d.id_determina) DESCRIZIONE_RADICE_SUDD
-		from firmatari f
+	, decode(d.riservato,'Y','RISERVATO','') RISERVATO
+ from firmatari f
     , determine d
     , tipi_registro tp
  where d.id_determina 				= #id
@@ -632,7 +656,7 @@
  <query id="movimenti_interni"
 			   help_query_alias="i"
 			   help_field_aliases="I_CAPITOLO, I_DESCRIZIONE_CAPITOLO, I_IMPORTO, I_ESERCIZIO, I_ARTICOLO, I_EPF, I_PDCF,
-I_EOS, I_CODICE_MISSIONE, I_CODICE_PROGRAMMA, I_PROGRESSIVO_SOGGETTO, I_DESCRIZIONE_SOGGETTO, I_COGNOME, I_NOME, I_CF, I_CF_ESTERO, I_PIVA, I_PIVA_ESTERO, I_INDIRIZZO, I_LOCALITA, I_CAP, I_COMUME, I_PROVINCIA, I_EMAIL, I_PEC, I_TELEFONO, I_STATO, I_NOTE">
+I_EOS, I_CODICE_MISSIONE, I_CODICE_PROGRAMMA, I_PROGRESSIVO_SOGGETTO, I_DESCRIZIONE_SOGGETTO, I_COGNOME, I_NOME, I_CF, I_CF_ESTERO, I_PIVA, I_PIVA_ESTERO, I_INDIRIZZO, I_LOCALITA, I_CAP, I_COMUNE, I_PROVINCIA, I_EMAIL, I_PEC, I_TELEFONO, I_STATO, I_NOTE">
 			select i.capitolo AS I_CAPITOLO,
        i.descrizione_capitolo AS I_DESCRIZIONE_CAPITOLO,
        trim(TO_CHAR(i.importo, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) AS I_IMPORTO,
@@ -654,7 +678,7 @@ I_EOS, I_CODICE_MISSIONE, I_CODICE_PROGRAMMA, I_PROGRESSIVO_SOGGETTO, I_DESCRIZI
        i.indirizzo AS I_INDIRIZZO,
        i.localita AS I_LOCALITA,
        i.cap AS I_CAP,
-       i.comune AS I_COMUME,
+       i.comune AS I_COMUNE,
        i.provincia AS I_PROVINCIA,
        i.email AS I_EMAIL,
        i.pec AS I_PEC,

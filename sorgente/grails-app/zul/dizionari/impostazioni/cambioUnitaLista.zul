@@ -35,7 +35,7 @@
 								readonly="true"
 								disabled="@load(empty vm.tipoOggetto)">
 								<template name="model" var="soggetto">
-									<comboitem label="@load(soggetto.descrizione)" description="@load(c:cat5(soggetto.codice, ' - dal: ', c:formatDate(soggetto.dal, 'dd/MM/yyyy'), ' al: ', not empty soggetto.al ? c:formatDate(soggetto.al, 'dd/MM/yyyy'):''))" value="@load(soggetto)" />
+									<comboitem label="@load(c:cat5(soggetto.descrizione, ' - dal: ', c:formatDate(soggetto.dal, 'dd/MM/yyyy'), ' al: ', not empty soggetto.al ? c:formatDate(soggetto.al, 'dd/MM/yyyy'):''))" description="@load(soggetto.codice)" value="@load(soggetto)" />
 								</template>
 							</combobox>
 						</cell>

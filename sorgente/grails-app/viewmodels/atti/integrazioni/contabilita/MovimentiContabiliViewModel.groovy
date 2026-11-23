@@ -13,6 +13,7 @@ import it.finmatica.atti.documenti.IDocumento
 import it.finmatica.atti.documenti.TipoDatoAggiuntivo
 import it.finmatica.atti.dto.contabilita.MovimentoContabileInternoDTO
 import it.finmatica.atti.impostazioni.CampiDocumento
+import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.impostazioni.MappingIntegrazione
 import org.zkoss.bind.BindUtils
 import org.zkoss.bind.annotation.AfterCompose
@@ -55,16 +56,21 @@ class MovimentiContabiliViewModel {
     boolean visTabMovInterni         = false
     boolean gestioneMovimentiInterni = true
 
+    BigDecimal importoSpesa
+    BigDecimal importoEntrata
+
     // componenti
     @Wire("#popupModificaMovimentoContabile")
     Window popupModificaMovimentoContabile
 
     @Init
     init() {
-        gestioneInterna = MappingIntegrazione.getValoreEsterno("CONTABILITA_ASCOT", "GESTIONE_INTERNA").trim()
-        if (gestioneInterna == 'Y') {
-            visTabMovContabili = false
-            visTabMovInterni = true
+        if (Impostazioni.CONTABILITA.valore == "integrazioneContabilitaAscotWeb") {
+            gestioneInterna = MappingIntegrazione.getValoreEsterno("CONTABILITA_ASCOT", "GESTIONE_INTERNA").trim()
+            if (gestioneInterna == 'Y') {
+                visTabMovContabili = false
+                visTabMovInterni = true
+            }
         }
     }
 
@@ -104,8 +110,18 @@ class MovimentiContabiliViewModel {
     private void aggiornaMovimentiContabili(IDocumento atto) {
         listaMovimenti = integrazioneContabilita.getMovimentiContabili(atto);
 
+        aggiornaTotaliSpese(atto);
+
         BindUtils.postNotifyChange("movimentiContabiliQueue", null, this, "listaMovimenti");
         BindUtils.postNotifyChange(null, null, this, "conDocumentiContabili");
+    }
+
+    private void aggiornaTotaliSpese(IDocumento atto) {
+        importoEntrata = integrazioneContabilita.totaleImporto(atto, MovimentoContabile.TIPO_ENTRATA)
+        importoSpesa = integrazioneContabilita.totaleImporto(atto, MovimentoContabile.TIPO_USCITA)
+
+        BindUtils.postNotifyChange("movimentiContabiliQueue", null, this, "importoEntrata")
+        BindUtils.postNotifyChange("movimentiContabiliQueue", null, this, "importoSpesa")
     }
 
     @NotifyChange(["movimento", "listaMovimenti"])
@@ -114,7 +130,6 @@ class MovimentiContabiliViewModel {
 
         if (movimento.importo == null ||
                 movimento.codice == null ||
-                movimento.azione == null ||
                 movimento.capitolo == null) {
 
             Clients.showNotification("Non è possibile salvare il movimento: non tutti i campi obbligatori sono compilati.", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center", 3000, true)

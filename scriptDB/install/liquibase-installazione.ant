@@ -48,6 +48,15 @@
             </liquibase:changeLogParameters>
         </liquibase:updateDatabase>
 
+        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="commons/agsde2/synonyms/02.sinonimi_ad4_as4_so4.sql"
+                                  classpathref="classpath-liquibase">
+            <liquibase:changeLogParameters>
+                <liquibase:changeLogParameter name="global.db.so4.username" value="${global.db.so4.username}"/>
+                <liquibase:changeLogParameter name="global.db.ad4.username" value="${global.db.ad4.username}"/>
+                <liquibase:changeLogParameter name="global.db.as4.username" value="${global.db.as4.username}"/>
+            </liquibase:changeLogParameters>
+        </liquibase:updateDatabase>
+
         <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.0.0.0/2.0.0.0.agsde2.sql"
                                   classpathref="classpath-liquibase">
             <liquibase:changeLogParameters>
@@ -115,12 +124,6 @@
                                   classpathref="classpath-liquibase"/>
         <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.5.2.2/01.agsde2.sql"
                                   classpathref="classpath-liquibase"/>
-        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.5.3.0/01.agsde2.sql"
-                                  classpathref="classpath-liquibase"/>
-        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.5.4.0/01.agsde2.sql"
-                                  classpathref="classpath-liquibase"/>
-        <liquibase:updateDatabase databaseref="agsde2-database" changelogfile="install/2.5.5.2/01.agsde2.sql"
-                                  classpathref="classpath-liquibase"/>
     </target>
 
     <target name="-install-db-ad4" depends="-da-installare" if="da.installare">
@@ -132,8 +135,8 @@
                 temp="${global.db.target.tablespace.temp}"
                 size="${global.db.target.tablespace.size}"/>
 
-        <ad4-crea-utente codice="AGSDE2" nominativo="AGSDE2" passwd=""/>
-        <ad4-crea-utente codice="AGSDE2WS" nominativo="AGSDE2WS" passwd=""/>
+        <ad4-crea-utente codice="AGSDE2" nominativo="AGSDE2" passwd="${agsde2.password}"/>
+        <ad4-crea-utente codice="AGSDE2WS" nominativo="AGSDE2WS" passwd="${agsde2ws.password}"/>
 
         <ad4-crea-modulo codice="AGSDE2.CFG" descrizione="Configuratore Iter" progetto="${progetto.codice}"/>
 
@@ -272,7 +275,7 @@
     <target name="-agsde2-so4-con-deleghe" depends="-agsde2-so4-ha-deleghe" if="${is.so4.con.deleghe}">
 
         <liquibase:updateDatabase databaseref="so4-database"
-                                  changelogfile="integration/SO4/con_deleghe/01.so4.sql"
+                                  changelogfile="integration/SO4/con_deleghe/01.so4m.sql"
                                   classpathref="classpath-liquibase">
             <liquibase:changeLogParameters>
                 <liquibase:changeLogParameter name="global.db.target.username" value="${global.db.target.username}"/>

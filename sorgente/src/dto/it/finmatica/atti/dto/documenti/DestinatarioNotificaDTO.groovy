@@ -1,29 +1,50 @@
 package it.finmatica.atti.dto.documenti
 
+import grails.compiler.GrailsCompileStatic
 import it.finmatica.ad4.dto.autenticazione.Ad4UtenteDTO
+import it.finmatica.as4.dto.As4SoggettoCorrenteDTO
 import it.finmatica.atti.documenti.DestinatarioNotifica
 import it.finmatica.atti.documenti.DestinatarioNotificaAttivita
 import it.finmatica.atti.dto.dizionari.EmailDTO
 import it.finmatica.atti.dto.odg.SedutaStampaDTO
-import it.finmatica.dto.DtoUtils
 import it.finmatica.so4.dto.strutturaPubblicazione.So4UnitaPubbDTO
 
-import grails.compiler.GrailsCompileStatic
 @GrailsCompileStatic
 public class DestinatarioNotificaDTO implements it.finmatica.dto.DTO<DestinatarioNotifica> {
     private static final long serialVersionUID = 1L;
 
-    Long id;
-    Long version;
-    DeliberaDTO delibera;
-    DeterminaDTO determina;
-    EmailDTO email;
-    PropostaDeliberaDTO propostaDelibera;
-    String tipoDestinatario;
-    String tipoNotifica;
-    So4UnitaPubbDTO unitaSo4;
-    Ad4UtenteDTO utente;
-    SedutaStampaDTO sedutaStampa;
+    Long id
+    Long version
+    DeliberaDTO delibera
+    DeterminaDTO determina
+    EmailDTO email
+    PropostaDeliberaDTO propostaDelibera
+    String tipoDestinatario
+    String tipoNotifica
+    As4SoggettoCorrenteDTO soggetto
+    So4UnitaPubbDTO unitaSo4
+    Ad4UtenteDTO utente
+    SedutaStampaDTO sedutaStampa
+    BigDecimal importo
+    Integer giorniScadenza
+    Date dataScadenza
+    String codiceEsterno
+    Long idRecapito
+    Long idContatto
+    String cognome
+    String nome
+    String codiceFiscale
+    String indirizzo
+    String comune
+    String provincia
+    String cap
+    String indirizzoEmail
+
+    //aggiunti per PiTre
+    String	idSoggettoEsterno
+    String 	tipoSoggettoEsterno
+    String 	tipoCorrispondenteEsterno
+    String  tipoRubricaEsterna
 
 
     DestinatarioNotifica getDomainObject () {
@@ -53,9 +74,22 @@ public class DestinatarioNotificaDTO implements it.finmatica.dto.DTO<Destinatari
         if (unitaSo4 != null) {
             return unitaSo4.descrizione
         }
+
+        if (soggetto != null) {
+            return soggetto.denominazione
+        }
+
+        if ((cognome != null) || (nome != null)) {
+            return cognome +" "+nome
+        }
     }
 
     String getIndirizzoEmail () {
+        //se ho memorizzato il campo in tabella, questo ha la precedenza
+        if (indirizzoEmail != null) {
+            return indirizzoEmail
+        }
+
         if (email != null) {
             return email.indirizzoEmail
         }
@@ -63,6 +97,10 @@ public class DestinatarioNotificaDTO implements it.finmatica.dto.DTO<Destinatari
         // questo è orribile ma sarebbe necessario un refactor più impegnativo.
         if (utente != null) {
             return domainObject.soggettoCorrente.indirizzoWeb
+        }
+
+        if (soggetto != null) {
+            return soggetto.indirizzoWeb
         }
 
         return ""

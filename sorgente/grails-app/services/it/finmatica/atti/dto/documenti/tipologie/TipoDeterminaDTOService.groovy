@@ -12,6 +12,7 @@ import it.finmatica.atti.integrazioni.protocollo.ProtocolloGdm
 import it.finmatica.atti.integrazioni.protocollo.ProtocolloGdmConfig
 import it.finmatica.gestionetesti.reporter.GestioneTestiModello
 import it.finmatica.gestionetesti.reporter.dto.GestioneTestiModelloDTO
+import org.apache.commons.lang.math.RandomUtils
 
 class TipoDeterminaDTOService {
 
@@ -38,6 +39,8 @@ class TipoDeterminaDTOService {
 		tipoDetermina.testoObbligatorio  		= tipoDeterminaDTO.testoObbligatorio
 		tipoDetermina.codiceGara     		    = tipoDeterminaDTO.codiceGara
 		tipoDetermina.codiceGaraObbligatorio    = tipoDeterminaDTO.codiceGaraObbligatorio
+		tipoDetermina.visImportoTotale           = tipoDeterminaDTO.visImportoTotale
+		tipoDetermina.importoTotaleObbligatorio = tipoDeterminaDTO.importoTotaleObbligatorio
 		tipoDetermina.codiceEsterno     		= tipoDeterminaDTO.codiceEsterno
 
 		tipoDetermina.pubblicazione						= tipoDeterminaDTO.pubblicazione
@@ -70,7 +73,9 @@ class TipoDeterminaDTOService {
 		tipoDetermina.esecutivitaMovimenti 		= tipoDeterminaDTO.esecutivitaMovimenti
 		tipoDetermina.scritturaMovimentiContabili	= tipoDeterminaDTO.scritturaMovimentiContabili
         tipoDetermina.queryMovimenti            = tipoDeterminaDTO.queryMovimenti
-		
+		tipoDetermina.contabilitaCheckRiservato = tipoDeterminaDTO.contabilitaCheckRiservato
+		tipoDetermina.impegnoObbligatorio		= tipoDeterminaDTO.impegnoObbligatorio
+
 		tipoDetermina.tipoPubblicazioneAlbo		= tipoDeterminaDTO.tipoPubblicazioneAlbo
 		tipoDetermina.diventaEsecutiva			= tipoDeterminaDTO.diventaEsecutiva
 		tipoDetermina.incaricatoObbligatorio	= tipoDeterminaDTO.incaricatoObbligatorio
@@ -79,8 +84,21 @@ class TipoDeterminaDTOService {
         tipoDetermina.ruoloRiservato            = tipoDeterminaDTO.ruoloRiservato
         tipoDetermina.cupVisibile               = tipoDeterminaDTO.cupVisibile
         tipoDetermina.cupObbligatorio           = tipoDeterminaDTO.cupObbligatorio && tipoDeterminaDTO.cupVisibile
+		tipoDetermina.visDataControlloGestione  = tipoDeterminaDTO.visDataControlloGestione
+		tipoDetermina.visDataScadenzaDisposizione = tipoDeterminaDTO.visDataScadenzaDisposizione
         tipoDetermina.eseguibilitaImmediata     = tipoDeterminaDTO.eseguibilitaImmediata
         tipoDetermina.pubblicaAllegatiVisualizzatore = tipoDeterminaDTO.pubblicaAllegatiVisualizzatore
+		tipoDetermina.pndNotifica				 = tipoDeterminaDTO.pndNotifica
+		tipoDetermina.tipoFirma				     = tipoDeterminaDTO.tipoFirma
+		tipoDetermina.impattoGenerazionale 		 = tipoDeterminaDTO.impattoGenerazionale
+
+		tipoDetermina.gestioneRiservato 		 = tipoDeterminaDTO.gestioneRiservato
+		tipoDetermina.gestioneRiservatoAllegati  = tipoDeterminaDTO.gestioneRiservatoAllegati
+
+		tipoDetermina.fascicoloNumero			 =tipoDeterminaDTO.fascicoloNumero
+		tipoDetermina.fascicoloAnno				 =tipoDeterminaDTO.fascicoloAnno
+		tipoDetermina.fascicoloOggetto			 =tipoDeterminaDTO.fascicoloOggetto
+		tipoDetermina.idFascicoloEsterno		 =tipoDeterminaDTO.idFascicoloEsterno
 
 		parametroTipologiaService.aggiornaParametri (tipoDetermina, listaParametri);
 
@@ -98,6 +116,11 @@ class TipoDeterminaDTOService {
             if (mappingIntegrazione == null) {
                 mappingIntegrazione = new MappingIntegrazione(categoria: ProtocolloGdmConfig.MAPPING_CATEGORIA, codice: ProtocolloGdmConfig.MAPPING_CODICE_TIPO_DOCUMENTO, valoreInterno: tipoDetermina.id.toString())
             }
+
+			if (mappingIntegrazione.id == null) {
+				mappingIntegrazione.id = -RandomUtils.nextInt()
+			}
+
             mappingIntegrazione.valoreEsterno = tipoDocumentoEsterno
             mappingIntegrazione.save()
         }

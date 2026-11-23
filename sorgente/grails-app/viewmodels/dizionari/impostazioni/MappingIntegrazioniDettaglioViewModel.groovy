@@ -49,7 +49,7 @@ class MappingIntegrazioniDettaglioViewModel {
     @NotifyChange(["tabs"])
     @Command
     def onElimina(@BindingParam("valore") MappingIntegrazioneDTO mappingIntegrazioneDTO, @BindingParam("tab") Map tab) {
-        if (mappingIntegrazioneDTO.id > 0) {
+        if (mappingIntegrazioneDTO.id?.toLong() > 0) {
             Messagebox.show("Eliminare il dettaglio dell'integrazione selezionato?", "Attenzione!", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION,
                 new org.zkoss.zk.ui.event.EventListener() {
                     void onEvent (Event e) {
@@ -66,9 +66,11 @@ class MappingIntegrazioniDettaglioViewModel {
         }
     }
 
+    @NotifyChange(["tabs"])
     @Command
     def onSalvaMapping(@BindingParam("valore") MappingIntegrazioneDTO mappingIntegrazioneDTO) {
         mappingIntegrazioneDTOService.salva(mappingIntegrazioneDTO)
+        tabs = mappingIntegrazioneDTOService.getParametriIntegrazioni(integrazione, tabSelected)
     }
 
     @NotifyChange(["tabs"])

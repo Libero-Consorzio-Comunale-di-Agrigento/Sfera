@@ -2,6 +2,7 @@
     <tabs>
         <tab label="Destinatari Interni" visible="@load(vm.abilitaDestinatariInterni)" />
         <tab label="Destinatari Esterni" visible="@load(vm.abilitaDestinatariEsterni)"/>
+        <tab label="Rubrica Protocollo" visible="@load(vm.isIntegrazioneProtocolloPiTre)"/>
     </tabs>
     <tabpanels>
         <!-- Destinatari Interni-->
@@ -53,10 +54,15 @@
         <tabpanel>
             <listbox model="@load(vm.listaDestinatariEsterni)" emptyMessage="Nessun Destinatario Esterno" vflex="1">
                 <listhead>
-                    <listheader label="Nome e Cognome / Ragione Sociale" 	width="50%" />
-                    <listheader label="Email" 								width="25%" />
-                    <listheader label="Tipo Notifica"						width="20%" />
-                    <listheader label="" 									width="5%" align="center">
+                    <listheader label="Denominazione"                       hflex="1" />
+                    <listheader label="" 									width="35px" align="center" visible="@bind(vm.pndNotifica)"/>
+                    <listheader label="Email" 								hflex="1" />
+                    <listheader label="Tipo Notifica"						width="100px" align="center"/>
+                    <listheader label="" 									width="50px" align="center" visible="@bind(vm.pndNotifica)"/>
+                    <listheader label="Importo"						        width="50px" align="center" visible="@bind(vm.pndNotifica and vm.pndPagamento)"/>
+                    <listheader label="Giorni Scadenza"						width="100px" align="center" visible="@bind(vm.pndNotifica and vm.pndPagamento)"/>
+                    <listheader label="Data Scadenza"						width="100px" align="center" visible="@bind(vm.pndNotifica and vm.pndPagamento)"/>
+                    <listheader label="" 									width="50px" align="center">
                         <image width="15px" src="/images/afc/16x16/add.png"
                                onClick="@command('onAggiungiDestinatariEsterni')"
                                tooltiptext="Aggiungi destinatari esterni"
@@ -66,15 +72,71 @@
                 </listhead>
                 <template name="model" var="s">
                     <listitem>
-                        <listcell label="@load(empty s.email.ragioneSociale ? c:cat3(s.email.cognome, ' ', s.email.nome) : s.email.ragioneSociale)" />
-                        <listcell label="@load(s.email.indirizzoEmail)" />
-                        <listcell label="@load(s.tipoNotifica)" />
+                        <listcell label="@bind(s.tipoNotifica eq 'PND' ? s.soggetto.denominazione : (empty s.email.ragioneSociale ? c:cat3(s.email.cognome, ' ', s.email.nome) : s.email.ragioneSociale))" />
+                        <listcell>
+                            <image src="/images/afc/16x16/info.png"
+                                   tooltiptext="@load(c:cat5(s.indirizzo, ' - ', s.cap, ' ', c:cat4(s.comune,' (', s.provincia,')')))"
+                                   style="cursor: pointer;"
+                                   visible="@bind(vm.documentoDTO.id gt 0 and vm.pndNotifica and (!(s.indirizzo eq null)))" />
+                        </listcell>
+                        <listcell label="@bind((s.tipoNotifica eq 'PND') ? s.indirizzoEmail : s.email.indirizzoEmail)" tooltiptext="@bind((s.tipoNotifica eq 'PND') ? s.indirizzoEmail : s.email.indirizzoEmail)" />
+                        <listcell label="@bind(s.tipoNotifica)" />
+                        <listcell>
+                            <image src="/images/afc/16x16/mail.png"
+                                   onClick="@command('onVisualizzaNotificaPND', destinatario=s, tipo='E')"
+                                   tooltiptext="Visualizza Notifica"
+                                   style="cursor: pointer;"
+                                   visible="@bind(vm.documentoDTO.id gt 0 and vm.pndNotifica and (!(s.codiceEsterno eq null)))" />
+                        </listcell>
+                        <listcell label="@bind(s.importo)  @converter('formatedNumber', format='###,##0.00')" visible="@bind(vm.pndNotifica and vm.pndPagamento)"/>
+                        <listcell label="@bind(s.giorniScadenza)" visible="@bind(vm.pndNotifica and vm.pndPagamento)"/>
+                        <listcell label="@bind(s.dataScadenza) @converter('formattedDate', format='dd/MM/yyyy')" visible="@bind(vm.pndNotifica and vm.pndPagamento)"/>
                         <listcell>
                             <image src="/images/agsde2/16x16/trash.png"
                                    onClick="@command('onEliminaDestinatarioNotifica', destinatario=s, tipo='E')"
                                    tooltiptext="Elimina destinatari esterni"
                                    style="cursor: pointer;"
-                                   visible="@load(vm.competenze.modifica and not vm.campiProtetti.DESTINATARI and vm.documentoDTO.id gt 0)" />
+                                   visible="@load(vm.competenze.modifica and not vm.campiProtetti.DESTINATARI and vm.documentoDTO.id gt 0 and (s.codiceEsterno eq null))" />
+                        </listcell>
+                    </listitem>
+                </template>
+            </listbox>
+        </tabpanel>
+
+        <!-- Destinatari PiTre-->
+        <tabpanel>
+            <listbox model="@load(vm.listaDestinatariPiTre)" emptyMessage="Nessun Destinatario Esterno" vflex="1">
+                <listhead>
+                    <listheader label="Denominazione"                       hflex="3" style="overflow: auto"/>
+                    <listheader label="Rubrica" 							hflex="1" style="overflow: auto"/>
+                    <listheader label="Email" 								hflex="3" style="overflow: auto"/>
+                    <listheader label="Indirizzo" 							hflex="2" style="overflow: auto"/>
+                    <listheader label="CAP" 							    hflex="1" style="overflow: auto"/>
+                    <listheader label="Comune" 							    hflex="1" style="overflow: auto"/>
+                    <listheader label="PV" 							        hflex="1" style="overflow: auto"/>
+                    <listheader label="" 									width="50px" align="center">
+                        <image width="15px" src="/images/afc/16x16/add.png"
+                               onClick="@command('onAggiungiDestinatariPiTre')"
+                               tooltiptext="Aggiungi Destinatari Rubrica"
+                               style="cursor: pointer;"
+                               visible="@load(vm.competenze.modifica and not vm.campiProtetti.DESTINATARI and vm.documentoDTO.id gt 0 and  not vm.isProtocollato)" />
+                    </listheader>
+                </listhead>
+                <template name="model" var="s">
+                    <listitem>
+                        <listcell label="@load(c:cat3(s.cognome, ' ', s.nome))" />
+                        <listcell label="@load(s.tipoRubricaEsterna)" />
+                        <listcell label="@load(s.indirizzoEmail)" />
+                        <listcell label="@load(s.indirizzo)" />
+                        <listcell label="@load(s.cap)" />
+                        <listcell label="@load(s.comune)" />
+                        <listcell label="@load(s.provincia)" />
+                        <listcell>
+                            <image src="/images/agsde2/16x16/trash.png"
+                                   onClick="@command('onEliminaDestinatarioNotifica', destinatario=s, tipo='P3')"
+                                   tooltiptext="Elimina destinatari PiTre"
+                                   style="cursor: pointer;"
+                                   visible="@load(vm.competenze.modifica and not vm.campiProtetti.DESTINATARI and vm.documentoDTO.id gt 0 and  not vm.isProtocollato)" />
                         </listcell>
                     </listitem>
                 </template>

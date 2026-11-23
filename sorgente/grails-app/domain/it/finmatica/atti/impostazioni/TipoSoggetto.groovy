@@ -12,6 +12,7 @@ class TipoSoggetto {
 
 	public static final transient String REDATTORE 	 	= "REDATTORE"
 	public static final transient String UO_PROPONENTE  = "UO_PROPONENTE"
+	public static final transient String UO_SERVIZIO    = "UO_SERVIZIO"
 	public static final transient String FUNZIONARIO 	= "FUNZIONARIO"
 	public static final transient String DIRIGENTE 	 	= "DIRIGENTE"
 	public static final transient String PRESIDENTE	 	= "PRESIDENTE"
@@ -37,6 +38,11 @@ class TipoSoggetto {
 	public static final transient String DIRETTORE_AMMINISTRATIVO 	= "DIRETTORE_AMMINISTRATIVO"
     public static final transient String DIRETTORE_SANITARIO 		= "DIRETTORE_SANITARIO"
     public static final transient String DIRETTORE_SOCIO_SANITARIO	= "DIRETTORE_SOCIO_SANITARIO"
+
+	//Aggiunti per ASP Vibo la presenza di 3 commissari
+	public static final transient String COMMISSARIO_1 	= "COMMISSARIO_1"
+	public static final transient String COMMISSARIO_2 	= "COMMISSARIO_2"
+	public static final transient String COMMISSARIO_3 	= "COMMISSARIO_3"
 
 	// Aggiunto per Treviso: #6920, http://svi-redmine/issues/6920
 	// indica l'unità di controllo della ragioneria a cui la proposta deve passare prima della vidima del dirigente.

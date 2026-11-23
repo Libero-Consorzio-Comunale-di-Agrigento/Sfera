@@ -1,5 +1,6 @@
 package it.finmatica.atti.dto.odg
 
+import grails.compiler.GrailsCompileStatic
 import it.finmatica.ad4.dto.autenticazione.Ad4UtenteDTO
 import it.finmatica.atti.documenti.StatoOdg
 import it.finmatica.atti.dto.commons.FileAllegatoDTO
@@ -9,15 +10,14 @@ import it.finmatica.atti.dto.documenti.DeterminaDTO
 import it.finmatica.atti.dto.documenti.PropostaDeliberaDTO
 import it.finmatica.atti.dto.odg.dizionari.EsitoDTO
 import it.finmatica.atti.odg.OggettoSeduta
-import it.finmatica.dto.DtoUtils
 
-import grails.compiler.GrailsCompileStatic
 @GrailsCompileStatic
 public class OggettoSedutaDTO implements it.finmatica.dto.DTO<OggettoSeduta> {
     private static final long serialVersionUID = 1L;
 
     Long id;
     Long version;
+    Set<OggettoSedutaDelegaDTO> altreDeleghe;
     boolean confermaEsito;
     Date dataDiscussione;
     Date dateCreated;
@@ -41,16 +41,35 @@ public class OggettoSedutaDTO implements it.finmatica.dto.DTO<OggettoSeduta> {
     Ad4UtenteDTO utenteUpd;
 
 
-    public OggettoSeduta getDomainObject () {
+    public void addToAltreDeleghe (OggettoSedutaDelegaDTO oggettoSedutaDelega) {
+        if (this.altreDeleghe == null) {
+            this.altreDeleghe = new HashSet<OggettoSedutaDelegaDTO>()
+        }
+        this.altreDeleghe.add(oggettoSedutaDelega);
+        oggettoSedutaDelega.oggettoSeduta = this
+    }
+
+    public void removeFromAltreDeleghe (OggettoSedutaDelegaDTO oggettoSedutaDelega) {
+        if (this.altreDeleghe == null) {
+            this.altreDeleghe = new HashSet<OggettoSedutaDelegaDTO>()
+        }
+        this.altreDeleghe.remove(oggettoSedutaDelega);
+        oggettoSedutaDelega.oggettoSeduta = null
+    }
+
+    OggettoSeduta getDomainObject () {
         return OggettoSeduta.get(this.id)
     }
 
-    public OggettoSeduta copyToDomainObject () {
+    OggettoSeduta copyToDomainObject () {
         return null
     }
 
     /* * * codice personalizzato * * */ // attenzione: non modificare questa riga se si vuole mantenere il codice personalizzato che segue.
     // qui è possibile inserire codice personalizzato che non verrà eliminato dalla rigenerazione dei DTO.
+
+    String unitaProponente
+    String labelDelibera
 
 	it.finmatica.atti.documenti.StatoOdg getStatoOdg () {
         // il controllo sulla determina è solo velleitario: di fatto le determine non vanno in odg (per ora...)
@@ -88,4 +107,5 @@ public class OggettoSedutaDTO implements it.finmatica.dto.DTO<OggettoSeduta> {
         // in tutti gli altri casi, ritorno niente
         return [url: '', tooltip: '']
     }
+
 }

@@ -6,19 +6,19 @@
 	</connections>
 	<testStaticData>
 		<documentRoot>
-            <titoloReport>
-                <DAL>01/01/2017</DAL>
-                <AL>31/12/2017</AL>
-                <TITOLO_COMMISSIONE>Giunta</TITOLO_COMMISSIONE>
-            </titoloReport>
+			<titoloReport>
+				<DAL>01/01/2017</DAL>
+				<AL>31/12/2017</AL>
+				<TITOLO_COMMISSIONE>Giunta</TITOLO_COMMISSIONE>
+			</titoloReport>
 			<statistiche>
 				<NOMINATIVO>MARIO ROSSI</NOMINATIVO>
 				<PRESENZE>2</PRESENZE>
 				<PERCENTUALE_PRESENZE>50</PERCENTUALE_PRESENZE>
 				<PERCENTUALE_ASSENZE_NON_G>50</PERCENTUALE_ASSENZE_NON_G>
 				<ASSENZE>2</ASSENZE>
-                <TOTALE_SEDUTE>4</TOTALE_SEDUTE>
-                <ASSENZE_NON_GIUSTIFICATE>1</ASSENZE_NON_GIUSTIFICATE>
+				<TOTALE_SEDUTE>4</TOTALE_SEDUTE>
+				<ASSENZE_NON_GIUSTIFICATE>1</ASSENZE_NON_GIUSTIFICATE>
 			</statistiche>
 			<statistiche>
 				<NOMINATIVO>LUCA VERDI</NOMINATIVO>
@@ -26,8 +26,8 @@
 				<PERCENTUALE_PRESENZE>50</PERCENTUALE_PRESENZE>
 				<PERCENTUALE_ASSENZE_NON_G>100</PERCENTUALE_ASSENZE_NON_G>
 				<ASSENZE>1</ASSENZE>
-                <TOTALE_SEDUTE>2</TOTALE_SEDUTE>
-                <ASSENZE_NON_GIUSTIFICATE>1</ASSENZE_NON_GIUSTIFICATE>
+				<TOTALE_SEDUTE>2</TOTALE_SEDUTE>
+				<ASSENZE_NON_GIUSTIFICATE>1</ASSENZE_NON_GIUSTIFICATE>
 			</statistiche>
 			<statistiche>
 				<NOMINATIVO>ANDREA BIANCHI</NOMINATIVO>
@@ -35,18 +35,18 @@
 				<PERCENTUALE_ASSENZE_NON_G>0</PERCENTUALE_ASSENZE_NON_G>
 				<ASSENZE>0</ASSENZE>
 				<PRESENZE>3</PRESENZE>
-                <TOTALE_SEDUTE>3</TOTALE_SEDUTE>
-                <ASSENZE_NON_GIUSTIFICATE>0</ASSENZE_NON_GIUSTIFICATE>
+				<TOTALE_SEDUTE>3</TOTALE_SEDUTE>
+				<ASSENZE_NON_GIUSTIFICATE>0</ASSENZE_NON_GIUSTIFICATE>
 			</statistiche>
 		</documentRoot>
 	</testStaticData>
 	<definitions>
-<!-- DEFINIZIONE PARAMETRI DI INPUT -->
- 		<metaDato tipoParametro="input">
+		<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+		<metaDato tipoParametro="input">
 			<nomeSimbolico>id</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>id della commissione</descrizione>
-			<path/>			
+			<path/>
 		</metaDato>
 		<metaDato tipoParametro="input">
 			<nomeSimbolico>dal</nomeSimbolico>
@@ -66,7 +66,7 @@
 			<descrizione>ni del partecipante</descrizione>
 			<path/>
 		</metaDato>
-        <!-- DEFINIZIONE CAMPI DELLA QUERY -->
+		<!-- DEFINIZIONE CAMPI DELLA QUERY -->
 		<metaDato>
 			<nomeSimbolico>TITOLO_COMMISSIONE</nomeSimbolico>
 			<tipo>string</tipo>
@@ -84,7 +84,7 @@
 			<tipo>string</tipo>
 			<descrizione>Numero di presenze nel periodo cercato</descrizione>
 			<path/>
-		</metaDato>	
+		</metaDato>
 		<metaDato>
 			<nomeSimbolico>ASSENZE</nomeSimbolico>
 			<tipo>string</tipo>
@@ -118,7 +118,7 @@
 	</definitions>
 	<queryes>
 		<query id='titoloReport' help_query_alias="t" help_field_aliases="DAL, AL, TITOLO_COMMISSIONE">
-		select #dal DAL, #al AL, com.titolo TITOLO_COMMISSIONE from odg_commissioni com where com.id_commissione = #id
+			<![CDATA[select distinct #dal DAL, #al AL, decode( #id,-1,'TUTTE LE COMMISSIONI',com.titolo)  TITOLO_COMMISSIONE from odg_commissioni com where (#id < 0 or com.id_commissione = #id)]]>
 		</query>
 		<query id='statistiche' help_query_alias="g" help_field_aliases="NOMINATIVO, PRESENZE, TOTALE_SEDUTE, ASSENZE_NON_GIUSTIFICATE, ASSENZE, PERCENTUALE_PRESENZE, PERCENTUALE_ASSENZE_NON_G"><![CDATA[
  	select denominazione nominativo
@@ -148,7 +148,7 @@ select 1 totale
    and op.id_oggetto_seduta = os.id_oggetto_seduta
    and sp.id_seduta_partecipante = OP.ID_SEDUTA_PARTECIPANTE
    and CC.ID_COMMISSIONE_COMPONENTE(+) = SP.ID_COMMISSIONE_COMPONENTE
-   and s.id_commissione = #id
+   and ( #id < 0 or s.id_commissione = #id )
    and trunc(s.data_inizio_seduta) >= to_date( #dal , 'dd/mm/yyyy')
    and trunc(s.data_inizio_seduta) <= to_date( #al ,  'dd/mm/yyyy')
    and ( #ni < 0 or cc.ni_componente = #ni or sp.ni_componente_esterno = #ni )

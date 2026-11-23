@@ -62,6 +62,58 @@ end integrazione_gdm_pkg;
 /
 create or replace package body integrazione_gdm_pkg
 as
+    function is_amministratore_protocollo (p_utente    varchar2,
+                                           p_oggetto   varchar2)
+        return number
+    is
+        d_ente                varchar (255);
+        d_amministratore      number;
+        d_numero_protocollo   number;
+        d_ruolo_protocollo    varchar2 (255) := 'AGPSUP';
+    begin
+        --se protocollato verifico se l'utente ha il ruolo AGPSUP
+        begin
+            d_ente := gdm_f_valore_campo (p_oggetto, 'ENTE');
+
+            if (impostazioni_pkg.get_impostazione ('PROTOCOLLO', d_ente) =
+                'protocolloEsternoGdm')
+            then
+                d_numero_protocollo :=
+                    gdm_f_valore_campo (p_oggetto, 'NUMERO');
+
+                if d_numero_protocollo is not null
+                then
+                    select count (1)
+                      into d_amministratore
+                      from so4_v_ruoli_componente_pubb svrcp,
+                           so4_v_componenti_pubb svcp,
+                           as4_v_soggetti_correnti avsc
+                     where avsc.utente = p_utente
+                       and avsc.ni = svcp.id_soggetto
+                       and svcp.id_componente = svrcp.id_componente
+                       and trunc (sysdate) between svcp.dal
+                                               and nvl (
+                                                       svcp.al,
+                                                       to_date (3333333, 'j'))
+                       and svrcp.ruolo = d_ruolo_protocollo
+                       and trunc (sysdate) between svrcp.dal
+                                               and nvl (
+                                                       svrcp.al,
+                                                       to_date (3333333, 'j'));
+
+                    if (d_amministratore >= 1)
+                    then
+                        return 1;
+                    end if;
+                end if;
+            end if;
+        exception
+            when others
+            then
+                null;
+        end;
+    end;
+
    function controlla_competenze_visto_par (p_utente           varchar2
                                           , p_oggetto          varchar2
                                           , p_lettura          number

@@ -4,50 +4,52 @@ import dizionari.atti.CaratteristicaTipologiaDettaglioViewModel
 import grails.orm.PagedResultList
 import it.finmatica.as4.As4SoggettoCorrente
 import it.finmatica.atti.AbstractViewModel
+import it.finmatica.atti.IProtocolloEsterno
 import it.finmatica.atti.IntegrazioneContabilita
 import it.finmatica.atti.commons.AttiUtils
 import it.finmatica.atti.commons.FileAllegatoStorico
 import it.finmatica.atti.commons.TokenIntegrazioneService
-import it.finmatica.atti.dizionari.Categoria
-import it.finmatica.atti.dizionari.DatiAggiuntiviService
-import it.finmatica.atti.dizionari.IndirizzoDelibera
-import it.finmatica.atti.dizionari.OggettoRicorrente
-import it.finmatica.atti.dizionari.TipoBudget
-import it.finmatica.atti.export.ExportService
-import it.finmatica.atti.integrazioni.Ce4Conto
-import it.finmatica.atti.integrazioni.Ce4Fornitore
-import it.finmatica.atti.impostazioni.CaratteristicaTipologia
-import it.finmatica.atti.documenti.TipoDatoAggiuntivo
-import it.finmatica.atti.impostazioni.RegolaCampoService
+import it.finmatica.atti.dizionari.*
 import it.finmatica.atti.documenti.*
 import it.finmatica.atti.documenti.beans.AttiFileDownloader
 import it.finmatica.atti.documenti.beans.AttiGestioneTesti
 import it.finmatica.atti.documenti.beans.AttiGestoreCompetenze
+import it.finmatica.atti.documenti.tipologie.GestioneTestiModelloCompetenza
 import it.finmatica.atti.documenti.tipologie.TipoDelibera
 import it.finmatica.atti.documenti.tipologie.TipoDeliberaCompetenza
+import it.finmatica.atti.dto.dizionari.ImpattoGenerazionaleDTO
+import it.finmatica.atti.dto.dizionari.DelegaDTO
 import it.finmatica.atti.dto.documenti.*
+import it.finmatica.atti.documenti.TipoDatoAggiuntivo
 import it.finmatica.atti.dto.documenti.tipologie.TipoDeliberaDTO
-import it.finmatica.atti.dto.integrazioni.Ce4FornitoreDTO
 import it.finmatica.atti.dto.integrazioni.Ce4ContoDTO
+import it.finmatica.atti.dto.integrazioni.Ce4FornitoreDTO
+import it.finmatica.atti.dto.odg.dizionari.GruppoPoliticoComponenteDTO
 import it.finmatica.atti.exceptions.AttiRuntimeException
-import it.finmatica.atti.impostazioni.CampiDocumento
-import it.finmatica.atti.impostazioni.CaratteristicaTipologiaService
-import it.finmatica.atti.impostazioni.Impostazioni
-import it.finmatica.atti.impostazioni.TipoSoggetto
+import it.finmatica.atti.export.ExportService
+import it.finmatica.atti.impostazioni.*
 import it.finmatica.atti.integrazioni.CasaDiVetroService
 import it.finmatica.atti.integrazioni.Ce4Conto
 import it.finmatica.atti.integrazioni.Ce4Fornitore
+import it.finmatica.atti.integrazioni.protocollo.ProtocolloPiTre
 import it.finmatica.atti.odg.Commissione
 import it.finmatica.atti.odg.OggettoSeduta
 import it.finmatica.atti.odg.dizionari.EsitoStandard
 import it.finmatica.dto.DTO
+import it.finmatica.ad4.autenticazione.Ad4Utente
+import it.finmatica.atti.dto.documenti.viste.So4DelegaService
+import it.finmatica.gestioneiter.Attore
+import it.finmatica.gestioneiter.configuratore.dizionari.WkfTipoOggetto
 import it.finmatica.gestioneiter.configuratore.iter.WkfCfgIter
 import it.finmatica.gestionetesti.GestioneTestiService
+import it.finmatica.gestionetesti.reporter.dto.GestioneTestiModelloDTO
+import it.finmatica.gestionetesti.ui.dizionari.GestioneTestiModelloDTOService
 import it.finmatica.so4.login.So4UserDetail
 import it.finmatica.so4.login.detail.UnitaOrganizzativa
 import it.finmatica.so4.strutturaPubblicazione.So4UnitaPubb
 import org.apache.log4j.Logger
 import org.hibernate.FetchMode
+import org.hibernate.criterion.CriteriaSpecification
 import org.zkoss.bind.BindUtils
 import org.zkoss.bind.annotation.*
 import org.zkoss.util.resource.Labels
@@ -56,8 +58,11 @@ import org.zkoss.zk.ui.Executions
 import org.zkoss.zk.ui.event.Event
 import org.zkoss.zk.ui.event.Events
 import org.zkoss.zk.ui.event.SelectEvent
+import org.zkoss.zul.ListModelList
 import org.zkoss.zul.Messagebox
 import org.zkoss.zul.Window
+import it.finmatica.atti.documenti.GruppoPoliticoDocumentoService
+
 
 import java.text.DecimalFormat
 
@@ -87,6 +92,11 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	TokenIntegrazioneService		tokenIntegrazioneService
 	DatiAggiuntiviService			datiAggiuntiviService
     BudgetDTOService                budgetDTOService
+	PropostaDeliberaDelegaDTOService propostaDeliberaDelegaDTOService
+	GestioneTestiModelloDTOService  gestioneTestiModelloDTOService
+	GruppoPoliticoDocumentoDTOService gruppoPoliticoDocumentoDTOService
+	GruppoPoliticoDocumentoService  gruppoPoliticoDocumentoService
+	So4DelegaService				so4DelegaService
 
 	// componenti
 	Window popupCambiaTipologia
@@ -99,7 +109,10 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	List<VistoParereDTO> listaVisti
 	def listaDestinatariInterni
 	def listaDestinatariEsterni
+	def listaDestinatariPiTre
 	def listaAllegati
+	ListModelList<GruppoPoliticoDocumentoDTO> listaFirmatariGruppoPolitico = new ListModelList<>();
+
 	def listaDocumentiCollegati
 	def listaModelliTestoPredefiniti
 	def listaIndirizziDelibera
@@ -108,12 +121,18 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	def listaCategorie
     def listaTipiBudget
     def listaBudget
+	List<PropostaDeliberaDelegaDTO> listaAltreDeleghe
 	List<Ce4ContoDTO> listaCe4Conti
 	List<Ce4FornitoreDTO> listaCe4Fornitori
 	boolean categoriaAbilitata
 	boolean isNotificaPresente
 	boolean isEstrattoPresente
     boolean budgetAbilitato
+	boolean delegheMultipleAbilitato
+
+	boolean mostraGestioneGruppiPolitici = false
+
+	IProtocolloEsterno protocolloEsterno
 
 	// mappa dei soggetti
 	Map<String, it.finmatica.atti.zk.SoggettoDocumento> soggetti = [:]
@@ -130,7 +149,7 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	boolean mostraNoteTrasmissionePrecedenti
 	boolean abilitaNoteContabili
 	boolean abilitaNoteCommissione
-	boolean abilitaRiservato
+	boolean riservatoVisibile
 	boolean abilitaDestinatariEsterni
 	boolean abilitaDestinatariInterni
     boolean destinatariInterniObbligatori
@@ -138,11 +157,17 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	boolean abilitaPubblicazioneProposte
 	boolean abilitaPubblicazioneFinoRevoca
 	boolean riservatoModificabile
+	boolean visContabilita = true //indica se l'utente può visualizzare il folder della contabilità
 	boolean firmaRemotaAbilitata
 	boolean mostraArchiviazioni
 	boolean mostraCorteConti
 	boolean mostraEseguibilitaImmediata
 	boolean mostraParereRevisoriConti
+	boolean mostraImportoTotale = false
+	boolean modelloTestoUnitaProponente
+	boolean mostraComboModelloTesti = true
+	boolean gestioneFondi
+	boolean gestioneGruppiPolitici
 
 	// paginazione integrazione ce4
 	int activePage  = 0
@@ -187,11 +212,35 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	// indica se il documento deve essere comunque aperto in lettura (delegato)
 	boolean forzaCompetenzeLettura
 
+	// utente per conto del quale si sta operando (delega So4)
+	Ad4Utente delegante
+
 	boolean controllaPriorita = false
 	boolean isMotivazionePresente = false
 
-	@NotifyChange(["propostaDelibera", "competenze"])
-    @Init init(@ContextParam(ContextType.COMPONENT) Window w, @ExecutionArgParam("id") Long idPropostaDelibera,  @ExecutionArgParam("fuoriSacco") Boolean pFuoriSacco, @ExecutionArgParam("idDocumentoEsterno") Long idDocumentoEsterno, @ExecutionArgParam("competenzeLettura") Boolean competenzeLettura) {
+	//PND per i destinatari gestita per la determina
+	boolean  pndNotifica = false
+	boolean  pndPagamento = false
+
+	String tipoIntegrazioneContabilita
+	boolean isIntegrazioneContabilitaAtsPavia = false
+
+	// Impatto Generazionale
+	boolean impattoGenerazionaleAbilitato
+	List<ImpattoGenerazionaleDTO>  listaImpattoGenerazionale
+	ImpattoGenerazionaleDTO impattoGenerazionale
+	boolean mostraImpattoGenerazionale = false
+
+	// Protocollazione
+	String tipoProtocollazione
+	boolean isIntegrazioneProtocolloPiTre = false
+
+	boolean isProtocollato = false
+
+	@NotifyChange(["propostaDelibera", "competenze", "mostraImpattoGenerazionale", "mostraGestioneGruppiPolitici"])
+    @Init init(@ContextParam(ContextType.COMPONENT) Window w, @ExecutionArgParam("id") Long idPropostaDelibera,  @ExecutionArgParam("fuoriSacco") Boolean pFuoriSacco, @ExecutionArgParam("idDocumentoEsterno") Long idDocumentoEsterno, @ExecutionArgParam("competenzeLettura") Boolean competenzeLettura,
+			   @ExecutionArgParam("classificazione") String classificazione, @ExecutionArgParam("numeroFascicolo") String numeroFascicolo, @ExecutionArgParam("annoFascicolo") String annoFascicolo,
+			   @ExecutionArgParam("delegante") Ad4Utente delegante) {
 		this.self = w
 
 		firmaRemotaAbilitata 			= Impostazioni.FIRMA_REMOTA.abilitato
@@ -199,7 +248,7 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 		classifica_obb 					= Impostazioni.PROTOCOLLO_CLASSIFICA_OBBL.abilitato
 		fascicolo_obb 					= Impostazioni.PROTOCOLLO_FASCICOLO_OBBL.abilitato
 		abilitaNoteContabili 			= Impostazioni.NOTE_CONTABILI.abilitato
-		abilitaRiservato 				= Impostazioni.RISERVATO.abilitato
+		riservatoVisibile 				= Impostazioni.RISERVATO.abilitato
 		abilitaDestinatariEsterni 		= Impostazioni.DESTINATARI_ESTERNI.abilitato
 		abilitaDestinatariInterni 		= Impostazioni.DESTINATARI_INTERNI.abilitato
         destinatariInterniObbligatori   = Impostazioni.DESTINATARI_INTERNI_OBBLIG_DELI.abilitato
@@ -212,7 +261,26 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 		mostraParereRevisoriConti		= Impostazioni.PARERE_REVISORI_CONTI.abilitato
 		abilitaPriorita					= Impostazioni.PRIORITA.abilitato
 		abilitaRichiestaSeduta			= Impostazioni.RICHIESTA_SEDUTA.abilitato
+		modelloTestoUnitaProponente 	= Impostazioni.MODELLI_TESTO_UNITA_PROPONENTE.abilitato
+		gestioneFondi                   = Impostazioni.GESTIONE_FONDI.abilitato
+		budgetAbilitato                 = Impostazioni.GESTIONE_BUDGET.abilitato
+		delegheMultipleAbilitato        = Impostazioni.DELEGHE_MULTIPLE.abilitato
+		gestioneGruppiPolitici          = Impostazioni.GESTIONE_GRUPPI_POLITICI.abilitato
+		impattoGenerazionaleAbilitato   = Impostazioni.IMPATTO_GENERAZIONALE.abilitato
+		tipoIntegrazioneContabilita     = Impostazioni.CONTABILITA.valore
+		tipoProtocollazione             = Impostazioni.PROTOCOLLO.valore
 		forzaCompetenzeLettura			= competenzeLettura
+        this.delegante					= delegante
+
+		if (tipoIntegrazioneContabilita == "integrazioneContabilitaAtsPavia") {
+			isIntegrazioneContabilitaAtsPavia = true
+			BindUtils.postNotifyChange(null, null, this, "isIntegrazioneContabilitaAtsPavia")
+		}
+
+		if (tipoProtocollazione == "protocolloPiTre") {
+			isIntegrazioneProtocolloPiTre = true
+			BindUtils.postNotifyChange(null, null, this, "isIntegrazioneProtocolloPiTre")
+		}
 
 		if (idPropostaDelibera != null) {
 			propostaDelibera = new PropostaDeliberaDTO([id: idPropostaDelibera, fuoriSacco: pFuoriSacco?:false, statoOdg: pFuoriSacco?StatoOdg.COMPLETO:StatoOdg.INIZIALE])
@@ -246,9 +314,35 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 				throw new AttiRuntimeException("L'utente ${springSecurityService.principal.username} non ha i diritti di inserimento del documento.")
 			}
 
+			//quando creo un nuovo atto, la lista dei modelli testi si deve vedere solo se NON attiva l'impostazione modelloTestoUnitaProponente
+			if (modelloTestoUnitaProponente) {
+				mostraComboModelloTesti = false
+			}
+
 			titolo = "Crea" + Labels.getLabel("label.nuovaProposta");
 			propostaDelibera.dataProposta = new Date()
 			competenze = [lettura: true, modifica: true, cancellazione: true]
+
+			//se il protocollo è GDM provo a valorizzare classifica e fascicolo se passati nell'url
+			if ("protocolloEsternoGdm".equals(tipoProtocollazione)) {
+				if (classificazione != null) {
+					IProtocolloEsterno.Classifica classifica = protocolloEsterno.getClassifica(classificazione, propostaDelibera.dataProposta)
+					if (classifica != null) {
+						propostaDelibera.classificaCodice  = classifica.codice
+						propostaDelibera.classificaDal = classifica.dal
+						propostaDelibera.classificaDescrizione = classifica.descrizione
+
+						if ((annoFascicolo != null) && (numeroFascicolo != null)) {
+							IProtocolloEsterno.Fascicolo fascicolo = protocolloEsterno.getFascicolo(classifica, numeroFascicolo, Integer.parseInt(annoFascicolo))
+							if (fascicolo != null) {
+								propostaDelibera.fascicoloAnno = fascicolo.anno
+								propostaDelibera.fascicoloNumero = fascicolo.numero
+								propostaDelibera.fascicoloOggetto = fascicolo.oggetto
+							}
+						}
+					}
+				}
+			}
 
 			// in apertura della maschera, il redattore è l'utente corrente:
 			As4SoggettoCorrente s = springSecurityService.principal.soggetto
@@ -259,7 +353,6 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
             propostaDelibera.controllaDestinatari = destinatariInterniObbligatori
 			listaVisti = []
 		}
-		caricaListaIndirizziDelibera()
 
 		listaTipologie = TipoDeliberaCompetenza.createCriteria().list() {
 			projections {
@@ -274,9 +367,9 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 				eq ("valido", true)
 				if (propostaDelibera.fuoriSacco) {
 					isNotNull("progressivoCfgIterFuoriSacco")
-				} else
+				} else {
 					isNotNull("progressivoCfgIter")
-
+				}
 			}
 
 			AttiGestoreCompetenze.controllaCompetenze(delegate)(utente)
@@ -286,12 +379,24 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 			}
 		}.collect { new TipoDeliberaDTO(id: it[0], titolo:it[1], descrizione:it[2]) }
 
-		listaCommissioni = Commissione.list(sort: "titolo", order: "desc").toDTO();
+		listaCommissioni = Commissione.createCriteria().list() {
+			or {
+				eq("valido", true)
+				if (propostaDelibera?.commissione?.id) {
+					eq("id", propostaDelibera.commissione.id)
+				}
+			}
+			order("titolo", "asc")
+		}.toDTO();
 
 		aggiornaPulsanti()
 		caricaListaCategorie()
 		caricaFirmatari()
         caricaListaBudget()
+		caricaListaAltreDeleghe()
+		caricaListaImpattoGenerazionale()
+		caricaGestioneGruppiPolitici()
+		caricaListaIndirizziDelibera()
 	}
 
 	@AfterCompose
@@ -317,7 +422,10 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 		propostaDelibera.tipologia.caratteristicaTipologia = CaratteristicaTipologia.findById(propostaDelibera.tipologia.caratteristicaTipologia.id, [fetch: [caratteristicheTipiSoggetto: 'eager']]).toDTO();
 
 		caricaFirmatari()
+		caricaListaImpattoGenerazionale()
+		abilitaImportoTotale()
 
+		BindUtils.postNotifyChange(null, null, this, "listaImpattoGenerazionale")
 		BindUtils.postNotifyChange(null, null, this, "listaDestinatariInterni")
 		BindUtils.postNotifyChange(null, null, this, "soggetti")
 		BindUtils.postNotifyChange(null, null, this, "soggettiFirmatari")
@@ -347,6 +455,10 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 
 		propostaDelibera = propostaDeliberaDTOService.cambiaTipologia(propostaDelibera)
 
+		caricaListaImpattoGenerazionale()
+		abilitaImportoTotale()
+
+		BindUtils.postNotifyChange(null, null, this, "listaImpattoGenerazionale")
 		BindUtils.postNotifyChange(null, null, this, "listaDestinatariInterni")
 		BindUtils.postNotifyChange(null, null, this, "soggetti")
 		BindUtils.postNotifyChange(null, null, this, "propostaDelibera")
@@ -355,7 +467,6 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	/*
 	 * Gestione Applet Testo
 	 */
-
 	@NotifyChange(["testoLockato"])
 	@Command editaTesto() {
 		testoLockato = gestioneTesti.editaTesto (propostaDelibera);
@@ -410,7 +521,7 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	 * Gestione deleghe
 	 */
 	@Command onAggiungiDelega () {
-		Window w = Executions.createComponents("/atti/documenti/popupSceltaDelega.zul", self, null)
+		Window w = Executions.createComponents("/atti/documenti/popupSceltaDelega.zul", self, [propostaDelibera : propostaDelibera])
 		w.onClose { event ->
 			if (event.data!= null) {
 				if (event.data instanceof String && event.data == "eliminaDelega") {
@@ -429,10 +540,51 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 		w.doModal()
 	}
 
+	private void caricaListaAltreDeleghe () {
+		if (delegheMultipleAbilitato) {
+			listaAltreDeleghe = propostaDeliberaDelegaDTOService.getListaAltreDeleghe(propostaDelibera.domainObject)
+		} else {
+			listaAltreDeleghe = null
+		}
+		BindUtils.postNotifyChange(null, null, this, "listaAltreDeleghe")
+	}
+
+	@Command onAggiungiAltraDelega () {
+		Window w = Executions.createComponents("/atti/documenti/popupSceltaDelega.zul", self, [propostaDelibera : propostaDelibera, mostraTogliDelega: false])
+		w.onClose { event ->
+			if (event?.data != null && !(event.data instanceof String)) {
+				DelegaDTO delegaSelezionata = event.data
+				if (propostaDelibera.delega?.id == delegaSelezionata.id) {
+					Messagebox.show("La delega selezionata è già impostata come delega principale della proposta", "Attenzione!", Messagebox.OK, Messagebox.EXCLAMATION)
+				} else if (listaAltreDeleghe*.delega*.id.contains(delegaSelezionata.id)) {
+					Messagebox.show("La delega selezionata è già stata aggiunta", "Attenzione!", Messagebox.OK, Messagebox.EXCLAMATION)
+				} else {
+					propostaDeliberaDelegaDTOService.aggiungiDelega(propostaDelibera, delegaSelezionata)
+					propostaDelibera.version = propostaDelibera.domainObject.version
+					caricaListaAltreDeleghe()
+				}
+			}
+		}
+		w.doModal()
+	}
+
+	@Command
+	void onEliminaAltraDelega (@ContextParam(ContextType.TRIGGER_EVENT) Event event, @BindingParam("altraDelega") PropostaDeliberaDelegaDTO altraDelega) {
+		Messagebox.show("Eliminare la delega selezionata?", "Attenzione!", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION,
+			new org.zkoss.zk.ui.event.EventListener() {
+				void onEvent (Event e) {
+					if (Messagebox.ON_OK.equals(e.getName())) {
+						propostaDeliberaDelegaDTOService.eliminaDelega(altraDelega.id)
+						propostaDelibera.version = propostaDelibera.domainObject.version
+						caricaListaAltreDeleghe()
+					}
+				}
+			})
+	}
+
 	/*
 	 * Gestione categorie
 	 */
-
 	private void caricaListaCategorie() {
 		categoriaAbilitata = (Impostazioni.CATEGORIA_PROPOSTA_DELIBERA.abilitato)
 		if(categoriaAbilitata){
@@ -453,13 +605,66 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 		BindUtils.postNotifyChange(null, null, this, "categoriaAbilitata")
 	}
 
+	public void caricaGestioneGruppiPolitici(){
+		mostraGestioneGruppiPolitici = false
+		if (propostaDelibera.tipologia) {
+			if (gestioneGruppiPolitici && propostaDelibera.tipologia.gestioneGruppiPolitici) {
+				mostraGestioneGruppiPolitici = true
+			}
+		}
+		BindUtils.postNotifyChange(null, null, this, "mostraGestioneGruppiPolitici")
+	}
+
+	//visualizza o meno la lista degli impatti generazionali
+	private void caricaListaImpattoGenerazionale() {
+		mostraImpattoGenerazionale = false
+		if (propostaDelibera.tipologia) {
+			if (impattoGenerazionaleAbilitato && propostaDelibera.tipologia.impattoGenerazionale) {
+				mostraImpattoGenerazionale = true
+
+				//carico la lista degli impatti generazionali
+				PagedResultList lista = ImpattoGenerazionale.createCriteria().list(max: 100, offset: 0) {
+					eq ("valido",true)
+					eq ("delibera", true)
+					order ("titolo", "asc")
+					order ("descrizione", "asc")
+				}
+				listaImpattoGenerazionale = lista.toDTO()
+
+				if (propostaDelibera.impattoGenerazionale?.id > 0) {
+					impattoGenerazionale = ImpattoGenerazionale.get(propostaDelibera.impattoGenerazionale.id).toDTO()
+				}
+				BindUtils.postNotifyChange(null, null, this, "listaImpattoGenerazionale")
+			}
+		}
+		BindUtils.postNotifyChange(null, null, this, "mostraImpattoGenerazionale")
+	}
 
 	/*
 	 * Carica la lista dei modelliTestoPredefiniti
 	 */
-
 	private void caricaListaModelliTestoPredefiniti () {
 		listaModelliTestoPredefiniti = propostaDeliberaDTOService.getListaModelliTestoAbilitati (propostaDelibera.tipologia.id, utente)
+
+		if(Impostazioni.MODELLI_TESTO_UNITA_PROPONENTE.abilitato && propostaDelibera.soggetti) {
+			PropostaDelibera domainObject = propostaDelibera.getDomainObject()
+			So4UnitaPubb uo = domainObject.getSoggetto(TipoSoggetto.UO_PROPONENTE)?.unitaSo4
+			if (uo) {
+				List<GestioneTestiModelloDTO> toRemove= new ArrayList<GestioneTestiModelloDTO>()
+				for (GestioneTestiModelloDTO gestioneTestiModelloDTO : listaModelliTestoPredefiniti) {
+					List<GestioneTestiModelloCompetenza> lista = GestioneTestiModelloCompetenza.createCriteria().list() {
+						eq("gestioneTestiModello.id", gestioneTestiModelloDTO.id)
+						createAlias ("unitaSo4", "unita", CriteriaSpecification.LEFT_JOIN)
+						ne("unita.progr",uo.progr)
+					}
+					if(lista!=null && lista.size()>0)
+						toRemove.add(gestioneTestiModelloDTO)
+				}
+				for(GestioneTestiModelloDTO elem: toRemove){
+					listaModelliTestoPredefiniti.removeElement(elem)
+				}
+			}
+		}
 
 		if (propostaDelibera.modelloTesto == null) {
 			propostaDelibera.modelloTesto = propostaDelibera.tipologia?.modelloTesto?.getDomainObject()?.toDTO()
@@ -470,7 +675,6 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	/*
 	 * Gestione dello storico:
 	 */
-
 	private void caricaStorico () {
 		storico = propostaDeliberaDTOService.caricaStorico(propostaDelibera);
 
@@ -495,7 +699,6 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	/*
 	 * Gestisce le note di trasmissioni
 	 */
-
 	private void aggiornaNoteTrasmissionePrecedenti () {
 		def result = documentoDTOService.getNoteTrasmissionePrecedenti (propostaDelibera)
 		noteTrasmissionePrecedenti 		 = result.noteTrasmissionePrecedenti
@@ -510,7 +713,6 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	/*
 	 * Gestione Destinatari
 	 */
-
 	@Command onAggiungiDestinatariInterni () {
 		Window w = Executions.createComponents("/commons/popupSceltaDestinatariInterni.zul", self, [destinatari: listaDestinatariInterni*.destinatario])
 		w.onClose { event ->
@@ -544,9 +746,12 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 						if (tipo == "E") {
 							destinatarioNotificaDTOService.eliminaDestinatarioNotifica (destinatario)
 							PropostaDeliberaViewModel.this.refreshListaDestinatariEsterni()
-						} else {
+						} else if (tipo == "I") {
 							destinatarioNotificaDTOService.eliminaDestinatarioNotifica (destinatario.destinatario)
 							PropostaDeliberaViewModel.this.refreshListaDestinatariInterni()
+						} else if (tipo == "P3") {
+							destinatarioNotificaDTOService.eliminaDestinatarioNotifica(destinatario)
+							PropostaDeliberaViewModel.this.refreshListaDestinatariPiTre()
 						}
 
 						propostaDelibera.version = propostaDelibera.domainObject.version;
@@ -569,7 +774,6 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	/*
 	 *  Gestione Visti
 	 */
-
 	private void refreshListaVisti () {
 		def visti = VistoParere.createCriteria().list {
 			eq ("propostaDelibera.id", propostaDelibera.id)
@@ -583,10 +787,11 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 				}
 			}
 
-			order("valido", "asc")
 			tipologia {
-				order ("codice", "asc")
+				order("sequenzaStampaUnica", "asc")
+				order("codice", "asc")
 			}
+			order("valido", "asc")
 			order("dateCreated", "asc")
 
 			fetchMode ("tipologia",  FetchMode.JOIN)
@@ -643,7 +848,6 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	/*
 	 * 	Metodi per il calcolo dei Soggetti della propostaDelibera
 	 */
-
 	@Command onSceltaSoggetto (@BindingParam("tipoSoggetto") String tipoSoggetto, @BindingParam("categoriaSoggetto") String categoriaSoggetto) {
 		long idCaratteristica = -1;
 		if (propostaDelibera.fuoriSacco) {
@@ -682,7 +886,6 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	/*
 	 * Gestione allegati
 	 */
-
 	@Command onModificaAllegato (@ContextParam(ContextType.TRIGGER_EVENT) Event event, @BindingParam("nuovo") boolean nuovo, @BindingParam("selected") def selected) {
 		// succede quando un utente fa "doppio click" sulla tabella vuota.
 		if (!nuovo && selected == null) {
@@ -721,15 +924,68 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 			eq("propostaDelibera.id", propostaDelibera.id)
 			order ("sequenza", "asc")
 			order ("titolo",   "asc")
-		}.toDTO()
+		}.toDTO(['fileAllegati'])
 		BindUtils.postNotifyChange(null, null, this, "listaAllegati")
 	}
+
+	/*
+	 * Gestione Gruppi Politici
+	 */
+	@Command onAggiungiFirmatarioGruppoPolitico (@BindingParam("nuovo") boolean nuovo, @BindingParam("selected") def selected) {
+		Window w = Executions.createComponents("/dizionari/odg/gruppoPoliticoDocumentoPopUp.zul", self, [id: (nuovo?-1:selected.id), documento: propostaDelibera, competenzeLettura: forzaCompetenzeLettura])
+		w.onClose { event ->
+			if (event?.data != null) {
+				List<GruppoPoliticoComponenteDTO> lista = event.data
+				for(GruppoPoliticoComponenteDTO gruppoPoliticoComponente :lista){
+					GruppoPoliticoDocumento gruppoPoliticoDocumento= new GruppoPoliticoDocumento()
+					gruppoPoliticoDocumento.gruppoPolitico=gruppoPoliticoComponente.gruppoPolitico.domainObject
+					gruppoPoliticoDocumento.titolo=gruppoPoliticoComponente.gruppoPolitico.titolo
+					gruppoPoliticoDocumento.descrizione=gruppoPoliticoComponente.gruppoPolitico.descrizione
+					gruppoPoliticoDocumento.componente=gruppoPoliticoComponente.componente.domainObject
+					gruppoPoliticoDocumentoService.salva(gruppoPoliticoDocumento, propostaDelibera.domainObject)
+				}
+				refreshListaFirmatariGruppoPolitico ()
+			}
+		}
+		w.doModal()
+	}
+
+	@Command onEliminaFirmatarioGruppoPolitico (@ContextParam(ContextType.TRIGGER_EVENT) Event event, @BindingParam("firmatarioGruppoPolitico") GruppoPoliticoDocumentoDTO firmatarioGruppoPolitico) {
+		Messagebox.show("Eliminare il firmatario selezionato?", "Attenzione!", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION,
+				new org.zkoss.zk.ui.event.EventListener() {
+					void onEvent(Event e) {
+						if (Messagebox.ON_OK.equals(e.getName())) {
+							gruppoPoliticoDocumentoDTOService.elimina (firmatarioGruppoPolitico, propostaDelibera)
+							listaFirmatariGruppoPolitico.remove(firmatarioGruppoPolitico)
+							propostaDelibera.version = propostaDelibera.domainObject.version;
+							PropostaDeliberaViewModel.this.refreshListaFirmatariGruppoPolitico()
+						}
+					}
+				}
+		)
+	}
+
+	private void refreshListaFirmatariGruppoPolitico () {
+		caricaGestioneGruppiPolitici()
+		if(mostraGestioneGruppiPolitici) {
+			listaFirmatariGruppoPolitico = GruppoPoliticoDocumento.createCriteria().list {
+				fetchMode("componente", FetchMode.JOIN)
+				eq("propostaDelibera.id", propostaDelibera.id)
+				order("id", "asc")
+//				componente {
+//					order("cognome", "asc")
+//					order("nome", "asc")
+//				}
+			}.toDTO()
+			BindUtils.postNotifyChange(null, null, this, "listaFirmatariGruppoPolitico")
+		}
+	}
+
 
 
 	/*
 	 * Gestione DelibereCollegate
 	 */
-
 	@Command onAggiungiDocumentoCollegato () {
 		Window w = Executions.createComponents("/commons/popupAnnullamentoIntegrazione.zul", self, [tipoDocumento : PropostaDelibera.TIPO_OGGETTO])
 		w.onClose { event ->
@@ -770,10 +1026,10 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	/*
 	 * Gestione dei dati di protocollo
 	 */
-
 	@NotifyChange('propostaDelibera')
 	@Command apriClassificazione() {
-		Window w = Executions.createComponents("/commons/popupClassificazioni.zul", self, [codiceUoProponente: soggetti[TipoSoggetto.UO_PROPONENTE].unita.codice])
+		String zul = protocolloEsterno.getZulClassifica()
+		Window w = Executions.createComponents(zul, self, [codiceUoProponente: soggetti[TipoSoggetto.UO_PROPONENTE].unita.codice])
 		w.onClose { event ->
 			if (event.data) {
 				if (event.data.codice!= propostaDelibera.classificaCodice) {
@@ -792,18 +1048,38 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 
 	@NotifyChange('propostaDelibera')
 	@Command apriFascicoli() {
-		Window w = Executions.createComponents("/commons/popupFascicoli.zul", self, [classificaCodice: propostaDelibera.classificaCodice, classificaDescrizione: propostaDelibera.classificaDescrizione, classificaDal: propostaDelibera.classificaDal, codiceUoProponente: soggetti[TipoSoggetto.UO_PROPONENTE].unita.codice])
+		String zul = protocolloEsterno.getZulFascicolo()
+		Window w = null
+		if(isIntegrazioneProtocolloPiTre) {
+			So4UnitaPubb unitaProponente= soggetti[TipoSoggetto.UO_PROPONENTE].unita?.domainObject
+			if(unitaProponente) {
+				w = Executions.createComponents(zul, self,  [unitaProponente: unitaProponente,tipologia: String.valueOf(propostaDelibera.tipologia.id),sceltaUnitaProponente:false,utenteRedattore :soggetti[TipoSoggetto.REDATTORE].utente?.domainObject])
+			}else{
+				throw new AttiRuntimeException("Attenzione: è necessario selezionare una unità proponente.")
+			}
+		}  else {
+			w = Executions.createComponents(zul, self, [classificaCodice: propostaDelibera.classificaCodice, classificaDescrizione: propostaDelibera.classificaDescrizione, classificaDal: propostaDelibera.classificaDal, codiceUoProponente: soggetti[TipoSoggetto.UO_PROPONENTE].unita.codice])
+		}
+		//Window w = Executions.createComponents(zul, self, [classificaCodice: propostaDelibera.classificaCodice, classificaDescrizione: propostaDelibera.classificaDescrizione, classificaDal: propostaDelibera.classificaDal, codiceUoProponente: soggetti[TipoSoggetto.UO_PROPONENTE].unita.codice])
 		w.onClose { event ->
 			if (event.data) {
-				// se ho cambiato la classificazione, la riaggiorno
-				if (event.data.classifica.codice != propostaDelibera.classificaCodice) {
-					propostaDelibera.classificaCodice 		= event.data.classifica.codice
-					propostaDelibera.classificaDescrizione = event.data.classifica.descrizione
-					propostaDelibera.classificaDal 		= event.data.classifica.dal
+				if(isIntegrazioneProtocolloPiTre){
+					propostaDelibera.fascicoloNumero = event.data.numero
+					propostaDelibera.fascicoloAnno = ProtocolloPiTre.estraiAnnoDaFascicoloPiTre(event.data.numero)
+					propostaDelibera.fascicoloOggetto = event.data.oggetto
+					propostaDelibera.idFascicoloEsterno = event.data.sub
+				} else {
+					// se ho cambiato la classificazione, la riaggiorno
+					if (event.data.classifica.codice != propostaDelibera.classificaCodice) {
+						propostaDelibera.classificaCodice 		= event.data.classifica.codice
+						propostaDelibera.classificaDescrizione = event.data.classifica.descrizione
+						propostaDelibera.classificaDal 		= event.data.classifica.dal
+					}
+					propostaDelibera.fascicoloAnno  = event.data.anno
+					propostaDelibera.fascicoloNumero = event.data.numero
+					propostaDelibera.fascicoloOggetto = event.data.oggetto
 				}
-				propostaDelibera.fascicoloAnno  = event.data.anno
-				propostaDelibera.fascicoloNumero = event.data.numero
-				propostaDelibera.fascicoloOggetto = event.data.oggetto
+
 				BindUtils.postNotifyChange(null, null, this, "propostaDelibera")
 			}
 		}
@@ -822,7 +1098,6 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	/*
 	 * Apertura della delibera:
 	 */
-
 	@Command onApriAtto () {
 		Delibera delibera = Delibera.findWhere(['propostaDelibera.id': propostaDelibera.id])
 		Window w = Executions.createComponents ("/atti/documenti/delibera.zul", self, [id: delibera.id])
@@ -832,7 +1107,6 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	/*
 	 *  Gestione Chiusura Maschera
 	 */
-
 	@Command onChiudi () {
 		// se devo rilasciare il lock sul testo, lo rilascio.
 		gestioneTesti.uploadEUnlockTesto(propostaDelibera, lockPermanente)
@@ -843,7 +1117,6 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	/*
 	 *  Presa Visione
 	 */
-
 	@Command onPresaVisione () {
 		notificheService.eliminaNotifica(propostaDelibera.domainObject, springSecurityService.currentUser)
 		isNotificaPresente = false
@@ -854,7 +1127,6 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 	/*
 	 * Implementazione dei Metodi per AbstractViewModel
 	 */
-
 	DTO<PropostaDelibera> getDocumentoDTO () {
 		return propostaDelibera
 	}
@@ -903,7 +1175,11 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 			messaggi << "È obbligatorio selezionare una delega per questa tipologia di proposta di Delibera"
 		}
 
-		if (propostaDelibera.controlloFunzionario && soggetti[TipoSoggetto.FUNZIONARIO]?.utente == null) {
+		boolean funzionarioPrevisto = propostaDelibera.tipologia.caratteristicaTipologia.caratteristicheTipiSoggetto?.any {
+			it.tipoSoggetto.codice == TipoSoggetto.FUNZIONARIO
+		}
+
+		if (funzionarioPrevisto && propostaDelibera.controlloFunzionario && soggetti[TipoSoggetto.FUNZIONARIO]?.utente == null) {
 			messaggi << Labels.getLabel("message.propostaDelibera.funzionario")
 		}
 
@@ -928,6 +1204,10 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 		if (propostaDelibera.tipologia?.caratteristicaTipologia?.caratteristicheTipiSoggetto?.tipoSoggetto*.codice?.contains(TipoSoggetto.INCARICATO) &&
 			propostaDelibera.tipologia.incaricatoObbligatorio && soggetti[TipoSoggetto.INCARICATO]?.utente == null){
 			messaggi << Labels.getLabel("message.propostaDelibera.incaricato");
+		}
+
+		if (mostraImportoTotale && propostaDelibera.tipologia.importoTotaleObbligatorio && propostaDelibera.importoTotale == null) {
+			messaggi << "Importo Totale obbligatorio"
 		}
 
 		if (messaggi.size() > 0) {
@@ -967,6 +1247,7 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 		d.fascicoloAnno			= propostaDelibera.fascicoloAnno
 		d.fascicoloNumero		= propostaDelibera.fascicoloNumero
 		d.fascicoloOggetto		= propostaDelibera.fascicoloOggetto
+		d.idFascicoloEsterno	= propostaDelibera.idFascicoloEsterno
 		d.classificaCodice		= propostaDelibera.classificaCodice
 		d.classificaDal			= propostaDelibera.classificaDal
 		d.classificaDescrizione	= propostaDelibera.classificaDescrizione
@@ -994,11 +1275,42 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 		d.oggettoRicorrente		= propostaDelibera?.oggettoRicorrente?.domainObject
 		d.dataMinimaPubblicazione = propostaDelibera?.dataMinimaPubblicazione
 
+		d.inEvidenza 		= propostaDelibera?.inEvidenza
+		d.dataInEvidenzaDa	= propostaDelibera?.dataInEvidenzaDa
+		d.dataInEvidenzaA	= propostaDelibera?.dataInEvidenzaA
+		d.importo 			= propostaDelibera?.importo
+		d.importoTotale 	= propostaDelibera?.importoTotale
+
+		//GruppiPolitici
+		d.pubblicaCasaDiVetro = propostaDelibera.pubblicaCasaDiVetro
+		d.annoProtocolloRichiesta = propostaDelibera.annoProtocolloRichiesta
+		d.numeroProtocolloRichiesta = propostaDelibera.numeroProtocolloRichiesta
+
+
+		if(impattoGenerazionale?.id>0) {
+			propostaDelibera.impattoGenerazionale=impattoGenerazionale
+			d.impattoGenerazionale = propostaDelibera?.impattoGenerazionale.domainObject
+		} else
+			d.impattoGenerazionale = null
+
 		documentoService.controllaOggettoRicorrente(d)
 
 		caratteristicaTipologiaService.salvaSoggettiModificati(d, soggetti)
 		documentoDTOService.salvaDatiAggiuntivi(d, propostaDelibera)
         budgetDTOService.salvaBudget(listaBudget)
+	}
+
+	private void abilitaImportoTotale () {
+		mostraImportoTotale = Impostazioni.GESTIONE_IMPORTO_TOTALE.abilitato
+		if (mostraImportoTotale) {
+			if (propostaDelibera.tipologia) {
+				mostraImportoTotale = propostaDelibera.tipologia.visImportoTotale
+			}
+			else {
+				mostraImportoTotale = false
+			}
+			BindUtils.postNotifyChange(null, null, this, "mostraImportoTotale")
+		}
 	}
 
 	void aggiornaMaschera (PropostaDelibera d) {
@@ -1010,6 +1322,17 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 			throw new AttiRuntimeException("L'utente ${springSecurityService.principal.username} non ha i diritti di lettura sulla propostaDelibera con id ${d.id}")
 		}
 
+		if (hasDelegaValida()) {
+			if (d.statoFirma == StatoFirma.DA_FIRMARE) {
+				gestoreCompetenze.assegnaCompetenze(d, WkfTipoOggetto.get(PropostaDelibera.TIPO_OGGETTO), new Attore(utenteAd4: springSecurityService.principal.soggetto.utenteAd4), true, true, false, null)
+				competenze.modifica = true
+			} else {
+				// il documento è stato rimandato indietro: il delegante non ha più diritti di modifica
+				competenze.modifica = false
+				forzaCompetenzeLettura=false
+			}
+		}
+
 		if (d.statoFirma == StatoFirma.IN_FIRMA || d.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE) {
 			competenze.modifica 	 = false
 			competenze.cancellazione = false
@@ -1017,8 +1340,21 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 
         isLocked = tokenIntegrazioneService.isLocked(d)
 
+		//il campo tipologia non si deve abilitare
+		riservatoModificabile = d.tipologia.gestioneRiservato
+
 		// verifico che l'utente possa gestire il riservato:
-		riservatoModificabile = (!d.riservato || gestoreCompetenze.utenteCorrenteVedeRiservato(d));
+		if (riservatoModificabile) {
+			riservatoModificabile = (!d.riservato || gestoreCompetenze.utenteCorrenteVedeRiservato(d));
+		}
+
+		//se l'utente non può vedere i riservati e la tipologia prevede questo controllo, allora non potrà visualizzare il folder contabilità
+		if ((!riservatoModificabile) && (d.tipologia.contabilitaCheckRiservato)) {
+			visContabilita = false
+		}
+		else {
+			visContabilita = true
+		}
 
 		// calcolo il titolo
 		titolo = (d.numeroProposta > 0 ? "PropostaDelibera n. ${d.numeroProposta}/${d.annoProposta}" : "Proposta di PropostaDelibera"+(d.numeroProposta > 0 ? " n. ${d.numeroProposta}/${d.annoProposta}" : ""))
@@ -1042,6 +1378,7 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 		Delibera deli = d.getAtto();
 		if (deli != null) {
 			estremiDelibera = deli.getEstremiAtto();
+			isProtocollato = (deli.numeroProtocollo>0)
 		}
 
 		// verifico presenza notifiche
@@ -1049,8 +1386,16 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 
 		isMotivazionePresente = propostaDelibera.motivazione != null && !propostaDelibera.motivazione.isEmpty()
 
+		//GruppiPolitici
+		propostaDelibera.pubblicaCasaDiVetro = d.pubblicaCasaDiVetro
+		propostaDelibera.annoProtocolloRichiesta = d.annoProtocolloRichiesta
+		propostaDelibera.numeroProtocolloRichiesta = d.numeroProtocolloRichiesta
+
 		// carico la lista di allegati:
 		refreshListaAllegati ()
+
+		//carico la lista dei Firmatari Politici
+		refreshListaFirmatariGruppoPolitico()
 
 		// carico la lista dei visti:
 		refreshListaVisti()
@@ -1058,6 +1403,7 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 		// carica la lista dei destinatari:
 		refreshListaDestinatariInterni()
 		refreshListaDestinatariEsterni()
+		refreshListaDestinatariPiTre()
 
 		// carica lista delle determine collegate
 		refreshListaDocumentiCollegati()
@@ -1066,7 +1412,7 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 		caricaListaModelliTestoPredefiniti()
 
 		// aggiorno le note di trasmissioni dello step precedente
-		aggiornaNoteTrasmissionePrecedenti ()
+		aggiornaNoteTrasmissionePrecedenti()
 
 		// carico lo storico del documento
 		caricaStorico()
@@ -1080,6 +1426,9 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 		// gestione contabilità
 		contabilitaAbilitata = integrazioneContabilita.isAbilitata(d)
         if (contabilitaAbilitata) {
+			if (tipoIntegrazioneContabilita == "integrazioneContabilitaAtsPavia") {
+				isIntegrazioneContabilitaAtsPavia = true
+			}
             conDocumentiContabili = integrazioneContabilita.isConDocumentiContabili(d)
             zulContabilita = integrazioneContabilita.getZul(d)
             aggiornaContabilita(d)
@@ -1094,8 +1443,17 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 
         caricaListaBudget()
 
+		//se ho il testo già memorizzato allora non devo visualizzare la combo di scelta dei modelli testi
+		if (d.testo?.id) {
+			mostraComboModelloTesti = false
+		}
+		else {
+			mostraComboModelloTesti = true
+		}
+
+		abilitaImportoTotale()
+
         BindUtils.postNotifyChange(null, null, this, "propostaFirmata")
-		BindUtils.postNotifyChange(null, null, this, "listaAllegati")
 		BindUtils.postNotifyChange(null, null, this, "campiProtetti")
 		BindUtils.postNotifyChange(null, null, this, "propostaDelibera")
 		BindUtils.postNotifyChange(null, null, this, "competenze")
@@ -1106,6 +1464,7 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 		BindUtils.postNotifyChange(null, null, this, "soggetti")
 		BindUtils.postNotifyChange(null, null, this, "contabilitaAbilitata")
         BindUtils.postNotifyChange(null, null, this, "listaBudget")
+		BindUtils.postNotifyChange(null, null, this, "mostraComboModelloTesti")
 	}
 
 	@Command onAggiungiFirmatario () {
@@ -1161,9 +1520,8 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
      */
 
     private void caricaListaBudget () {
-        budgetAbilitato = Impostazioni.GESTIONE_BUDGET.abilitato
         if (budgetAbilitato) {
-            if (Impostazioni.GESTIONE_FONDI.abilitato) {
+            if (gestioneFondi) {
                 listaTipiBudget = TipoBudget.findAllByUnitaSo4AndAttivoAndValido(soggetti[TipoSoggetto.UO_PROPONENTE]?.unita?.domainObject ,true, true, [sort: "titolo", order: "asc"]).toDTO()
             }
             else {
@@ -1338,7 +1696,7 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 			   , approvato: 	row.approvato?"Si":"No"]
 		}
 
-		if (Impostazioni.GESTIONE_FONDI.disabilitato) {
+		if (!gestioneFondi) {
 			exportOptions =   [   atto				: [label: 'Atto', 					index: 0, columnType: 'TEXT']
 								  , tipoBudget			: [label: 'Budget', 				index: 1, columnType: 'TEXT']
 								  , importo 			: [label: 'Importo', 				index: 2, columnType: 'TEXT']
@@ -1361,5 +1719,38 @@ class PropostaDeliberaViewModel extends AbstractViewModel<PropostaDelibera> {
 		} finally {
 			// todo
 		}
+	}
+
+	@NotifyChange(["importo"])
+	@Command
+	public void aggiornaTotaleImporto() {
+		//per ora viene usata solo dall'integrazione con ATS Pavia dove non abbiamo distinzione tra ENTRATA e SPESA
+		propostaDelibera.importo = integrazioneContabilita.totaleImporto(propostaDelibera.domainObject, null)
+		BindUtils.postNotifyChange(null, null, this, "determina")
+	}
+
+	// Integrazione PiTre
+	@Command
+	void onAggiungiDestinatariPiTre() {
+		Window w = Executions.createComponents("/atti/integrazioni/protocollo/popupSceltaDestinatariPiTre.zul", self, [destinatari: listaDestinatariPiTre, documento: propostaDelibera.domainObject])
+		w.onClose { event ->
+			if (event.data == null) {
+				return null
+			}
+
+			PropostaDeliberaDTO d = destinatarioNotificaDTOService.aggiungiDestinatarioPiTre(propostaDelibera, event.data)
+			propostaDelibera.version = d.version
+			refreshListaDestinatariPiTre()
+		}
+		w.doModal()
+	}
+
+	private void refreshListaDestinatariPiTre() {
+		listaDestinatariPiTre = destinatarioNotificaDTOService.getListaDestinatariPiTre(propostaDelibera)
+		BindUtils.postNotifyChange(null, null, this, "listaDestinatariPiTre")
+	}
+
+	private boolean hasDelegaValida() {
+		return delegante != null && !so4DelegaService.getDeleghe(springSecurityService.currentUser, delegante).isEmpty()
 	}
 }

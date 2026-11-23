@@ -15,6 +15,8 @@
 
 	<appletEditaTesto />
 
+
+
 	<!-- Mantiene attiva la sessione facendo un "ping" ogni 5 minuti -->
 	<timer repeats="true" running="true" delay="300000" onTimer=""/>
 
@@ -24,6 +26,24 @@
 		viewModel="@id('vm') @init('indexViewModel')"
 		width="100%"
 		height="100%">
+
+		<script><![CDATA[
+    (function(){
+      // Prende protocollo + host + porta
+      var origin = window.location.origin; // es: http://localhost:8080
+
+      // Costruisci l'URL completo sostituendo il contesto con /chatbot
+      var chatbotUrl = origin + "/chatbot/js/chatBot.js";
+
+      // Crea dinamicamente lo script
+      var s = document.createElement('script');
+      s.src = chatbotUrl;
+      s.defer = true;
+
+      // Aggiungi al head
+      document.head.appendChild(s);
+    })();
+]]></script>
 
 		<borderlayout>
 			<north>
@@ -69,6 +89,10 @@
 		                  	(<a onClick="@command('doLogout')">esci</a>)
 	                  	</div>
                 	</vlayout>
+					<h:div id="chatbot-root" style="position:fixed; z-index:2147483647;">
+						<h:chat-bot position="bottom-right" offsetX="150" offsetY="20" categoria="sfera" bgcolorTitleChat="#0099cc" btncolor="#0099cc" visibile="@load(vm.abilitaChatbot)"></h:chat-bot>
+					</h:div>
+
                 </hlayout>
              </north>
 			<center id="container">

@@ -106,6 +106,12 @@ class TipoCertificatoDettaglioViewModel extends AfcAbstractRecord {
 		)
 	}
 
+	@Command
+	@NotifyChange("selectedRecord")
+	void setEditaTesto (@BindingParam("val") boolean val) {
+		selectedRecord.editaTesto = val
+	}
+
 	@NotifyChange(["selectedRecord", "datiCreazione", "datiModifica"])
 	@Command onDuplica () {
 		selectedRecord = tipoCertificatoDTOService.duplica(selectedRecord);

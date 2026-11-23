@@ -1,6 +1,7 @@
 package it.finmatica.atti.integrazioni.ricercadocumenti.agspr
 
 import grails.plugin.springsecurity.SpringSecurityService
+import it.finmatica.atti.documenti.PropostaDelibera
 import it.finmatica.atti.integrazioni.protocollo.ProtocolloGdmCondition
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Conditional
@@ -45,6 +46,11 @@ class RicercaProtocolli implements RicercaDocumentiEsterni {
     @Override
     boolean isAbilitato () {
         return Impostazioni.PROTOCOLLO.valore == "protocolloEsternoGdm"
+    }
+
+    @Override
+    String getTipoOggetto () {
+        return "PROTOCOLLO"
     }
 
     @Override

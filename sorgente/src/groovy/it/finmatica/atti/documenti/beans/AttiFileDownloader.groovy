@@ -10,6 +10,9 @@ import it.finmatica.atti.integrazioni.AttiFirmaService
 import it.finmatica.gestionetesti.GestioneTestiService
 import it.finmatica.gestionetesti.TipoFile
 import it.finmatica.jsign.api.PKCS7ReaderStream
+import it.finmatica.jsign.api.SignedObjectReaderFactory
+import it.finmatica.jsign.api.SignedObjectReaderI
+import it.finmatica.segreteria.common.FirmaUtilities
 import org.apache.commons.io.IOUtils
 import org.apache.log4j.Logger
 import org.zkoss.util.media.AMedia
@@ -49,7 +52,7 @@ class AttiFileDownloader {
         }
 
         // se il file allegato è un p7m, apro la popup di download/verifica.
-        if (fileAllegato.isP7m() || fileAllegato.isFirmato()) {
+        if (fileAllegato.isFirmato()) {
             Window w = Executions.createComponents("/commons/popupFileFirmato.zul", null,
                                                    [documento: documento?.toDTO(), nomeFile: fileAllegato.nome, fileAllegato: fileAllegato.toDTO(), storico: (fileAllegato instanceof FileAllegatoStorico), solalettura: solalettura])
             w.doModal()
@@ -80,9 +83,20 @@ class AttiFileDownloader {
 
         try {
             // se devo sbustare, sbusto e scarico il file
-            if (sbusta && fileAllegato.isP7m()) {
-                PKCS7ReaderStream reader = new PKCS7ReaderStream(is)
-                is = reader.getOriginalContent()
+            if (sbusta) {
+//                PKCS7ReaderStream reader = new PKCS7ReaderStream(is)
+//                is = reader.getOriginalContent()
+//                nomeFile = fileAllegato.getNomeFileSbustato()
+//                contentType = TipoFile.getInstanceByEstensione(nomeFile.substring(nomeFile.lastIndexOf(".") + 1)).contentType
+
+                if (!fileAllegato.isPdf() && FirmaUtilities.isSigned(is, nomeFile)) {
+                    is = gestoreFile.getFile(documento, fileAllegato)
+                    SignedObjectReaderI reader = SignedObjectReaderFactory.getSignedObjectReader(is);
+                    is = reader.getOriginalContent()
+                }
+                else {
+                    is = gestoreFile.getFile(documento, fileAllegato)
+                }
                 nomeFile = fileAllegato.getNomeFileSbustato()
                 contentType = TipoFile.getInstanceByEstensione(nomeFile.substring(nomeFile.lastIndexOf(".") + 1)).contentType
             } else if (trasformaInPdf && !fileAllegato.isPdf() && !fileAllegato.isP7m()) {

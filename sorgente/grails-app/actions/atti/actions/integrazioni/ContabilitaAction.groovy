@@ -13,9 +13,11 @@ import it.finmatica.atti.documenti.beans.AttiGestoreCompetenze
 import it.finmatica.atti.dto.documenti.AllegatoDTOService
 import it.finmatica.atti.exceptions.AttiRuntimeException
 import it.finmatica.atti.integrazioni.CasaDiVetroService
+import it.finmatica.atti.integrazioni.DistintaAtto
 import it.finmatica.atti.integrazioni.contabilita.IntegrazioneContabilitaAscotWeb
 import it.finmatica.atti.integrazioni.contabilita.IntegrazioneContabilitaCfa
 import it.finmatica.atti.integrazioni.contabilita.IntegrazioneContabilitaComuneModena
+import it.finmatica.atti.integrazioni.contabilita.IntegrazioneContabilitaJSerfin
 import it.finmatica.atti.integrazioni.contabilita.IntegrazioneContabilitaSfera
 import it.finmatica.gestioneiter.IDocumentoIterabile
 import it.finmatica.gestioneiter.annotations.Action
@@ -127,6 +129,19 @@ class ContabilitaAction {
         return false
     }
 
+    @Action(tipo	= TipoAzione.AUTOMATICA,
+            tipiOggetto	= [Determina.TIPO_OGGETTO],
+            nome		= "CFA: scadenza determina uguale a scadenza fattura",
+            descrizione = "Imposta la data di scadenza della determina uguale alla data di scadenza della fattura")
+    public Determina impostaDataScadenzaFattura (Determina determina) {
+        DistintaAtto distintaAtto = DistintaAtto.findByAnnoPropostaAndNumeroPropostaAndUnitaProponente(determina.annoProposta, determina.numeroProposta, (determina.registroProposta?.registroEsterno ?: determina.registroProposta?.codice))
+
+        if (distintaAtto) {
+            determina.dataScadenza = distintaAtto.scadenzaDal
+        }
+        return determina
+    }
+
     @Action(tipo = TipoAzione.AUTOMATICA,
             tipiOggetto = [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO],
             nome = "CFA: imposta lo stato della distinta come Inclusa in Atto [25]",
@@ -164,12 +179,19 @@ class ContabilitaAction {
     }
 
     @Action(tipo = TipoAzione.AUTOMATICA,
-            tipiOggetto = [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO],
+            tipiOggetto = [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, Delibera.TIPO_OGGETTO],
             nome = "Contabilità: Annulla i Movimenti contabili della Proposta",
             descrizione = "Annulla gli eventuali documenti contabili della Proposta sulla contabilità (solo se la proposta è numerata).")
-    IDocumentoIterabile annullaMovimentiProposta (IProposta documentoIterabile) {
-        if (documentoIterabile.numeroProposta > 0) {
-            integrazioneContabilita.annullaProposta(documentoIterabile)
+    IDocumentoIterabile annullaMovimentiProposta (IDocumento documentoIterabile) {
+        IProposta proposta
+        if (documentoIterabile instanceof Delibera) {
+            proposta = documentoIterabile.proposta
+        } else {
+            proposta = documentoIterabile
+        }
+
+        if (proposta.numeroProposta > 0) {
+            integrazioneContabilita.annullaProposta(proposta)
         }
 
         return documentoIterabile
@@ -194,11 +216,26 @@ class ContabilitaAction {
     }
 
     @Action(tipo = TipoAzione.AUTOMATICA,
+            tipiOggetto = [PropostaDelibera.TIPO_OGGETTO],
+            nome = "Contabilità JSerfin: Rende esecutivo la proposta di delibera in contabilità",
+            descrizione = "Rende esecutivi i documenti contabili associati alla proposta di delibera (Contabilità JSerfin)")
+    IDocumentoIterabile esecutivitaProposta (IDocumentoIterabile documentoIterabile) {
+        def contabilitaJSerfin = Proxy.getInvocationHandler(integrazioneContabilita).getTargetBean();
+        if (contabilitaJSerfin instanceof IntegrazioneContabilitaJSerfin) {
+            //IntegrazioneContabilitaJSerfin.
+            contabilitaJSerfin.rendiEsecutivaProposta(documentoIterabile)
+        }
+        return documentoIterabile
+    }
+
+    @Action(tipo = TipoAzione.AUTOMATICA,
             tipiOggetto = [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, VistoParere.TIPO_OGGETTO],
             nome = "Contabilità: Crea la scheda Contabile",
             descrizione = "Recupero della stampa dei documenti contabili associati all'atto sulla contabilità.")
     IDocumentoIterabile creaSchedaContabile (IDocumentoIterabile documentoIterabile) {
-        allegatoService.creaAllegatoSchedaContabile(documentoIterabile)
+        if (integrazioneContabilita.isAbilitata(documentoIterabile)) {
+            allegatoService.creaAllegatoSchedaContabile(documentoIterabile)
+        }
         return documentoIterabile
     }
 

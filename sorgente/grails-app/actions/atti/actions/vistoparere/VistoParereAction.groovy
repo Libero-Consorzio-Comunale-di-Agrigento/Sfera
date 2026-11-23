@@ -6,6 +6,7 @@ import grails.util.GrailsNameUtils
 import it.finmatica.ad4.autenticazione.Ad4Utente
 import it.finmatica.atti.AbstractViewModel
 import it.finmatica.atti.IGestoreFile
+import it.finmatica.atti.commons.DocumentoTransazioniService
 import it.finmatica.atti.documenti.*
 import it.finmatica.atti.documenti.beans.AttiGestioneTesti
 import it.finmatica.atti.documenti.tipologie.ParametroTipologia
@@ -22,16 +23,19 @@ import it.finmatica.so4.strutturaPubblicazione.So4UnitaPubb
 import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsHibernateUtil
 import org.zkoss.zk.ui.Executions
 import org.zkoss.zul.Window
+import it.finmatica.atti.dto.documenti.VistoParereDTO
+import it.finmatica.atti.dto.documenti.DeterminaDTO
 
 class VistoParereAction {
 
-	SpringSecurityService 	springSecurityService
-	VistoParereDTOService 	vistoParereDTOService
-	VistoParereService 		vistoParereService
-	AttiGestioneTesti		gestioneTesti
-	WkfIterService 			wkfIterService
-	IGestoreFile 			gestoreFile
-	AllegatoService			allegatoService
+	SpringSecurityService 		springSecurityService
+	VistoParereDTOService 		vistoParereDTOService
+	VistoParereService 			vistoParereService
+	AttiGestioneTesti			gestioneTesti
+	WkfIterService 				wkfIterService
+	IGestoreFile 				gestoreFile
+	AllegatoService				allegatoService
+	DocumentoTransazioniService documentoTransazioniService
 
 	@Action(tipo		  	 = TipoAzione.PULSANTE,
 		tipiOggetto 		 = [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, Delibera.TIPO_OGGETTO],
@@ -470,5 +474,43 @@ class VistoParereAction {
         return delibera
     }
 
+		@Action(tipo		= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [VistoParere.TIPO_OGGETTO],
+			nome		= "Numera Determina con commit (non mettere nel pulsante di firma, ma nel nodo successivo)",
+			descrizione	= "Numera la Determina ed esegue commit se il parere del visto è favorevole. Non mettere nel pulsante di firma del visto, ma nel nodo successivo.")
+	public VistoParere numeraDeterminaCommit (VistoParere vistoParere) {
+		if (vistoParere.esito == EsitoVisto.FAVOREVOLE) {
+			IDocumento documentoPrincipale = vistoParere.documentoPrincipale
+			if (documentoPrincipale instanceof Determina) {
+				if (!(documentoPrincipale.numeroDetermina > 0 && documentoPrincipale.annoDetermina > 0)) {
+					Long idDetermina = documentoPrincipale.id
+					documentoTransazioniService.numeraDetermina(idDetermina)
+					documentoPrincipale = Determina.get(idDetermina)
+					documentoPrincipale.refresh()
+				}
+			}
+		}
+		return vistoParere
+	}
 
+	@Action(tipo	= TipoAzione.CLIENT,
+			tipiOggetto = [VistoParere.TIPO_OGGETTO],
+			nome		= "Imposta campo corte conti/pluriennale",
+			descrizione	= "Imposta campo corte conti/pluriennale")
+	void impostaCorteConti (AbstractViewModel<? extends IDocumentoIterabile> viewModel, long idCfgPulsante, long idAzioneClient){
+		VistoParereDTO vistoParere = viewModel.documentoDTO
+		if (vistoParere.determina) {
+			DeterminaDTO determina = vistoParere.determina
+			Window w = Executions.createComponents("/commons/popupCorteContiDaInviare.zul", viewModel.self, [daInviareCorteConti: determina.domainObject.daInviareCorteConti, dataInvioCorteConti: determina.domainObject.dataInvioCorteConti])
+			w.onClose() { event ->
+				if (event.data != null) {
+					determina.domainObject.daInviareCorteConti = event.data.daInviareCorteConti
+					determina.domainObject.dataInvioCorteConti = event.data.dataInvioCorteConti
+					viewModel.eseguiPulsante(idCfgPulsante, idAzioneClient)
+				}
+			}
+			w.doModal()
+		}
+
+	}
 }

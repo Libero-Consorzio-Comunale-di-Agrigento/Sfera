@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+        viewModel="@id('vm') @init('popupFascicoliPiTreViewModel')"
+		border="normal"	sizable="true" width="600px" height="600px"	title=" ">
+
+		<vlayout vflex="1">
+			<div sclass="barraTitoloPagina">
+ 				<label sclass="titoloPagina" value="Ricerca Fascicolo"/>
+			</div>
+
+			<grid sclass="form">
+	        	<rows>
+					<row>
+						<cell width="80px"></cell>
+						<cell width="50px"></cell>
+						<cell width="50px"></cell>
+						<cell width="300px"></cell>
+					</row>
+
+					<row >
+						<cell colspan="1" align="left"><label value="@load(c:l('label.ricerca.unitaProponente'))"/></cell>
+						<cell colspan="3">
+							<combobox mold="rounded" hflex="1"
+									  selectedItem="@bind(vm.unitaProponente) @converter('it.finmatica.zkutils.PropertyConverter', property='codice')"
+									  model="@load(vm.listaUnitaProponente)"
+									  disabled="@load(not vm.sceltaUnitaProponente)"
+
+							>
+								<template name="model">
+									<comboitem label="@load(c:cat3(each.descrizione,' - ',each.codice))" value="@load(each)"/>
+								</template>
+							</combobox>
+						</cell>
+					</row>
+	        		<row > <!--visible="@load(vm.unitaProponente ne null)" -->
+	        			<cell>
+		        			<label value="Anno:"/>
+						</cell>
+						<cell>
+							<intbox value="@bind(vm.anno)" onOK="@command('onCerca')" mold="rounded" width="100%"/>
+						</cell>
+						<cell style="text-align: right;">
+							<label value="Codice:" />
+						</cell>
+						<cell>
+							<textbox mold="rounded" width="300px"  value="@bind(vm.codice)" onOK="@command('onCerca')" />
+						</cell>
+					</row>
+					<row >
+						<cell style="text-align: left;">
+							<label value="Descrizione:"/>
+						</cell>
+						<cell colspan="3">
+							<textbox mold="rounded" width="425px"  value="@bind(vm.descrizione)" onOK="@command('onCerca')" />
+							<toolbarbutton image="/images/afc/22x22/search.png" onClick="@command('onCerca')" visible="@load(vm.unitaProponente ne null)" />
+						</cell>
+	        		</row>
+	        	</rows>
+	        </grid>
+
+			<listbox vflex="1" model="@bind(vm.listaFascicoli)" selectedItem="@bind(vm.selectedFascicolo)" emptyMessage="Nessun fascicolo trovato." height="100%">
+				<listhead>
+					<listheader label="Numero"  	sort="auto(numero)" 		 width="20%" align="left"/>
+					<listheader label="Riservato"  	sort="auto(riservato)" 		 width="12%" align="center"/>
+					<listheader label="Oggetto"  	sort="auto(oggetto)" 		 width="68%" align="left"/>
+				</listhead>
+				<template name="model" var="each">
+					<listitem>
+		                <listcell label="@load(each.numero)"  />
+						<listcell image="@load(each.riservato  ? '/images/agsde2/22x22/lock.png' : '')"  />
+		                <listcell label="@load(each.oggetto)"/>
+					</listitem>
+				</template>
+			</listbox>
+
+			<hlayout  height="#@load(vm.sceltaUnitaProponente ? '85px':'')" hflex="@load(vm.sceltaUnitaProponente ? '':'1')" style="background-color: #D7E3EC; padding:5px; text-align:right;">
+				<button label="Seleziona" onClick="@command('onSalva')"  disabled="@load(vm.selectedFascicolo eq null)" mold="trendy" />
+				<button label="Crea Fascicolo" onClick="@command('onOpenPopupCreaFascicolo')"  mold="trendy" />
+				<button label="Chiudi" onClick="@command('onAnnulla')" image="/images/afc/16x16/close.png" mold="trendy" />
+			</hlayout>
+		</vlayout>
+
+		<!--
+    Popup di Creazione Fascicolo
+-->
+		<window id="popupCreaFascicoloPiTre" border="normal" width="500px" height="210px" sizable="false" title=" " visible="false">
+			<h:div class="barraTitoloPagina">
+				<label sclass="titoloPagina" value="Crea Fascicolo" />
+			</h:div>
+
+			<grid sclass="form">
+				<rows>
+					<row>
+						<cell width="80px"></cell>
+						<cell width="350px"></cell>
+					</row>
+					<row>
+						<cell style="text-align: right;">
+							<label value="Codice:" />
+						</cell>
+						<cell>
+							<textbox mold="rounded" width="300px"  value="@bind(vm.codiceNuovoFascicolo)" />
+						</cell>
+					</row>
+					<row>
+						<cell style="text-align: right;">
+							<label value="Descrizione:"/>
+						</cell>
+						<cell>
+							<textbox mold="rounded" width="300px"  value="@bind(vm.descrizioneNuovoFascicolo)" />
+						</cell>
+					</row>
+					<row>
+						<cell style="text-align: right;">
+							<label value="Riservato:"/>
+						</cell>
+						<cell>
+							<checkbox label="" checked="@bind(vm.riservatoNuovoFascicolo)" />
+							<!--textbox mold="rounded" width="300px"  value="@bind(vm.riservatoNuovoFascicolo)" /-->
+						</cell>
+					</row>
+				</rows>
+			</grid>
+
+			<h:div class="barraPulsanti">
+				<h:div>
+					<button mold="trendy" label="Crea"     onClick="@command('onCreaFascicolo')" />
+					<button mold="trendy" label="Chiudi" 	onClick="@command('onChiudiCreaFascicolo')" />
+				</h:div>
+			</h:div>
+		</window>
+    </window>
+</zk>

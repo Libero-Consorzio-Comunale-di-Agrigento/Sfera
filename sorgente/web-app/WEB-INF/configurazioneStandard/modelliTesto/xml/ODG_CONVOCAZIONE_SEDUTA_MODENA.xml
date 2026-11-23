@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <documentRoot>
-	<descrizione>Convocazione Seduta</descrizione>
+	<descrizione>Convocazione Seduta Modena</descrizione>
 	<connections>
 		<connectionJNDI>jdbc/agsde2</connectionJNDI>
 	</connections>
@@ -200,6 +200,78 @@
 					<ALLEGATO_TITOLO>PRIMO EMENDAMENTO</ALLEGATO_TITOLO>
 				</ALLEGATI>
 			</proposte>
+			<proposte_commissioni_collegate>
+				<ID_OGGETTO_SEDUTA>83342</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>PRIMA PROPOSTA COMMISSIONE CONSILIARE</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2022/12</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2022</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>12</NUMERO_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>1</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 1</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>Si</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<DATA_SEDUTA>01/09/2022</DATA_SEDUTA>
+				<ORA_SEDUTA>11:00</ORA_SEDUTA>
+				<NUMERO_SEDUTA>16</NUMERO_SEDUTA>
+				<TITOLO_COMMISSIONE>CONSILIARE</TITOLO_COMMISSIONE>
+				<allegati>
+					<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<allegati>
+					<ALLEGATO_TITOLO>SECONDO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+			</proposte_commissioni_collegate>
+			<proposte_commissioni_collegate>
+				<ID_OGGETTO_SEDUTA>83343</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>seconda PROPOSTA COMMISSIONE CONSILIARE</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2022/13</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2022</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>13</NUMERO_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>2</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 2</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>Si</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<DATA_SEDUTA>01/09/2022</DATA_SEDUTA>
+				<ORA_SEDUTA>11:00</ORA_SEDUTA>
+				<NUMERO_SEDUTA>16</NUMERO_SEDUTA>
+				<TITOLO_COMMISSIONE>CONSILIARE</TITOLO_COMMISSIONE>
+				<allegati>
+					<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+				<allegati>
+					<ALLEGATO_TITOLO>SECONDO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+			</proposte_commissioni_collegate>
+			<proposte_commissioni_collegate>
+				<ID_OGGETTO_SEDUTA>83344</ID_OGGETTO_SEDUTA>
+				<OGGETTO_PROPOSTA>TERZA PROPOSTA COMMISSIONE CONSILIARE</OGGETTO_PROPOSTA>
+				<ESTREMI_PROPOSTA>2022/14</ESTREMI_PROPOSTA>
+				<ANNO_PROPOSTA>2022</ANNO_PROPOSTA>
+				<NUMERO_PROPOSTA>14</NUMERO_PROPOSTA>
+				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<UNITA_PROPONENTE>AREA AFFARI GENERALI</UNITA_PROPONENTE>
+				<SEQUENZA_CONVOCAZIONE>3</SEQUENZA_CONVOCAZIONE>
+				<RELATORE>NOMINATIVO RELATORE 3</RELATORE>
+				<ESEGUIBILITA_IMMEDIATA>Si</ESEGUIBILITA_IMMEDIATA>
+				<FIRMATARIO_PROPOSTA>Firmatario della Proposta</FIRMATARIO_PROPOSTA>
+				<DATA_SEDUTA>01/09/2022</DATA_SEDUTA>
+				<ORA_SEDUTA>11:00</ORA_SEDUTA>
+				<NUMERO_SEDUTA>16</NUMERO_SEDUTA>
+				<TITOLO_COMMISSIONE>CONSILIARE</TITOLO_COMMISSIONE>
+				<allegati>
+					<ALLEGATO_TITOLO>PRIMO ALLEGATO</ALLEGATO_TITOLO>
+				</allegati>
+			</proposte_commissioni_collegate>
 			<interrogazioni>
 				<ID_OGGETTO_SEDUTA>180735</ID_OGGETTO_SEDUTA>
 				<OGGETTO_PROPOSTA>PRIMA INFORMATIVA DI PROVA</OGGETTO_PROPOSTA>
@@ -554,6 +626,18 @@
 			<path/>
 		</metaDato>
 		<metaDato>
+			<nomeSimbolico>ANNO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
 			<nomeSimbolico>TIPO_PROPOSTA</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Tipologia della proposta</descrizione>
@@ -575,6 +659,18 @@
 			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Unità proponente della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>AREA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Area dell'unità proponente della proposta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SERVIZIO_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Servizio dell'unità proponente della proposta</descrizione>
 			<path/>
 		</metaDato>
 		<metaDato>
@@ -745,13 +841,15 @@
                 , decode(ss.classifica_codice, null, decode(ss.fascicolo_anno, null, '${documentRoot.stampa.FASCICOLO_ANNO}', fascicolo_anno), fascicolo_anno) FASCICOLO_ANNO
                 , decode(ss.classifica_codice, null, decode(ss.fascicolo_numero, null, '${documentRoot.stampa.FASCICOLO_NUMERO}', fascicolo_numero), fascicolo_numero) FASCICOLO_NUMERO
                 , decode(ss.classifica_codice, null, decode(ss.fascicolo_oggetto, null, '${documentRoot.stampa.FASCICOLO_OGGETTO}', fascicolo_oggetto), fascicolo_oggetto) FASCICOLO_OGGETTO
-                , nvl(utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto( nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), ss.ente), '${documentRoot.stampa.FIRMATARIO}' ) FIRMATARIO
-            from odg_sedute_stampe ss
-               , firmatari f
-            where ss.id_seduta_stampa = #id_seduta_stampa
-                and f.id_documento(+) = ss.id_seduta_stampa
-                and f.firmato(+) 	  = 'N'
-                and f.data_firma(+)   is not null
+				, nvl(utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto( nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), gd.ente), '${documentRoot.stampa.FIRMATARIO}' ) FIRMATARIO
+			from gdo_documenti gd
+			   , odg_sedute_stampe ss
+			   , firmatari f
+			where ss.id_seduta_stampa = #id_seduta_stampa
+			  and ss.id_seduta_stampa = gd.id_documento
+			  and f.id_documento(+) = ss.id_seduta_stampa
+              and f.firmato(+) 	  = 'N'
+              and f.data_firma(+)   is not null
         </query>
 
 		<!-- seduta: restituisce i dati della seduta -->
@@ -781,25 +879,15 @@
       , to_char (sed.data_seconda_convocazione, 'DD/MM/YYYY') DATA_SECONDA_CONVOCAZIONE
       , sed.ora_seconda_convocazione ORA_SECONDA_CONVOCAZIONE
       , sed.note NOTE
-      , utility_pkg.get_cognome_nome(nvl(com_presidente.ni_componente, osp_presidente.ni_componente_esterno)) PRESIDENTE
-      , utility_pkg.get_cognome_nome(nvl(com_segretario.ni_componente, osp_segretario.ni_componente_esterno)) SEGRETARIO
+      , utility_pkg.get_presenti_seduta (sed.id_seduta, null, 'P') PRESIDENTE
+      , utility_pkg.get_presenti_seduta (sed.id_seduta, null, 'S') SEGRETARIO
       , sed.sede SEDE_SEDUTA
-   from odg_sedute_partecipanti osp_presidente
-      , odg_sedute_partecipanti osp_segretario
-      , odg_sedute sed
-      , odg_commissioni_componenti com_presidente
-      , odg_commissioni_componenti com_segretario
+   from odg_sedute sed
       , odg_commissioni com
       , odg_tipi_seduta ots
   where sed.id_seduta = #id
     and com.id_commissione = sed.id_commissione
     and sed.id_tipo_seduta = ots.id_tipo_seduta
-    and osp_presidente.id_seduta (+) = sed.id_seduta
-    and osp_presidente.ruolo_partecipante (+) = 'P'
-    and osp_segretario.id_seduta (+) = sed.id_seduta
-    and osp_segretario.ruolo_partecipante(+) = 'S'
-    and osp_presidente.id_commissione_componente = com_presidente.id_commissione_componente (+)
-    and osp_segretario.id_commissione_componente = com_segretario.id_commissione_componente (+)
 		</query>
 
 		<!-- proposte: restituisce i dati delle proposte in seduta -->
@@ -828,7 +916,7 @@
 						,  td.titolo TIPO_PROPOSTA
 						,  utility_pkg.get_unita_prop_delibera(pd.id_proposta_delibera) UNITA_PROPONENTE
 						,  os.sequenza_convocazione SEQUENZA_CONVOCAZIONE
-						,  utility_pkg.get_cognome_nome(dele.ni_assessore) RELATORE
+						,  utility_pkg.get_cognome_nome(dele.ni_assessore, pd.ente) RELATORE
 						,  decode(pd.ESEGUIBILITA_IMMEDIATA,'Y','Si','No') ESEGUIBILITA_IMMEDIATA
 						,  nvl (utility_pkg.get_primo_firmatario_prop_deli(pd.id_proposta_delibera), utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'DIRIGENTE')) FIRMATARIO_PROPOSTA
 					   	, (select valore from dati_aggiuntivi da where da.id_proposta_delibera = pd.id_proposta_delibera and da.codice = 'DATA_ISTANZA') DATA_PRESENTAZIONE_ISTANZA
@@ -845,6 +933,67 @@
 						 and td.titolo like 'CONSIGLIO - F%'
 						 and os.id_delega = dele.id_delega (+)
 					   order by os.sequenza_convocazione asc)
+		</query>
+
+
+		<query id='proposte_commissioni_collegate'
+			   child="allegati"
+			   help_query_alias="pc"
+			   help_field_aliases="ESEGUIBILITA_IMMEDIATA, ESTREMI_PROPOSTA, ANNO_PROPOSTA, NUMERO_PROPOSTA, ID_OGGETTO_SEDUTA, OGGETTO_PROPOSTA, RELATORE, SEQUENZA_CONVOCAZIONE, TIPO_PROPOSTA, AREA_PROPONENTE, SERVIZIO_PROPONENTE, UNITA_PROPONENTE, FIRMATARIO_PROPOSTA, TITOLO_COMMISSIONE, DATA_SEDUTA, ORA_SEDUTA, NUMERO_SEDUTA">
+			select ID_OGGETTO_SEDUTA,
+			ID_PROPOSTA_DELIBERA ID_PROPOSTA,
+			OGGETTO_PROPOSTA,
+			ESTREMI_PROPOSTA,
+			ANNO_PROPOSTA,
+			NUMERO_PROPOSTA,
+			TIPO_PROPOSTA,
+			AREA_PROPONENTE,
+			SERVIZIO_PROPONENTE,
+			UNITA_PROPONENTE,
+			rownum SEQUENZA_CONVOCAZIONE,
+			RELATORE,
+			ESEGUIBILITA_IMMEDIATA,
+			FIRMATARIO_PROPOSTA,
+			TITOLO_COMMISSIONE,
+			DATA_SEDUTA,
+			ORA_SEDUTA,
+			NUMERO_SEDUTA
+			from (  select os.id_oggetto_seduta ID_OGGETTO_SEDUTA,
+			pd.id_proposta_delibera ID_PROPOSTA_DELIBERA,
+			pd.oggetto OGGETTO_PROPOSTA,
+			pd.anno_proposta || '/' || pd.numero_proposta ESTREMI_PROPOSTA,
+			pd.anno_proposta ANNO_PROPOSTA,
+			pd.numero_proposta NUMERO_PROPOSTA,
+			td.titolo TIPO_PROPOSTA,
+			utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_AREA', pd.ente) AREA_PROPONENTE,
+			utility_pkg.get_suddivisione_prop_delibera (pd.id_proposta_delibera, 'SO4_SUDDIVISIONE_SERVIZIO', pd.ente) SERVIZIO_PROPONENTE,
+			utility_pkg.get_unita_prop_delibera (pd.id_proposta_delibera) UNITA_PROPONENTE,
+			os.sequenza_convocazione SEQUENZA_CONVOCAZIONE,
+			utility_pkg.get_cognome_nome (dele.ni_assessore, pd.ente) RELATORE,
+			decode (pd.ESEGUIBILITA_IMMEDIATA, 'Y', 'Si', 'No') ESEGUIBILITA_IMMEDIATA,
+			nvl (utility_pkg.get_primo_firmatario_prop_deli (pd.id_proposta_delibera),
+			utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'DIRIGENTE')) FIRMATARIO_PROPOSTA,
+			com.titolo TITOLO_COMMISSIONE,
+			to_char (sed.data_seduta, 'DD/MM/YYYY') DATA_SEDUTA,
+			sed.ora_seduta ORA_SEDUTA,
+			sed.numero NUMERO_SEDUTA,
+			utility_pkg.oggetto_coll_visibile_seduta (osc.id_seduta, osc.id_oggetto_seduta) VISIBILE
+			from proposte_delibera pd,
+			deleghe dele,
+			odg_oggetti_seduta os,
+			odg_oggetti_seduta_collegati osc,
+			odg_sedute sed,
+			tipi_delibera td,
+			odg_commissioni com
+			where osc.id_seduta = #id
+			and osc.id_oggetto_seduta = os.id_oggetto_seduta
+			and sed.id_seduta = os.id_seduta
+			and com.id_commissione = sed.id_commissione
+			and os.id_proposta_delibera = pd.id_proposta_delibera
+			and pd.id_tipo_delibera = td.id_tipo_delibera
+			and os.id_delega = dele.id_delega(+)
+			order by os.sequenza_convocazione asc)
+			where visibile = 1
 		</query>
 
 		<query id='interrogazioni'
@@ -873,7 +1022,7 @@
 						   ,  td.titolo TIPO_PROPOSTA
 						   ,  utility_pkg.get_unita_prop_delibera(pd.id_proposta_delibera) UNITA_PROPONENTE
 						   ,  os.sequenza_convocazione SEQUENZA_CONVOCAZIONE
-						   ,  utility_pkg.get_cognome_nome(dele.ni_assessore) RELATORE
+						   ,  utility_pkg.get_cognome_nome(dele.ni_assessore, pd.ente) RELATORE
 						   ,  decode(pd.ESEGUIBILITA_IMMEDIATA,'Y','Si','No') ESEGUIBILITA_IMMEDIATA
 						   , nvl (utility_pkg.get_primo_firmatario_prop_deli(pd.id_proposta_delibera), utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'DIRIGENTE')) FIRMATARIO_PROPOSTA
 						   , (select valore from dati_aggiuntivi da where da.id_proposta_delibera = pd.id_proposta_delibera and da.codice = 'DATA_ISTANZA') DATA_PRESENTAZIONE_ISTANZA
@@ -918,7 +1067,7 @@
 						   ,  td.titolo TIPO_PROPOSTA
 						   ,  utility_pkg.get_unita_prop_delibera(pd.id_proposta_delibera) UNITA_PROPONENTE
 						   ,  os.sequenza_convocazione SEQUENZA_CONVOCAZIONE
-						   ,  utility_pkg.get_cognome_nome(dele.ni_assessore) RELATORE
+						   ,  utility_pkg.get_cognome_nome(dele.ni_assessore, pd.ente) RELATORE
 						   ,  decode(pd.ESEGUIBILITA_IMMEDIATA,'Y','Si','No') ESEGUIBILITA_IMMEDIATA
 			 			   , nvl (utility_pkg.get_primo_firmatario_prop_deli(pd.id_proposta_delibera), utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'DIRIGENTE')) FIRMATARIO_PROPOSTA
 						   , (select valore from dati_aggiuntivi da where da.id_proposta_delibera = pd.id_proposta_delibera and da.codice = 'DATA_ISTANZA') DATA_PRESENTAZIONE_ISTANZA
@@ -964,7 +1113,7 @@
 							utility_pkg.get_unita_prop_delibera (pd.id_proposta_delibera) UNITA_PROPONENTE,
 							DECODE (pd.ESEGUIBILITA_IMMEDIATA, 'Y', 'Si', 'No') ESEGUIBILITA_IMMEDIATA,
 							nvl (utility_pkg.get_primo_firmatario_prop_deli(pd.id_proposta_delibera), utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'DIRIGENTE')) FIRMATARIO_PROPOSTA,
-							utility_pkg.get_cognome_nome(dele.ni_assessore) RELATORE,
+							utility_pkg.get_cognome_nome(dele.ni_assessore, pd.ente) RELATORE,
 							(select valore from dati_aggiuntivi da where da.id_proposta_delibera = pd.id_proposta_delibera and da.codice = 'DATA_ISTANZA') DATA_PRESENTAZIONE_ISTANZA,
 							(select valore from dati_aggiuntivi da where da.id_proposta_delibera = pd.id_proposta_delibera and da.codice = 'COMMISSIONE_CONSILIARE') COMMISSIONE_CONSILIARE,
 							(select valore from dati_aggiuntivi da where da.id_proposta_delibera = pd.id_proposta_delibera and da.codice = 'NOTE_CONVOCAZIONE') NOTE_CONVOCAZIONE,
@@ -990,12 +1139,11 @@
 											FROM odg_oggetti_seduta ogg, odg_sedute oss
 											WHERE 	ogg.id_oggetto_seduta = pd.id_oggetto_seduta
 													AND oss.id_seduta = ogg.id_seduta
-													AND TRUNC(oss.data_seduta) > TRUNC(sed.data_seduta)
+													AND oss.data_seduta >= TRUNC(sed.data_seduta) + 1)
 								OR EXISTS (SELECT 1
-											FROM odg_oggetti_seduta ogg, odg_sedute oss
+											FROM odg_oggetti_seduta ogg
 											WHERE 	ogg.id_oggetto_seduta = pd.id_oggetto_seduta
-													AND oss.id_seduta = ogg.id_seduta
-													AND oss.id_seduta = #id))
+													AND ogg.id_seduta = #id)
 							)
 							AND pd.id_tipo_delibera = td.id_tipo_delibera
 							and td.titolo in ('CONSIGLIO -  Interrogazione', 'CONSIGLIO -  Interpellanza')
@@ -1024,7 +1172,7 @@
 						FROM (
 						SELECT pd.id_proposta_delibera id_proposta,
 							pd.oggetto OGGETTO_PROPOSTA,
-							utility_pkg.get_cognome_nome(dele.ni_assessore) RELATORE,
+							utility_pkg.get_cognome_nome(dele.ni_assessore, pd.ente) RELATORE,
 							pd.anno_proposta || '/' || pd.numero_proposta ESTREMI_PROPOSTA,
 							td.titolo TIPO_PROPOSTA,
 							utility_pkg.get_unita_prop_delibera (pd.id_proposta_delibera) UNITA_PROPONENTE,
@@ -1074,7 +1222,7 @@
      select SEQUENZA_CONVOCAZIONE, CONVOCATO, RUOLO, RUOLO_CONVOCATO
 	   from (
 		 select  osp.sequenza SEQUENZA_CONVOCAZIONE
-			   , nvl(utility_pkg.get_cognome_nome(occ.ni_componente), utility_pkg.get_cognome_nome(osp.ni_componente_esterno)) CONVOCATO
+			   , nvl(utility_pkg.get_cognome_nome(occ.ni_componente, oc.ente), utility_pkg.get_cognome_nome(osp.ni_componente_esterno, oc.ente)) CONVOCATO
 			   , i.titolo RUOLO
 			   , orp.descrizione RUOLO_CONVOCATO
 			from odg_sedute os
@@ -1082,9 +1230,11 @@
 			   , odg_incarichi i
 			   , odg_ruoli_partecipanti orp
 			   , odg_commissioni_componenti occ
+			   , odg_commissioni oc
 		   where os.id_seduta = #id
 				 and osp.id_seduta = os.id_seduta
 				 and i.id_incarico(+) = osp.id_incarico
+			     and os.id_commissione = oc.id_commissione
 				 and osp.id_commissione_componente = occ.id_commissione_componente (+)
 				 and osp.convocato = 'Y'
 				 and osp.ruolo_partecipante = orp.ruolo_partecipante(+)

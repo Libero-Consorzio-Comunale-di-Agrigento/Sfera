@@ -6,6 +6,7 @@ import it.finmatica.atti.IDocumentoEsterno
 import it.finmatica.atti.IFileAllegato
 import it.finmatica.atti.commons.AttiUtils
 import it.finmatica.atti.commons.FileAllegato
+import it.finmatica.atti.dizionari.TipologieFirma
 import it.finmatica.atti.exceptions.AttiRuntimeException
 import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.integrazioni.AttiFirmaService
@@ -33,6 +34,7 @@ class AttiGestoreTransazioneFirma {
 
 	private String	urlFirma            = null
 	private long 	idTransazioneFirma  = -1
+	private String  tipoFirma           = null
 
 	FirmaDigitaleTransazione getTransazioneAttiva () {
 		return FirmaDigitaleTransazione.get(idTransazioneFirma)
@@ -40,6 +42,7 @@ class AttiGestoreTransazioneFirma {
 
 	void clear () {
 		idTransazioneFirma = -1
+		tipoFirma           = null
 	}
 
 	private void creaTransazione () {
@@ -47,28 +50,79 @@ class AttiGestoreTransazioneFirma {
 			idTransazioneFirma = firmaDigitaleService.iniziaNuovaTransazione(springSecurityService.currentUserId)
 		}
 	}
-	
+
+	private void creaTransazione (String pTipoFirma) {
+		if (idTransazioneFirma < 0) {
+			idTransazioneFirma = firmaDigitaleService.iniziaNuovaTransazione(springSecurityService.currentUserId)
+			tipoFirma = pTipoFirma
+		}
+		else {
+			if (!(tipoFirma.equals(pTipoFirma))) {
+				throw new AttiRuntimeException("Non è possibile proseguire con la firma perché sono presenti file che richiedono tipologia di firma differente (Pades o Cades).")
+			}
+		}
+	}
+
+	//MIC (11/06/2024): non ho capito chi lo utilizza
 	void addFileDaFirmare (String idRiferimento, String filename, InputStream is) {
 		creaTransazione()
+		filename=calcolaNomeFilePades(filename)
 		firmaDigitaleService.aggiungiFileDaFirmare(idTransazioneFirma, idRiferimento, filename, is)
 	}
 
+	//MIC (11/06/2024): non ho capito chi lo utilizza
 	void addFileDaFirmare (String idRiferimento, IDocumentoEsterno documentoEsterno, IFileAllegato fileAllegato) {
 		creaTransazione()
-		firmaDigitaleService.aggiungiFileDaFirmare(idTransazioneFirma, idRiferimento, fileAllegato.nome, documentoEsterno.idDocumentoEsterno)
+		String nomeFile = calcolaNomeFilePades(fileAllegato.nome)
+		firmaDigitaleService.aggiungiFileDaFirmare(idTransazioneFirma, idRiferimento, nomeFile, documentoEsterno.idDocumentoEsterno)
 	}
+
+	//aggiunge file alla firma (richiamato da AttiFirmaService e InformazioniUtenetViewModel)
+	void addFileDaFirmare (String idRiferimento, IDocumentoEsterno documentoEsterno, IFileAllegato fileAllegato,int numFirma, String tipoFirma) {
+		creaTransazione(tipoFirma)
+		String nomeFile = calcolaNomeFilePades(fileAllegato.nome)
+		firmaDigitaleService.aggiungiFileDaFirmare(idTransazioneFirma, idRiferimento, nomeFile, documentoEsterno.idDocumentoEsterno,numFirma)
+	}
+
+	String calcolaNomeFilePades(String filename) {
+		//se la FIRMA_PADES è abilitata ed esiste un SUFFISSO e il nomeFile non contiene questo suffisso ( per evitare che scriva due volte -signed)
+		try {
+			if (TipologieFirma.PDF.equals(tipoFirma) //Impostazioni.FIRMA_PADES.abilitato
+					&& Impostazioni.SUFFISSO_FIRMA_PADES.valore != null
+					&& Impostazioni.SUFFISSO_FIRMA_PADES.valore.length() > 0
+					&& !Impostazioni.SUFFISSO_FIRMA_PADES.valore.equals("-")
+					&& filename.indexOf(Impostazioni.SUFFISSO_FIRMA_PADES.valore) < 0
+			) {
+				String nome = filename.substring(0, filename.lastIndexOf("."))
+				String estensione = filename.substring(filename.lastIndexOf("."))
+				// concateno nomeFile senza estensione con il suffisso e l'estensione
+				// filename = NOMEFILE + SUFF + ESTENSIONE
+				filename = nome + Impostazioni.SUFFISSO_FIRMA_PADES.valore + estensione
+			}
+		}catch(Exception ex){
+			log.error("Errore nella creazione del nomeFile per firma Pades: "+ex.getMessage())
+		}
+		return filename
+	}
+
 
 	/**
 	 * Termina la transazione di firma costruendo l'url della popup di firma digitale
 	 * @return l'url della popup di firma digitale
 	 */
 	String finalizzaTransazioneFirma () {
+
 		verificaAlmenoUnFileDaFirmare ()
 		String codiceFiscale = calcolaCodiceFiscale ()
+		FirmaDigitaleURLConfig configurazione = FirmaDigitaleURLConfig.configuraFirmaDigitale(getUrlFineFirma()).setFirmaHash(Impostazioni.FIRMA_HASH.abilitato).setTimeEnabled(Impostazioni.FIRMA_CON_TIMESTAMP.abilitato).setCodiceFiscale(codiceFiscale)
+		//if (Impostazioni.FIRMA_PADES.abilitato) {
+		if (TipologieFirma.PDF.equals(tipoFirma)) {
+			configurazione.setTipoFirma(FirmaDigitaleURLConfig.TipoFirma.PDF).setFirmaPDFVisibile(Impostazioni.FIRMA_PADES_VISIBILE.abilitato).setFirmaPDFPosizione(FirmaDigitaleURLConfig.PosizioneFirmaPdf.BASSO_DX).setFirmaHash(false)
+		}
 
-		this.urlFirma = firmaDigitaleService.getURLFirma(idTransazioneFirma, FirmaDigitaleURLConfig.configuraFirmaDigitale(getUrlFineFirma()).setFirmaHash(Impostazioni.FIRMA_HASH.abilitato).setTimeEnabled(Impostazioni.FIRMA_CON_TIMESTAMP.abilitato).setCodiceFiscale(codiceFiscale))
+		this.urlFirma = firmaDigitaleService.getURLFirma(idTransazioneFirma, configurazione)
 
-		log.debug ("Url popup di firma: ${urlFirma}")
+		log.info ("Url popup di firma: ${urlFirma}")
 		return this.urlFirma
 	}
 
@@ -79,8 +133,13 @@ class AttiGestoreTransazioneFirma {
 	String finalizzaTransazioneFirmaRemota () {
 		verificaAlmenoUnFileDaFirmare ()
 		String codiceFiscale = calcolaCodiceFiscale ()
+		FirmaDigitaleURLConfig configurazione = FirmaDigitaleURLConfig.configuraFirmaDigitale(getUrlFineFirma()).setFirmaRemota(true).setFirmaHash(Impostazioni.FIRMA_HASH.abilitato).setTimeEnabled(Impostazioni.FIRMA_CON_TIMESTAMP.abilitato).setCodiceFiscale(codiceFiscale)
 
-		this.urlFirma = firmaDigitaleService.getURLFirma(idTransazioneFirma, FirmaDigitaleURLConfig.configuraFirmaDigitale(getUrlFineFirma()).setFirmaRemota(true).setFirmaHash(Impostazioni.FIRMA_HASH.abilitato).setTimeEnabled(Impostazioni.FIRMA_CON_TIMESTAMP.abilitato).setCodiceFiscale(codiceFiscale))
+		this.urlFirma = firmaDigitaleService.getURLFirma(idTransazioneFirma, configurazione)
+		//if (Impostazioni.FIRMA_PADES.abilitato) {
+		if (TipologieFirma.PDF.equals(tipoFirma)) {
+			configurazione.setTipoFirma(FirmaDigitaleURLConfig.TipoFirma.PDF).setFirmaPDFVisibile(Impostazioni.FIRMA_PADES_VISIBILE.abilitato).setFirmaPDFPosizione(FirmaDigitaleURLConfig.PosizioneFirmaPdf.BASSO_DX).setFirmaHash(false)
+		}
 		log.debug ("Url popup di firma: ${urlFirma}");
 
 		return this.urlFirma;

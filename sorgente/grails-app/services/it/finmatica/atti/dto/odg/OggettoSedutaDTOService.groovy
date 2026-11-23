@@ -123,4 +123,26 @@ class OggettoSedutaDTOService {
 
 		}.toDTO()
 	}
+
+	public void spostaOggettoSedutaSu (OggettoSedutaDTO corrente, OggettoSedutaDTO precedente) {
+		OggettoSeduta target = corrente.domainObject
+		target.sequenzaDiscussione = corrente.sequenzaDiscussione
+
+		OggettoSeduta prev = precedente.domainObject
+		prev.sequenzaDiscussione = precedente.sequenzaDiscussione
+
+		target.save()
+		prev.save()
+	}
+
+	public void spostaOggettoSedutaGiu (OggettoSedutaDTO corrente, OggettoSedutaDTO successivo) {
+		OggettoSeduta target = corrente.domainObject
+		target.sequenzaDiscussione = corrente.sequenzaDiscussione
+
+		OggettoSeduta next = successivo.domainObject
+		next.sequenzaDiscussione = successivo.sequenzaDiscussione
+
+		target.save()
+		next.save()
+	}
 }

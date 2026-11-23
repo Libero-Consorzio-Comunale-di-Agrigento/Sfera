@@ -7,9 +7,10 @@ import it.finmatica.so4.struttura.So4Amministrazione
 
 class DocumentoCollegato {
 
-	public static final transient String OPERAZIONE_ANNULLA	= 'ANNULLA'
-	public static final transient String OPERAZIONE_INTEGRA	= 'INTEGRA'
-	public static final transient String OPERAZIONE_COLLEGA	= 'COLLEGA'
+	public static final transient String OPERAZIONE_ANNULLA		= 'ANNULLA'
+	public static final transient String OPERAZIONE_INTEGRA		= 'INTEGRA'
+	public static final transient String OPERAZIONE_COLLEGA		= 'COLLEGA'
+	public static final transient String OPERAZIONE_EMENDAMENTO	= 'EMENDAMENTO'
 
 	String 	operazione 	// tipo di collegamento: annullamento, integrazione o collegamento
 
@@ -19,6 +20,7 @@ class DocumentoCollegato {
 
 	Determina determinaCollegata
 	Delibera  deliberaCollegata
+	PropostaDelibera propostaDeliberaCollegata
 
 	RiferimentoEsterno riferimentoEsternoCollegato
 
@@ -32,15 +34,16 @@ class DocumentoCollegato {
 
 	static mapping = {
 		table				'documenti_collegati'
-		id 					column: 'id_documento_collegato'
+		id 							column: 'id_documento_collegato'
 
 		determinaPrincipale			column: 'id_determina_principale', 		index: 'detprinc_det_fk'
 		propostaDeliberaPrincipale 	column: 'id_proposta_delibera_princ', 	index: 'prdelprinc_det_fk'
 		deliberaPrincipale 			column: 'id_delibera_principale', 		index: 'delprinc_det_fk'
 
-		determinaCollegata	column: 'id_determina_collegata', 	index: 'detcol_det_fk'
-		deliberaCollegata   column: 'id_delibera_collegata', 	index: 'delcol_det_fk'
-        riferimentoEsternoCollegato   column: 'id_riferimento_est_coll', 	index: 'rifestcol_rifest_fk'
+		determinaCollegata			column: 'id_determina_collegata', 		index: 'detcol_det_fk'
+		deliberaCollegata   		column: 'id_delibera_collegata', 		index: 'delcol_det_fk'
+		propostaDeliberaCollegata   column: 'id_proposta_delibera_coll', 	index: 'prdelcol_prodel_fk'
+        riferimentoEsternoCollegato column: 'id_riferimento_est_coll', 		index: 'rifestcol_rifest_fk'
 
 		ente 		column: 'ente'
 		dateCreated column: 'data_ins'
@@ -57,10 +60,12 @@ class DocumentoCollegato {
 
 		determinaCollegata			nullable: true
 		deliberaCollegata           nullable: true
+		propostaDeliberaCollegata	nullable: true
 
 		operazione 	inList: [ DocumentoCollegato.OPERAZIONE_ANNULLA
 							, DocumentoCollegato.OPERAZIONE_INTEGRA
-							, DocumentoCollegato.OPERAZIONE_COLLEGA]
+							, DocumentoCollegato.OPERAZIONE_COLLEGA
+							, DocumentoCollegato.OPERAZIONE_EMENDAMENTO]
     }
 
 	private SpringSecurityService getSpringSecurityService () {

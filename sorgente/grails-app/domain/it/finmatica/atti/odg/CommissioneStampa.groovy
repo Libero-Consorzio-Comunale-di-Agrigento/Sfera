@@ -38,6 +38,10 @@ class CommissioneStampa implements ITipologiaPubblicazione {
     Commissione commissione
     static      belongsTo = [commissione: Commissione]
 
+    // dati di pubblicazione
+    boolean pubblicazione		 = false
+    Integer giorniPubblicazione
+
     boolean   valido = true
     Date      dateCreated
     Ad4Utente utenteIns
@@ -52,6 +56,8 @@ class CommissioneStampa implements ITipologiaPubblicazione {
         usoNelVisualizzatore type: 'yes_no'
         caratteristicaTipologia column: 'id_caratteristica_tipologia'
 
+        pubblicazione type: 'yes_no'
+
         dateCreated column: 'data_ins'
         utenteIns column: 'utente_ins'
         lastUpdated column: 'data_upd'
@@ -64,6 +70,7 @@ class CommissioneStampa implements ITipologiaPubblicazione {
         modelloTesto nullable: true
         progressivoCfgIter nullable: true
         caratteristicaTipologia nullable: true
+        giorniPubblicazione nullable: true
         codice nullable: true, inList: [CommissioneStampa.CONVOCAZIONE
                                         , CommissioneStampa.VERBALE
                                         , CommissioneStampa.DELIBERA]
@@ -92,15 +99,15 @@ class CommissioneStampa implements ITipologiaPubblicazione {
         return null
     }
 
-    @Override
-    Integer getGiorniPubblicazione () {
-        return 15
-    }
+//    @Override
+//    Integer getGiorniPubblicazione () {
+//        return 15
+//    }
 
-    @Override
-    boolean isPubblicazione () {
-        return true
-    }
+//    @Override
+//    boolean isPubblicazione () {
+//        return true
+//    }
 
     @Override
     boolean isSecondaPubblicazione () {

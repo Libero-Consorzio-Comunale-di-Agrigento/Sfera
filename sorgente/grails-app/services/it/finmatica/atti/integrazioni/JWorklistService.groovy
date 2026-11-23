@@ -80,7 +80,7 @@ class JWorklistService extends AbstractJWorklistDispatcher {
 			}
 
             if (idAttivitaCreate == null) {
-                notificheErroreService.creaErroreNotifica(NotificaErrore.OPERAZIONE_INVIO, notifica, idRiferimento, documento.iter.stepCorrente)
+                notificheErroreService.creaErroreNotifica(NotificaErrore.OPERAZIONE_INVIO, notifica, idRiferimento, documento.iter?.stepCorrente?:"")
             }
 
 			if (idAttivitaCreate != null && idAttivitaCreate.size() > 0) {
@@ -106,14 +106,14 @@ class JWorklistService extends AbstractJWorklistDispatcher {
             if (!result.equals("0")) {
                 log.warn("Problemi durante l'eliminazione della notifica con id_attivita=" + notifica.idAttivita + "\n Errore: " + resp.getErrStr())
                 def documento = getDocumento(notifica.idRiferimento)
-                notificheErroreService.creaErroreNotifica(NotificaErrore.OPERAZIONE_ELIMINA, null, notifica.idRiferimento, documento.iter.stepCorrente)
+                notificheErroreService.creaErroreNotifica(NotificaErrore.OPERAZIONE_ELIMINA, null, notifica.idRiferimento, documento.iter?.stepCorrente?:"")
             } else {
                 notifica.delete()
             }
         } catch (Exception ex) {
             log.error("Problemi durante l'eliminazione della notifica ${notifica.idAttivita}", ex)
             def documento = getDocumento(notifica.idRiferimento)
-            notificheErroreService.creaErroreNotifica(NotificaErrore.OPERAZIONE_ELIMINA, null, notifica.idRiferimento, documento.iter.stepCorrente)
+            notificheErroreService.creaErroreNotifica(NotificaErrore.OPERAZIONE_ELIMINA, null, notifica.idRiferimento, documento.iter?.stepCorrente?:"")
         }
     }
 

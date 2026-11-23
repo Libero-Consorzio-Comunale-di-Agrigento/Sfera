@@ -162,7 +162,12 @@ abstract class AbstractJWorklistDispatcher implements JWorklistDispatcher {
         param << [key: Labels.getLabel("label.determinaStandard.unita").replaceAll(":", ""), value:unita]
         param << [key: "Oggetto", value: oggetto]
         param << [key: Labels.getLabel("label.determinaStandard.dirigente").replaceAll(":", ""), value: dirigente]
-
+        if (JWorklistConfig.isDataNumeroPropostaVisibile()) {
+            param << [key: Labels.getLabel("label.smartDesktop.dataNumeroProposta"), value: documento.getDataNumeroProposta()?.format("dd/MM/yyyy") ?: ""]
+        }
+        if (JWorklistConfig.isAttoreOperazioneVisibile()) {
+            param << [key: Labels.getLabel("label.smartDesktop.AttoreOperazione"), value: documento.iter?.utenteUpd?.nominativoSoggetto ?: ""]
+        }
         DatoAggiuntivo datoAggiuntivo = datiAggiuntiviService.getDatoAggiuntivo(documento, TipoDatoAggiuntivo.RIFLESSI_CONTABILI)
         if (datoAggiuntivo?.valoreTipoDato != null) {
             param << [key: TipoDatoAggiuntivo.getDescrizione(TipoDatoAggiuntivo.RIFLESSI_CONTABILI), value: datoAggiuntivo.valoreTipoDato.descrizione]
@@ -177,10 +182,29 @@ abstract class AbstractJWorklistDispatcher implements JWorklistDispatcher {
                           priorita:     1,
                           url:          "allegato?file=${testo.id}&rif=${idRiferimento}&doc=${documentoIterabile.idDocumento}&tipo=${documentoIterabile.TIPO_OGGETTO}"]
             }
+
+            int numFileRiservati = 0     //conto il numero di file riservati allegati alla notifica
+            boolean isRiservato = false
+            String nomeFile              //usata per il calcolo del nome del file
             for (def allegato : documentoIterabile.allegati.sort {it.sequenza}) {
+                if (allegato.riservato) {
+                    isRiservato = true
+                }
+                else {
+                    isRiservato = false
+                }
+
                 for (def file : allegato?.fileAllegati.sort {it.id}) {
+                    //Se il file è riservato viene rinominato con RISERVATO
+                    if (isRiservato) {
+                        numFileRiservati = numFileRiservati + 1
+                        nomeFile = numFileRiservati+"_RISERVATO."+file.getEstensione ()
+                    }
+                    else {
+                        nomeFile = file.nome
+                    }
                     param << [key:  "Allegato",
-                              value: file.nome,
+                              value: nomeFile,
                               firmato: file.firmato,
                               priorita: 0,
                               url: "allegato?file=${file.id}&rif=${idRiferimento}&doc=${allegato.id}&tipo=${allegato.TIPO_OGGETTO}"]
@@ -188,14 +212,33 @@ abstract class AbstractJWorklistDispatcher implements JWorklistDispatcher {
             }
         }
 
+        if (documentoIterabile instanceof Determina || documentoIterabile instanceof PropostaDelibera || documentoIterabile instanceof Delibera) {
+            if (documentoIterabile.note != null && !documentoIterabile.note.equals("")) {
+                param << [key: Labels.getLabel("label.smartDesktop.note"), value: documentoIterabile.note]
+            }
+        }
+        else if (documentoIterabile instanceof VistoParere) {
+            if (documentoIterabile.note != null && !documentoIterabile.note.equals("")) {
+                if (documento instanceof Determina) {
+                    param << [key: Labels.getLabel("label.smartDesktop.noteVisto"), value: documentoIterabile.note]
+                }
+                else {
+                    param << [key: Labels.getLabel("label.smartDesktop.noteParere"), value: documentoIterabile.note]
+                }
+            }
+        }
         return param
     }
 
     String getParamInitIterString (IDocumentoIterabile documentoIterabile) {
         String paramInitIter = ""
+        String truncationMarker = "[...]"
         def params = getParamInitIter(documentoIterabile)
         params?.each() {
             paramInitIter += "${it.key}: ${it.value}\n"
+        }
+        if (paramInitIter.length() > 4000) {
+            paramInitIter = paramInitIter.substring(0, (4000 - truncationMarker.length())) + truncationMarker
         }
         return paramInitIter
     }
@@ -220,6 +263,9 @@ abstract class AbstractJWorklistDispatcher implements JWorklistDispatcher {
 
     Date getScadenza (IDocumentoIterabile documentoIterabile, String tipoNotifica) {
         if (documentoIterabile instanceof Determina && (TipoNotifica.ASSEGNAZIONE == tipoNotifica || TipoNotifica.DA_FIRMARE == tipoNotifica)) {
+            if (documentoIterabile.dataScadenzaDisposizioni != null) {
+                return documentoIterabile.dataScadenzaDisposizioni
+            }
             if ("DATA_SCADENZA_FATTURE".equals(Impostazioni.NOTIFICHE_DATA_SCADENZA.getValore()) && documentoIterabile.numeroProposta != null){
                 return getDistinta(documentoIterabile)?.scadenzaDal
             }

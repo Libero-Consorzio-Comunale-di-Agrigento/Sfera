@@ -10,6 +10,8 @@ class MappingIntegrazione {
 
 	public static final String VALORE_INTERNO_TUTTI = "*"
 
+	String id
+
 	// codice che aiuta a identificare l'ambito/integrazione relativo, ad es: CONTABILITA_COMUNE_MODENA, PROTOCOLLO_COMUNE_MODENA
 	String categoria
 
@@ -34,8 +36,7 @@ class MappingIntegrazione {
 		table 'mapping_integrazioni'
 		version false
 
-		id column: 'id_mapping_integrazione'
-
+		id column: 'id_mapping_integrazione', generator: 'assigned'
 		ente 		column: 'ente'
 	}
 

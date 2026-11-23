@@ -40,6 +40,7 @@ public class AllegatoDTO implements it.finmatica.dto.DTO<Allegato> {
     Ad4UtenteDTO utenteIns;
     Ad4UtenteDTO utenteUpd;
     boolean valido;
+    boolean bloccato;
     VistoParereDTO vistoParere;
 
     public void addToFileAllegati (FileAllegatoDTO fileAllegato) {

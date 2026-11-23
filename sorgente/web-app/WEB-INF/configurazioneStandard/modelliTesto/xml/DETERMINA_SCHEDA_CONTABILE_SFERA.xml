@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <documentRoot>
-	<descrizione>Determina (Contabilità Sfera)</descrizione>
+	<descrizione>Determina (Scheda contabile Sfera)</descrizione>
 	<connections>
 		<connectionJNDI>jdbc/agsde2</connectionJNDI>
 	</connections>
@@ -48,6 +48,7 @@
 				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
 				<M_CAPITOLO>4</M_CAPITOLO>
 				<M_NOTE>Acquisto Carta</M_NOTE>
+				<M_ANNO_ESIGIBILITA>2023</M_ANNO_ESIGIBILITA>
 				<M_CIG>13123</M_CIG>
 				<M_CUP>3</M_CUP>
 				<M_SEGNO>-</M_SEGNO>
@@ -65,6 +66,7 @@
 				<M_ANNO_ACCERTAMENTO>2015</M_ANNO_ACCERTAMENTO>
 				<M_CAPITOLO>4</M_CAPITOLO>
 				<M_NOTE>Bonus</M_NOTE>
+				<M_ANNO_ESIGIBILITA>2023</M_ANNO_ESIGIBILITA>
 				<M_CIG>13123</M_CIG>
 				<M_CUP>4</M_CUP>
 				<M_SEGNO>+</M_SEGNO>
@@ -83,6 +85,7 @@
 				<M_CAPITOLO>4</M_CAPITOLO>
 				<M_NOTE>Acquisto</M_NOTE>
 				<M_CIG>13123</M_CIG>
+				<M_ANNO_ESIGIBILITA>2024</M_ANNO_ESIGIBILITA>
 				<M_CUP>5</M_CUP>
 				<M_SEGNO>+</M_SEGNO>
 				<M_IMPORTO>1234,00</M_IMPORTO>
@@ -335,6 +338,12 @@
 			<path/>
 		</metaDato>
 		<metaDato>
+			<nomeSimbolico>M_ANNO_ESIGIBILITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di esigibilita'</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
 			<nomeSimbolico>M_CIG</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>CIG</descrizione>
@@ -453,12 +462,13 @@
 
 <query id="movimenti"
         help_query_alias="m"
-		help_field_aliases="M_ANNO_IMPEGNO, M_ANNO_PRENOTAZIONE, M_ANNO_ACCERTAMENTO, M_CAPITOLO, M_NOTE, M_CIG, M_CUP, M_SEGNO, M_IMPORTO, M_NUMERO_IMPEGNO, M_NUMERO_PRENOTAZIONE, M_NUMERO_ACCERTAMENTO, M_AZIONE, M_ENTRATA_USCITA, M_CODICE"> 
+		help_field_aliases="M_ANNO_IMPEGNO, M_ANNO_PRENOTAZIONE, M_ANNO_ACCERTAMENTO, M_CAPITOLO, M_NOTE, M_ANNO_ESIGIBILITA, M_CIG, M_CUP, M_SEGNO, M_IMPORTO, M_NUMERO_IMPEGNO, M_NUMERO_PRENOTAZIONE, M_NUMERO_ACCERTAMENTO, M_AZIONE, M_ENTRATA_USCITA, M_CODICE">
  select m.anno_competenza               as M_ANNO_IMPEGNO
       , m.anno_crono                    as M_ANNO_PRENOTAZIONE
       , m.anno_esercizio                as M_ANNO_ACCERTAMENTO
       , m.capitolo                      as M_CAPITOLO
       , m.descrizione                   as M_NOTE
+	  , m.anno_esigibilita              as M_ANNO_ESIGIBILITA
       , m.descrizione_finanziamento_1   as M_CIG
       , m.descrizione_finanziamento_2   as M_CUP
       , decode(sign(m.importo), -1, '-', '+') as M_SEGNO

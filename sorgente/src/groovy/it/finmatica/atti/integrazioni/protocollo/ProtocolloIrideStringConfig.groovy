@@ -2,7 +2,9 @@ package it.finmatica.atti.integrazioni.protocollo
 
 import it.finmatica.atti.impostazioni.MappingIntegrazione
 import it.finmatica.atti.integrazioni.lookup.LookupEnti
+import it.finmatica.atti.integrazioni.lookup.LookupSiNo
 import it.finmatica.atti.integrazioni.lookup.LookupTipologiaAtto
+import it.finmatica.atti.integrazioni.lookup.LookupTutti
 import it.finmatica.atti.integrazioni.lookup.LookupUfficio
 import it.finmatica.atti.integrazioni.parametri.ModuloIntegrazione
 import it.finmatica.atti.integrazioni.parametri.ParametroIntegrazione
@@ -22,6 +24,9 @@ class ProtocolloIrideStringConfig implements ModuloIntegrazione {
     public static final String PARAMETRO_URL = "URL"
     public static final String PARAMETRO_ENTE = "ENTE"
     public static final String PARAMETRO_AOO = "AOO"
+    public static final String PARAMETRO_AOO_UTILIZZO = "AOO_UTILIZZO"
+    public static final String PARAMETRO_UNITA_PROTOCOLLO_FISSA = "UNITA_PROTOCOLLO_FISSA"
+    public static final String PARAMETRO_CODICE_UNITA_PROTOCOLLO_FISSA = "CODICE_UNITA_PROTOCOLLO_FISSA"
     public static final String PARAMETRO_UNITA_PROTOCOLLO = "UNITA_PROTOCOLLO"
     public static final String PARAMETRO_UNITA_INCARICOA = "UNITA_INCARICOA"
     public static final String PARAMETRO_TIPO_DOCUMENTO = "TIPO_DOCUMENTO"
@@ -50,7 +55,10 @@ class ProtocolloIrideStringConfig implements ModuloIntegrazione {
                 new ParametroIntegrazione(PARAMETRO_UTENTE, "Utente Webservice"),
                 new ParametroIntegrazione(PARAMETRO_URL, "URL Webservice"),
                 new ParametroIntegrazione(PARAMETRO_RUOLO, "Ruolo"),
+                new ParametroIntegrazione(PARAMETRO_AOO_UTILIZZO, "Utilizzo Codice AOO per la login?", LookupTutti.INSTANCE, LookupSiNo.INSTANCE),
                 new ParametroIntegrazione(PARAMETRO_AOO, "Codice AOO"),
+                new ParametroIntegrazione(PARAMETRO_UNITA_PROTOCOLLO_FISSA, "Utilizzo la stessa unità di protocollazione per tutti i documenti?", LookupTutti.INSTANCE, LookupSiNo.INSTANCE),
+                new ParametroIntegrazione(PARAMETRO_CODICE_UNITA_PROTOCOLLO_FISSA, "Codice unità di protocollazione per tutti i documenti"),
                 new ParametroIntegrazione(PARAMETRO_ENTE, "Codice Ente", LookupEnti.INSTANCE),
                 new ParametroIntegrazione(PARAMETRO_UNITA_PROTOCOLLO, "Unità Protocollazione", LookupUfficio.INSTANCE),
                 new ParametroIntegrazione(PARAMETRO_UNITA_INCARICOA, "Unità In Carico", LookupUfficio.INSTANCE),
@@ -73,7 +81,20 @@ class ProtocolloIrideStringConfig implements ModuloIntegrazione {
     }
 
     String getAoo() {
-        return MappingIntegrazione.getValoreEsterno(CODICE_INTEGRAZIONE, PARAMETRO_AOO)
+        String valore
+        if (isUsoAooLogin())
+            valore = MappingIntegrazione.getValoreEsterno(CODICE_INTEGRAZIONE, PARAMETRO_AOO)
+        else
+            valore = ''
+        return valore
+    }
+
+    boolean isUsoAooLogin() {
+        return MappingIntegrazione.getValoreEsternoBoolean(getCodice(), PARAMETRO_AOO_UTILIZZO, MappingIntegrazione.VALORE_INTERNO_TUTTI, "Y")
+    }
+
+    boolean isUnitaProtocolloFissa() {
+        return MappingIntegrazione.getValoreEsternoBoolean(getCodice(), PARAMETRO_UNITA_PROTOCOLLO_FISSA, MappingIntegrazione.VALORE_INTERNO_TUTTI, "N")
     }
 
     String getRuolo() {
@@ -81,7 +102,13 @@ class ProtocolloIrideStringConfig implements ModuloIntegrazione {
     }
 
     String getUnitaProtocollo(So4UnitaPubb so4UnitaPubb) {
-        return MappingIntegrazione.getValoreEsterno(CODICE_INTEGRAZIONE, PARAMETRO_UNITA_PROTOCOLLO, so4UnitaPubb.codice)
+        String valore
+        if (isUnitaProtocolloFissa())
+            valore = MappingIntegrazione.getValoreEsterno(CODICE_INTEGRAZIONE, PARAMETRO_CODICE_UNITA_PROTOCOLLO_FISSA)
+        else
+            valore = MappingIntegrazione.getValoreEsterno(CODICE_INTEGRAZIONE, PARAMETRO_UNITA_PROTOCOLLO, so4UnitaPubb.codice)
+
+        return valore
     }
 
     String getUnitaInCaricoA(So4UnitaPubb so4UnitaPubb) {
@@ -89,11 +116,16 @@ class ProtocolloIrideStringConfig implements ModuloIntegrazione {
     }
 
     String getTipoDocumento(long idTipologia) {
-        return MappingIntegrazione.getValoreEsterno(CODICE_INTEGRAZIONE, PARAMETRO_TIPO_DOCUMENTO, Long.toString(idTipologia))
+        //A pisa la classifica è obbligatoria....a sesto san giovanni sembra di no
+        //05/05/2023: cambio questa chiamata in modo che non dia errore se non presente
+        return MappingIntegrazione.getValoreEsterno(CODICE_INTEGRAZIONE, PARAMETRO_TIPO_DOCUMENTO, Long.toString(idTipologia), '')
     }
 
     String getCodiceClassifica(long idTipologia) {
-        return MappingIntegrazione.getValoreEsterno(CODICE_INTEGRAZIONE, PARAMETRO_CODICE_CLASSIFICA, Long.toString(idTipologia))
+        //A pisa la classifica è obbligatoria....a sesto san giovanni sembra di no
+        //04/05/2023: cambio questa chiamata in modo che non dia errore se non presente
+        //return MappingIntegrazione.getValoreEsterno(CODICE_INTEGRAZIONE, PARAMETRO_CODICE_CLASSIFICA, Long.toString(idTipologia))
+        return MappingIntegrazione.getValoreEsterno(CODICE_INTEGRAZIONE, PARAMETRO_CODICE_CLASSIFICA, Long.toString(idTipologia), '')
     }
 
     String getPrefissoOggetto(long idTipologia) {

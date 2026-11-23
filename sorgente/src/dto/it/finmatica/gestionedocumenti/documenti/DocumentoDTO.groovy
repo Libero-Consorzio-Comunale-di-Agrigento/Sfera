@@ -30,7 +30,8 @@ public class DocumentoDTO implements it.finmatica.dto.DTO<Documento> {
     StatoConservazione statoConservazione;
     StatoFirma statoFirma;
     StatoMarcatura statoMarcatura;
-    WkfTipoOggettoDTO tipoOggetto;
+    //WkfTipoOggettoDTO
+    String tipoOggetto;
     Ad4UtenteDTO utenteIns;
     Ad4UtenteDTO utenteUpd;
     boolean valido;

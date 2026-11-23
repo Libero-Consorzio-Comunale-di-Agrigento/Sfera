@@ -10,8 +10,10 @@ import it.finmatica.atti.documenti.*
 import it.finmatica.atti.documenti.beans.AttiGestoreCompetenze
 import it.finmatica.atti.documenti.storico.StoricoService
 import it.finmatica.atti.documenti.tipologie.ParametroTipologia
+import it.finmatica.atti.dto.documenti.viste.So4DelegaService
 import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.impostazioni.TipoSoggetto
+import it.finmatica.atti.odg.SedutaStampa
 import it.finmatica.gestioneiter.Attore
 import it.finmatica.gestioneiter.annotations.Action
 import it.finmatica.gestioneiter.annotations.Action.TipoAzione
@@ -31,6 +33,7 @@ class AttoriAction {
 	VistoParereService 				vistoParereService
 	AttiGestoreCompetenze 			gestoreCompetenze
 	StoricoService					storicoService
+	So4DelegaService 				so4DelegaService
 
 	@Action(tipo	= TipoAzione.CALCOLO_ATTORE,
 			tipiOggetto	= [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, VistoParere.TIPO_OGGETTO, Certificato.TIPO_OGGETTO],
@@ -92,6 +95,51 @@ class AttoriAction {
 		}
 		
 		return new Attore (utenteAd4: utente)
+	}
+
+	@Action(tipo	= TipoAzione.CALCOLO_ATTORE,
+			tipiOggetto	= [Delibera.TIPO_OGGETTO],
+			nome		= "Ritorna l'utente REDATTORE della proposta di delibera",
+			descrizione = "Ritorna l'utente redattore della proposta di delibera.")
+	Attore getDRedattoreProposta (IAtto atto) {
+		Ad4Utente utente = atto.proposta.getSoggetto (TipoSoggetto.REDATTORE)?.utenteAd4
+
+		if (utente == null) {
+			return null
+		}
+
+		return new Attore (utenteAd4: utente)
+	}
+
+	@Action(tipo	= TipoAzione.CALCOLO_ATTORE,
+			tipiOggetto	= [Delibera.TIPO_OGGETTO],
+			nome		= "Ritorna l'utente INCARICATO della proposta di delibera",
+			descrizione = "Ritorna l'utente incaricato della proposta di delibera.")
+	Attore getIncaricatoProposta (IAtto atto) {
+		Ad4Utente utente = atto.proposta.getSoggetto (TipoSoggetto.INCARICATO)?.utenteAd4
+
+		if (utente == null) {
+			return null
+		}
+
+		return new Attore (utenteAd4: utente)
+	}
+
+	@Action(tipo	= TipoAzione.CALCOLO_ATTORE,
+			tipiOggetto	= [Delibera.TIPO_OGGETTO],
+			nome		= "Ritorna l'utente FUNZIONARIO della proposta di delibera",
+			descrizione = "Ritorna l'utente funzionario della proposta di delibera.")
+	Attore getDFunzionarioProposta (IAtto atto) {
+		Ad4Utente utente = null
+		if (atto.proposta.controlloFunzionario) {
+			utente = atto.proposta.getSoggetto(TipoSoggetto.FUNZIONARIO)?.utenteAd4
+		}
+
+		if (utente == null) {
+			return null
+		}
+
+		return new Attore(utenteAd4: utente)
 	}
 
 	@Action(tipo	= TipoAzione.CALCOLO_ATTORE,
@@ -157,6 +205,25 @@ class AttoriAction {
 
 		for (WkfAttoreStep attoreStep : documento.iter.stepCorrente.attori) {
 			attori.add (new Attore(utenteAd4: attoreStep.utenteAd4, unitaSo4: attoreStep.unitaSo4, ruoloAd4: attoreStep.ruoloAd4))
+		}
+
+		return attori
+	}
+
+	@Action(tipo	= TipoAzione.CALCOLO_ATTORE,
+			tipiOggetto	= [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, VistoParere.TIPO_OGGETTO, Certificato.TIPO_OGGETTO, SedutaStampa.TIPO_OGGETTO],
+			nome		= "Ritorna i delegati dell'attore che ha in carico il documento.",
+			descrizione = "Ritorna i delegati dell'attore che ha in carico il documento." )
+	List<Attore> getDelegati (def documento) {
+		List<Attore> attori = []
+
+		for (WkfAttoreStep attoreStep : documento.iter.stepCorrente.attori) {
+			if (attoreStep.utenteAd4) {
+				//se l'utente corrente è delegato dall'utente che ha in carico il documento, allora lo aggiungo agli attori che possono gestire l'atto
+				if (so4DelegaService.hasDelega(springSecurityService.currentUser, attoreStep.utenteAd4)) {
+					attori.add (new Attore(utenteAd4: springSecurityService.currentUser, unitaSo4: attoreStep.unitaSo4, ruoloAd4: attoreStep.ruoloAd4))
+				}
+			}
 		}
 
 		return attori

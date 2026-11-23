@@ -20,6 +20,7 @@ import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.impostazioni.TipoSoggetto
 import it.finmatica.atti.integrazioni.AttiFirmaService
 import it.finmatica.atti.integrazioni.CasaDiVetroService
+import it.finmatica.atti.odg.Commissione
 import it.finmatica.atti.odg.CommissioneComponente
 import it.finmatica.atti.odg.CommissioneStampa
 import it.finmatica.atti.odg.OggettoPartecipante
@@ -97,8 +98,15 @@ class DeliberaService {
             // elimino tutte le "altre" notifiche
             notificheService.eliminaNotifiche(visto)
 
+            Ad4Utente firmatarioVisto = null
+            if (!(visto.tipologia.ricalcoloFirmatario)) {
+                //il firmatario del nuovo visto deve essere il firmataro del visto rigenerato
+                //altrimenti verrà ricalcolato dalla caratteristica
+                firmatarioVisto = visto.firmatario
+            }
+
             // ricreo il visto partendo da quello eliminato.
-            vistoParereService.creaVistoParere(delibera, visto.tipologia, visto.automatico, visto.firmatario, visto.unitaSo4)
+            vistoParereService.creaVistoParere(delibera, visto.tipologia, visto.automatico, firmatarioVisto, visto.unitaSo4)
         }
 
         // se il file è p7m o pdf, lo elimino e lo sostituisco con quello che ho in d.testoOdt
@@ -106,8 +114,12 @@ class DeliberaService {
             gestioneTesti.ripristinaTestoOdt(delibera)
         }
 
+        // se la tipologia mantiene i file originali della proposta, anche gli allegati DA_FIRMARE (delibera non ancora firmata)
+        // possono avere file firmati in proposta da ripristinare.
+        boolean rigeneraFileProposta = Impostazioni.DELIBERA_RIGENERA_FILE_PROPOSTA.abilitato && delibera.propostaDelibera.tipologia.rigeneraFileProposta
+
         // ripristino gli eventuali file allegati firmati:
-        for (Allegato allegato : delibera.allegati.findAll { it.statoFirma == StatoFirma.FIRMATO || it.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE }) {
+        for (Allegato allegato : delibera.allegati.findAll { it.statoFirma == StatoFirma.FIRMATO || it.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE || (rigeneraFileProposta && it.statoFirma == StatoFirma.DA_FIRMARE) }) {
             // per ogni allegato, se è firmato, lo metto come "DA_FIRMARE"
             for (FileAllegato fileAllegato : allegato.fileAllegati) {
                 if (fileAllegato.firmato) {
@@ -153,6 +165,7 @@ class DeliberaService {
 				where trunc(d.""" + proprietaDataPubblicazione + """ + :giorniEsec) <= current_date()
 				  and d.""" + proprietaDataPubblicazione + """ is not null
 				  and d.valido = true
+				  and (d.stato is null or d.stato <> 'ANNULLATO')
 				  and d.dataEsecutivita is null
 				  and d.diventaEsecutiva = true"""
                 , [giorniEsec: (double) Impostazioni.PUBBLICAZIONE_GIORNI_ESECUTIVITA.valoreInt])
@@ -184,6 +197,11 @@ class DeliberaService {
 
         // se la data di esecutività richiesta è successiva ad oggi, non devo rendere esecutiva la delibera. Ci penserà il job notturno.
         if (new Date().clearTime().before(dataEsecutivita.clone().clearTime())) {
+            return delibera
+        }
+
+        //le delibere annullate non devono diventare esecutive
+        if (delibera.stato == StatoDocumento.ANNULLATO) {
             return delibera
         }
 
@@ -244,7 +262,21 @@ class DeliberaService {
     }
 
     Date calcolaDataImmediataEsecutivita (Delibera delibera) {
-        return esecutivitaGiornoFeriale(delibera.oggettoSeduta?.seduta?.dataSeduta ?: new Date())
+        Date dataEsecutivita = new Date()
+        //la data di esecutività è la data di discussione della proposta...oppure di inizio seduta...oppure di convocazione (in questo ordine)
+        if (delibera.oggettoSeduta) {
+            dataEsecutivita = delibera.oggettoSeduta.dataDiscussione
+
+            if (dataEsecutivita == null) {
+                dataEsecutivita = delibera.oggettoSeduta.seduta.dataInizioSeduta
+
+                if (dataEsecutivita == null) {
+                    dataEsecutivita = delibera.oggettoSeduta.seduta.dataSeduta
+                }
+            }
+        }
+
+        return dataEsecutivita
     }
 
     /**
@@ -301,8 +333,32 @@ class DeliberaService {
      * @param dataAdozione
      */
     void adottaDelibera (Delibera delibera) {
+        //imposto la data di adozione solo se non già valorizzata
+        if (delibera.dataAdozione == null) {
+            if (delibera.oggettoSeduta != null && Impostazioni.DATA_ADOZIONE_DELIBERE.abilitato) {
+                setDataAdozioneSeduta(delibera)
 
-        if (delibera.oggettoSeduta != null && Impostazioni.DATA_ADOZIONE_DELIBERE.abilitato) {
+            } else if (delibera.dataAdozione == null) {
+                delibera.dataAdozione = new Date()
+            }
+        }
+
+        if (delibera.dataAdozione == null) {
+            throw new AttiRuntimeException(l("message.delibera.mancaDataAdozione"))
+        }
+
+        if (delibera.numeroDelibera == null) {
+            // assegno la data di adozione e numero la delibera
+            numeraDelibera(delibera)
+
+            // invio la notifica che la proposta è stata adottata.
+            notificheService.notifica(TipoNotifica.ADOZIONE, delibera)
+        }
+    }
+
+    public void setDataAdozioneSeduta(Delibera delibera) {
+        //la data di adozione è la data di discussione della proposta...oppure di inizio seduta...oppure di convocazione (in questo ordine)
+        if (delibera.dataAdozione == null) {
             delibera.dataAdozione = delibera.oggettoSeduta.dataDiscussione
 
             if (delibera.dataAdozione == null) {
@@ -312,20 +368,7 @@ class DeliberaService {
                     delibera.dataAdozione = delibera.oggettoSeduta.seduta.dataSeduta
                 }
             }
-
-        } else if (delibera.dataAdozione == null) {
-            delibera.dataAdozione = new Date()
         }
-
-        if (delibera.dataAdozione == null) {
-            throw new AttiRuntimeException(l("message.delibera.mancaDataAdozione"))
-        }
-
-        // assegno la data di adozione e numero la delibera
-        numeraDelibera(delibera)
-
-        // invio la notifica che la proposta è stata adottata.
-        notificheService.notifica(TipoNotifica.ADOZIONE, delibera)
     }
 
     /**
@@ -363,8 +406,38 @@ class DeliberaService {
         delibera.fascicoloNumero = propostaDelibera.fascicoloNumero
         delibera.fascicoloOggetto = propostaDelibera.fascicoloOggetto
 
+        delibera.impattoGenerazionale = propostaDelibera.impattoGenerazionale
+
         // prima di gestire le competenze devo salvare la delibera altrimenti nella "assegnaCompetenze" fa una query e da' errore "object references an unsaved transient instance"
         delibera.save()
+
+        //se la proposta di delibera ha un collegamento di tipo emendamento....allora non sarà più la proposta ad essere collegata, ma la delibera
+        if (Impostazioni.DELIBERA_EMENDAMENTO.abilitato) {
+            List<DocumentoCollegato> documentiCollegati = DocumentoCollegato.createCriteria().list() {
+                or {
+                    eq("propostaDeliberaPrincipale.id", propostaDelibera.id)
+                    eq("propostaDeliberaCollegata.id", propostaDelibera.id)
+                }
+                eq("operazione", DocumentoCollegato.OPERAZIONE_EMENDAMENTO)
+            }
+
+            for (DocumentoCollegato documentoCollegato : documentiCollegati) {
+                if (documentoCollegato.propostaDeliberaPrincipale) {
+                    if (documentoCollegato.propostaDeliberaPrincipale.id == propostaDelibera.id) {
+                        documentoCollegato.propostaDeliberaPrincipale = null
+                        documentoCollegato.deliberaPrincipale = delibera
+                    }
+                }
+
+                if (documentoCollegato.propostaDeliberaCollegata) {
+                    if (documentoCollegato.propostaDeliberaCollegata.id == propostaDelibera.id) {
+                        documentoCollegato.propostaDeliberaCollegata = null
+                        documentoCollegato.deliberaCollegata = delibera
+                    }
+                }
+                documentoCollegato.save()
+            }
+        }
 
         // copio tutti i dati aggiuntivi della proposta di delibera.
         // Questo serve per il SIAR: http://svi-redmine/issues/24722
@@ -433,19 +506,40 @@ class DeliberaService {
                 a.sequenza = a.sequenza + 1
             }
 
-            // imposto ogni file allegato come se non fosse mai stato firmato da applicativo.
-            List fileAllegatiOriginali = a.fileAllegati*.fileOriginale.findAll{it != null}
-            if (fileAllegatiOriginali != null) {
-                for (FileAllegato fileOriginale : fileAllegatiOriginali) {
-                    fileOriginale.nome = "PROP_" + fileOriginale.nome
-                    gestoreFile.updateFile(fileOriginale)
-                    fileOriginale.save()
+            // imposto ogni file allegato come se non fosse mai stato firmato da applicativo (salvo che la tipologia richieda di mantenere i file originali).
+            if (!(Impostazioni.DELIBERA_RIGENERA_FILE_PROPOSTA.abilitato && delibera.propostaDelibera.tipologia.rigeneraFileProposta)) {
+                List fileAllegatiOriginali = a.fileAllegati*.fileOriginale.findAll{it != null}
+                if (fileAllegatiOriginali != null) {
+                    for (FileAllegato fileOriginale : fileAllegatiOriginali) {
+                        fileOriginale.nome = "PROP_" + fileOriginale.nome
+                        gestoreFile.updateFile(fileOriginale)
+                        fileOriginale.save()
+                    }
                 }
+                a.fileAllegati*.fileOriginale = null
             }
-            a.fileAllegati*.fileOriginale = null
             delibera.addToAllegati(a)
             a.save()
         }
+
+        // Ribaltamento firmatari istanze ( Gruppi Politici ) sulla delibera
+        List<GruppoPoliticoDocumento> listaFirmatariGruppoPolitico = GruppoPoliticoDocumento.createCriteria().list {
+            fetchMode("componente", FetchMode.JOIN)
+            eq("propostaDelibera.id", propostaDelibera.id)
+            order("descrizione", "asc")
+            componente {
+                order("cognome", "asc")
+                order("nome", "asc")
+            }
+        }
+        if(listaFirmatariGruppoPolitico!=null) {
+            for (GruppoPoliticoDocumento gruppoPoliticoDocumento : listaFirmatariGruppoPolitico) {
+                gruppoPoliticoDocumento.delibera = delibera
+                gruppoPoliticoDocumento.save()
+            }
+        }
+
+
 
         // copio il testo della proposta di delibera se richiesto dalla tipologia:
         if (delibera.tipologiaDocumento.copiaTestoProposta) {
@@ -690,7 +784,7 @@ class DeliberaService {
             return;
         }
 
-        if (!isNumeroFirmatariUguale(delibera) && commissione.controlloFirmatari) {
+        if (!isNumeroFirmatariUguale(delibera, commissione.firmatariPresenti) && commissione.controlloFirmatari) {
             throw new AttiRuntimeException(
                     "Attenzione: il numero dei firmatari non è corretto: il numero di firmatari previsto dalla commissione è diverso dal numero dei firmatari specificato")
         }
@@ -825,7 +919,15 @@ class DeliberaService {
     }
 
     List<OggettoPartecipante> getListaFirmatariOggetto (OggettoSeduta oggettoSeduta) {
-        return OggettoPartecipante.findAllByOggettoSedutaAndFirmatarioAndPresente(oggettoSeduta, true, true, [sort: 'sequenzaFirma', order: 'asc'])
+        Commissione commissione = oggettoSeduta.seduta.commissione
+        List<OggettoPartecipante> listaFirmatari
+
+        if (commissione.firmatariPresenti)
+            listaFirmatari = OggettoPartecipante.findAllByOggettoSedutaAndFirmatarioAndPresente(oggettoSeduta, true, true, [sort: 'sequenzaFirma', order: 'asc'])
+        else
+            listaFirmatari = OggettoPartecipante.findAllByOggettoSedutaAndFirmatario(oggettoSeduta, true, [sort: 'sequenzaFirma', order: 'asc'])
+
+        return  listaFirmatari
     }
 
     /**
@@ -883,16 +985,21 @@ class DeliberaService {
 
     boolean numeroFirmatariDaVerificare (Delibera delibera) {
         def commissione = delibera.proposta.commissione ?: delibera.tipologiaDocumento.commissione;
-        if (!isNumeroFirmatariUguale(delibera) && !commissione?.controlloFirmatari) {
+        if (!isNumeroFirmatariUguale(delibera, commissione.firmatariPresenti) && !commissione?.controlloFirmatari) {
             return true;
         }
         return false;
     }
 
-    private boolean isNumeroFirmatariUguale (Delibera delibera) {
+    private boolean isNumeroFirmatariUguale (Delibera delibera, boolean firmatariPresenti) {
         if (delibera.oggettoSeduta != null) {
             // conto i partecipanti firmatari:
-            long nFirmatari = OggettoPartecipante.countByOggettoSedutaAndPresenteAndFirmatario(delibera.oggettoSeduta, true, true)
+            long nFirmatari
+            if (firmatariPresenti)
+                nFirmatari = OggettoPartecipante.countByOggettoSedutaAndPresenteAndFirmatario(delibera.oggettoSeduta, true, true)
+            else
+                nFirmatari = OggettoPartecipante.countByOggettoSedutaAndFirmatario(delibera.oggettoSeduta,  true)
+
 
             // conto i firmatari commissione
             long nFirmatariCommissione = CommissioneComponente.countByCommissioneAndValidoAndFirmatario(delibera.oggettoSeduta.seduta.commissione,

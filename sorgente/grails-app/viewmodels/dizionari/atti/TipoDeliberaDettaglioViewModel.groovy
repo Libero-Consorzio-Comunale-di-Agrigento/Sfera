@@ -3,6 +3,7 @@ package dizionari.atti
 import afc.AfcAbstractRecord
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.util.Holders
+import it.finmatica.atti.IProtocolloEsterno
 import it.finmatica.atti.IntegrazioneContabilita
 import it.finmatica.atti.cf.integrazione.IAttiIntegrazioneServiceCf
 import it.finmatica.atti.commons.StrutturaOrganizzativaService
@@ -26,6 +27,7 @@ import it.finmatica.atti.integrazioni.documenti.AllegatiObbligatori
 import it.finmatica.atti.integrazioni.parametri.CodiceDescrizione
 import it.finmatica.atti.integrazioni.protocollo.ProtocolloGdm
 import it.finmatica.atti.integrazioni.protocollo.ProtocolloGdmConfig
+import it.finmatica.atti.integrazioni.protocollo.ProtocolloPiTre
 import it.finmatica.atti.odg.Commissione
 import it.finmatica.gestioneiter.configuratore.dizionari.WkfTipoOggetto
 import it.finmatica.gestioneiter.configuratore.iter.WkfCfgIter
@@ -59,6 +61,7 @@ class TipoDeliberaDettaglioViewModel extends AfcAbstractRecord {
 	ProtocolloGdmConfig 			protocolloGdmConfig
 	SuccessHandler                  successHandler
 	MappingIntegrazioneDTOService 	mappingIntegrazioneDTOService
+	IProtocolloEsterno protocolloEsterno
 
 	// componenti
 
@@ -96,6 +99,10 @@ class TipoDeliberaDettaglioViewModel extends AfcAbstractRecord {
 	boolean abilitaOggettiRicorrenti
 	boolean abilitaIncaricato
     boolean mostraAllegatiVisualizzatore
+	boolean abilitaImpegnoObbligatorio
+
+	boolean isIntegrazioneProtocolloPiTre
+
 
 	@NotifyChange("selectedRecord")
 	@Init init(@ContextParam(ContextType.COMPONENT) Window w, @ExecutionArgParam("id") long id) {
@@ -119,8 +126,14 @@ class TipoDeliberaDettaglioViewModel extends AfcAbstractRecord {
 		if (id > 0) {
             listaTipiDocumento = getListaTipiDocumentoProtocollo()
             tipoDocumentoEsterno = protocolloGdmConfig?.getTipoDocumento(id)?:""
+			selectedRecord.tipoFirma = selectedRecord.tipoFirma?:""
 			aggiornaDatiCreazione(selectedRecord.utenteIns.id, selectedRecord.dateCreated)
 			aggiornaDatiModifica (selectedRecord.utenteUpd.id, selectedRecord.lastUpdated)
+		}
+
+		if (Impostazioni.PROTOCOLLO.valore == "protocolloPiTre") {
+			isIntegrazioneProtocolloPiTre = true
+			BindUtils.postNotifyChange(null, null, this, "isIntegrazioneProtocolloPiTre")
 		}
 
 		categoriaAbilitata              = Impostazioni.CATEGORIA_PROPOSTA_DELIBERA.abilitato
@@ -129,6 +142,7 @@ class TipoDeliberaDettaglioViewModel extends AfcAbstractRecord {
 		abilitaOggettiRicorrenti = Impostazioni.OGGETTI_RICORRENTI_TIPOLOGIE.abilitato
         mostraAllegatiVisualizzatore = Impostazioni.VIS_GESTIONE_PUBBLCAZIONE_ALLEGATI.abilitato
 		abilitaIncaricato = selectedRecord.caratteristicaTipologia?.caratteristicheTipiSoggetto?.tipoSoggetto*.codice?.contains(TipoSoggetto.INCARICATO)
+		abilitaImpegnoObbligatorio = Impostazioni.CONTABILITA_CFA_IMPEGNO_OBBLIGATORIO.abilitato
 
 		refreshListaTipiVisto ()
 		refreshListaModelloTesto ()
@@ -142,6 +156,28 @@ class TipoDeliberaDettaglioViewModel extends AfcAbstractRecord {
 	// Va fatto un refactor per gestire meglio i parametri delle integrazioni dalle tipologie.
 	List<CodiceDescrizione> getListaTipiDocumentoProtocollo () {
 		return protocolloGdmConfig?.getTipiDocumento()?:[]
+	}
+
+	@NotifyChange('selectedRecord')
+	@Command
+	apriFascicoli() {
+		String zul = protocolloEsterno.getZulFascicolo()
+		Window w = null
+		if(isIntegrazioneProtocolloPiTre) {
+			w = Executions.createComponents(zul, self, [unitaProponente: null, tipologia: String.valueOf(selectedRecord.id),sceltaUnitaProponente:true,utenteRedattore:springSecurityService.currentUser])
+		}
+		w.onClose { event ->
+			if (event.data) {
+				if(isIntegrazioneProtocolloPiTre){
+					selectedRecord.fascicoloNumero = event.data.numero
+					selectedRecord.fascicoloAnno = ProtocolloPiTre.estraiAnnoDaFascicoloPiTre(event.data.numero)
+					selectedRecord.fascicoloOggetto = event.data.oggetto
+					selectedRecord.idFascicoloEsterno = event.data.sub
+				}
+				BindUtils.postNotifyChange(null, null, this, "selectedRecord")
+			}
+		}
+		w.doModal()
 	}
 
 	private void caricaTipoDelibera (long id) {
@@ -368,7 +404,10 @@ class TipoDeliberaDettaglioViewModel extends AfcAbstractRecord {
 	@NotifyChange(["selectedRecord", "datiCreazione", "datiModifica"])
 	@Command onSalva () {
 		boolean isNuovoTipoDelibera = !(selectedRecord.id > 0)
-		
+
+		if (!selectedRecord.visImportoTotale)
+			selectedRecord.importoTotaleObbligatorio = false
+
 		// se la tipologia richiede la pubblicazione, verifico che ci siano i dati minimi
 		if (selectedRecord.pubblicazione && (selectedRecord.progressivoCfgIterPubblicazione == null)) {
 			Messagebox.show("Specificare l'iter di pubblicazione")

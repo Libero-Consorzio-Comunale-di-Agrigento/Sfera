@@ -21,8 +21,13 @@ public class TipoDeterminaDTO implements it.finmatica.dto.DTO<TipoDetermina> {
     String codiceEsterno;
     boolean codiceGara;
     boolean codiceGaraObbligatorio;
+    boolean visImportoTotale;
+    boolean importoTotaleObbligatorio;
     boolean cupObbligatorio;
     boolean cupVisibile;
+    boolean visDataControlloGestione;
+    boolean visDataScadenzaDisposizione;
+    boolean impegnoObbligatorio;
     boolean conservazioneSostitutiva;
     Date dateCreated;
     String descrizione;
@@ -41,6 +46,7 @@ public class TipoDeterminaDTO implements it.finmatica.dto.DTO<TipoDetermina> {
     GestioneTestiModelloDTO modelloTestoAnnullamento;
     GestioneTestiModelloDTO modelloTestoFrontespizio;
     boolean movimentiContabili;
+    boolean contabilitaCheckRiservato;
     boolean notificaOrganiControllo;
     Set<ParametroTipologiaDTO> parametri;
     Long progressivoCfgIter;
@@ -79,6 +85,16 @@ public class TipoDeterminaDTO implements it.finmatica.dto.DTO<TipoDetermina> {
     String ruoloRiservato;
     boolean eseguibilitaImmediata;
     boolean pubblicaAllegatiVisualizzatore;
+    boolean pndNotifica;
+    boolean impattoGenerazionale;
+    String tipoFirma;
+    boolean gestioneRiservato;
+    boolean gestioneRiservatoAllegati;
+
+    String fascicoloNumero
+    Long fascicoloAnno
+    String fascicoloOggetto
+    String idFascicoloEsterno
 
     public void addToModelliTesto (GestioneTestiModelloDTO gestioneTestiModello) {
         if (this.modelliTesto == null)

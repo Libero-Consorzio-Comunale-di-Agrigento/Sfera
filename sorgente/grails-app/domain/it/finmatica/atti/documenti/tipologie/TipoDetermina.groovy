@@ -37,6 +37,8 @@ class TipoDetermina implements ITipologiaPubblicazione {
 	// Se non impostato, verrà usato il valore di default scritto nell'impostazione ALBO_COSTANTI_DETERMINA
 	String tipoPubblicazioneAlbo
 
+	boolean impattoGenerazionale = false
+
 	GestioneTestiModello modelloTesto
 	GestioneTestiModello modelloTestoAnnullamento
 	GestioneTestiModello modelloTestoFrontespizio
@@ -51,6 +53,15 @@ class TipoDetermina implements ITipologiaPubblicazione {
     boolean cupVisibile                 = false
 	boolean testoObbligatorio			= true  // indica se il testo deve essere presente tra uno step e l'altro.
     boolean eseguibilitaImmediata		= false
+	boolean pndNotifica                 = false //indica se la determina prevede la notifica tramite PND
+	//boolean pndPagamento                = false //indica se la notifica PND prevede pagamento
+	boolean visDataControlloGestione    = false //indica se la determina visualizza il campo della data di controllo di gestione
+	boolean visDataScadenzaDisposizione = false //indica se la determina visualizza il campo della data di scadenza della disposizione
+	boolean impegnoObbligatorio         = false
+
+	//riservatezza: flag per stabilire se gli atti hanno il flag riservato modificabile
+	boolean gestioneRiservato				= true
+	boolean gestioneRiservatoAllegati		= true
 
 	// dati di pubblicazione
 	boolean pubblicazione					= false
@@ -65,14 +76,17 @@ class TipoDetermina implements ITipologiaPubblicazione {
 	boolean pubblicazioneTrasparenza		= false	// indica se l'atto DEVE andare in casa di vetro. Il controllo viene effettuato nell'azione casaDiVetroAction.controllaAttoPresenteObbligatorio che va aggiunta nel flusso
 	boolean codiceGara              		= false
 	boolean codiceGaraObbligatorio	    	= false
+	boolean visImportoTotale				= false
+	boolean importoTotaleObbligatorio		= false
 	boolean pubblicaVisualizzatore			= false
     boolean pubblicaAllegatiVisualizzatore	= true
 
 	// con movimenti contabili:
-	boolean movimentiContabili			= true
-	boolean scritturaMovimentiContabili	= false
-	boolean esecutivitaMovimenti 		= true
-    boolean queryMovimenti              = true
+	boolean movimentiContabili			= true  // con movimenti contabili
+	boolean scritturaMovimentiContabili	= false // i movimenti contabili sono inseribili / modificabili
+	boolean esecutivitaMovimenti 		= true  // i movimenti contabili diventano esecutivi all'esecutività del documento
+    boolean queryMovimenti              = true  // effettuare le query dei movimenti contabili nei modelli
+	boolean contabilitaCheckRiservato	= false // se l'atto è riservato, solo chi accede al testo può accedere alla sezione contabilità
 
 	// certificati
 	TipoCertificato tipoCertPubb
@@ -98,6 +112,14 @@ class TipoDetermina implements ITipologiaPubblicazione {
 	boolean incaricatoObbligatorio = false
     String ruoloRiservato
 
+	String tipoFirma //se valorizzato indica il tipo di firma da usare per i documenti (PADES o CADES)
+
+	//PiTre
+	String fascicoloNumero
+	Long fascicoloAnno
+	String fascicoloOggetto
+	String idFascicoloEsterno
+
 	static mapping = {
 		table 							'tipi_determina'
 		id 						column: 'id_tipo_determina'
@@ -113,6 +135,7 @@ class TipoDetermina implements ITipologiaPubblicazione {
 		caratteristicaTipologia		column: 'id_caratteristica_tipologia'
 		funzionarioObbligatorio 	column: 'funz_obbligatorio', type: 'yes_no'
         pubblicaAllegatiVisualizzatore column: 'pubblica_allegati_vis', type: 'yes_no'
+		impattoGenerazionale			column: 'impatto_generazionale', type: 'yes_no'
 
 		modelloTesto				column: 'id_modello_testo'
 		modelloTestoAnnullamento	column: 'id_modello_testo_annulla'
@@ -140,6 +163,11 @@ class TipoDetermina implements ITipologiaPubblicazione {
         cupObbligatorio             type: 'yes_no'
         cupVisibile                 type: 'yes_no'
         eseguibilitaImmediata       type: 'yes_no'
+		pndNotifica					column: 'pnd_notifica', type: 'yes_no'
+		visDataControlloGestione	column: 'vis_data_controllo_gestione', type: 'yes_no'
+		visDataScadenzaDisposizione column: 'vis_data_scad_disposizione', type: 'yes_no'
+		impegnoObbligatorio         column: 'impegno_obbligatorio', type: 'yes_no'
+//		pndPagamento			    column: 'pnd_pagamento', type: 'yes_no'
 
 		pubblicazione					type: 'yes_no'
 		secondaPubblicazione			type: 'yes_no'
@@ -151,13 +179,19 @@ class TipoDetermina implements ITipologiaPubblicazione {
 		pubblicazioneFutura				type: 'yes_no'
 		codiceGara   	            	type: 'yes_no'
 		codiceGaraObbligatorio      	type: 'yes_no'
+		visImportoTotale				column: 'vis_importo_totale', type: 'yes_no'
+		importoTotaleObbligatorio		type: 'yes_no'
 		pubblicaAllegatiDefault			type: 'yes_no'
 		pubblicaVisualizzatore			type: 'yes_no'
+
+		gestioneRiservato				type: 'yes_no'
+		gestioneRiservatoAllegati		type: 'yes_no'
 
 		movimentiContabili			type: 'yes_no'
 		esecutivitaMovimenti		type: 'yes_no'
 		scritturaMovimentiContabili	type: 'yes_no'
         queryMovimenti              type: 'yes_no'
+		contabilitaCheckRiservato	type: 'yes_no'
 		
 		diventaEsecutiva			type: 'yes_no'
 		incaricatoObbligatorio		type: 'yes_no'
@@ -175,6 +209,12 @@ class TipoDetermina implements ITipologiaPubblicazione {
 		utenteIns 			column: 'utente_ins'
 		lastUpdated 		column: 'data_upd'
 		utenteUpd 			column: 'utente_upd'
+
+		fascicoloNumero		column: 'fascicolo_numero'
+		fascicoloAnno		column: 'fascicolo_anno'
+		fascicoloOggetto	column: 'fascicolo_oggetto'
+		idFascicoloEsterno	column: 'id_fascicolo_esterno'
+
 	}
 
 	static constraints = {
@@ -199,6 +239,11 @@ class TipoDetermina implements ITipologiaPubblicazione {
 		incaricatoObbligatorio			nullable: true
         ruoloRiservato                  nullable: true
         descrizioneNotifica             nullable: true
+		tipoFirma						nullable: true
+		fascicoloAnno                   nullable: true
+		fascicoloNumero                 nullable: true
+		fascicoloOggetto                nullable: true
+		idFascicoloEsterno				nullable: true
 	}
 
 	transient WkfCfgIter getCfgIter () {

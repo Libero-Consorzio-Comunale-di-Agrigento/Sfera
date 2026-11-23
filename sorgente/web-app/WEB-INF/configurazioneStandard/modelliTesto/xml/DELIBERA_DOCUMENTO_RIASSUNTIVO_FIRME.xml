@@ -162,7 +162,7 @@
 								 , decode (anno_delibera, null, '${documentRoot.delibera.ANNO_DELIBERA}', to_char (anno_delibera)) ANNO_DELIBERA
 								 , d.oggetto OGGETTO
 								 , to_char (d.data_adozione, 'DD/MM/YYYY') DATA_ADOZIONE
-								 , initcap (utility_pkg.get_cognome_nome (utility_pkg.get_ni_soggetto (f.utente_firmatario))) FIRMATARIO_PROPOSTA
+								 , initcap (utility_pkg.get_cognome_nome (utility_pkg.get_ni_soggetto (f.utente_firmatario), d.ente)) FIRMATARIO_PROPOSTA
 								 , initcap (utility_pkg.get_cognome (utility_pkg.get_ni_soggetto (f.utente_firmatario))) COGNOME_FIRMATARIO_PROPOSTA
 								 , initcap (utility_pkg.get_nome (utility_pkg.get_ni_soggetto (f.utente_firmatario))) NOME_FIRMATARIO_PROPOSTA
 							  from delibere d, firmatari f
@@ -172,52 +172,21 @@
 			              order by f.data_firma desc)
 					where rownum = 1
 		</query>
-		<!-- firmatari: restituisce i dati dei firmatari della delibera -->
-        <!-- query id='firmatari'
-			   help_query_alias="f"
-               help_field_aliases="FIRMATARIO, COGNOME_FIRMATARIO, NOME_FIRMATARIO, RUOLO, COMPONENTE, COGNOME_COMPONENTE, NOME_COMPONENTE">
-            select  InitCap(utility_pkg.get_cognome_nome (orig.ni_componente)) 		firmatario,
-                    InitCap(utility_pkg.get_cognome (orig.ni_componente)) 	cognome_firmatario,
-                    InitCap(utility_pkg.get_nome    (orig.ni_componente)) 	nome_firmatario,
-					orp.descrizione ruolo,
-                    InitCap(utility_pkg.get_cognome_nome (occ.ni_componente)) 		componente,
-                    InitCap(utility_pkg.get_cognome (occ.ni_componente)) 	cognome_componente,
-                    InitCap(utility_pkg.get_nome (occ.ni_componente)) 		nome_componente
-			from 	delibere d,
-					proposte_delibera p,
-					odg_oggetti_seduta oos,
-					odg_sedute os,
-					odg_commissioni_componenti occ,
-					odg_sedute_partecipanti osp,
-					odg_ruoli_partecipanti orp,
-					odg_commissioni_componenti orig
-			where
-					d.id_delibera = #id and d.id_proposta_delibera = p.id_proposta_delibera
-					and p.id_oggetto_seduta = oos.id_oggetto_seduta
-					and os.id_seduta = oos.id_seduta
-					and os.id_commissione = occ.id_commissione
-					and osp.id_seduta = os.id_seduta
-					and osp.firmatario = 'Y'
-					and osp.ruolo_partecipante = occ.ruolo_partecipante
-					and occ.valido = 'Y'
-					and osp.ruolo_partecipante = orp.ruolo_partecipante(+)
-					and orig.id_commissione_componente = osp.id_commissione_componente
-        </query -->
         <query id='firmatari'
                help_query_alias="f"
                help_field_aliases="FIRMATARIO, COGNOME_FIRMATARIO, NOME_FIRMATARIO, RUOLO, COMPONENTE, COGNOME_COMPONENTE, NOME_COMPONENTE, DESCRIZIONE_FIRMATARIO">
-			SELECT DISTINCT InitCap (utility_pkg.get_cognome_nome (ad4_us.soggetto)) FIRMATARIO,
+			SELECT DISTINCT InitCap (utility_pkg.get_cognome_nome (ad4_us.soggetto, d.ente)) FIRMATARIO,
 				InitCap (utility_pkg.get_cognome (ad4_us.soggetto))      COGNOME_FIRMATARIO,
 				InitCap (utility_pkg.get_nome (ad4_us.soggetto))         NOME_FIRMATARIO,
 				InitCap (orp.descrizione)                                RUOLO,
-				InitCap (utility_pkg.get_cognome_nome (occ.ni_componente)) COMPONENTE,
+				InitCap (utility_pkg.get_cognome_nome (occ.ni_componente, d.ente)) COMPONENTE,
 				InitCap (utility_pkg.get_cognome (occ.ni_componente))      COGNOME_COMPONENTE,
 				InitCap (utility_pkg.get_nome (occ.ni_componente))         NOME_COMPONENTE,
 				DECODE (ad4_us.soggetto,
 						occ.ni_componente,
 						'Il '     || InitCap (orp.descrizione) || ' ' || InitCap (utility_pkg.get_nome (occ.ni_componente)) || ' ' || InitCap (utility_pkg.get_cognome (occ.ni_componente)),
 						'Per il ' || InitCap (orp.descrizione) || ' ' || InitCap (utility_pkg.get_nome (occ.ni_componente)) || ' ' || InitCap (utility_pkg.get_cognome (occ.ni_componente))
-						|| ' come da delega acquisita agli atti dell''Azienda '||InitCap (utility_pkg.get_cognome_nome (ad4_us.soggetto))) DESCRIZIONE_FIRMATARIO,
+						|| ' '||impostazioni_pkg.get_impostazione ('MODELLI_STAMPE_DOC_RIASSUNTIVO_FIRME_DELEGA', d.ente)||' '||InitCap (utility_pkg.get_cognome_nome (ad4_us.soggetto, d.ente))) DESCRIZIONE_FIRMATARIO,
 				occ.sequenza
 			FROM delibere d,
 				proposte_delibera p,

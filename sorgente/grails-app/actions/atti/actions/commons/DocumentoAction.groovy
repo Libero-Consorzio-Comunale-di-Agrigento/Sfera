@@ -1,5 +1,6 @@
 package atti.actions.commons
 
+import it.finmatica.ad4.autenticazione.Ad4Utente
 import it.finmatica.atti.IGestoreFile
 import it.finmatica.atti.commons.FileAllegato
 import it.finmatica.atti.dizionari.TipoAllegato
@@ -20,6 +21,7 @@ import it.finmatica.atti.documenti.VistoParereService
 import it.finmatica.atti.documenti.beans.AttiGestioneTesti
 import it.finmatica.atti.documenti.tipologie.ParametroTipologia
 import it.finmatica.atti.exceptions.AttiRuntimeException
+import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.impostazioni.MappingIntegrazione
 import it.finmatica.atti.integrazioni.AttiFirmaService
 import it.finmatica.atti.integrazioni.documenti.AllegatiObbligatori
@@ -30,6 +32,7 @@ import it.finmatica.gestioneiter.annotations.Action.TipoAzione
 import it.finmatica.gestioneiter.motore.WkfIterService
 import it.finmatica.gestioneiter.motore.WkfStep
 import it.finmatica.zkutils.SuccessHandler
+import org.zkoss.util.resource.Labels
 
 class DocumentoAction {
 
@@ -82,6 +85,98 @@ class DocumentoAction {
 		d.riservato = true
 		d.save()
 		return d
+	}
+
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, VistoParere.TIPO_OGGETTO],
+			nome		= "Disabilita cancellazione allegati",
+			descrizione	= "Disabilita cancellazione allegati")
+	public def disabilitaCancellazioneAllegati (IDocumento documento) {
+
+		// impsoto il bloccato su tutti gli allegati del documento
+		for (Allegato allegato : documento.allegati.findAll { it.valido == true}) {
+			//.findAll { it.statoFirma == StatoFirma.FIRMATO || it.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE }) {
+			allegato.bloccato = true
+			allegato.save()
+		}
+		documento.save()
+		return documento
+	}
+
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [PropostaDelibera.TIPO_OGGETTO],
+			nome		= "Togli Gruppi Politici dalla casa di vetro",
+			descrizione	= "Togli Gruppi Politici dalla casa di vetro")
+	public def togliGruppiPoliticiInCasaDiVetro (IDocumento documento) {
+		documento.pubblicaCasaDiVetro=false
+		documento.save()
+		return documento
+	}
+
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [PropostaDelibera.TIPO_OGGETTO],
+			nome		= "Pubblica Gruppi Politici in casa di vetro",
+			descrizione	= "Pubblica Gruppi Politici in casa di vetro")
+	public def pubblicaGruppiPoliticiInCasaDiVetro (IDocumento documento) {
+		documento.pubblicaCasaDiVetro=true
+		documento.save()
+		return documento
+	}
+
+	@Action(tipo	= TipoAzione.CONDIZIONE,
+			tipiOggetto	= [PropostaDelibera.TIPO_OGGETTO],
+			nome		= "I gruppi politici del documento sono pubblicati in casa di vetro?",
+			descrizione	= "Ritorna TRUE se il documento ha il campo PUBBLICA_CASA_VETRO = true")
+	public boolean isGruppiPoliticiPubblicati (IDocumentoIterabile d) {
+		return d.pubblicaCasaDiVetro;
+	}
+
+	@Action(tipo	= TipoAzione.CONDIZIONE,
+			tipiOggetto	= [PropostaDelibera.TIPO_OGGETTO],
+			nome		= "I gruppi politici del documento sono ancora da pubblicare in casa di vetro?",
+			descrizione	= "Ritorna TRUE se il documento ha il campo PUBBLICA_CASA_VETRO = false")
+	public boolean isGruppiPoliticiNonPubblicati (IDocumentoIterabile d) {
+		return !(d.pubblicaCasaDiVetro);
+	}
+
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, Delibera.TIPO_OGGETTO],
+			nome		= "Disabilita cancellazione allegati specificati in Tipologia",
+			descrizione	= "Disabilita cancellazione allegati specificati in Tipologia")
+	public def disabilitaCancellazioneAllegatiTipologia (IDocumento documento) {
+		//disabilita la cacncellazione per tutti gli allegati specificati nella tipologia dell'atto.
+		def listaAllegatiObbligatori = MappingIntegrazione.findAllByCategoriaAndCodiceAndValoreInterno(AllegatiObbligatori.MAPPING_CATEGORIA, AllegatiObbligatori.MAPPING_CODICE_TIPOLOGIA, documento.tipologiaDocumento.id.toString())
+		for(def allegato:listaAllegatiObbligatori){
+			TipoAllegato tipoAllegato = TipoAllegato.get(Long.parseLong(allegato.valoreEsterno))
+			if(tipoAllegato!=null) {
+				def listaAllegati = documento.allegati.findAll { it.tipoAllegato == tipoAllegato }
+				for (Allegato allegatoTemp : listaAllegati) {
+					if(allegatoTemp!=null){
+						allegatoTemp.bloccato = true
+						allegatoTemp.save()
+					}
+				}
+			}
+		}
+		documento.save()
+		return documento
+	}
+
+
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, VistoParere.TIPO_OGGETTO],
+			nome		= "Ripristina cancellazione allegati",
+			descrizione	= "Ripristina cancellazione allegati")
+	public def ripristinaCancellazioneAllegati (IDocumento documento) {
+
+		// impsoto il bloccato su tutti gli allegati del documento
+		for (Allegato allegato : documento.allegati.findAll { it.valido == true}) {
+			//.findAll { it.statoFirma == StatoFirma.FIRMATO || it.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE }) {
+			allegato.bloccato = false
+			allegato.save()
+		}
+		documento.save()
+		return documento
 	}
 
 	@Action(tipo	= TipoAzione.AUTOMATICA,
@@ -138,6 +233,7 @@ class DocumentoAction {
 	public IDocumentoIterabile eliminaDetermina (IDocumentoIterabile d) {
 		d.valido = false
 		d.save()
+		notificheService.eliminaNotifiche(d, TipoNotifica.ASSEGNAZIONE);
 		return d
 	}
 
@@ -210,7 +306,13 @@ class DocumentoAction {
 			// elimino tutte le "altre" notifiche
 			notificheService.eliminaNotifiche(visto)
 
-			vistoParereService.creaVistoParere (d, visto.tipologia, visto.automatico, visto.firmatario, visto.unitaSo4)
+			Ad4Utente firmatarioVisto = null
+			if (!(visto.tipologia.ricalcoloFirmatario)) {
+				//il firmatario del nuovo visto deve essere il firmataro del visto rigenerato
+				//altrimenti verrà ricalcolato dalla caratteristica
+				firmatarioVisto = visto.firmatario
+			}
+			vistoParereService.creaVistoParere (d, visto.tipologia, visto.automatico, firmatarioVisto, visto.unitaSo4)
 		}
 
 		d.save()
@@ -257,7 +359,14 @@ class DocumentoAction {
 			// elimino tutte le "altre" notifiche
 			notificheService.eliminaNotifiche(visto)
 
-			vistoParereService.creaVistoParere (d, visto.tipologia, visto.automatico, visto.firmatario, visto.unitaSo4)
+			Ad4Utente firmatarioVisto = null
+			if (!(visto.tipologia.ricalcoloFirmatario)) {
+				//il firmatario del nuovo visto deve essere il firmataro del visto rigenerato
+				//altrimenti verrà ricalcolato dalla caratteristica
+				firmatarioVisto = visto.firmatario
+			}
+
+			vistoParereService.creaVistoParere (d, visto.tipologia, visto.automatico, firmatarioVisto, visto.unitaSo4)
 		}
 
 		d.save()
@@ -296,6 +405,17 @@ class DocumentoAction {
 			}
 		}
 		throw new AttiRuntimeException("L'allegato Scheda Contabile Entrata non è presente.")
+	}
+
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [PropostaDelibera.TIPO_OGGETTO, Determina.TIPO_OGGETTO, Delibera.TIPO_OGGETTO],
+			nome		= "Verifica l'obbligatorietà dell'Impatto Generazionale o dell'argomento",
+			descrizione	= "Verifica l'obbligatorietà dell'Impatto Generazionale o dell'argomento. Interrompe l'esecuzione nel caso in cui non sia presente.")
+	public def controllaImpattoGenerazionale (IDocumento d) {
+		if(Impostazioni.IMPATTO_GENERAZIONALE.abilitato && d.tipologia.impattoGenerazionale && (d.impattoGenerazionale==null || d.impattoGenerazionale.id==0)) {
+				throw new AttiRuntimeException("E' obbligatorio indicare l'"+ Labels.getLabel("label.impattoGenerazionale").toLowerCase()+".")
+		}else
+			return d
 	}
 
 	@Action(tipo	= TipoAzione.AUTOMATICA,

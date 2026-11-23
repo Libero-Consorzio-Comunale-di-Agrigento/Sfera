@@ -3,6 +3,7 @@ package atti.actions.commons
 import grails.plugin.springsecurity.SpringSecurityService
 import it.finmatica.ad4.autenticazione.Ad4Utente
 import it.finmatica.atti.AbstractViewModel
+import it.finmatica.atti.commons.StrutturaOrganizzativaService
 import it.finmatica.atti.documenti.*
 import it.finmatica.atti.documenti.tipologie.ParametroTipologia
 import it.finmatica.atti.exceptions.AttiRuntimeException
@@ -13,6 +14,7 @@ import it.finmatica.gestioneiter.IDocumentoIterabile
 import it.finmatica.gestioneiter.annotations.Action
 import it.finmatica.gestioneiter.annotations.Action.TipoAzione
 import it.finmatica.gestioneiter.motore.WkfIterService
+import it.finmatica.so4.strutturaPubblicazione.So4UnitaPubb
 import org.zkoss.zk.ui.Executions
 import org.zkoss.zul.Window
 
@@ -29,6 +31,7 @@ class SoggettiAction {
 	CaratteristicaTipologiaService 	caratteristicaTipologiaService
 	SpringSecurityService 			springSecurityService
 	WkfIterService 					wkfIterService
+	StrutturaOrganizzativaService  strutturaOrganizzativaService
 
 	def methodMissing(String name, args) {
 		// i nomi sono della forma:
@@ -148,7 +151,7 @@ class SoggettiAction {
     @Action(tipo	= TipoAzione.AUTOMATICA,
         tipiOggetto	= [PropostaDelibera.TIPO_OGGETTO, Determina.TIPO_OGGETTO],
         nome		= "Controlla il DIRIGENTE/FIRMATARIO della Proposta",
-        descrizione = "Controlla il DIRIGENTE/FIRMATARIO della Proposta, se è NULL, scatena un'eccezione. ")
+        descrizione = "Controlla il DIRIGENTE/FIRMATARIO della Proposta, se è NULL, scatena un'eccezione")
 	Ad4Utente controllaUtenteDIRIGENTE (IProposta proposta) {
         Ad4Utente utenteAd4 = proposta.getSoggetto(TipoSoggetto.DIRIGENTE)?.utenteAd4
 		if (utenteAd4 == null) {
@@ -160,8 +163,8 @@ class SoggettiAction {
 
 	@Action(tipo	= TipoAzione.CLIENT,
 		tipiOggetto = [Determina.TIPO_OGGETTO],
-		nome		= "Apre la popup di scelta dell'unità destinataria a cui inoltrare il documento.",
-		descrizione	= "Apre la popup di scelta dell'unità destinataria a cui inoltrare il documento.")
+		nome		= "Apre la popup di scelta dell'unità destinataria a cui inoltrare il documento",
+		descrizione	= "Apre la popup di scelta dell'unità destinataria a cui inoltrare il documento")
 	def apriPopupSceltaUnitaDestinataria (AbstractViewModel<? extends IDocumentoIterabile> viewModel, long idCfgPulsante, long idAzioneClient) {
 		String tipoSoggetto 	 = TipoSoggetto.UO_DESTINATARIA
 		String categoriaSoggetto = TipoSoggetto.CATEGORIA_UNITA
@@ -171,8 +174,8 @@ class SoggettiAction {
 
 	@Action(tipo	= TipoAzione.CLIENT,
 		tipiOggetto = [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO],
-		nome		= "Apre la popup di scelta dell'unità di controllo a cui inoltrare il documento.",
-		descrizione	= "Apre la popup di scelta dell'unità di controllo a cui inoltrare il documento.")
+		nome		= "Apre la popup di scelta dell'unità di controllo a cui inoltrare il documento",
+		descrizione	= "Apre la popup di scelta dell'unità di controllo a cui inoltrare il documento")
 	def apriPopupSceltaUnitaControllo (AbstractViewModel<? extends IDocumentoIterabile> viewModel, long idCfgPulsante, long idAzioneClient) {
 		String tipoSoggetto 	 = TipoSoggetto.UO_CONTROLLO
 		String categoriaSoggetto = TipoSoggetto.CATEGORIA_UNITA
@@ -182,8 +185,8 @@ class SoggettiAction {
 
 	@Action(tipo	= TipoAzione.CLIENT,
 		tipiOggetto = [Determina.TIPO_OGGETTO],
-		nome		= "Apre la popup di scelta dell'incaricato a cui inoltrare il documento.",
-		descrizione	= "Apre la popup di scelta dell'incaricato a cui inoltrare il documento.")
+		nome		= "Apre la popup di scelta dell'incaricato a cui inoltrare il documento",
+		descrizione	= "Apre la popup di scelta dell'incaricato a cui inoltrare il documento")
 	def apriPopupSceltaIncaricato (AbstractViewModel<? extends IDocumentoIterabile> viewModel, long idCfgPulsante, long idAzioneClient) {
 		String tipoSoggetto 	 = TipoSoggetto.INCARICATO
 		String categoriaSoggetto = TipoSoggetto.CATEGORIA_COMPONENTE
@@ -193,8 +196,8 @@ class SoggettiAction {
 
 	@Action(tipo	= TipoAzione.CLIENT,
 		tipiOggetto = [Determina.TIPO_OGGETTO],
-		nome		= "Apre la popup di scelta dell'unità del firmatario a cui inoltrare il documento.",
-		descrizione	= "Apre la popup di scelta dell'unità del firmatario a cui inoltrare il documento.")
+		nome		= "Apre la popup di scelta dell'unità del firmatario a cui inoltrare il documento",
+		descrizione	= "Apre la popup di scelta dell'unità del firmatario a cui inoltrare il documento")
 	def apriPopupSceltaUnitaFirmatario (AbstractViewModel<? extends IDocumentoIterabile> viewModel, long idCfgPulsante, long idAzioneClient) {
 		String tipoSoggetto 	 = TipoSoggetto.UO_FIRMATARIO
 		String categoriaSoggetto = TipoSoggetto.CATEGORIA_UNITA
@@ -204,8 +207,8 @@ class SoggettiAction {
 
 	@Action(tipo	= TipoAzione.AUTOMATICA,
 		tipiOggetto = [Determina.TIPO_OGGETTO],
-		nome		= "Disattiva i firmatari congiunti.",
-		descrizione	= "Disattiva i soggetti UO_FIRMATARIO e FIRMATARIO.")
+		nome		= "Disattiva i firmatari congiunti",
+		descrizione	= "Disattiva i soggetti UO_FIRMATARIO e FIRMATARIO")
 	def disattivaFirmatariCongiunti (Determina determina) {
 		for (DeterminaSoggetto ds : determina.soggetti) {
 			if (ds.tipoSoggetto.codice == TipoSoggetto.UO_FIRMATARIO ||
@@ -221,8 +224,8 @@ class SoggettiAction {
 
 	@Action(tipo	= TipoAzione.AUTOMATICA,
 		tipiOggetto = [Determina.TIPO_OGGETTO],
-		nome		= "Disattiva le unità destinatarie.",
-		descrizione	= "Disattiva i soggetti UO_DESTINATARIA.")
+		nome		= "Disattiva le unità destinatarie",
+		descrizione	= "Disattiva i soggetti UO_DESTINATARIA")
 	def disattivaUnitaDestinatarie (Determina determina) {
 		for (DeterminaSoggetto ds : determina.soggetti) {
 			if (ds.tipoSoggetto.codice == TipoSoggetto.UO_DESTINATARIA) {
@@ -237,8 +240,8 @@ class SoggettiAction {
 
 	@Action(tipo	= TipoAzione.AUTOMATICA_CALCOLO_ATTORE,
 		tipiOggetto = [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO],
-		nome		= "Imposta il funzionario con l'utente corrente.",
-		descrizione	= "Imposta il funzionario con l'utente corrente.")
+		nome		= "Imposta il funzionario con l'utente corrente",
+		descrizione	= "Imposta il funzionario con l'utente corrente")
 	def setFunzionarioUtenteCorrente (IProposta proposta) {
 
 		proposta.setSoggetto (TipoSoggetto.FUNZIONARIO, springSecurityService.currentUser, null)
@@ -276,5 +279,67 @@ class SoggettiAction {
 		}
 
 		w.doModal()
+	}
+
+	@Action(tipo	= TipoAzione.CONDIZIONE,
+		tipiOggetto = [Delibera.TIPO_OGGETTO],
+		nome		= "Ritorna TRUE se è presente il soggetto FUNZIONARIO",
+		descrizione	= "Ritorna TRUE se è presente il soggetto FUNZIONARIO nella proposta di delibera")
+	boolean propostaHaUtenteFUNZIONARIO (Delibera delibera) {
+		PropostaDelibera proposta = delibera.proposta
+		return (proposta.controlloFunzionario && proposta.getSoggetto(TipoSoggetto.FUNZIONARIO)?.utenteAd4 != null);
+	}
+
+	@Action(tipo    = TipoAzione.AUTOMATICA,
+		tipiOggetto = [Delibera.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, Determina.TIPO_OGGETTO],
+		nome        = "Calcola servizio dell'unità proponente",
+		descrizione = "Calcola servizio dell'unità proponente")
+	def setServizioProponente (IProposta proposta) {
+		TipoSoggetto tipoSoggetto = TipoSoggetto.findByCodice(TipoSoggetto.UO_SERVIZIO)
+
+		if (!tipoSoggetto) return proposta
+
+		def listaSoggetti = proposta.soggetti.findAll { it.tipoSoggetto?.codice == TipoSoggetto.UO_PROPONENTE  && it.attivo == true }
+
+		listaSoggetti.each { soggetto ->
+			So4UnitaPubb servizioSo4 = strutturaOrganizzativaService.getServizio(soggetto.unitaSo4)
+
+			if (servizioSo4) {
+				def soggettoEsistente = proposta.soggetti.any {
+					it.tipoSoggetto.codice == TipoSoggetto.UO_SERVIZIO &&
+					it.unitaSo4.progr == servizioSo4.progr &&
+					it.unitaSo4.dal == servizioSo4.dal &&
+					it.unitaSo4.ottica == servizioSo4.ottica &&
+					it.documentoPrincipale == proposta &&
+					it.attivo == true
+				}
+
+				if (!soggettoEsistente) {
+					ISoggettoDocumento soggettoDocumento
+
+					if (proposta instanceof Delibera) {
+						soggettoDocumento = new DeliberaSoggetto()
+						soggettoDocumento.delibera = proposta
+					} else if (proposta instanceof PropostaDelibera) {
+						soggettoDocumento = new PropostaDeliberaSoggetto()
+						soggettoDocumento.propostaDelibera = proposta
+					} else if (proposta instanceof Determina) {
+						soggettoDocumento = new DeterminaSoggetto()
+						soggettoDocumento.determina = proposta
+					}
+
+					soggettoDocumento.sequenza = 0
+					soggettoDocumento.unitaSo4 = servizioSo4
+					soggettoDocumento.utenteAd4 = null
+					soggettoDocumento.tipoSoggetto = tipoSoggetto
+					soggettoDocumento.attivo = true
+
+					soggettoDocumento.save()
+					proposta.soggetti.add(soggettoDocumento)
+				}
+			 }
+		}
+
+		return proposta
 	}
 }

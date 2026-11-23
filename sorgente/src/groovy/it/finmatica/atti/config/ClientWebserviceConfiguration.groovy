@@ -4,7 +4,6 @@ import grails.plugin.springsecurity.SpringSecurityService
 import groovy.transform.CompileStatic
 import it.finmatica.atti.commons.TokenIntegrazioneService
 import it.finmatica.atti.impostazioni.Ad4TokenAuthorizationPolicy
-import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.integrazioni.conservazione.JConsConfig
 import it.finmatica.atti.integrazioni.contabilita.IntegrazioneContabilitaCe4Config
 import it.finmatica.atti.integrazioni.contabilita.IntegrazioneContabilitaComuneModenaConfig
@@ -12,6 +11,7 @@ import it.finmatica.atti.integrazioni.jworklist.JWorklistConfig
 import it.finmatica.atti.integrazioni.l190.CasaDiVetroConfig
 import it.finmatica.atti.integrazioni.lettera.IntegrazioneLetteraAgsprConfig
 import it.finmatica.atti.integrazioni.pec.IntegrazionePecDucdConfig
+import it.finmatica.atti.integrazioni.protocollo.ProtocolloAurigaConfig
 import it.finmatica.atti.integrazioni.protocollo.ProtocolloIrideStringConfig
 import it.finmatica.atti.integrazioni.protocollo.ProtocolloModenaConfig
 import it.finmatica.atti.integrazioniws.ads.agspr.Protocollo
@@ -20,7 +20,6 @@ import it.finmatica.atti.integrazioniws.ads.ducd.PecSOAPImpl
 import it.finmatica.atti.integrazioniws.ads.jcons.JConsService
 import it.finmatica.atti.integrazioniws.ads.jworkflow.JWorklistService
 import it.finmatica.atti.integrazioniws.ads.l190.PubblicaAttoService
-import it.finmatica.atti.integrazioniws.ads.l190.PubblicaAttoServiceName
 import it.finmatica.atti.integrazioniws.ads.smartdesktop.JWorklist
 import it.finmatica.atti.integrazioniws.comunemodena.contabilita.AttiAmministrativi
 import it.finmatica.atti.integrazioniws.comunemodena.fascicolo.WSFascicoloSoap
@@ -35,7 +34,6 @@ import org.apache.cxf.jaxws.JaxWsProxyFactoryBean
 import org.apache.cxf.message.Message
 import org.apache.cxf.transport.http.HTTPConduit
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy
-import org.springframework.beans.factory.annotation.Autowire
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -69,6 +67,8 @@ class ClientWebserviceConfiguration {
     private CasaDiVetroConfig casaDiVetroConfig
     @Autowired
     private IntegrazioneContabilitaCe4Config integrazioneContabilitaCe4Config
+    @Autowired
+    private ProtocolloAurigaConfig protocolloAurigaConfig
 
     @Bean
     @Lazy

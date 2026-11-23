@@ -33,7 +33,7 @@ class SedutaConfig implements ModuloIntegrazione {
 
     @Override
     List<ParametroIntegrazione> getListaParametri() {
-        return [new ParametroIntegrazione(PARAMETRO_TIPOLOGIA, "Tipologia Proposta", LookupTipologiaDelibera.INSTANCE)]
+        return [new ParametroIntegrazione(PARAMETRO_TIPOLOGIA, "Tipologia Proposta", LookupTipologiaDelibera.INSTANCE, true)]
     }
 
     String getTipologia(long idTipologia) {

@@ -23,6 +23,7 @@ class TipoCertificato implements ITipologia {
 	GestioneTestiModello modelloTesto
 
 	boolean valido = true
+	boolean editaTesto = false
 	Date validoDal  // da valorizzare alla creazione del record
 	Date validoAl   // deve essere valorizzato con la data di sistema quando valido = false
 					// quando valido = true deve essere null
@@ -44,6 +45,7 @@ class TipoCertificato implements ITipologia {
 
 		ente 		column: 'ente'
 		valido 		type:   'yes_no'
+		editaTesto	type:   'yes_no'
 		dateCreated column: 'data_ins'
 		utenteIns 	column: 'utente_ins'
 		lastUpdated column: 'data_upd'

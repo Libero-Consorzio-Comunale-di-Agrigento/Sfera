@@ -116,6 +116,30 @@ class GdmDocumentaleEsterno implements IDocumentaleEsterno {
         return urlDocumento
 	}
 
+	@Transactional
+	String getUrlRicevutaConservazione (IDocumentoEsterno documento) {
+		String f_get_url_oggetto = "select gdc_utility_pkg.f_get_url_oggetto (:urlServer, '', :idDocumento, 'D', '', '', '', 'R', '', '', '5', 'N') URL_DOCUMENTO from dual"
+		String urlDocumento = new Sql(dataSource_gdm).rows(f_get_url_oggetto, [urlServer: Impostazioni.URL_SERVER_GDM.valore, idDocumento: documento.id.toString()])[0].URL_DOCUMENTO
+
+		// se la funzione ritorna un url relativo, di qualche sorta, aggiungo l'url assoluto del server.
+		// faccio questo per due ragioni:
+		// 1) ha senso che la funzione getUrlDocumento ritorni un url univoco di un certo documento. Per essere "valido" tale url deve essere assoluto.
+		// 2) il side-effect di ritornare un url "relativo" (ad es: "../../aspr...." o: "/Protocollo/standalone.zul") è che fa casino con ZK che tenta di aprire la pagina e aggiunge il nome del contesto all'url.
+		if (!urlDocumento.startsWith(Impostazioni.URL_SERVER_GDM.valore)) {
+			if (urlDocumento.startsWith("/")) {
+				return Impostazioni.URL_SERVER_GDM.valore + urlDocumento
+			} else {
+				return Impostazioni.URL_SERVER_GDM.valore + "/" + urlDocumento
+			}
+		}
+
+		if (urlDocumento.startsWith('..')) {
+			urlDocumento = urlDocumento.replaceFirst("^\\.\\.", "")
+		}
+
+		return urlDocumento
+	}
+
     @Transactional
     AllegatoDTO importAllegati (AllegatoDTO allegato,List<String> lista) {
         for (String elemento : lista) {
@@ -203,7 +227,7 @@ class GdmDocumentaleEsterno implements IDocumentaleEsterno {
 		deteGdm.settaValore("UTENTE_AD4_FUNZIONARIO", d.getSoggetto(TipoSoggetto.FUNZIONARIO)?.utenteAd4?.id ?: "")
 		deteGdm.settaValore("UTENTE_AD4_REDATTORE", d.getSoggetto(TipoSoggetto.REDATTORE)?.utenteAd4?.id ?: "")
 		deteGdm.settaValore("DESCR_UO_DIRIGENTE", d.getSoggetto(TipoSoggetto.DIRIGENTE)?.unitaSo4?.descrizione ?: "")
-		deteGdm.settaValore("TIPO_DOCUMENTO", MappingIntegrazione.getValoreEsterno(ProtocolloGdmConfig.MAPPING_CATEGORIA, ProtocolloGdmConfig.MAPPING_CODICE_TIPO_DOCUMENTO, d.tipologia.id.toString(), ""))
+		deteGdm.settaValore("TIPO_DOCUMENTO", MappingIntegrazione.getValoreEsterno(ProtocolloGdmConfig.MAPPING_CATEGORIA, ProtocolloGdmConfig.MAPPING_CODICE_TIPO_DOCUMENTO, d.tipologia?.id?.toString(), "") ?: "")
 
 		if (Impostazioni.DOCER.abilitato) {
 			deteGdm.settaValore("ID_DOCUMENTO_DOCER", d.idDocumentoDocer ?: "")
@@ -372,7 +396,7 @@ class GdmDocumentaleEsterno implements IDocumentaleEsterno {
 		propDeliberaGdm.settaValore("ASSESSORE", p.delega?.assessore?.denominazione ?: "")
 		propDeliberaGdm.settaValore("UTENTE_AD4_ASSESSORE", p.delega?.assessore?.utenteAd4?.id ?: "")
 		propDeliberaGdm.settaValore("DESCRIZIONE_DELEGA", p.delega?.descrizioneAssessorato ?: "")
-		propDeliberaGdm.settaValore("TIPO_DOCUMENTO", MappingIntegrazione.getValoreEsterno(ProtocolloGdmConfig.MAPPING_CATEGORIA, ProtocolloGdmConfig.MAPPING_CODICE_TIPO_DOCUMENTO, p.tipologia.id.toString(), ""))
+		propDeliberaGdm.settaValore("TIPO_DOCUMENTO", MappingIntegrazione.getValoreEsterno(ProtocolloGdmConfig.MAPPING_CATEGORIA, ProtocolloGdmConfig.MAPPING_CODICE_TIPO_DOCUMENTO, p.tipologia.id.toString(), "") ?: "")
 
 		log.debug "Gdm service salva la proposta di delibera - Setto eventuale documento collegato"
 		def collegamento = getDocumentiCollegati(p)
@@ -440,7 +464,7 @@ class GdmDocumentaleEsterno implements IDocumentaleEsterno {
 		deliGdm.settaValore("ESITO_DISCUSSIONE", d.oggettoSeduta?.esito?.descrizione ?: "")
 		deliGdm.settaValore("ID_PROPOSTA_DELIBERA_GRAILS", d.proposta?.id ?: "")
 		deliGdm.settaValore("DESCR_UO_DIRIGENTE", d.getSoggetto(TipoSoggetto.DIRIGENTE)?.unitaSo4?.descrizione ?: "")
-		deliGdm.settaValore("TIPO_DOCUMENTO", MappingIntegrazione.getValoreEsterno(ProtocolloGdmConfig.MAPPING_CATEGORIA, ProtocolloGdmConfig.MAPPING_CODICE_TIPO_DOCUMENTO, d.proposta.tipologia.id.toString(), ""))
+		deliGdm.settaValore("TIPO_DOCUMENTO", MappingIntegrazione.getValoreEsterno(ProtocolloGdmConfig.MAPPING_CATEGORIA, ProtocolloGdmConfig.MAPPING_CODICE_TIPO_DOCUMENTO, d.proposta.tipologia.id.toString(), "") ?: "")
 
 		if (d.testo != null && d.idDocumentoEsterno != null) {
 			deliGdm.setFileName(d.testo.nome, gestoreFile.getFile(d, d.testo))
@@ -525,7 +549,7 @@ class GdmDocumentaleEsterno implements IDocumentaleEsterno {
 		sedutaStampaGdm.settaValore("NOTE", sedutaStampa.note ?: "")
 		sedutaStampaGdm.settaValore("FIRMATARIO", sedutaStampa.getSoggetto(TipoSoggetto.FIRMATARIO)?.utenteAd4?.id)
 		sedutaStampaGdm.settaValore("REDATTORE", sedutaStampa.getSoggetto(TipoSoggetto.REDATTORE)?.utenteAd4?.id)
-		sedutaStampaGdm.settaValore("TIPO_DOCUMENTO", MappingIntegrazione.getValoreEsterno(ProtocolloGdmConfig.MAPPING_CATEGORIA, ProtocolloGdmConfig.MAPPING_CODICE_TIPO_DOCUMENTO, sedutaStampa.commissioneStampa.id.toString(), ""))
+		sedutaStampaGdm.settaValore("TIPO_DOCUMENTO", MappingIntegrazione.getValoreEsterno(ProtocolloGdmConfig.MAPPING_CATEGORIA, ProtocolloGdmConfig.MAPPING_CODICE_TIPO_DOCUMENTO, sedutaStampa.commissioneStampa.id.toString(), "") ?: "")
 
 		if (sedutaStampa.testo != null && sedutaStampa.idDocumentoEsterno != null) {
 			sedutaStampaGdm.setFileName(sedutaStampa.testo.nome, gestoreFile.getFile(sedutaStampa, sedutaStampa.testo))

@@ -64,7 +64,7 @@ class DeterminaDTOService {
 				'in'("id", listaIdModelliTesto)
 				eq ("valido", true)
 			}
-			AttiGestoreCompetenze.controllaCompetenze(delegate)(utente)
+            AttiGestoreCompetenze.controllaCompetenze(delegate)(utente)
 		}.collect { row -> new GestioneTestiModelloDTO(id:row[0], nome:row[1], descrizione:row[2]) }
 	}
 

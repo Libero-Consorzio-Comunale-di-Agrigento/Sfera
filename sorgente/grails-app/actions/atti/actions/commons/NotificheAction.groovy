@@ -102,7 +102,13 @@ class NotificheAction {
 		descrizione	= "Invia la stampa di convocazione")
 	SedutaStampa notificaConvocazione (AbstractViewModel<? extends IDocumentoIterabile> viewModel, long idCfgPulsante, long idAzioneClient) {
         SedutaStampa sedutaStampa = viewModel.getDocumentoIterabile(false)
-        Notifica notifica = Notifica.perTipo(TipoNotifica.CONVOCAZIONE_SEDUTA, sedutaStampa.TIPO_OGGETTO).get()
+
+		Notifica notifica
+		notifica = Notifica.perTipoCommissione(TipoNotifica.CONVOCAZIONE_SEDUTA, sedutaStampa.TIPO_OGGETTO, sedutaStampa.seduta.commissione).get()
+
+		if (notifica == null) {
+			notifica = Notifica.perTipo(TipoNotifica.CONVOCAZIONE_SEDUTA, sedutaStampa.TIPO_OGGETTO).get()
+		}
 
         if (notifica == null) {
             throw new AttiRuntimeException("La notifica di tipo '${TipoNotifica.getTitolo(TipoNotifica.CONVOCAZIONE_SEDUTA)}' non è configurata nel dizionario delle notifiche per il tipo di documento: ${sedutaStampa.TIPO_OGGETTO}.")
@@ -122,7 +128,13 @@ class NotificheAction {
 			descrizione	= "Invia la stampa di verbale")
 	SedutaStampa notificaVerbale (AbstractViewModel<? extends IDocumentoIterabile> viewModel, long idCfgPulsante, long idAzioneClient) {
 		SedutaStampa sedutaStampa = viewModel.getDocumentoIterabile(false)
-		Notifica notifica = Notifica.perTipo(TipoNotifica.VERBALE_SEDUTA, sedutaStampa.TIPO_OGGETTO).get()
+
+		Notifica notifica
+		notifica = Notifica.perTipoCommissione(TipoNotifica.VERBALE_SEDUTA, sedutaStampa.TIPO_OGGETTO, sedutaStampa.seduta.commissione).get()
+
+		if (notifica == null) {
+			notifica = Notifica.perTipo(TipoNotifica.VERBALE_SEDUTA, sedutaStampa.TIPO_OGGETTO).get()
+		}
 
 		if (notifica == null) {
 			throw new AttiRuntimeException("La notifica di tipo '${TipoNotifica.getTitolo(TipoNotifica.VERBALE_SEDUTA)}' non è configurata nel dizionario delle notifiche per il tipo di documento: ${sedutaStampa.TIPO_OGGETTO}.")
@@ -151,6 +163,14 @@ class NotificheAction {
 			descrizione	= "Rigenera le notifiche di tipo JWORKLIST presenti (da utilizzare solo dietro un pulsante).")
 	IDocumentoIterabile aggiornaNotifiche(def d) {
 		notificheService.aggiorna (d)
+		return d
+	}
+
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [Determina.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, VistoParere.TIPO_OGGETTO],
+			nome		= "Visualizza il pulsante come azione da SmartDesktop",
+			descrizione	= "Visualizza il pulsante come azione da SmartDesktop")
+	IDocumentoIterabile visualizzaSmartDesktopPulsante(def d) {
 		return d
 	}
 }

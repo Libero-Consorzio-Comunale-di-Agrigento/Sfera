@@ -35,7 +35,7 @@ class GdmFirmaDigitaleFileStorage implements StorageFileService {
     @Transactional
     void salvaFileFirmato (FirmaDigitaleFile file, File fileFirmato) {
         IDocumentoEsterno documentoEsterno = AttiFirmaService.getDocumentoIdRiferimento(file.idRiferimentoFile)
-        FileAllegato fileAllegato = AttiFirmaService.getFileAllegatoIdRiferimento(file.idRiferimentoFile)
+        //FileAllegato fileAllegato = AttiFirmaService.getFileAllegatoIdRiferimento(file.idRiferimentoFile)
 
         // Qui ho due casistiche:
         // - con applet: l'utente risulta già loggato, quindi riuso quello che ho già in sessione
@@ -43,7 +43,7 @@ class GdmFirmaDigitaleFileStorage implements StorageFileService {
         // FIXME: siccome questa funzione viene caricata dal plugin di firma che non fa l'autenticazione, eseguo l'autenticazione usando
         // l'utente del documento. Non è il top. bisognerebbe gestire l'autenticazione nel plugin di firma.
         if (springSecurityService.currentUser == null) {
-            AttiUtils.eseguiAutenticazione(fileAllegato.utenteUpd.nominativo, getCodiceEnte(documentoEsterno))
+            AttiUtils.eseguiAutenticazione(getNominativo(documentoEsterno), getCodiceEnte(documentoEsterno))
         }
 
         salvaFileFirmato(file, new FileInputStream(fileFirmato))
@@ -87,5 +87,10 @@ class GdmFirmaDigitaleFileStorage implements StorageFileService {
     @CompileDynamic
     String getCodiceEnte (IDocumentoEsterno documentoEsterno) {
         return documentoEsterno.ente.codice
+    }
+
+    @CompileDynamic
+    String getNominativo (IDocumentoEsterno documentoEsterno) {
+        return documentoEsterno.utenteUpd.nominativo
     }
 }

@@ -9,6 +9,7 @@ import it.finmatica.atti.odg.Seduta
 import it.finmatica.atti.odg.SedutaPartecipante
 import org.hibernate.NonUniqueResultException
 import org.hibernate.criterion.CriteriaSpecification
+import it.finmatica.atti.dto.odg.OggettoPartecipanteDTO
 
 class OggettoPartecipanteDTOService {
 
@@ -48,6 +49,8 @@ class OggettoPartecipanteDTOService {
 				sedutaPartecipante.sequenzaFirma			= oggettoPartecipanteDto.sequenzaFirma
 				sedutaPartecipante.firmatario				= oggettoPartecipanteDto.firmatario
 				sedutaPartecipante.convocato				= false;	// false perché questo è sicuramente un PARTECIPANTE e non un CONVOCATO
+				sedutaPartecipante.sequenzaFirma		    	= oggettoPartecipanteDto.sequenzaFirma
+
 				sedutaPartecipante.save()
 			}
 			
@@ -58,17 +61,29 @@ class OggettoPartecipanteDTOService {
 		}
 
 		// creo il partecipante per l'oggetto seduta
-		OggettoPartecipante oggettoPartecipante 	= oggettoPartecipanteDto.domainObject?:new OggettoPartecipante()
-		oggettoPartecipante.oggettoSeduta 			= oggettoPartecipanteDto.oggettoSeduta.domainObject
-		oggettoPartecipante.sedutaPartecipante		= oggettoPartecipanteDto.sedutaPartecipante.domainObject
-		oggettoPartecipante.ruoloPartecipante  		= oggettoPartecipanteDto.ruoloPartecipante?.domainObject
-		oggettoPartecipante.presente				= oggettoPartecipanteDto.presente
-		oggettoPartecipante.sequenza    			= oggettoPartecipanteDto.sequenza
-		oggettoPartecipante.assenteNonGiustificato	= oggettoPartecipanteDto.assenteNonGiustificato
-		oggettoPartecipante.sequenzaFirma			= oggettoPartecipanteDto.sequenzaFirma
-		oggettoPartecipante.firmatario				= oggettoPartecipanteDto.firmatario
-		oggettoPartecipante.voto					= oggettoPartecipanteDto.voto?.domainObject
-
+		OggettoPartecipante oggettoPartecipante 		= oggettoPartecipanteDto.domainObject?:new OggettoPartecipante()
+		oggettoPartecipante.oggettoSeduta 				= oggettoPartecipanteDto.oggettoSeduta.domainObject
+		oggettoPartecipante.sedutaPartecipante			= oggettoPartecipanteDto.sedutaPartecipante.domainObject
+		oggettoPartecipante.ruoloPartecipante  			= oggettoPartecipanteDto.ruoloPartecipante?.domainObject
+		oggettoPartecipante.presente					= oggettoPartecipanteDto.presente
+		oggettoPartecipante.sequenza    				= oggettoPartecipanteDto.sequenza
+		oggettoPartecipante.assenteNonGiustificato		= oggettoPartecipanteDto.assenteNonGiustificato
+		oggettoPartecipante.sequenzaFirma				= oggettoPartecipanteDto.sequenzaFirma
+		oggettoPartecipante.firmatario					= oggettoPartecipanteDto.firmatario
+		oggettoPartecipante.voto						= oggettoPartecipanteDto.voto?.domainObject
+		oggettoPartecipante.delega				    	= oggettoPartecipanteDto.delega
+		if (oggettoPartecipante.delega) {
+			oggettoPartecipante.sedutaPartecipanteDelegato	= oggettoPartecipanteDto.sedutaPartecipanteDelegato?.domainObject;
+			oggettoPartecipante.dataNumeroProtocolloDelega 	= oggettoPartecipanteDto.dataNumeroProtocolloDelega
+			oggettoPartecipante.numeroProtocolloDelega	  	= oggettoPartecipanteDto.numeroProtocolloDelega
+			oggettoPartecipante.annoProtocolloDelega		= oggettoPartecipanteDto.annoProtocolloDelega
+		}
+		else {
+			oggettoPartecipante.sedutaPartecipanteDelegato	= null
+			oggettoPartecipante.dataNumeroProtocolloDelega 	= null
+			oggettoPartecipante.numeroProtocolloDelega	  	= null
+			oggettoPartecipante.annoProtocolloDelega		= null
+		}
 		oggettoPartecipante.save()
 
 		oggettoPartecipanteDto.id 					= oggettoPartecipante.id
@@ -146,6 +161,28 @@ class OggettoPartecipanteDTOService {
 
 		OggettoPartecipante next = b.domainObject
 		next.sequenza = index+1
+		next.save()
+	}
+
+	public void spostaPartecipanteSu (OggettoPartecipanteDTO corrente, OggettoPartecipanteDTO precedente) {
+		OggettoPartecipante target = corrente.domainObject
+		target.sequenza = corrente.sequenza
+
+		OggettoPartecipante prev = precedente.domainObject
+		prev.sequenza = precedente.sequenza
+
+		target.save()
+		prev.save()
+	}
+
+	public void spostaPartecipanteGiu (OggettoPartecipanteDTO corrente, OggettoPartecipanteDTO successivo) {
+		OggettoPartecipante target = corrente.domainObject
+		target.sequenza = corrente.sequenza
+
+		OggettoPartecipante next = successivo.domainObject
+		next.sequenza = successivo.sequenza
+
+		target.save()
 		next.save()
 	}
 }

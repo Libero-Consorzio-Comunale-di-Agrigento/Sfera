@@ -129,6 +129,12 @@ class DeterminaStorico implements IDocumentoStoricoEsterno, IDocumentoStorico {
     // indica il codice CIG
     String codiceGara
 
+    //campi richiesti da integrazione contabilità ats pavia
+    boolean     inEvidenza = false
+    Date 	    dataInEvidenzaDa
+    Date 	    dataInEvidenzaA
+    BigDecimal  importo
+
     // indica l'id del documento sul documentale esterno (ad es. GDM)
     Long idDocumentoEsterno
     Long versioneDocumentoEsterno
@@ -145,6 +151,8 @@ class DeterminaStorico implements IDocumentoStoricoEsterno, IDocumentoStorico {
     Date dataScadenza
     String motivazione
     Integer priorita
+
+    Date dataScadenzaDisposizioni
 
     static mapping = {
         table 'determine_storico'
@@ -166,6 +174,11 @@ class DeterminaStorico implements IDocumentoStoricoEsterno, IDocumentoStorico {
         controlloFunzionario type: 'yes_no'
         riservato type: 'yes_no'
         pubblicaRevoca type: 'yes_no'
+
+        inEvidenza          type: 'yes_no'
+        dataInEvidenzaDa    column: 'data_in_evidenza_da'
+        dataInEvidenzaA     column: 'data_in_evidenza_a'
+        importo				column: 'importo', scale: 2
 
         oggetto length: 4000
         note length: 4000
@@ -192,6 +205,8 @@ class DeterminaStorico implements IDocumentoStoricoEsterno, IDocumentoStorico {
 
         dataScadenza column: 'data_scadenza'
         motivazione column: 'motivazione'
+
+        dataScadenzaDisposizioni column: 'data_scad_disposizioni'
     }
 
     static constraints = {
@@ -251,6 +266,12 @@ class DeterminaStorico implements IDocumentoStoricoEsterno, IDocumentoStorico {
         dataScadenza nullable: true
         motivazione nullable: true
         priorita nullable: true
+
+        dataInEvidenzaDa        nullable: true
+        dataInEvidenzaA         nullable: true
+        importo				 	nullable: true
+
+        dataScadenzaDisposizioni nullable: true
     }
 
     private SpringSecurityService getSpringSecurityService () {

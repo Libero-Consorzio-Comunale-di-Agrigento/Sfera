@@ -6,6 +6,7 @@ import it.finmatica.ad4.autenticazione.Ad4Utente
 import it.finmatica.atti.commons.FileAllegato
 import it.finmatica.atti.dizionari.*
 import it.finmatica.atti.documenti.tipologie.TipoDelibera
+import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.impostazioni.TipoSoggetto
 import it.finmatica.atti.odg.Commissione
 import it.finmatica.atti.odg.OggettoSeduta
@@ -54,6 +55,9 @@ class PropostaDelibera implements IProposta {
     // Indica la data prevista della seduta - attività n. #22294
     Date dataScadenza
 
+    // Impatto Generazionale
+    ImpattoGenerazionale impattoGenerazionale
+
     Date         dataNumeroProposta
     Integer      numeroProposta
     Integer      annoProposta
@@ -67,6 +71,13 @@ class PropostaDelibera implements IProposta {
     // Eseguibilità immediata
     boolean eseguibilitaImmediata = false
     String  motivazioniEseguibilita
+
+    //campi richiesti da integrazione contabilità ats pavia
+    boolean     inEvidenza = false
+    Date 	    dataInEvidenzaDa
+    Date 	    dataInEvidenzaA
+    BigDecimal  importo = 0
+    BigDecimal  importoTotale
 
     // note
     String note
@@ -87,6 +98,9 @@ class PropostaDelibera implements IProposta {
     Integer giorniPubblicazione
     Date    dataMinimaPubblicazione
 
+    //Integrazione con PiTre client ma usabile per fascicoli esterni
+    String idFascicoloEsterno
+
     // gestione della corte dei conti:
     boolean daInviareCorteConti
 
@@ -101,6 +115,12 @@ class PropostaDelibera implements IProposta {
 
     // indica se il documento è valido o no, cioè se è stato "cancellato" oppure no
     boolean valido = true
+
+    //Personalizzazione GruppiPolitici
+    boolean pubblicaCasaDiVetro = false
+    Integer numeroProtocolloRichiesta
+    Integer annoProtocolloRichiesta
+
 
     So4Amministrazione ente
     Date               dateCreated
@@ -122,7 +142,10 @@ class PropostaDelibera implements IProposta {
                       , documentiCollegati  : DocumentoCollegato
                       , firmatari           : Firmatario
                       , datiAggiuntivi      : DatoAggiuntivo
-                      , budgets             : Budget]
+                      , budgets             : Budget
+                      , altreDeleghe        : PropostaDeliberaDelega]
+
+    static mappedBy = [documentiCollegati: 'propostaDeliberaPrincipale']
 
     static mapping = {
         table 'proposte_delibera'
@@ -142,6 +165,12 @@ class PropostaDelibera implements IProposta {
         dataMinimaPubblicazione column: 'data_min_pubblicazione'
         motivazioniEseguibilita column: 'motivazioni_eseguibilita'
         dataScadenza column: 'data_scadenza'
+        impattoGenerazionale    column: 'id_impatto_generazionale'
+
+        pubblicaCasaDiVetro column: 'pubblica_casa_di_vetro'
+        numeroProtocolloRichiesta column: 'numero_protocollo_richiesta'
+        annoProtocolloRichiesta column: 'anno_protocollo_richiesta'
+        pubblicaCasaDiVetro type: 'yes_no'
 
         controlloFunzionario type: 'yes_no'
         riservato type: 'yes_no'
@@ -152,6 +181,13 @@ class PropostaDelibera implements IProposta {
         parereRevisoriConti type: 'yes_no'
         controllaDestinatari type: 'yes_no'
 
+
+        inEvidenza          type: 'yes_no'
+        dataInEvidenzaDa    column: 'data_in_evidenza_da'
+        dataInEvidenzaA     column: 'data_in_evidenza_a'
+        importo				column: 'importo', scale: 2
+        importoTotale		column: 'importo_totale', scale: 2
+
         oggetto length: 4000
         note length: 4000
         noteTrasmissione length: 4000
@@ -160,6 +196,8 @@ class PropostaDelibera implements IProposta {
         campiProtetti length: 4000
         motivazione length: 4000
         classificaDescrizione length: 4000
+
+        idFascicoloEsterno length: 256, column: 'id_fascicolo_esterno'
 
         modelloTesto column: 'id_modello_testo'
         modelloTestoAnnullamento column: 'id_modello_testo_annullamento'
@@ -204,6 +242,8 @@ class PropostaDelibera implements IProposta {
         fascicoloNumero nullable: true
         fascicoloOggetto nullable: true
 
+        idFascicoloEsterno      nullable: true
+
         giorniPubblicazione nullable: true
         modelloTesto nullable: true
         modelloTestoAnnullamento nullable: true
@@ -229,6 +269,16 @@ class PropostaDelibera implements IProposta {
         motivazione nullable: true
         priorita nullable: true
         dataOrdinamento         nullable: true
+
+        dataInEvidenzaDa        nullable: true
+        dataInEvidenzaA         nullable: true
+        importo				 	nullable: true
+        importoTotale		 	nullable: true
+
+        impattoGenerazionale    nullable: true
+
+        annoProtocolloRichiesta nullable: true
+        numeroProtocolloRichiesta nullable: true
     }
 
     long getIdDocumento () {
@@ -394,5 +444,14 @@ class PropostaDelibera implements IProposta {
         // metto che l'atto deve essere anche valido:
         // può succedere che la delibera collegata sia presente ma non valida, per lo più in caso di assistenze.
         return Delibera.findByPropostaDeliberaAndValido(this, true)
+    }
+
+    transient String getTipoFirma () {
+        if (this.tipologia.tipoFirma) {
+            return this.tipologia.tipoFirma
+        }
+        else {
+            return Impostazioni.FIRMA_PADES.abilitato ? TipologieFirma.PDF : TipologieFirma.P7M
+        }
     }
 }

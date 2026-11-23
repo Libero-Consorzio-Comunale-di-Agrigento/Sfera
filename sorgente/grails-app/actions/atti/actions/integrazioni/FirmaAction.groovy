@@ -23,6 +23,7 @@ import it.finmatica.atti.documenti.beans.AttiGestoreTransazioneFirma
 import it.finmatica.atti.documenti.tipologie.ParametroTipologia
 import it.finmatica.atti.dto.documenti.viste.So4DelegaService
 import it.finmatica.atti.exceptions.AttiRuntimeException
+import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.impostazioni.TipoSoggetto
 import it.finmatica.atti.integrazioni.AttiFirmaService
 import it.finmatica.atti.odg.SedutaStampa
@@ -35,10 +36,13 @@ import it.finmatica.gestionetesti.TipoFile
 import it.finmatica.jsign.verify.api.SimpleVerifier
 import it.finmatica.jsign.verify.result.CriticityLevel
 import it.finmatica.jsign.verify.result.VerifyResult
+import it.finmatica.zkutils.SuccessHandler
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.IOUtils
 import org.springframework.transaction.interceptor.TransactionAspectSupport
+import org.zkoss.zk.ui.event.Event
 import org.zkoss.zul.Filedownload
+import org.zkoss.zul.Messagebox
 
 /**
  * Contiene le azioni per la firma dei documenti
@@ -54,6 +58,7 @@ class FirmaAction {
     AttoriAction                attoriAction
     IGestoreFile                gestoreFile
     So4DelegaService            so4DelegaService
+    SuccessHandler              successHandler
 
     @Action(tipo = TipoAzione.CLIENT,
             tipiOggetto = [Determina.TIPO_OGGETTO, Certificato.TIPO_OGGETTO, VistoParere.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, SedutaStampa.TIPO_OGGETTO],
@@ -76,10 +81,19 @@ class FirmaAction {
         File fileAnteprima
         try {
             anteprimaIn = gestoreFile.getFile(documento, documento.testo)
-            anteprimaPdfIn = gestioneTesti.convertiStreamInPdf(anteprimaIn, documento.testo.nome, documento)
             fileAnteprima = File.createTempFile("anteprima", "tmp")
             anteprimaOut = new FileOutputStream(fileAnteprima)
-            IOUtils.copy(anteprimaPdfIn, anteprimaOut)
+
+            //INIZIO modifica per aspose
+            try {
+                anteprimaPdfIn = gestioneTesti.convertiStreamInPdf(anteprimaIn, documento.testo.nome, documento)
+                IOUtils.copy(anteprimaPdfIn, anteprimaOut)
+            }
+            catch (Exception e) {
+                IOUtils.copy(anteprimaIn, anteprimaOut)
+            }
+            //FINE modifica per aspose
+
         } finally {
             IOUtils.closeQuietly((InputStream) anteprimaIn)
             IOUtils.closeQuietly((InputStream) anteprimaPdfIn)
@@ -561,7 +575,7 @@ Vengono considerati solo i visti il cui firmatario è l'utente corrente.""",
 
             Firmatario firmatario;
             // se il documento è in fase di firma interrotta, devo ritornare l'utente che "sta firmando"
-            if (documento.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE || documento.statoFirma == StatoFirma.IN_FIRMA) {
+            if (documento.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE || documento.statoFirma == StatoFirma.IN_FIRMA || documento.statoFirma == StatoFirma.FIRMATO_DA_CONFERMARE) {
                 firmatario = Firmatario.cheStaFirmando(documento).get();
             } else {
                 firmatario = Firmatario.prossimoCheDeveFirmare(documento).get();
@@ -752,6 +766,33 @@ Vengono considerati solo i visti il cui firmatario è l'utente corrente.""",
         return d
     }
 
+    @Action(tipo = TipoAzione.AUTOMATICA,
+            tipiOggetto = [Determina.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, VistoParere.TIPO_OGGETTO, Certificato.TIPO_OGGETTO, SedutaStampa.TIPO_OGGETTO],
+            nome = "Imposta il documento come FIRMATO_DA_CONFERMARE",
+            descrizione = "Imposta il campo stato_firma = FIRMATO_DA_CONFERMARE")
+    def setStatoFirmaFirmatoDaFirmare (IDocumento d) {
+        d.statoFirma = StatoFirma.FIRMATO_DA_CONFERMARE
+        return d
+    }
+
+
+    @Action(tipo = TipoAzione.AUTOMATICA,
+            tipiOggetto = [Determina.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, VistoParere.TIPO_OGGETTO, Certificato.TIPO_OGGETTO, SedutaStampa.TIPO_OGGETTO],
+            nome = "Rimette lo stato DA_FIRMARE per il documento e gli allegati con stato IN_FIRMA",
+            descrizione = "Rimette lo stato DA_FIRMARE per il documento e gli allegati con stato IN_FIRMA")
+    def setRipristinaStatoFirmaDaFirmare (IDocumento d) {
+        if (d.statoFirma == StatoFirma.IN_FIRMA) {
+            d.statoFirma = StatoFirma.DA_FIRMARE
+
+            for (Allegato allegato : d.allegati?.findAll { it.valido == true }) {
+                if (allegato.statoFirma == StatoFirma.IN_FIRMA) {
+                    allegato.statoFirma = StatoFirma.DA_FIRMARE
+                }
+            }
+        }
+        return d
+    }
+
     @Action(tipo = TipoAzione.CONDIZIONE,
             tipiOggetto = [Determina.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, VistoParere.TIPO_OGGETTO, Certificato.TIPO_OGGETTO, SedutaStampa.TIPO_OGGETTO],
             nome = "Il documento da firmare?",
@@ -808,5 +849,35 @@ Vengono considerati solo i visti il cui firmatario è l'utente corrente.""",
             descrizione = "Ritorna TRUE se nessun firmatario ha firmato il documento, FALSE altrimenti.")
     boolean isDocumentoNonFirmato (IDocumento d) {
         return !attiFirmaService.isDocumentoFirmato(d)
+    }
+
+    @Action(tipo = TipoAzione.CLIENT,
+            tipiOggetto = [Determina.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, VistoParere.TIPO_OGGETTO, Certificato.TIPO_OGGETTO, SedutaStampa.TIPO_OGGETTO],
+            nome = "Firma PADES: messaggio di avviso se si cerca di firmare file non pdf",
+            descrizione = "Firma PADES: messaggio di avviso se si cerca di firmare pades file con estensioni diverse da pdf")
+    void apriMessaggioDiAvvisoSePadesENonPdfDaFirmare(AbstractViewModel<? extends IDocumentoIterabile> viewModel, long idCfgPulsante, long idAzioneClient) {
+
+        IDocumentoIterabile doc = viewModel.getDocumentoIterabile(false)
+        // conto quanti allegati ci sono
+        if (Impostazioni.FIRMA_PADES.abilitato && allegatoService.esistonoFileNonPdf(doc)) {
+
+            successHandler.saltaInvalidate()
+            Messagebox.show("Non è possibile applicare la firma PDF agli allegati con estensioni differenti che pertanto saranno ignorati. Continuare?", "Attenzione: ci sono allegati non in formato Pdf",
+                    Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION,
+                    new org.zkoss.zk.ui.event.EventListener() {
+                        void onEvent(Event e) {
+                            if (Messagebox.ON_OK.equals(e.getName())) {
+                                // aggiorno il n. di versione del dto per evitare i problemi di concorrenza.
+                                viewModel.documentoDTO.version = doc.version
+                                viewModel.eseguiPulsante(idCfgPulsante, idAzioneClient)
+                            }
+                        }
+                    }
+            )
+        } else {
+            // aggiorno il n. di versione del dto per evitare i problemi di concorrenza.
+            viewModel.documentoDTO.version = doc.version
+            viewModel.eseguiPulsante(idCfgPulsante, idAzioneClient)
+        }
     }
 }

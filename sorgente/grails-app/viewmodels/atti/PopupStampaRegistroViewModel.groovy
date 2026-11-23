@@ -70,7 +70,7 @@ class PopupStampaRegistroViewModel {
 			}
 
 			def mappaParametri 	= getMappaParametri()
-			InputStream testoPdf = gestioneTestiService.stampaUnione(modello, mappaParametri, GestioneTestiService.FORMATO_PDF)
+			InputStream testoPdf = gestioneTestiService.stampaUnione(modello, mappaParametri, GestioneTestiService.FORMATO_PDF, true)
 
 			Filedownload.save(testoPdf, "application/pdf" , tipoOggetto.titolo+".pdf")
 		}
@@ -91,7 +91,7 @@ class PopupStampaRegistroViewModel {
 
 			def mappaParametri = getMappaParametri()
 
-			InputStream testoPdf = gestioneTestiService.stampaUnione(modello, mappaParametri, GestioneTestiService.FORMATO_PDF)
+			InputStream testoPdf = gestioneTestiService.stampaUnione(modello, mappaParametri, GestioneTestiService.FORMATO_PDF, true)
 
 			Filedownload.save(testoPdf, "application/pdf" , tipoOggetto.titolo+".pdf")
 		}

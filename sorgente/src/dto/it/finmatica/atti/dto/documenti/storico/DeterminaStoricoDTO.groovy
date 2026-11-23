@@ -88,6 +88,11 @@ class DeterminaStoricoDTO implements it.finmatica.dto.DTO<DeterminaStorico> {
     String xmlDetermineCollegate;
     String xmlSoggetti;
     Integer priorita
+    boolean     inEvidenza;
+    Date 	    dataInEvidenzaDa;
+    Date 	    dataInEvidenzaA;
+    BigDecimal  importo;
+    Date dataScadenzaDisposizioni;
 
 
     public DeterminaStorico getDomainObject () {

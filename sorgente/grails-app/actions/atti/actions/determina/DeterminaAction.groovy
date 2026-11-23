@@ -8,6 +8,8 @@ import it.finmatica.atti.documenti.DeterminaService
 import it.finmatica.atti.documenti.NotificheService
 import it.finmatica.atti.documenti.competenze.DeterminaCompetenze
 import it.finmatica.atti.documenti.tipologie.ParametroTipologia
+import it.finmatica.atti.IntegrazioneContabilita
+import it.finmatica.atti.documenti.DeterminaNumero
 import it.finmatica.atti.exceptions.AttiRuntimeException
 import it.finmatica.gestioneiter.Attore
 import it.finmatica.gestioneiter.annotations.Action
@@ -15,16 +17,15 @@ import it.finmatica.gestioneiter.annotations.Action.TipoAzione
 import it.finmatica.gestioneiter.configuratore.iter.WkfCfgStep
 import it.finmatica.so4.strutturaPubblicazione.So4UnitaPubb
 import it.finmatica.zkutils.SuccessHandler
-import org.zkoss.util.resource.Labels
 import org.zkoss.zk.ui.Executions
 import org.zkoss.zul.Window
 
 class DeterminaAction {
-
 	// services
-	DeterminaService determinaService
-	NotificheService notificheService
-	SpringSecurityService springSecurityService
+	DeterminaService 		determinaService
+	NotificheService 		notificheService
+	SpringSecurityService 	springSecurityService
+	IntegrazioneContabilita integrazioneContabilita
 
 	// altre azioni
 	DeterminaCondizioniAction 	determinaCondizioniAction
@@ -67,7 +68,55 @@ class DeterminaAction {
 			descrizione	= "Numera la Determina")
 	public Determina numeraDetermina (Determina d) {
 		if (!determinaCondizioniAction.isDeterminaNumerata(d)) {
-			determinaService.numeraDetermina(d)
+			DeterminaNumero nc = determinaService.getNumerazioneCommittata(d.id)
+			if (nc == null) {
+				determinaService.numeraDetermina(d)
+			}
+			else {
+				d.numeroDetermina 		= nc.numeroDetermina
+				d.annoDetermina 		= nc.annoDetermina
+				d.dataNumeroDetermina 	= nc.dataNumeroDetermina
+				d.registroDetermina 	= nc.registroDetermina
+				d.save()
+				// Rimuove NumerazioneCommittata: se la outer TX fa rollback, questa delete
+				// viene rollbackata e il record rimane disponibile per il ciclo successivo.
+				nc.delete()
+			}
+			successHandler.addMessage("Atto numerato: ${d.numeroDetermina} / ${d.annoDetermina}")
+		}
+
+		return d
+	}
+
+	@Action(tipo		= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [Determina.TIPO_OGGETTO],
+			nome		= "Numera Determina con Commit",
+			descrizione	= "Numera la Determina e commita immediatamente il numero su database, indipendentemente da eventuali rollback delle azioni successive")
+	public Determina numeraDeterminaECommit (Determina d) {
+		if (!determinaCondizioniAction.isDeterminaNumerata(d)) {
+			// Cerca una numerazione già committata da un ciclo precedente in cui la outer TX
+			// era andata in rollback dopo che il numero era stato assegnato.
+
+			DeterminaNumero nc = determinaService.getNumerazioneCommittata(d.id)
+			if (nc == null) {
+				// Nessuna numerazione precedente: assegna il numero ora.
+				// La inner TX (REQUIRES_NEW) scrive su NumerazioneCommittata senza toccare
+				// la riga Determina, che la outer TX potrebbe già tenere lockato.
+				determinaService.assegnaNumeroDeterminaECommit(d.id)
+				nc = determinaService.getNumerazioneCommittata(d.id)
+			}
+			// Applica il numero sulla Determina nella outer TX: la outer TX già detiene
+			// il lock sulla riga, quindi usare la stessa connessione non causa deadlock.
+			d.numeroDetermina 		= nc.numeroDetermina
+			d.annoDetermina 		= nc.annoDetermina
+			d.dataNumeroDetermina 	= nc.dataNumeroDetermina
+			d.registroDetermina 	= nc.registroDetermina
+			d.save()
+			// Rimuove NumerazioneCommittata: se la outer TX fa rollback, questa delete
+			// viene rollbackata e il record rimane disponibile per il ciclo successivo.
+			nc.delete()
+			//informo la contabilità del numero dell'atto (solitamente avviene nel metodo numeraDetermina)
+			integrazioneContabilita.salvaAtto(d)
 			successHandler.addMessage("Atto numerato: ${d.numeroDetermina} / ${d.annoDetermina}")
 		}
 
@@ -179,7 +228,7 @@ class DeterminaAction {
 		determinaService.duplica(d, false, false, true)
 		return d
 	}
-	
+
 	/*
 	 * Operazioni sulla determina e proposta di determina
 	 */
@@ -191,6 +240,29 @@ class DeterminaAction {
 	public Determina duplicaEApri (Determina d, DeterminaViewModel v) {
 		v.self.detach()
 		Determina copia = determinaService.duplica(d, false, false, true)
+
+		Window w = Executions.createComponents("/atti/documenti/determina.zul", null, [id: copia.id])
+		w.doModal()
+		return d
+	}
+
+
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [Determina.TIPO_OGGETTO],
+			nome		= "Crea una copia della determina compreso il testo",
+			descrizione	= "Crea una copia della determina compreso il testo. Non vengono copiati gli allegati")
+	public Determina duplicaTesto (Determina d) {
+		determinaService.duplica(d, true, false, true)
+		return d
+	}
+
+	@Action(tipo		= TipoAzione.PULSANTE,
+			tipiOggetto	= [Determina.TIPO_OGGETTO],
+			nome		= "Crea una copia del documento determina compreso il testo e la visualizza",
+			descrizione	= "Crea una copia del documento determina compreso il testo (non gli allegati) e la visualizza")
+	public Determina duplicaTestoEApri (Determina d, DeterminaViewModel v) {
+		v.self.detach()
+		Determina copia = determinaService.duplica(d, true, false, true)
 
 		Window w = Executions.createComponents("/atti/documenti/determina.zul", null, [id: copia.id])
 		w.doModal()

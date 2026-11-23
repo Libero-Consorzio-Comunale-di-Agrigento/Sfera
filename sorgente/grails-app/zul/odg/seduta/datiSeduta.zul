@@ -74,7 +74,6 @@
                     </cell>
                     <cell>
                         <textbox mold="rounded"
-                                 constraint="/^(([0-1]\d|2[0-3]):([0-5]\d))?$/: Formato ora non corretto: hh:mm"
                                  maxlength="5"
                                  value="@bind(vm.seduta.oraSeduta)"/>
                     </cell>
@@ -91,7 +90,6 @@
                     </cell>
                     <cell>
                         <textbox mold="rounded"
-                                 constraint="/^(([0-1]\d|2[0-3]):([0-5]\d))?$/: Formato ora non corretto"
                                  maxlength="5"
                                  value="@bind(vm.seduta.oraSecondaConvocazione)"/>
                     </cell>

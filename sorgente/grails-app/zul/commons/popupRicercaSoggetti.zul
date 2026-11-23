@@ -7,7 +7,7 @@
 	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
 
 	<window apply="grailsBindComposer" viewModel="@id('vm') @init('popupRicercaSoggettiViewModel')"
-		border="normal" sizable="true" width="600px" height="400px" title=" ">
+		border="normal" sizable="true" width="750px" height="450px" title=" ">
 
 		<h:div class="barraTitoloPagina">
 			<label sclass="titoloPagina" value="Ricerca Soggetti" />
@@ -54,7 +54,7 @@
 						<datebox value="@bind(vm.dataNascita)" width="100%" format="dd/MM/yyyy" />
 					</cell>
 				</row>
-				<row>
+				<row visible="@bind(!(vm.pndNotifica))">
                     <cell align="right">
 						Tipo Ricerca
                     </cell>
@@ -69,26 +69,55 @@
 						<button label="Cerca" image="/images/afc/16x16/search.png" onClick="@command('onCerca', paginate=false)"/>
 					</cell>
 				</row>
+				<row visible="@bind(vm.pndNotifica)">
+					<cell colspan="4" align="right">
+						<button label="Cerca" image="/images/afc/16x16/search.png" onClick="@command('onCercaPnd', paginate=false)"/>
+					</cell>
+				</row>
+				<row visible="@bind(vm.pndNotifica)">
+					<cell colspan="4">
+						<label value="@load(c:l('label.pnd.descrizioneRicercaSoggetti'))"/>
+					</cell>
+				</row>
 			</rows>
 		</grid>
 
-		<listbox vflex="1" model="@load(vm.listaSoggetti)" selectedItem="@bind(vm.soggetto)" emptyMessage="Nessun soggetto trovato">
+		<listbox vflex="1" model="@load(vm.listaSoggetti)" selectedItem="@bind(vm.soggetto)" emptyMessage="Nessun soggetto trovato" visible="@bind(!(vm.pndNotifica))">
 			<listhead>
-				<listheader label="Cognome" 		/>
-				<listheader label="Nome" 			/>
-				<listheader label="Codice Fiscale" 	/>
-				<listheader label="Data di Nascita" />
-				<listheader label="Utente" 			/>
-				<listheader label="Email" 			/>
+				<listheader label="Nominativo" />
+				<listheader label="Codice Fiscale" width="130px" />
+				<listheader label="Utente" />
+				<listheader label="Email" />
 			</listhead>
 			<template name="model" var="soggetto">
 				<listitem>
-					<listcell label="@load(soggetto.cognome)" />
-					<listcell label="@load(soggetto.nome)" />
+					<listcell label="@load(c:cat3(soggetto.cognome, ' ', soggetto.nome))" />
 					<listcell label="@load(soggetto.codiceFiscale)" />
-					<listcell label="@load(soggetto.dataNascita) @converter('formattedDate', format='dd/MM/yyyy')" />
 					<listcell label="@load(soggetto.utenteAd4.nominativo)" />
 					<listcell label="@load(soggetto.indirizzoWeb)" />
+				</listitem>
+			</template>
+		</listbox>
+
+		<listbox vflex="1" model="@load(vm.listaSoggettiRicercaAnagrafica)" selectedItem="@bind(vm.soggetto)" emptyMessage="Nessun soggetto trovato" visible="@bind(vm.pndNotifica)">
+			<listhead>
+				<listheader label="Nominativo" />
+				<listheader label="Codice Fiscale" width="140px" />
+				<listheader label="Indirizzo" />
+				<listheader label="Comune" />
+				<listheader label="Prov" width="35px"/>
+				<listheader label="Cap" width="40px"/>
+				<listheader label="Email" />
+			</listhead>
+			<template name="model" var="soggetto">
+				<listitem>
+					<listcell label="@load(c:cat3(soggetto.cognome, ' ', soggetto.nome))" />
+					<listcell label="@load(soggetto.codiceFiscale)" />
+					<listcell label="@load(soggetto.indirizzo)" />
+					<listcell label="@load(soggetto.comune eq null ? '' : soggetto.comune)" />
+					<listcell label="@load(soggetto.provincia eq null ? '' : soggetto.provincia)" />
+					<listcell label="@load(soggetto.cap)" />
+					<listcell label="@load(soggetto.email)" />
 				</listitem>
 			</template>
 		</listbox>
@@ -96,6 +125,7 @@
 		<paging activePage="@bind(vm.activePage)" pageSize="@load(vm.pageSize)" totalSize="@load(vm.totalSize)" onPaging="@command('onCerca', paginate=true)" />
 
 		<h:div class="barraPulsanti">
+			<button label="Crea Nuova Anagrafica" onClick="@command('onAnagraficaPagina')" mold="trendy" image="/images/afc/16x16/house_plan.png" />
 			<h:div>
 				<button label="Seleziona" onClick="@command('onSeleziona')" mold="trendy" image="/images/afc/16x16/save.png" disabled="@load(vm.soggetto eq null)"/>
 				<button label="Annulla"   onClick="@command('onAnnulla')" 	mold="trendy" image="/images/afc/16x16/close.png" />

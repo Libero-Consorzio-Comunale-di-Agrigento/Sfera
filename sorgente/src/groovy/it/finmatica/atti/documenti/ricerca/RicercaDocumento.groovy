@@ -4,6 +4,7 @@ import it.finmatica.ad4.autenticazione.Ad4Ruolo
 import it.finmatica.ad4.autenticazione.Ad4Utente
 import it.finmatica.atti.commons.FileAllegato
 import it.finmatica.atti.dizionari.Categoria
+import it.finmatica.atti.dizionari.ImpattoGenerazionale
 import it.finmatica.atti.dizionari.TipoBudget
 import it.finmatica.atti.documenti.StatoFirma
 import it.finmatica.atti.documenti.StatoMarcatura
@@ -23,6 +24,7 @@ abstract class RicercaDocumento {
 	// dati del documento
 	String 			oggetto
 	boolean 		riservato
+	boolean         controlloFunzionario
 	String 			stato
 	Categoria 		categoria
 	FileAllegato	testo
@@ -31,6 +33,7 @@ abstract class RicercaDocumento {
 	// dati dei soggetti
 	So4UnitaPubb 	uoProponente
 	String 			uoProponenteDescrizione
+	String 			uoProponenteCodice
 	Ad4Utente 		utenteSoggetto
 	String 			tipoSoggetto
 
@@ -76,11 +79,19 @@ abstract class RicercaDocumento {
 	Long 	numeroProtocollo
 	Long 	annoProtocollo
 	String 	registroProtocollo
+	String 	classificaCodice
+	Date 	classificaDal
+	String 	classificaDescrizione
+	Integer fascicoloAnno
+	String 	fascicoloNumero
+	String 	fascicoloOggetto
 
 	// dati della tipologia
 	Long 	idTipologia
 	String 	titoloTipologia
 	String 	descrizioneTipologia
+	String  codiceEsternoTipologia
+	String  tipoPubblicazioneAlbo
 	boolean conImpegnoSpesa
 
 	// dati di pubblicazione
@@ -102,9 +113,20 @@ abstract class RicercaDocumento {
 	StatoFirma statoFirma
 	boolean attoConcluso
     String cup
+	String cig
+	String note
+
+	ImpattoGenerazionale impattoGenerazionale
     String codiceProgetto
     String contoEconomico
     BigDecimal importo
     TipoBudget tipoBudget
 
+	String elencoFirmatari
+	BigDecimal importoLiquidazione
+
+	Date dataControlloGestione
+
+	Integer numeroPassaggi
+	String ultimoAttoreFlusso
 }

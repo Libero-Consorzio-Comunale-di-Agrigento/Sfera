@@ -15,8 +15,12 @@ import it.finmatica.atti.documenti.VistoParere
 import it.finmatica.atti.exceptions.AttiRuntimeException
 import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.integrazioni.lettera.IntegrazioneLetteraAgspr
+import it.finmatica.atti.integrazioni.protocollo.ProtocolloPiTre
 import it.finmatica.atti.integrazioni.protocollo.ProtocolloTreviso
 import it.finmatica.atti.integrazioni.protocollo.ProtocolloTrevisoTest
+import it.finmatica.atti.integrazioniws.pitre.classes.GetTokenRequest
+import it.finmatica.atti.integrazioniws.pitre.classes.GetTokenResponse
+import it.finmatica.atti.integrazioniws.pitre.classes.SendDocumentAdvancedResponse
 import it.finmatica.atti.odg.SedutaStampa
 import it.finmatica.gestioneiter.IDocumentoIterabile
 import it.finmatica.gestioneiter.annotations.Action
@@ -31,6 +35,7 @@ class ProtocolloAction {
     IntegrazioneLetteraAgspr integrazioneLetteraAgspr
     IProtocolloEsterno       protocolloEsterno
     SuccessHandler           successHandler
+	ProtocolloPiTre			 protocolloPiTre
 
 	@Action(tipo	= TipoAzione.AUTOMATICA,
 		tipiOggetto = [Determina.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, SedutaStampa.TIPO_OGGETTO],
@@ -52,7 +57,10 @@ class ProtocolloAction {
 			protocolloEsterno.protocolla(documento)
 			
 			// segnalo la protocollazione effettuata
-			successHandler.addMessage("Protocollazione effettuata con n. ${documento.numeroProtocollo} / ${documento.annoProtocollo}")
+			if(documento.numeroProtocollo!=null && documento.numeroProtocollo>0)
+				successHandler.addMessage("Protocollazione effettuata con n. ${documento.numeroProtocollo} / ${documento.annoProtocollo}")
+			else
+				successHandler.addMessage("Azione eseguita.")
 		}
 
 		return documento;
@@ -264,5 +272,35 @@ class ProtocolloAction {
 		descrizione	= "Ritorna TRUE se NON è presente una Lettera per questo documento")
 	boolean isLetteraNonPresente (SedutaStampa sedutaStampa) {
 		return !isLetteraPresente(sedutaStampa)
+	}
+
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto = [Determina.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, SedutaStampa.TIPO_OGGETTO],
+			nome		= "Registra il documento (protocollo Auriga)",
+			descrizione	= "Registra il documento sul protocollo Auriga senza procedere alla protocollazione.")
+	def registra (IProtocollabile documento) {
+
+		if (Impostazioni.PROTOCOLLO_ATTIVO.abilitato) {
+			protocolloEsterno.registra(documento)
+			// segnalo la protocollazione effettuata
+			successHandler.addMessage("Documento registrato")
+		}
+
+		return documento;
+	}
+
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto = [Determina.TIPO_OGGETTO, Delibera.TIPO_OGGETTO],
+			nome		= "Invia/Trasmetti il documento (protocollo PiTre)",
+			descrizione	= "Invia/Trasmetti il documento (protocollo PiTre)")
+	def inviaTrasmetti (IProtocollabile documento) {
+		if (Impostazioni.PROTOCOLLO.valore == "protocolloPiTre") {
+			try {
+				protocolloPiTre.inviaTrasmetti(documento)
+			} catch (Throwable throwable) {
+				println throwable.message
+			}
+		}
+		return documento;
 	}
 }

@@ -5,6 +5,7 @@ import it.finmatica.atti.AbstractViewModel
 import it.finmatica.atti.documenti.Delibera
 import it.finmatica.atti.documenti.Determina
 import it.finmatica.atti.documenti.PropostaDelibera
+import it.finmatica.atti.documenti.VistoParere
 import it.finmatica.atti.exceptions.AttiRuntimeException
 import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.integrazioni.CasaDiVetroService
@@ -14,6 +15,8 @@ import it.finmatica.gestioneiter.annotations.Action.TipoAzione
 import it.finmatica.zkutils.SuccessHandler
 
 import org.zkoss.zk.ui.Executions
+import org.zkoss.zk.ui.event.Event
+import org.zkoss.zul.Messagebox
 
 class CasaDiVetroAction {
 
@@ -43,6 +46,21 @@ class CasaDiVetroAction {
 
 		log.debug ("URL per casa di vetro: ${url}")
 		Executions.getCurrent().sendRedirect(url, "_blank")
+	}
+
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [Determina.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO],
+			nome		= "Crea la proposta in casa di vetro (senza aprire la pagina di dettaglio)",
+			descrizione	= "Crea la proposta in casa di vetro (senza aprire la pagina di dettaglio)")
+	public def creaPropostaCasaDiVetro (def documento)  {
+		if (!Impostazioni.INTEGRAZIONE_CASA_DI_VETRO.abilitato) {
+			return documento;
+		}
+		// inserisco la proposta in cdv (il metodo verifica se la proposta è già presente o meno)
+		casaDiVetroService.inserisci(documento);
+		//aggiungo il documento nelle sezioni
+		casaDiVetroService.collegaSezione(documento);
+		return documento
 	}
 
 	@Action(tipo	= TipoAzione.AUTOMATICA,
@@ -131,5 +149,53 @@ class CasaDiVetroAction {
 		}
 
 		return documento;
+	}
+
+	@Action(tipo = TipoAzione.CLIENT,
+			tipiOggetto = [Determina.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO, VistoParere.TIPO_OGGETTO],
+			nome = "Verifica del superamento soglia sugli affidamenti diretti in L190",
+			descrizione = "Verifica del superamento soglia sugli affidamenti diretti in L190")
+	def verificaSuperamentoSoglia(AbstractViewModel<? extends IDocumentoIterabile> viewModel, long idCfgPulsante, long idAzioneClient) {
+
+		IDocumentoIterabile doc = viewModel.getDocumentoIterabile(false)
+		if (Impostazioni.INTEGRAZIONE_CASA_DI_VETRO.abilitato) {
+			if (doc instanceof VistoParere) {
+				doc = doc.documentoPrincipale
+			}
+			if (doc.numeroProposta) {
+				if (isAttoPresente(doc)) {
+					String risultato = casaDiVetroService.superamentoSogliaAvvisi (doc.annoProposta, doc.numeroProposta, doc.registroProposta.codice)
+					if (risultato && (!risultato.equals(""))) {
+						successHandler.saltaInvalidate()
+						Messagebox.show(risultato+'\n\nContinuare ?', "Attenzione",
+							Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION,
+							new org.zkoss.zk.ui.event.EventListener() {
+								void onEvent(Event e) {
+									if (Messagebox.ON_OK.equals(e.getName())) {
+										// aggiorno il n. di versione del dto per evitare i problemi di concorrenza.
+										viewModel.documentoDTO.version = doc.version
+										viewModel.eseguiPulsante(idCfgPulsante, idAzioneClient)
+									}
+								}
+							}
+						)
+					}
+					else {
+						// aggiorno il n. di versione del dto per evitare i problemi di concorrenza.
+						viewModel.documentoDTO.version = doc.version
+						viewModel.eseguiPulsante(idCfgPulsante, idAzioneClient)
+					}
+				}
+				else {
+					// aggiorno il n. di versione del dto per evitare i problemi di concorrenza.
+					viewModel.documentoDTO.version = doc.version
+					viewModel.eseguiPulsante(idCfgPulsante, idAzioneClient)
+				}
+			}
+		} else {
+			// aggiorno il n. di versione del dto per evitare i problemi di concorrenza.
+			viewModel.documentoDTO.version = doc.version
+			viewModel.eseguiPulsante(idCfgPulsante, idAzioneClient)
+		}
 	}
 }

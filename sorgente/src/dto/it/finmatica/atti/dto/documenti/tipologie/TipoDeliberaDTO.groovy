@@ -27,6 +27,7 @@ public class TipoDeliberaDTO implements it.finmatica.dto.DTO<TipoDelibera> {
     boolean conservazioneSostitutiva;
     boolean copiaTestoProposta;
     boolean allegatoTestoProposta;
+    boolean rigeneraFileProposta;
     Date dateCreated;
     boolean delega;
     boolean delegaObbligatoria;
@@ -44,8 +45,10 @@ public class TipoDeliberaDTO implements it.finmatica.dto.DTO<TipoDelibera> {
     GestioneTestiModelloDTO modelloTesto;
     GestioneTestiModelloDTO modelloTestoDelibera;
     GestioneTestiModelloDTO modelloTestoFrontespizio;
+    boolean impegnoObbligatorio;
     boolean movimentiContabili;
     boolean queryMovimenti;
+    boolean contabilitaCheckRiservato;
     boolean notificaOrganiControllo;
     Set<ParametroTipologiaDTO> parametri;
     Long progressivoCfgIter;
@@ -59,6 +62,9 @@ public class TipoDeliberaDTO implements it.finmatica.dto.DTO<TipoDelibera> {
     boolean scritturaMovimentiContabili;
     boolean secondaPubblicazione;
     boolean testoObbligatorio;
+    boolean gestioneGruppiPolitici;
+    boolean visImportoTotale;
+    boolean importoTotaleObbligatorio;
     boolean pubblicaAllegatiDefault;
     boolean pubblicaVisualizzatore;
     boolean pubblicaAllegatiVisualizzatore;
@@ -86,6 +92,15 @@ public class TipoDeliberaDTO implements it.finmatica.dto.DTO<TipoDelibera> {
     boolean incaricatoObbligatorio;
     Long sequenza;
     String ruoloRiservato;
+    String tipoFirma;
+    boolean impattoGenerazionale;
+    boolean gestioneRiservato;
+    boolean gestioneRiservatoAllegati;
+
+    String fascicoloNumero
+    Long fascicoloAnno
+    String fascicoloOggetto
+    String idFascicoloEsterno
 
     public void addToModelliTesto (GestioneTestiModelloDTO gestioneTestiModello) {
         if (this.modelliTesto == null)

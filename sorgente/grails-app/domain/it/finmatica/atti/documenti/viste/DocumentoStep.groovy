@@ -2,11 +2,13 @@ package it.finmatica.atti.documenti.viste
 
 import it.finmatica.ad4.autenticazione.Ad4Ruolo
 import it.finmatica.ad4.autenticazione.Ad4Utente
+import it.finmatica.atti.dizionari.TipologieFirma
 import it.finmatica.atti.documenti.Certificato
 import it.finmatica.atti.documenti.Delibera
 import it.finmatica.atti.documenti.Determina
 import it.finmatica.atti.documenti.PropostaDelibera
 import it.finmatica.atti.documenti.VistoParere
+import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.gestioneiter.motore.WkfStep
 import it.finmatica.so4.struttura.So4Amministrazione
 import it.finmatica.so4.strutturaPubblicazione.So4UnitaPubb
@@ -59,6 +61,7 @@ class DocumentoStep {
 	Date dataScadenza
 	Integer priorita
 	Date dataOrdinamento
+	String tipoFirma
 
 	static mapping = {
 		table 	'documenti_step'
@@ -93,5 +96,14 @@ class DocumentoStep {
 
 	static hibernateFilters = {
 		multiEnteFilter (condition: "ente = :enteCorrente", types: 'string')
+	}
+
+	transient String getTipoFirma () {
+		if (this.tipoFirma) {
+			return this.tipoFirma
+		}
+		else {
+			return Impostazioni.FIRMA_PADES.abilitato ? TipologieFirma.PDF : TipologieFirma.P7M
+		}
 	}
 }

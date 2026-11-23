@@ -10,7 +10,7 @@
 		title=" ">
 
 		<h:div class="barraTitoloPagina">
-   			<label sclass="titoloPagina" value="Tipologia Delibera"/>
+			<label sclass="titoloPagina" value="Tipologia "/><label sclass="titoloPagina" value="@load(c:l('tabella-delibere-delibera'))"/>
 			<image
 				src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
 				tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')" />
@@ -131,13 +131,7 @@
 									<cell><label value="Codice esterno (per integrazioni applicativi)" /></cell>
 									<cell><textbox value="@load(vm.selectedRecord.codiceEsterno) @save(vm.selectedRecord.codiceEsterno)" hflex="1" /></cell>
                                 </row>
-								<row>
-									<cell><label value="Sequenza in Odg:"/></cell>
-									<cell colspan="3">
-										<intbox value="@bind(vm.selectedRecord.sequenza)"/>
-									</cell>
-								</row>
-								<row if="#{i:impostazione('PROTOCOLLO').valore eq 'protocolloEsternoGdm'}" >
+								<row if="#{i:impostazione('PROTOCOLLO').valore eq 'protocolloEsternoGdm'}">
 									<cell><label value="Tipo di Protocollo:"/></cell>
 									<cell colspan="3">
 										<combobox model="@load(vm.listaTipiDocumento)" hflex="1" readonly="true" selectedItem="@bind(vm.tipoDocumentoEsterno) @converter('it.finmatica.zkutils.PropertyConverter', default='')">
@@ -147,11 +141,55 @@
 										</combobox>
 									</cell>
 								</row>
+
+								<row>
+									<cell><label value="Sequenza in Odg:"/></cell>
+									<cell>
+										<intbox value="@bind(vm.selectedRecord.sequenza)"/>
+									</cell>
+									<cell>
+										<label value="Tipo Firma:" />
+									</cell>
+									<cell>
+										<combobox selectedItem="@bind(vm.selectedRecord.tipoFirma)" hflex="1" readonly="true">
+											<comboitem label="-- definito nelle impostazioni --"	 value=""/>
+											<comboitem label="Firma Pades (PDF)" value="PDF" />
+											<comboitem label="Firma Cades (P7M)" value="P7M"/>
+										</combobox>
+									</cell>
+								</row>
+								<row if="#{i:impostazione('IMPATTO_GENERAZIONALE').abilitato}">
+									<cell colspan="1"><label value="@load(c:l('label.impattoGenerazionale'))"/></cell>
+									<cell colspan="3">
+										<radiogroup selectedIndex="@load(vm.selectedRecord.impattoGenerazionale ? 0 : 1)" selectedItem="@save(vm.selectedRecord.impattoGenerazionale)">
+											<radio label="Sì" value="@load(true)"  />
+											<radio label="No" value="@load(false)" />
+										</radiogroup>
+									</cell>
+								</row>
+								<row if="#{i:impostazione('GESTIONE_GRUPPI_POLITICI').abilitato}">
+									<cell><label value="Gestione Gruppi Politici:"/></cell>
+									<cell>
+										<radiogroup selectedIndex="@load(vm.selectedRecord.gestioneGruppiPolitici ? 0 : 1)" selectedItem="@save(vm.selectedRecord.gestioneGruppiPolitici)">
+											<radio label="Sì" value="@load(true)"  />
+											<radio label="No" value="@load(false)" />
+										</radiogroup>
+									</cell>
+								</row>
+								<row visible="@load(vm.isIntegrazioneProtocolloPiTre)">
+									<cell colspan="1"><label value="Fascicolo:"/></cell>
+									<cell colspan="3">
+										<label value="@load(c:cat4(vm.selectedRecord.fascicoloNumero,' / ',vm.selectedRecord.fascicoloAnno, ' - '))"
+											   visible="@load(not (vm.selectedRecord.fascicoloNumero eq null))" />
+										<label value="@load(vm.selectedRecord.fascicoloOggetto) " />
+										<button image="/images/agsde2/16x16/annotate.png" onClick="@command('apriFascicoli')"/>
+									</cell>
+								</row>
                             </rows>
                         </grid>
                     </groupbox>
                     <space height="5px" />
-                    <groupbox closable="false" vflex="1">
+                    <groupbox closable="false">
                         <caption>
                             <label value="Campi obbligatori"></label>
                         </caption>
@@ -186,6 +224,22 @@
                                         <radiogroup selectedIndex="@load(vm.selectedRecord.testoObbligatorio ? 0 : 1)" selectedItem="@save(vm.selectedRecord.testoObbligatorio)">
                                             <radio label="Sì" value="@load(true)"  />
                                             <radio label="No" value="@load(false)" />
+                                        </radiogroup>
+                                    </cell>
+                                </row>
+                                <row if="#{i:impostazione('GESTIONE_IMPORTO_TOTALE').abilitato}">
+                                    <cell><label value="Previsto Importo Totale:"/></cell>
+                                    <cell>
+                                        <radiogroup selectedIndex="@load(vm.selectedRecord.visImportoTotale ? 0 : 1)" selectedItem="@save(vm.selectedRecord.visImportoTotale)">
+                                            <radio label="Sì" value="@load(true)"  />
+                                            <radio label="No" value="@load(false)" />
+                                        </radiogroup>
+                                    </cell>
+                                    <cell><label value="L'Importo Totale è Obbligatorio:"/></cell>
+                                    <cell>
+                                        <radiogroup selectedIndex="@load(vm.selectedRecord.importoTotaleObbligatorio ? 0 : 1)" selectedItem="@save(vm.selectedRecord.importoTotaleObbligatorio)">
+                                            <radio label="Sì" value="@load(true)" disabled="@load(!vm.selectedRecord.visImportoTotale)" />
+                                            <radio label="No" value="@load(false)" disabled="@load(!vm.selectedRecord.visImportoTotale)" />
                                         </radiogroup>
                                     </cell>
                                 </row>
@@ -402,14 +456,12 @@
 										</template>
 									</combobox>
 								</cell>
-							</row>
-                            <row>
                                 <cell><label value="Gruppo Notifica" /></cell>
                                 <cell><textbox value="@load(vm.selectedRecord.descrizioneNotificaDelibera) @save(vm.selectedRecord.descrizioneNotificaDelibera)" hflex="1" /></cell>
                             </row>
 							<row>
 								<cell><h:span class="mandatoryLabel">*</h:span><label value="Configurazione Iter:" /></cell>
-								<cell>
+								<cell colspan="3">
 									<combobox model="@load(vm.listaCfgIterDelibera)" hflex="1" readonly="true" onChange="@command('caricaListaParametriDelibera')" selectedItem="@bind(vm.selectedRecord.progressivoCfgIterDelibera) @converter('it.finmatica.zkutils.PropertyConverter', defaultValue=-1)">
 										<template name="model" var="cfgIter">
 											<comboitem label="@load(cfgIter.nome)" value="@load(cfgIter.progressivo)" />
@@ -418,7 +470,7 @@
 								</cell>
 							</row>
 							<row>
-								<cell colspan="2">
+								<cell colspan="4">
 									<!-- parametri per il flusso della delibera -->
 									<listbox model="@load(vm.listaParametriDelibera)" emptyMessage="Nessun Parametro necessario per l'iter selezionato" height="120px">
 								        <listhead>
@@ -454,7 +506,7 @@
 							</row>
 							<row>
 								<cell><h:span class="mandatoryLabel">*</h:span><label value="Modello Frontespizio:" /></cell>
-								<cell>
+								<cell colspan="3">
 									<combobox model="@load(vm.listaModelliTestoFrontespizio)" hflex="1" readonly="true" selectedItem="@bind(vm.selectedRecord.modelloTestoFrontespizio) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)">
 										<template name="model" var="mt">
 											<comboitem label="@load(mt.nome)" description="@load(mt.descrizione)" value="@load(mt)" />
@@ -470,19 +522,26 @@
                                         <radio label="No" value="@load(false)" disabled="@load(vm.selectedRecord.allegatoTestoProposta)"/>
                                     </radiogroup>
                                 </cell>
+								<cell><h:span class="mandatoryLabel">*</h:span><label value="Rendi il testo della proposta un allegato:" /></cell>
+								<cell>
+									<radiogroup selectedIndex="@load(vm.selectedRecord.allegatoTestoProposta ? 0 : 1)" selectedItem="@save(vm.selectedRecord.allegatoTestoProposta)">
+										<radio label="Sì" value="@load(true)" disabled="@load(vm.selectedRecord.copiaTestoProposta)"/>
+										<radio label="No" value="@load(false)" disabled="@load(vm.selectedRecord.copiaTestoProposta)"/>
+									</radiogroup>
+								</cell>
                             </row>
-                            <row>
-                                <cell><h:span class="mandatoryLabel">*</h:span><label value="Rendi il testo della proposta un allegato:" /></cell>
-                                <cell>
-                                    <radiogroup selectedIndex="@load(vm.selectedRecord.allegatoTestoProposta ? 0 : 1)" selectedItem="@save(vm.selectedRecord.allegatoTestoProposta)">
-                                        <radio label="Sì" value="@load(true)" disabled="@load(vm.selectedRecord.copiaTestoProposta)"/>
-                                        <radio label="No" value="@load(false)" disabled="@load(vm.selectedRecord.copiaTestoProposta)"/>
+                            <row if="#{i:impostazione('DELIBERA_RIGENERA_FILE_PROPOSTA').abilitato}">
+                                <cell><h:span class="mandatoryLabel">*</h:span><label value="Rimuovi firma dai file della proposta in caso di rigenerazione delibera:" /></cell>
+                                <cell colspan="3">
+                                    <radiogroup selectedIndex="@load(vm.selectedRecord.rigeneraFileProposta ? 0 : 1)" selectedItem="@save(vm.selectedRecord.rigeneraFileProposta)">
+                                        <radio label="Sì" value="@load(true)"/>
+                                        <radio label="No" value="@load(false)"/>
                                     </radiogroup>
                                 </cell>
                             </row>
 							<row>
 								<cell><h:span class="mandatoryLabel">*</h:span><label value="Modello Testo predefinito:" /></cell>
-								<cell>
+								<cell colspan="3">
 									<label visible="@load(empty vm.listaModelliTestoDelibera)" value="Aggiungere almeno un modello di testo per poterlo selezionare come predefinito." />
 									<combobox visible="@load(not empty vm.listaModelliTestoDelibera)" model="@load(vm.listaModelliTestoDelibera)" hflex="1" readonly="true" selectedItem="@bind(vm.selectedRecord.modelloTestoDelibera) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue=-1)">
 										<template name="model" var="mt">
@@ -492,7 +551,7 @@
 								</cell>
 							</row>
 							<row>
-								<cell colspan="2">
+								<cell colspan="4">
 									<listbox model="@load(vm.listaModelliTestoDelibera)" emptyMessage="Nessun modello testo." height="120px">
 					        			<listhead>
 					        				<listheader label="Nome" />
@@ -770,6 +829,22 @@
                                     </radiogroup>
                                 </cell>
                             </row>
+							<row>
+								<cell><label value="Contabilità: controllo accesso per atti riservati:"/></cell>
+								<cell>
+									<radiogroup selectedIndex="@load(vm.selectedRecord.contabilitaCheckRiservato ? 0 : 1)" selectedItem="@save(vm.selectedRecord.contabilitaCheckRiservato)">
+										<radio label="Sì" value="@load(true)"  />
+										<radio label="No" value="@load(false)" />
+									</radiogroup>
+								</cell>
+								<cell visible="@load(vm.abilitaImpegnoObbligatorio)"><label value="Impegno obbligatorio:"/></cell>
+								<cell visible="@load(vm.abilitaImpegnoObbligatorio)">
+									<radiogroup selectedIndex="@load(vm.selectedRecord.impegnoObbligatorio ? 0 : 1)" selectedItem="@save(vm.selectedRecord.impegnoObbligatorio)">
+										<radio label="Sì" value="@load(true)"  />
+										<radio label="No" value="@load(false)" />
+									</radiogroup>
+								</cell>
+							</row>
                         </rows>
                     </grid>
                     <h:br />
@@ -862,6 +937,22 @@
                 <tabpanel>
                     <grid sclass="form">
                         <rows>
+							<row>
+								<cell><label value="Gestione Riservato:"/></cell>
+								<cell>
+									<radiogroup selectedIndex="@load(vm.selectedRecord.gestioneRiservato ? 0 : 1)" selectedItem="@save(vm.selectedRecord.gestioneRiservato)">
+										<radio label="Sì" value="@load(true)"  />
+										<radio label="No" value="@load(false)" />
+									</radiogroup>
+								</cell>
+								<cell><label value="Gestione Riservato Allegati:"/></cell>
+								<cell>
+									<radiogroup selectedIndex="@load(vm.selectedRecord.gestioneRiservatoAllegati ? 0 : 1)" selectedItem="@save(vm.selectedRecord.gestioneRiservatoAllegati)">
+										<radio label="Sì" value="@load(true)"  />
+										<radio label="No" value="@load(false)" />
+									</radiogroup>
+								</cell>
+							</row>
                             <row>
                                 <cell><label value="Ruolo Riservati:"/></cell>
                                 <cell>

@@ -1,0 +1,1138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Visto della Determina (Contabilità JSerfine)</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<visto>
+				<NUMERO_DETERMINA>1000</NUMERO_DETERMINA>
+				<DATA_DETERMINA>01/05/2014</DATA_DETERMINA>
+				<ANNO_DETERMINA>2014</ANNO_DETERMINA>
+				<NUMERO_DETERMINA_2>12340</NUMERO_DETERMINA_2>
+				<ANNO_DETERMINA_2>2014</ANNO_DETERMINA_2>
+				<NUMERO_PROPOSTA>500</NUMERO_PROPOSTA>
+				<DATA_PROPOSTA>01/05/2014</DATA_PROPOSTA>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<SUDDIVISIONE>SERVIZIO</SUDDIVISIONE>
+				<UNITA_PROPONENTE>SERVIZIO PUBBLICA ISTRUZIONE</UNITA_PROPONENTE>
+				<CODICE_UNITA_PROPONENTE>SR_PUBBISTR</CODICE_UNITA_PROPONENTE>
+				<UNITA_VISTO>Ufficio Ragioneria</UNITA_VISTO>
+				<CODICE_UNITA_VISTO>UFF_RAG</CODICE_UNITA_VISTO>
+				<SUDDIVIZIONE_VISTO>SERVIZIO RAGIONERIA</SUDDIVIZIONE_VISTO>
+				<OGGETTO_DETERMINA>OGGETTO DETERMINA</OGGETTO_DETERMINA>
+				<ESITO_VISTO>FAVOREVOLE</ESITO_VISTO>
+				<ESITO_VISTO_DEFINITIVO>FAVOREVOLE</ESITO_VISTO_DEFINITIVO>
+				<NOTE_CONTABILI>Note contabili inserite nella determina</NOTE_CONTABILI>
+				<NOTE_VISTO>Note inserite nel visto</NOTE_VISTO>
+				<DATA_FIRMA>01/05/2014</DATA_FIRMA>
+				<DATA_STAMPA>02/05/2014</DATA_STAMPA>
+				<FIRMATARIO>NOMINATIVO DEL FIRMATARIO</FIRMATARIO>
+				<DESCRIZIONE_FIRMATARIO>Il funzionario delegato</DESCRIZIONE_FIRMATARIO>
+				<DELEGANTE>(IN SOSTITUZIONE DI QUALCUNO)</DELEGANTE>
+				<DIRIGENTE_VISTO>NOMINATIVO DEL DIRIGENTE DEL VISTO</DIRIGENTE_VISTO>
+				<ASCENDENTI_UNITA>AREA: STRUTTURA AZIENDE SANITARIE</ASCENDENTI_UNITA>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<CIG>0123456789</CIG>
+				<TIPOLOGIA_PROPOSTA>DETERMINAZIONE CON IMPEGNO DI SPESA</TIPOLOGIA_PROPOSTA>
+				<TIPOLOGIA_VISTO>VISTO CONTABILE</TIPOLOGIA_VISTO>
+				<DATA_FIRMA_PROPOSTA>01/05/2014</DATA_FIRMA_PROPOSTA>
+				<ART_COMMA>Articolo e Comma del codice a seconda del movimento</ART_COMMA>
+				<NUMERO_MOVIMENTI>12</NUMERO_MOVIMENTI>
+			</visto>
+			<movimenti_anagrafica>
+				<RAGIONE_SOCIALE>AUTOMATED DATA SYSTEM S.P.A.</RAGIONE_SOCIALE>
+				<COGNOME></COGNOME>
+				<NOME></NOME>
+				<CODICE_FISCALE></CODICE_FISCALE>
+				<PARTITA_IVA>0000000000</PARTITA_IVA>
+				<INDIRIZZO>VIA LIBERAZIONE</INDIRIZZO>
+				<CIVICO>15</CIVICO>
+				<COMUNE>BOLOGNA</COMUNE>
+				<CAP>40100</CAP>
+				<SIGLA_PROVINCIA>BO</SIGLA_PROVINCIA>
+				<TOTALE_U>1500,00</TOTALE_U>
+				<TOTALE_E>650,00</TOTALE_E>
+				<movimenti>
+					<TIPO_MOVIMENTO>E</TIPO_MOVIMENTO>
+					<OPERAZIONE>accertamento</OPERAZIONE>
+					<CAPITOLO>10.103.80</CAPITOLO>
+					<NUMERO_CAPITOLO>80</NUMERO_CAPITOLO>
+					<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO - SISTEMI INFORMATIVI</DESCRIZIONE_CAPITOLO>
+					<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+					<CODICE_LIVELLO_5>U.1.03.02.19.009</CODICE_LIVELLO_5>
+					<DESCRIZIONE_LIVELLO_5>SERVIZI PER LE POSTAZIONI DI LAVORO E RELATIVA MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+					<IMPORTO>150,00</IMPORTO>
+					<NUMERO_MOVIMENTO>112</NUMERO_MOVIMENTO>
+					<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+					<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+					<CODICE_GLOBALE>1110011</CODICE_GLOBALE>
+					<CODICE_TIPO_FINANZIAMENTO>001</CODICE_TIPO_FINANZIAMENTO>
+					<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+					<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+					<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+					<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+					<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+				</movimenti>
+				<movimenti>
+					<TIPO_MOVIMENTO>E</TIPO_MOVIMENTO>
+					<OPERAZIONE>accertamento</OPERAZIONE>
+					<CAPITOLO>10.103.11</CAPITOLO>
+					<NUMERO_CAPITOLO>11</NUMERO_CAPITOLO>
+					<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO</DESCRIZIONE_CAPITOLO>
+					<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+					<CODICE_LIVELLO_5>U.1.03.02.19.111</CODICE_LIVELLO_5>
+					<DESCRIZIONE_LIVELLO_5>SERVIZI DI MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+					<IMPORTO>350,50</IMPORTO>
+					<NUMERO_MOVIMENTO>113</NUMERO_MOVIMENTO>
+					<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+					<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+					<CODICE_GLOBALE>1110012</CODICE_GLOBALE>
+					<CODICE_TIPO_FINANZIAMENTO>002</CODICE_TIPO_FINANZIAMENTO>
+					<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+					<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+					<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+					<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+					<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+				</movimenti>
+				<movimenti>
+					<TIPO_MOVIMENTO>U</TIPO_MOVIMENTO>
+					<OPERAZIONE>impegno</OPERAZIONE>
+					<CAPITOLO>10.103.90</CAPITOLO>
+					<NUMERO_CAPITOLO>90</NUMERO_CAPITOLO>
+					<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO - SISTEMI INFORMATIVI</DESCRIZIONE_CAPITOLO>
+					<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+					<CODICE_LIVELLO_5>E.1.03.02.19.009</CODICE_LIVELLO_5>
+					<DESCRIZIONE_LIVELLO_5>SERVIZI PER LE POSTAZIONI DI LAVORO E RELATIVA MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+					<IMPORTO>450,00</IMPORTO>
+					<NUMERO_MOVIMENTO>114</NUMERO_MOVIMENTO>
+					<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+					<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+					<CODICE_GLOBALE>1110013</CODICE_GLOBALE>
+					<CODICE_TIPO_FINANZIAMENTO>003</CODICE_TIPO_FINANZIAMENTO>
+					<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+					<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+					<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+					<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+					<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+				</movimenti>
+				<movimenti>
+					<TIPO_MOVIMENTO>U</TIPO_MOVIMENTO>
+					<OPERAZIONE>impegno</OPERAZIONE>
+					<CAPITOLO>10.103.12</CAPITOLO>
+					<NUMERO_CAPITOLO>12</NUMERO_CAPITOLO>
+					<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO</DESCRIZIONE_CAPITOLO>
+					<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+					<CODICE_LIVELLO_5>E.1.03.02.19.111</CODICE_LIVELLO_5>
+					<DESCRIZIONE_LIVELLO_5>SERVIZI DI MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+					<IMPORTO>60,50</IMPORTO>
+					<NUMERO_MOVIMENTO>115</NUMERO_MOVIMENTO>
+					<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+					<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+					<CODICE_GLOBALE>1110014</CODICE_GLOBALE>
+					<CODICE_TIPO_FINANZIAMENTO>004</CODICE_TIPO_FINANZIAMENTO>
+					<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+					<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+					<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+					<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+					<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+				</movimenti>
+			</movimenti_anagrafica>
+			<movimenti_anagrafica>
+				<RAGIONE_SOCIALE></RAGIONE_SOCIALE>
+				<COGNOME>ROSSI</COGNOME>
+				<NOME>MARIO</NOME>
+				<CODICE_FISCALE>XXXXXXXXXXXXXX</CODICE_FISCALE>
+				<PARTITA_IVA></PARTITA_IVA>
+				<INDIRIZZO>VIA DEL LAVORO</INDIRIZZO>
+				<CIVICO>17</CIVICO>
+				<COMUNE>BOLOGNA</COMUNE>
+				<CAP>40100</CAP>
+				<SIGLA_PROVINCIA>BO</SIGLA_PROVINCIA>
+				<TOTALE_U>700,00</TOTALE_U>
+				<TOTALE_E>200,00</TOTALE_E>
+				<movimenti>
+					<TIPO_MOVIMENTO>E</TIPO_MOVIMENTO>
+					<OPERAZIONE>accertamento</OPERAZIONE>
+					<CAPITOLO>10.103.80</CAPITOLO>
+					<NUMERO_CAPITOLO>80</NUMERO_CAPITOLO>
+					<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO - SISTEMI INFORMATIVI</DESCRIZIONE_CAPITOLO>
+					<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+					<CODICE_LIVELLO_5>U.1.03.02.19.009</CODICE_LIVELLO_5>
+					<DESCRIZIONE_LIVELLO_5>SERVIZI PER LE POSTAZIONI DI LAVORO E RELATIVA MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+					<IMPORTO>350,00</IMPORTO>
+					<NUMERO_MOVIMENTO>112</NUMERO_MOVIMENTO>
+					<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+					<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+					<CODICE_GLOBALE>1110011</CODICE_GLOBALE>
+					<CODICE_TIPO_FINANZIAMENTO>001</CODICE_TIPO_FINANZIAMENTO>
+					<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+					<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+					<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+					<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+					<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+				</movimenti>
+				<movimenti>
+					<TIPO_MOVIMENTO>E</TIPO_MOVIMENTO>
+					<OPERAZIONE>accertamento</OPERAZIONE>
+					<CAPITOLO>10.103.11</CAPITOLO>
+					<NUMERO_CAPITOLO>11</NUMERO_CAPITOLO>
+					<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO</DESCRIZIONE_CAPITOLO>
+					<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+					<CODICE_LIVELLO_5>U.1.03.02.19.111</CODICE_LIVELLO_5>
+					<DESCRIZIONE_LIVELLO_5>SERVIZI DI MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+					<IMPORTO>150,50</IMPORTO>
+					<NUMERO_MOVIMENTO>113</NUMERO_MOVIMENTO>
+					<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+					<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+					<CODICE_GLOBALE>1110012</CODICE_GLOBALE>
+					<CODICE_TIPO_FINANZIAMENTO>002</CODICE_TIPO_FINANZIAMENTO>
+					<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+					<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+					<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+					<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+					<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+				</movimenti>
+				<movimenti>
+					<TIPO_MOVIMENTO>U</TIPO_MOVIMENTO>
+					<OPERAZIONE>variazione di impegno</OPERAZIONE>
+					<CAPITOLO>10.103.90</CAPITOLO>
+					<NUMERO_CAPITOLO>90</NUMERO_CAPITOLO>
+					<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO - SISTEMI INFORMATIVI</DESCRIZIONE_CAPITOLO>
+					<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+					<CODICE_LIVELLO_5>E.1.03.02.19.009</CODICE_LIVELLO_5>
+					<DESCRIZIONE_LIVELLO_5>SERVIZI PER LE POSTAZIONI DI LAVORO E RELATIVA MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+					<IMPORTO>250,00</IMPORTO>
+					<NUMERO_MOVIMENTO>114</NUMERO_MOVIMENTO>
+					<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+					<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+					<CODICE_GLOBALE>1110013</CODICE_GLOBALE>
+					<CODICE_TIPO_FINANZIAMENTO>003</CODICE_TIPO_FINANZIAMENTO>
+					<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+					<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+					<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+					<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+					<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+				</movimenti>
+				<movimenti>
+					<TIPO_MOVIMENTO>U</TIPO_MOVIMENTO>
+					<OPERAZIONE>impegno</OPERAZIONE>
+					<CAPITOLO>10.103.12</CAPITOLO>
+					<NUMERO_CAPITOLO>12</NUMERO_CAPITOLO>
+					<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO</DESCRIZIONE_CAPITOLO>
+					<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+					<CODICE_LIVELLO_5>E.1.03.02.19.111</CODICE_LIVELLO_5>
+					<DESCRIZIONE_LIVELLO_5>SERVIZI DI MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+					<IMPORTO>70,50</IMPORTO>
+					<NUMERO_MOVIMENTO>115</NUMERO_MOVIMENTO>
+					<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+					<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+					<CODICE_GLOBALE>1110011</CODICE_GLOBALE>
+					<CODICE_TIPO_FINANZIAMENTO>001</CODICE_TIPO_FINANZIAMENTO>
+					<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+					<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+					<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+					<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+					<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+				</movimenti>
+			</movimenti_anagrafica>
+			<movimenti>
+				<TIPO_MOVIMENTO>U</TIPO_MOVIMENTO>
+				<OPERAZIONE>impegno</OPERAZIONE>
+				<CAPITOLO>10.103.80</CAPITOLO>
+				<NUMERO_CAPITOLO>80</NUMERO_CAPITOLO>
+				<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO - SISTEMI INFORMATIVI</DESCRIZIONE_CAPITOLO>
+				<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+				<CODICE_LIVELLO_5>U.1.03.02.19.009</CODICE_LIVELLO_5>
+				<DESCRIZIONE_LIVELLO_5>SERVIZI PER LE POSTAZIONI DI LAVORO E RELATIVA MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+				<IMPORTO>350,00</IMPORTO>
+				<NUMERO_MOVIMENTO>112</NUMERO_MOVIMENTO>
+				<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+				<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+				<CODICE_GLOBALE>1110012</CODICE_GLOBALE>
+				<CODICE_TIPO_FINANZIAMENTO>002</CODICE_TIPO_FINANZIAMENTO>
+				<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+				<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+				<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+				<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+				<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+			</movimenti>
+			<movimenti>
+				<TIPO_MOVIMENTO>E</TIPO_MOVIMENTO>
+				<OPERAZIONE>accertamento</OPERAZIONE>
+				<CAPITOLO>10.103.11</CAPITOLO>
+				<NUMERO_CAPITOLO>11</NUMERO_CAPITOLO>
+				<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO</DESCRIZIONE_CAPITOLO>
+				<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+				<CODICE_LIVELLO_5>U.1.03.02.19.111</CODICE_LIVELLO_5>
+				<DESCRIZIONE_LIVELLO_5>SERVIZI DI MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+				<IMPORTO>150,50</IMPORTO>
+				<NUMERO_MOVIMENTO>113</NUMERO_MOVIMENTO>
+				<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+				<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+				<CODICE_GLOBALE>1110013</CODICE_GLOBALE>
+				<CODICE_TIPO_FINANZIAMENTO>003</CODICE_TIPO_FINANZIAMENTO>
+				<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+				<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+				<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+				<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+				<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+			</movimenti>
+			<movimenti>
+				<TIPO_MOVIMENTO>U</TIPO_MOVIMENTO>
+				<OPERAZIONE>variazione di impegno</OPERAZIONE>
+				<CAPITOLO>10.103.90</CAPITOLO>
+				<NUMERO_CAPITOLO>90</NUMERO_CAPITOLO>
+				<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO - SISTEMI INFORMATIVI</DESCRIZIONE_CAPITOLO>
+				<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+				<CODICE_LIVELLO_5>E.1.03.02.19.009</CODICE_LIVELLO_5>
+				<DESCRIZIONE_LIVELLO_5>SERVIZI PER LE POSTAZIONI DI LAVORO E RELATIVA MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+				<IMPORTO>250,00</IMPORTO>
+				<NUMERO_MOVIMENTO>114</NUMERO_MOVIMENTO>
+				<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+				<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+				<CODICE_GLOBALE>1110014</CODICE_GLOBALE>
+				<CODICE_TIPO_FINANZIAMENTO>004</CODICE_TIPO_FINANZIAMENTO>
+				<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+				<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+				<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+				<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+				<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+			</movimenti>
+			<movimenti>
+				<TIPO_MOVIMENTO>U</TIPO_MOVIMENTO>
+				<OPERAZIONE>impegno</OPERAZIONE>
+				<CAPITOLO>10.103.12</CAPITOLO>
+				<NUMERO_CAPITOLO>12</NUMERO_CAPITOLO>
+				<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO</DESCRIZIONE_CAPITOLO>
+				<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+				<CODICE_LIVELLO_5>E.1.03.02.19.111</CODICE_LIVELLO_5>
+				<DESCRIZIONE_LIVELLO_5>SERVIZI DI MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+				<IMPORTO>70,50</IMPORTO>
+				<NUMERO_MOVIMENTO>115</NUMERO_MOVIMENTO>
+				<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+				<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+				<CODICE_GLOBALE>1110015</CODICE_GLOBALE>
+				<CODICE_TIPO_FINANZIAMENTO>005</CODICE_TIPO_FINANZIAMENTO>
+				<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+				<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+				<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+				<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+				<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+			</movimenti>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+		<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>id del visto</descrizione>
+			<path/>
+		</metaDato>
+		<!-- DEFINIZIONE CAMPI DELLA QUERY -->
+		<metaDato>
+			<nomeSimbolico>NUMERO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di adozione della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di adozione della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_DETERMINA_2</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Secondo numero della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_DETERMINA_2</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno del secondo numero della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della proposta di determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della proposta di determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di numerazione della proposta di determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice unità proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SUDDIVISIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Suddivisione dell'unità proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Denominazione dell'unità del visto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_UNITA_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice dell'unità destinataria del visto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SUDDIVISIONE_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Suddivisione dell'unità del visto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ESITO_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Esito del visto: valori possibili "favorevole", "contrario", "non apposto".
+				Se l'esito non    stato assegnato la variabile viene riproposta per essere calcolata in un secondo tempo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ESITO_VISTO_DEFINITIVO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Esito del visto: valori possibili "favorevole", "contrario", "non apposto".
+				Se il visto non è in firma la variabile viene riproposta per essere calcolata in un secondo tempo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOTE_CONTABILI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note contabili della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOTE_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Note del visto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_STAMPA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data creazione stampa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_FIRMA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di firma del visto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Firmatario del visto (valorizzato solo se il visto viene firmato digitalmente o con firma autografa)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è un dirigente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DELEGANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è stato delegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DIRIGENTE_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Dirigente / firmatario del visto (visibile in maschera)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ASCENDENTI_UNITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ascendenti unità visto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TIPOLOGIA_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia della proposta di determinazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TIPOLOGIA_VISTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia del visto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_FIRMA_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data in cui la proposta è stata firmata</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ART_COMMA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Articolo e comma del D.LGS. 267 del 18/8/2000</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_MOVIMENTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero movimenti contabili dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_TIPO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipologia di movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_DESCRIZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_IMPORTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_IMPORTO_ATTUALE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo attuale movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_RAGIONE_SOCIALE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ragione sociale del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_RIF_BIL_PEG</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Riferimento al bilancio / peg</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_DESCRIZIONE_BIL_PEG</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del capitolo di spesa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_ANNO_IMPEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno dell'impegno contabile a cui il sub-impegno si riferisce</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_NUMERO_IMPEGNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero dell'impegno contabile a cui il sub-impegno si riferisce</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_ANNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_NUMERO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_ENTRATA_SPESA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipo di movimento: E se entrata, S se spesa</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_CODICE_BENEFICIARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice del beneficiario del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_COD_LIVELLO_5</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>V livello del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_CODICE_SIOPE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice SIOPE del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_COD_TRANSAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice Transazione Elementare del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_CF_PARTITA_IVA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice Fiscale/Partita Iva del Beneficiario del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>MOVIMENTO_CF_PARTITA_IVA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice Fiscale/Partita Iva del Beneficiario del movimento contabile</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FAT_DATA_SCADENZA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Scadenza della fattura</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>IMP_ANNO_DEL</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno Atto Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>IMP_ANNO_DEL</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Atto Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>IMP_NUMERO_DEL</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Atto Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>IMP_SEDE_DEL</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Registro Atto Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>IMP_ANNO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno Proposta Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>IMP_NUMERO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Proposta Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>IMP_UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unita' Proponente Proposta Impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CIG</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice Identificativo Gara</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>AREA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Area dell'unita' proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SERVIZIO_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Servizio dell'unita' proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ID_MOVIMENTO_ANAGRAFICA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Id del record</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RAGIONE_SOCIALE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ragione sociale dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>COGNOME</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Cognome dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOME</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nome dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_FISCALE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice fiscale dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PARTITA_IVA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Partita iva dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INDIRIZZO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indirizzo dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CIVICO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Civico dell'indirizzo dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>COMUNE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Comune dell'indirizzo dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CAP</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Cap dell'indirizzo dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SIGLA_PROVINCIA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Provincia dell'indirizzo dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TOTALE_U</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Somma degli importi in uscita</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TOTALE_E</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Somma degli importi in entrata</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CAPITOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero completo capitolo del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_CAPITOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero capitolo del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_CAPITOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del capitolo del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_ESERCIZIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_LIVELLO_5</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice V Livello del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_LIVELLO_5</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione V Livello del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>IMPORTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TIPO_MOVIMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Movimento in entrata o uscita</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_MOVIMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero Movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OPERAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Tipo di operazione eseguita (impegno, variazione di impegno...)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CIG_MOVIMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice CIG del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CUP_MOVIMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice CUP del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_GLOBALE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice globale del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_TIPO_FINANZIAMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice del tipo finanziamento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TIPO_FINANZIAMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del tipo finanziamento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_LAVORO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice del lavoro relativo all'impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_LAVORO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del lavoro relativo all'impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_CENTRO_GESTORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice del centro gestore</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_CENTRO_GESTORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del centro gestore</descrizione>
+			<path/>
+		</metaDato>
+	</definitions>
+	<queryes>
+		<query id='visto'
+			   help_query_alias="v"
+			   help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, ANNO_DETERMINA_2, AREA_PROPONENTE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_FIRMA, DATA_STAMPA, DATA_PROPOSTA, DIRIGENTE_VISTO, ESITO_VISTO, ESITO_VISTO_DEFINITIVO, FIRMATARIO, NOTE_CONTABILI, NOTE_VISTO, NUMERO_DETERMINA, NUMERO_DETERMINA_2, NUMERO_PROPOSTA, OGGETTO_DETERMINA, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, ASCENDENTI_UNITA, CIG, DESCRIZIONE_FIRMATARIO, DELEGANTE, TIPOLOGIA_PROPOSTA, TIPOLOGIA_VISTO, CODICE_UNITA_VISTO, SUDDIVISIONE_VISTO, UNITA_VISTO, DATA_FIRMA_PROPOSTA, ART_COMMA, NUMERO_MOVIMENTI">
+			select decode(d.numero_determina, null, '${documentRoot.visto.NUMERO_DETERMINA}', d.numero_determina) NUMERO_DETERMINA
+			,  decode(d.numero_determina, null, '${documentRoot.visto.DATA_DETERMINA}', to_char (d.data_numero_determina, 'dd/mm/yyyy')) DATA_DETERMINA
+			,  decode(d.numero_determina, null, '${documentRoot.visto.ANNO_DETERMINA}', d.anno_determina) ANNO_DETERMINA
+			,  decode(d.numero_determina_2, null, '${documentRoot.visto.NUMERO_DETERMINA_2}', d.numero_determina_2) NUMERO_DETERMINA_2
+			,  decode(d.numero_determina_2, null, '${documentRoot.visto.ANNO_DETERMINA_2}', d.anno_determina_2) ANNO_DETERMINA_2
+			,  d.numero_proposta NUMERO_PROPOSTA
+			,  d.anno_proposta ANNO_PROPOSTA
+			,  decode(d.data_numero_proposta, null, '${documentRoot.visto.DATA_PROPOSTA}', to_char(d.data_numero_proposta,'dd/mm/yyyy'))  DATA_PROPOSTA
+			,  utility_pkg.get_suddivisione_uo_determina (d.id_determina) SUDDIVISIONE
+			,  utility_pkg.get_unita_prop_determina (d.id_determina) UNITA_PROPONENTE
+			,  utility_pkg.get_codice_unita_prop_dete (d.id_determina) CODICE_UNITA_PROPONENTE
+			,  utility_pkg.get_uo_descrizione (vp.unita_progr, vp.unita_dal) UNITA_VISTO
+			,  utility_pkg.get_codice_unita (vp.unita_progr, vp.unita_dal) CODICE_UNITA_VISTO
+			,  utility_pkg.get_suddivisione_vistoparere (vp.id_visto_parere) SUDDIVISIONE_VISTO
+			,  d.oggetto OGGETTO_DETERMINA
+			,  d.note_contabili NOTE_CONTABILI
+			,  decode(vp.esito, 'DA_VALUTARE', '${documentRoot.visto.ESITO_VISTO}', replace(vp.esito,'_',' ')) ESITO_VISTO
+			,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.ESITO_VISTO_DEFINITIVO}', replace(vp.esito,'_',' ')) ESITO_VISTO_DEFINITIVO
+			,  vp.note NOTE_VISTO
+			,  nvl(to_char(f.data_firma, 'dd/mm/yyyy'), '${documentRoot.visto.DATA_FIRMA}') DATA_FIRMA
+			,  to_char(sysdate,'dd/mm/yyyy') DATA_STAMPA
+			,  nvl(utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), d.ente), '${documentRoot.visto.FIRMATARIO}') FIRMATARIO
+			,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), d.ente)) DESCRIZIONE_FIRMATARIO
+			,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, d.ente)) DELEGANTE
+			,  nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario), vp.ente), '${documentRoot.visto.DIRIGENTE_VISTO}') DIRIGENTE_VISTO
+			,  utility_pkg.get_desc_ascendenti_unita(utility_pkg.get_codice_unita_prop_dete (d.id_determina), null, impostazioni_pkg.get_impostazione('OTTICA_SO4', d.ente), null) ASCENDENTI_UNITA
+			,  utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_AREA', d.ente) AREA_PROPONENTE
+			,  utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_SERVIZIO', d.ente) SERVIZIO_PROPONENTE
+			,  d.cig CIG
+			, td.titolo TIPOLOGIA_PROPOSTA
+			, tvp.titolo TIPOLOGIA_VISTO
+			, nvl (to_char ((select max (data_firma) data_firma_proposta
+			from firmatari fp
+			where fp.firmato = 'Y' and fp.id_determina = d.id_determina)
+			, 'dd/mm/yyyy'), '${documentRoot.visto.DATA_FIRMA_PROPOSTA}') DATA_FIRMA_PROPOSTA
+		    , (select art_comma
+			  from (select 'Visto di regolarita'' contabile attestante la copertura finanziaria
+				(art. 183, comma 7 del D.LGS. 267 del 18/8/2000)' art_comma,
+						   1   priorita
+					  from movimenti_contabili mv, visti_pareri vp
+					 where vp.id_visto_parere = #id
+					   and mv.id_documento = vp.id_determina
+					   and mv.tipo_uscita = 'U'
+					union
+					select 'Visto di regolarita'' contabile
+				ai sensi art. 179, comma 3 del D.LGS. 267 del 18/8/2000' art_comma,
+						   2   priorita
+					  from movimenti_contabili mv, visti_pareri vp
+					 where vp.id_visto_parere = #id
+					   and mv.id_documento = vp.id_determina
+					   and tipo_uscita = 'E'
+					order by priorita)
+			 where rownum = 1) art_comma,
+			(select count(1)
+			   from movimenti_contabili
+			  where id_documento = d.id_determina
+			    and tipo_documento = 'DETERMINA') numero_movimenti
+			from  determine d
+			,  visti_pareri vp
+			,  firmatari f
+			, tipi_determina td
+			, tipi_visto_parere tvp
+			where vp.id_visto_parere = #id
+			and vp.id_determina = d.id_determina
+			and d.id_tipo_determina = td.id_tipo_determina
+			and vp.id_tipologia = tvp.id_tipo_visto_parere
+			and f.id_visto_parere(+) = vp.id_visto_parere
+			and f.data_firma(+) is not null
+			and f.firmato(+) = 'N'
+		</query>
+		<query id='movimenti_anagrafica'
+			   child="movimenti"
+			   help_descrizione="Ritorna le anagrafiche legate ai movimenti contabili."
+			   help_query_alias="ma"
+			   help_field_aliases="RAGIONE_SOCIALE, COGNOME, NOME, CODICE_FISCALE, PARTITA_IVA, INDIRIZZO, CIVICO, COMUNE, CAP, SIGLA_PROVINCIA, TOTALE_U, TOTALE_E">
+select distinct m.id_documento,
+                ma.id_movimento_anagrafica ID_MOVIMENTO_ANAGRAFICA,
+                ma.ragione_sociale RAGIONE_SOCIALE,
+                ma.cognome COGNOME,
+                ma.nome NOME,
+                ma.codice_fiscale CODICE_FISCALE,
+                ma.partita_iva PARTITA_IVA,
+                ma.indirizzo INDIRIZZO,
+                ma.civico CIVICO,
+                ma.comune COMUNE,
+                ma.cap CAP,
+                ma.sigla_provincia SIGLA_PROVINCIA,
+                (select trim(TO_CHAR(abs(sum(m1.importo)), '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))
+			       from movimenti_contabili m1
+                  where m1.tipo_uscita = 'U'
+                    and nvl(m1.id_movimento_anagrafica, -9999) = nvl(m.id_movimento_anagrafica, -9999)
+                    and m1.id_documento = vp.id_determina
+                    and m1.tipo_documento = 'DETERMINA') TOTALE_U,
+                (select trim(TO_CHAR(abs(sum(m1.importo)), '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))
+                   from movimenti_contabili m1
+                  where m1.tipo_uscita = 'E'
+                    and nvl(m1.id_movimento_anagrafica, -9999) = nvl(m.id_movimento_anagrafica, -9999)
+                    and m1.id_documento = vp.id_determina
+                    and m1.tipo_documento = 'DETERMINA') TOTALE_E
+  from visti_pareri         vp,
+       movimenti_contabili  m,
+       movimenti_anagrafica ma
+ where vp.id_visto_parere = #id
+   and m.id_documento = vp.id_determina
+   and m.id_movimento_anagrafica = ma.id_movimento_anagrafica(+)
+union
+select cast(null as number) id_documento,
+       cast(null as number) ID_MOVIMENTO_ANAGRAFICA,
+       cast(null as varchar2(255)) RAGIONE_SOCIALE,
+       cast(null as varchar2(255)) COGNOME,
+       cast(null as varchar2(255)) NOME,
+       cast(null as varchar2(255)) CODICE_FISCALE,
+       cast(null as varchar2(255)) PARTITA_IVA,
+       cast(null as varchar2(255)) INDIRIZZO,
+       cast(null as varchar2(255)) CIVICO,
+       cast(null as varchar2(255)) COMUNE,
+       cast(null as varchar2(255)) CAP,
+       cast(null as varchar2(255)) SIGLA_PROVINCIA,
+       cast(null as varchar2(255)) TOTALE_U,
+       cast(null as varchar2(255)) TOTALE_E
+  from dual
+ where not exists
+ (select 1
+          from visti_pareri         vp,
+               movimenti_contabili  m,
+               movimenti_anagrafica ma
+         where vp.id_visto_parere = #id
+           and m.id_documento = vp.id_determina
+           and m.id_movimento_anagrafica = ma.id_movimento_anagrafica(+))
+ order by ragione_sociale asc,
+          cognome         asc,
+          nome            asc
+		</query>
+		<query id='movimenti'
+			   help_descrizione="Ritorna i movimenti contabili"
+			   help_query_alias="m"
+			   help_field_aliases="TIPO_MOVIMENTO, CAPITOLO, OPERAZIONE, NUMERO_CAPITOLO, DESCRIZIONE_CAPITOLO, ANNO_ESERCIZIO, NUMERO_MOVIMENTO, CODICE_LIVELLO_5, DESCRIZIONE_LIVELLO_5, IMPORTO, CIG_MOVIMENTO, CUP_MOVIMENTO, CODICE_GLOBALE, CODICE_TIPO_FINANZIAMENTO, TIPO_FINANZIAMENTO, CODICE_LAVORO, DESCRIZIONE_LAVORO, CODICE_CENTRO_GESTORE, DESCRIZIONE_CENTRO_GESTORE">
+select case
+		 when m.opera = 'ACCERTAMENTO' then 1
+         when m.opera = 'ACCERTAMENTO_VARIAZIONE' then 2
+         when m.opera = 'IMPEGNO' then 3
+         when m.opera = 'IMPEGNO_VARIAZIONE' then 4
+         when m.opera = 'SUBIMPEGNO' then 5
+         when m.opera = 'SUBIMPEGNO_VARIAZIONE' then 6
+         when m.opera = 'IMPEGNO_PRENOTAZIONE' then 7
+         when m.opera = 'PRENOTAZIONE' then 8
+         when m.opera = 'PRENOTAZIONE_VARIAZIONE' then 9
+       end ORDINAMENTO_1,
+       M.ANNO_ESERCIZIO ORDINAMENTO_2,
+       case
+         when m.opera = 'PRENOTAZIONE' then (m.progressivo_esterno)
+         when m.opera = 'PRENOTAZIONE_VARIAZIONE' then (m.numero_variazione)
+         when m.opera = 'IMPEGNO' then (m.progressivo_esterno)
+         when m.opera = 'IMPEGNO_PRENOTAZIONE' then (m.progressivo_esterno)
+         when m.opera = 'IMPEGNO_VARIAZIONE' then (m.numero_variazione)
+         when m.opera = 'SUBIMPEGNO' then (m.progressivo_esterno)
+         when m.opera = 'SUBIMPEGNO_VARIAZIONE' then TO_NUMBER(m.numero_impegno_padre)
+         when m.opera = 'ACCERTAMENTO' then (m.progressivo_esterno)
+         when m.opera = 'ACCERTAMENTO_VARIAZIONE' then (m.numero_variazione)
+       end ORDINAMENTO_3,
+		m.tipo_uscita TIPO_MOVIMENTO,
+       case
+         when m.opera = 'PRENOTAZIONE' then 'prenotazione'
+         when m.opera = 'PRENOTAZIONE_VARIAZIONE' then 'variazione di prenotazione'
+         when m.opera = 'IMPEGNO' then 'impegno'
+         when m.opera = 'IMPEGNO_PRENOTAZIONE' then 'impegno su prenotazione'
+         when m.opera = 'IMPEGNO_VARIAZIONE' then 'variazione di impegno'
+         when m.opera = 'SUBIMPEGNO' then 'sub-impegno'
+         when m.opera = 'SUBIMPEGNO_VARIAZIONE' then 'variazione di sub-impegno'
+         when m.opera = 'ACCERTAMENTO' then 'accertamento'
+         when m.opera = 'ACCERTAMENTO_VARIAZIONE' then 'variazione di accertamento'
+       end OPERAZIONE,
+       m.capitolo CAPITOLO,
+       m.numero NUMERO_CAPITOLO,
+       m.descrizione_capitolo DESCRIZIONE_CAPITOLO,
+       m.anno_esercizio ANNO_ESERCIZIO,
+       m.pdc_liv_5 CODICE_LIVELLO_5,
+       m.descrizione_pdc_liv_5 DESCRIZIONE_LIVELLO_5,
+       case
+         when m.opera = 'PRENOTAZIONE' then to_char(m.progressivo_esterno)
+         when m.opera = 'PRENOTAZIONE_VARIAZIONE' then to_char(m.numero_variazione)
+         when m.opera = 'IMPEGNO' then to_char(m.progressivo_esterno)
+         when m.opera = 'IMPEGNO_PRENOTAZIONE' then to_char(m.progressivo_esterno)
+         when m.opera = 'IMPEGNO_VARIAZIONE' then to_char(m.numero_variazione)
+         when m.opera = 'SUBIMPEGNO' then to_char(m.progressivo_esterno)
+         when m.opera = 'SUBIMPEGNO_VARIAZIONE' then to_char(m.numero_impegno_padre)
+         when m.opera = 'ACCERTAMENTO' then to_char(m.progressivo_esterno)
+         when m.opera = 'ACCERTAMENTO_VARIAZIONE' then to_char(m.numero_variazione)
+       end NUMERO_MOVIMENTO,
+       m.cig CIG_MOVIMENTO,
+       m.cup CUP_MOVIMENTO,
+       m.codice_globale CODICE_GLOBALE,
+       m.cod_tipo_finanz CODICE_TIPO_FINANZIAMENTO,
+       m.des_tipo_finanz TIPO_FINANZIAMENTO,
+       m.cod_lavoro CODICE_LAVORO,
+       m.des_lavoro DESCRIZIONE_LAVORO,
+       m.codice_centro_gestore CODICE_CENTRO_GESTORE,
+       m.descrizione_centro_gestore DESCRIZIONE_CENTRO_GESTORE,
+       trim(TO_CHAR(m.importo, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) IMPORTO,
+       m.numero
+  from movimenti_contabili m
+ where m.id_documento = @ID_DOCUMENTO
+   and m.tipo_documento = 'DETERMINA'
+   and nvl(m.id_movimento_anagrafica, -9999) = nvl(@ID_MOVIMENTO_ANAGRAFICA, -9999)
+union all
+select cast(null as number) ORDINAMENTO_1,
+		cast(null as number) ORDINAMENTO_2,
+		cast(null as number) ORDINAMENTO_3,
+        cast(null as varchar2(255)) TIPO_MOVIMENTO,
+        cast(null as varchar2(50)) OPERAZIONE,
+        cast(null as varchar2(255)) CAPITOLO,
+        cast(null as number) NUMERO_CAPITOLO,
+        cast(null as varchar2(4000)) DESCRIZIONE_CAPITOLO,
+        cast(null as number) ANNO_ESERCIZIO,
+        cast(null as varchar2(255)) CODICE_LIVELLO_5,
+        cast(null as varchar2(4000)) DESCRIZIONE_LIVELLO_5,
+        cast(null as varchar2(255)) NUMERO_MOVIMENTO,
+        cast(null as varchar2(255)) CIG_MOVIMENTO,
+        cast(null as varchar2(255)) CUP_MOVIMENTO,
+        cast(null as varchar2(255)) CODICE_GLOBALE,
+        cast(null as varchar2(255)) CODICE_TIPO_FINANZIAMENTO,
+        cast(null as varchar2(255)) TIPO_FINANZIAMENTO,
+        cast(null as varchar2(255)) CODICE_LAVORO,
+        cast(null as varchar2(4000)) DESCRIZIONE_LAVORO,
+        cast(null as varchar2(255)) CODICE_CENTRO_GESTORE,
+        cast(null as varchar2(4000)) DESCRIZIONE_CENTRO_GESTORE,
+        cast(null as varchar2(30)) IMPORTO,
+        cast(null as number) NUMERO
+  from dual
+ where not exists (select 1
+          from movimenti_contabili m
+         where m.id_documento = @ID_DOCUMENTO
+           and m.tipo_documento = 'DETERMINA'
+           and nvl(m.id_movimento_anagrafica, -9999) = nvl(@ID_MOVIMENTO_ANAGRAFICA, -9999))
+ order by ordinamento_1    asc,
+             ordinamento_2    asc,
+             ordinamento_3    asc,
+             numero           	asc,
+             anno_esercizio   	asc,
+             codice_livello_5  asc
+		</query>
+	</queryes>
+	<staticData />
+</documentRoot>

@@ -1,6 +1,7 @@
 package it.finmatica.atti.odg
 
-import it.finmatica.ad4.autenticazione.Ad4Utente;
+import it.finmatica.ad4.autenticazione.Ad4Utente
+import it.finmatica.atti.dizionari.TipoRegistro;
 import it.finmatica.atti.odg.dizionari.RuoloPartecipante;
 import it.finmatica.atti.odg.dizionari.Voto;
 import it.finmatica.so4.struttura.So4Amministrazione;
@@ -27,6 +28,14 @@ class OggettoPartecipante {
 	int sequenzaFirma
 	int sequenza
 
+	//Gestione delega
+	boolean delega					= false
+	SedutaPartecipante sedutaPartecipanteDelegato
+	Date   dataNumeroProtocolloDelega
+	Integer numeroProtocolloDelega
+	Integer annoProtocolloDelega
+	TipoRegistro registroProtocolloDelega
+
 	So4Amministrazione ente
 	Date 		dateCreated
 	Ad4Utente 	  utenteIns
@@ -35,15 +44,22 @@ class OggettoPartecipante {
 
 	static mapping = {
 		table 'odg_oggetti_partecipanti'
-		id 					column: 'id_oggetto_partecipante'
-		oggettoSeduta		column: 'id_oggetto_seduta', 		index: 'odgoggpar_odgoggsed_fk'
-		sedutaPartecipante 	column: 'id_seduta_partecipante', 	index: 'odgoggpar_odgsedpar_fk'
-		voto 				column: 'id_voto'
-		ruoloPartecipante 	column: 'ruolo_partecipante'
+		id 							column: 'id_oggetto_partecipante'
+		oggettoSeduta				column: 'id_oggetto_seduta', 		index: 'odgoggpar_odgoggsed_fk'
+		sedutaPartecipante 			column: 'id_seduta_partecipante', 	index: 'odgoggpar_odgsedpar_fk'
+		sedutaPartecipanteDelegato	column: 'id_partecipante_delegato', index: 'odgoggpardel_odgsedpar_fk'
+		voto 						column: 'id_voto'
+		ruoloPartecipante 			column: 'ruolo_partecipante'
+
+		dataNumeroProtocolloDelega  column: 'data_numero_protocollo_delega'
+		numeroProtocolloDelega		column: 'numero_protocollo_delega'
+		annoProtocolloDelega  		column: 'anno_protocollo_delega'
+		registroProtocolloDelega  	column: 'registro_protocollo_delega'
 
 		presente 				type: 'yes_no'
 		assenteNonGiustificato 	type: 'yes_no'
 		firmatario 				type: 'yes_no'
+		delega 					type: 'yes_no'
 
 		ente		column: 'ente'
 		dateCreated column: 'data_ins'
@@ -53,9 +69,14 @@ class OggettoPartecipante {
 	}
 
     static constraints = {
-		ruoloPartecipante 	nullable:true
-		voto 				nullable:true
-		presente 			nullable:true
+		ruoloPartecipante 			nullable:true
+		voto 						nullable:true
+		presente 					nullable:true
+		sedutaPartecipanteDelegato 	nullable: true
+		dataNumeroProtocolloDelega 	nullable: true
+		numeroProtocolloDelega 		nullable: true
+		annoProtocolloDelega 		nullable: true
+		registroProtocolloDelega 	nullable: true
     }
 
 	private SpringSecurityService getSpringSecurityService () {		return Holders.applicationContext.getBean("springSecurityService")    }

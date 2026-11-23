@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <documentRoot>
-		<descrizione>Parere (Contabilità Sfera)</descrizione>
+		<descrizione>Parere (Contabilità Ascot)</descrizione>
 	<connections>
 		<connectionJNDI>jdbc/agsde2</connectionJNDI>
 	</connections>
@@ -395,7 +395,7 @@
      , nvl(utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), pd.ente), '${documentRoot.parere.FIRMATARIO}' ) FIRMATARIO
 	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), pd.ente)) DESCRIZIONE_FIRMATARIO
 	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, pd.ente)) DELEGANTE
-     , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario)), '${documentRoot.visto.DIRIGENTE_PARERE}') DIRIGENTE_PARERE
+     , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario), vp.ente), '${documentRoot.visto.DIRIGENTE_PARERE}') DIRIGENTE_PARERE
      , decode(vp.esito, 'DA_VALUTARE', '${documentRoot.parere.ESITO_PARERE}', replace(vp.esito,'_',' ')) ESITO_PARERE
 	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.ESITO_PARERE_DEFINITIVO}', replace(vp.esito,'_',' ')) ESITO_PARERE_DEFINITIVO
      , (select trim(TO_CHAR(sum(m.importo),       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m where m.tipo = 'ENTRATA' and m.id_documento = pd.id_proposta_delibera and m.tipo_documento = 'PROPOSTA_DELIBERA') M_TOTALE_ENTRATE
@@ -433,10 +433,10 @@ select nvl(to_char(pd.numero_proposta), '${documentRoot.parere.NUMERO_PROPOSTA}'
      , vp.note NOTE
      , decode(f.data_firma, null, '${documentRoot.parere.DATA_FIRMA}', to_char(f.data_firma, 'dd/mm/yyyy')) DATA_FIRMA
      , to_char(sysdate,'dd/mm/yyyy') DATA_STAMPA
-     , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario))), '${documentRoot.parere.FIRMATARIO}' ) FIRMATARIO
+     , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), vp.ente), '${documentRoot.parere.FIRMATARIO}' ) FIRMATARIO
 	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), pd.ente)) DESCRIZIONE_FIRMATARIO
 	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, pd.ente)) DELEGANTE
-     , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario)), '${documentRoot.visto.DIRIGENTE_PARERE}') DIRIGENTE_PARERE
+     , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario), vp.ente), '${documentRoot.visto.DIRIGENTE_PARERE}') DIRIGENTE_PARERE
      , decode(vp.esito, 'DA_VALUTARE', '${documentRoot.parere.ESITO_PARERE}', replace(vp.esito,'_',' ')) ESITO_PARERE
 	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.ESITO_PARERE_DEFINITIVO}', replace(vp.esito,'_',' ')) ESITO_PARERE_DEFINITIVO
 	 , (select trim(TO_CHAR(abs(sum(m.importo)),       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m where m.tipo = 'ENTRATA' and m.id_documento = pd.id_proposta_delibera and m.tipo_documento = 'PROPOSTA_DELIBERA') M_TOTALE_ENTRATE

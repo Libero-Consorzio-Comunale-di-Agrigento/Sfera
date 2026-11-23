@@ -18,6 +18,7 @@ class ControlloRegolaritaDocumento {
 		delibera 					column: 'id_delibera',				index: 'conregdoc_del_fk'
 		esitoControlloRegolarita 	column: 'id_esito_controllo_reg',	index: 'conregdoc_esito_fk'
 		notificata					type: 	'yes_no'
+		note						length: 4000
 	}
 
     static constraints = {

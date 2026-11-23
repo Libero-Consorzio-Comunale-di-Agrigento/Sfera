@@ -143,4 +143,7 @@ public abstract class AbstractIntegrazioneContabilita implements IntegrazioneCon
 		return true;
 	}
 
+	BigDecimal totaleImporto(IDocumento documento, String tipo) {
+		return null;
+	}
 }

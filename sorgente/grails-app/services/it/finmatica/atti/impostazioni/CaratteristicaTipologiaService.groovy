@@ -22,6 +22,16 @@ class CaratteristicaTipologiaService {
      * @param aggiungiNuovo indica se va sostituito il soggetto oppure se ne va aggiunto uno nuovo.
      */
     void salvaSoggettiModificati (IDocumento documento, Map<String, SoggettoDocumento> soggetti, boolean aggiungiNuovo = false) {
+        Map<String, SoggettoDocumento> soggettiDaRimouovere = [:]
+        for (def soggetto : soggetti) {
+            if (soggetto.value?.id == null) {
+                soggettiDaRimouovere.put(soggetto.key, soggetto.value)
+            }
+        }
+        //rimuovo i soggetti con indice nullo
+        for(def soggettoDaRimuovere: soggettiDaRimouovere){
+            soggetti.remove(soggettoDaRimuovere.key)
+        }
         for (def soggetto : soggetti) {
             if (soggetto.value.modificato && soggetto.value.lista.size() == 0) {
                 int sequenza = 0
@@ -59,7 +69,12 @@ class CaratteristicaTipologiaService {
                 s.id = sogg.id
             }
         }
-
+        //cancello i soggetti che non hanno indice, ad esempio quando si rimuove l'incaricato.
+        for(def soggettoDaRimuovere: soggettiDaRimouovere){
+            ISoggettoDocumento soggettoDocumento = documento.getSoggetto(soggettoDaRimuovere.key)
+            documento.removeFromSoggetti(soggettoDocumento)
+            soggettoDocumento.delete()
+        }
         documento.save()
     }
 

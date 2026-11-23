@@ -7,6 +7,7 @@ import it.finmatica.atti.documenti.*
 import it.finmatica.atti.dto.documenti.ControlloRegolaritaDTO
 import it.finmatica.atti.dto.documenti.ControlloRegolaritaDocumentoDTO
 import it.finmatica.atti.exceptions.AttiRuntimeException
+//import it.finmatica.gestioneiter.IDocumentoIterabile
 import it.finmatica.gestionetesti.GestioneTestiService
 import org.apache.log4j.Logger
 import org.hibernate.FetchMode
@@ -344,7 +345,7 @@ class ControlloRegolaritaDTOService {
         def mappaParametri = [:]
         mappaParametri["id"] = controlloRegolarita.id
 
-        InputStream testoPdf = gestioneTestiService.stampaUnione(controlloRegolarita.modelloTesto.domainObject, mappaParametri, GestioneTestiService.FORMATO_PDF)
+        InputStream testoPdf = gestioneTestiService.stampaUnione(controlloRegolarita.modelloTesto.domainObject, mappaParametri, GestioneTestiService.FORMATO_PDF,  true)
         Filedownload.save(testoPdf, GestioneTestiService.getContentType(GestioneTestiService.FORMATO_PDF), "Stampa Riassuntiva.pdf")
     }
 
@@ -363,7 +364,14 @@ class ControlloRegolaritaDTOService {
                 try {
                     log.debug("NotificaControlloRegolarita: invio della notifica")
                     notificheService.notifica(notifica, sottolista, [soggettoNotifica])
-                    for (controlloRegolaritaDocumento in sottolista) {
+                    for (ControlloRegolaritaDocumento controlloRegolaritaDocumento in sottolista) {
+//                        IDocumentoIterabile documento
+//                        if ("DETERMINA".equals(controlloRegolarita.ambito)) {
+//                            documento = controlloRegolaritaDocumento.determina
+//                        } else {
+//                            documento = controlloRegolaritaDocumento.delibera
+//                        }
+//                        notificheService.notifica(notifica, documento, [soggettoNotifica])
                         log.debug("NotificaControlloRegolarita: inviata notifica per il documento " + controlloRegolaritaDocumento?.id)
                         controlloRegolaritaDocumento.notificata = true;
                         controlloRegolaritaDocumento.save()

@@ -6,6 +6,7 @@ import grails.util.Holders
 import it.finmatica.ad4.autenticazione.Ad4Ruolo
 import it.finmatica.ad4.autenticazione.Ad4Utente
 import it.finmatica.as4.As4SoggettoCorrente
+import it.finmatica.atti.IDocumentoEsterno
 import it.finmatica.atti.IGestoreFile
 import it.finmatica.atti.commons.FileAllegato
 import it.finmatica.atti.commons.SoggettiAttoriService
@@ -19,6 +20,7 @@ import it.finmatica.atti.exceptions.AttiRuntimeException
 import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.impostazioni.TipoSoggetto
 import it.finmatica.atti.integrazioni.DistintaAtto
+import it.finmatica.atti.integrazioni.jworklist.JWorklistConfig
 import it.finmatica.atti.integrazioni.jworklist.JWorklistDispatcher
 import it.finmatica.atti.mail.Allegato
 import it.finmatica.atti.odg.OggettoSeduta
@@ -28,7 +30,9 @@ import it.finmatica.atti.odg.SedutaStampa
 import it.finmatica.atti.odg.dizionari.OrganoControlloComponente
 import it.finmatica.atti.odg.dizionari.RuoloPartecipante
 import it.finmatica.gestioneiter.IDocumentoIterabile
+import it.finmatica.gestioneiter.motore.WkfStep
 import it.finmatica.gestionetesti.GestioneTestiService
+import it.finmatica.gestionetesti.TipoFile
 import it.finmatica.so4.strutturaPubblicazione.So4ComponentePubb
 import it.finmatica.so4.strutturaPubblicazione.So4UnitaPubb
 import org.apache.commons.io.FileUtils
@@ -39,6 +43,9 @@ import org.hibernate.criterion.CriteriaSpecification
 
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
+
+import static it.finmatica.zkutils.LabelUtils.getLabel as l
+import org.zkoss.util.resource.Labels
 
 /**
  * Questa classe si occupa di tutta la gestione di invio e calcolo delle notifiche sia email che jworklist.
@@ -138,28 +145,34 @@ class NotificheService {
 									, UNITA_PROPONENTE		: [metodo: "getUnitaProponente"         , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																				, descrizione: "La descrizione dell'Unità Proponente." ]
 									, N_PROPOSTA			: [metodo: "getNumeroProposta"          , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA", "OGGETTO_SEDUTA"]																, descrizione: "Il numero della Proposta." ]
 									, ANNO_PROPOSTA			: [metodo: "getAnnoProposta"            , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA", "OGGETTO_SEDUTA"]																, descrizione: "L'anno della Proposta." ]
+                                    , DATA_PROPOSTA			: [metodo: "getDataProposta"            , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA", "OGGETTO_SEDUTA"]																, descrizione: "La data di numerazione della Proposta." ]
 									, ESITO_PROPOSTA		: [metodo: "getEsitoProposta"           , oggetti: ["PROPOSTA_DELIBERA", "DELIBERA", "OGGETTO_SEDUTA"]																			, descrizione: "L'esito della proposta ottenuto in seduta." ]
 									, NOTE_VERBALIZZAZIONE	: [metodo: "getNoteVerbalizzazione"     , oggetti: ["PROPOSTA_DELIBERA", "DELIBERA", "OGGETTO_SEDUTA"]																			, descrizione: "Le Note di Verbalizzazione scritte in seduta." ]
 									, DATA_SEDUTA			: [metodo: "getDataSeduta"              , oggetti: ["PROPOSTA_DELIBERA", "DELIBERA", "OGGETTO_SEDUTA", "SEDUTA"]																, descrizione: "Data della Seduta di discussione." ]
 									, ORA_SEDUTA			: [metodo: "getOraSeduta"               , oggetti: ["PROPOSTA_DELIBERA", "DELIBERA", "OGGETTO_SEDUTA", "SEDUTA"]																, descrizione: "Ora delle Seduta di discussione." ]
 									, COMMISSIONE			: [metodo: "getCommissione"             , oggetti: ["PROPOSTA_DELIBERA", "DELIBERA", "SEDUTA", "OGGETTO_SEDUTA"]																, descrizione: "Commissione di discussione." ]
 									, GIORNO_SEDUTA			: [metodo: "getGiornoSeduta"            , oggetti: ["PROPOSTA_DELIBERA", "DELIBERA", "SEDUTA", "OGGETTO_SEDUTA"]																, descrizione: "Nome del giorno per esteso (ad es. 'lunedì') di della seduta di discussione." ]
+									, TITOLO_STAMPA_SEDUTA  : [metodo: "getTitoloStampaSeduta"      , oggetti: ["SEDUTA", "OGGETTO_SEDUTA"]																											, descrizione: "Titolo della stampa di convocazione o verbale che si sta inviando" ]
 									, N_DELIBERA			: [metodo: "getNumero"                  , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																				, descrizione: "Numero della Delibera" ]
 									, ANNO_DELIBERA			: [metodo: "getAnno"                    , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																				, descrizione: "Anno della Delibera" ]
 									, DATA_INVIO 			: [metodo: "getDataInvio"               , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA", "OGGETTO_SEDUTA", "SEDUTA", "ORGANI_DI_CONTROLLO", "CONTROLLO_REGOLARITA"]	, descrizione: "La data di invio della notifica." ]
-									, DATA_PUBBLICAZIONE	: [metodo: "getDataPubblicazione"       , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA", "ORGANI_DI_CONTROLLO"]														, descrizione: "Periodo di date di pubblicazione scelto nella notifica agli organi di controllo." ]
+									, DATA_PUBBLICAZIONE	: [metodo: "getDataPubblicazione"       , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA", "ORGANI_DI_CONTROLLO"]									, descrizione: "Periodo di date di pubblicazione scelto nella notifica agli organi di controllo." ]
 									, GIORNI_PUBB			: [metodo: "getGiorniPubblicazione"     , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																				, descrizione: "Numero dei giorni di pubblicazione se presenti le date di pubblicazione, oppure 'fino a revoca' se la pubblicazione è fino a revoca." ]
 									, TIPOLOGIA				: [metodo: "getTipologia"               , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																				, descrizione: "Titolo per la notifica della Tipologia del documento se presente, altrimenti il nome della tipologia del documento." ]
 									, TIPOLOGIA_ATTO		: [metodo: "getTipologiaDocumentoPrincipale", oggetti: ["VISTO_PARERE", "CERTIFICATI"]																							, descrizione: "Titolo per la notifica della Tipologia del documento principale se presente, altrimenti il nome della tipologia del documento principale." ]
-									, ESTREMI_DOCUMENTO		: [metodo: "getEstremiDocumento"        , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																				, descrizione: "La dicitura: ATTO N.[N_ATTO]/[N_PROPOSTA] PROPOSTA N.[N_PROP]/[ANNO_PROP] se l'atto è numerato, altrimenti solo la parte relativa alla proposta." ]
-									, STATO					: [metodo: "getStato"                   , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																				, descrizione: "Il nome del nodo corrente in cui si trova il documento." ]
-									, URL_DOCUMENTO			: [metodo: "getUrlDocumento"            , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																				, descrizione: "Url a cui è possibile aprire direttamente il documento." ]
-									, ELENCO_FORNITORI		: [metodo: "getElencoFornitoriDistintaAtto", oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																			, descrizione: "Elenco dei fornitori associati al documento." ]
-									, ELENCO_IMPEGNI		: [metodo: "getElencoImpegniDistintaAtto", oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																				, descrizione: "Elenco degli impegni associati al documento." ]
+									, ESTREMI_DOCUMENTO		: [metodo: "getEstremiDocumento"        , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																, descrizione: "La dicitura: ATTO N.[N_ATTO]/[N_PROPOSTA] PROPOSTA N.[N_PROP]/[ANNO_PROP] se l'atto è numerato, altrimenti solo la parte relativa alla proposta." ]
+									, STATO					: [metodo: "getStato"                   , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																				    , descrizione: "Il nome del nodo corrente in cui si trova il documento." ]
+									, URL_DOCUMENTO			: [metodo: "getUrlDocumento"            , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																		, descrizione: "Url a cui è possibile aprire direttamente il documento." ]
+									, ELENCO_FORNITORI		: [metodo: "getElencoFornitoriDistintaAtto", oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																	, descrizione: "Elenco dei fornitori associati al documento." ]
+									, ELENCO_IMPEGNI		: [metodo: "getElencoImpegniDistintaAtto", oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																		, descrizione: "Elenco degli impegni associati al documento." ]
 									, IMPORTO				: [metodo: "getImportoDistintaAtto" 	, oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																				, descrizione: "Importo totale della distinta associata al documento." ]
-									, SCADENZA_DAL			: [metodo: "getScadenzaDalDistintaAtto" , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																				, descrizione: "Data minima di scadenza delle fatture associate al documento." ]
-									, SCADENZA_AL			: [metodo: "getScadenzaAlDistintaAtto"  , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																				, descrizione: "Data massima di scadenza delle fatture associate al documento." ]
+									, SCADENZA_DAL			: [metodo: "getScadenzaDalDistintaAtto" , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																		, descrizione: "Data minima di scadenza delle fatture associate al documento." ]
+									, SCADENZA_AL			: [metodo: "getScadenzaAlDistintaAtto"  , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																		, descrizione: "Data massima di scadenza delle fatture associate al documento." ]
 									, ELENCO_CONTROLLI		: [metodo: "getElencoAttiControllati"   , oggetti: ["CONTROLLO_REGOLARITA"]																										, descrizione: "Elenco degli atti sottoposti a controllo di regolarità." ]
+									, IMPATTO_GENERAZIONALE	: [metodo: "getImpattoGenerazionale"    , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA"]																, descrizione: "Impatto generazionale" ]
+									, TITOLO_LIQUIDAZIONE	: [metodo: "getTitoloDistinta"          , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA", "VISTO_PARERE", "CERTIFICATO"]							, descrizione: "Titolo Primo o Secondo della liquidazione" ]
+									, NUMERO_DISTINTA	    : [metodo: "getNumeroDistinta"          , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA", "VISTO_PARERE", "CERTIFICATO"]								, descrizione: "Numero / Anno della distinta di liquidazione" ]
+                                    , NUMERO_PASSAGGI    : [metodo: "getNumeroPassaggiStepCorrente" , oggetti: ["PROPOSTA_DELIBERA", "DETERMINA", "DELIBERA", "VISTO_PARERE", "CERTIFICATO", "OGGETTO_SEDUTA"]	, descrizione: "Numero di volte che il documento è passato nello step (valorizzato solo se maggiore di 1)" ]
 									]
 
 	// services
@@ -169,6 +182,7 @@ class NotificheService {
     SoggettiAttoriService         	soggettiAttoriService
     GestioneTestiService          	gestioneTestiService
     JWorklistDispatcher           	jworklistDispatcher
+    JWorklistConfig                JWorklistConfig
 	AttiGestioneTesti               gestioneTesti
 
 	// beans
@@ -468,14 +482,34 @@ class NotificheService {
 		return distinta?.importo ? "IMPORTO EURO: "+formatter.format(distinta.importo): ""
 	}
 
+	String getTitoloDistinta(IDocumentoIterabile documentoIterabile){
+		DistintaAtto distinta = getDistinta(documentoIterabile)
+		return distinta?.titolo ? distinta.titolo : ""
+	}
+
+	String getNumeroDistinta(IDocumentoIterabile documentoIterabile){
+		String valore = ""
+		DistintaAtto distinta = getDistinta(documentoIterabile)
+		if (distinta) {
+			valore = Labels.getLabel("label.smartDesktop.numeroDistinta")+" "+distinta.numeroDistinta+" / "+distinta.annoDistinta
+
+		}
+		return valore
+	}
+
 	private DistintaAtto getDistinta(IDocumentoIterabile documentoIterabile){
 		def proposta = null
-		if (documentoIterabile instanceof IDocumentoCollegato) {
-			proposta =  documentoIterabile.documentoPrincipale.proposta
+		if (documentoIterabile instanceof IProposta) {
+			proposta =  documentoIterabile
 		} else if (documentoIterabile instanceof IAtto) {
 			proposta =  documentoIterabile.proposta
-		} else if (documentoIterabile instanceof IProposta) {
-			proposta = documentoIterabile
+		} else if (documentoIterabile instanceof IDocumentoCollegato) {
+			//il documento principale potrebbe essere una proposta
+			if (documentoIterabile.documentoPrincipale instanceof IProposta) {
+				proposta =  documentoIterabile.documentoPrincipale
+			} else if (documentoIterabile instanceof IAtto) {
+				proposta =  documentoIterabile.documentoPrincipale.proposta
+			}
 		}
 		if (proposta != null) {
 			return DistintaAtto.findByAnnoPropostaAndNumeroPropostaAndUnitaProponente(proposta.annoProposta, proposta.numeroProposta, (proposta.registroProposta?.registroEsterno ?: proposta.registroProposta?.codice))
@@ -500,7 +534,7 @@ class NotificheService {
 		for (NotificaEmail notificaEmail : notifica.notificheEmail) {
 
 			// se la notifica email contiene un indirizzo email, uso quello:
-			if (notificaEmail.email?.indirizzoEmail != null) {
+			if (notificaEmail.email?.valido == true  && notificaEmail.email?.indirizzoEmail != null) {
 				soggettiNotifica << new SoggettoNotifica (email: notificaEmail.email.indirizzoEmail)
 				continue
 			}
@@ -667,6 +701,10 @@ class NotificheService {
 		return getAnnoProposta(oggettoSeduta.propostaDelibera)
     }
 
+	String getDataProposta (OggettoSeduta oggettoSeduta) {
+		return getDataProposta(oggettoSeduta.propostaDelibera)
+	}
+
 	String getEsitoProposta (OggettoSeduta oggettoSeduta) {
 		return oggettoSeduta.esito?.titolo?:""
     }
@@ -705,6 +743,20 @@ class NotificheService {
         } else if (d instanceof IProposta) {
 			return d.annoProposta?:""
         }
+	}
+
+	String getDataProposta (IDocumentoIterabile documento) {
+		def d = documento
+
+		if (documento instanceof IDocumentoCollegato) {
+			d = documento.getDocumentoPrincipale()
+		}
+
+		if (d instanceof IAtto) {
+			return d.proposta?.dataNumeroProposta?.format("dd/MM/yyyy")?:""
+		} else if (d instanceof IProposta) {
+			return d.dataNumeroProposta?.format("dd/MM/yyyy")?:""
+		}
 	}
 
 	String getNumero(IDocumentoIterabile documentoIterabile) {
@@ -814,7 +866,14 @@ class NotificheService {
     }
 	
 	String getCommissione (IDocumentoIterabile documento) {
-		return getCommissione(documento.oggettoSeduta)
+		String titoloCommissione = ""
+		if (documento instanceof SedutaStampa) {
+			titoloCommissione = getCommissioneSedutaStampa(documento)
+		}
+		else {
+			titoloCommissione = getCommissione(documento.oggettoSeduta)
+		}
+		return titoloCommissione
     }
 	
 	String getCommissione (OggettoSeduta oggettoSeduta) {
@@ -825,6 +884,10 @@ class NotificheService {
 		return seduta?.commissione?.titolo?:""
     }
 
+	String getCommissioneSedutaStampa (SedutaStampa sedutaStampa) {
+		return sedutaStampa.seduta?.commissione?.titolo?:""
+	}
+
 	String getGiornoSeduta (IDocumentoIterabile documento) {
 		return getGiornoSeduta(documento.oggettoSeduta)
 	}
@@ -832,7 +895,11 @@ class NotificheService {
 	String getGiornoSeduta (OggettoSeduta oggettoSeduta) {
 		return getGiornoSeduta(oggettoSeduta?.seduta)
     }
-	
+
+	String getGiornoSeduta (SedutaStampa sedutaStampa) {
+		return getGiornoSeduta(sedutaStampa?.seduta)
+	}
+
 	String getGiornoSeduta (Seduta seduta) {
 		return seduta?.dataSeduta?.format("EEEE")?:""
     }
@@ -840,11 +907,28 @@ class NotificheService {
 	String getDataInvio (def documento) {
 		return new Date().format("dd/MM/yyyy")
     }
-	
+
+	String getTitoloStampaSeduta (SedutaStampa sedutaStampa) {
+		return sedutaStampa?.commissioneStampa?.titolo
+	}
+
+	String getTitoloStampaSeduta (Seduta seduta) {
+		return ""
+	}
+
+	String getTitoloStampaSeduta (OggettoSeduta oggettoSeduta) {
+		return ""
+	}
+
 	String getDataSeduta (IDocumentoIterabile documento) {
 		String valore = ""
-		if (documento.oggettoSeduta)
-			valore = getDataSeduta (documento.oggettoSeduta)
+		if (documento instanceof SedutaStampa) {
+			valore = getDataSeduta(documento.seduta)
+		}
+		else {
+			if (documento.oggettoSeduta)
+				valore = getDataSeduta (documento.oggettoSeduta)
+		}
 		return valore
     }
 	
@@ -857,7 +941,15 @@ class NotificheService {
     }
 	
 	String getOraSeduta (IDocumentoIterabile documento) {
-		return documento.oggettoSeduta?.getOraSeduta(documento.oggettoSeduta)?:""
+		String valore = ""
+		if (documento instanceof SedutaStampa) {
+			valore = getOraSeduta(documento.seduta)
+		}
+		else {
+			if (documento.oggettoSeduta)
+				valore = getOraSeduta (documento.oggettoSeduta)
+		}
+		return valore
     }
 	
 	String getOraSeduta (OggettoSeduta oggettoSeduta) {
@@ -889,8 +981,8 @@ class NotificheService {
 		Date min = minmax[1]?:minmax[3]
 		Date max = minmax[0]?:minmax[2]
 
-		if (min.compareTo(max) == 0) {
-			return min.format("dd/MM/yyyy")
+		if (min.clearTime().compareTo(max.clearTime()) == 0) {
+			return "il ${min.format("dd/MM/yyyy")}"
         } else {
 			return "dal ${min.format("dd/MM/yyyy")} al ${max.format("dd/MM/yyyy")}"
 		}
@@ -915,6 +1007,17 @@ class NotificheService {
 		return testo
 	}
 
+	String getNumeroPassaggiStepCorrente (IDocumentoIterabile documento) {
+		if (documento.iter?.stepCorrente == null) {
+			return ""
+		}
+
+		String etichetta = Labels.getLabel("label.smartDesktop.numeroPassaggi")
+		int numeroPassaggi = WkfStep.countByIterAndCfgStep(documento.iter, documento.iter.stepCorrente.cfgStep)
+
+		return numeroPassaggi > 1 ? etichetta+" "+numeroPassaggi.toString() : ""
+	}
+
 	String getStato (OggettoSeduta oggettoSeduta) {
 		String testo = ""
 		if (oggettoSeduta.propostaDelibera != null)
@@ -925,6 +1028,9 @@ class NotificheService {
 	String getEstremiDocumento (IDocumentoIterabile documento) {
 		String testoAtto	 = "ATTO N.[NUMERO]/[ANNO] "
         String testoProposta = "PROPOSTA N.[N_PROPOSTA]/[ANNO_PROPOSTA]"
+		if (JWorklistConfig.isDataNumeroPropostaVisibile()) {
+			testoProposta += " del [DATA_PROPOSTA]"
+		}
         String testo = ""
         if (documento instanceof IDocumentoCollegato) {
 			documento = documento.documentoPrincipale
@@ -933,6 +1039,7 @@ class NotificheService {
 		if (documento instanceof IAtto && documento.numeroAtto > 0) {
 			testo += stampaUnione(documento, testoAtto)
             testo += stampaUnione(documento.proposta, testoProposta)
+
             return testo
         }
 
@@ -940,6 +1047,11 @@ class NotificheService {
 			testo += stampaUnione(documento, testoProposta)
             return testo
         }
+
+		if (documento instanceof SedutaStampa) {
+			testo = "Documento"
+			return testo
+		}
 
 		return testo
     }
@@ -972,6 +1084,23 @@ class NotificheService {
 			return getTipologia(documento.documentoPrincipale);
 		}
 		return "";
+	}
+
+	String getImpattoGenerazionale(IDocumentoIterabile documentoIterabile){
+		String etichetta = Labels.getLabel("label.impattoGenerazionale")
+		String valore = ""
+		if ((documentoIterabile instanceof Determina) || (documentoIterabile instanceof Delibera) || (documentoIterabile instanceof PropostaDelibera)) {
+			if (documentoIterabile.impattoGenerazionale) {
+				valore = etichetta +" "+(documentoIterabile.impattoGenerazionale?.titolo)
+			}
+		}
+		else {
+				if ((documentoIterabile instanceof VistoParere) || (documentoIterabile instanceof Certificato)) {
+					valore = etichetta +" "+(documentoIterabile.documentoPrincipale?.impattoGenerazionale?.titolo)
+				}
+		}
+
+		return valore
 	}
 
 	/* *****************************************
@@ -1383,7 +1512,13 @@ class NotificheService {
 		
 		// converto il testo in pdf:
 		testo.nome = testo.nome.replaceAll(/\..+$/, ".pdf")
-		InputStream testoPdf = gestioneTesti.convertiStreamInPdf(is, testo.nome, documento)
+		InputStream testoPdf
+		if (documento instanceof IDocumentoEsterno) {
+			testoPdf = gestioneTesti.convertiStreamInPdf(testo.testo, testo.nome, documento)
+		}
+		else {
+			testoPdf = gestioneTestiService.converti(testo.testo, TipoFile.PDF.estensione)
+		}
 		testo.testo = new ByteArrayInputStream (IOUtils.toByteArray(testoPdf))
 		
 		return testo
@@ -1593,6 +1728,18 @@ class NotificheService {
 		}
 
 		return allegatiMail
+	}
+
+	Allegato getStampaConvocazione (SedutaStampa sedutaStampa) {
+		FileAllegato fileAllegato = sedutaStampa?.filePrincipale
+ 		Allegato allegato = null
+		if (fileAllegato) {
+			InputStream inputStream = gestoreFile.getFile(sedutaStampa, fileAllegato);
+
+			allegato = new it.finmatica.atti.mail.Allegato(fileAllegato.nome, new ByteArrayInputStream(IOUtils.toByteArray(inputStream)))
+		}
+
+		return allegato
 	}
 
 	Allegato getStampaConvocazione (Seduta seduta) {

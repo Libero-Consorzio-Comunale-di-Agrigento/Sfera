@@ -28,7 +28,7 @@
 						</cell>
 
 						<cell width="30px">
-							<toolbarbutton image="/images/afc/22x22/delete.png" onClick="@command('onSvuotaClassifica')" tooltip="Svuota la Classifica." />
+							<!--<toolbarbutton image="/images/afc/22x22/delete.png" onClick="@command('onSvuotaClassifica')" tooltip="Svuota la Classifica." />-->
 						</cell>
 	        		</row>
 	        		<row>
@@ -67,7 +67,7 @@
 					<button label="Crea Fascicolo" onClick="@command('onCreaFascicolo')" visible="@load(vm.abilitaCreaFascicolo)" mold="trendy" />
 				</hlayout>
 				<hlayout hflex="1" style="text-align:right;">
-					<button label="Seleziona" onClick="@command('onSalva')"  disabled="@load(vm.selectedFascicolo eq null)" mold="trendy" />
+					<button label="Seleziona" onClick="@command('onSalva')" image="/images/afc/16x16/save.png" disabled="@load(vm.selectedFascicolo eq null)" mold="trendy" />
 					<button label="Chiudi" onClick="@command('onAnnulla')" image="/images/afc/16x16/close.png" mold="trendy" />
 				</hlayout>
 			</hlayout>

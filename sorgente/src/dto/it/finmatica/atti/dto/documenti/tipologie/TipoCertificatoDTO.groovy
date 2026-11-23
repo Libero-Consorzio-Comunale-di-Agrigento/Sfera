@@ -26,6 +26,7 @@ public class TipoCertificatoDTO implements it.finmatica.dto.DTO<TipoCertificato>
     Ad4UtenteDTO utenteIns;
     Ad4UtenteDTO utenteUpd;
     boolean valido;
+    boolean editaTesto;
     Date validoAl;
     Date validoDal;
 

@@ -16,7 +16,8 @@ public class Ad4UtenteDTO implements it.finmatica.dto.DTO<Ad4Utente> {
     String password;
     boolean passwordExpired;
     String tipoUtente;
-
+    String nomeSoggetto
+    String cognomeSoggetto
 
     public Ad4Utente getDomainObject () {
         return Ad4Utente.get(this.id)

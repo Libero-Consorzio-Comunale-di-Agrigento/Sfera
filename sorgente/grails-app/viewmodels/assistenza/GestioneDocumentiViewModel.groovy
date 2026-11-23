@@ -4,9 +4,18 @@ import afc.AfcAbstractGrid
 import grails.plugin.springsecurity.SpringSecurityService
 import groovy.sql.Sql
 import it.finmatica.atti.IGestoreFile
-import it.finmatica.atti.commons.AttiUtils
 import it.finmatica.atti.commons.FileAllegato
-import it.finmatica.atti.documenti.*
+import it.finmatica.atti.documenti.Allegato
+import it.finmatica.atti.documenti.Certificato
+import it.finmatica.atti.documenti.CertificatoService
+import it.finmatica.atti.documenti.Delibera
+import it.finmatica.atti.documenti.Determina
+import it.finmatica.atti.documenti.DocumentoFactory
+import it.finmatica.atti.documenti.FileFirmatoDettaglioService
+import it.finmatica.atti.documenti.PropostaDelibera
+import it.finmatica.atti.documenti.StampaUnicaService
+import it.finmatica.atti.documenti.VistoParere
+import it.finmatica.atti.documenti.VistoParereService
 import it.finmatica.atti.documenti.beans.AttiFileDownloader
 import it.finmatica.atti.documenti.beans.AttiGestoreCompetenze
 import it.finmatica.atti.dto.documenti.*
@@ -17,12 +26,17 @@ import it.finmatica.gestioneiter.configuratore.dizionari.WkfAzione
 import it.finmatica.gestioneiter.configuratore.dizionari.WkfAzioneService
 import it.finmatica.gestioneiter.motore.WkfIterService
 import org.zkoss.bind.BindUtils
-import org.zkoss.bind.annotation.*
+import org.zkoss.bind.annotation.AfterCompose
+import org.zkoss.bind.annotation.BindingParam
+import org.zkoss.bind.annotation.Command
+import org.zkoss.bind.annotation.ContextParam
+import org.zkoss.bind.annotation.ContextType
+import org.zkoss.bind.annotation.Init
+import org.zkoss.bind.annotation.NotifyChange
 import org.zkoss.util.media.Media
 import org.zkoss.zk.ui.Component
 import org.zkoss.zk.ui.Executions
 import org.zkoss.zk.ui.event.Event
-import org.zkoss.zk.ui.event.Events
 import org.zkoss.zk.ui.select.Selectors
 import org.zkoss.zk.ui.select.annotation.Wire
 import org.zkoss.zk.ui.util.Clients
@@ -45,6 +59,7 @@ class GestioneDocumentiViewModel {
 	OperazioniLogService operazioniLogService
 	WkfAzioneService	 wkfAzioneService
 	CaratteristicaTipologiaService caratteristicaTipologiaService
+	FileFirmatoDettaglioService fileFirmatoDettaglioService
 
 	// Paginazione e ricerca
 	int pageSize 	= AfcAbstractGrid.PAGE_SIZE_DEFAULT
@@ -75,7 +90,7 @@ class GestioneDocumentiViewModel {
 	String nomeOggetto;
 
 	def listaCompetenze;
-	def listaCfgStep;
+	def listaCfgStep = null;
 	def listaTesti;
 	def listaAllegati;
 	def listaSoggetti
@@ -182,6 +197,10 @@ class GestioneDocumentiViewModel {
 
 	@Command onChiudi () {
         popupDocumento.setVisible(false);
+		listaCfgStep=null
+		cfgStep=null
+		BindUtils.postNotifyChange(null, null, this, "cfgStep");
+		BindUtils.postNotifyChange(null, null, this, "listaCfgStep");
 	}
 
 	@Command
@@ -312,17 +331,20 @@ class GestioneDocumentiViewModel {
 		attiFileDownloader.downloadFileAllegato (doc.getDomainObject(), allegato, false, false)
 	}
 
-	@Command onUploadFileTesto (@ContextParam(ContextType.TRIGGER_EVENT) Event event,@BindingParam("allegato") def allegato) {
+	@Command onUploadFileTesto (@ContextParam(ContextType.TRIGGER_EVENT) Event event, @BindingParam("allegato") def allegato) {
 		FileAllegato file = FileAllegato.get(allegato.id);
 		Media media = event.media
 		file.nome = media.name + (file.nome.endsWith(FileAllegato.ESTENSIONE_FILE_NASCOSTO) ? FileAllegato.ESTENSIONE_FILE_NASCOSTO : "")
 		creaLog("Modificato file testo", "Modificato il file testo ${allegato.id} sostituendo il file ${file.nome}")
 		file.contentType = media.contentType
-		file.firmato = file.isP7m()
+
 		def d = doc.getDomainObject()
+
 		gestoreFile.addFile(d, file, media.getStreamData())
-		file.save()
-		caricaElencoFile(d);
+		file.save(flush: true)
+
+		fileFirmatoDettaglioService.verificaFileFirmato(d, file)
+		caricaElencoFile(d)
 
 		Clients.showNotification("File cambiato con successo.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center", 3000, true);
 	}
@@ -551,5 +573,4 @@ class GestioneDocumentiViewModel {
             throw new AttiRuntimeException("Non è possibile modificare il soggetto selezionato")
         }
 	}
-
 }

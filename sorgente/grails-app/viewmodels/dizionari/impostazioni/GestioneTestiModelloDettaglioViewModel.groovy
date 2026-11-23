@@ -1,6 +1,7 @@
 package dizionari.impostazioni
 
 import afc.AfcAbstractRecord
+import groovy.util.slurpersupport.GPathResult
 import groovy.xml.StreamingMarkupBuilder
 import it.finmatica.ad4.autenticazione.Ad4Ruolo
 import it.finmatica.atti.documenti.tipologie.*
@@ -79,7 +80,7 @@ class GestioneTestiModelloDettaglioViewModel  extends AfcAbstractRecord {
 			BindUtils.postNotifyChange(null, null, this, "campiDisponibili");
 			return;
 		}
-		def xml = new XmlSlurper().parseText(new String(tipoModello.query));
+		def xml = new XmlSlurper().parse(new ByteArrayInputStream(tipoModello.query));
 
 		// per ogni query, prendo l'id e il suo alias:
 		xml.queryes.'**'.findAll { it.name() == 'query'}.each { q ->
@@ -289,30 +290,36 @@ class GestioneTestiModelloDettaglioViewModel  extends AfcAbstractRecord {
 
 	@Command onProvaModello () {
 		GestioneTestiModello m = selectedRecord.domainObject;
-		String query = new String(m.tipoModello.query);
-		def xml = new XmlSlurper().parseText(query);
-		def outputBuilder = new StreamingMarkupBuilder()
+		GPathResult xml = new XmlSlurper().parse(new ByteArrayInputStream(m.tipoModello.query));
+		StreamingMarkupBuilder outputBuilder = new StreamingMarkupBuilder()
 		if (xml.testStaticData.documentRoot.text() == "") {
 			Clients.showNotification("Non è possibile testare il modello perché nell'XML della query non ci sono i dati di prova nel tag <testStaticData>", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center", 8000, true)
 			return;
 		}
 
-		String staticData = outputBuilder.bind{ mkp.yield xml.testStaticData.documentRoot }
+		outputBuilder.setEncoding("UTF-8")
+		String staticData = outputBuilder.bind {
+			mkp.xmlDeclaration()
+			mkp.yield xml.testStaticData.documentRoot
+		}
 		InputStream testo = gestioneTestiService.stampaUnione (new ByteArrayInputStream(m.fileTemplate), staticData, m.tipo)
 		Filedownload.save(testo, m.contentType, "${m.nome}.${m.tipo}");
 	}
 
 	@Command onProvaModelloPdf () {
 		GestioneTestiModello m = selectedRecord.domainObject;
-		String query = new String(m.tipoModello.query);
-		def xml = new XmlSlurper().parseText(query);
-		def outputBuilder = new StreamingMarkupBuilder()
+		GPathResult xml = new XmlSlurper().parse(new ByteArrayInputStream(m.tipoModello.query));
+		StreamingMarkupBuilder outputBuilder = new StreamingMarkupBuilder()
 		if (xml.testStaticData.documentRoot.text() == "") {
 			Clients.showNotification("Non è possibile testare il modello perché nell'XML della query non ci sono i dati di prova nel tag <testStaticData>", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center", 8000, true)
 			return;
 		}
 
-		String staticData = outputBuilder.bind{ mkp.yield xml.testStaticData.documentRoot }
+		outputBuilder.setEncoding("UTF-8")
+		String staticData = outputBuilder.bind {
+			mkp.xmlDeclaration()
+			mkp.yield xml.testStaticData.documentRoot
+		}
 		InputStream testo = gestioneTestiService.stampaUnione (new ByteArrayInputStream(m.fileTemplate), staticData, GestioneTestiService.FORMATO_PDF)
 		Filedownload.save(testo, GestioneTestiService.getContentType(GestioneTestiService.FORMATO_PDF), "${m.nome}.${GestioneTestiService.FORMATO_PDF}");
 	}

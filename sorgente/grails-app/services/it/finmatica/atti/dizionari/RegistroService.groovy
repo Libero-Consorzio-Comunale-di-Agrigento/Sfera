@@ -83,7 +83,7 @@ class RegistroService {
 			eq ("tipoRegistro", tipoRegistro)
 			eq ("valido", true)
 			eq ("anno", anno)
-			lock true	// utilizzo la select for update
+			delegate.lock(true)	// utilizzo la select for update
 		}
 
 		if (registro != null) {

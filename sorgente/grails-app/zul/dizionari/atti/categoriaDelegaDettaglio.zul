@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+    	viewModel="@id('vm') @init('categoriaDelegaDettaglioViewModel')"
+    	border="normal" width="900px" height="550px" sizable="false">
+
+		<h:div class="barraTitoloPagina">
+   			<label sclass="titoloPagina" value="Gestione Categoria Deleghe"/>
+			<image
+				src="@load(vm.selectedRecord.valido? '/images/agsde2/22x22/viewok.png' : '/images/agsde2/22x22/cancel.png')"
+				tooltiptext="@load(vm.selectedRecord.valido? 'Documento attivo' : 'Documento disattivato')" />
+   		</h:div>
+
+		<tabbox vflex="1">
+			<tabs>
+				<tab label="Categoria Delega" />
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+					<grid sclass="form">
+						<rows>
+							<row>
+								<cell align="right" valign="top" width="25%">
+									<h:span class="mandatoryLabel">*</h:span><label value="Titolo"/>
+								</cell>
+								<cell>
+									<textbox  hflex="1" value="@bind(vm.selectedRecord.titolo)" disabled="@load(not vm.modificabile)" style="text-transform: uppercase;"/>
+								</cell>
+							</row>
+							<row>
+								<cell align="right" valign="top" width="25%">
+									<label value="Descrizione"/>
+								</cell>
+								<cell>
+									<textbox rows="8" mold="rounded" value="@bind(vm.selectedRecord.descrizione)" hflex="1" disabled="@load(not vm.modificabile)" class="noresizable"/>
+								</cell>
+							</row>
+						</rows>
+					</grid>
+				</tabpanel>
+
+			</tabpanels>
+		</tabbox>
+		<groupbox closable="false" vflex="1">
+			<caption>Tipologie Collegate</caption>
+			<listbox model="@bind(vm.listaTipologieCollegate)" emptyMessage="Nessuna tipologia collegata" vflex="1" height="100px">
+				<listhead>
+					<listheader label="Titolo" width="40%" />
+					<listheader label="Descrizione" width="54%" />
+					<listheader label="" width="6%"  align="center">
+						<image width="15px" src="/images/afc/16x16/add.png"
+							   onClick="@command('onAggiungiTipologiaDelibera')"  visible="@load(vm.selectedRecord.id > 0)"
+							   tooltiptext="Aggiungi una tipologia di delibera"
+							   style="cursor: pointer;" />
+					</listheader>
+				</listhead>
+				<template name="model" var="tipologia">
+					<listitem >
+						<listcell label="@load(tipologia.titolo)" />
+						<listcell label="@load(tipologia.descrizione)" />
+						<listcell>
+							<image src="/images/agsde2/16x16/trash.png"
+								   onClick="@command('onEliminaTipologiaDelibera', tipoDelibera= tipologia)"
+								   tooltiptext="Elimina la tipologia"
+								   style="cursor: pointer;" />
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</groupbox>
+
+     	<vlayout class="datiCreazioneModifica" height="30px">
+		    <label value="@load(not empty vm.selectedRecord.id ? vm.datiCreazione: '')" />
+			<label value="@load(not empty vm.selectedRecord.id ? vm.datiModifica: '')" />
+		</vlayout>
+
+		<h:div class="barraPulsanti">
+			<button
+					mold="trendy"
+					label="@load(vm.selectedRecord.valido? 'Disattiva' : 'Ripristina')"
+					tooltiptext="@load(vm.selectedRecord.valido? 'Disattiva' : 'Ripristina')"
+					image="@load(vm.selectedRecord.valido? '/images/afc/16x16/cancel.png' : '/images/afc/16x16/ok.png')"
+					onClick="@command('onSettaValido', valido=!vm.selectedRecord.valido)"
+					visible="@load(not empty vm.selectedRecord.id)" />
+
+			<button
+					mold="trendy"
+					label="Modifica"
+					tooltiptext="Modifica"
+					image="/images/afc/16x16/house_plan.png"
+					onClick="@command('onModifica')"
+					visible="@load(vm.selectedRecord.id gt 0 and not vm.modificabile and vm.selectedRecord.valido)"/>
+
+			<h:div>
+				<button
+						mold="trendy"
+						label="Salva"
+						visible="@load(vm.modificabile and vm.selectedRecord.valido)"
+						onClick="@command('onSalva')"
+						image="/images/afc/16x16/save.png" />
+				<button
+						mold="trendy"
+						label="Salva e chiudi"
+						visible="@load(vm.modificabile and vm.selectedRecord.valido)"
+						onClick="@command('onSalvaChiudi')"
+						image="/images/afc/16x16/save.png" />
+				<button
+						mold="trendy"
+						label="Chiudi"
+						onClick="@command('onChiudi')"
+						image="/images/afc/16x16/close.png"  />
+			</h:div>
+		</h:div>
+
+    </window>
+</zk>

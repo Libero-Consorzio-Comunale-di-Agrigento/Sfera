@@ -1,6 +1,7 @@
 package it.finmatica.atti.dto.documenti
 
 import it.finmatica.ad4.dto.autenticazione.Ad4UtenteDTO
+import it.finmatica.atti.dizionari.ImpattoGenerazionale
 import it.finmatica.atti.documenti.PropostaDelibera
 import it.finmatica.atti.documenti.StatoDocumento
 import it.finmatica.atti.documenti.StatoFirma
@@ -8,6 +9,7 @@ import it.finmatica.atti.documenti.StatoMarcatura
 import it.finmatica.atti.documenti.StatoOdg
 import it.finmatica.atti.dto.commons.FileAllegatoDTO
 import it.finmatica.atti.dto.dizionari.CategoriaDTO
+import it.finmatica.atti.dto.dizionari.ImpattoGenerazionaleDTO
 import it.finmatica.atti.dto.dizionari.DelegaDTO
 import it.finmatica.atti.dto.dizionari.IndirizzoDeliberaDTO
 import it.finmatica.atti.dto.dizionari.OggettoRicorrenteDTO
@@ -28,6 +30,7 @@ public class PropostaDeliberaDTO implements it.finmatica.dto.DTO<PropostaDeliber
     Long id;
     Long version;
     Set<AllegatoDTO> allegati;
+    Set<PropostaDeliberaDelegaDTO> altreDeleghe;
     Integer annoProposta;
     String campiProtetti;
     CategoriaDTO categoria;
@@ -92,6 +95,20 @@ public class PropostaDeliberaDTO implements it.finmatica.dto.DTO<PropostaDeliber
     Set<BudgetDTO> budgets;
     Date dataOrdinamento;
     boolean controllaDestinatari;
+    ImpattoGenerazionaleDTO impattoGenerazionale;
+
+    boolean pubblicaCasaDiVetro = false
+    Integer numeroProtocolloRichiesta
+    Integer annoProtocolloRichiesta
+
+    String idFascicoloEsterno
+    String idApplicativoEsterno
+
+    boolean     inEvidenza;
+    Date 	    dataInEvidenzaDa;
+    Date 	    dataInEvidenzaA;
+    BigDecimal  importo;
+    BigDecimal  importoTotale;
 
     public void addToAllegati (AllegatoDTO allegato) {
         if (this.allegati == null) {
@@ -107,6 +124,22 @@ public class PropostaDeliberaDTO implements it.finmatica.dto.DTO<PropostaDeliber
         }
         this.allegati.remove(allegato);
         allegato.propostaDelibera = null
+    }
+
+    public void addToAltreDeleghe (PropostaDeliberaDelegaDTO propostaDeliberaDelega) {
+        if (this.altreDeleghe == null) {
+            this.altreDeleghe = new HashSet<PropostaDeliberaDelegaDTO>()
+        }
+        this.altreDeleghe.add(propostaDeliberaDelega);
+        propostaDeliberaDelega.propostaDelibera = this
+    }
+
+    public void removeFromAltreDeleghe (PropostaDeliberaDelegaDTO propostaDeliberaDelega) {
+        if (this.altreDeleghe == null) {
+            this.altreDeleghe = new HashSet<PropostaDeliberaDelegaDTO>()
+        }
+        this.altreDeleghe.remove(propostaDeliberaDelega);
+        propostaDeliberaDelega.propostaDelibera = null
     }
 
     public void addToDestinatariNotifiche (DestinatarioNotificaDTO destinatarioNotifica) {
@@ -217,6 +250,8 @@ public class PropostaDeliberaDTO implements it.finmatica.dto.DTO<PropostaDeliber
     // attenzione: non modificare questa riga se si vuole mantenere il codice personalizzato che segue.
     // qui è possibile inserire codice personalizzato che non verrà eliminato dalla rigenerazione dei DTO.
 
+    String unitaProponente
+
     /**
      * Aggiunge un CODICE_VISTO alla lista di quelli già trattati (concatena codiciVistiTrattati += #CODICE_VISTO)
      *
@@ -277,7 +312,7 @@ public class PropostaDeliberaDTO implements it.finmatica.dto.DTO<PropostaDeliber
 
     String getEstremiAtto () {
         if (numeroProposta > 0) {
-            return "${numeroProposta} / ${annoProposta} (${registroProposta.descrizione})"
+            return "${numeroProposta} / ${annoProposta}"
         }
 
         return "Proposta non numerata con oggetto: $oggetto."

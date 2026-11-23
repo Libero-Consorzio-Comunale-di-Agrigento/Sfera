@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <documentRoot>
-	<descrizione>Visto Contabile</descrizione>
+	<descrizione>Visto Contabile (Contabilità Ascot)</descrizione>
 	<connections>
 		<connectionJNDI>jdbc/agsde2</connectionJNDI>
 	</connections>
@@ -36,6 +36,7 @@
 				<M_TOTALE_USCITE>133,00</M_TOTALE_USCITE>
 				<MSE>+</MSE>
 				<MSU>-</MSU>
+				<TOTALE_MOVIMENTI_INTERNI>338,33</TOTALE_MOVIMENTI_INTERNI>
 				<TIPOLOGIA_PROPOSTA>DETERMINAZIONE CON IMPEGNO DI SPESA</TIPOLOGIA_PROPOSTA>
 				<TIPOLOGIA_VISTO>VISTO CONTABILE</TIPOLOGIA_VISTO>
 				<M_ESERCIZIO>2015</M_ESERCIZIO>
@@ -288,7 +289,12 @@
 			<descrizione>Tipologia del visto</descrizione>
 			<path/>
 		</metaDato>
-
+		<metaDato>
+			<nomeSimbolico>TOTALE_MOVIMENTI_INTERNI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Somma degli importi dei movimenti interni</descrizione>
+			<path/>
+		</metaDato>
 		<!-- Query dei movimenti -->
 		<metaDato>
 			<nomeSimbolico>M_TIPO</nomeSimbolico>
@@ -366,7 +372,7 @@
 	<queryes>
 		<query id='visto'
 			   help_query_alias="v"
-			   help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, AREA_PROPONENTE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_FIRMA, DATA_STAMPA, DIRIGENTE_VISTO, ESITO_VISTO, ESITO_VISTO_DEFINITIVO, FIRMATARIO, NOTE_CONTABILI, NOTE_VISTO, NUMERO_DETERMINA, NUMERO_PROPOSTA, OGGETTO_DETERMINA, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, ASCENDENTI_UNITA, CIG, M_TOTALE_ENTRATE, M_TOTALE_USCITE, MSE, MSU, DESCRIZIONE_FIRMATARIO, TIPOLOGIA_PROPOSTA, TIPOLOGIA_VISTO, CODICE_UNITA_VISTO, SUDDIVISIONE_VISTO, UNITA_VISTO, M_ESERCIZIO, M_PROGRESSIVO_ESTERNO">
+			   help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, AREA_PROPONENTE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_FIRMA, DATA_STAMPA, DIRIGENTE_VISTO, ESITO_VISTO, ESITO_VISTO_DEFINITIVO, FIRMATARIO, NOTE_CONTABILI, NOTE_VISTO, NUMERO_DETERMINA, NUMERO_PROPOSTA, OGGETTO_DETERMINA, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, ASCENDENTI_UNITA, CIG, M_TOTALE_ENTRATE, M_TOTALE_USCITE, MSE, MSU, TOTALE_MOVIMENTI_INTERNI, DESCRIZIONE_FIRMATARIO, DELEGANTE, TIPOLOGIA_PROPOSTA, TIPOLOGIA_VISTO, CODICE_UNITA_VISTO, SUDDIVISIONE_VISTO, UNITA_VISTO, M_ESERCIZIO, M_PROGRESSIVO_ESTERNO">
   select decode(d.numero_determina, null, '${documentRoot.visto.NUMERO_DETERMINA}', d.numero_determina) NUMERO_DETERMINA
      ,  decode(d.numero_determina, null, '${documentRoot.visto.DATA_DETERMINA}', to_char (d.data_numero_determina, 'dd/mm/yyyy')) DATA_DETERMINA
      ,  decode(d.numero_determina, null, '${documentRoot.visto.ANNO_DETERMINA}', d.anno_determina) ANNO_DETERMINA
@@ -388,7 +394,7 @@
      ,  nvl(utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), d.ente), '${documentRoot.visto.FIRMATARIO}') FIRMATARIO
 	 ,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), d.ente)) DESCRIZIONE_FIRMATARIO
 	 ,  decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, d.ente)) DELEGANTE
-     ,  nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario)), '${documentRoot.visto.DIRIGENTE_VISTO}') DIRIGENTE_VISTO
+     ,  nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario), vp.ente), '${documentRoot.visto.DIRIGENTE_VISTO}') DIRIGENTE_VISTO
      ,  utility_pkg.get_desc_ascendenti_unita(utility_pkg.get_codice_unita_prop_dete (d.id_determina), null, impostazioni_pkg.get_impostazione('OTTICA_SO4', d.ente), null) ASCENDENTI_UNITA
      ,  utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_AREA', d.ente) AREA_PROPONENTE
      ,  utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_SERVIZIO', d.ente) SERVIZIO_PROPONENTE       
@@ -397,6 +403,7 @@
     , (select trim(TO_CHAR(abs(sum(m.importo)),       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m where m.tipo = 'USCITA'  and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') M_TOTALE_USCITE
     , (select decode(sign(sum(m.importo)), -1, '-', '+') from movimenti_contabili m where m.tipo = 'ENTRATA' and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') MSE
     , (select decode(sign(sum(m.importo)), -1, '-', '+') from movimenti_contabili m where m.tipo = 'USCITA'  and m.id_documento = d.id_determina and m.tipo_documento = 'DETERMINA') MSU
+	, (select sum(m.importo) from movimenti_contabili_interni m where m.id_determina = d.id_determina) TOTALE_MOVIMENTI_INTERNI
 	, td.titolo TIPOLOGIA_PROPOSTA
 	, tvp.titolo TIPOLOGIA_VISTO
 	, (select substr(valore, 1, 4) from dati_aggiuntivi where codice = 'CONTABILITA_ASCOT' AND id_determina =  vp.id_determina) AS M_ESERCIZIO

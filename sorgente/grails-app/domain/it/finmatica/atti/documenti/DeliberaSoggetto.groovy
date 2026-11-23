@@ -15,7 +15,7 @@ class DeliberaSoggetto implements ISoggettoDocumento {
 	int sequenza;
 	boolean attivo;
 
-	static belongTo = [delibera : Delibera]
+	static belongsTo = [delibera : Delibera]
 
 	static mapping = {
 		table 			'delibere_soggetti'

@@ -24,6 +24,24 @@
 		resizePopup()
 	]]></h:script>
 
+	<h:script><![CDATA[
+    (function(){
+      // Prende protocollo + host + porta
+      var origin = window.location.origin; // es: http://localhost:8080
+
+      // Costruisci l'URL completo sostituendo il contesto con /chatbot
+      var chatbotUrl = origin + "/chatbot/js/chatBot.js";
+
+      // Crea dinamicamente lo script
+      var s = document.createElement('script');
+      s.src = chatbotUrl;
+      s.defer = true;
+
+      // Aggiungi al head
+      document.head.appendChild(s);
+    })();
+]]></h:script>
+
 	<appletEditaTesto />
 
 	<!-- Mantiene attiva la sessione facendo un "ping" ogni 5 minuti -->
@@ -36,5 +54,8 @@
 		<vlayout>
 			<!-- layout da lasciare, altrimenti su i.e. appaiono doppie barre di scorrimento -->
 		</vlayout>
+		<h:div  style="position:fixed; z-index:2147483647;">
+			<h:chat-bot position="bottom-left" offsetX="150" offsetY="20" categoria="sfera" bgcolorTitleChat="#0099cc" btncolor="#0099cc" visibile="@load(vm.abilitaChatbot)"></h:chat-bot>
+		</h:div>
 	</window>
 </zk>

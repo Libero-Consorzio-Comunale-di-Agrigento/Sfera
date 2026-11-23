@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.util.Holders
 import it.finmatica.ad4.autenticazione.Ad4Utente
 import it.finmatica.atti.commons.FileAllegato
+import it.finmatica.atti.dizionari.ImpattoGenerazionale
 import it.finmatica.atti.dizionari.TipoRegistro
 import it.finmatica.atti.impostazioni.TipoSoggetto
 import it.finmatica.atti.odg.OggettoSeduta
@@ -57,6 +58,9 @@ class Delibera implements IAtto {
     Date dataEsecutivita
     Date dataAdozione
 
+    // Impatto Generazionale
+    ImpattoGenerazionale impattoGenerazionale
+
     // data che l'utente può inserire manualmente per indicare con quale data la delibera deve diventare esecutiva.
     // questo campo serve per dare la possibilità all'utente di scriverlo e salvare il documento senza rendere esecutiva la delibera
     // cosa che avverrebbe se scrivesse direttamente nel campo dataEsecutivita. Vedi attività: http://svi-redmine/issues/17326
@@ -88,6 +92,10 @@ class Delibera implements IAtto {
 	Date 	dataPubblicazione2
 	Date 	dataFinePubblicazione2
     boolean pubblicaVisualizzatore = false
+
+    //Integrazione con PiTre client ma usabile per fascicoli esterni
+    String idFascicoloEsterno
+    String idApplicativoEsterno
 
     // indica i codici dei visti che ho già trattato (serve per gestire eventuali ciclicità sui visti nel flusso)
     String codiciVistiTrattati
@@ -157,7 +165,6 @@ class Delibera implements IAtto {
 		dataEsecutivita			nullable: true
 		dataAdozione			nullable: true
         dataEsecutivitaManuale  nullable: true
-		giorniPubblicazione     nullable: true
 		dataPubblicazione       nullable: true
 		dataFinePubblicazione   nullable: true
 		dataPubblicazione2      nullable: true
@@ -177,6 +184,10 @@ class Delibera implements IAtto {
 		dataInvioCorteConti		nullable: true
 		campiProtetti			nullable: true
 		motivazioniEseguibilita nullable: true
+        impattoGenerazionale  nullable: true
+
+        idFascicoloEsterno      nullable: true
+        idApplicativoEsterno    nullable: true
     }
 
 	static mapping = {
@@ -201,6 +212,8 @@ class Delibera implements IAtto {
         diventaEsecutiva type: 'yes_no'
         pubblicaVisualizzatore type: 'yes_no'
 
+        impattoGenerazionale    column: 'id_impatto_generazionale'
+
 		dataPubblicazione2		column: 'data_pubblicazione_2'
 		dataFinePubblicazione2	column: 'data_fine_pubblicazione_2'
 		daPubblicare			column: 'da_pubblicare'
@@ -210,6 +223,8 @@ class Delibera implements IAtto {
 		note 					length: 4000
 		noteTrasmissione 		length: 4000
         classificaDescrizione   length: 4000
+        idFascicoloEsterno      length: 256, column: 'id_fascicolo_esterno'
+        idApplicativoEsterno    length: 256, column: 'id_applicativo_esterno'
 
 		valido			type: 	'yes_no'
 		ente 			column: 'ente'
@@ -456,4 +471,9 @@ class Delibera implements IAtto {
     List<DestinatarioNotifica> getDestinatari () {
         return []
     }
+
+    transient String getTipoFirma () {
+        return this.propostaDelibera.tipoFirma
+    }
+
 }

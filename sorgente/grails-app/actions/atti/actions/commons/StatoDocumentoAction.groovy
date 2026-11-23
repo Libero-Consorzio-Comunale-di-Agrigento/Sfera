@@ -241,4 +241,13 @@ class StatoDocumentoAction {
 	public boolean isDocumentoSalvato (IProposta d) {
 		return (d.id >= 0)
 	}
+
+	@Action(tipo	= TipoAzione.AUTOMATICA,
+			tipiOggetto	= [Determina.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO],
+			nome		= "Imposta il documento con lo stato ODG INIZIALE",
+			descrizione	= "Cambia lo stato_odg del documento in INIZIALE")
+	public def setStatoOdgIniziale (IProposta d) {
+		d.statoOdg = StatoOdg.INIZIALE
+		return d
+	}
 }

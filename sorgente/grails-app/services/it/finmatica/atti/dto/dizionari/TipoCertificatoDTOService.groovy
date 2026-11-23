@@ -15,6 +15,7 @@ class TipoCertificatoDTOService {
 		tipoCertificato.modelloTesto 			= tipoCertificatoDto?.modelloTesto?.getDomainObject()
 		tipoCertificato.progressivoCfgIter 		= tipoCertificatoDto?.progressivoCfgIter
 		tipoCertificato.valido 					= tipoCertificatoDto.valido
+		tipoCertificato.editaTesto				= tipoCertificatoDto.editaTesto
 
 		// controllo che la versione del DTO sia uguale a quella appena letta su db: se uguali ok, altrimenti errore
 		if (tipoCertificato.version >= 0 && tipoCertificato.version != tipoCertificatoDto.version) {

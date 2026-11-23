@@ -53,8 +53,8 @@
 
 		<h:div class="barraPulsanti">
 			<h:div>
-				<button label="Download" 		onClick="@command('onP7m')" 			mold="trendy" image="/images/agsde2/16x16/inbox.png" 	tooltiptext="Scarica il file P7M firmato." visible="@load(vm.p7m)"/>
-				<button label="Verifica" 		onClick="@command('onVerifica')" 		mold="trendy" image="/images/agsde2/16x16/viewok.png" 	tooltiptext="Verifica la firma del P7M."  visible="@load(vm.p7m)"/>
+				<button label="Download" 		onClick="@command('onP7m')" 			mold="trendy" image="/images/agsde2/16x16/inbox.png" 	tooltiptext="Scarica il file firmato." visible="@load(vm.firmato)"/>
+				<button label="Verifica" 		onClick="@command('onVerifica')" 		mold="trendy" image="/images/agsde2/16x16/viewok.png" 	tooltiptext="Verifica la firma."  visible="@load(vm.firmato)"/>
 				<button label="Visualizza"		onClick="@command('onSbusta')" 			mold="trendy" image="/images/agsde2/16x16/document.png" tooltiptext="Scarica il file originale senza la busta P7M." />
 			</h:div>
 		</h:div>

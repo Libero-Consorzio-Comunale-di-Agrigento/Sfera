@@ -34,6 +34,7 @@ class EmailDTOService {
                 ilike("nome", "%" + filtroSoggetti + "%")
                 ilike("ragioneSociale", "%" + filtroSoggetti + "%")
             }
+            eq("valido", true)
             order("cognome", "asc")
             order("nome", "asc")
         }
@@ -66,7 +67,7 @@ class EmailDTOService {
      * @return una Email oppure null se il soggetto non ha email.
      */
     Email getEmail(String indirizzoEmail) {
-        Email email = Email.findByIndirizzoEmail(indirizzoEmail)
+        Email email = Email.findByIndirizzoEmailAndValido(indirizzoEmail, true)
         if (email == null) {
             email = new Email(indirizzoEmail: indirizzoEmail, nome: indirizzoEmail, cognome: indirizzoEmail)
             email.save()

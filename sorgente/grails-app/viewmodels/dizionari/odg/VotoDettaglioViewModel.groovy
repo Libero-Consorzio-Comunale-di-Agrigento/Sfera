@@ -18,7 +18,7 @@ class VotoDettaglioViewModel extends AfcAbstractRecord {
 
 	// stato
 	List<VotoDTO> listaVoto
-	List listaVotiStandard = [Voto.VOTO_FAVOREVOLE, Voto.VOTO_CONTRARIO,Voto.VOTO_ASTENUTO]
+	List listaVotiStandard = [Voto.VOTO_FAVOREVOLE, Voto.VOTO_CONTRARIO,Voto.VOTO_ASTENUTO, Voto.NON_VOTANTE]
 
 	@NotifyChange("selectedRecord")
 	@Init init(@ContextParam(ContextType.COMPONENT) Window w, @ExecutionArgParam("id") Long id, @ExecutionArgParam("lista") List<VotoDTO> lista) {

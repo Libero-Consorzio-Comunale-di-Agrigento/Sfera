@@ -65,4 +65,8 @@ public class FileAllegatoDTO implements it.finmatica.dto.DTO<FileAllegato> {
     public boolean isConvertibilePdf () {
         return (Impostazioni.ALLEGATO_CONVERTI_PDF_FORMATO.valori.contains(FilenameUtils.getExtension(nome).toLowerCase()));
     }
+
+    transient boolean isPdf () {
+        return this.nome.toLowerCase().endsWith("pdf");
+    }
 }

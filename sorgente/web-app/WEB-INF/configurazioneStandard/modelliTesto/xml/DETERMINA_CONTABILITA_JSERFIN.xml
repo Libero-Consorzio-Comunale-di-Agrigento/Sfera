@@ -1,0 +1,1039 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documentRoot>
+	<descrizione>Determina (Contabilità JSerfin)</descrizione>
+	<connections>
+		<connectionJNDI>jdbc/agsde2</connectionJNDI>
+	</connections>
+	<testStaticData>
+		<documentRoot>
+			<determina>
+				<NUMERO_PROPOSTA>100</NUMERO_PROPOSTA>
+				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
+				<DATA_DETERMINA>01/05/2014</DATA_DETERMINA>
+				<ANNO_DETERMINA>2014</ANNO_DETERMINA>
+				<NUMERO_DETERMINA>1000</NUMERO_DETERMINA>
+				<ANNO_DETERMINA_2>2014</ANNO_DETERMINA_2>
+				<NUMERO_DETERMINA_2>1231</NUMERO_DETERMINA_2>
+				<DATA_PROTOCOLLO>02/05/2014</DATA_PROTOCOLLO>
+				<ANNO_PROTOCOLLO>2014</ANNO_PROTOCOLLO>
+				<NUMERO_PROTOCOLLO>2500</NUMERO_PROTOCOLLO>
+				<CLASSIFICA_CODICE>01</CLASSIFICA_CODICE>
+				<CLASSIFICA_DESCRIZIONE>DESCRIZIONE TITOLARIO</CLASSIFICA_DESCRIZIONE>
+				<FASCICOLO_ANNO>2014</FASCICOLO_ANNO>
+				<FASCICOLO_NUMERO>100</FASCICOLO_NUMERO>
+				<FASCICOLO_OGGETTO>DESCRIZIONE FASCICOLO</FASCICOLO_OGGETTO>
+				<OGGETTO_DETERMINA>PROVA DETERMINA</OGGETTO_DETERMINA>
+				<OGGETTO_DETERMINA_DEFINITIVO>PROVA DETERMINA  - OGGETTO DEFINITIVO</OGGETTO_DETERMINA_DEFINITIVO>
+				<FUNZIONARIO>NOMINATIVO FUNZIONARIO</FUNZIONARIO>
+				<DIRIGENTE>NOMINATIVO DIRIGENTE</DIRIGENTE>
+				<REDATTORE>NOMINATIVO REDATTORE</REDATTORE>
+				<INCARICATO>NOMINATIVO INCARICATO</INCARICATO>
+				<UNITA_PROPONENTE>Area Affari Generali</UNITA_PROPONENTE>
+				<UNITA_PROPONENTE_UPPER>AREA AFFARI GENERALI</UNITA_PROPONENTE_UPPER>
+				<CODICE_UNITA_PROPONENTE>A_AAGG</CODICE_UNITA_PROPONENTE>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<SUDDIVISIONE>AREA</SUDDIVISIONE>
+				<UNITA_PADRE>AREA AMMINISTRATIVA</UNITA_PADRE>
+				<FIRMATARIO>NOMINATIVO FIRMATARIO</FIRMATARIO>
+				<DESCRIZIONE_FIRMATARIO>Il funzionario delegato</DESCRIZIONE_FIRMATARIO>
+				<DELEGANTE>(IN SOSTITUZIONE DI QUALCUNO)</DELEGANTE>
+				<ASCENDENTI_UNITA>AREA: STRUTTURA AZIENDE SANITARIE</ASCENDENTI_UNITA>
+				<DESCRIZIONE_REGISTRO>REGISTRO DETERMINAZIONI DIRIGENZIALI</DESCRIZIONE_REGISTRO>
+				<DESCRIZIONE_REGISTRO_2>REGISTRO DIPARTIMENTALE</DESCRIZIONE_REGISTRO_2>
+				<CIG>0123456789</CIG>
+				<CUP>9876543210</CUP>
+				<DESCRIZIONE_RADICE_SUDD>RADICE AFFARI GENERALI</DESCRIZIONE_RADICE_SUDD>
+				<ESEGUIBILITA_ORDINARIA>l'atto diventerà eseguibile dopo 10 giorni dalla data di pubblicazione</ESEGUIBILITA_ORDINARIA>
+				<ALLEGATI_HASH_DEFINITIVO>
+					1. primo allegato
+					File: primo_allegato.pdf
+
+					2. secondo allegato
+					File: secondo_allegato.pdf
+				</ALLEGATI_HASH_DEFINITIVO>
+				<RISERVATO>RISERVATO</RISERVATO>
+				<IMPATTO_GENERAZIONALE>MODERATO</IMPATTO_GENERAZIONALE>
+			</determina>
+			<testo_originale>
+				<TESTO_ORIGINALE>TESTO DELL'ALLEGATO ORIGINALE</TESTO_ORIGINALE>
+			</testo_originale>
+			<movimenti_anagrafica>
+				<RAGIONE_SOCIALE>AUTOMATED DATA SYSTEM S.P.A.</RAGIONE_SOCIALE>
+				<COGNOME></COGNOME>
+				<NOME></NOME>
+				<CODICE_FISCALE></CODICE_FISCALE>
+				<PARTITA_IVA>0000000000</PARTITA_IVA>
+				<INDIRIZZO>VIA LIBERAZIONE</INDIRIZZO>
+				<CIVICO>15</CIVICO>
+				<COMUNE>BOLOGNA</COMUNE>
+				<CAP>40100</CAP>
+				<SIGLA_PROVINCIA>BO</SIGLA_PROVINCIA>
+				<TOTALE_U>1500,00</TOTALE_U>
+				<TOTALE_E>650,00</TOTALE_E>
+				<movimenti>
+					<TIPO_MOVIMENTO>E</TIPO_MOVIMENTO>
+					<CAPITOLO>101.034.80</CAPITOLO>
+					<NUMERO_CAPITOLO>80</NUMERO_CAPITOLO>
+					<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO - SISTEMI INFORMATIVI</DESCRIZIONE_CAPITOLO>
+					<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+					<CODICE_LIVELLO_5>U.1.03.02.19.009</CODICE_LIVELLO_5>
+					<DESCRIZIONE_LIVELLO_5>SERVIZI PER LE POSTAZIONI DI LAVORO E RELATIVA MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+					<IMPORTO>150,00</IMPORTO>
+					<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+					<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+					<CODICE_GLOBALE>1110011</CODICE_GLOBALE>
+					<CODICE_TIPO_FINANZIAMENTO>001</CODICE_TIPO_FINANZIAMENTO>
+					<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+					<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+					<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+					<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+					<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+				</movimenti>
+				<movimenti>
+					<TIPO_MOVIMENTO>E</TIPO_MOVIMENTO>
+					<CAPITOLO>101.034.11</CAPITOLO>
+					<NUMERO_CAPITOLO>11</NUMERO_CAPITOLO>
+					<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO</DESCRIZIONE_CAPITOLO>
+					<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+					<CODICE_LIVELLO_5>U.1.03.02.19.111</CODICE_LIVELLO_5>
+					<DESCRIZIONE_LIVELLO_5>SERVIZI DI MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+					<IMPORTO>350,50</IMPORTO>
+					<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+					<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+					<CODICE_GLOBALE>1110012</CODICE_GLOBALE>
+					<CODICE_TIPO_FINANZIAMENTO>002</CODICE_TIPO_FINANZIAMENTO>
+					<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+					<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+					<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+					<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+					<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+				</movimenti>
+				<movimenti>
+					<TIPO_MOVIMENTO>U</TIPO_MOVIMENTO>
+					<CAPITOLO>101.034.90</CAPITOLO>
+					<NUMERO_CAPITOLO>90</NUMERO_CAPITOLO>
+					<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO - SISTEMI INFORMATIVI</DESCRIZIONE_CAPITOLO>
+					<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+					<CODICE_LIVELLO_5>E.1.03.02.19.009</CODICE_LIVELLO_5>
+					<DESCRIZIONE_LIVELLO_5>SERVIZI PER LE POSTAZIONI DI LAVORO E RELATIVA MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+					<IMPORTO>450,00</IMPORTO>
+					<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+					<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+					<CODICE_GLOBALE>1110013</CODICE_GLOBALE>
+					<CODICE_TIPO_FINANZIAMENTO>003</CODICE_TIPO_FINANZIAMENTO>
+					<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+					<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+					<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+					<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+					<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+				</movimenti>
+				<movimenti>
+					<TIPO_MOVIMENTO>U</TIPO_MOVIMENTO>
+					<CAPITOLO>101.034.12</CAPITOLO>
+					<NUMERO_CAPITOLO>12</NUMERO_CAPITOLO>
+					<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO</DESCRIZIONE_CAPITOLO>
+					<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+					<CODICE_LIVELLO_5>E.1.03.02.19.111</CODICE_LIVELLO_5>
+					<DESCRIZIONE_LIVELLO_5>SERVIZI DI MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+					<IMPORTO>60,50</IMPORTO>
+					<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+					<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+					<CODICE_GLOBALE>1110014</CODICE_GLOBALE>
+					<CODICE_TIPO_FINANZIAMENTO>004</CODICE_TIPO_FINANZIAMENTO>
+					<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+					<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+					<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+					<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+					<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+				</movimenti>
+			</movimenti_anagrafica>
+			<movimenti_anagrafica>
+				<RAGIONE_SOCIALE></RAGIONE_SOCIALE>
+				<COGNOME>ROSSI</COGNOME>
+				<NOME>MARIO</NOME>
+				<CODICE_FISCALE>XXXXXXXXXXXXXX</CODICE_FISCALE>
+				<PARTITA_IVA></PARTITA_IVA>
+				<INDIRIZZO>VIA DEL LAVORO</INDIRIZZO>
+				<CIVICO>17</CIVICO>
+				<COMUNE>BOLOGNA</COMUNE>
+				<CAP>40100</CAP>
+				<SIGLA_PROVINCIA>BO</SIGLA_PROVINCIA>
+				<TOTALE_U>700,00</TOTALE_U>
+				<TOTALE_E>200,00</TOTALE_E>
+				<movimenti>
+					<TIPO_MOVIMENTO>E</TIPO_MOVIMENTO>
+					<CAPITOLO>101.034.80</CAPITOLO>
+					<NUMERO_CAPITOLO>80</NUMERO_CAPITOLO>
+					<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO - SISTEMI INFORMATIVI</DESCRIZIONE_CAPITOLO>
+					<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+					<CODICE_LIVELLO_5>U.1.03.02.19.009</CODICE_LIVELLO_5>
+					<DESCRIZIONE_LIVELLO_5>SERVIZI PER LE POSTAZIONI DI LAVORO E RELATIVA MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+					<IMPORTO>350,00</IMPORTO>
+					<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+					<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+					<CODICE_GLOBALE>1110015</CODICE_GLOBALE>
+					<CODICE_TIPO_FINANZIAMENTO>001</CODICE_TIPO_FINANZIAMENTO>
+					<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+					<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+					<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+					<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+					<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+				</movimenti>
+				<movimenti>
+					<TIPO_MOVIMENTO>E</TIPO_MOVIMENTO>
+					<CAPITOLO>101.034.11</CAPITOLO>
+					<NUMERO_CAPITOLO>11</NUMERO_CAPITOLO>
+					<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO</DESCRIZIONE_CAPITOLO>
+					<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+					<CODICE_LIVELLO_5>U.1.03.02.19.111</CODICE_LIVELLO_5>
+					<DESCRIZIONE_LIVELLO_5>SERVIZI DI MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+					<IMPORTO>150,50</IMPORTO>
+					<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+					<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+					<CODICE_GLOBALE>1110016</CODICE_GLOBALE>
+					<CODICE_TIPO_FINANZIAMENTO>002</CODICE_TIPO_FINANZIAMENTO>
+					<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+					<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+					<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+					<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+					<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+				</movimenti>
+				<movimenti>
+					<TIPO_MOVIMENTO>U</TIPO_MOVIMENTO>
+					<CAPITOLO>101.034.90</CAPITOLO>
+					<NUMERO_CAPITOLO>90</NUMERO_CAPITOLO>
+					<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO - SISTEMI INFORMATIVI</DESCRIZIONE_CAPITOLO>
+					<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+					<CODICE_LIVELLO_5>E.1.03.02.19.009</CODICE_LIVELLO_5>
+					<DESCRIZIONE_LIVELLO_5>SERVIZI PER LE POSTAZIONI DI LAVORO E RELATIVA MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+					<IMPORTO>250,00</IMPORTO>
+					<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+					<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+					<CODICE_GLOBALE>1110017</CODICE_GLOBALE>
+					<CODICE_TIPO_FINANZIAMENTO>003</CODICE_TIPO_FINANZIAMENTO>
+					<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+					<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+					<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+					<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+					<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+				</movimenti>
+				<movimenti>
+					<TIPO_MOVIMENTO>U</TIPO_MOVIMENTO>
+					<CAPITOLO>101.034.12</CAPITOLO>
+					<NUMERO_CAPITOLO>12</NUMERO_CAPITOLO>
+					<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO</DESCRIZIONE_CAPITOLO>
+					<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+					<CODICE_LIVELLO_5>E.1.03.02.19.111</CODICE_LIVELLO_5>
+					<DESCRIZIONE_LIVELLO_5>SERVIZI DI MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+					<IMPORTO>70,50</IMPORTO>
+					<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+					<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+					<CODICE_GLOBALE>1110018</CODICE_GLOBALE>
+					<CODICE_TIPO_FINANZIAMENTO>004</CODICE_TIPO_FINANZIAMENTO>
+					<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+					<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+					<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+					<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+					<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+				</movimenti>
+			</movimenti_anagrafica>
+			<movimenti>
+				<TIPO_MOVIMENTO>U</TIPO_MOVIMENTO>
+				<CAPITOLO>101.034.80</CAPITOLO>
+				<NUMERO_CAPITOLO>80</NUMERO_CAPITOLO>
+				<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO - SISTEMI INFORMATIVI</DESCRIZIONE_CAPITOLO>
+				<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+				<CODICE_LIVELLO_5>U.1.03.02.19.009</CODICE_LIVELLO_5>
+				<DESCRIZIONE_LIVELLO_5>SERVIZI PER LE POSTAZIONI DI LAVORO E RELATIVA MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+				<IMPORTO>350,00</IMPORTO>
+				<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+				<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+				<CODICE_GLOBALE>1110019</CODICE_GLOBALE>
+				<CODICE_TIPO_FINANZIAMENTO>005</CODICE_TIPO_FINANZIAMENTO>
+				<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+				<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+				<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+				<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+				<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+			</movimenti>
+			<movimenti>
+				<TIPO_MOVIMENTO>E</TIPO_MOVIMENTO>
+				<CAPITOLO>101.034.11</CAPITOLO>
+				<NUMERO_CAPITOLO>11</NUMERO_CAPITOLO>
+				<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO</DESCRIZIONE_CAPITOLO>
+				<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+				<CODICE_LIVELLO_5>U.1.03.02.19.111</CODICE_LIVELLO_5>
+				<DESCRIZIONE_LIVELLO_5>SERVIZI DI MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+				<IMPORTO>150,50</IMPORTO>
+				<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+				<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+				<CODICE_GLOBALE>1110020</CODICE_GLOBALE>
+				<CODICE_TIPO_FINANZIAMENTO>006</CODICE_TIPO_FINANZIAMENTO>
+				<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+				<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+				<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+				<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+				<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+			</movimenti>
+			<movimenti>
+				<TIPO_MOVIMENTO>U</TIPO_MOVIMENTO>
+				<CAPITOLO>101.034.90</CAPITOLO>
+				<NUMERO_CAPITOLO>90</NUMERO_CAPITOLO>
+				<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO - SISTEMI INFORMATIVI</DESCRIZIONE_CAPITOLO>
+				<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+				<CODICE_LIVELLO_5>E.1.03.02.19.009</CODICE_LIVELLO_5>
+				<DESCRIZIONE_LIVELLO_5>SERVIZI PER LE POSTAZIONI DI LAVORO E RELATIVA MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+				<IMPORTO>250,00</IMPORTO>
+				<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+				<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+				<CODICE_GLOBALE>1110021</CODICE_GLOBALE>
+				<CODICE_TIPO_FINANZIAMENTO>007</CODICE_TIPO_FINANZIAMENTO>
+				<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+				<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+				<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+				<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+				<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+			</movimenti>
+			<movimenti>
+				<TIPO_MOVIMENTO>U</TIPO_MOVIMENTO>
+				<CAPITOLO>101.034.11</CAPITOLO>
+				<NUMERO_CAPITOLO>11</NUMERO_CAPITOLO>
+				<DESCRIZIONE_CAPITOLO>SETTORE FINANZIARIO</DESCRIZIONE_CAPITOLO>
+				<ANNO_ESERCIZIO>2023</ANNO_ESERCIZIO>
+				<CODICE_LIVELLO_5>E.1.03.02.19.111</CODICE_LIVELLO_5>
+				<DESCRIZIONE_LIVELLO_5>SERVIZI DI MANUTENZIONE</DESCRIZIONE_LIVELLO_5>
+				<IMPORTO>70,50</IMPORTO>
+				<CIG_MOVIMENTO>Z257986592</CIG_MOVIMENTO>
+				<CUP_MOVIMENTO>0025468978452136</CUP_MOVIMENTO>
+				<CODICE_GLOBALE>1110022</CODICE_GLOBALE>
+				<CODICE_TIPO_FINANZIAMENTO>008</CODICE_TIPO_FINANZIAMENTO>
+				<TIPO_FINANZIAMENTO>Descrizione tipo finanziamento</TIPO_FINANZIAMENTO>
+				<CODICE_LAVORO>Codice lavoro</CODICE_LAVORO>
+				<DESCRIZIONE_LAVORO>Descrizione lavoro</DESCRIZIONE_LAVORO>
+				<CODICE_CENTRO_GESTORE>Codice centro gestore</CODICE_CENTRO_GESTORE>
+				<DESCRIZIONE_CENTRO_GESTORE>Descrizione centro gestore</DESCRIZIONE_CENTRO_GESTORE>
+			</movimenti>
+		</documentRoot>
+	</testStaticData>
+	<definitions>
+
+		<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>id</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>id della determina</descrizione>
+			<path/>
+		</metaDato>
+
+		<!-- DEFINIZIONE CAMPI DELLA QUERY -->
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della proposta di determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno della proposta di determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di adozione della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di adozione della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<!-- http://svi-redmine/issues/22205 -->
+			<nomeSimbolico>ANNO_DETERMINA_2</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno del secondo numero di determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<!-- http://svi-redmine/issues/22205 -->
+			<nomeSimbolico>NUMERO_DETERMINA_2</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Secondo numero di determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di protocollazione della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di protocollazione della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di protocollo determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO_DETERMINA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>OGGETTO_DETERMINA_DEFINITIVO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Oggetto della determina alla numerazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FUNZIONARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Funzionario della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DIRIGENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Dirigente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>REDATTORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Redattore della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INCARICATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Incaricato della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE_UPPER</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità proponente (in maiuscolo)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice UO dell'unità proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>AREA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Area dell'unita' proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SERVIZIO_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Servizio dell'unita' proponente della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SUDDIVISIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Suddivisione dell'unità proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PADRE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità Padre dell'Unità Proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Utente Firmatario</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_FIRMATARIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è un dirigente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DELEGANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indica se il firmatario è stato delegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CLASSIFICA_CODICE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice della classificazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CLASSIFICA_DESCRIZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione della classificazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FASCICOLO_NUMERO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero del fascicolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FASCICOLO_ANNO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno del fascicolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>FASCICOLO_OGGETTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del fascicolo</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ESEGUIBILITA_ORDINARIA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione dell'eseguibilità ordinaria</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ASCENDENTI_UNITA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ascendenti unità proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_REGISTRO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del registro di numerazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_REGISTRO_2</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del registro di seconda numerazione</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CIG</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice Identificativo Gara</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CUP</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice Unico di Progetto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_RADICE_SUDD</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione dell'unità radice in struttura rispetto l'unità proponente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TESTO_ORIGINALE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Testo dell'allegato di tipo TESTO_ORIGINALE della determina</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ALLEGATI_HASH_DEFINITIVO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco allegati dell'atto (comprensivo di hash per i file non firmati)</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RISERVATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Valorizzato solo se l'atto è riservato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ID_DOCUMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Id dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ID_MOVIMENTO_ANAGRAFICA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Id del record</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RAGIONE_SOCIALE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ragione sociale dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>COGNOME</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Cognome dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOME</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nome dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_FISCALE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice fiscale dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PARTITA_IVA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Partita iva dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INDIRIZZO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Indirizzo dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CIVICO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Civico dell'indirizzo dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>COMUNE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Comune dell'indirizzo dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CAP</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Cap dell'indirizzo dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SIGLA_PROVINCIA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Provincia dell'indirizzo dell'anagrafica</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TOTALE_U</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Somma degli importi in uscita</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TOTALE_E</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Somma degli importi in entrata</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CAPITOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero completo capitolo del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_CAPITOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero capitolo del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_CAPITOLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del capitolo del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_ESERCIZIO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_LIVELLO_5</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice V Livello del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_LIVELLO_5</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione V Livello del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>IMPORTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TIPO_MOVIMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Movimento in entrata o uscita</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CIG_MOVIMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice CIG del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CUP_MOVIMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice CUP del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_GLOBALE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice globale del movimento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+		<nomeSimbolico>CODICE_TIPO_FINANZIAMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice del tipo finanziamento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+		<nomeSimbolico>TIPO_FINANZIAMENTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del tipo finanziamento</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_LAVORO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice del lavoro relativo all'impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_LAVORO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del lavoro relativo all'impegno</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_CENTRO_GESTORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice del centro gestore</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_CENTRO_GESTORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del centro gestore</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>IMPATTO_GENERAZIONALE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Impatto Generazionale della determina</descrizione>
+			<path/>
+		</metaDato>
+	</definitions>
+	<queryes>
+		<!-- determina: restituisce i dati di una determina -->
+		<query 	id="determina"
+				  help_descrizione="Ritorna i dati di una determina."
+				  help_query_alias="d"
+				  help_field_aliases="ANNO_PROPOSTA, ANNO_DETERMINA, ANNO_DETERMINA_2, ANNO_PROTOCOLLO, AREA_PROPONENTE, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, CODICE_UNITA_PROPONENTE, DATA_DETERMINA, DATA_PROTOCOLLO, DESCRIZIONE_REGISTRO, DESCRIZIONE_REGISTRO_2, DIRIGENTE, REDATTORE, INCARICATO, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_OGGETTO, FUNZIONARIO, NUMERO_DETERMINA, NUMERO_DETERMINA_2, NUMERO_PROPOSTA, NUMERO_PROTOCOLLO, OGGETTO_DETERMINA, OGGETTO_DETERMINA_DEFINITIVO, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PROPONENTE, UNITA_PROPONENTE_UPPER, UNITA_PADRE, FIRMATARIO, DESCRIZIONE_FIRMATARIO, DELEGANTE, ASCENDENTI_UNITA, CIG, CUP, DESCRIZIONE_RADICE_SUDD, ESEGUIBILITA_ORDINARIA, ALLEGATI_HASH_DEFINITIVO, RISERVATO, IMPATTO_GENERAZIONALE">
+			select decode(numero_proposta, null, '${documentRoot.determina.NUMERO_PROPOSTA}', to_char(numero_proposta)) NUMERO_PROPOSTA
+			, decode(anno_proposta, null, '${documentRoot.determina.ANNO_PROPOSTA}', to_char(anno_proposta)) ANNO_PROPOSTA
+			, decode(data_numero_determina, null, '${documentRoot.determina.DATA_DETERMINA}', to_char(data_numero_determina,'dd/mm/yyyy')) DATA_DETERMINA
+			, decode(anno_determina, null, '${documentRoot.determina.ANNO_DETERMINA}', anno_determina) ANNO_DETERMINA
+			, decode(numero_determina, null, '${documentRoot.determina.NUMERO_DETERMINA}', to_char(numero_determina)) NUMERO_DETERMINA
+			, decode(anno_determina_2, null, '${documentRoot.determina.ANNO_DETERMINA_2}', anno_determina_2) ANNO_DETERMINA_2
+			, decode(numero_determina_2, null, '${documentRoot.determina.NUMERO_DETERMINA_2}', to_char(numero_determina_2)) NUMERO_DETERMINA_2
+			, decode(numero_determina, null, '${documentRoot.determina.NUMERO_PROTOCOLLO}', to_char(numero_protocollo)) NUMERO_PROTOCOLLO
+			, decode(numero_determina, null, '${documentRoot.determina.ANNO_PROTOCOLLO}', anno_protocollo) ANNO_PROTOCOLLO
+			, decode(numero_determina, null, '${documentRoot.determina.DATA_PROTOCOLLO}', to_char(data_numero_protocollo,'dd/mm/yyyy')) DATA_PROTOCOLLO
+			, oggetto OGGETTO_DETERMINA
+			, decode(numero_determina, null, '${documentRoot.determina.OGGETTO_DETERMINA_DEFINITIVO}', oggetto) OGGETTO_DETERMINA_DEFINITIVO
+			, decode(numero_determina, null, decode(classifica_codice, null, '${documentRoot.determina.CLASSIFICA_CODICE}', classifica_codice), classifica_codice) CLASSIFICA_CODICE
+			, decode(numero_determina, null, decode(classifica_descrizione, null, '${documentRoot.determina.CLASSIFICA_DESCRIZIONE}', classifica_descrizione), classifica_descrizione) CLASSIFICA_DESCRIZIONE
+			, decode(numero_determina, null, decode(fascicolo_anno, null, '${documentRoot.determina.FASCICOLO_ANNO}', fascicolo_anno), fascicolo_anno) FASCICOLO_ANNO
+			, decode(numero_determina, null, decode(fascicolo_numero, null, '${documentRoot.determina.FASCICOLO_NUMERO}', fascicolo_numero), fascicolo_numero) FASCICOLO_NUMERO
+			, decode(numero_determina, null, decode(fascicolo_oggetto, null, '${documentRoot.determina.FASCICOLO_OGGETTO}', fascicolo_oggetto), fascicolo_oggetto) FASCICOLO_OGGETTO
+			, decode(d.controllo_funzionario,'N',null, utility_pkg.get_nominativo_sogg_dete (d.id_determina, 'FUNZIONARIO')) FUNZIONARIO
+			, utility_pkg.get_nominativo_sogg_dete (d.id_determina, 'DIRIGENTE') DIRIGENTE
+			, utility_pkg.get_nominativo_sogg_dete (d.id_determina, 'REDATTORE') REDATTORE
+			, utility_pkg.get_nominativo_sogg_dete (d.id_determina, 'INCARICATO') INCARICATO
+			, utility_pkg.get_unita_prop_determina (d.id_determina) UNITA_PROPONENTE
+			, upper(utility_pkg.get_unita_prop_determina (d.id_determina)) UNITA_PROPONENTE_UPPER
+			, utility_pkg.get_codice_unita_prop_dete (d.id_determina) CODICE_UNITA_PROPONENTE
+			, utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_AREA', d.ente) AREA_PROPONENTE
+			, utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_SERVIZIO', d.ente) SERVIZIO_PROPONENTE
+			, utility_pkg.get_suddivisione_uo_determina (d.id_determina) SUDDIVISIONE
+			, utility_pkg.get_uo_padre_determina (d.id_determina) UNITA_PADRE
+			, nvl(utility_pkg.get_nominativo_soggetto(utility_pkg.get_ni_soggetto( nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), d.ente), '${documentRoot.determina.FIRMATARIO}' ) FIRMATARIO
+			, decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.determina.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), d.ente)) DESCRIZIONE_FIRMATARIO
+			, decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.determina.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, d.ente)) DELEGANTE
+			, utility_pkg.get_desc_ascendenti_unita(utility_pkg.get_codice_unita_prop_dete (d.id_determina), null, impostazioni_pkg.get_impostazione('OTTICA_SO4', d.ente), null) ASCENDENTI_UNITA
+			, decode(tp.descrizione, null, '${documentRoot.determina.DESCRIZIONE_REGISTRO}', tp.descrizione) DESCRIZIONE_REGISTRO
+			, decode(tp2.descrizione, null, '${documentRoot.determina.DESCRIZIONE_REGISTRO_2}', tp2.descrizione) DESCRIZIONE_REGISTRO_2
+			, utility_pkg.get_elenco_cig_determina(d.id_determina, d.ente) CIG
+			, (select valore from dati_aggiuntivi da where da.codice = 'CUP' and da.id_determina = d.id_determina) CUP
+			, utility_pkg.unita_get_radice_determina (d.id_determina) DESCRIZIONE_RADICE_SUDD
+			, decode(d.eseguibilita_immediata, 'Y', decode(data_numero_determina, null, '${documentRoot.determina.ESEGUIBILITA_ORDINARIA}', impostazioni_pkg.get_impostazione('MODELLI_STAMPE_NON_ESEGUIBILITA_DETERMINA', d.ente)|| to_char(data_numero_determina,'dd/mm/yyyy')), impostazioni_pkg.get_impostazione('MODELLI_STAMPE_ESEGUIBILITA_DETERMINA', d.ente)) ESEGUIBILITA_ORDINARIA
+			, utility_pkg.elenco_allegati_determina(d.id_determina) ALLEGATI_HASH_DEFINITIVO
+			, decode(d.riservato,'Y','RISERVATO','') RISERVATO
+			, decode (d.id_impatto_generazionale, null, decode(numero_determina, null, '${documentRoot.determina.IMPATTO_GENERAZIONALE}', ''), ig.frase) IMPATTO_GENERAZIONALE
+			from firmatari f
+			, determine d
+			, tipi_registro tp
+			, tipi_registro tp2
+			, impatti_generazionali ig
+			where d.id_determina 				= #id
+			and f.id_determina(+) 			= d.id_determina
+			and f.firmato(+) 					= 'N'
+			and f.data_firma(+) 				is not null
+			and tp.tipo_registro (+) 			= d.registro_determina
+			and tp2.tipo_registro (+) 	    = d.registro_determina_2
+			and ig.id_impatto_generazionale (+) = d.id_impatto_Generazionale
+		</query>
+
+		<query id='testo_originale'
+			   help_query_alias="testo"
+			   help_field_aliases="TESTO_ORIGINALE">
+			select utility_pkg.get_testo_originale_determina(d.id_determina) TESTO_ORIGINALE from determine d where d.id_determina = #id
+		</query>
+
+		<query id='movimenti_anagrafica'
+			   child="movimenti"
+			   help_descrizione="Ritorna le anagrafiche legate ai movimenti contabili."
+			   help_query_alias="ma"
+			   help_field_aliases="RAGIONE_SOCIALE, COGNOME, NOME, CODICE_FISCALE, PARTITA_IVA, INDIRIZZO, CIVICO, COMUNE, CAP, SIGLA_PROVINCIA, TOTALE_U, TOTALE_E">
+			select distinct m.id_documento,
+							ma.id_movimento_anagrafica ID_MOVIMENTO_ANAGRAFICA,
+							ma.ragione_sociale RAGIONE_SOCIALE,
+							ma.cognome COGNOME,
+							ma.nome NOME,
+							ma.codice_fiscale CODICE_FISCALE,
+							ma.partita_iva PARTITA_IVA,
+							ma.indirizzo INDIRIZZO,
+							ma.civico CIVICO,
+							ma.comune COMUNE,
+							ma.cap CAP,
+							ma.sigla_provincia SIGLA_PROVINCIA,
+							(select trim(TO_CHAR(sum(m1.importo),       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m1 where m1.tipo_uscita = 'U' and nvl(m1.id_movimento_anagrafica,-9999) = nvl(m.id_movimento_anagrafica,-9999) and m1.id_documento = #id and m1.tipo_documento = 'DETERMINA') TOTALE_U,
+							(select trim(TO_CHAR(sum(m1.importo),       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) from movimenti_contabili m1 where m1.tipo_uscita = 'E' and nvl(m1.id_movimento_anagrafica,-9999) = nvl(m.id_movimento_anagrafica,-9999) and m1.id_documento = #id and m1.tipo_documento = 'DETERMINA') TOTALE_E
+				from movimenti_contabili m, movimenti_anagrafica ma
+			   where m.id_documento = #id
+				 and m.tipo_documento = 'DETERMINA'
+				 and m.id_movimento_anagrafica = ma.id_movimento_anagrafica(+)
+			union
+			   select cast(null as number) id_documento,
+			          cast(null as number) ID_MOVIMENTO_ANAGRAFICA,
+			          cast(null as varchar2(255)) RAGIONE_SOCIALE,
+			          cast(null as varchar2(255)) COGNOME,
+			          cast(null as varchar2(255)) NOME,
+			          cast(null as varchar2(255)) CODICE_FISCALE,
+			          cast(null as varchar2(255)) PARTITA_IVA,
+			          cast(null as varchar2(255)) INDIRIZZO,
+			          cast(null as varchar2(255)) CIVICO,
+			          cast(null as varchar2(255)) COMUNE,
+			          cast(null as varchar2(255)) CAP,
+			          cast(null as varchar2(255)) SIGLA_PROVINCIA,
+			          cast(null as varchar2(255)) TOTALE_U,
+			          cast(null as varchar2(255)) TOTALE_E
+			     from dual
+			    where not exists (select 1
+			                        from movimenti_contabili m, movimenti_anagrafica ma
+			                       where m.id_documento = #id
+			                       and m.tipo_documento = 'DETERMINA'
+			                       and m.id_movimento_anagrafica = ma.id_movimento_anagrafica(+))
+			order by ragione_sociale asc, cognome asc, nome asc
+		</query>
+		<query id='movimenti'
+			   help_descrizione="Ritorna i movimenti contabili"
+			   help_query_alias="m"
+			   help_field_aliases="TIPO_MOVIMENTO, CAPITOLO, OPERAZIONE, NUMERO_CAPITOLO, DESCRIZIONE_CAPITOLO, ANNO_ESERCIZIO, NUMERO_MOVIMENTO, CODICE_LIVELLO_5, DESCRIZIONE_LIVELLO_5, IMPORTO, CIG_MOVIMENTO, CUP_MOVIMENTO, CODICE_GLOBALE, CODICE_TIPO_FINANZIAMENTO, TIPO_FINANZIAMENTO, CODICE_LAVORO, DESCRIZIONE_LAVORO, CODICE_CENTRO_GESTORE, DESCRIZIONE_CENTRO_GESTORE">
+select case
+		 when m.opera = 'ACCERTAMENTO' then 1
+         when m.opera = 'ACCERTAMENTO_VARIAZIONE' then 2
+         when m.opera = 'IMPEGNO' then 3
+         when m.opera = 'IMPEGNO_VARIAZIONE' then 4
+         when m.opera = 'SUBIMPEGNO' then 5
+         when m.opera = 'SUBIMPEGNO_VARIAZIONE' then 6
+         when m.opera = 'IMPEGNO_PRENOTAZIONE' then 7
+         when m.opera = 'PRENOTAZIONE' then 8
+         when m.opera = 'PRENOTAZIONE_VARIAZIONE' then 9
+       end ORDINAMENTO_1,
+       M.ANNO_ESERCIZIO ORDINAMENTO_2,
+       case
+         when m.opera = 'PRENOTAZIONE' then (m.progressivo_esterno)
+         when m.opera = 'PRENOTAZIONE_VARIAZIONE' then (m.numero_variazione)
+         when m.opera = 'IMPEGNO' then (m.progressivo_esterno)
+         when m.opera = 'IMPEGNO_PRENOTAZIONE' then (m.progressivo_esterno)
+         when m.opera = 'IMPEGNO_VARIAZIONE' then (m.numero_variazione)
+         when m.opera = 'SUBIMPEGNO' then (m.progressivo_esterno)
+         when m.opera = 'SUBIMPEGNO_VARIAZIONE' then TO_NUMBER(m.numero_impegno_padre)
+         when m.opera = 'ACCERTAMENTO' then (m.progressivo_esterno)
+         when m.opera = 'ACCERTAMENTO_VARIAZIONE' then (m.numero_variazione)
+       end ORDINAMENTO_3,
+		m.tipo_uscita TIPO_MOVIMENTO,
+       case
+         when m.opera = 'PRENOTAZIONE' then 'prenotazione'
+         when m.opera = 'PRENOTAZIONE_VARIAZIONE' then 'variazione di prenotazione'
+         when m.opera = 'IMPEGNO' then 'impegno'
+         when m.opera = 'IMPEGNO_PRENOTAZIONE' then 'impegno su prenotazione'
+         when m.opera = 'IMPEGNO_VARIAZIONE' then 'variazione di impegno'
+         when m.opera = 'SUBIMPEGNO' then 'sub-impegno'
+         when m.opera = 'SUBIMPEGNO_VARIAZIONE' then 'variazione di sub-impegno'
+         when m.opera = 'ACCERTAMENTO' then 'accertamento'
+         when m.opera = 'ACCERTAMENTO_VARIAZIONE' then 'variazione di accertamento'
+       end TIPO_MOVIMENTO,
+       m.capitolo CAPITOLO,
+       m.numero NUMERO_CAPITOLO,
+       m.descrizione_capitolo DESCRIZIONE_CAPITOLO,
+       m.anno_esercizio ANNO_ESERCIZIO,
+       m.pdc_liv_5 CODICE_LIVELLO_5,
+       m.descrizione_pdc_liv_5 DESCRIZIONE_LIVELLO_5,
+       case
+         when m.opera = 'PRENOTAZIONE' then to_char(m.progressivo_esterno)
+         when m.opera = 'PRENOTAZIONE_VARIAZIONE' then to_char(m.numero_variazione)
+         when m.opera = 'IMPEGNO' then to_char(m.progressivo_esterno)
+         when m.opera = 'IMPEGNO_PRENOTAZIONE' then to_char(m.progressivo_esterno)
+         when m.opera = 'IMPEGNO_VARIAZIONE' then to_char(m.numero_variazione)
+         when m.opera = 'SUBIMPEGNO' then to_char(m.progressivo_esterno)
+         when m.opera = 'SUBIMPEGNO_VARIAZIONE' then to_char(m.numero_impegno_padre)
+         when m.opera = 'ACCERTAMENTO' then to_char(m.progressivo_esterno)
+         when m.opera = 'ACCERTAMENTO_VARIAZIONE' then to_char(m.numero_variazione)
+       end NUMERO_MOVIMENTO,
+       m.cig CIG_MOVIMENTO,
+       m.cup CUP_MOVIMENTO,
+       m.codice_globale CODICE_GLOBALE,
+       m.cod_tipo_finanz CODICE_TIPO_FINANZIAMENTO,
+       m.des_tipo_finanz TIPO_FINANZIAMENTO,
+       m.cod_lavoro CODICE_LAVORO,
+       m.des_lavoro DESCRIZIONE_LAVORO,
+       m.codice_centro_gestore CODICE_CENTRO_GESTORE,
+       m.descrizione_centro_gestore DESCRIZIONE_CENTRO_GESTORE,
+       trim(TO_CHAR(m.importo, '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) IMPORTO,
+       m.numero
+  from movimenti_contabili m
+ where m.id_documento = @ID_DOCUMENTO
+   and m.tipo_documento = 'DETERMINA'
+   and nvl(m.id_movimento_anagrafica, -9999) = nvl(@ID_MOVIMENTO_ANAGRAFICA, -9999)
+union all
+select cast(null as number) ORDINAMENTO_1,
+		cast(null as number) ORDINAMENTO_2,
+		cast(null as number) ORDINAMENTO_3,
+        cast(null as varchar2(255)) TIPO_MOVIMENTO,
+        cast(null as varchar2(50)) OPERAZIONE,
+        cast(null as varchar2(255)) CAPITOLO,
+        cast(null as number) NUMERO_CAPITOLO,
+        cast(null as varchar2(4000)) DESCRIZIONE_CAPITOLO,
+        cast(null as number) ANNO_ESERCIZIO,
+        cast(null as varchar2(255)) CODICE_LIVELLO_5,
+        cast(null as varchar2(4000)) DESCRIZIONE_LIVELLO_5,
+        cast(null as varchar2(255)) NUMERO_MOVIMENTO,
+        cast(null as varchar2(255)) CIG_MOVIMENTO,
+        cast(null as varchar2(255)) CUP_MOVIMENTO,
+        cast(null as varchar2(255)) CODICE_GLOBALE,
+        cast(null as varchar2(255)) CODICE_TIPO_FINANZIAMENTO,
+        cast(null as varchar2(255)) TIPO_FINANZIAMENTO,
+        cast(null as varchar2(255)) CODICE_LAVORO,
+        cast(null as varchar2(4000)) DESCRIZIONE_LAVORO,
+        cast(null as varchar2(255)) CODICE_CENTRO_GESTORE,
+        cast(null as varchar2(4000)) DESCRIZIONE_CENTRO_GESTORE,
+        cast(null as varchar2(30)) IMPORTO,
+        cast(null as number) NUMERO
+  from dual
+ where not exists (select 1
+          from movimenti_contabili m
+         where m.id_documento = @ID_DOCUMENTO
+           and m.tipo_documento = 'DETERMINA'
+           and nvl(m.id_movimento_anagrafica, -9999) = nvl(@ID_MOVIMENTO_ANAGRAFICA, -9999))
+ order by ordinamento_1    asc,
+             ordinamento_2    asc,
+             ordinamento_3    asc,
+             numero           	asc,
+             anno_esercizio   	asc,
+             codice_livello_5  asc
+		</query>
+<!-- vecchia versione (19/08/2026)
+                <query id='movimenti'
+                       help_descrizione="Ritorna i movimenti contabili"
+                       help_query_alias="m"
+                       help_field_aliases="TIPO_MOVIMENTO, CAPITOLO, NUMERO_CAPITOLO, DESCRIZIONE_CAPITOLO, ANNO_ESERCIZIO, CODICE_LIVELLO_5, DESCRIZIONE_LIVELLO_5, IMPORTO, CIG_MOVIMENTO, CUP_MOVIMENTO, CODICE_GLOBALE, CODICE_TIPO_FINANZIAMENTO, TIPO_FINANZIAMENTO, CODICE_LAVORO, DESCRIZIONE_LAVORO, CODICE_CENTRO_GESTORE, DESCRIZIONE_CENTRO_GESTORE">
+                    select   m.tipo_uscita TIPO_MOVIMENTO,
+                             m.capitolo CAPITOLO,
+                             m.numero NUMERO_CAPITOLO,
+                             m.descrizione_capitolo DESCRIZIONE_CAPITOLO,
+                             m.anno_esercizio ANNO_ESERCIZIO,
+                             m.pdc_liv_5 CODICE_LIVELLO_5,
+                             m.descrizione_pdc_liv_5 DESCRIZIONE_LIVELLO_5,
+                             m.cig CIG_MOVIMENTO,
+                             m.cup CUP_MOVIMENTO,
+                             m.codice_globale CODICE_GLOBALE,
+                             m.cod_tipo_finanz CODICE_TIPO_FINANZIAMENTO,
+                             m.des_tipo_finanz TIPO_FINANZIAMENTO,
+                             m.cod_lavoro CODICE_LAVORO,
+                             m.des_lavoro DESCRIZIONE_LAVORO,
+                             m.codice_centro_gestore CODICE_CENTRO_GESTORE,
+                             m.descrizione_centro_gestore DESCRIZIONE_CENTRO_GESTORE,
+                             trim(TO_CHAR(sum(m.importo),       '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) IMPORTO
+                        from movimenti_contabili m
+                       where m.id_documento = @ID_DOCUMENTO
+                         and m.tipo_documento = 'DETERMINA'
+                         and nvl(m.id_movimento_anagrafica, -9999) = nvl(@ID_MOVIMENTO_ANAGRAFICA, -9999)
+                    group by capitolo,
+                             numero,
+                             descrizione_capitolo,
+                             anno_esercizio,
+                             pdc_liv_5,
+                             m.descrizione_pdc_liv_5,
+                             m.tipo_uscita,
+                             m.cig,
+                             m.cup,
+                             m.codice_globale,
+                             m.cod_tipo_finanz,
+                             m.des_tipo_finanz,
+                             m.cod_lavoro,
+                             m.des_lavoro,
+                             m.codice_centro_gestore,
+                             m.descrizione_centro_gestore
+                    order by numero asc, anno_esercizio asc, pdc_liv_5 asc
+                </query>
+-->
+            </queryes>
+            <staticData />
+        </documentRoot>

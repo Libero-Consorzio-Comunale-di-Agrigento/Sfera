@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
 
-	<window apply="grailsBindComposer" viewModel="@id('vm') @init('popupPartecipantiViewModel')" border="normal" width="500px" title=" ">
+	<window apply="grailsBindComposer" viewModel="@id('vm') @init('popupPartecipantiViewModel')" border="normal" width="500px" height="350px" title=" ">
 
 		<h:div class="barraTitoloPagina">
 			<label sclass="titoloPagina" value="Convocati Seduta" />
@@ -18,7 +18,7 @@
 <!-- 				<radio label="Interno" radiogroup="tipoSoggetto" selected="true" /> -->
 <!-- 				<radio label="Esterno" radiogroup="tipoSoggetto" /> -->
 <!-- 			</hlayout> -->
-			<grid sclass="form">
+			<grid sclass="form" vflex="1">
 				<rows>
 					<row>
 						<cell align="right" valign="top" width="20%">
@@ -50,6 +50,7 @@
 						</cell>
 						<cell colspan="3">
 							<combobox hflex="1" readonly="true"
+								disabled="@load(vm.sezione eq 'OGGETTO_SEDUTA' and vm.partecipante.id gt 0)"
 								selectedItem="@bind(vm.incarico) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue='-1')"
 								model="@load(vm.listaIncarichi)">
 								<template name="model">
@@ -75,6 +76,72 @@
 							<spinner value="@bind(vm.partecipante.sequenzaFirma)"
 								visible="@load(vm.partecipante.firmatario)" format=",###" constraint="no empty,min 0"
 								disabled="@load(empty vm.soggetto.utenteAd4)" />
+						</cell>
+					</row>
+					<row  visible="@load(vm.sezione ne 'CONVOCATI')">
+						<cell align="right">
+							<label value="Delega" />
+						</cell>
+						<cell colspan="3">
+							<radiogroup selectedIndex="@load(vm.partecipante.delega ? 0 : 1)" selectedItem="@save(vm.partecipante.delega)">
+								<radio label="Sì" value="@load(true)" />
+								<radio label="No" value="@load(false)" />
+							</radiogroup>
+						</cell>
+					</row>
+
+					<row  visible="@load(vm.sezione eq 'PARTECIPANTI' and vm.dataOraPresenzaComponenti )">
+						<cell align="right">
+							<label value="Data Entrata" />
+						</cell>
+						<cell colspan="3">
+							<datebox format="dd/MM/yyyy" value="@bind(vm.partecipante.dataEntrata)" /> - Ora <textbox value="@bind(vm.partecipante.oraEntrata)"  />  <!--constraint="/[0-9][0-9]+\:[0-9][0-9]/: Inserire un orario HH:MM" -->
+						</cell>
+					</row>
+					<row  visible="@load(vm.sezione eq 'PARTECIPANTI' and vm.dataOraPresenzaComponenti)">
+						<cell align="right">
+							<label value="Data Uscita" />
+						</cell>
+						<cell colspan="3">
+							<datebox format="dd/MM/yyyy" value="@bind(vm.partecipante.dataUscita)" /> - Ora <textbox value="@bind(vm.partecipante.oraUscita)"  />
+						</cell>
+					</row>
+					<row visible="@load((vm.sezione ne 'CONVOCATI') and vm.partecipante.delega)">
+						<cell align="right">
+							<label value="Delegato" />
+						</cell>
+						<cell colspan="3">
+							<combobox hflex="1" readonly="true"
+									  selectedItem="@bind(vm.partecipante.sedutaPartecipanteDelegato) @converter('it.finmatica.zkutils.PropertyConverter', property='id', defaultValue='-1')"
+									  model="@load(vm.listaPartecipanti)">
+								<template name="model" var="part">
+									<comboitem label="@load(not empty part.commissioneComponente ? part.commissioneComponente.componente.denominazione : part.componenteEsterno.denominazione )"
+											   value="@load(part)" />
+								</template>
+							</combobox>
+
+<!--							<combobox model="@load(vm.listaPartecipanti)" hflex="1" readonly="true"-->
+<!--									  selectedItem="@bind(vm.selectedPartecipante)">-->
+<!--								<template name="model" var="part">-->
+<!--									<comboitem label="@load(c:cat3(part.nome,' ', part.cognome))"-->
+<!--											   value="@load(part)" />-->
+<!--								</template>-->
+<!--							</combobox>-->
+						</cell>
+					</row>
+					<row visible="@load((vm.sezione ne 'CONVOCATI') and vm.partecipante.delega)">
+						<cell align="right">
+							<label value="Protocollo Delega" />
+						</cell>
+						<cell colspan="3">
+							<label value="Anno" />
+							<textbox value="@bind(vm.partecipante.annoProtocolloDelega)" width="50px" />
+							<space width="10px" />
+							<label value="Numero" />
+							<textbox value="@bind(vm.partecipante.numeroProtocolloDelega)" width="80px" />
+							<space width="10px" />
+							<label value="del" />
+							<datebox value="@bind(vm.partecipante.dataNumeroProtocolloDelega)" format="dd/MM/yyyy" />
 						</cell>
 					</row>
 				</rows>

@@ -54,7 +54,7 @@ grails.war.resources = { stagingDir, args ->
 
     println "Scarico il jar del configuratore-iter"
     String versioneConfiguratoreIter = "1.3.0.3"
-    new File("${stagingDir}/WEB-INF/lib", "configuratore-iter-${versioneConfiguratoreIter}.jar") << new URL("https://nexus.svi.finmatica.local/repository/old-proxy-finmatica-grails-plugins/it/finmatica/grails/plugins/configuratore-iter/${versioneConfiguratoreIter}/configuratore-iter-${versioneConfiguratoreIter}.jar").openStream()
+    new File("${stagingDir}/WEB-INF/lib", "configuratore-iter-${versioneConfiguratoreIter}.jar") << new URL("https://nexus.finmatica.it/repository/old-proxy-finmatica-grails-plugins/it/finmatica/grails/plugins/configuratore-iter/${versioneConfiguratoreIter}/configuratore-iter-${versioneConfiguratoreIter}.jar").openStream()
     //new File("${stagingDir}/WEB-INF/lib", "configuratore-iter-${versioneConfiguratoreIter}.jar") << new URL("http://svi-redmine:8081/artifactory/finmatica-grails-plugins/it/finmatica/grails/plugins/configuratore-iter//configuratore-iter-${versioneConfiguratoreIter}.jar").openStream()
 }
 
@@ -79,9 +79,6 @@ grails.project.dependency.resolution = {
 		}
 		mavenRepo("https://repo.grails.org/grails/core")
 		mavenRepo("https://repo.grails.org/grails/plugins")
-//		grailsPlugins()
-//		grailsHome()
-//		grailsCentral()
 		mavenCentral()
 	}
 	
@@ -113,7 +110,7 @@ grails.project.dependency.resolution = {
         build "org.apache.ant:ant-commons-net:1.8.3"
 
         // questa dipendenza serve per fare il test dell'installante
-        build('org.apache.ant:ant-jsch:1.9.12')
+        build 'org.apache.ant:ant-jsch:1.9.12'
 
         // dipendenze di ads
         provided "it.finmatica:finmatica-jfcutils:1.20"
@@ -121,10 +118,19 @@ grails.project.dependency.resolution = {
         provided "it.finmatica:finmatica-dbutils:5.2.1.1"
         provided "it.finmatica:finmatica-accesscontrol:1.21"
         provided "it.finmatica:finmatica-cim:2.0"
-        provided "javax.mail:mail:1.4"
-        provided "javax.activation:activation:1.1"
-        provided "oracle:ojdbc14:10.2.0.5.0"
+        //provided "javax.mail:mail:1.4"
+
+        //provided "javax.activation:activation:1.1"
+
+        //provided "oracle:ojdbc14:10.2.0.5.0"
+        provided "com.oracle:ojdbc6:11.2.0.3"
+
         provided "it.finmatica:DMServer:3.5.0"
+
+        compile("axis:axis:1.4"){
+            exclude group:"javax.activation" , name:"activation"
+            exclude "axis-wsdl4j"
+        }
 
         // dipendenze per integrazione docer
         runtime "it.finmatica.docer:finmatica-docer-jdms-cxf:1.0"
@@ -144,10 +150,21 @@ grails.project.dependency.resolution = {
             excludes 'finmatica-dbutils'
         }
 
+
+
+        // utility per test spec
+        compile "com.fasterxml.jackson.core:jackson-databind:2.8.11.3"
+        /*compile "com.fasterxml.jackson.module:jackson-module-jsonSchema:2.2.0"
+        compile "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.2.0"*/
+        compile "org.json:json:20180130"
+
         // integrazioni varie con webservice:
-        compile "it.finmatica.atti:atti-integrazioni-ws:2.4.2.4"
-        compile "it.finmatica:finmatica-jsign:3.8.5"
+        compile "it.finmatica.atti:atti-integrazioni-ws:2.4.2.21"
+        compile "it.finmatica.pa.ag.libs:finmatica-integrazionesiav:1.0"
+        provided "it.finmatica:finmatica-jsign:5.1.1"
         compile "org.freemarker:freemarker:2.3.27-incubating"
+
+
 
         // integrazione con cfa
         compile "it.finmatica.grails.plugins:atti-cf-integration:1.18.0.1"
@@ -159,6 +176,7 @@ grails.project.dependency.resolution = {
         // TODO: verificare versioni
         provided("it.finmatica.ag.protocollo:finmatica-jprotocollo:3.5.1.3") {
             excludes 'xmlparserv2'
+            exclude group:"javax.activation" , name:"activation"
         }
     }
 
@@ -188,17 +206,19 @@ grails.project.dependency.resolution = {
         }
         compile("it.finmatica.grails.plugins:dto:1.3.8")
 
-		compile ("it.finmatica.grails.plugins:amministrazione-database:2.2.3.4.8")
+		compile ("it.finmatica.grails.plugins:amministrazione-database:2.2.3.4.11")
 		compile ("it.finmatica.grails.plugins:struttura-organizzativa:2.6.1.4")
 		compile ("it.finmatica.grails.plugins:gestione-iter:1.4.3")
-		compile ("it.finmatica.grails.plugins:gestione-testi:1.6.29") {
-			excludes "finmatica-jsign"
-		}
-		compile ("it.finmatica.grails.plugins:firma-digitale:3.8.4")
+
+        compile ("it.finmatica.grails.plugins:gestione-testi:1.6.33") {
+            excludes "finmatica-jsign"
+        }
+        //compile ("it.finmatica.grails.plugins:firma-digitale:3.8.6")
+        compile ("it.finmatica.grails.plugins:firma-digitale:3.9.2")
 		compile ("it.finmatica.grails.plugins:web-scan:1.1")
 
         // plugin di monitoraggio risorse (vedere all'url: http://localhost:8080/Atti/monitoring )
-        runtime("org.grails.plugins:grails-melody:1.58.0") { excludes 'itext' }
+        //runtime("org.grails.plugins:grails-melody:1.58.0") { excludes 'itext' }
 
         compile ":hibernate-filter:0.3.2"
 
@@ -245,9 +265,9 @@ finmatica.installante = {
     // configurazione per il test dell'installante.
     test {
         // configurazione per collegarsi via ssh
-        server.host = ""
-        server.username = ""
-        server.password = ""
+        server.host = "test-aggags"
+        server.username = "root"
+        server.password = "Lavoro17"
         server.javaHome = "/usr/java/jdk1.8.0_221"
 
         // configurazione per il test di aggiornamento da una versione arbitraria
@@ -259,19 +279,19 @@ finmatica.installante = {
 
         // configurazione che verrà messa nel file config.properties nel lancio dell'installante.
         config {
-            global.tomcat.home = ""
+            global.tomcat.home = "/workarea/apache-tomcat/apache-tomcat-7.0.47"
 
             // specificare user e password di system in modo da poter creare la tablespace
-            global.db.system.url = ""
-            global.db.system.username = ""
-            global.db.system.password = ""
+            global.db.system.url = "jdbc:oracle:thin:@test-aggags:1521:AGGAGS"
+            global.db.system.username = "system"
+            global.db.system.password = "manager"
 
             // è possibile modificare il codice di istanza in modo da installare più volte sullo stesso server.
             progetto.istanza.codice = "AGSDE2"
 
             // è possibile modificare qualsiasi parametro di installazione
             global.db.agsde2.username = "AGSDE2"
-            global.db.agsde2.password = ""
+            global.db.agsde2.password = "AGSDE2"
             // imposto una dimensione dalla tablespace più piccola rispetto al default
             global.db.agsde2.tablespace.size = 200
         }
@@ -280,17 +300,17 @@ finmatica.installante = {
     applyDb {
         config {
             // sostituire i parametri con i propri user/password/url:
-            global.db.target.url = ""
+            global.db.target.url = "jdbc:oracle:thin:@test-aggags:1521:AGGAGS"
             global.db.target.username = "AGSDE2"
-            global.db.target.password = ""
+            global.db.target.password = "AGSDE2"
 
             // configurazione per AD4:
             global.db.ad4.username = "AD4"
-            global.db.ad4.password = ""
+            global.db.ad4.password = "AD4"
 
             // configurazione per System (necessario per creare tablespace/user-oracle):
-            global.db.system.username = ""
-            global.db.system.password = ""
+            global.db.system.username = "system"
+            global.db.system.password = "manager"
         }
     }
 }

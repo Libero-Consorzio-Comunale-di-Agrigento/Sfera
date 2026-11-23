@@ -2,6 +2,7 @@ package it.finmatica.atti.dto.documenti.tipologie
 
 import it.finmatica.ad4.dto.autenticazione.Ad4UtenteDTO
 import it.finmatica.atti.documenti.tipologie.TipoVistoParere
+import it.finmatica.atti.dto.dizionari.TipoAllegatoDTO
 import it.finmatica.atti.dto.impostazioni.CaratteristicaTipologiaDTO
 import it.finmatica.dto.DtoUtils
 import it.finmatica.gestionetesti.reporter.dto.GestioneTestiModelloDTO
@@ -33,6 +34,7 @@ public class TipoVistoParereDTO implements it.finmatica.dto.DTO<TipoVistoParere>
     int sequenzaStampaUnica;
     boolean stampaUnica;
     boolean testoObbligatorio;
+    boolean testoModificabileNoIter;
     String titolo;
     String descrizioneNotifica;
     String unitaDestinatarie;
@@ -42,7 +44,10 @@ public class TipoVistoParereDTO implements it.finmatica.dto.DTO<TipoVistoParere>
     Date validoAl;
     Date validoDal;
     boolean queryMovimenti;
-
+    boolean multiOccorrenze;
+    boolean ricalcoloFirmatario;
+    String tipoFirma;
+    TipoAllegatoDTO tipoAllegato;
 
     public TipoVistoParere getDomainObject () {
         return TipoVistoParere.get(this.id)

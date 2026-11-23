@@ -8,6 +8,8 @@
 		<documentRoot>
 			<seduta>
 				<DATA_SEDUTA>15/04/2014</DATA_SEDUTA>
+				<DATA_INIZIO_SEDUTA>15/04/2014</DATA_INIZIO_SEDUTA>
+				<DATA_FINE_SEDUTA>15/04/2014</DATA_FINE_SEDUTA>
 				<GIORNO_SETTIMANA_STAMPA>giovedì</GIORNO_SETTIMANA_STAMPA>
 				<GIORNO_LETTERE_STAMPA>diciassette</GIORNO_LETTERE_STAMPA>
 				<GIORNO_STAMPA>17</GIORNO_STAMPA>
@@ -23,6 +25,8 @@
 				<ANNO_LETTERE_SEDUTA>DUEMILAQUATTORDICI</ANNO_LETTERE_SEDUTA>
 				<ANNO_SEDUTA>2014</ANNO_SEDUTA>
 				<ORA_SEDUTA>16:00</ORA_SEDUTA>
+				<ORA_INIZIO_SEDUTA>11:00</ORA_INIZIO_SEDUTA>
+				<ORA_FINE_SEDUTA>13:00</ORA_FINE_SEDUTA>
 				<TITOLO_COMMISSIONE>GIUNTA</TITOLO_COMMISSIONE>
 				<TIPO_SEDUTA>ORDINARIA</TIPO_SEDUTA>
 				<PRESIDENTE>NOMINATIVO PRESIDENTE</PRESIDENTE>
@@ -35,33 +39,117 @@
 				<INCARICO_SEGRETARIO>SEGRETARIO GENERALE</INCARICO_SEGRETARIO>
 			</seduta>
 			<partecipanti>
+				<SEQUENZA>1</SEQUENZA>
 				<PARTECIPANTE>PRIMO PARTECIPANTE</PARTECIPANTE>
-				<RUOLO>INCARICO PRIMO PARTECIPANTE</RUOLO>
+				<RUOLO>RUOLO PRIMO PARTECIPANTE</RUOLO>
 				<RUOLO_PARTECIPANTE>PRESIDENTE</RUOLO_PARTECIPANTE>
-				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
 				<INCARICO_PARTECIPANTE>INCARICO PRIMO PARTECIPANTE</INCARICO_PARTECIPANTE>
 			</partecipanti>
 			<partecipanti>
+				<SEQUENZA>2</SEQUENZA>
 				<PARTECIPANTE>SECONDO PARTECIPANTE</PARTECIPANTE>
-				<RUOLO>INCARICO SECONDO PARTECIPANTE</RUOLO>
+				<RUOLO>RUOLO SECONDO PARTECIPANTE</RUOLO>
 				<RUOLO_PARTECIPANTE>SEGRETARIO</RUOLO_PARTECIPANTE>
-				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
 				<INCARICO_PARTECIPANTE>INCARICO SECONDO PARTECIPANTE</INCARICO_PARTECIPANTE>
 			</partecipanti>
 			<partecipanti>
+				<SEQUENZA>3</SEQUENZA>
 				<PARTECIPANTE>TERZO PARTECIPANTE</PARTECIPANTE>
-				<RUOLO>INCARICO TERZO PARTECIPANTE</RUOLO>
+				<RUOLO>RUOLO TERZO PARTECIPANTE</RUOLO>
+				<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				<INCARICO_PARTECIPANTE>INCARICO TERZO PARTECIPANTE</INCARICO_PARTECIPANTE>
+			</partecipanti>
+			<partecipanti>
+				<SEQUENZA>4</SEQUENZA>
+				<PARTECIPANTE>QUARTO PARTECIPANTE</PARTECIPANTE>
+				<RUOLO>RUOLO QUARTO PARTECIPANTE</RUOLO>
 				<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
 				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
 				<INCARICO_PARTECIPANTE>INCARICO QUARTO PARTECIPANTE</INCARICO_PARTECIPANTE>
 			</partecipanti>
-			<partecipanti>
+			<presenti>
+				<SEQUENZA>1</SEQUENZA>
+				<PARTECIPANTE>PRIMO PARTECIPANTE</PARTECIPANTE>
+				<RUOLO>RUOLO PRIMO PARTECIPANTE</RUOLO>
+				<RUOLO_PARTECIPANTE>PRESIDENTE</RUOLO_PARTECIPANTE>
+				<INCARICO_PARTECIPANTE>INCARICO PRIMO PARTECIPANTE</INCARICO_PARTECIPANTE>
+				<DELEGA_PRESENTE>*</DELEGA_PRESENTE>
+				<DELEGATO>NOMINATIVO DELEGATO</DELEGATO>
+				<NUMERO_PROTOCOLLO_DELEGA>100</NUMERO_PROTOCOLLO_DELEGA>
+				<ANNO_PROTOCOLLO_DELEGA>2022</ANNO_PROTOCOLLO_DELEGA>
+				<DATA_PROTOCOLLO_DELEGA>01/10/2022</DATA_PROTOCOLLO_DELEGA>
+				<INCARICO_DELEGATO>INCARICO DELEGATO</INCARICO_DELEGATO>
+				<RUOLO_DELEGATO>RUOLO DELEGATO</RUOLO_DELEGATO>
+			</presenti>
+			<presenti>
+				<SEQUENZA>2</SEQUENZA>
+				<PARTECIPANTE>SECONDO PARTECIPANTE</PARTECIPANTE>
+				<RUOLO>RUOLO SECONDO PARTECIPANTE</RUOLO>
+				<RUOLO_PARTECIPANTE>SEGRETARIO</RUOLO_PARTECIPANTE>
+				<INCARICO_PARTECIPANTE>INCARICO SECONDO PARTECIPANTE</INCARICO_PARTECIPANTE>
+				<DELEGA_PRESENTE></DELEGA_PRESENTE>
+				<DELEGATO></DELEGATO>
+				<NUMERO_PROTOCOLLO_DELEGA></NUMERO_PROTOCOLLO_DELEGA>
+				<ANNO_PROTOCOLLO_DELEGA></ANNO_PROTOCOLLO_DELEGA>
+				<DATA_PROTOCOLLO_DELEGA></DATA_PROTOCOLLO_DELEGA>
+				<INCARICO_DELEGATO></INCARICO_DELEGATO>
+				<RUOLO_DELEGATO></RUOLO_DELEGATO>
+			</presenti>
+			<presenti>
+				<SEQUENZA>3</SEQUENZA>
+				<PARTECIPANTE>TERZO PARTECIPANTE</PARTECIPANTE>
+				<RUOLO>RUOLO TERZO PARTECIPANTE</RUOLO>
+				<RUOLO_PARTECIPANTE></RUOLO_PARTECIPANTE>
+				<INCARICO_PARTECIPANTE>INCARICO TERZO PARTECIPANTE</INCARICO_PARTECIPANTE>
+				<DELEGA_PRESENTE>*</DELEGA_PRESENTE>
+				<DELEGATO>NOMINATIVO SECONDO DELEGATO</DELEGATO>
+				<NUMERO_PROTOCOLLO_DELEGA>101</NUMERO_PROTOCOLLO_DELEGA>
+				<ANNO_PROTOCOLLO_DELEGA>2022</ANNO_PROTOCOLLO_DELEGA>
+				<DATA_PROTOCOLLO_DELEGA>02/10/2022</DATA_PROTOCOLLO_DELEGA>
+				<INCARICO_DELEGATO>INCARICO SECONDO DELEGATO</INCARICO_DELEGATO>
+				<RUOLO_DELEGATO>RUOLO SECONDO DELEGATO</RUOLO_DELEGATO>
+			</presenti>
+			<presenti>
+				<SEQUENZA>4</SEQUENZA>
 				<PARTECIPANTE>QUARTO PARTECIPANTE</PARTECIPANTE>
-				<RUOLO>INCARICO QUARTO PARTECIPANTE</RUOLO>
-				<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
-				<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
-				<INCARICO_PARTECIPANTE>INCARICO QUINTO PARTECIPANTE</INCARICO_PARTECIPANTE>
-			</partecipanti>
+				<RUOLO>RUOLO QUARTO PARTECIPANTE</RUOLO>
+				<RUOLO_PARTECIPANTE></RUOLO_PARTECIPANTE>
+				<INCARICO_PARTECIPANTE>INCARICO QUARTO PARTECIPANTE</INCARICO_PARTECIPANTE>
+				<DELEGA_PRESENTE></DELEGA_PRESENTE>
+				<DELEGATO></DELEGATO>
+				<NUMERO_PROTOCOLLO_DELEGA></NUMERO_PROTOCOLLO_DELEGA>
+				<ANNO_PROTOCOLLO_DELEGA></ANNO_PROTOCOLLO_DELEGA>
+				<DATA_PROTOCOLLO_DELEGA></DATA_PROTOCOLLO_DELEGA>
+				<INCARICO_DELEGATO></INCARICO_DELEGATO>
+				<RUOLO_DELEGATO></RUOLO_DELEGATO>
+			</presenti>
+			<delegati>
+				<SEQUENZA>1</SEQUENZA>
+				<DELEGANTE>PRIMO PARTECIPANTE</DELEGANTE>
+				<RUOLO_DELEGANTE>PRESIDENTE</RUOLO_DELEGANTE>
+				<INCARICO_DELEGANTE>INCARICO PRIMO PARTECIPANTE</INCARICO_DELEGANTE>
+				<DELEGATO>NOMINATIVO DELEGATO</DELEGATO>
+				<NUMERO_PROTOCOLLO_DELEGA>100</NUMERO_PROTOCOLLO_DELEGA>
+				<ANNO_PROTOCOLLO_DELEGA>2022</ANNO_PROTOCOLLO_DELEGA>
+				<DATA_PROTOCOLLO_DELEGA>01/10/2022</DATA_PROTOCOLLO_DELEGA>
+				<INCARICO_DELEGATO>INCARICO DELEGATO</INCARICO_DELEGATO>
+				<RUOLO_DELEGATO>RUOLO DELEGATO</RUOLO_DELEGATO>
+			</delegati>
+			<delegati>
+				<SEQUENZA>2</SEQUENZA>
+				<DELEGANTE>SECONDO PARTECIPANTE</DELEGANTE>
+				<RUOLO_DELEGANTE></RUOLO_DELEGANTE>
+				<INCARICO_DELEGANTE>INCARICO SECONDO PARTECIPANTE</INCARICO_DELEGANTE>
+				<DELEGATO>NOMINATIVO DELEGATO</DELEGATO>
+				<NUMERO_PROTOCOLLO_DELEGA>101</NUMERO_PROTOCOLLO_DELEGA>
+				<ANNO_PROTOCOLLO_DELEGA>2022</ANNO_PROTOCOLLO_DELEGA>
+				<DATA_PROTOCOLLO_DELEGA>01/10/2022</DATA_PROTOCOLLO_DELEGA>
+				<INCARICO_DELEGATO>INCARICO DELEGATO</INCARICO_DELEGATO>
+				<RUOLO_DELEGATO>RUOLO DELEGATO</RUOLO_DELEGATO>
+			</delegati>
 			<proposte>
 			    <ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
 				<ID_OGGETTO_SEDUTA>80735</ID_OGGETTO_SEDUTA>
@@ -70,6 +158,14 @@
 				<N_PROPOSTA>414</N_PROPOSTA>
 				<OGGETTO_PROPOSTA>PRIMA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
 				<OGGETTO_DELIBERA>PRIMA DELIBERA DI PROVA</OGGETTO_DELIBERA>
+				<DATA_PROTOCOLLO>02/05/2014</DATA_PROTOCOLLO>
+				<ANNO_PROTOCOLLO>2014</ANNO_PROTOCOLLO>
+				<NUMERO_PROTOCOLLO>2500</NUMERO_PROTOCOLLO>
+				<DATA_PUBBLICAZIONE>02/05/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>16/05/2014</DATA_FINE_PUBBLICAZIONE>
+				<GIORNI_PUBBLICAZIONE>15</GIORNI_PUBBLICAZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>1250</NUMERO_ALBO>
 				<RELATORE>NOMINATIVO RELATORE 1</RELATORE>
 				<SEQUENZA>1</SEQUENZA>
 				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
@@ -78,6 +174,18 @@
 				<ESITO_DISCUSSIONE>ADOTTATO</ESITO_DISCUSSIONE>
 				<NOTE_DISCUSSIONE>Note assegnazione esito proposta 414</NOTE_DISCUSSIONE>
                 <TESTO_PROPOSTA>TESTO DELLA PROPOSTA</TESTO_PROPOSTA>
+				<VOTANTI>8</VOTANTI>
+				<PRESENTI>6</PRESENTI>
+				<ASSENTI>2</ASSENTI>
+				<FAVOREVOLI>5</FAVOREVOLI>
+				<CONTRARI>4</CONTRARI>
+				<ASTENUTI>3</ASTENUTI>
+				<FAVOREVOLI_CONTRARI_ASTENUTI>7</FAVOREVOLI_CONTRARI_ASTENUTI>
+				<NON_VOTANTI>1</NON_VOTANTI>
+				<VOTANTI_ASTENUTI>NOMINATIVO VOTANTI ASTENUTI</VOTANTI_ASTENUTI>
+				<VOTANTI_CONTRARI>NOMINATIVO VOTANTI CONTRARI</VOTANTI_CONTRARI>
+				<VOTANTI_FAVOREVOLI>NOMINATIVO VOTANTI FAVOREVOLI</VOTANTI_FAVOREVOLI>
+				<ELENCO_NON_VOTANTI>NOMINATIVO NON VOTANTI</ELENCO_NON_VOTANTI>
 				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
 				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
 				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
@@ -86,6 +194,37 @@
 				<EMENDAMENTI>
 					<ALLEGATO_TITOLO>PRIMO EMENDAMENTO</ALLEGATO_TITOLO>
 				</EMENDAMENTI>
+				<partecipanti_proposta>
+					<PARTECIPANTE>PRIMO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO PRIMO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>PRESIDENTE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
+					<DELEGA_PRESENTE>*</DELEGA_PRESENTE>
+					<DELEGATO>NOMINATIVO DELEGATO</DELEGATO>
+					<NUMERO_PROTOCOLLO_DELEGA>100</NUMERO_PROTOCOLLO_DELEGA>
+					<ANNO_PROTOCOLLO_DELEGA>2022</ANNO_PROTOCOLLO_DELEGA>
+					<DATA_PROTOCOLLO_DELEGA>01/10/2022</DATA_PROTOCOLLO_DELEGA>
+					<INCARICO_DELEGATO>INCARICO DELEGATO</INCARICO_DELEGATO>
+					<RUOLO_DELEGATO>RUOLO DELEGATO</RUOLO_DELEGATO>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>SECONDO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO SECONDO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>SEGRETARIO</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>TERZO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO TERZO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>QUARTO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO QUARTO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
 			</proposte>
 			<proposte>
 			    <ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
@@ -95,6 +234,14 @@
 				<N_PROPOSTA>417</N_PROPOSTA>
 				<OGGETTO_PROPOSTA>SECONDA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
 				<OGGETTO_DELIBERA>SECONDA DELIBERA DI PROVA</OGGETTO_DELIBERA>
+				<DATA_PROTOCOLLO>03/05/2014</DATA_PROTOCOLLO>
+				<ANNO_PROTOCOLLO>2014</ANNO_PROTOCOLLO>
+				<NUMERO_PROTOCOLLO>2501</NUMERO_PROTOCOLLO>
+				<DATA_PUBBLICAZIONE>02/05/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>16/05/2014</DATA_FINE_PUBBLICAZIONE>
+				<GIORNI_PUBBLICAZIONE>15</GIORNI_PUBBLICAZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>1251</NUMERO_ALBO>
 				<RELATORE>NOMINATIVO RELATORE 2</RELATORE>
 				<SEQUENZA>2</SEQUENZA>
 				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
@@ -106,10 +253,15 @@
 				<VOTANTI>6</VOTANTI>
 				<PRESENTI>6</PRESENTI>
 				<ASSENTI>1</ASSENTI>
+				<FAVOREVOLI>5</FAVOREVOLI>
+				<CONTRARI>4</CONTRARI>
 				<ASTENUTI>1</ASTENUTI>
+				<FAVOREVOLI_CONTRARI_ASTENUTI>10</FAVOREVOLI_CONTRARI_ASTENUTI>
+				<NON_VOTANTI>1</NON_VOTANTI>
 				<VOTANTI_ASTENUTI>NOMINATIVO VOTANTI ASTENUTI</VOTANTI_ASTENUTI>
 				<VOTANTI_CONTRARI>NOMINATIVO VOTANTI CONTRARI</VOTANTI_CONTRARI>
 				<VOTANTI_FAVOREVOLI>NOMINATIVO VOTANTI FAVOREVOLI</VOTANTI_FAVOREVOLI>
+				<ELENCO_NON_VOTANTI>NOMINATIVO NON VOTANTI</ELENCO_NON_VOTANTI>
 				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
 				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
 				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
@@ -118,6 +270,37 @@
 				<EMENDAMENTI>
 					<ALLEGATO_TITOLO>PRIMO EMENDAMENTO</ALLEGATO_TITOLO>
 				</EMENDAMENTI>
+				<partecipanti_proposta>
+					<PARTECIPANTE>PRIMO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO PRIMO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>PRESIDENTE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
+					<DELEGA_PRESENTE>*</DELEGA_PRESENTE>
+					<DELEGATO>NOMINATIVO DELEGATO</DELEGATO>
+					<NUMERO_PROTOCOLLO_DELEGA>100</NUMERO_PROTOCOLLO_DELEGA>
+					<ANNO_PROTOCOLLO_DELEGA>2022</ANNO_PROTOCOLLO_DELEGA>
+					<DATA_PROTOCOLLO_DELEGA>01/10/2022</DATA_PROTOCOLLO_DELEGA>
+					<INCARICO_DELEGATO>INCARICO DELEGATO</INCARICO_DELEGATO>
+					<RUOLO_DELEGATO>RUOLO DELEGATO</RUOLO_DELEGATO>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>SECONDO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO SECONDO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>SEGRETARIO</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>TERZO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO TERZO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>QUARTO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO QUARTO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
 			</proposte>
 			<proposte>
 			    <ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
@@ -127,6 +310,14 @@
 				<N_PROPOSTA>420</N_PROPOSTA>
 				<OGGETTO_PROPOSTA>TERZA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
 				<OGGETTO_DELIBERA>TERZA DELIBERA DI PROVA</OGGETTO_DELIBERA>
+				<DATA_PROTOCOLLO>04/05/2014</DATA_PROTOCOLLO>
+				<ANNO_PROTOCOLLO>2014</ANNO_PROTOCOLLO>
+				<NUMERO_PROTOCOLLO>2502</NUMERO_PROTOCOLLO>
+				<DATA_PUBBLICAZIONE>02/05/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>16/05/2014</DATA_FINE_PUBBLICAZIONE>
+				<GIORNI_PUBBLICAZIONE>15</GIORNI_PUBBLICAZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>1252</NUMERO_ALBO>
 				<RELATORE>NOMINATIVO RELATORE 3</RELATORE>
 				<SEQUENZA>3</SEQUENZA>
 				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
@@ -138,10 +329,15 @@
 				<VOTANTI>6</VOTANTI>
 				<PRESENTI>6</PRESENTI>
 				<ASSENTI>1</ASSENTI>
+				<FAVOREVOLI>5</FAVOREVOLI>
+				<CONTRARI>4</CONTRARI>
 				<ASTENUTI>1</ASTENUTI>
+				<FAVOREVOLI_CONTRARI_ASTENUTI>10</FAVOREVOLI_CONTRARI_ASTENUTI>
+				<NON_VOTANTI>1</NON_VOTANTI>
 				<VOTANTI_ASTENUTI>NOMINATIVO VOTANTI ASTENUTI</VOTANTI_ASTENUTI>
 				<VOTANTI_CONTRARI>NOMINATIVO VOTANTI CONTRARI</VOTANTI_CONTRARI>
 				<VOTANTI_FAVOREVOLI>NOMINATIVO VOTANTI FAVOREVOLI</VOTANTI_FAVOREVOLI>
+				<ELENCO_NON_VOTANTI>NOMINATIVO NON VOTANTI</ELENCO_NON_VOTANTI>
 				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
 				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
 				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
@@ -150,6 +346,37 @@
 				<EMENDAMENTI>
 					<ALLEGATO_TITOLO>PRIMO EMENDAMENTO</ALLEGATO_TITOLO>
 				</EMENDAMENTI>
+				<partecipanti_proposta>
+					<PARTECIPANTE>PRIMO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO PRIMO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>PRESIDENTE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
+					<DELEGA_PRESENTE>*</DELEGA_PRESENTE>
+					<DELEGATO>NOMINATIVO DELEGATO</DELEGATO>
+					<NUMERO_PROTOCOLLO_DELEGA>100</NUMERO_PROTOCOLLO_DELEGA>
+					<ANNO_PROTOCOLLO_DELEGA>2022</ANNO_PROTOCOLLO_DELEGA>
+					<DATA_PROTOCOLLO_DELEGA>01/10/2022</DATA_PROTOCOLLO_DELEGA>
+					<INCARICO_DELEGATO>INCARICO DELEGATO</INCARICO_DELEGATO>
+					<RUOLO_DELEGATO>RUOLO DELEGATO</RUOLO_DELEGATO>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>SECONDO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO SECONDO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>SEGRETARIO</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>TERZO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO TERZO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>QUARTO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO QUARTO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
 			</proposte>
 			<proposte>
 			    <ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
@@ -159,6 +386,14 @@
 				<N_PROPOSTA>419</N_PROPOSTA>
 				<OGGETTO_PROPOSTA>QUARTA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
 				<OGGETTO_DELIBERA>QUARTA DELIBERA DI PROVA</OGGETTO_DELIBERA>
+				<DATA_PROTOCOLLO>05/05/2014</DATA_PROTOCOLLO>
+				<ANNO_PROTOCOLLO>2014</ANNO_PROTOCOLLO>
+				<NUMERO_PROTOCOLLO>2503</NUMERO_PROTOCOLLO>
+				<DATA_PUBBLICAZIONE>02/05/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>16/05/2014</DATA_FINE_PUBBLICAZIONE>
+				<GIORNI_PUBBLICAZIONE>15</GIORNI_PUBBLICAZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>1253</NUMERO_ALBO>
 				<RELATORE>NOMINATIVO RELATORE 4</RELATORE>
 				<SEQUENZA>4</SEQUENZA>
 				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
@@ -170,10 +405,15 @@
 				<VOTANTI>6</VOTANTI>
 				<PRESENTI>6</PRESENTI>
 				<ASSENTI>1</ASSENTI>
+				<FAVOREVOLI>5</FAVOREVOLI>
+				<CONTRARI>4</CONTRARI>
 				<ASTENUTI>1</ASTENUTI>
+				<FAVOREVOLI_CONTRARI_ASTENUTI>10</FAVOREVOLI_CONTRARI_ASTENUTI>
+				<NON_VOTANTI>1</NON_VOTANTI>
 				<VOTANTI_ASTENUTI>NOMINATIVO VOTANTI ASTENUTI</VOTANTI_ASTENUTI>
 				<VOTANTI_CONTRARI>NOMINATIVO VOTANTI CONTRARI</VOTANTI_CONTRARI>
 				<VOTANTI_FAVOREVOLI>NOMINATIVO VOTANTI FAVOREVOLI</VOTANTI_FAVOREVOLI>
+				<ELENCO_NON_VOTANTI>NOMINATIVO NON VOTANTI</ELENCO_NON_VOTANTI>
 				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
 				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
 				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
@@ -182,6 +422,37 @@
 				<EMENDAMENTI>
 					<ALLEGATO_TITOLO>PRIMO EMENDAMENTO</ALLEGATO_TITOLO>
 				</EMENDAMENTI>
+				<partecipanti_proposta>
+					<PARTECIPANTE>PRIMO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO PRIMO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>PRESIDENTE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+					<DELEGA_PRESENTE>*</DELEGA_PRESENTE>
+					<DELEGATO>NOMINATIVO DELEGATO</DELEGATO>
+					<NUMERO_PROTOCOLLO_DELEGA>100</NUMERO_PROTOCOLLO_DELEGA>
+					<ANNO_PROTOCOLLO_DELEGA>2022</ANNO_PROTOCOLLO_DELEGA>
+					<DATA_PROTOCOLLO_DELEGA>01/10/2022</DATA_PROTOCOLLO_DELEGA>
+					<INCARICO_DELEGATO>INCARICO DELEGATO</INCARICO_DELEGATO>
+					<RUOLO_DELEGATO>RUOLO DELEGATO</RUOLO_DELEGATO>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>SECONDO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO SECONDO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>SEGRETARIO</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>TERZO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO TERZO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>QUARTO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO QUARTO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
 			</proposte>
 			<proposte>
 			    <ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
@@ -191,6 +462,14 @@
 				<N_PROPOSTA>422</N_PROPOSTA>
 				<OGGETTO_PROPOSTA>QUINTA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
 				<OGGETTO_DELIBERA>QUINTA DELIBERA DI PROVA</OGGETTO_DELIBERA>
+				<DATA_PROTOCOLLO></DATA_PROTOCOLLO>
+				<ANNO_PROTOCOLLO></ANNO_PROTOCOLLO>
+				<NUMERO_PROTOCOLLO></NUMERO_PROTOCOLLO>
+				<DATA_PUBBLICAZIONE>02/05/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>16/05/2014</DATA_FINE_PUBBLICAZIONE>
+				<GIORNI_PUBBLICAZIONE>15</GIORNI_PUBBLICAZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>1254</NUMERO_ALBO>
 				<RELATORE>NOMINATIVO RELATORE 5</RELATORE>
 				<SEQUENZA>5</SEQUENZA>
 				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
@@ -202,10 +481,15 @@
 				<VOTANTI>6</VOTANTI>
 				<PRESENTI>6</PRESENTI>
 				<ASSENTI>1</ASSENTI>
+				<FAVOREVOLI>5</FAVOREVOLI>
+				<CONTRARI>4</CONTRARI>
 				<ASTENUTI>1</ASTENUTI>
+				<FAVOREVOLI_CONTRARI_ASTENUTI>10</FAVOREVOLI_CONTRARI_ASTENUTI>
+				<NON_VOTANTI>1</NON_VOTANTI>
 				<VOTANTI_ASTENUTI>NOMINATIVO VOTANTI ASTENUTI</VOTANTI_ASTENUTI>
 				<VOTANTI_CONTRARI>NOMINATIVO VOTANTI CONTRARI</VOTANTI_CONTRARI>
 				<VOTANTI_FAVOREVOLI>NOMINATIVO VOTANTI FAVOREVOLI</VOTANTI_FAVOREVOLI>
+				<ELENCO_NON_VOTANTI>NOMINATIVO NON VOTANTI</ELENCO_NON_VOTANTI>
 				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
 				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
 				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
@@ -214,6 +498,30 @@
 				<EMENDAMENTI>
 					<ALLEGATO_TITOLO>PRIMO EMENDAMENTO</ALLEGATO_TITOLO>
 				</EMENDAMENTI>
+				<partecipanti_proposta>
+					<PARTECIPANTE>PRIMO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO PRIMO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>PRESIDENTE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>SECONDO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO SECONDO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>SEGRETARIO</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>TERZO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO TERZO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>QUARTO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO QUARTO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
 			</proposte>
 			<proposte>
 			    <ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
@@ -223,6 +531,14 @@
 				<N_PROPOSTA>428</N_PROPOSTA>
 				<OGGETTO_PROPOSTA>SESTA PROPOSTA DI PROVA</OGGETTO_PROPOSTA>
 				<OGGETTO_DELIBERA>SESTA DELIBERA DI PROVA</OGGETTO_DELIBERA>
+				<DATA_PROTOCOLLO></DATA_PROTOCOLLO>
+				<ANNO_PROTOCOLLO></ANNO_PROTOCOLLO>
+				<NUMERO_PROTOCOLLO></NUMERO_PROTOCOLLO>
+				<DATA_PUBBLICAZIONE>02/05/2014</DATA_PUBBLICAZIONE>
+				<DATA_FINE_PUBBLICAZIONE>16/05/2014</DATA_FINE_PUBBLICAZIONE>
+				<GIORNI_PUBBLICAZIONE>15</GIORNI_PUBBLICAZIONE>
+				<ANNO_ALBO>2014</ANNO_ALBO>
+				<NUMERO_ALBO>1255</NUMERO_ALBO>
 				<RELATORE>NOMINATIVO RELATORE 6</RELATORE>
 				<SEQUENZA>6</SEQUENZA>
 				<TIPO_PROPOSTA>DELIBERA</TIPO_PROPOSTA>
@@ -234,18 +550,47 @@
 				<VOTANTI>6</VOTANTI>
 				<PRESENTI>6</PRESENTI>
 				<ASSENTI>1</ASSENTI>
+				<FAVOREVOLI>5</FAVOREVOLI>
+				<CONTRARI>4</CONTRARI>
 				<ASTENUTI>1</ASTENUTI>
-				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
-				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
-				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
+				<FAVOREVOLI_CONTRARI_ASTENUTI>10</FAVOREVOLI_CONTRARI_ASTENUTI>
+				<NON_VOTANTI>1</NON_VOTANTI>
 				<VOTANTI_ASTENUTI>NOMINATIVO VOTANTI ASTENUTI</VOTANTI_ASTENUTI>
 				<VOTANTI_CONTRARI>NOMINATIVO VOTANTI CONTRARI</VOTANTI_CONTRARI>
 				<VOTANTI_FAVOREVOLI>NOMINATIVO VOTANTI FAVOREVOLI</VOTANTI_FAVOREVOLI>
+				<ELENCO_NON_VOTANTI>NOMINATIVO NON VOTANTI</ELENCO_NON_VOTANTI>
+				<DATA_PRESENTAZIONE_ISTANZA>01/01/2019</DATA_PRESENTAZIONE_ISTANZA>
+				<COMMISSIONE_CONSILIARE>TESTO DA INSERIRE NEL CAMPO COMMISSIONE CONSILIARE</COMMISSIONE_CONSILIARE>
+				<NOTE_CONVOCAZIONE>TESTO DA INSERIRE NEL CAMPO NOTE CONVOCAZIONE</NOTE_CONVOCAZIONE>
 				<INCARICO_PRESIDENTE>SINDACO</INCARICO_PRESIDENTE>
 				<INCARICO_SEGRETARIO>SEGRETARIO GENERALE</INCARICO_SEGRETARIO>
 				<EMENDAMENTI>
 					<ALLEGATO_TITOLO>PRIMO EMENDAMENTO</ALLEGATO_TITOLO>
 				</EMENDAMENTI>
+				<partecipanti_proposta>
+					<PARTECIPANTE>PRIMO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO PRIMO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>PRESIDENTE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>SECONDO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO SECONDO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>SEGRETARIO</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>TERZO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO TERZO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Assente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
+				<partecipanti_proposta>
+					<PARTECIPANTE>QUARTO PARTECIPANTE</PARTECIPANTE>
+					<INCARICO_PARTECIPANTE>INCARICO QUARTO PARTECIPANTE</INCARICO_PARTECIPANTE>
+					<RUOLO_PARTECIPANTE>ASSESSORE</RUOLO_PARTECIPANTE>
+					<PRESENTE_ASSENTE>Presente</PRESENTE_ASSENTE>
+				</partecipanti_proposta>
 			</proposte>
 		</documentRoot>
 	</testStaticData>
@@ -349,9 +694,33 @@
 			<path/>
 		</metaDato>
 		<metaDato>
+			<nomeSimbolico>DATA_INIZIO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di inizio della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_FINE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di fine della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
 			<nomeSimbolico>ORA_SEDUTA</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Ora in cui si svolge la seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ORA_INIZIO_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ora di inizio della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ORA_FINE_SEDUTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ora di fine della seduta</descrizione>
 			<path/>
 		</metaDato>
 		<metaDato>
@@ -388,6 +757,54 @@
 			<nomeSimbolico>OGGETTO_DELIBERA</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Oggetto della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di protocollazione della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di protocollazione della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROTOCOLLO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di protocollo delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di pubblicazione della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_FINE_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di fine pubblicazione della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>GIORNI_PUBBLICAZIONE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Giorni di pubblicazione della delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_ALBO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di numerazione della delibera all'albo pretorio</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_ALBO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di registro all'albo pretorio della delibera</descrizione>
 			<path/>
 		</metaDato>
 		<metaDato>
@@ -547,6 +964,18 @@
 			<path/>
 		</metaDato>
 		<metaDato>
+			<nomeSimbolico>FAVOREVOLI_CONTRARI_ASTENUTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di votanti favorevoli, contrari o astenuti</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NON_VOTANTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di non votanti</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
 			<nomeSimbolico>VOTANTI_FAVOREVOLI</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Elenco dei votanti favorevoli</descrizione>
@@ -562,6 +991,12 @@
 			<nomeSimbolico>VOTANTI_ASTENUTI</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Elenco dei votanti astenuti</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ELENCO_NON_VOTANTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco dei non votanti</descrizione>
 			<path/>
 		</metaDato>
 		<metaDato>
@@ -591,13 +1026,13 @@
 		<metaDato>
 			<nomeSimbolico>INCARICO_PRESIDENTE</nomeSimbolico>
 			<tipo>string</tipo>
-			<descrizione>Incarico del segretario</descrizione>
+			<descrizione>Incarico del presidente</descrizione>
 			<path/>
 		</metaDato>
 		<metaDato>
 			<nomeSimbolico>INCARICO_SEGRETARIO</nomeSimbolico>
 			<tipo>string</tipo>
-			<descrizione>Incarico del presidente</descrizione>
+			<descrizione>Incarico del segretario</descrizione>
 			<path/>
 		</metaDato>
 		<metaDato>
@@ -606,83 +1041,175 @@
 			<descrizione>ID della proposta discussa</descrizione>
 			<path/>
 		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PARTECIPANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nominativo del partecipante</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RUOLO_PARTECIPANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ruolo del partecipante all'interno della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INCARICO_PARTECIPANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Incarico del partecipante</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>PRESENTE_ASSENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Presente o assente all'appello iniziale</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DELEGA_PRESENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Riporta un * in caso di delega presente</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DELEGATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nominativo del delegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NUMERO_PROTOCOLLO_DELEGA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Numero di protocollo della delega</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>ANNO_PROTOCOLLO_DELEGA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Anno di protocollo della delega</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PROTOCOLLO_DELEGA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di protocollo della delega</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RUOLO_DELEGATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ruolo del delegato all'interno della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INCARICO_DELEGATO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Incarico del delegato</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DELEGANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nominativo del delegante</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>RUOLO_DELEGANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Ruolo del delegante all'interno della seduta</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INCARICO_DELEGANTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Incarico del delegante</descrizione>
+			<path/>
+		</metaDato>
 	</definitions>
 	<queryes>
  	<!-- seduta: restituisce i dati della seduta -->
 		<query id='seduta'
 			   help_query_alias="s"
-	           help_field_aliases="ANNO_LETTERE_SEDUTA, ANNO_LETTERE_STAMPA, ANNO_SEDUTA, ANNO_STAMPA, DATA_SEDUTA, GIORNO_LETTERE_SEDUTA, GIORNO_LETTERE_STAMPA, GIORNO_SEDUTA, GIORNO_SETTIMANA_SEDUTA, GIORNO_SETTIMANA_STAMPA, GIORNO_STAMPA, MESE_LETTERE_SEDUTA, MESE_LETTERE_STAMPA, MESE_SEDUTA, MESE_STAMPA, NOTE_SEDUTA, NUMERO_SEDUTA, ORA_SEDUTA, PRESIDENTE, SEGRETARIO, TIPO_SEDUTA, TITOLO_COMMISSIONE, SEDE_SEDUTA, LINK, INCARICO_PRESIDENTE, INCARICO_SEGRETARIO">
- select to_char (sed.data_seduta, 'DD/MM/YYYY') DATA_SEDUTA
-     ,  utility_pkg.giorno_lettere(sysdate) GIORNO_SETTIMANA_STAMPA
-     ,  utility_pkg.numero_lettere(to_char (sysdate, 'dd')) GIORNO_LETTERE_STAMPA
-     ,    to_char (sysdate, 'dd') GIORNO_STAMPA
-     ,  utility_pkg.mese_lettere (to_char (sysdate, 'mm')) MESE_LETTERE_STAMPA
-     ,  to_char (sysdate, 'mm') MESE_STAMPA
-     ,  utility_pkg.numero_lettere(to_char (sysdate, 'yyyy')) ANNO_LETTERE_STAMPA
-     ,  to_char (sysdate, 'yyyy') ANNO_STAMPA
-     ,  upper(utility_pkg.giorno_lettere(sed.data_seduta)) GIORNO_SETTIMANA_SEDUTA
-     ,  upper(utility_pkg.numero_lettere(to_char (sed.data_seduta, 'dd'))) GIORNO_LETTERE_SEDUTA
-     ,    to_char (sed.data_seduta, 'dd') GIORNO_SEDUTA
-     ,  upper(utility_pkg.mese_lettere (to_char (sed.data_seduta, 'mm'))) MESE_LETTERE_SEDUTA
-     ,  to_char (sed.data_seduta, 'mm') MESE_SEDUTA
-     ,  upper(utility_pkg.numero_lettere(to_char (sed.data_seduta, 'yyyy'))) ANNO_LETTERE_SEDUTA
-     ,  to_char (sed.data_seduta, 'yyyy') ANNO_SEDUTA 
-     ,  sed.ora_seduta ORA_SEDUTA
-     ,  com.titolo TITOLO_COMMISSIONE
-     ,  ots.titolo TIPO_SEDUTA
-	 , (select utility_pkg.get_cognome_nome (nvl (com_presidente.ni_componente, osp_presidente.ni_componente_esterno))
-		  from odg_sedute_partecipanti osp_presidente, odg_commissioni_componenti com_presidente
-		 where osp_presidente.id_seduta = sed.id_seduta
-		   and osp_presidente.ruolo_partecipante = 'P'
-		   and osp_presidente.id_commissione_componente = com_presidente.id_commissione_componente (+)
-		   and osp_presidente.presente = 'Y')  PRESIDENTE
-	 , (select utility_pkg.get_cognome_nome (nvl (com_segretario.ni_componente, osp_segretario.ni_componente_esterno))
-		  from odg_sedute_partecipanti osp_segretario, odg_commissioni_componenti com_segretario
-		 where osp_segretario.id_seduta = sed.id_seduta
-		   and osp_segretario.ruolo_partecipante = 'S'
-		   and osp_segretario.id_commissione_componente = com_segretario.id_commissione_componente (+)
-		   and osp_segretario.presente = 'Y') SEGRETARIO
-     ,  sed.numero NUMERO_SEDUTA
-     ,  sed.sede SEDE_SEDUTA
-     ,  sed.note NOTE_SEDUTA
-     ,  sed.link LINK
-	 , (select nvl (i_osp.titolo, i.titolo)
-             from odg_sedute_partecipanti osp
-                , odg_commissioni_componenti occ
-                , odg_incarichi i
-                , odg_incarichi i_osp
-            where osp.id_seduta = sed.id_seduta
-              and occ.id_commissione_componente(+) = osp.id_commissione_componente
-              and i.id_incarico(+) = occ.id_incarico
-              and i_osp.id_incarico(+) = osp.id_incarico
-              and osp.ruolo_partecipante = 'P'
-			  and osp.presente = 'Y') INCARICO_PRESIDENTE
-     , (select nvl (i_osp.titolo, i.titolo)
-               from odg_sedute_partecipanti osp
-                  , odg_commissioni_componenti occ
-                  , odg_incarichi i
-                  , odg_incarichi i_osp
-              where osp.id_seduta = sed.id_seduta
-                and occ.id_commissione_componente(+) = osp.id_commissione_componente
-                and i.id_incarico(+) = occ.id_incarico
-                and i_osp.id_incarico(+) = osp.id_incarico
-                and osp.ruolo_partecipante = 'S'
-			    and osp.presente = 'Y') INCARICO_SEGRETARIO
-  from  odg_sedute sed
-	 ,  odg_commissioni com
-     ,  odg_tipi_seduta ots
- where sed.id_seduta = #id
-   and com.id_commissione = sed.id_commissione
-   and sed.id_tipo_seduta = ots.id_tipo_seduta
+			   help_field_aliases="ANNO_LETTERE_SEDUTA, ANNO_LETTERE_STAMPA, ANNO_SEDUTA, ANNO_STAMPA, DATA_SEDUTA, DATA_INIZIO_SEDUTA, DATA_FINE_SEDUTA, GIORNO_LETTERE_SEDUTA, GIORNO_LETTERE_STAMPA, GIORNO_SEDUTA, GIORNO_SETTIMANA_SEDUTA, GIORNO_SETTIMANA_STAMPA, GIORNO_STAMPA, MESE_LETTERE_SEDUTA, MESE_LETTERE_STAMPA, MESE_SEDUTA, MESE_STAMPA, NOTE_SEDUTA, NUMERO_SEDUTA, ORA_SEDUTA, ORA_INIZIO_SEDUTA, ORA_FINE_SEDUTA, PRESIDENTE, SEGRETARIO, TIPO_SEDUTA, TITOLO_COMMISSIONE, SEDE_SEDUTA, LINK, INCARICO_PRESIDENTE, INCARICO_SEGRETARIO">
+			select to_char (sed.data_seduta, 'DD/MM/YYYY') DATA_SEDUTA
+			,  to_char (sed.data_inizio_seduta, 'DD/MM/YYYY') DATA_INIZIO_SEDUTA
+			,  to_char (sed.data_fine_seduta, 'DD/MM/YYYY') DATA_FINE_SEDUTA
+			,  utility_pkg.giorno_lettere(sysdate) GIORNO_SETTIMANA_STAMPA
+			,  utility_pkg.numero_lettere(to_char (sysdate, 'dd')) GIORNO_LETTERE_STAMPA
+			,  to_char (sysdate, 'dd') GIORNO_STAMPA
+			,  utility_pkg.mese_lettere (to_char (sysdate, 'mm')) MESE_LETTERE_STAMPA
+			,  to_char (sysdate, 'mm') MESE_STAMPA
+			,  utility_pkg.numero_lettere(to_char (sysdate, 'yyyy')) ANNO_LETTERE_STAMPA
+			,  to_char (sysdate, 'yyyy') ANNO_STAMPA
+			,  upper(utility_pkg.giorno_lettere(sed.data_seduta)) GIORNO_SETTIMANA_SEDUTA
+			,  upper(utility_pkg.numero_lettere(to_char (sed.data_seduta, 'dd'))) GIORNO_LETTERE_SEDUTA
+			,  to_char (sed.data_seduta, 'dd') GIORNO_SEDUTA
+			,  upper(utility_pkg.mese_lettere (to_char (sed.data_seduta, 'mm'))) MESE_LETTERE_SEDUTA
+			,  to_char (sed.data_seduta, 'mm') MESE_SEDUTA
+			,  upper(utility_pkg.numero_lettere(to_char (sed.data_seduta, 'yyyy'))) ANNO_LETTERE_SEDUTA
+			,  to_char (sed.data_seduta, 'yyyy') ANNO_SEDUTA
+			,  sed.ora_seduta ORA_SEDUTA
+			,  sed.ora_inizio_seduta ORA_INIZIO_SEDUTA
+			,  sed.ora_fine_seduta ORA_FINE_SEDUTA
+			,  com.titolo TITOLO_COMMISSIONE
+			,  ots.titolo TIPO_SEDUTA
+			, (select utility_pkg.get_cognome_nome (nvl (com_presidente.ni_componente, osp_presidente.ni_componente_esterno), com.ente)
+			from odg_sedute_partecipanti osp_presidente, odg_commissioni_componenti com_presidente
+			where osp_presidente.id_seduta = sed.id_seduta
+			and osp_presidente.ruolo_partecipante = 'P'
+			and osp_presidente.id_commissione_componente = com_presidente.id_commissione_componente (+)
+			and osp_presidente.presente = 'Y'
+			and rownum = 1)  PRESIDENTE
+			, (select utility_pkg.get_cognome_nome (nvl (com_segretario.ni_componente, osp_segretario.ni_componente_esterno), com.ente)
+			from odg_sedute_partecipanti osp_segretario, odg_commissioni_componenti com_segretario
+			where osp_segretario.id_seduta = sed.id_seduta
+			and osp_segretario.ruolo_partecipante = 'S'
+			and osp_segretario.id_commissione_componente = com_segretario.id_commissione_componente (+)
+			and osp_segretario.presente = 'Y'
+			and rownum = 1) SEGRETARIO
+			,  sed.numero NUMERO_SEDUTA
+			,  sed.sede SEDE_SEDUTA
+			,  sed.note NOTE_SEDUTA
+			,  sed.link LINK
+			, (select nvl (i_osp.titolo, i.titolo)
+			from odg_sedute_partecipanti osp
+			, odg_commissioni_componenti occ
+			, odg_incarichi i
+			, odg_incarichi i_osp
+			where osp.id_seduta = sed.id_seduta
+			and occ.id_commissione_componente(+) = osp.id_commissione_componente
+			and i.id_incarico(+) = occ.id_incarico
+			and i_osp.id_incarico(+) = osp.id_incarico
+			and osp.ruolo_partecipante = 'P'
+			and osp.presente = 'Y'
+			and rownum = 1) INCARICO_PRESIDENTE
+			, (select nvl (i_osp.titolo, i.titolo)
+			from odg_sedute_partecipanti osp
+			, odg_commissioni_componenti occ
+			, odg_incarichi i
+			, odg_incarichi i_osp
+			where osp.id_seduta = sed.id_seduta
+			and occ.id_commissione_componente(+) = osp.id_commissione_componente
+			and i.id_incarico(+) = occ.id_incarico
+			and i_osp.id_incarico(+) = osp.id_incarico
+			and osp.ruolo_partecipante = 'S'
+			and osp.presente = 'Y'
+			and rownum = 1) INCARICO_SEGRETARIO
+			from  odg_sedute sed
+			,  odg_commissioni com
+			,  odg_tipi_seduta ots
+			where sed.id_seduta = #id
+			and com.id_commissione = sed.id_commissione
+			and sed.id_tipo_seduta = ots.id_tipo_seduta
 		</query>
  	<!-- partecipanti: restituisce i dati dei partecipanti alla seduta -->	
 		<query id='partecipanti'
 			   help_query_alias="pa"
-	           help_field_aliases="PARTECIPANTE, PRESENTE_ASSENTE, RUOLO, RUOLO_PARTECIPANTE, INCARICO_PARTECIPANTE">
+	           help_field_aliases="SEQUENZA, PARTECIPANTE, PRESENTE_ASSENTE, RUOLO, RUOLO_PARTECIPANTE, INCARICO_PARTECIPANTE">
      select SEQUENZA, PARTECIPANTE, RUOLO, RUOLO_PARTECIPANTE, PRESENTE_ASSENTE, INCARICO_PARTECIPANTE
    from (
  select  occ.sequenza
-       , utility_pkg.get_cognome_nome(nvl(occ.ni_componente, osp.ni_componente_esterno)) PARTECIPANTE
+       , utility_pkg.get_cognome_nome(nvl(occ.ni_componente, osp.ni_componente_esterno), oc.ente) PARTECIPANTE
        , nvl(i_osp.titolo, i.titolo) RUOLO
 	   , nvl(i_osp.titolo, i.titolo) INCARICO_PARTECIPANTE
        , orp.descrizione RUOLO_PARTECIPANTE
@@ -690,11 +1217,13 @@
     from odg_sedute_partecipanti osp
        , odg_sedute os
        , odg_commissioni_componenti occ
+       , odg_commissioni oc
        , odg_incarichi i
        , odg_incarichi i_osp
        , odg_ruoli_partecipanti orp
    where os.id_seduta = #id
      and osp.id_seduta = os.id_seduta
+     and os.id_commissione = oc.id_commissione
      and occ.id_commissione_componente(+) = osp.id_commissione_componente
      and i.id_incarico(+) = occ.id_incarico
      and i_osp.id_incarico(+) = osp.id_incarico
@@ -703,12 +1232,116 @@
      and osp.ruolo_partecipante = orp.ruolo_partecipante(+))
  order by sequenza, partecipante asc 
  		</query>
+		<!-- presenti: restituisce i presenti o deleganti alla seduta -->
+		<query id='presenti'
+			   help_query_alias="pres"
+			   help_field_aliases="SEQUENZA, PARTECIPANTE, RUOLO, RUOLO_PARTECIPANTE, INCARICO_PARTECIPANTE, DELEGA_PRESENTE, DELEGATO, NUMERO_PROTOCOLLO_DELEGA, ANNO_PROTOCOLLO_DELEGA, DATA_PROTOCOLLO_DELEGA, INCARICO_DELEGATO, RUOLO_DELEGATO">
+			  select SEQUENZA,
+					 PARTECIPANTE,
+					 RUOLO,
+					 RUOLO_PARTECIPANTE,
+					 INCARICO_PARTECIPANTE,
+					 DELEGA_PRESENTE,
+					 DELEGATO,
+					 NUMERO_PROTOCOLLO_DELEGA,
+					 ANNO_PROTOCOLLO_DELEGA,
+					 DATA_PROTOCOLLO_DELEGA,
+					 INCARICO_DELEGATO,
+					 RUOLO_DELEGATO
+				from (select rownum sequenza,
+							 utility_pkg.get_cognome_nome (nvl (occ.ni_componente, osp.ni_componente_esterno), oc.ente) PARTECIPANTE,
+							 nvl (i_osp.titolo, i.titolo) RUOLO,
+							 nvl (i_osp.titolo, i.titolo) INCARICO_PARTECIPANTE,
+							 orp.descrizione RUOLO_PARTECIPANTE,
+							 decode (osp.delega, 'Y', '*', '') DELEGA_PRESENTE,
+							 decode (osp.delega,'Y', utility_pkg.get_cognome_nome (nvl (occ_DELEGATO.ni_componente, osp_DELEGATO.ni_componente_esterno),oc.ente)) DELEGATO,
+							 decode (osp.delega, 'Y', osp.numero_protocollo_delega, '') NUMERO_PROTOCOLLO_DELEGA,
+							 decode (osp.delega, 'Y', osp.anno_protocollo_delega, '') ANNO_PROTOCOLLO_DELEGA,
+							 decode (osp.delega,'Y', decode (osp.data_numero_protocollo_delega,'', '',to_char (osp.data_numero_protocollo_delega, 'dd/mm/yyyy')),'') DATA_PROTOCOLLO_DELEGA,
+							 i_osp_delegato.titolo INCARICO_DELEGATO,
+							 orp_delegato.descrizione RUOLO_DELEGATO
+						from odg_sedute_partecipanti osp,
+							 odg_sedute os,
+							 odg_commissioni_componenti occ,
+							 odg_commissioni oc,
+							 odg_incarichi i,
+							 odg_incarichi i_osp,
+							 odg_ruoli_partecipanti orp,
+							 odg_commissioni_componenti occ_delegato,
+							 odg_sedute_partecipanti osp_delegato,
+							 odg_incarichi i_osp_delegato,
+							 odg_ruoli_partecipanti orp_delegato
+					   where os.id_seduta = #id
+						 and osp.id_seduta = os.id_seduta
+						 and os.id_commissione = oc.id_commissione
+						 and occ.id_commissione_componente(+) = osp.id_commissione_componente
+						 and (osp.presente = 'Y' or osp.delega = 'Y')
+						 and i.id_incarico(+) = occ.id_incarico
+						 and i_osp.id_incarico(+) = osp.id_incarico
+						 and osp.ruolo_partecipante = orp.ruolo_partecipante(+)
+						 and osp_delegato.id_seduta_partecipante (+) = osp.id_partecipante_delegato
+						 and occ_delegato.id_commissione_componente(+) = osp_delegato.id_commissione_componente
+						 and i_osp_delegato.id_incarico(+) = osp_delegato.id_incarico
+						 and osp_delegato.ruolo_partecipante = orp_delegato.ruolo_partecipante(+))
+			order by sequenza, partecipante asc
+		</query>
+		<!-- delegati: restituisce l'elenco dei delegati -->
+		<query id='delegati'
+			   help_query_alias="deleg"
+			   help_field_aliases="SEQUENZA, DELEGANTE, RUOLO_DELEGANTE, INCARICO_DELEGANTE, DELEGATO, NUMERO_PROTOCOLLO_DELEGA, ANNO_PROTOCOLLO_DELEGA, DATA_PROTOCOLLO_DELEGA, INCARICO_DELEGATO, RUOLO_DELEGATO">
+			  select SEQUENZA,
+					 DELEGANTE,
+					 RUOLO_DELEGANTE,
+					 INCARICO_DELEGANTE,
+					 DELEGATO,
+					 NUMERO_PROTOCOLLO_DELEGA,
+					 ANNO_PROTOCOLLO_DELEGA,
+					 DATA_PROTOCOLLO_DELEGA,
+					 INCARICO_DELEGATO,
+					 RUOLO_DELEGATO
+				from (select rownum sequenza,
+							 utility_pkg.get_cognome_nome (nvl (occ.ni_componente, osp.ni_componente_esterno), oc.ente) DELEGANTE,
+							 nvl (i_osp.titolo, i.titolo) INCARICO_DELEGANTE,
+							 orp.descrizione RUOLO_DELEGANTE,
+							 decode (osp.delega,'Y', utility_pkg.get_cognome_nome (nvl (occ_DELEGATO.ni_componente, osp_DELEGATO.ni_componente_esterno),oc.ente)) DELEGATO,
+							 decode (osp.delega, 'Y', osp.numero_protocollo_delega, '') NUMERO_PROTOCOLLO_DELEGA,
+							 decode (osp.delega, 'Y', osp.anno_protocollo_delega, '') ANNO_PROTOCOLLO_DELEGA,
+							 decode (osp.delega,'Y', decode (osp.data_numero_protocollo_delega,'', '',to_char (osp.data_numero_protocollo_delega, 'dd/mm/yyyy')),'') DATA_PROTOCOLLO_DELEGA,
+							 i_osp_delegato.titolo INCARICO_DELEGATO,
+							 orp_delegato.descrizione RUOLO_DELEGATO
+						from odg_sedute_partecipanti osp,
+							 odg_sedute os,
+							 odg_commissioni_componenti occ,
+							 odg_commissioni oc,
+							 odg_incarichi i,
+							 odg_incarichi i_osp,
+							 odg_ruoli_partecipanti orp,
+							 odg_commissioni_componenti occ_delegato,
+							 odg_sedute_partecipanti osp_delegato,
+							 odg_incarichi i_osp_delegato,
+							 odg_ruoli_partecipanti orp_delegato
+					   where os.id_seduta = #id
+						 and osp.id_seduta = os.id_seduta
+						 and os.id_commissione = oc.id_commissione
+						 and occ.id_commissione_componente(+) = osp.id_commissione_componente
+						 and osp.delega = 'Y'
+						 and i.id_incarico(+) = occ.id_incarico
+						 and i_osp.id_incarico(+) = osp.id_incarico
+						 and osp.ruolo_partecipante = orp.ruolo_partecipante(+)
+						 and osp_delegato.id_seduta_partecipante = osp.id_partecipante_delegato
+						 and occ_delegato.id_commissione_componente(+) = osp_delegato.id_commissione_componente
+						 and i_osp_delegato.id_incarico(+) = osp_delegato.id_incarico
+						 and osp_delegato.ruolo_partecipante = orp_delegato.ruolo_partecipante(+))
+			order by sequenza, delegante asc
+		</query>
+
  	<!-- proposte: restituisce i dati delle proposte in seduta -->
 <query id='proposte'
-	   child="emendamenti"
+	   child="emendamenti, partecipanti_proposta"
 	   help_query_alias="p"
-	   help_field_aliases="ANNO_PROPOSTA, ESITO_DISCUSSIONE, ID_OGGETTO_SEDUTA, NOTE_DISCUSSIONE, N_DELIBERA, ANNO_DELIBERA, N_PROPOSTA, OGGETTO_PROPOSTA, OGGETTO_DELIBERA, RELATORE, SEQUENZA, TIPO_PROPOSTA, UNITA_PROPONENTE, ORA_DISCUSSIONE, TESTO_PROPOSTA, VOTANTI_ASTENUTI, VOTANTI_CONTRARI, VOTANTI_FAVOREVOLI, VOTANTI, FAVOREVOLI, CONTRARI, ASTENUTI, INCARICO_PRESIDENTE, INCARICO_SEGRETARIO, DATA_PRESENTAZIONE_ISTANZA, COMMISSIONE_CONSILIARE, NOTE_CONVOCAZIONE">
+	   help_field_aliases="ANNO_PROPOSTA, ESITO_DISCUSSIONE, ID_OGGETTO_SEDUTA, NOTE_DISCUSSIONE, N_DELIBERA, ANNO_DELIBERA, N_PROPOSTA, DATA_PROTOCOLLO, NUMERO_PROTOCOLLO, ANNO_PROTOCOLLO, DATA_PUBBLICAZIONE, DATA_FINE_PUBBLICAZIONE, GIORNI_PUBBLICAZIONE, ANNO_ALBO, NUMERO_ALBO, OGGETTO_PROPOSTA, OGGETTO_DELIBERA, RELATORE, SEQUENZA, TIPO_PROPOSTA, UNITA_PROPONENTE, ORA_DISCUSSIONE, TESTO_PROPOSTA, VOTANTI_ASTENUTI, ELENCO_NON_VOTANTI, VOTANTI_CONTRARI, VOTANTI_FAVOREVOLI, VOTANTI, FAVOREVOLI, CONTRARI, ASTENUTI, , FAVOREVOLI_CONTRARI_ASTENUTI, NON_VOTANTI, INCARICO_PRESIDENTE, INCARICO_SEGRETARIO, DATA_PRESENTAZIONE_ISTANZA, COMMISSIONE_CONSILIARE, NOTE_CONVOCAZIONE">
     select pd.id_proposta_delibera ID_PROPOSTA
+	   , os.id_oggetto_seduta ID_OGGETTO_SEDUTA
        ,  os.sequenza_discussione SEQUENZA
        ,  pd.numero_proposta N_PROPOSTA
        ,  pd.anno_proposta ANNO_PROPOSTA
@@ -716,9 +1349,17 @@
        ,  td.titolo TIPO_PROPOSTA
        ,  d.numero_delibera N_DELIBERA
 	   ,  d.anno_delibera ANNO_DELIBERA
-       ,  utility_pkg.get_cognome_nome(dele.ni_assessore) RELATORE
+	   ,  utility_pkg.get_cognome_nome(dele.ni_assessore, d.ente) RELATORE
        ,  pd.oggetto OGGETTO_PROPOSTA
 	   ,  d.oggetto  OGGETTO_DELIBERA
+	   ,  decode(d.numero_protocollo, null, '', to_char(d.numero_protocollo)) NUMERO_PROTOCOLLO
+	   ,  decode(d.anno_protocollo, null, '', d.anno_protocollo) ANNO_PROTOCOLLO
+	   ,  decode(d.data_numero_protocollo, null, '', to_char(d.data_numero_protocollo,'dd/mm/yyyy')) DATA_PROTOCOLLO
+	   ,  decode(d.data_pubblicazione, null, '', to_char(d.data_pubblicazione,'dd/mm/yyyy')) DATA_PUBBLICAZIONE
+	   ,  decode(d.data_fine_pubblicazione, null, '', to_char(d.data_fine_pubblicazione,'dd/mm/yyyy')) DATA_FINE_PUBBLICAZIONE
+	    , d.giorni_pubblicazione GIORNI_PUBBLICAZIONE
+	   ,  d.anno_albo ANNO_ALBO
+	   ,  d.numero_albo NUMERO_ALBO
        ,  os.ora_discussione ORA_DISCUSSIONE
        ,  oe.titolo ESITO_DISCUSSIONE
        ,  os.note NOTE_DISCUSSIONE
@@ -739,13 +1380,24 @@
 			and oop.id_voto = ov.id_voto
 			and ov.codice = 'ASTENUTO') ASTENUTI
 	   , (select count (1)
+		    from odg_oggetti_partecipanti oop, odg_voti ov
+	       where id_oggetto_seduta = d.id_oggetto_seduta
+	         and oop.id_voto = ov.id_voto
+	         and ov.codice = 'NON_VOTANTE') NON_VOTANTI
+	   , (select count (1)
 			from odg_oggetti_partecipanti oop, odg_voti ov
 			where id_oggetto_seduta = d.id_oggetto_seduta
 			and oop.id_voto = ov.id_voto
 			and (ov.codice in ('FAVOREVOLE', 'CONTRARIO'))) VOTANTI
+	   , (select count (1)
+			from odg_oggetti_partecipanti oop, odg_voti ov
+	       where id_oggetto_seduta = d.id_oggetto_seduta
+		     and oop.id_voto = ov.id_voto
+		     and (ov.codice in ('FAVOREVOLE', 'CONTRARIO', 'ASTENUTO'))) FAVOREVOLI_CONTRARI_ASTENUTI
 	   , utility_pkg.get_votanti_oggetto_seduta (d.id_oggetto_seduta, 'FAVOREVOLE') VOTANTI_FAVOREVOLI
 	   , utility_pkg.get_votanti_oggetto_seduta (d.id_oggetto_seduta, 'CONTRARIO') VOTANTI_CONTRARI
 	   , utility_pkg.get_votanti_oggetto_seduta (d.id_oggetto_seduta, 'ASTENUTO') VOTANTI_ASTENUTI
+	   , utility_pkg.get_votanti_oggetto_seduta (d.id_oggetto_seduta, 'NON_VOTANTE') ELENCO_NON_VOTANTI
 	   , (SELECT valore
 			FROM dati_aggiuntivi da
 		   WHERE     da.id_proposta_delibera = pd.id_proposta_delibera
@@ -756,67 +1408,118 @@
 				 AND da.codice = 'COMMISSIONE_CONSILIARE') COMMISSIONE_CONSILIARE
 	   , (SELECT valore
 			FROM dati_aggiuntivi da
-		   WHERE     da.id_proposta_delibera = pd.id_proposta_delibera
-				 AND da.codice = 'NOTE_CONVOCAZIONE') NOTE_CONVOCAZIONE
-	   , (select nvl (i_osp.titolo, i.titolo)
-             from odg_sedute_partecipanti osp
-                , odg_commissioni_componenti occ
-                , odg_incarichi i
-                , odg_incarichi i_osp
-            where osp.id_seduta = os.id_seduta
-              and occ.id_commissione_componente(+) = osp.id_commissione_componente
-              and i.id_incarico(+) = occ.id_incarico
-              and i_osp.id_incarico(+) = osp.id_incarico
-              and osp.ruolo_partecipante = 'P'
-			  and osp.presente = 'Y') INCARICO_PRESIDENTE
-       , (select nvl (i_osp.titolo, i.titolo)
-               from odg_sedute_partecipanti osp
-                  , odg_commissioni_componenti occ
-                  , odg_incarichi i
-                  , odg_incarichi i_osp
-              where osp.id_seduta = os.id_seduta
-                and occ.id_commissione_componente(+) = osp.id_commissione_componente
-                and i.id_incarico(+) = occ.id_incarico
-                and i_osp.id_incarico(+) = osp.id_incarico
-                and osp.ruolo_partecipante = 'S'
-			    and osp.presente = 'Y') INCARICO_SEGRETARIO
-    from  odg_oggetti_seduta os
-       ,  proposte_delibera pd
-       ,  delibere d
-       ,  deleghe dele
-       ,  tipi_delibera td
-       ,  odg_esiti oe
-   where os.id_seduta = #id
-     and os.id_proposta_delibera = pd.id_proposta_delibera
-     and d.id_oggetto_seduta(+) = os.id_oggetto_seduta
-     and pd.id_tipo_delibera = td.id_tipo_delibera
-     and os.id_delega = dele.id_delega(+)
-     and oe.id_esito (+) = os.id_esito  
- order by os.sequenza_discussione asc
-</query>
-	<query id="emendamenti"
-		   help_query_alias="a"
-		   help_field_aliases="ALLEGATO_TITOLO,">
-		SELECT *
-              FROM (  SELECT a.titolo allegato_titolo
-                        FROM allegati a, tipi_allegato ta
-                       WHERE     a.id_tipo_allegato = ta.id_tipo_allegato(+)
-                             AND a.valido = 'Y'
-                             AND ta.titolo = 'EMENDAMENTO'
-                             AND a.id_proposta_delibera = @ID_PROPOSTA
-                    ORDER BY a.sequenza ASC)
-            UNION ALL
-            SELECT *
-              FROM (  SELECT a.titolo allegato_titolo
-                        FROM allegati a, tipi_allegato ta, delibere d
-                       WHERE     a.id_tipo_allegato = ta.id_tipo_allegato(+)
-                             AND a.valido = 'Y'
-                             AND ta.titolo = 'EMENDAMENTO'
-                             AND d.id_proposta_delibera = @ID_PROPOSTA
-                             AND a.id_delibera = d.id_delibera
-                             AND a.id_proposta_delibera IS NULL
-                    ORDER BY a.sequenza ASC)
-</query>
+			WHERE     da.id_proposta_delibera = pd.id_proposta_delibera
+			AND da.codice = 'NOTE_CONVOCAZIONE') NOTE_CONVOCAZIONE
+			, (select nvl (i_osp.titolo, i.titolo)
+			from odg_sedute_partecipanti osp
+			, odg_commissioni_componenti occ
+			, odg_incarichi i
+			, odg_incarichi i_osp
+			where osp.id_seduta = os.id_seduta
+			and occ.id_commissione_componente(+) = osp.id_commissione_componente
+			and i.id_incarico(+) = occ.id_incarico
+			and i_osp.id_incarico(+) = osp.id_incarico
+			and osp.ruolo_partecipante = 'P'
+			and osp.presente = 'Y'
+			and rownum = 1) INCARICO_PRESIDENTE
+			, (select nvl (i_osp.titolo, i.titolo)
+			from odg_sedute_partecipanti osp
+			, odg_commissioni_componenti occ
+			, odg_incarichi i
+			, odg_incarichi i_osp
+			where osp.id_seduta = os.id_seduta
+			and occ.id_commissione_componente(+) = osp.id_commissione_componente
+			and i.id_incarico(+) = occ.id_incarico
+			and i_osp.id_incarico(+) = osp.id_incarico
+			and osp.ruolo_partecipante = 'S'
+			and osp.presente = 'Y'
+			and rownum = 1) INCARICO_SEGRETARIO
+			from  odg_oggetti_seduta os
+			,  proposte_delibera pd
+			,  delibere d
+			,  deleghe dele
+			,  tipi_delibera td
+			,  odg_esiti oe
+			where os.id_seduta = #id
+			and os.id_proposta_delibera = pd.id_proposta_delibera
+			and d.id_oggetto_seduta(+) = os.id_oggetto_seduta
+			and pd.id_tipo_delibera = td.id_tipo_delibera
+			and os.id_delega = dele.id_delega(+)
+			and oe.id_esito (+) = os.id_esito
+			order by os.sequenza_discussione asc
+		</query>
+		<query id="emendamenti"
+			   help_query_alias="a"
+			   help_field_aliases="ALLEGATO_TITOLO,">
+			SELECT *
+			FROM (  SELECT a.titolo allegato_titolo
+			FROM allegati a, tipi_allegato ta
+			WHERE     a.id_tipo_allegato = ta.id_tipo_allegato(+)
+			AND a.valido = 'Y'
+			AND ta.titolo = 'EMENDAMENTO'
+			AND a.id_proposta_delibera = @ID_PROPOSTA
+			ORDER BY a.sequenza ASC)
+			UNION ALL
+			SELECT *
+			FROM (  SELECT a.titolo allegato_titolo
+			FROM allegati a, tipi_allegato ta, delibere d
+			WHERE     a.id_tipo_allegato = ta.id_tipo_allegato(+)
+			AND a.valido = 'Y'
+			AND ta.titolo = 'EMENDAMENTO'
+			AND d.id_proposta_delibera = @ID_PROPOSTA
+			AND a.id_delibera = d.id_delibera
+			AND a.id_proposta_delibera IS NULL
+			ORDER BY a.sequenza ASC)
+		</query>
+		<query id='partecipanti_proposta'
+			   help_query_alias="part"
+			   help_field_aliases="INCARICO_PARTECIPANTE, PARTECIPANTE, PRESENTE_ASSENTE, RUOLO_PARTECIPANTE, DELEGA_PRESENTE, DELEGATO, NUMERO_PROTOCOLLO_DELEGA, ANNO_PROTOCOLLO_DELEGA, DATA_PROTOCOLLO_DELEGA, INCARICO_DELEGATO, RUOLO_DELEGATO">
+			  select decode (osp.id_commissione_componente,
+							 null, utility_pkg.get_cognome_nome (osp.ni_componente_esterno, oc.ente),
+							 utility_pkg.get_cognome_nome (occ.ni_componente, oc.ente))
+						partecipante,
+					 nvl (i_osp.titolo, i.titolo) incarico_partecipante,
+					 orp.descrizione ruolo_partecipante,
+					 decode (oop.presente, 'Y', 'Presente', 'Assente') presente_assente,
+					 decode (oop.delega, 'Y', '*', '') DELEGA_PRESENTE,
+					 decode (oop.delega, 'Y', utility_pkg.get_cognome_nome (nvl (occ_DELEGATO.ni_componente, osp_DELEGATO.ni_componente_esterno), oc.ente)) DELEGATO,
+					 decode (oop.delega, 'Y', oop.numero_protocollo_delega, '') NUMERO_PROTOCOLLO_DELEGA,
+					 decode (oop.delega, 'Y', oop.anno_protocollo_delega, '') ANNO_PROTOCOLLO_DELEGA,
+					 decode ( oop.delega, 'Y', decode (oop.data_numero_protocollo_delega, '', '', to_char (oop.data_numero_protocollo_delega, 'dd/mm/yyyy')),'') DATA_PROTOCOLLO_DELEGA,
+					 i_osp_delegato.titolo INCARICO_DELEGATO,
+					 orp_delegato.descrizione RUOLO_DELEGATO
+				from odg_oggetti_partecipanti oop,
+					 odg_sedute_partecipanti osp,
+					 odg_oggetti_seduta oos,
+					 odg_sedute os,
+					 odg_commissioni_componenti occ,
+					 odg_commissioni oc,
+					 odg_incarichi i,
+					 odg_incarichi i_osp,
+					 odg_ruoli_partecipanti orp,
+					 odg_commissioni_componenti occ_delegato,
+					 odg_sedute_partecipanti osp_delegato,
+					 odg_incarichi i_osp_delegato,
+					 odg_ruoli_partecipanti orp_delegato
+			   where oos.id_oggetto_seduta = @ID_OGGETTO_SEDUTA
+				 and oos.id_oggetto_seduta = oop.id_oggetto_seduta
+				 and oos.id_seduta = os.id_seduta
+				 and oop.id_seduta_partecipante = osp.id_seduta_partecipante
+				 and os.id_commissione = oc.id_commissione
+				 and occ.id_commissione_componente(+) = osp.id_commissione_componente
+				 and nvl (oop.ruolo_partecipante, 'J') not in ('S', 'I')
+				 and not (nvl (oop.ruolo_partecipante, 'J') in ('P') and os.voto_presidente = 'N')
+				 and i.id_incarico(+) = occ.id_incarico
+				 and i_osp.id_incarico(+) = osp.id_incarico
+				 and oop.ruolo_partecipante = orp.ruolo_partecipante(+)
+				 and osp_delegato.id_seduta_partecipante(+) = oop.id_partecipante_delegato
+				 and occ_delegato.id_commissione_componente(+) = osp_delegato.id_commissione_componente
+				 and i_osp_delegato.id_incarico(+) = osp_delegato.id_incarico
+				 and osp_delegato.ruolo_partecipante = orp_delegato.ruolo_partecipante(+)
+			order by osp.sequenza_partecipante,
+					 utility_pkg.get_cognome_nome (occ.ni_componente, oc.ente),
+					 utility_pkg.get_cognome_nome (osp.ni_componente_esterno, oc.ente) asc
+		</query>
 	</queryes>
 	<staticData />
 </documentRoot>

@@ -11,6 +11,7 @@ import it.finmatica.atti.integrazioni.protocollo.ProtocolloGdm
 import it.finmatica.atti.integrazioni.protocollo.ProtocolloGdmConfig
 import it.finmatica.gestionetesti.reporter.GestioneTestiModello
 import it.finmatica.gestionetesti.reporter.dto.GestioneTestiModelloDTO
+import org.apache.commons.lang.math.RandomUtils
 
 class TipoDeliberaDTOService {
 
@@ -44,7 +45,10 @@ class TipoDeliberaDTOService {
 		tipoDelibera.eseguibilitaImmediata 		= tipoDeliberaDTO.eseguibilitaImmediata
 		tipoDelibera.categoriaObbligatoria 		= tipoDeliberaDTO.categoriaObbligatoria
 		tipoDelibera.testoObbligatorio  		= tipoDeliberaDTO.testoObbligatorio
+		tipoDelibera.gestioneGruppiPolitici		= tipoDeliberaDTO.gestioneGruppiPolitici
 		tipoDelibera.adottabile  				= tipoDeliberaDTO.adottabile
+		tipoDelibera.visImportoTotale			= tipoDeliberaDTO.visImportoTotale
+		tipoDelibera.importoTotaleObbligatorio	= tipoDeliberaDTO.importoTotaleObbligatorio
 		tipoDelibera.codiceEsterno     			= tipoDeliberaDTO.codiceEsterno
 
 		tipoDelibera.pubblicazione				= tipoDeliberaDTO.pubblicazione
@@ -71,6 +75,7 @@ class TipoDeliberaDTOService {
 		tipoDelibera.modelloTestoFrontespizio			= tipoDeliberaDTO.modelloTestoFrontespizio?.domainObject
 		tipoDelibera.copiaTestoProposta					= tipoDeliberaDTO.copiaTestoProposta
         tipoDelibera.allegatoTestoProposta              = tipoDeliberaDTO.allegatoTestoProposta
+		tipoDelibera.rigeneraFileProposta				= tipoDeliberaDTO.rigeneraFileProposta
 
 		tipoDelibera.progressivoCfgIterDelibera			= tipoDeliberaDTO.progressivoCfgIterDelibera > 0 ? tipoDeliberaDTO.progressivoCfgIterDelibera : null 
 		tipoDelibera.modelloTestoDelibera				= tipoDeliberaDTO.modelloTestoDelibera?.domainObject
@@ -83,10 +88,23 @@ class TipoDeliberaDTOService {
 		tipoDelibera.tipoPubblicazioneAlbo				= tipoDeliberaDTO.tipoPubblicazioneAlbo
 		tipoDelibera.diventaEsecutiva					= tipoDeliberaDTO.diventaEsecutiva
 		tipoDelibera.esecutivitaMovimenti				= tipoDeliberaDTO.esecutivitaMovimenti
+		tipoDelibera.contabilitaCheckRiservato			= tipoDeliberaDTO.contabilitaCheckRiservato
+		tipoDelibera.impegnoObbligatorio				= tipoDeliberaDTO.impegnoObbligatorio
+
 		tipoDelibera.incaricatoObbligatorio				= tipoDeliberaDTO.incaricatoObbligatorio
 		tipoDelibera.sequenza							= tipoDeliberaDTO.sequenza
 		tipoDelibera.pubblicaAllegatiDefault			= tipoDeliberaDTO.pubblicaAllegatiDefault && tipoDeliberaDTO.pubblicaAllegati
         tipoDelibera.ruoloRiservato                     = tipoDeliberaDTO.ruoloRiservato
+		tipoDelibera.tipoFirma				     		= tipoDeliberaDTO.tipoFirma
+		tipoDelibera.impattoGenerazionale 		        = tipoDeliberaDTO.impattoGenerazionale
+
+		tipoDelibera.gestioneRiservato 		 			= tipoDeliberaDTO.gestioneRiservato
+		tipoDelibera.gestioneRiservatoAllegati  		= tipoDeliberaDTO.gestioneRiservatoAllegati
+
+		tipoDelibera.fascicoloNumero			        = tipoDeliberaDTO.fascicoloNumero
+		tipoDelibera.fascicoloAnno				        = tipoDeliberaDTO.fascicoloAnno
+		tipoDelibera.fascicoloOggetto			        = tipoDeliberaDTO.fascicoloOggetto
+		tipoDelibera.idFascicoloEsterno		            = tipoDeliberaDTO.idFascicoloEsterno
 
 		parametroTipologiaService.aggiornaParametri (tipoDelibera, listaParametri)
 
@@ -105,6 +123,11 @@ class TipoDeliberaDTOService {
 			if (mappingIntegrazione == null) {
 				mappingIntegrazione = new MappingIntegrazione(categoria: ProtocolloGdmConfig.MAPPING_CATEGORIA, codice: ProtocolloGdmConfig.MAPPING_CODICE_TIPO_DOCUMENTO, valoreInterno: tipoDelibera.id.toString())
 			}
+
+			if (mappingIntegrazione.id == null) {
+				mappingIntegrazione.id = -RandomUtils.nextInt()
+			}
+
 			mappingIntegrazione.valoreEsterno = tipoDocumentoEsterno
 			mappingIntegrazione.save()
 		}

@@ -32,14 +32,7 @@ class AttiIndexViewModel {
 		boolean daMarcareVisible 	 			 = springSecurityService.principal.hasRuolo (Impostazioni.RUOLO_SO4_MARCATURA.valore);
 
 		// il tab da firmare è visibile solo se l'utente corrente ha uno dei ruoli di firma:
-		boolean daFirmareVisible = [
-			  Impostazioni.RUOLO_SO4_FIRMA.valore
-			, Impostazioni.RUOLO_SO4_FIRMATARIO_CERT_ESEC.valore
-			, Impostazioni.RUOLO_SO4_FIRMATARIO_DECRETI.valore
-			, Impostazioni.RUOLO_SO4_FIRMATARIO_CERT_PUBB.valore
-		].find {
-			springSecurityService.principal.hasRuolo(it);
-		} != null
+		boolean daFirmareVisible = isTabDaFirmareVisibile()
 
 		listaTab = [
 			  [codice:"miei_documenti",			nome: "I Miei Documenti"				, zul: "/atti/documentiMiei.zul", 				visibile:true]
@@ -50,6 +43,26 @@ class AttiIndexViewModel {
 			, [codice:"controllo_di_regolarita",nome: "Controllo di Regolarità"		 	, zul: "/atti/controlloRegolarita.zul", 		visibile:controlloRegolaritaVisibile]		
 		]
 		selezionato = (codiceTab)?codiceTab:"miei_documenti"
+	}
+
+	private boolean isTabDaFirmareVisibile() {
+		boolean flag
+
+		flag = Impostazioni.FIRMA_MULTIPLA_ABILITATA.abilitato
+
+		if (flag) {
+			flag = [
+					Impostazioni.RUOLO_SO4_FIRMA.valore
+					, Impostazioni.RUOLO_SO4_FIRMATARIO_CERT_ESEC.valore
+					, Impostazioni.RUOLO_SO4_FIRMATARIO_DECRETI.valore
+					, Impostazioni.RUOLO_SO4_FIRMATARIO_CERT_PUBB.valore
+			].find {
+				springSecurityService.principal.hasRuolo(it);
+			} != null
+		}
+
+		return flag
+
 	}
 
 	@Command caricaTab(@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx, @BindingParam("zul") String zul) {

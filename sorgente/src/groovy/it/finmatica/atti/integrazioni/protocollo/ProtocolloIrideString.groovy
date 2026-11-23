@@ -10,6 +10,7 @@ import it.finmatica.atti.commons.TokenIntegrazione
 import it.finmatica.atti.commons.TokenIntegrazioneService
 import it.finmatica.atti.documenti.Allegato
 import it.finmatica.atti.documenti.Certificato
+import it.finmatica.atti.documenti.Delibera
 import it.finmatica.atti.documenti.IProtocollabile
 import it.finmatica.atti.documenti.VistoParere
 import it.finmatica.atti.exceptions.AttiRuntimeException
@@ -18,6 +19,7 @@ import it.finmatica.atti.integrazioniws.comunemodena.protocollo.AllegatoIn
 import it.finmatica.atti.integrazioniws.comunemodena.protocollo.InserisciProtocolloEAnagraficheString
 import it.finmatica.atti.integrazioniws.comunemodena.protocollo.InserisciProtocolloEAnagraficheStringResponse
 import it.finmatica.atti.integrazioniws.comunemodena.protocollo.ProtocolloSoap
+import it.finmatica.so4.strutturaPubblicazione.So4UnitaPubb
 import org.apache.commons.codec.binary.Base64
 import org.apache.commons.io.IOUtils
 import org.apache.log4j.Logger
@@ -76,6 +78,8 @@ class ProtocolloIrideString extends AbstractProtocolloEsterno {
 
         try {
             String xmlProtIn = creaXmlProtocollazione(atto)
+            String logXml=xmlProtIn.replaceAll("<Image>[a-zA-Z0-9+/=]*</Image>","<Image>*</Image>")
+            log.info("Messaggio XML inviato al Webservice di protocollazione IRIDE: "+logXml)
 
             // invoco il ws di protocollazione
             InserisciProtocolloEAnagraficheStringResponse response = protocolloIride.inserisciProtocolloString(
@@ -112,16 +116,25 @@ class ProtocolloIrideString extends AbstractProtocolloEsterno {
     String creaXmlProtocollazione (IProtocollabile atto) {
         return new StreamingMarkupBuilder().bind { builder ->
             ProtoIn {
+                So4UnitaPubb unitaProponente
+                if (atto instanceof Delibera)
+                    unitaProponente = atto.proposta.getSoggetto(TipoSoggetto.UO_PROPONENTE)?.unitaSo4
+                else
+                    unitaProponente = atto.getSoggetto(TipoSoggetto.UO_PROPONENTE)?.unitaSo4
+
                 Data(new SimpleDateFormat("dd/MM/yyyy").format(new Date()))
                 delegate.Classifica(protocolloIrideStringConfig.getCodiceClassifica(atto.tipologiaDocumento.id))
                 TipoDocumento(protocolloIrideStringConfig.getTipoDocumento(atto.tipologiaDocumento.id))
                 String prefisso  = protocolloIrideStringConfig.getPrefissoOggetto(atto.tipologiaDocumento.id)
-                prefisso = prefisso?.replaceAll("\\[UNITA_PROPONENTE\\]", atto.getSoggetto(TipoSoggetto.UO_PROPONENTE).unitaSo4.descrizione)
+                if (unitaProponente)
+                        prefisso = prefisso?.replaceAll("\\[UNITA_PROPONENTE\\]", unitaProponente.descrizione)
                 Oggetto((prefisso + " " + atto.oggetto).trim())
                 Origine("I")
                 AggiornaAnagrafiche("N")
-                MittenteInterno(protocolloIrideStringConfig.getUnitaProtocollo(atto.getSoggetto(TipoSoggetto.UO_PROPONENTE).unitaSo4))
-                InCaricoA(protocolloIrideStringConfig.getUnitaInCaricoA(atto.getSoggetto(TipoSoggetto.UO_PROPONENTE).unitaSo4))
+                if (unitaProponente) {
+                    MittenteInterno(protocolloIrideStringConfig.getUnitaProtocollo(unitaProponente))
+                    InCaricoA(protocolloIrideStringConfig.getUnitaInCaricoA(unitaProponente))
+                }
                 Utente(protocolloIrideStringConfig.getUtenteWebservice())
                 Ruolo(protocolloIrideStringConfig.getRuolo())
                 Allegati {

@@ -13,6 +13,7 @@ public class VotoDTO implements it.finmatica.dto.DTO<Voto> {
     Long id;
     Long version;
     String codice;
+    String codiceEsterno;
     Date dateCreated;
     String descrizione;
     So4AmministrazioneDTO ente;
@@ -37,6 +38,4 @@ public class VotoDTO implements it.finmatica.dto.DTO<Voto> {
 
     /* * * codice personalizzato * * */ // attenzione: non modificare questa riga se si vuole mantenere il codice personalizzato che segue.
     // qui è possibile inserire codice personalizzato che non verrà eliminato dalla rigenerazione dei DTO.
-
-
 }

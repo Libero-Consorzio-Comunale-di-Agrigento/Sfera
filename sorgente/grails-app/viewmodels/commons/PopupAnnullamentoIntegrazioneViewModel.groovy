@@ -1,6 +1,7 @@
 package commons
 
 import grails.util.Holders
+import it.finmatica.atti.documenti.Delibera
 import it.finmatica.atti.documenti.Determina
 import it.finmatica.atti.documenti.PropostaDelibera
 import it.finmatica.atti.dto.documenti.DocumentoCollegatoDTO
@@ -11,6 +12,7 @@ import it.finmatica.atti.integrazioni.ricercadocumenti.PagedList
 import it.finmatica.atti.integrazioni.ricercadocumenti.RicercaDocumentiEsterni
 import it.finmatica.atti.integrazioni.ricercadocumenti.agsde2.RicercaDelibere
 import it.finmatica.atti.integrazioni.ricercadocumenti.agsde2.RicercaDetermine
+import it.finmatica.atti.integrazioni.ricercadocumenti.agsde2.RicercaProposteDelibera
 import org.springframework.core.annotation.AnnotationAwareOrderComparator
 import org.zkoss.bind.BindUtils
 import org.zkoss.bind.annotation.*
@@ -67,7 +69,23 @@ class PopupAnnullamentoIntegrazioneViewModel {
         // siccome il plugin zk non supporta il binding delle variabili a liste di bean, lo faccio a mano
         ricercaDocumentiEsterni = Holders.getApplicationContext().getBeansOfType(RicercaDocumentiEsterni)
                                          .findAll { it.value.abilitato }.collect { it.value }.sort(true, new AnnotationAwareOrderComparator())
-        tipiRicerca = ricercaDocumentiEsterni.collect { [id: it.class.name, titolo: it.titolo] }
+        tipiRicerca = ricercaDocumentiEsterni.collect { [id: it.class.name, tipoOggetto: it.tipoOggetto, titolo: it.titolo] }
+
+        switch (tipoDocumento) {
+            case Delibera.TIPO_OGGETTO:
+                //per le delibere devo vedere solo la voce NESSUNO o PROPOSTA DELIBERA
+                tipiRicerca = tipiRicerca.findAll { it.tipoOggetto == "NESSUNO" || it.tipoOggetto == PropostaDelibera.TIPO_OGGETTO }
+                break;
+            case PropostaDelibera.TIPO_OGGETTO:
+                //per le proposte di delibera devo vedere tutto
+                tipiRicerca = ricercaDocumentiEsterni.collect { [id: it.class.name, tipoOggetto: it.tipoOggetto, titolo: it.titolo] }
+                break;
+            case Determina.TIPO_OGGETTO:
+                //Tolgo la voce PROPOSTA_DELIBERA tra le scelte di ricerca possibili
+                tipiRicerca = tipiRicerca.findAll { it.tipoOggetto != PropostaDelibera.TIPO_OGGETTO }
+                break;
+        }
+
         if (tipiRicerca.size() > 0) {
             tipoRicercaIndex = 0
             onSelect()
@@ -103,7 +121,7 @@ class PopupAnnullamentoIntegrazioneViewModel {
 	}
 
     RicercaDocumentiEsterni getSelectedRicerca () {
-        return ricercaDocumentiEsterni[tipoRicercaIndex]
+        return ricercaDocumentiEsterni.find{it.tipoOggetto == tipiRicerca[tipoRicercaIndex].tipoOggetto}
 	}
 
     @Command
@@ -209,4 +227,28 @@ class PopupAnnullamentoIntegrazioneViewModel {
 
         return false
 	}
+
+    boolean isCollegaAbilitato () {
+        if (tipoDocumento != Delibera.TIPO_OGGETTO) {
+            return true
+        }
+
+        return false
+    }
+
+    //stabilisce se visualizzare il pulsante relativo all'emendamento
+    boolean isEmendamentoAbilitato () {
+        boolean flag = false
+
+        //il pulsante deve essere visibile solo se l'impostazione lo prevede e se siamo in una delibera o in una proposta di delibera
+        //e stiamo cercando una proposta di delibera
+        if (Impostazioni.DELIBERA_EMENDAMENTO.abilitato) {
+            if (getSelectedRicerca() instanceof RicercaProposteDelibera) {
+                if (Delibera.TIPO_OGGETTO.equals(tipoDocumento) || PropostaDelibera.TIPO_OGGETTO.equals(tipoDocumento)) {
+                    flag = true
+                }
+            }
+        }
+        return flag
+    }
 }

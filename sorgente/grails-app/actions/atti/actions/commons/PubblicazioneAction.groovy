@@ -162,4 +162,20 @@ class PubblicazioneAction {
 	boolean isNotDocumentoPubblicatoAlbo (IPubblicabile d) {
 		return !isDocumentoPubblicatoAlbo(d)
 	}
+
+	@Action(tipo	= TipoAzione.CONDIZIONE,
+			tipiOggetto	= [Determina.TIPO_OGGETTO, Delibera.TIPO_OGGETTO],
+			nome		= "Il documento è pubblicato sul visualizzatore?",
+			descrizione = "Ritorna TRUE se il documento ha il campo Pubblica_Visualizzatore = Y, FALSE altrimenti.")
+	boolean isDocumentoPubblicatoVisualizzatore  (IAtto d) {
+		return d.pubblicaVisualizzatore
+	}
+
+	@Action(tipo	= TipoAzione.CONDIZIONE,
+			tipiOggetto	= [Determina.TIPO_OGGETTO, Delibera.TIPO_OGGETTO],
+			nome		= "Il documento non è pubblicato sul visualizzatore?",
+			descrizione = "Ritorna TRUE se il documento ha il campo Pubblica_Visualizzatore = N, FALSE altrimenti.")
+	boolean isNotDocumentoPubblicatoVisualizzatore  (IAtto d) {
+		return !d.pubblicaVisualizzatore
+	}
 }

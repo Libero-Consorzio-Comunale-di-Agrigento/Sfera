@@ -1,5 +1,6 @@
 package it.finmatica.atti.integrazioni.ricercadocumenti
 
+import it.finmatica.atti.documenti.PropostaDelibera
 import it.finmatica.atti.dto.documenti.DocumentoCollegatoDTO
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
@@ -15,6 +16,11 @@ class NessunaRicercaDocumenti implements RicercaDocumentiEsterni {
     @Override
     boolean isAbilitato () {
         return true
+    }
+
+    @Override
+    String getTipoOggetto () {
+        return "NESSUNO"
     }
 
     @Override

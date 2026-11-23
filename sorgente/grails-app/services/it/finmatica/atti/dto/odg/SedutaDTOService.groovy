@@ -4,11 +4,13 @@ import it.finmatica.atti.IGestoreFile
 import it.finmatica.atti.documenti.Delibera
 import it.finmatica.atti.documenti.DeliberaService
 import it.finmatica.atti.documenti.PropostaDelibera
+import it.finmatica.atti.documenti.PropostaDeliberaDelega
 import it.finmatica.atti.documenti.StatoOdg
 import it.finmatica.atti.documenti.beans.AttiGestioneTesti
 import it.finmatica.atti.documenti.storico.PropostaDeliberaStorico
 import it.finmatica.atti.dto.documenti.DeliberaDTO
 import it.finmatica.atti.dto.odg.dizionari.EsitoDTO
+import it.finmatica.atti.dto.odg.OggettoSedutaCollegatoDTO
 import it.finmatica.atti.exceptions.AttiRuntimeException
 import it.finmatica.atti.odg.*
 import it.finmatica.atti.odg.dizionari.Esito
@@ -17,17 +19,19 @@ import it.finmatica.atti.odg.dizionari.RuoloPartecipante
 import it.finmatica.atti.odg.dizionari.Voto
 import it.finmatica.gestioneiter.motore.WkfIterService
 import it.finmatica.gestionetesti.reporter.dto.GestioneTestiModelloDTO
+import grails.plugin.springsecurity.SpringSecurityService
 import org.hibernate.FetchMode
 import org.hibernate.criterion.CriteriaSpecification
 import org.zkoss.zhtml.Messagebox
 
 class SedutaDTOService {
 
-    DeliberaService   deliberaService
-    WkfIterService    wkfIterService
-    SedutaService     sedutaService
-    AttiGestioneTesti gestioneTesti
-    IGestoreFile      gestoreFile
+    DeliberaService        deliberaService
+    WkfIterService         wkfIterService
+    SedutaService          sedutaService
+    AttiGestioneTesti      gestioneTesti
+    IGestoreFile           gestoreFile
+    SpringSecurityService  springSecurityService
 
     SedutaDTO salva (SedutaDTO sedutaDto) {
         Seduta seduta = sedutaDto.domainObject ?: new Seduta()
@@ -90,6 +94,7 @@ class SedutaDTOService {
                 p.assenteNonGiustificato = false
                 p.commissioneComponente = c
                 p.ruoloPartecipante = c.ruoloPartecipante
+                p.incarico = c.incarico
                 p.componenteEsterno = null
                 p.save()
             }
@@ -156,6 +161,7 @@ class SedutaDTOService {
 
             partecipante2.commissioneComponente = partecipante.commissioneComponente
             partecipante2.ruoloPartecipante = partecipante.ruoloPartecipante
+            partecipante2.incarico = partecipante.incarico
             partecipante2.componenteEsterno = partecipante.componenteEsterno
             partecipante2.convocato = partecipante.convocato
             partecipante2.presente = partecipante.presente
@@ -225,13 +231,16 @@ class SedutaDTOService {
 
         int sequenza = 1
         for (OggettoSeduta o : listaProposteOdg) {
-            o.sequenzaConvocazione = sequenza++
-            o.sequenzaDiscussione = o.sequenzaConvocazione
-            o.save()
+            if (o.sequenzaConvocazione != sequenza || o.sequenzaDiscussione != sequenza) {
+                o.sequenzaConvocazione = sequenza
+                o.sequenzaDiscussione = sequenza
+                o.save()
+            }
+            sequenza++
         }
     }
 
-    OggettoSeduta inserisciProposta (SedutaDTO sedutaDto, def propostaDto, int index) {
+    OggettoSeduta inserisciProposta (SedutaDTO sedutaDto, def propostaDto, int index, Boolean oggettoAggiuntivo = null) {
         OggettoSeduta presente = OggettoSeduta.findBySedutaAndPropostaDelibera(sedutaDto.domainObject, propostaDto.domainObject)
         if (presente != null) {
             if (presente.esito?.esitoStandard?.codice != EsitoStandard.RINVIO_UFFICIO || !presente.confermaEsito) {
@@ -241,7 +250,8 @@ class SedutaDTOService {
 
         OggettoSeduta oggettoSeduta = new OggettoSeduta()
         oggettoSeduta.seduta = sedutaDto.domainObject
-        oggettoSeduta.sequenzaConvocazione = OggettoSeduta.countBySeduta(sedutaDto.domainObject) + 1
+        int nuovoMaxsequenza = OggettoSeduta.countBySeduta(sedutaDto.domainObject) + 1
+        oggettoSeduta.sequenzaConvocazione = nuovoMaxsequenza
         oggettoSeduta.sequenzaDiscussione = oggettoSeduta.sequenzaConvocazione
         // http://svi-redmine/issues/22189 -> ODG: Impostare la data di discussione della proposta in fase di conferma esito
         //oggettoSeduta.dataDiscussione = sedutaDto.dataSeduta?.clearTime();
@@ -253,9 +263,38 @@ class SedutaDTOService {
             oggettoSeduta.delega = proposta.delega
             oggettoSeduta.eseguibilitaImmediata = proposta.eseguibilitaImmediata
             oggettoSeduta.motivazioniEseguibilita = proposta.motivazioniEseguibilita
+
+            // riporto sull'oggetto seduta tutte le deleghe aggiuntive presenti sulla proposta, nello stesso ordine (per id)
+            List<PropostaDeliberaDelega> altreDelegheProposta = PropostaDeliberaDelega.createCriteria().list {
+                eq("propostaDelibera", proposta)
+                order("id", "asc")
+            }
+            int sequenzaDelega = 1
+            for (PropostaDeliberaDelega altraDelegaProposta in altreDelegheProposta) {
+                OggettoSedutaDelega oggettoSedutaDelega = new OggettoSedutaDelega()
+                oggettoSedutaDelega.delega = altraDelegaProposta.delega
+                oggettoSedutaDelega.sequenza = sequenzaDelega++
+                oggettoSedutaDelega.utenteIns = springSecurityService.currentUser
+                oggettoSedutaDelega.dateCreated = new Date()
+                oggettoSeduta.addToAltreDeleghe(oggettoSedutaDelega)
+            }
         } else {
             oggettoSeduta.determina = proposta
         }
+
+        if (oggettoAggiuntivo == null) {
+            oggettoAggiuntivo = SedutaStampa.createCriteria().count {
+                eq("valido", true)
+                eq("seduta", sedutaDto.domainObject)
+                commissioneStampa {
+                    eq("codice", CommissioneStampa.CONVOCAZIONE)
+                }
+                iter {
+                    isNotNull("dataFine")
+                }
+            } > 0
+        }
+        oggettoSeduta.oggettoAggiuntivo = oggettoAggiuntivo
 
         oggettoSeduta.save()
 
@@ -263,18 +302,20 @@ class SedutaDTOService {
         proposta.oggettoSeduta = oggettoSeduta
         proposta.save()
 
-        spostaOggettoSeduta(oggettoSeduta, index)
+        spostaOggettoSeduta(oggettoSeduta, index, nuovoMaxsequenza)
         return oggettoSeduta;
     }
 
-    void spostaOggettoSeduta (OggettoSeduta oggettoSeduta, int index) {
+    void spostaOggettoSeduta (OggettoSeduta oggettoSeduta, int index, int maxsequenza = -1) {
         // parto da 1.
         if (index < 1) {
             index = 1;
         }
 
         // il numero massimo di sequenza è il numero di oggetti appartenenti alla stessa seduta:
-        int maxsequenza = OggettoSeduta.countBySeduta(oggettoSeduta.seduta);
+        if (maxsequenza < 0) {
+            maxsequenza = OggettoSeduta.countBySeduta(oggettoSeduta.seduta);
+        }
         if (index > maxsequenza) {
             index = maxsequenza;
         }
@@ -314,8 +355,18 @@ class SedutaDTOService {
 
     void inserisciTutteProposte (SedutaDTO seduta, def listaProposte) {
         int nOggettiSeduta = OggettoSeduta.countBySeduta(seduta.domainObject)
+        boolean oggettoAggiuntivo = SedutaStampa.createCriteria().count {
+            eq("valido", true)
+            eq("seduta", seduta.domainObject)
+            commissioneStampa {
+                eq("codice", CommissioneStampa.CONVOCAZIONE)
+            }
+            iter {
+                isNotNull("dataFine")
+            }
+        } > 0
         for (def proposta : listaProposte) {
-            inserisciProposta(seduta, proposta, nOggettiSeduta + 1);
+            inserisciProposta(seduta, proposta, nOggettiSeduta + 1, oggettoAggiuntivo);
             nOggettiSeduta++;
         }
     }
@@ -388,7 +439,7 @@ class SedutaDTOService {
 
             List<OggettoPartecipante> lista_ogg = OggettoPartecipante.findAllByOggettoSeduta(precedente)
             if (lista_ogg.size() > 0) {
-                listaPartecipanti = creaOggettoPartecipanteFromOggetti(OggettoPartecipante.findAllByOggettoSeduta(precedente), oggetto)
+                listaPartecipanti = creaOggettoPartecipanteFromOggetti(lista_ogg, oggetto)
             } else {
                 listaPartecipanti = creaOggettoPartecipanteFromSeduta(SedutaPartecipante.findAllBySeduta(oggetto.seduta), oggetto)
             }
@@ -399,6 +450,7 @@ class SedutaDTOService {
 
     private List<OggettoPartecipante> creaOggettoPartecipanteFromSeduta (List<SedutaPartecipante> sedutaPartecipanti, OggettoSeduta oggetto) {
         List<OggettoPartecipante> oggPart = []
+        Voto votoPredefinito = Voto.findByPredefinito(true)
         for (SedutaPartecipante sedutaPartecipante : sedutaPartecipanti) {
             OggettoPartecipante p = new OggettoPartecipante()
             p.oggettoSeduta = oggetto
@@ -410,8 +462,14 @@ class SedutaDTOService {
             p.presente = sedutaPartecipante.presente
             p.sequenza = sedutaPartecipante.sequenzaPartecipante
             if (p.presente && p.ruoloPartecipante?.codice != RuoloPartecipante.CODICE_SEGRETARIO) {
-                p.voto = Voto.findByPredefinito(true)
+                p.voto = votoPredefinito
             }
+            p.delega				    	= sedutaPartecipante.delega
+            p.sedutaPartecipanteDelegato	= sedutaPartecipante.sedutaPartecipanteDelegato
+            p.dataNumeroProtocolloDelega 	= sedutaPartecipante.dataNumeroProtocolloDelega
+            p.numeroProtocolloDelega	  	= sedutaPartecipante.numeroProtocolloDelega
+            p.annoProtocolloDelega		    = sedutaPartecipante.annoProtocolloDelega
+
             p.save()
             oggPart.add(p)
         }
@@ -420,6 +478,7 @@ class SedutaDTOService {
 
     private List<OggettoPartecipante> creaOggettoPartecipanteFromOggetti (List<OggettoPartecipante> origine, OggettoSeduta oggetto) {
         List<OggettoPartecipante> oggPart = []
+        Voto votoPredefinito = Voto.findByPredefinito(true)
         for (OggettoPartecipante oggettoPartecipante : origine) {
             OggettoPartecipante p = new OggettoPartecipante()
             p.oggettoSeduta = oggetto
@@ -431,7 +490,20 @@ class SedutaDTOService {
             p.sequenzaFirma = oggettoPartecipante.sequenzaFirma
             p.sequenza = oggettoPartecipante.sequenza
             if (p.presente && p.ruoloPartecipante?.codice != RuoloPartecipante.CODICE_SEGRETARIO) {
-                p.voto = Voto.findByPredefinito(true)
+                p.voto = votoPredefinito
+            }
+            p.delega				    	= oggettoPartecipante.delega
+            if (p.delega) {
+                p.sedutaPartecipanteDelegato	= oggettoPartecipante.sedutaPartecipanteDelegato
+                p.dataNumeroProtocolloDelega 	= oggettoPartecipante.dataNumeroProtocolloDelega
+                p.numeroProtocolloDelega	  	= oggettoPartecipante.numeroProtocolloDelega
+                p.annoProtocolloDelega		    = oggettoPartecipante.annoProtocolloDelega
+            }
+            else {
+                p.sedutaPartecipanteDelegato	= null
+                p.dataNumeroProtocolloDelega 	= null
+                p.numeroProtocolloDelega	  	= null
+                p.annoProtocolloDelega		    = null
             }
             p.save()
             oggPart.add(p)
@@ -441,6 +513,7 @@ class SedutaDTOService {
 
     private List<OggettoPartecipante> aggiungiOggettoPartecipanteFromSeduta (List<SedutaPartecipante> sedutaPartecipanti, OggettoSeduta oggetto, int posizione) {
         List<OggettoPartecipante> oggPart = []
+        Voto votoPredefinito = Voto.findByPredefinito(true)
         int elem = posizione + 1
         for (SedutaPartecipante sedutaPartecipante : sedutaPartecipanti) {
             OggettoPartecipante p = new OggettoPartecipante()
@@ -453,7 +526,7 @@ class SedutaDTOService {
             p.presente = sedutaPartecipante.presente
             p.sequenza = elem
             if (p.presente && p.ruoloPartecipante?.codice != RuoloPartecipante.CODICE_SEGRETARIO) {
-                p.voto = Voto.findByPredefinito(true)
+                p.voto = votoPredefinito
             }
             elem++
             p.save()
@@ -645,5 +718,118 @@ class SedutaDTOService {
         futureDate.add(Calendar.YEAR, anni)
         futureDate.clearTime()
         return futureDate.getTime()
+    }
+
+    OggettoSedutaCollegato inserisciOggettoSedutaCollegato (SedutaDTO sedutaDto, def oggettoSedutaDto, int index) {
+        OggettoSedutaCollegato presente = OggettoSedutaCollegato.findBySedutaAndOggettoSeduta(sedutaDto.domainObject, oggettoSedutaDto.domainObject)
+        if (presente != null) {
+//            if (presente.esito?.esitoStandard?.codice != EsitoStandard.RINVIO_UFFICIO || !presente.confermaEsito) {
+                return presente
+//            }
+        }
+
+        OggettoSedutaCollegato oggettoSedutaCollegato = new OggettoSedutaCollegato()
+        oggettoSedutaCollegato.seduta = sedutaDto.domainObject
+        oggettoSedutaCollegato.oggettoSeduta = oggettoSedutaDto.domainObject
+        int nuovoMaxsequenzaCollegato = OggettoSedutaCollegato.countBySeduta(sedutaDto.domainObject) + 1
+        oggettoSedutaCollegato.sequenzaConvocazione = nuovoMaxsequenzaCollegato
+       // oggettoSedutaCollegato.sequenzaDiscussione = OggettoSedutaCollegato.sequenzaConvocazione
+
+        oggettoSedutaCollegato.save()
+
+        spostaOggettoSedutaCollegato(oggettoSedutaCollegato, index, nuovoMaxsequenzaCollegato)
+        return oggettoSedutaCollegato;
+    }
+
+    void spostaOggettoSedutaCollegato (OggettoSedutaCollegato oggettoSedutaCollegato, int index, int maxsequenza = -1) {
+        // parto da 1.
+        if (index < 1) {
+            index = 1;
+        }
+
+        // il numero massimo di sequenza è il numero di oggetti appartenenti alla stessa seduta:
+        if (maxsequenza < 0) {
+            maxsequenza = OggettoSedutaCollegato.countBySeduta(oggettoSedutaCollegato.seduta);
+        }
+        if (index > maxsequenza) {
+            index = maxsequenza;
+        }
+
+        int oldsequenza = oggettoSedutaCollegato.sequenzaConvocazione;
+
+        if (oldsequenza == index) {
+            return;
+        }
+
+        oggettoSedutaCollegato.sequenzaConvocazione = index
+        oggettoSedutaCollegato.save()
+
+        def oggettiSedutaCollegati = oggettoSedutaCollegato.createCriteria().list {
+            if (index > oldsequenza) {
+                le("sequenzaConvocazione", index)
+                ge("sequenzaConvocazione", oldsequenza)
+            } else {
+                le("sequenzaConvocazione", oldsequenza)
+                ge("sequenzaConvocazione", index)
+            }
+            ne("id", oggettoSedutaCollegato.id)
+            eq("seduta.id", oggettoSedutaCollegato.seduta.id)
+            order("sequenzaConvocazione", "asc")
+        }
+
+        for (OggettoSedutaCollegato o : oggettiSedutaCollegati) {
+            if (o.id == oggettoSedutaCollegato.id) {
+                continue;
+            }
+            o.sequenzaConvocazione += ((oldsequenza > index) ? +1 : -1);
+            o.save()
+        }
+    }
+
+    void rimuoviOggettoSedutaCollegato (OggettoSedutaCollegatoDTO selezionato) {
+        OggettoSedutaCollegato oggettoSedutaCollegato = selezionato.domainObject
+        oggettoSedutaCollegato.delete()
+
+        riordinaOggettiSedutaCollegati(selezionato.seduta.id)
+    }
+
+    void riordinaOggettiSedutaCollegati (long idSeduta) {
+        def listaProposteOdg = OggettoSedutaCollegato.createCriteria().list {
+            eq("seduta.id", idSeduta)
+            order("sequenzaConvocazione", "asc")
+        }
+
+        int sequenza = 1
+        for (OggettoSedutaCollegato o : listaProposteOdg) {
+            if (o.sequenzaConvocazione != sequenza) {
+                o.sequenzaConvocazione = sequenza
+                o.save()
+            }
+            sequenza++
+        }
+    }
+    void inserisciTuttiOggettiSedutaCollegati (SedutaDTO seduta, def listaProposte) {
+        int nOggettiSeduta = OggettoSedutaCollegato.countBySeduta(seduta.domainObject)
+        for (def proposta : listaProposte) {
+            inserisciOggettoSedutaCollegato(seduta, proposta, nOggettiSeduta + 1);
+            nOggettiSeduta++;
+        }
+    }
+
+    void rimuoviTuttiOggettiSedutaCollegati (SedutaDTO seduta) {
+        // cerco tutti gli oggetti seduta di questa seduta e tento di eliminarli:
+        boolean tutti = true
+        List<OggettoSedutaCollegato> oggettiSedutaCollegati = OggettoSedutaCollegato.findAllBySeduta(seduta.domainObject)
+        for (OggettoSedutaCollegato oggettoSedutaCollegato : oggettiSedutaCollegati) {
+            oggettoSedutaCollegato.delete()
+        }
+    }
+
+    void spostaOggettoSedutaCollegatoSu (OggettoSedutaCollegatoDTO oggettoSedutaCollegato) {
+        spostaOggettoSedutaCollegato(oggettoSedutaCollegato.domainObject, oggettoSedutaCollegato.sequenzaConvocazione - 1)
+    }
+
+    void spostaOggettoSedutaCollegatoGiu (OggettoSedutaCollegatoDTO oggettoSedutaCollegato) {
+        spostaOggettoSedutaCollegato(oggettoSedutaCollegato.domainObject, oggettoSedutaCollegato.sequenzaConvocazione + 1)
     }
 }

@@ -71,6 +71,11 @@ class PropostaDeliberaStoricoService {
 		storico.priorita				 = propostaDelibera.priorita
         storico.xmlDatiAggiuntivi	     = datiAggiuntiviService.creaXmlDatiAggiuntivi(propostaDelibera.datiAggiuntivi)
 
+		storico.inEvidenza			   = propostaDelibera.inEvidenza
+		storico.dataInEvidenzaDa	   = propostaDelibera.dataInEvidenzaDa
+		storico.dataInEvidenzaA		   = propostaDelibera.dataInEvidenzaA
+		storico.importo			   	   = propostaDelibera.importo
+
 		storico.save()
 
 		if (Impostazioni.INTEGRAZIONE_GDM.abilitato) {

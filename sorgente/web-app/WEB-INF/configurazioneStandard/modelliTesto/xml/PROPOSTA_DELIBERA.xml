@@ -9,6 +9,7 @@
 			<proposta_delibera>
 				<ANNO_PROPOSTA>2014</ANNO_PROPOSTA>
 				<NUMERO_PROPOSTA>10</NUMERO_PROPOSTA>
+				<DATA_PROPOSTA>01/05/2014</DATA_PROPOSTA>
 				<OGGETTO>PROPOSTA DI DELIBERA</OGGETTO>
 				<OGGETTO_DEFINITIVO>PROPOSTA DI DELIBERA  - OGGETTO DEFINITIVO</OGGETTO_DEFINITIVO>
 				<CLASSIFICA_CODICE>01</CLASSIFICA_CODICE>
@@ -35,6 +36,7 @@
 				<REDATTORE>NOMINATIVO REDATTORE</REDATTORE>
 				<INCARICATO>NOMINATIVO INCARICATO</INCARICATO>
 				<DESCRIZIONE_RADICE_SUDD>RADICE AFFARI GENERALI</DESCRIZIONE_RADICE_SUDD>
+				<IMPORTO_TOTALE>1.500,00</IMPORTO_TOTALE>
 			</proposta_delibera>
             <budget>
                 <TIPO_BUDGET>BUDGET DI DEFAULT</TIPO_BUDGET>
@@ -45,6 +47,16 @@
             <destinatari>
                 <NOMINATIVO>NOME COGNOME</NOMINATIVO>
             </destinatari>
+            <deleghe>
+                <ALTRO_RELATORE>NOMINATIVO RELATORE 1</ALTRO_RELATORE>
+                <COGNOME_ALTRO_RELATORE>COGNOME RELATORE 1</COGNOME_ALTRO_RELATORE>
+                <NOME_ALTRO_RELATORE>NOME RELATORE 1</NOME_ALTRO_RELATORE>
+            </deleghe>
+            <deleghe>
+                <ALTRO_RELATORE>NOMINATIVO RELATORE 2</ALTRO_RELATORE>
+                <COGNOME_ALTRO_RELATORE>COGNOME RELATORE 2</COGNOME_ALTRO_RELATORE>
+                <NOME_ALTRO_RELATORE>NOME RELATORE 2</NOME_ALTRO_RELATORE>
+            </deleghe>
 		</documentRoot>
 	</testStaticData>
 	<definitions>
@@ -78,6 +90,12 @@
 			<nomeSimbolico>ANNO_PROPOSTA</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Anno della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DATA_PROPOSTA</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Data di numerazione della proposta di delibera</descrizione>
 			<path/>
 		</metaDato>
 		<metaDato>
@@ -219,6 +237,24 @@
 			<path/>
 		</metaDato>
 		<metaDato>
+			<nomeSimbolico>ALTRO_RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nominativo del relatore nell'elenco delle deleghe (principale e aggiuntive) della seduta o della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>COGNOME_ALTRO_RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Cognome del relatore nell'elenco delle deleghe (principale e aggiuntive) della seduta o della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>NOME_ALTRO_RELATORE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Nome del relatore nell'elenco delle deleghe (principale e aggiuntive) della seduta o della proposta di delibera</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
 			<nomeSimbolico>DESCRIZIONE_RADICE_SUDD</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>Descrizione dell'unità radice in struttura rispetto l'unità proponente</descrizione>
@@ -260,16 +296,23 @@
             <descrizione>Importo del budget associato</descrizione>
             <path/>
         </metaDato>
+        <metaDato>
+            <nomeSimbolico>IMPORTO_TOTALE</nomeSimbolico>
+            <tipo>string</tipo>
+            <descrizione>Importo totale della proposta di delibera</descrizione>
+            <path/>
+        </metaDato>
 	</definitions>
 	<queryes>
  	<!-- proposta_delibera: restituisce i dati di una proposta di delibera -->
  	<query id='proposta_delibera'
 		   help_query_alias="p"
-		   help_field_aliases="ANNO_PROPOSTA, AREA_PROPONENTE, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, CODICE_UNITA_PROPONENTE, COGNOME_RELATORE, DATA_FIRMA, DIRIGENTE, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_DESCRIZIONE, FIRMATARIO, FUNZIONARIO, NOME_RELATORE, NUMERO_PROPOSTA, OGGETTO, OGGETTO_DEFINITIVO, RELATORE, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PADRE, UNITA_PROPONENTE, UNITA_PROPONENTE_UPPER, REDATTORE, INCARICATO, DESCRIZIONE_FIRMATARIO, DELEGANTE, DESCRIZIONE_RADICE_SUDD">
+		   help_field_aliases="ANNO_PROPOSTA, AREA_PROPONENTE, CLASSIFICA_CODICE, CLASSIFICA_DESCRIZIONE, CODICE_UNITA_PROPONENTE, COGNOME_RELATORE, DATA_FIRMA, DATA_PROPOSTA, DIRIGENTE, FASCICOLO_ANNO, FASCICOLO_NUMERO, FASCICOLO_DESCRIZIONE, FIRMATARIO, FUNZIONARIO, NOME_RELATORE, NUMERO_PROPOSTA, OGGETTO, OGGETTO_DEFINITIVO, RELATORE, SERVIZIO_PROPONENTE, SUDDIVISIONE, UNITA_PADRE, UNITA_PROPONENTE, UNITA_PROPONENTE_UPPER, REDATTORE, INCARICATO, DESCRIZIONE_FIRMATARIO, DELEGANTE, DESCRIZIONE_RADICE_SUDD, IMPORTO_TOTALE">
  select oggetto OGGETTO
      , decode (f.data_firma, null, '${documentRoot.proposta_delibera.OGGETTO_DEFINITIVO}', oggetto) OGGETTO_DEFINITIVO
      , decode(numero_proposta, null, '${documentRoot.proposta_delibera.NUMERO_PROPOSTA}', numero_proposta) NUMERO_PROPOSTA
      , decode(anno_proposta, null, '${documentRoot.proposta_delibera.ANNO_PROPOSTA}', anno_proposta) ANNO_PROPOSTA
+     , decode(data_numero_proposta, null, '${documentRoot.proposta_delibera.DATA_PROPOSTA}', to_char(data_numero_proposta,'dd/mm/yyyy')) DATA_PROPOSTA
      , decode(classifica_codice, null, '${documentRoot.proposta_delibera.CLASSIFICA_CODICE}', classifica_codice) CLASSIFICA_CODICE
      , decode(classifica_descrizione, null, '${documentRoot.proposta_delibera.CLASSIFICA_DESCRIZIONE}', classifica_descrizione) CLASSIFICA_DESCRIZIONE
      , decode(fascicolo_anno, null, '${documentRoot.proposta_delibera.FASCICOLO_ANNO}', fascicolo_anno) FASCICOLO_ANNO
@@ -288,12 +331,15 @@
 	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.proposta_delibera.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), pd.ente)) DESCRIZIONE_FIRMATARIO
 	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.proposta_delibera.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, pd.ente)) DELEGANTE
      , nvl (to_char (f.data_firma, 'dd/mm/yyyy'), '${documentRoot.proposta_delibera.DATA_FIRMA}') DATA_FIRMA
-     , utility_pkg.get_cognome_nome(deleghe.ni_assessore) RELATORE
+     , utility_pkg.get_cognome_nome(deleghe.ni_assessore, pd.ente) RELATORE
      , InitCap(utility_pkg.get_cognome(deleghe.ni_assessore)) COGNOME_RELATORE
      , InitCap(utility_pkg.get_nome(deleghe.ni_assessore)) NOME_RELATORE
      , utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'REDATTORE') REDATTORE
 	 , utility_pkg.get_nominativo_sogg_prop_deli (pd.id_proposta_delibera, 'INCARICATO') INCARICATO
 	 , utility_pkg.unita_get_radice_prop_delibera (pd.id_proposta_delibera) DESCRIZIONE_RADICE_SUDD
+     , decode (impostazioni_pkg.get_impostazione ('DB_CHARSET', pd.ente)
+                ,  'iso-8859-1', trim (to_char (pd.importo_totale, '999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))
+                ,  trim (to_char (pd.importo_totale, 'L999G999G999G999D99', 'NLS_NUMERIC_CHARACTERS = '',.'''))) IMPORTO_TOTALE
      , decode ((select 1 FROM dual where exists
                         (select 1   from destinatari_notifiche dn
                         where tipo_destinatario = 'INTERNO'
@@ -305,8 +351,65 @@
    and f.id_proposta_delibera(+) = pd.id_proposta_delibera
    and f.firmato(+) = 'N'
    and f.data_firma(+) is not null
-   and pd.id_delega = deleghe.id_delega(+) 
+   and pd.id_delega = deleghe.id_delega(+)
  </query>
+        <!-- deleghe: restituisce l'elenco delle deleghe (principale e aggiuntive) associate all'oggetto seduta
+             della proposta di delibera; se la proposta non è associata a nessun oggetto seduta, restituisce
+             le deleghe (principale e aggiuntive) della proposta di delibera -->
+        <query id="deleghe"
+               help_descrizione="Ritorna l'elenco delle deleghe (principale e aggiuntive) dell'oggetto seduta, oppure della proposta di delibera se non presente in un oggetto seduta."
+               help_query_alias="del"
+               help_field_aliases="ALTRO_RELATORE, COGNOME_ALTRO_RELATORE, NOME_ALTRO_RELATORE">
+SELECT utility_pkg.get_cognome_nome(del.ni_assessore, pd.ente) ALTRO_RELATORE,
+       InitCap(utility_pkg.get_cognome(del.ni_assessore))      COGNOME_ALTRO_RELATORE,
+       InitCap(utility_pkg.get_nome(del.ni_assessore))         NOME_ALTRO_RELATORE
+  FROM proposte_delibera pd,
+       deleghe           del,
+       (
+         -- Diretto da odg_oggetti_seduta
+         SELECT oos.id_delega,
+                0 AS ordinamento
+           FROM odg_oggetti_seduta oos
+          WHERE oos.id_proposta_delibera = #id
+            AND oos.id_delega IS NOT NULL
+         UNION ALL
+         -- Tramite odg_oggetti_seduta_deleghe
+         SELECT osd.id_delega,
+                osd.id_oggetto_seduta_delega AS ordinamento
+           FROM odg_oggetti_seduta         oos,
+                odg_oggetti_seduta_deleghe osd
+          WHERE oos.id_proposta_delibera = #id
+            AND osd.id_oggetto_seduta = oos.id_oggetto_seduta
+         UNION ALL
+         -- Diretto da proposte_delibera (solo se non esiste in odg_oggetti_seduta)
+         SELECT pd2.id_delega,
+                0 AS ordinamento
+           FROM proposte_delibera pd2
+          WHERE pd2.id_proposta_delibera = #id
+            AND pd2.id_delega IS NOT NULL
+            AND NOT EXISTS (
+                  SELECT 1
+                    FROM odg_oggetti_seduta oos2
+                   WHERE oos2.id_proposta_delibera = #id
+                )
+         UNION ALL
+         -- Tramite proposte_delibera_deleghe (solo se non esiste in odg_oggetti_seduta)
+         SELECT pdd.id_delega,
+                pdd.id_proposta_delibera_delega AS ordinamento
+           FROM proposte_delibera_deleghe pdd
+          WHERE pdd.id_proposta_delibera = #id
+            AND NOT EXISTS (
+                  SELECT 1
+                    FROM odg_oggetti_seduta oos2
+                   WHERE oos2.id_proposta_delibera = #id
+                )
+       ) deleghe_ord
+ WHERE pd.id_proposta_delibera = #id
+   AND del.valido = 'Y'
+   AND del.id_delega = deleghe_ord.id_delega
+   AND impostazioni_pkg.get_impostazione('DELEGHE_MULTIPLE', pd.ente) = 'Y'
+ ORDER BY deleghe_ord.ordinamento ASC
+        </query>
         <query id="destinatari"
                help_query_alias="ds"
                help_field_aliases="NOMINATIVO,">

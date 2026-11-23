@@ -11,7 +11,7 @@ import it.finmatica.so4.dto.struttura.So4AmministrazioneDTO
 class MappingIntegrazioneDTO implements it.finmatica.dto.DTO<MappingIntegrazione> {
     private static final long serialVersionUID = 1L;
 
-    Long id
+    String id
     String categoria
     String codice
     String valoreInterno

@@ -203,7 +203,7 @@
 <query id='notifica'
 	   help_query_alias="n"
 	   help_field_aliases="ANNO_STAMPA, DATA_MAX_PUBBLICAZIONE, DATA_MIN_PUBBLICAZIONE, DATA_MAX_SEDUTA, DATA_MIN_SEDUTA, DESCRIZIONE_REGISTRO, FIRMATARIO, GIORNO_STAMPA, MESE_LETTERE_STAMPA">
-  select utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (ocn.utente_ins)) firmatario
+  select utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (ocn.utente_ins), d.ente) firmatario
        ,  upper (tp.descrizione) descrizione_registro
        ,  to_char (min (os.data_seduta), 'dd/mm/yyyy') data_min_seduta
        ,  to_char (max (os.data_seduta), 'dd/mm/yyyy') data_max_seduta
@@ -225,9 +225,9 @@
      and ocnd.id_delibera = d.id_delibera
      and d.id_oggetto_seduta = oos.id_oggetto_seduta
      and oos.id_seduta = os.id_seduta
- group by tp.descrizione, utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (ocn.utente_ins))
+ group by tp.descrizione, utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (ocn.utente_ins), d.ente)
  union
-  select utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (ocn.utente_ins)) firmatario
+  select utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (ocn.utente_ins), d.ente) firmatario
        ,  upper (tp.descrizione) descrizione_registro
        ,  '' data_min_seduta
        ,  '' data_max_seduta
@@ -245,13 +245,13 @@
      and tp.tipo_registro = ocn.tipo_registro
      and ocnd.id_organo_controllo_notifica = ocn.id_organo_controllo_notifica
      and ocnd.id_determina = d.id_determina
- group by tp.descrizione, utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (ocn.utente_ins)) 
+ group by tp.descrizione, utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (ocn.utente_ins), d.ente)
 </query>
 <!-- componenti: restituisce i componenti dell'organo di controllo -->
 		<query id='componenti'
 			   help_query_alias="c"
 	           help_field_aliases="NOMINATIVO, RUOLO">
- select utility_pkg.get_cognome_nome(occ.ni_componente) NOMINATIVO
+ select utility_pkg.get_cognome_nome(occ.ni_componente, oc.ente) NOMINATIVO
      ,  ocr.titolo RUOLO
   from organi_controllo_notifiche ocn
      , organi_controllo oc

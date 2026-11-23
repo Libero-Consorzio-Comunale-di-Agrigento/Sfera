@@ -132,14 +132,14 @@ class PopupCompetenzaDettaglioViewModel {
 
     private void caricaListaUtentiConRuoloInStruttura() {
         if (paginaLog?.length() > 0) {
-            def uo = selectedRecord.unitaSo4
-            def ruolo = selectedRecord.ruoloAd4
+            So4UnitaPubbDTO uo = selectedRecord.unitaSo4
+            Ad4RuoloDTO ruolo = selectedRecord.ruoloAd4
             if (ruolo != null && uo != null) {
-                utenti = strutturaOrganizzativaService.getComponentiConRuoloInUnitaFiglie(ruolo.ruolo, uo.progr, uo.ottica.codice, uo.dal)*.soggetto.utenteAd4.nominativo.toString()
+                utenti = strutturaOrganizzativaService.getComponentiConRuoloInUnita(ruolo.ruolo, uo.progr, uo.ottica.codice, new Date())*.soggetto.utenteAd4.nominativo.toString()
             } else if (ruolo != null) {
                 utenti = strutturaOrganizzativaService.getComponentiConRuoloInOttica(ruolo.ruolo, Impostazioni.OTTICA_SO4.valore)*.soggetto.utenteAd4.nominativo.toString()
             } else if (uo != null) {
-                utenti = strutturaOrganizzativaService.getComponentiInUnita(uo)*.soggetto.utenteAd4.nominativo.toString();
+                utenti = strutturaOrganizzativaService.getComponentiInUnita(uo.domainObject)*.soggetto.utenteAd4.nominativo.toString();
             } else {
                 utenti = selectedRecord.utenteAd4.nominativo
             }

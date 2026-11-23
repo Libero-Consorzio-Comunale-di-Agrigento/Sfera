@@ -26,7 +26,7 @@ class AttiJob {
 	AttiJobExecutor			attiJobExecutor
 	SuccessHandler			successHandler
 
-	@Scheduled(cron="\${it.finmatica.atti.jobs.AttiJob.aggiornamentiAutomatici.cron}")
+	// @Scheduled(cron="\${it.finmatica.atti.jobs.AttiJob.aggiornamentiAutomatici.cron}")
 	void aggiornamentiAutomatici () {
 		// siccome questo job va fatto su ogni tomcat, non mi preoccupo di gestire l'univocità del lancio:
 		aggiornamentoService.runUpdates ()
@@ -346,6 +346,15 @@ class AttiJob {
 					log.error("Errore nell'estrazione delle informazioni dai file firmati internamente al sistema per l'ente: ${codiceEnte}", t)
 					errorLogFile << "Errore nell'estrazione delle informazioni dai file firmati internamente al sistema per l'ente: ${codiceEnte}\n${t.message}:${t.getStackTrace().toString().replace(')', ')\n')}";
 				}
+			}
+
+			// aggiornamento degli stati iter
+			log.info ("Aggiorno l'elenco degli stati dell'iter")
+			try {
+				attiJobExecutor.aggiornaStatiIter(codiceEnte)
+			} catch (Throwable t) {
+				log.error ("Errore nell'Allineamento degli stati dell'iter per l'ente: ${codiceEnte}", t)
+				errorLogFile << "Errore nell'Allineamento degli stati dell'iter per l'ente: ${codiceEnte}\n${t.message}:${t.getStackTrace().toString().replace(')', ')\n')}";
 			}
 		} finally {
 			inviaMailErrori (errorLogFile)

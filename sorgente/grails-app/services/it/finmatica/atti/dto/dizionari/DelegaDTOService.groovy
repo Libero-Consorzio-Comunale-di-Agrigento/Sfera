@@ -26,8 +26,10 @@ class DelegaDTOService {
 			throw new AttiRuntimeException(AttiRuntimeException.ERRORE_MODIFICA_CONCORRENTE)
 		}
 		delega.idDelegaStorico = delegaDto.idDelegaStorico
+		delega.idCategoriaDelega=delegaDto.idCategoriaDelega
 		delega.assessore = As4SoggettoCorrente.get(delegaDto.assessore?.id)
 		delega.descrizioneAssessorato = delegaDto.descrizioneAssessorato
+		delega.sequenza = delegaDto.sequenza
 		delega.valido = delegaDto.valido
 
 		// gestione delle deleghe storicizzate

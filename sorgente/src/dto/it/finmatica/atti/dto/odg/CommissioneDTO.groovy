@@ -27,6 +27,7 @@ public class CommissioneDTO implements it.finmatica.dto.DTO<Commissione> {
     Ad4RuoloDTO ruoloVisualizza;
     boolean secondaConvocazione;
     boolean sedutaPubblica;
+    boolean visibileSoloConvocati;
     Set<CommissioneStampaDTO> stampe;
     TipoRegistroDTO tipoRegistro;
     TipoRegistroDTO tipoRegistroSeduta;
@@ -36,7 +37,10 @@ public class CommissioneDTO implements it.finmatica.dto.DTO<Commissione> {
     boolean valido;
     Date validoAl;
     Date validoDal;
-    boolean votoPresidente;
+    boolean votoPresidente
+    boolean firmatariPresenti;
+    boolean singoloPresidente
+    boolean gettonePresenzaGiornaliera
 
     public void addToComponenti (CommissioneComponenteDTO commissioneComponente) {
         if (this.componenti == null)

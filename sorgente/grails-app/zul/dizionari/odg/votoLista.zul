@@ -15,6 +15,7 @@
 				<listheader label="Codice" />
 				<listheader label="Valore" />
 				<listheader label="Descrizione" />
+				<listheader label="Codice" />
 				<listheader label="Predefinito" />
 				<listheader width="30px" />
 			</listhead>
@@ -24,6 +25,7 @@
 					<listcell label="@load(voto.codice)" />
 					<listcell label="@load(voto.valore)" />
 					<listcell label="@load(voto.descrizione)" />
+					<listcell label="@load(voto.codiceEsterno)" />
 					<listcell label="@load(voto.predefinito ? 'Si' : 'No')" />
 					<listcell image="@load(voto.valido  ? '/images/agsde2/16x16/point_green.png' : '/images/agsde2/16x16/point_red.png')" />
 				</listitem>

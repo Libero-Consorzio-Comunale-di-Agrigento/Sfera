@@ -17,8 +17,8 @@ class PopupFirmaRemotaViewModel {
 	// dati
 	FirmaDigitaleTransazione transazioneFirma
 	String username		//test_collaudo3
-	String password		//
-	String pin			//
+	String password		//password11
+	String pin			//dspin
 	String firmaTipo
 	String firmaVisibile
 	String pagina

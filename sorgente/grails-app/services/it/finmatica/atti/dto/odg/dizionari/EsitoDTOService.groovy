@@ -19,6 +19,7 @@ class EsitoDTOService {
     	esito.commissioneArrivo			= Commissione.get(esitoDto.commissioneArrivo?.id)
     	esito.titolo					= esitoDto.titolo
 		esito.descrizione				= esitoDto.descrizione
+		esito.codiceEsterno				= esitoDto.codiceEsterno
 		esito.valido					= esitoDto.valido
 		esito.notificaVerbalizzazione	= esitoDto.notificaVerbalizzazione
 		esito.gestioneEsecutivita 		= esitoDto.gestioneEsecutivita

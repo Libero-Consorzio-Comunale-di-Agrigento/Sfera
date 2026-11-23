@@ -62,8 +62,8 @@
 					</cell>
 					<cell colspan="2">
 						<radiogroup selectedIndex="@load(vm.allegato.statoFirma eq 'IN_FIRMA' ? 3 : (vm.allegato.statoFirma eq 'FIRMATO' ? 2 : (vm.allegato.statoFirma eq 'DA_FIRMARE' ? 1 : 0)))" selectedItem="@save(vm.allegato.statoFirma)">
-				            <radio label="Da Non Firmare" 	value="@load('DA_NON_FIRMARE')" disabled="@load(not vm.competenze.modifica or vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or not vm.modificaCampi)"	/>
-		     				<radio label="Da Firmare" 		value="@load('DA_FIRMARE')" 	disabled="@load(not vm.competenze.modifica or vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or not vm.modificaCampi)" />
+				            <radio label="Da Non Firmare" 	value="@load('DA_NON_FIRMARE')" disabled="@load(not vm.competenze.modifica or vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or not vm.modificaCampi or vm.padesBloccatoStatoDaNonFirmare)"	/>
+		     				<radio label="Da Firmare" 		value="@load('DA_FIRMARE')" 	disabled="@load(not vm.competenze.modifica or vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or not vm.modificaCampi or vm.padesBloccatoStatoDaNonFirmare)" />
 				            <radio label="Firmato"			value="@load('FIRMATO')"		disabled="@load(not vm.competenze.modifica or not vm.modificaCampi or vm.allegato.statoFirma eq 'IN_FIRMA')" visible="@load(vm.allegato.statoFirma eq 'FIRMATO')" />
 							<radio label="In Firma"			value="@load('IN_FIRMA')"		disabled="true" visible="@load(vm.allegato.statoFirma eq 'IN_FIRMA')" />
 			            </radiogroup>
@@ -99,10 +99,10 @@
 							<radio label="No" value="@load(false)" disabled="@load(not vm.competenze.modifica or not vm.modificaCampi)"/>
 						</radiogroup>
 					</cell>
-					<cell colspan="2" align="right" visible="@load(vm.abilitaRiservato)">
+					<cell colspan="2" align="right" visible="@load(vm.riservatoVisibile)">
 						<label value="Riservato:" />
 					</cell>
-					<cell colspan="1" visible="@load(vm.abilitaRiservato)">
+					<cell colspan="1" visible="@load(vm.riservatoVisibile)">
 						<radiogroup selectedIndex="@load(vm.allegato.riservato ? 0 : 1)" selectedItem="@save(vm.allegato.riservato)">
 							<radio label="Sì" value="@load(true)"  disabled="@load(not vm.riservatoModificabile or not vm.competenze.modifica)"/>
 							<radio label="No" value="@load(false)" disabled="@load(not vm.riservatoModificabile or not vm.competenze.modifica)"/>
@@ -194,19 +194,19 @@
 		        				tooltiptext="Aggiungi un file"
 		        				upload="@load(c:cat(vm.uploadAttributeValue, ',multiple=true,native'))"
 		        				onUpload="@command('onUploadFileAllegato')"
-		        				visible="@load(vm.competenze.modifica and not(vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or vm.allegato.statoFirma eq 'FIRMATO_DA_SBLOCCARE'))"
+		        				visible="@load(vm.competenze.modifica and not(vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or vm.allegato.statoFirma eq 'FIRMATO_DA_SBLOCCARE') and not vm.allegato.bloccato)"
 		        				disabled="@load(not vm.competenze.modifica)"
 		        				mold="trendy">
 		        		</button>
 		        		<button image="/images/afc/16x16/scanner.png"
 		        				tooltiptext="Apri finestra per la scansione"
-		        				visible="@load(vm.competenze.modifica and not(vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or vm.allegato.statoFirma eq 'FIRMATO_DA_SBLOCCARE'))"
+		        				visible="@load(vm.competenze.modifica and not(vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or vm.allegato.statoFirma eq 'FIRMATO_DA_SBLOCCARE') and not vm.allegato.bloccato)"
 		        				disabled="@load(not vm.competenze.modifica)"
 		        				onClick="@command('onApriPopupScansione')"
 		        				mold="trendy" />
 		        		<button image="/images/afc/16x16/search.png"
 		        				tooltiptext="Apri finestra per la ricerca dei documenti"
-		        				visible="@load(vm.abilitaCercaDocumenti and vm.competenze.modifica and not(vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or vm.allegato.statoFirma eq 'FIRMATO_DA_SBLOCCARE'))"
+		        				visible="@load(vm.abilitaCercaDocumenti and vm.competenze.modifica and not(vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or vm.allegato.statoFirma eq 'FIRMATO_DA_SBLOCCARE') and not vm.allegato.bloccato)"
 		        				disabled="@load(not vm.competenze.modifica)"
 		        				onClick="@command('onApriPopupRicercaDocumenti')"
 		        				mold="trendy" />
@@ -223,7 +223,7 @@
 						<image src="/images/agsde2/16x16/pdf.png" tooltiptext="Anteprima PDF" onClick="@command('onDownloadPdfFileAllegato', fileAllegato=a)" visible="@load(vm.competenze.modifica and a.isConvertibilePdf() and vm.allegato.statoFirma eq 'DA_FIRMARE')"/>
 					</listcell>
 					<listcell style="text-align: right">
-						<image src="/images/agsde2/16x16/trash.png" onClick="@command('onEliminaFileAllegato', fileAllegato=a)" visible="@load(vm.competenze.modifica and (vm.allegato.codice eq 'ALLEGATO_COPIA_TESTO' or (vm.allegato.codice ne 'OMISSIS' and vm.allegato.codice ne 'OMISSIS' and not(vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or vm.allegato.statoFirma eq 'FIRMATO_DA_SBLOCCARE'))))"/>
+						<image src="/images/agsde2/16x16/trash.png" onClick="@command('onEliminaFileAllegato', fileAllegato=a)" visible="@load(vm.competenze.modifica and (vm.allegato.codice eq 'ALLEGATO_COPIA_TESTO' or (vm.allegato.codice ne 'OMISSIS' and vm.allegato.codice ne 'OMISSIS' and not(vm.allegato.statoFirma eq 'FIRMATO' or vm.allegato.statoFirma eq 'IN_FIRMA' or vm.allegato.statoFirma eq 'FIRMATO_DA_SBLOCCARE'))) and not vm.allegato.bloccato)"/>
 					</listcell>
 	       		</listitem>
 	       	</template>

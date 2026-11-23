@@ -1,6 +1,7 @@
 package it.finmatica.atti.integrazioni.ricercadocumenti.agsde2
 
 import grails.plugin.springsecurity.SpringSecurityService
+import it.finmatica.atti.documenti.PropostaDelibera
 import org.springframework.transaction.annotation.Transactional
 import it.finmatica.atti.documenti.Delibera
 import it.finmatica.atti.documenti.beans.AttiGestoreCompetenze
@@ -38,6 +39,11 @@ class RicercaDelibere implements RicercaDocumentiEsterni {
     @Override
     boolean isAbilitato () {
         return true
+    }
+
+    @Override
+    String getTipoOggetto () {
+        return Delibera.TIPO_OGGETTO
     }
 
     @Override

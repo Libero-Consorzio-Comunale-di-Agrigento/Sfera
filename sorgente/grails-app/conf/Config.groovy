@@ -100,6 +100,10 @@ environments {
 		grails.logging.jul.usebridge = true;
 		grails.dbconsole.enabled 	 = false;
 	}
+	test {
+		// in CI non c'è Oracle: si disabilita il bootstrap SO4 che tenta connessioni Oracle
+		grails.plugins.strutturaorganizzativa.dbUser.abilitato = false
+	}
 	production {
 		grails.logging.jul.usebridge = false;
 		grails.dbconsole.enabled 	 = false;
@@ -123,7 +127,7 @@ grails.plugin.springsecurity.securityConfigType 			= 'InterceptUrlMap'
 grails.plugins.amministrazionedatabase.restrictUrlPatterns = ["/*"]
 grails.plugin.springsecurity.interceptUrlMap = [:]
 
-grails.plugins.amministrazionedatabase.publicUrlPatterns = ["/static/*", "/login/*", "/docEr/*", "/aggiornaImpostazioni", "/plugins/*", "/firmaDigitale/*", "/fineFirma/*", "/webScan/*", "/zkau/*"]
+grails.plugins.amministrazionedatabase.publicUrlPatterns = ["/AttiRest/*","/static/*", "/login/*", "/docEr/*", "/aggiornaImpostazioni", "/plugins/*", "/firmaDigitale/*", "/fineFirma/*", "/webScan/*", "/zkau/*"]
 grails.plugins.amministrazionedatabase.publicUrlPatterns.each {
 	if (it.endsWith("*")) {
 		it += "*"
@@ -144,6 +148,7 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 grails.plugin.springsecurity.interceptUrlMap << [
 	'/services/*wsdl': 					["permitAll"], 																	// il wsdl dei webservice deve essere pubblico.
 	'/services/**':    					["hasAnyRole('AGSDE2_AGDWS',   'AGDWS')"],
+	'/AttiRest/**':    					['IS_AUTHENTICATED_ANONYMOUSLY'],
 	'/logout':							["isAuthenticated()"],
 	'/admin':							["hasAnyRole('AGSDE2_AGDAMMI', 'ROLE_PREVIOUS_ADMINISTRATOR')"], 	// ruoli di accesso: il primo è la concatenazione tra MODULO_RUOLO, il secondo è solo il RUOLO
 	'/console': 	  					["hasAnyRole('AGSDE2_AGDAMMI', 'ROLE_PREVIOUS_ADMINISTRATOR')"], 	// ruoli di accesso: il primo è la concatenazione tra MODULO_RUOLO, il secondo è solo il RUOLO
@@ -192,7 +197,8 @@ grails.plugins.dto.packageMappings = ["it.finmatica.atti" : "it.finmatica.atti.d
 
 grails.plugins.gestionetesti.reporter.asposeFullFonts=true
 
-autoupdate.repositories = ["ftp://<utente>:<pwd>@<ftp-host>/<path>/SFERA"]
+//autoupdate.repositories = ["ftp://genftp:lavoro17@ftp.ads.it/passa/sasdo/SFERA"]
+autoupdate.repositories = []
 
 // configurazione invio email in caso di errori nel job notturno:
 atti.emailProblemi = ['segreteria@ads.it']
@@ -211,4 +217,4 @@ atti.mappaCaratteri = [ [search:"′", replace:"'"],
 						[search:"–", replace:"-"]
 ]
 
-atti.caratteri.allegato='àèéìòù'
+atti.caratteri.allegato='’àèéìòùÀÈÉÌÒÙ%°€–'

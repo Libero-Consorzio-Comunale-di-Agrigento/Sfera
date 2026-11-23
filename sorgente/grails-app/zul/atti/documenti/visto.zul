@@ -113,6 +113,7 @@
 
 									<button image="/images/agsde2/16x16/pencil.png" mold="trendy" autodisable="self"
 											label="Edita testo"
+											disabled="@load(!((empty vm.visto.iter and vm.visto.tipologia.testoModificabileNoIter) or (!empty vm.visto.iter)))"
 											onClick="@command('editaTesto')" visible="@load(vm.visto.id gt 0 and (empty vm.visto.testo or vm.visto.testo.modificabile) and not(vm.visto.statoFirma eq 'IN_FIRMA' or vm.visto.statoFirma eq 'FIRMATO' or vm.campiProtetti.TESTO) and (vm.competenze.modifica or vm.forzaCompetenzeLettura))"/>
 									<space />
 									<button image="/images/agsde2/16x16/cancel.png" mold="trendy" label="Elimina testo" disabled="@load(not (vm.competenze.modifica or vm.forzaCompetenzeLettura) or vm.visto.testo eq null)"
@@ -173,6 +174,7 @@
                             <listheader label="Descrizione" 	width="40%" />
                             <listheader label="Riservato"    	width="70px" align="center" />
 				        	<listheader label="Da firmare" 		width="80px" align="center" />
+				        	<listheader label="N. file"         width="60px" align="center" />
 				        	<listheader label="" width="50px" align="center">
 	        					<image width="15px" src="/images/afc/16x16/add.png"
 	        						onClick="@command('onModificaAllegato', nuovo=true)"
@@ -192,12 +194,13 @@
 								<listcell style="text-align: center">
 									<image src="@load((a.statoFirma eq 'DA_FIRMARE') ? '/images/afc/16x16/legitimate.png' : ((a.statoFirma eq 'FIRMATO') ? (a.marcato ? '/images/agsde2/16x16/marksigned.png' : '/images/agsde2/16x16/testo_firmato.png') : ''))"/>
 								</listcell>
+								<listcell label="@load(empty a.fileAllegati ? 0 : a.fileAllegati.size())" style="text-align: center" />
 								<listcell>
 				        			<image src="/images/agsde2/16x16/trash.png"
 				        				   onClick="@command('onEliminaAllegato', allegato=a)"
 				        				   tooltiptext="Elimina allegati"
         						   		   style="cursor: pointer;"
-        						   		   visible="@load((vm.competenze.modifica or vm.forzaCompetenzeLettura) and (a.statoFirma eq 'DA_FIRMARE' or a.statoFirma eq 'DA_NON_FIRMARE') and not vm.campiProtetti.ALLEGATI)" />
+        						   		   visible="@load((vm.competenze.modifica or vm.forzaCompetenzeLettura) and (a.statoFirma eq 'DA_FIRMARE' or a.statoFirma eq 'DA_NON_FIRMARE') and not vm.campiProtetti.ALLEGATI and not (a.bloccato) )" />
 				        		</listcell>
 			        		</listitem>
 			        	</template>
@@ -234,7 +237,8 @@
 
 				<!-- Contabilità -->
 				<tabpanel fulfill="contabilita.onSelect">
-					<include src="@load(vm.zulContabilita)" onCreate="@command('onAggiornaContabilita')"/>
+					<include src="@load(vm.zulContabilita)" onCreate="@command('onAggiornaContabilita')" visible="@load(vm.visContabilita)"/>
+					<label value="@load(c:l('message.contabilita.erroreAttoRiservato'))" visible="@load(!vm.visContabilita)" />
 				</tabpanel>
 
 				<!-- Storico -->

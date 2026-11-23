@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window apply="grailsBindComposer" viewModel="@id('vm') @init('gruppoPoliticoDettaglioViewModel')">
+    <vlayout vflex="1">
+
+		<grid sclass="form" >
+			<rows>
+				<row>
+					<cell align="left" width="10%">
+						<h:span class="mandatoryLabel">*</h:span><label value="Titolo" />
+					</cell>
+					<cell>
+						<textbox value="@bind(vm.gruppoPolitico.titolo)" hflex="1" />
+					</cell>
+				</row>
+				<row>
+					<cell align="left">
+						<label value="Descrizione" />
+					</cell>
+					<cell>
+						<textbox multiline="true" rows="3" value="@bind(vm.gruppoPolitico.descrizione)" hflex="1" />
+					</cell>
+				</row>
+			    <row>
+					<cell align="left">
+						<h:span class="mandatoryLabel">*</h:span><label value="Sequenza" />
+					</cell>
+					<cell>
+						<spinner value="@bind(vm.gruppoPolitico.sequenza)" format=",###" constraint="min 0" />
+					</cell>
+				</row>
+			</rows>
+		</grid>
+ 		<!--paging activePage="@bind(vm.activePage)" pageSize="@load(vm.pageSize)" totalSize="@load(vm.totalSize)" onPaging="@command('onPagina')" style="border: 0px;"/-->
+	</vlayout>
+	</window>
+</zk>

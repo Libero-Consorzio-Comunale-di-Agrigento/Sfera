@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/atti.css"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:w="http://www.zkoss.org/2005/zk/client"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+        viewModel="@id('vm') @init('pulsanteIterSmartDesktopViewModel')"
+		title=" "
+		vflex="1"
+		border="normal"
+		sizable="false">
+
+		<h:div class="barraTitoloPagina">
+			<label sclass="titoloPagina" value="@load(vm.titolo)"/>
+		</h:div>
+
+		<!-- Prima grid (informazioni documento) -->
+		<grid sclass="form">
+			<rows>
+				<row>
+					<cell width="120px" />
+					<cell />
+				</row>
+				<row visible="@bind(vm.pulsantePremuto)">
+					<cell colspan="2">
+						<label value="Operazione eseguita con successo" style="font-weight: bold; color: red; font-size: 14px;"/>
+					</cell>
+				</row>
+				<row>
+					<cell>
+						<label value="Estremi documento" />
+					</cell>
+					<cell>
+						<label value="@load(vm.estremiAtto)" />
+					</cell>
+				</row>
+				<row>
+					<cell>
+						<label value="Oggetto:" />
+					</cell>
+					<cell>
+						<label value="@load(vm.oggetto)" />
+					</cell>
+				</row>
+			</rows>
+		</grid>
+
+		<space />
+
+		<!-- vlayout per fare in modo che il campo note si adatti alla dimensione della pagina -->
+		<vlayout vflex="1" width="100%" style="background: #EDEFF5 !important; padding: 5px;">
+			<label value="Inserire eventuali note (non obbligatorie)" />
+			<hlayout width="100%" vflex="1">
+				<label value="Note" style="width: 120px !important; display: inline-block !important;"/>
+				<textbox value="@bind(vm.note)" multiline="true" vflex="1" hflex="1" disabled="@bind(vm.pulsantePremuto)"/>
+			</hlayout>
+		</vlayout>
+
+
+		<h:div class="barraPulsanti">
+			<h:div>
+				<button label="@load(vm.titolo)" image="@load(vm.wkfCfgPulsante.icona)" onClick="@command('onEsegui')" mold="trendy" disabled="@bind(vm.pulsantePremuto)" visible="@bind(!(vm.pulsantePremuto))"></button>
+			</h:div>
+		</h:div>
+    </window>
+</zk>

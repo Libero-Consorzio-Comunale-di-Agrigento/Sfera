@@ -24,6 +24,7 @@
 				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
 				<ANNO_ALBO>2014</ANNO_ALBO>
 				<NUMERO_ALBO>1</NUMERO_ALBO>
+				<INVIO_CORTE_CONTI>SI</INVIO_CORTE_CONTI>
 			</registro_determine>
 			<registro_determine>
 				<STATO />
@@ -39,6 +40,7 @@
 				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
 				<ANNO_ALBO>2014</ANNO_ALBO>
 				<NUMERO_ALBO>2</NUMERO_ALBO>
+				<INVIO_CORTE_CONTI>SI</INVIO_CORTE_CONTI>
 			</registro_determine>
 			<registro_determine>
 				<STATO />
@@ -54,6 +56,7 @@
 				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
 				<ANNO_ALBO>2014</ANNO_ALBO>
 				<NUMERO_ALBO>3</NUMERO_ALBO>
+				<INVIO_CORTE_CONTI>NO</INVIO_CORTE_CONTI>
 			</registro_determine>
 			<registro_determine>
 				<STATO />
@@ -69,6 +72,7 @@
 				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
 				<ANNO_ALBO>2014</ANNO_ALBO>
 				<NUMERO_ALBO>3</NUMERO_ALBO>
+				<INVIO_CORTE_CONTI>NO</INVIO_CORTE_CONTI>
 			</registro_determine>
 			<registro_determine>
 				<STATO />
@@ -84,6 +88,7 @@
 				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
 				<ANNO_ALBO>2014</ANNO_ALBO>
 				<NUMERO_ALBO>3</NUMERO_ALBO>
+				<INVIO_CORTE_CONTI>SI</INVIO_CORTE_CONTI>
 			</registro_determine>
 			<registro_determine>
 				<STATO />
@@ -99,6 +104,7 @@
 				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
 				<ANNO_ALBO>2014</ANNO_ALBO>
 				<NUMERO_ALBO>4</NUMERO_ALBO>
+				<INVIO_CORTE_CONTI>SI</INVIO_CORTE_CONTI>
 			</registro_determine>
 			<registro_determine>
 				<STATO>ANNULLATA</STATO>
@@ -114,6 +120,7 @@
 				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
 				<ANNO_ALBO>2014</ANNO_ALBO>
 				<NUMERO_ALBO>5</NUMERO_ALBO>
+				<INVIO_CORTE_CONTI>NO</INVIO_CORTE_CONTI>
 			</registro_determine>
 			<registro_determine>
 				<STATO />
@@ -129,6 +136,7 @@
 				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
 				<ANNO_ALBO>2014</ANNO_ALBO>
 				<NUMERO_ALBO>6</NUMERO_ALBO>
+				<INVIO_CORTE_CONTI>SI</INVIO_CORTE_CONTI>
 			</registro_determine>
 			<registro_determine>
 				<STATO />
@@ -144,6 +152,7 @@
 				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
 				<ANNO_ALBO>2014</ANNO_ALBO>
 				<NUMERO_ALBO>7</NUMERO_ALBO>
+				<INVIO_CORTE_CONTI>NO</INVIO_CORTE_CONTI>
 			</registro_determine>
 			<registro_determine>
 				<STATO>ANNULLATA</STATO>
@@ -159,6 +168,7 @@
 				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
 				<ANNO_ALBO>2014</ANNO_ALBO>
 				<NUMERO_ALBO>8</NUMERO_ALBO>
+				<INVIO_CORTE_CONTI>NO</INVIO_CORTE_CONTI>
 			</registro_determine>
 			<registro_determine>
 				<STATO />
@@ -174,6 +184,7 @@
 				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
 				<ANNO_ALBO>2014</ANNO_ALBO>
 				<NUMERO_ALBO>9</NUMERO_ALBO>
+				<INVIO_CORTE_CONTI>NO</INVIO_CORTE_CONTI>
 			</registro_determine>
 			<registro_determine>
 				<STATO />
@@ -189,6 +200,7 @@
 				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
 				<ANNO_ALBO>2014</ANNO_ALBO>
 				<NUMERO_ALBO>10</NUMERO_ALBO>
+				<INVIO_CORTE_CONTI>SI</INVIO_CORTE_CONTI>
 			</registro_determine>
 			<registro_determine>
 				<STATO>ANNULLATA</STATO>
@@ -204,6 +216,7 @@
 				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
 				<ANNO_ALBO>2014</ANNO_ALBO>
 				<NUMERO_ALBO>11</NUMERO_ALBO>
+				<INVIO_CORTE_CONTI>SI</INVIO_CORTE_CONTI>
 			</registro_determine>
 			<registro_determine>
 				<STATO />
@@ -219,6 +232,7 @@
 				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
 				<ANNO_ALBO>2014</ANNO_ALBO>
 				<NUMERO_ALBO>12</NUMERO_ALBO>
+				<INVIO_CORTE_CONTI>SI</INVIO_CORTE_CONTI>
 			</registro_determine>
 			<registro_determine>
 				<STATO />
@@ -234,6 +248,7 @@
 				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
 				<ANNO_ALBO>2014</ANNO_ALBO>
 				<NUMERO_ALBO>13</NUMERO_ALBO>
+				<INVIO_CORTE_CONTI>SI</INVIO_CORTE_CONTI>
 			</registro_determine>
 			<registro_determine>
 				<STATO />
@@ -249,6 +264,7 @@
 				<ANNO_ADOZIONE>2014</ANNO_ADOZIONE>
 				<ANNO_ALBO>2014</ANNO_ALBO>
 				<NUMERO_ALBO>4</NUMERO_ALBO>
+				<INVIO_CORTE_CONTI>NO</INVIO_CORTE_CONTI>
 			</registro_determine>
 		</documentRoot>
 	</testStaticData>
@@ -453,6 +469,12 @@
 			<descrizione>Numero di pubblicazione all'albo</descrizione>
 			<path/>
 		</metaDato>
+		<metaDato>
+			<nomeSimbolico>INVIO_CORTE_CONTI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Se il documento è da inviare alla corte dei conti (SI / NO)</descrizione>
+			<path/>
+		</metaDato>
 	</definitions>
 	<queryes>
 		<query id="registro"
@@ -466,7 +488,7 @@
  	<!-- Determine: restituisce l'elenco delle determine -->
 		<query id="registro_determine"
 			help_query_alias="rd"
-			help_field_aliases="ANNO_ADOZIONE, ANNO_ALBO, DATA_DETERMINA, DATA_DETERMINA_2, DATA_ESECUTIVITA, DATA_FINE_PUBBLICAZIONE, DATA_PUBBLICAZIONE, OGGETTO, NUMERO_ALBO, NUMERO_DETERMINA, NUMERO_DETERMINA_2, STATO, UNITA_PROPONENTE"><![CDATA[
+			help_field_aliases="ANNO_ADOZIONE, ANNO_ALBO, DATA_DETERMINA, DATA_DETERMINA_2, DATA_ESECUTIVITA, DATA_FINE_PUBBLICAZIONE, DATA_PUBBLICAZIONE, INVIO_CORTE_CONTI, OGGETTO, NUMERO_ALBO, NUMERO_DETERMINA, NUMERO_DETERMINA_2, STATO, UNITA_PROPONENTE"><![CDATA[
  select decode (stato, 'ANNULLATO',     nvl2(data_esecutivita, 'NON ESECUTIVO', nvl2(numero_determina, 'ATTO ANNULLATO', 'PROPOSTA ANNULLATA')),
                        'NON_ESECUTIVO', nvl2(data_esecutivita, 'NON ESECUTIVO', nvl2(numero_determina, 'ATTO ANNULLATO', 'PROPOSTA ANNULLATA')),
                        '') STATO
@@ -482,6 +504,7 @@
        ,  d.anno_determina ANNO_ADOZIONE
        ,  d.anno_albo ANNO_ALBO
        ,  d.numero_albo NUMERO_ALBO
+       ,  decode (d.da_inviare_corte_conti, 'Y', 'SI', 'NO') INVIO_CORTE_CONTI
     from  determine_soggetti ds_dirigente
        ,  determine_soggetti ds_uo_proponente
        ,  determine d
@@ -548,6 +571,7 @@ select decode (stato, 'ANNULLATO',     nvl2(data_esecutivita, 'NON ESECUTIVO', n
        ,  d.anno_determina_2 ANNO_ADOZIONE
        ,  d.anno_albo ANNO_ALBO
        ,  d.numero_albo NUMERO_ALBO
+       ,  decode (d.da_inviare_corte_conti, 'Y', 'SI', 'NO') INVIO_CORTE_CONTI
     from  determine_soggetti ds_dirigente
        ,  determine_soggetti ds_uo_proponente
        ,  determine d

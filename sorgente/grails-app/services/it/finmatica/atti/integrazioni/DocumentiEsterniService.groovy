@@ -22,6 +22,7 @@ import it.finmatica.gestioneiter.configuratore.dizionari.WkfTipoOggetto
 import it.finmatica.gestioneiter.configuratore.iter.WkfCfgIter
 import it.finmatica.gestioneiter.motore.WkfIterService
 import it.finmatica.gestionetesti.TipoFile
+import it.finmatica.grails.firmadigitale.FirmaDigitaleService
 import it.finmatica.so4.strutturaPubblicazione.So4UnitaPubb
 import org.apache.commons.io.IOUtils
 import org.apache.commons.io.FilenameUtils
@@ -47,6 +48,7 @@ class DocumentiEsterniService {
     AllegatoService                allegatoService
     WkfIterService                 wkfIterService
     IGestoreFile                   gestoreFile
+    FileFirmatoDettaglioService    fileFirmatoDettaglioService
 
     PropostaDeliberaEsterna creaPropostaDeliberaEsterna (String codiceApplicativo, Documento proposta) {
         PropostaDeliberaEsterna d = new PropostaDeliberaEsterna()
@@ -469,8 +471,11 @@ class DocumentiEsterniService {
             allegato.addToFileAllegati(fileAllegato)
 
             gestoreFile.addFile(allegato, fileAllegato, riferimentoFile.file.inputStream)
-        }
 
+            // verifico la firma
+            fileFirmatoDettaglioService.verificaFileFirmato(allegato, fileAllegato)
+
+        }
         return allegato
     }
 
@@ -479,8 +484,8 @@ class DocumentiEsterniService {
         fileAllegato.nome = riferimentoFile.nome
         fileAllegato.contentType = TipoFile.getInstanceByEstensione(fileAllegato.estensione).contentType
         fileAllegato.modificabile = false
-        fileAllegato.firmato = false // false perché questo file non è firmato dall'applicativo ma arriva eventualmente già firmato.
-
+        // tolto perchè bisogna verificare la firma dopo
+        // fileAllegato.firmato = false // false perché questo file non è firmato dall'applicativo ma arriva eventualmente già firmato.
         return fileAllegato
     }
 

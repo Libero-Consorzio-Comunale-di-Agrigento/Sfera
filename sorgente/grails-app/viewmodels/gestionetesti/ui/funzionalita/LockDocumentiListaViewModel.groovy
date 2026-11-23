@@ -1,7 +1,7 @@
 package gestionetesti.ui.funzionalita
 
 import afc.AfcAbstractGrid
-import com.github.sardine.Sardine
+import com.github.sardine.impl.SardineException
 import grails.orm.PagedResultList
 import grails.plugin.springsecurity.SpringSecurityService
 import it.finmatica.gestionetesti.GestioneTestiService
@@ -68,7 +68,7 @@ class LockDocumentiListaViewModel {
 			gestioneTestiService.unlock(selectedRecord.lock.idRiferimentoTesto, selectedRecord.utenteInizioLock.domainObject)
 		} catch (RuntimeException e) {
 			// se ricevo errore di testo non trovato, significa che il file non è presente su webdav, allora procedo con l'unlock normale.
-			if (e.cause instanceof Sardine && e.cause.getStatusCode() == HttpStatus.SC_NOT_FOUND) {
+			if (e.cause instanceof SardineException && e.cause.getStatusCode() == HttpStatus.SC_NOT_FOUND) {
 				gestioneTestiService.eliminaLock(selectedRecord.lock.idRiferimentoTesto, selectedRecord.utenteInizioLock.domainObject)
 			} else {
 				throw e

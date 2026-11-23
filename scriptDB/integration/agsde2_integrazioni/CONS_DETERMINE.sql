@@ -59,8 +59,11 @@ CREATE OR REPLACE FORCE VIEW CONS_DETERMINE
    INDICE_ALLEGATI,
    COGNOME_FIRMATARIO,
    NOME_FIRMATARIO,
+   CF_FIRMATARIO,
    COGNOME_FUNZIONARIO,
-   NOME_FUNZIONARIO
+   NOME_FUNZIONARIO,
+   CF_FUNZIONARIO,
+   PRESENZA_FUNZIONARIO
 )
 AS
 SELECT d.id_determina,
@@ -129,7 +132,7 @@ SELECT d.id_determina,
        d.fascicolo_anno,
        d.fascicolo_oggetto,
        d.stato,
-       utility_pkg.get_primo_firmatario_determina (d.id_determina)
+       nvl(utility_pkg.get_primo_firmatario_determina (d.id_determina),'NON DISPONIBILE')
            firmatario,
        utility_pkg.get_prima_data_firma_determina (d.id_determina)
            data_firma,
@@ -162,10 +165,15 @@ SELECT d.id_determina,
         WHERE alle.id_determina = d.id_determina AND alle.valido = 'Y')
            num_allegati,
        utility_pkg.cons_indice_allegati_determina (d.id_determina),
-       utility_pkg.get_firmatario_visto_contab_c (d.id_determina)
+       NVL (utility_pkg.get_primo_firmatario_det_c (d.id_determina),
+            'NON DISPONIBILE')
            cognome_firmatario,
-       utility_pkg.get_firmatario_visto_contab_n (d.id_determina)
+       NVL (utility_pkg.get_primo_firmatario_det_n (d.id_determina),
+            'NON DISPONIBILE')
            nome_firmatario,
+       NVL (utility_pkg.get_primo_firmatario_det_cf (d.id_determina),
+            'NON DISPONIBILE')
+           cf_firmatario,
        DECODE (d.controllo_funzionario,
                'Y', as4_soggetti_funzionario.cognome,
                '')
@@ -173,7 +181,12 @@ SELECT d.id_determina,
        DECODE (d.controllo_funzionario,
                'Y', as4_soggetti_funzionario.nome,
                '')
-           nome_funzionario
+           nome_funzionario,
+       DECODE (d.controllo_funzionario,
+               'Y', as4_soggetti_funzionario.codice_fiscale,
+               '')
+           cf_funzionario,
+       NVL (d.controllo_funzionario, 'N') presenza_funzionario
 FROM determine_soggetti uo_prop,
      determine_soggetti redattore,
      determine_soggetti funzionario,

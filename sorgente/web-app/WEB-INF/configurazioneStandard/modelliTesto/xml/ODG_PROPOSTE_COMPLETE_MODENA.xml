@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <documentRoot>
-	<descrizione>Convocazione Seduta</descrizione>
+	<descrizione>Elenco delle proposte complete Modena</descrizione>
 	<connections>
 		<connectionJNDI>jdbc/agsde2</connectionJNDI>
 	</connections>
@@ -86,6 +86,12 @@
 	</testStaticData>
 	<definitions>
 		<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+		<metaDato tipoParametro="input">
+			<nomeSimbolico>stato_odg</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Elenco degli stati possibili dei documenti in gestione odg</descrizione>
+			<path/>
+		</metaDato>
 		<metaDato tipoParametro="input">
 			<nomeSimbolico>id</nomeSimbolico>
 			<tipo>string</tipo>
@@ -476,7 +482,7 @@
 								   pd.id_proposta_delibera,
 								   'DIRIGENTE'))
 								FIRMATARIO_PROPOSTA,
-							 utility_pkg.get_cognome_nome (dele.ni_assessore) RELATORE,
+							 utility_pkg.get_cognome_nome (dele.ni_assessore, pd.ente) RELATORE,
 							 (SELECT valore
 								FROM dati_aggiuntivi da
 							   WHERE     da.id_proposta_delibera = pd.id_proposta_delibera
@@ -512,11 +518,8 @@
 							 AND iter.id_engine_iter = pd.id_engine_iter
 							 AND ITER.DATA_FINE IS NULL
 							 AND (   (    pd.id_oggetto_seduta IS NULL
-									  AND pd.stato_odg = 'COMPLETO')
-								  OR (    EXISTS
-											 (SELECT utility_pkg.get_esito_rinvio_proposta (
-														pd.id_proposta_delibera)
-												FROM DUAL)
+									  AND instr (#stato_odg, '--' || pd.stato_odg || '--') > 0)
+								  OR (    utility_pkg.get_esito_rinvio_proposta (pd.id_proposta_delibera) is not null
 									  AND pd.id_oggetto_seduta IS NULL)
 								  OR EXISTS
 										(SELECT 1
@@ -551,7 +554,7 @@
 				   PROSSIMA_DISCUSSIONE
 			  FROM (  SELECT pd.id_proposta_delibera id_proposta,
 							 pd.oggetto OGGETTO_PROPOSTA,
-							 utility_pkg.get_cognome_nome (dele.ni_assessore) RELATORE,
+							 utility_pkg.get_cognome_nome (dele.ni_assessore, pd.ente) RELATORE,
 							 pd.anno_proposta || '/' || pd.numero_proposta ESTREMI_PROPOSTA,
 							 td.titolo TIPO_PROPOSTA,
 							 utility_pkg.get_unita_prop_delibera (pd.id_proposta_delibera) UNITA_PROPONENTE,
@@ -591,8 +594,8 @@
 							 AND pd.valido = 'Y'
 							 AND iter.id_engine_iter = pd.id_engine_iter
 							 AND ITER.DATA_FINE IS NULL
-							 AND ( ( pd.id_oggetto_seduta IS NULL AND pd.stato_odg = 'COMPLETO')
-								  OR ( EXISTS (SELECT utility_pkg.get_esito_rinvio_proposta (pd.id_proposta_delibera) FROM DUAL) AND pd.id_oggetto_seduta IS NULL)
+							 AND ( ( pd.id_oggetto_seduta IS NULL AND instr (#stato_odg, '--' || pd.stato_odg || '--') > 0)
+								  OR ( utility_pkg.get_esito_rinvio_proposta (pd.id_proposta_delibera) is not null AND pd.id_oggetto_seduta IS NULL)
 								  OR EXISTS
 										(SELECT 1
 										   FROM odg_oggetti_seduta ogg, odg_sedute oss

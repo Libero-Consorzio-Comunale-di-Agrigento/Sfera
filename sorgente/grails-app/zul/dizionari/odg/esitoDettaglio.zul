@@ -47,6 +47,15 @@
         			</cell>
         		</row>
 
+				<row>
+					<cell align="right">
+						<label value="Codice"/>
+					</cell>
+					<cell>
+						<textbox value="@bind(vm.selectedRecord.codiceEsterno)" hflex="1"/>
+					</cell>
+				</row>
+
         		<row>
 	        		<cell align="right">
     	    			<h:span class="mandatoryLabel">*</h:span><label value="Notifica Verbalizzazione"/>

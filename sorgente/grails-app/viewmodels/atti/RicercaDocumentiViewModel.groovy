@@ -13,9 +13,13 @@ import org.zkoss.bind.BindUtils
 import org.zkoss.bind.annotation.*
 import org.zkoss.zk.ui.Executions
 import org.zkoss.zk.ui.event.Event
+import org.zkoss.zk.ui.event.SelectEvent
 import org.zkoss.zk.ui.event.SortEvent
-import org.zkoss.zul.Messagebox
+import org.zkoss.zul.Bandbox
+import org.zkoss.zul.Bandpopup
+import org.zkoss.zul.Listbox
 import org.zkoss.zul.Window
+import org.zkoss.zk.ui.Component
 
 class RicercaDocumentiViewModel {
 
@@ -37,12 +41,14 @@ class RicercaDocumentiViewModel {
 
 	boolean aperturaAtto = true
 	boolean abilitaRichiestaEsecutivita
+	boolean abilitaRicercaNelTesto
 	String richiestaEsecutivitaLabel
 
 	@Init init(@ContextParam(ContextType.COMPONENT) Window w) {
 		this.self = w
 		onCambiaTipo()
 		abilitaRichiestaEsecutivita = Impostazioni.RICHIESTA_ESECUTIVITA.abilitato
+		abilitaRicercaNelTesto = Impostazioni.RICERCA_NEL_TESTO.abilitato
 		richiestaEsecutivitaLabel = Impostazioni.RICHIESTA_ESECUTIVITA_LABEL.valore
 		BindUtils.postNotifyChange(null, null, this, "ricerca")
 	}
@@ -58,7 +64,8 @@ class RicercaDocumentiViewModel {
 		// elimino la popup di ricerca così da costruirne una nuova (utile soprattutto in caso di passaggio da un tipo documento a un tipo documento collegato
 		// ad es. da ricerca su determine a ricerca su certificati.
 		popupRicercaAvanzata 	= null
-		ricerca.caricaListe()
+		ricerca.caricaListaRegistri()
+	//	ricerca.caricaListe()
 		ricerca.listaDocumenti = []
 		ricerca.totalSize = 0
 		ricerca.activePage = 0
@@ -136,6 +143,14 @@ class RicercaDocumentiViewModel {
 	@NotifyChange("ricerca")
 	@Command apriPopupRicercaAvanzata () {
 		if (popupRicercaAvanzata == null) {
+			// caricaListe() chiama caricaListaServizi() che sovrascrive totalSize con il conteggio dei servizi;
+			// si ripristina totalSize del documento e si azzera activePage prima di creare il popup:
+			// il popup contiene un paging dei servizi che condivide vm.ricerca.activePage, e durante createComponents()
+			// ZK valuta activePage sul componente appena creato (totalSize=0 di default) causando "Unable to set active page"
+			int savedTotalSize = ricerca.totalSize
+			ricerca.caricaListe()
+			ricerca.totalSize = savedTotalSize
+			ricerca.activePage = 0
 			popupRicercaAvanzata = Executions.createComponents(ricerca.tipiDocumento[ricerca.tipoDocumento].popup, self, null);
 		}
 		popupRicercaAvanzata.doModal();
@@ -190,6 +205,40 @@ class RicercaDocumentiViewModel {
 			ricerca.pagina(springSecurityService.principal)
 		}
 	}
-	
 
+	@Command
+	@NotifyChange(["ricerca.listaServizi", "ricerca.totalSize"])
+	def caricaListaServizi() {
+		// delega il caricamento al metodo presente in MascheraRicercaDocumento
+		ricerca.caricaListaServizi()
+	}
+
+	@Command
+	def selezionaServizio(
+			@ContextParam(ContextType.TRIGGER_EVENT) SelectEvent event,
+			@BindingParam("target") Component target
+	) {
+		Bandbox bandbox = (Bandbox) target
+		def selectedItem = event.selectedObjects?.first()
+
+		ricerca.servizio = selectedItem
+		bandbox.value = selectedItem?.descrizione
+
+		bandbox.close()
+	}
+
+	@Command
+	void deselezionaServizio(
+			@BindingParam("target") Component target,
+			@BindingParam("listbox") Listbox listbox
+	) {
+		Bandbox bandbox = (Bandbox) target
+
+		if (!bandbox.value || bandbox.value.trim().isEmpty()) {
+			ricerca.servizio = null
+			listbox.selectedItem = null
+
+			bandbox.close()
+		}
+	}
 }

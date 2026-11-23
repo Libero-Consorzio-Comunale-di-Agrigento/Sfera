@@ -3,10 +3,13 @@ package it.finmatica.atti.documenti
 import grails.plugin.springsecurity.SpringSecurityService
 import it.finmatica.as4.As4SoggettoCorrente
 import it.finmatica.atti.IDocumentaleEsterno
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import it.finmatica.atti.IGestoreFile
 import it.finmatica.atti.IntegrazioneAlbo
 import it.finmatica.atti.IntegrazioneContabilita
 import it.finmatica.atti.commons.FileAllegato
+import it.finmatica.atti.dizionari.CalendarioFestivitaService
 import it.finmatica.atti.dizionari.RegistroService
 import it.finmatica.atti.dizionari.RegistroUnita
 import it.finmatica.atti.dizionari.TipoNotifica
@@ -46,6 +49,7 @@ class DeterminaService {
 	VistoParereService		vistoParereService
 	CertificatoService 		certificatoService
 	CaratteristicaTipologiaService caratteristicaTipologiaService
+	CalendarioFestivitaService calendarioFestivitaService
     BudgetService           budgetService
 
 	Allegato getFrontespizio (Determina dete) {
@@ -93,6 +97,7 @@ class DeterminaService {
 				where trunc(d."""+proprietaDataPubblicazione+""" + :giorniEsec) <= current_date()
 				  and d."""+proprietaDataPubblicazione+""" is not null
 				  and d.valido = true
+				  and (d.stato is null or d.stato <> 'ANNULLATO')
 				  and d.dataEsecutivita is null
 				  and d.diventaEsecutiva = true""", [ giorniEsec:		(double)Impostazioni.PUBBLICAZIONE_GIORNI_ESECUTIVITA.valoreInt])
 	}
@@ -100,16 +105,25 @@ class DeterminaService {
 	/**
 	 * Rende esecutiva la determina, annulla o integra le determine collegate
 	 */
-	Determina rendiEsecutiva (Determina determina, Date dataEsecutivita = new Date()) {
-		// se la data di esecutività richiesta è successiva ad oggi, non devo rendere esecutiva la determina. Ci penserà il job notturno.
-		if (new Date().clearTime().before(dataEsecutivita.clone().clearTime())) {
-			return determina
-		}
-
+	Determina rendiEsecutiva (Determina determina, Date dataEsecutivita = null) {
         // se per qualche ragione, la determina è già esecutiva, non faccio niente.
         if (determina.dataEsecutivita != null) {
             return determina
         }
+
+		if (dataEsecutivita == null) {
+			dataEsecutivita = calcolaDataEsecutivita(determina)
+		}
+
+		// se la data di esecutività richiesta è successiva ad oggi, non devo rendere esecutiva la determina. Ci penserà il job notturno quando si arriva alla data corretta
+		if (new Date().clearTime().before(dataEsecutivita.clone().clearTime())) {
+			return determina
+		}
+
+		//le determine annullate non devono diventare esecutive
+		if (determina.stato == StatoDocumento.ANNULLATO) {
+			return determina
+		}
 
 		determina.dataEsecutivita = dataEsecutivita
 		determina.stato = StatoDocumento.ESECUTIVO
@@ -147,6 +161,45 @@ class DeterminaService {
 		notificheService.notifica(TipoNotifica.ESECUTIVITA, determina);
 
 		return determina
+	}
+
+	/**
+	 * Calcola la data di esecutività della delibera.
+	 *
+	 * Il calcolo avviene in base alle impostazioni INIZIO_ESECUTIVITA, PUBBLICAZIONE_GIORNI_ESECUTIVITA.
+	 * Se INIZIO_ESECUTIVITA = "INIZIO", allora la data sarà la dataPubblicazione più il n. di giorni specificati in PUBBLICAZIONE_GIORNI_ESECUTIVITA.
+	 * Altrimenti, verrà preso come riferimento la data di fine pubblicazione (cui verranno sommati i giorni in PUBBLICAZIONE_GIORNI_ESECUTIVITA).
+	 *
+	 * @param delibera la delibera di cui bisogna calcolare la data di esecutività
+	 * @throws AttiRuntimeException se la data di riferimento per il calcolo è nulla (sia essa data di pubblicazione o fine pubblicazione)
+	 * @return la data calcolata
+	 */
+	Date calcolaDataEsecutivita (Determina determina) {
+		// http://svi-redmine/issues/12632
+		// devo calcolare la data di esecutività dall'inizio della pubblicazione:
+		if ("INIZIO".equals(Impostazioni.INIZIO_ESECUTIVITA.valore)) {
+			// siccome il calcolo della data di esecutività si basa sulle date di pubblicazione, devo verificare di avere questi dati:
+			if (determina.dataPubblicazione == null) {
+				throw new AttiRuntimeException(l("message.determina.esecutivitaRichiestaDataInizioPubblicazione", determina.estremiAtto))
+			}
+
+			return esecutivitaGiornoFeriale(determina.dataPubblicazione + Impostazioni.PUBBLICAZIONE_GIORNI_ESECUTIVITA.valoreInt)
+		}
+
+		// siccome il calcolo della data di esecutività si basa sulle date di pubblicazione, devo verificare di avere questi dati:
+		if (determina.dataFinePubblicazione == null) {
+			throw new AttiRuntimeException(l("message.determina.esecutivitaRichiestaDataFinePubblicazione", determina.estremiAtto))
+		}
+
+		return esecutivitaGiornoFeriale(determina.dataFinePubblicazione + Impostazioni.PUBBLICAZIONE_GIORNI_ESECUTIVITA.valoreInt)
+	}
+
+	Date esecutivitaGiornoFeriale (Date dataEsecutivita) {
+		if (Impostazioni.ESECUTIVITA_SOLO_GIORNI_FERIALI.abilitato) {
+			return calendarioFestivitaService.getProssimoGiornoFeriale(dataEsecutivita)
+		}
+
+		return dataEsecutivita
 	}
 
 	/**
@@ -256,6 +309,69 @@ class DeterminaService {
 		return determina
 	}
 
+	// Ritorna una numerazione già committata per questa Determina da un ciclo precedente
+	// (outer TX andata in rollback), oppure null se non esiste.
+	DeterminaNumero getNumerazioneCommittata (Long determinaId) {
+		return DeterminaNumero.findByDeterminaId(determinaId)
+	}
+
+	// Assegna il numero alla Determina in una TX indipendente (REQUIRES_NEW) committata subito.
+	//
+	// Non aggiorna la riga Determina: scrive solo su determine_numeri (tabella separata)
+	// per evitare il deadlock con il row lock che la outer TX potrebbe già detenere sulla
+	// stessa riga. L'Action leggerà NumerazioneCommittata e applicherà i valori sulla
+	// Determina all'interno della outer TX (stessa connessione = stesso lock = nessun conflitto).
+	//
+	// Se la outer TX fa rollback, determine_numeri sopravvive perché committata qui.
+	// Al ciclo successivo l'Action trova il record e riutilizza il numero già assegnato
+	// senza ri-numerare, evitando gap aggiuntivi nel registro.
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	void assegnaNumeroDeterminaECommit (Long determinaId) {
+		Determina determina = Determina.get(determinaId)
+
+		TipoRegistro tipoRegistro = null
+		if (determina.tipologia.registroUnita) {
+			So4UnitaPubb uo = determina.getSoggetto(TipoSoggetto.UO_PROPONENTE).unitaSo4
+
+			tipoRegistro = RegistroUnita.createCriteria().get {
+				eq ("unitaSo4", uo)
+				eq ("valido", true)
+				eq ("caratteristica", determina.tipologia.caratteristicaTipologia)
+				delegate.tipoRegistro {
+					eq ("valido", 	 true)
+					eq ("determina", true)
+				}
+			}?.tipoRegistro
+
+			if (tipoRegistro == null) {
+				tipoRegistro = RegistroUnita.createCriteria().get {
+					eq ("unitaSo4", uo)
+					eq ("valido", true)
+					isNull("caratteristica")
+					delegate.tipoRegistro {
+						eq ("valido", 	 true)
+						eq ("determina", true)
+					}
+				}?.tipoRegistro
+			}
+		} else {
+			tipoRegistro = determina.tipologia.tipoRegistro
+		}
+
+		if (tipoRegistro == null) {
+			throw new AttiRuntimeException ("Attenzione! Non è stato trovato il registro su cui numerare l'atto! Controllare le impostazioni di tipologia.")
+		}
+
+		DeterminaNumero nc = new DeterminaNumero(determinaId: determinaId)
+		registroService.numera (tipoRegistro, { numero, anno, data, registro ->
+			nc.numeroDetermina 		= numero
+			nc.annoDetermina 		= anno
+			nc.dataNumeroDetermina 	= data
+			nc.registroDetermina 	= registro.tipoRegistro
+		})
+		nc.save(failOnError: true)
+	}
+
 	/**
 	 * Seconda numerazione della Determina
 	 */
@@ -286,7 +402,7 @@ class DeterminaService {
 
 	void annullaProposta (Determina proposta) {
 		for (VistoParere v : proposta.visti) {
-			if (v.iter != null && v.iter?.dataFine != null && v.valido) {
+			if (v.iter != null && v.iter?.dataFine == null && v.valido) {
 				wkfIterService.terminaIter(v.iter)
 			}
 		}
@@ -312,7 +428,13 @@ class DeterminaService {
 
 		// elimino tutte le notifiche di cambio step
         notificheService.eliminaNotifiche(proposta, TipoNotifica.ASSEGNAZIONE)
-        // elimino tutte le "altre" notifiche
+
+		//elimino le notifiche di cambio step per i visti
+		for (VistoParere v : proposta.visti) {
+			notificheService.eliminaNotifiche(v, TipoNotifica.ASSEGNAZIONE)
+		}
+
+		// elimino tutte le "altre" notifiche
         notificheService.eliminaNotifiche(proposta)
 
         // notifico l'annullamento della proposta
@@ -428,33 +550,36 @@ class DeterminaService {
 		copia.tipologia = dete.tipologia
 		copia.statoOdg  = StatoOdg.INIZIALE
 
-		// TODO Da testare - copia dei file allegati se deciso in fase di duplicazione
-		if (fileAllegato == true) {
-			if (dete.testo != null) {
-				FileAllegato testoDetermina = dete.testo
-				FileAllegato copiaTesto 	= new FileAllegato()
-				copiaTesto.nome            	= testoDetermina.nome
-				copiaTesto.contentType     	= testoDetermina.contentType
-				copiaTesto.dimensione      	= testoDetermina.dimensione
-				copiaTesto.testo           	= testoDetermina.testo
+		//se non copio il file principale
+		if (testo == false) {
+			if (fileAllegato == true) {
+				//se non ho copiato il testo principale...ma copio gli allegati, allora il testo
+				//principale diventa un allegato
+				if (dete.testo != null) {
+					FileAllegato testoDetermina = dete.testo
+					FileAllegato copiaTesto 	= new FileAllegato()
+					copiaTesto.nome            	= testoDetermina.nome
+					copiaTesto.contentType     	= testoDetermina.contentType
+					copiaTesto.dimensione      	= testoDetermina.dimensione
+					copiaTesto.testo           	= testoDetermina.testo
 
-				gestoreFile.addFile(copia, copiaTesto, gestoreFile.getFile(dete, dete.testo))
-				copia.testo = copiaTesto
-			}
+					gestoreFile.addFile(copia, copiaTesto, gestoreFile.getFile(dete, dete.testo))
+					copia.testo = copiaTesto
+				}
 
-			if (dete.stampaUnica != null) {
-				FileAllegato stampaUnica 		= dete.stampaUnica
-				FileAllegato copiaStampaUnica	= new FileAllegato()
-				copiaStampaUnica.nome           = stampaUnica.nome
-				copiaStampaUnica.contentType    = stampaUnica.contentType
-				copiaStampaUnica.dimensione     = stampaUnica.dimensione
-				copiaStampaUnica.testo          = stampaUnica.testo
+				if (dete.stampaUnica != null) {
+					FileAllegato stampaUnica 		= dete.stampaUnica
+					FileAllegato copiaStampaUnica	= new FileAllegato()
+					copiaStampaUnica.nome           = stampaUnica.nome
+					copiaStampaUnica.contentType    = stampaUnica.contentType
+					copiaStampaUnica.dimensione     = stampaUnica.dimensione
+					copiaStampaUnica.testo          = stampaUnica.testo
 
-				gestoreFile.addFile(copia, copiaStampaUnica, gestoreFile.getFile(dete, dete.stampaUnica))
-				copia.stampaUnica = copiaStampaUnica
+					gestoreFile.addFile(copia, copiaStampaUnica, gestoreFile.getFile(dete, dete.stampaUnica))
+					copia.stampaUnica = copiaStampaUnica
+				}
 			}
 		}
-
 		copia.modelloTesto 				= dete.modelloTesto
 		copia.categoria 				= dete.categoria
 		copia.commissione 				= dete.commissione
@@ -465,10 +590,6 @@ class DeterminaService {
 
 		copia.controlloFunzionario 		= dete.controlloFunzionario
 		copia.riservato 				= dete.riservato
-
-		//copia.note 					= dete.note
-		//copia.noteTrasmissione 		= dete.noteTrasmissione
-		//copia.noteContabili 			= dete.noteContabili
 
 		copia.classificaCodice 			= dete.classificaCodice
 		copia.classificaDal 			= dete.classificaDal
@@ -481,7 +602,9 @@ class DeterminaService {
 		copia.giorniPubblicazione 		= dete.giorniPubblicazione
 		copia.diventaEsecutiva			= dete.diventaEsecutiva
 
-		// TODO: copia dei file allegati da testare.
+		copia.impattoGenerazionale		= dete.impattoGenerazionale
+
+		// Copia dei file allegati da testare.
 		if (fileAllegato == true) {
 			for (Allegato i in dete.allegati) {
 				Allegato temp = new Allegato()
@@ -516,31 +639,30 @@ class DeterminaService {
 			}
 		}
 
-		/*
-		// Al momento non è necessario effettuare la copia dei Destinatari delle notifiche e dei documenti collegati
-		// TODO Da testare
-		for (DestinatarioNotifica i in dete.destinatariNotifiche) {
-			DestinatarioNotifica temp = new DestinatarioNotifica()
-
-			temp.email            = i.email
-			temp.utente           = i.utente
-			temp.unitaSo4         = i.unitaSo4
-			temp.tipoNotifica     = i.tipoNotifica
-			temp.tipoDestinatario = i.tipoDestinatario
-
-			copia.addToDestinatariNotifiche(temp)
-		}
-
-		for (DocumentoCollegato i in dete.documentiCollegati) {
-			DocumentoCollegato detCol	= new DocumentoCollegato()
-			detCol.operazione 	        = i.operazione
-			detCol.determinaCollegata	= i.determinaCollegata
-			detCol.deliberaCollegata	= i.deliberaCollegata
-
-			copia.addToDocumentiCollegati(detCol)
-		}
-		*/
 		copia = copia.save()
+
+		//copio il file (se NON è firmato prendo il file, altrimenti la copia prima della firma)
+		if (testo) {
+			FileAllegato testoDetermina
+			if (dete.testo?.firmato) {
+				testoDetermina = dete.testoOdt
+			}
+			else {
+				testoDetermina = dete.testo
+			}
+
+			if (testoDetermina) {
+				FileAllegato copiaTesto 	= new FileAllegato()
+				copiaTesto.nome            	= copia.getNomeFile()
+				copiaTesto.contentType     	= testoDetermina.contentType
+				copiaTesto.dimensione      	= testoDetermina.dimensione
+				copiaTesto.testo           	= testoDetermina.testo
+				copiaTesto.modificabile     = true
+
+				gestoreFile.addFile(copia, copiaTesto, gestoreFile.getFile(dete, testoDetermina))
+				copia.testo = copiaTesto
+			}
+		}
 
 		if (visti == true) {
 			for (VistoParere i in dete.visti) {

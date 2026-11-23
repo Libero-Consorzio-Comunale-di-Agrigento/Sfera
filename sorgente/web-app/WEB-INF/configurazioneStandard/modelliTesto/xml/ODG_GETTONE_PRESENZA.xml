@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <documentRoot>
-	<descrizione>Gettone di Presenza</descrizione>
+	<descrizione>Gettoni di Presenza</descrizione>
 	<connections>
 		<connectionJNDI>jdbc/agsde2</connectionJNDI>
 	</connections>
@@ -18,15 +18,19 @@
 				<DATE_SEDUTA>08/07/2013</DATE_SEDUTA>
 				<IMPORTO>12.44</IMPORTO>
 			</gettoni>
+			<totale>
+				<TOTALE_GETTONI>37,32</TOTALE_GETTONI>
+				<TOTALE_PRESENZE>3</TOTALE_PRESENZE>
+			</totale>
 		</documentRoot>
 	</testStaticData>
 	<definitions>
-<!-- DEFINIZIONE PARAMETRI DI INPUT -->
- 		<metaDato tipoParametro="input">
+		<!-- DEFINIZIONE PARAMETRI DI INPUT -->
+		<metaDato tipoParametro="input">
 			<nomeSimbolico>id</nomeSimbolico>
 			<tipo>string</tipo>
 			<descrizione>id della commissione</descrizione>
-			<path/>			
+			<path/>
 		</metaDato>
 		<metaDato tipoParametro="input">
 			<nomeSimbolico>dal</nomeSimbolico>
@@ -46,7 +50,7 @@
 			<descrizione>ni del partecipante</descrizione>
 			<path/>
 		</metaDato>
-<!-- DEFINIZIONE CAMPI DELLA QUERY -->
+		<!-- DEFINIZIONE CAMPI DELLA QUERY -->
 		<metaDato>
 			<nomeSimbolico>TITOLO_COMMISSIONE</nomeSimbolico>
 			<tipo>string</tipo>
@@ -64,7 +68,7 @@
 			<tipo>string</tipo>
 			<descrizione>Numero di presenze nel periodo cercato</descrizione>
 			<path/>
-		</metaDato>	
+		</metaDato>
 		<metaDato>
 			<nomeSimbolico>DATE_SEDUTA</nomeSimbolico>
 			<tipo>string</tipo>
@@ -76,50 +80,101 @@
 			<tipo>string</tipo>
 			<descrizione>Importo totale calcolato</descrizione>
 			<path/>
-		</metaDato>			
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TOTALE_GETTONI</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Importo totale dei gettoni calcolati</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>TOTALE_PRESENZE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Somma delle presenze</descrizione>
+			<path/>
+		</metaDato>
 	</definitions>
 	<queryes>
 		<query id='titoloReport' help_query_alias="t" help_field_aliases="DAL, AL, TITOLO_COMMISSIONE">
-		select #dal DAL, #al AL, com.titolo TITOLO_COMMISSIONE from odg_commissioni com where com.id_commissione = #id
+			<!--select #dal DAL, #al AL, decode(id>0,com.titolo TITOLO_COMMISSIONE,'TUTTE') from odg_commissioni com where (#id lt 0 or com.id_commissione = #id)-->
+			<![CDATA[select distinct #dal DAL, #al AL, decode( #id,-1,'TUTTE LE COMMISSIONI',com.titolo)  TITOLO_COMMISSIONE from odg_commissioni com where (#id < 0 or com.id_commissione = #id)]]>
 		</query>
 		<query id='gettoni' help_query_alias="g" help_field_aliases="NOMINATIVO, PRESENZE, DATE_SEDUTA, IMPORTO"><![CDATA[
- select distinct NOMINATIVO
-     , decode(IMPOSTAZIONI_PKG.GET_IMPOSTAZIONE('ODG_CALCOLO_GETTONE_PER_SEDUTA', ente), 'Y', gettoni_per_seduta, gettoni_per_giornata) PRESENZE
-     , DATE_SEDUTA
-     , trim(TO_CHAR(decode(IMPOSTAZIONI_PKG.GET_IMPOSTAZIONE('ODG_CALCOLO_GETTONE_PER_SEDUTA', ente), 'Y', importo_per_seduta, importo_per_giornata), '999G999G999G990D99', 'NLS_NUMERIC_CHARACTERS = '',.''')) IMPORTO
-  from (
- select distinct utility_pkg.get_cognome_nome(ni) NOMINATIVO
-     , count (id_seduta) over (partition by ni) gettoni_per_seduta
-     , importo * count (id_seduta) over (partition by ni) importo_per_seduta
-     , count (distinct data_discussione) over (partition by ni) gettoni_per_giornata
-     , string_agg(to_char(data_discussione, 'dd/mm/yyyy')) over (partition by ni) date_seduta
-     , to_char(data_discussione, 'dd/mm/yyyy') data_discussione
-     , importo * count (distinct data_discussione) over (partition by ni) importo_per_giornata
-     , ente
-  from (
- select distinct s.id_seduta, nvl(os.data_discussione, s.data_inizio_seduta) data_discussione, nvl(cc.ni_componente, sp.ni_componente_esterno) ni, ig.importo, ig.ente
-  from odg_sedute s
-     , odg_oggetti_seduta os
-     , odg_sedute_partecipanti sp
-     , odg_oggetti_partecipanti op
-     , odg_commissioni_componenti cc
-     , odg_importi_gettone ig
- where os.id_seduta                     = s.id_seduta
-   and op.id_oggetto_seduta             = os.id_oggetto_seduta
-   and sp.id_seduta_partecipante        = op.id_seduta_partecipante
-   and cc.id_commissione_componente(+)  = sp.id_commissione_componente
-   and ig.id_commissione                = s.id_commissione
-   and ig.valido                        = 'Y'
-   and s.valido                         = 'Y'
-   and trunc(IG.VALIDO_DAL)            <= trunc(s.data_inizio_seduta)
-   and (ig.valido_al is null or trunc(IG.VALIDO_AL) >= trunc(s.data_inizio_seduta))
-   and op.presente = 'Y'
-   and (op.ruolo_partecipante is null or sp.ruolo_partecipante <> 'I')
-   and s.id_commissione = #id 
-   and trunc(s.data_inizio_seduta) >= to_date( #dal , 'dd/mm/yyyy')
-   and trunc(s.data_inizio_seduta) <= to_date( #al ,  'dd/mm/yyyy')
-   and ( #ni < 0 or cc.ni_componente = #ni or sp.ni_componente_esterno = #ni )
- )) order by nominativo
+		select  utility_pkg.get_cognome_nome (ni, ente) NOMINATIVO,
+    			utility_pkg.get_numero_presenza_seduta (#id,
+    													#dal,
+    													#al,
+    													ni,
+    													ente) PRESENZE,
+    			utility_pkg.get_date_presenza_seduta (#id,
+    												  #dal,
+    												  #al,
+    												  ni) DATE_SEDUTA,
+    			utility_pkg.get_importo_gettone (#id,
+    											 #dal,
+    											 #al,
+    											 ni,
+    											 ente) IMPORTO
+		  from (select distinct oc.ente ente, nvl (cc.ni_componente, sp.ni_componente_esterno) NI
+				  from odg_sedute s,
+					   odg_oggetti_seduta os,
+					   odg_sedute_partecipanti sp,
+					   odg_oggetti_partecipanti op,
+					   odg_commissioni_componenti cc,
+					   odg_commissioni oc,
+					   odg_importi_gettone ig
+				 where os.id_seduta = s.id_seduta
+				   and op.id_oggetto_seduta = os.id_oggetto_seduta
+				   and sp.id_seduta_partecipante = op.id_seduta_partecipante
+				   and cc.id_commissione_componente(+) = sp.id_commissione_componente
+				   and ig.id_commissione = oc.id_commissione
+				   and ig.valido = 'Y'
+				   and s.valido = 'Y'
+				   and trunc (ig.valido_dal) <= trunc (s.data_inizio_seduta)
+				   and (ig.valido_al is null or trunc (ig.valido_al) >= trunc (s.data_inizio_seduta))
+				   and op.presente = 'Y'
+				   and (op.ruolo_partecipante is null or nvl(sp.ruolo_partecipante,'XXX') <> 'I')
+				   and ( #id < 0 or s.id_commissione = #id )
+				   and trunc(s.data_inizio_seduta) >= to_date( #dal , 'dd/mm/yyyy')
+				   and trunc(s.data_inizio_seduta) <= to_date( #al ,  'dd/mm/yyyy')
+				   and ( #ni < 0 or cc.ni_componente = #ni or sp.ni_componente_esterno = #ni ))
+		]]></query>
+		<query id='totale' help_query_alias="tot" help_field_aliases="TOTALE_GETTONI, TOTALE_PRESENZE"><![CDATA[
+		select sum(presenze) TOTALE_PRESENZE, sum(importo) TOTALE_GETTONI
+		from (
+			select  Utility_pkg.get_numero_presenza_seduta (#id,
+															#dal,
+															#al,
+															ni,
+															ente) PRESENZE,
+					utility_pkg.get_importo_gettone (#id,
+													 #dal,
+													 #al,
+													 ni,
+													 ente) IMPORTO
+			  from (select distinct oc.ente ente, nvl (cc.ni_componente, sp.ni_componente_esterno) NI
+					  from odg_sedute s,
+						   odg_oggetti_seduta os,
+						   odg_sedute_partecipanti sp,
+						   odg_oggetti_partecipanti op,
+						   odg_commissioni_componenti cc,
+						   odg_commissioni oc,
+						   odg_importi_gettone ig
+					 where os.id_seduta = s.id_seduta
+					   and op.id_oggetto_seduta = os.id_oggetto_seduta
+					   and sp.id_seduta_partecipante = op.id_seduta_partecipante
+					   and cc.id_commissione_componente(+) = sp.id_commissione_componente
+					   and ig.id_commissione = oc.id_commissione
+					   and ig.valido = 'Y'
+					   and s.valido = 'Y'
+					   and trunc (ig.valido_dal) <= trunc (s.data_inizio_seduta)
+					   and (ig.valido_al is null or trunc (ig.valido_al) >= trunc (s.data_inizio_seduta))
+					   and op.presente = 'Y'
+					   and (op.ruolo_partecipante is null or nvl(sp.ruolo_partecipante,'XXX') <> 'I')
+					   and ( #id < 0 or s.id_commissione = #id )
+					   and trunc(s.data_inizio_seduta) >= to_date( #dal , 'dd/mm/yyyy')
+					   and trunc(s.data_inizio_seduta) <= to_date( #al ,  'dd/mm/yyyy')
+					   and ( #ni < 0 or cc.ni_componente = #ni or sp.ni_componente_esterno = #ni )))
 		]]></query>
 	</queryes>
 	<staticData />

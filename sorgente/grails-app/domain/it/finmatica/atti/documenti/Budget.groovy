@@ -49,8 +49,6 @@ class Budget {
         utenteIns   column: 'utente_ins'
         lastUpdated column: 'data_upd'
         utenteUpd   column: 'utente_upd'
-        determina   column: 'id_determina'
-        tipoBudget column: 'id_tipo_budget'
         dataInizioValidita column: 'data_inizio_validita'
         dataFineValidita column: 'data_fine_validita'
         codiceFornitore column: 'codice_fornitore'

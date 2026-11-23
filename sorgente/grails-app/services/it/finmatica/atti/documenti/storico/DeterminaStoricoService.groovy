@@ -81,6 +81,13 @@ class DeterminaStoricoService {
 		storico.motivazione			   = determina.motivazione
 		storico.priorita			   = determina.priorita
 
+		storico.inEvidenza			   = determina.inEvidenza
+		storico.dataInEvidenzaDa	   = determina.dataInEvidenzaDa
+		storico.dataInEvidenzaA		   = determina.dataInEvidenzaA
+		storico.importo			   	   = determina.importo
+
+		storico.dataScadenzaDisposizioni = determina.dataScadenzaDisposizioni
+
 		storico.save()
 
 		if (Impostazioni.INTEGRAZIONE_GDM.abilitato) {

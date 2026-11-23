@@ -31,6 +31,8 @@ public class ImpostazioniMap {
 	public void clear () {
 		synchronized (lock) {
 			map.clear();
+			// forzo il ricaricamento alla prossima lettura, altrimenti getValore restituisce sempre i valori di default
+			initialized = false;
 		}
 	}
 

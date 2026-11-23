@@ -53,7 +53,7 @@ class ProtocolloGdmConfig implements ModuloIntegrazione {
             List<CodiceDescrizione> getValori() {
                 return getTipiDocumento()
             }
-        })]
+        }, true)]
     }
 
     List<CodiceDescrizione> getTipiDocumento() {

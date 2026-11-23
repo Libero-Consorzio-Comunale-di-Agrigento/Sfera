@@ -4,7 +4,6 @@ import grails.plugin.springsecurity.SpringSecurityService
 import it.finmatica.as4.As4SoggettoCorrente
 import it.finmatica.atti.commons.StrutturaOrganizzativaService
 import it.finmatica.atti.documenti.Delibera
-import it.finmatica.atti.documenti.Firmatario
 import it.finmatica.atti.documenti.IAtto
 import it.finmatica.atti.documenti.ISoggettoDocumento
 import it.finmatica.atti.documenti.PropostaDelibera
@@ -13,6 +12,7 @@ import it.finmatica.atti.exceptions.AttiRuntimeException
 import it.finmatica.atti.odg.Commissione
 import it.finmatica.atti.odg.CommissioneComponente
 import it.finmatica.atti.odg.OggettoPartecipante
+import it.finmatica.atti.odg.Seduta
 import it.finmatica.atti.odg.SedutaPartecipante
 import it.finmatica.atti.odg.SedutaStampa
 import it.finmatica.atti.odg.dizionari.RuoloPartecipante
@@ -33,51 +33,197 @@ class RegolaCalcoloService {
 	So4UnitaPubb getUnitaDestinatariaDocumentoPrincipale (VistoParere vistoParere, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
 		return vistoParere.documentoPrincipale.getSoggetto(TipoSoggetto.UO_DESTINATARIA).unitaSo4
 	}
-	
-	def getComponentePresidente (Delibera delibera, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
-		return new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(delibera, RuoloPartecipante.CODICE_PRESIDENTE))
-	}
-	
-	def getComponenteSegretario (Delibera delibera, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
-		return new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(delibera, RuoloPartecipante.CODICE_SEGRETARIO))
-	}
-	
-	def getComponenteDirettoreAmministrativo (Delibera delibera, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
-		return new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(delibera, RuoloPartecipante.CODICE_DIRETTORE_AMMINISTRATIVO))
+
+	def  getElencoPresidentiConvocati (SedutaStampa sedutaStampa, Map<String, SoggettoDocumento> soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
+		List<So4ComponentePubb> componenti = getSoggettiPerRuoloInSeduta(sedutaStampa,RuoloPartecipante.CODICE_PRESIDENTE)
+		return componenti
+
 	}
 
-    def getComponenteDirettoreSanitario (Delibera delibera, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
-        return new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(delibera, RuoloPartecipante.CODICE_DIRETTORE_SANITARIO))
+	
+	def getComponentePresidente (def documento, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
+		So4ComponentePubb componente = null
+		if (documento instanceof Delibera) {
+			componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(documento, RuoloPartecipante.CODICE_PRESIDENTE))
+		}
+		else {
+			if (documento instanceof SedutaStampa) {
+				componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloInSeduta (documento, RuoloPartecipante.CODICE_PRESIDENTE))
+			}
+		}
+		return componente
+	}
+
+	def getComponenteSegretario (def documento, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
+		So4ComponentePubb componente = null
+		if (documento instanceof Delibera) {
+			componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(documento, RuoloPartecipante.CODICE_SEGRETARIO))
+		}
+		else {
+			if (documento instanceof SedutaStampa) {
+				componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloInSeduta (documento, RuoloPartecipante.CODICE_SEGRETARIO))
+			}
+		}
+		return componente
+	}
+
+	def getComponenteDirettoreAmministrativo (def documento, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
+		So4ComponentePubb componente = null
+		if (documento instanceof Delibera) {
+			componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(documento, RuoloPartecipante.CODICE_DIRETTORE_AMMINISTRATIVO))
+		}
+		else {
+			if (documento instanceof VistoParere) {
+				VistoParere vistoParere = documento
+				componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(vistoParere.documentoPrincipale, RuoloPartecipante.CODICE_DIRETTORE_AMMINISTRATIVO))
+			}
+			else {
+				if (documento instanceof SedutaStampa) {
+					componente = getSoggettoPerRuoloInSeduta (documento, RuoloPartecipante.CODICE_DIRETTORE_AMMINISTRATIVO)
+				}
+			}
+		}
+		return componente
+	}
+
+    def getComponenteDirettoreSanitario (def documento, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
+		So4ComponentePubb componente = null
+		if (documento instanceof Delibera) {
+			componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(documento, RuoloPartecipante.CODICE_DIRETTORE_SANITARIO))
+		}
+		else {
+			if (documento instanceof VistoParere) {
+				VistoParere vistoParere = documento
+				componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(vistoParere.documentoPrincipale, RuoloPartecipante.CODICE_DIRETTORE_SANITARIO))
+			}
+			else {
+				if (documento instanceof SedutaStampa) {
+					componente = getSoggettoPerRuoloInSeduta (documento, RuoloPartecipante.CODICE_DIRETTORE_SANITARIO)
+				}
+			}
+		}
+		return componente
     }
+
+	def getComponenteDirettoreSocioSanitario (def documento, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
+		So4ComponentePubb componente = null
+		if (documento instanceof Delibera) {
+			componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(documento, RuoloPartecipante.CODICE_DIRETTORE_SOCIO_SANITARIO))
+		}
+		else {
+			if (documento instanceof VistoParere) {
+				VistoParere vistoParere = documento
+				componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(vistoParere.documentoPrincipale, RuoloPartecipante.CODICE_DIRETTORE_SOCIO_SANITARIO))
+			}
+			else {
+				if (documento instanceof SedutaStampa) {
+					componente = getSoggettoPerRuoloInSeduta (documento, RuoloPartecipante.CODICE_DIRETTORE_SOCIO_SANITARIO)
+				}
+			}
+		}
+		return componente
+	}
 	
-	def getComponenteDirettoreGenerale (Delibera delibera, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
-		return new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(delibera, RuoloPartecipante.CODICE_DIRETTORE_GENERALE))
-	}
-	
-	def getComponenteDirettoreAmministrativo (VistoParere vistoParere, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
-		return getComponenteDirettoreAmministrativo(vistoParere.documentoPrincipale, soggetti, codiceRuolo, tipoSoggettoPartenza)
+	def getComponenteDirettoreGenerale (def documento, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
+		So4ComponentePubb componente = null
+		if (documento instanceof Delibera) {
+			componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(documento, RuoloPartecipante.CODICE_DIRETTORE_GENERALE))
+		}
+		else {
+			if (documento instanceof VistoParere) {
+				VistoParere vistoParere = documento
+				componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(vistoParere.documentoPrincipale, RuoloPartecipante.CODICE_DIRETTORE_GENERALE))
+			}
+			else {
+				if (documento instanceof SedutaStampa) {
+					componente = getSoggettoPerRuoloInSeduta (documento, RuoloPartecipante.CODICE_DIRETTORE_GENERALE)
+				}
+			}
+		}
+		return componente
 	}
 
-	def getComponenteDirettoreSanitario (VistoParere vistoParere, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
-		return getComponenteDirettoreSanitario(vistoParere.documentoPrincipale, soggetti, codiceRuolo, tipoSoggettoPartenza)
+	def getComponenteCommissario1 (def documento, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
+		So4ComponentePubb componente = null
+		if (documento instanceof Delibera) {
+			componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(documento, RuoloPartecipante.CODICE_COMMISSARIO_1))
+		}
+		else {
+			if (documento instanceof VistoParere) {
+				VistoParere vistoParere = documento
+				componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(vistoParere.documentoPrincipale, RuoloPartecipante.CODICE_COMMISSARIO_1))
+			}
+			else {
+				if (documento instanceof SedutaStampa) {
+					componente = getSoggettoPerRuoloInSeduta (documento, RuoloPartecipante.CODICE_COMMISSARIO_1)
+				}
+			}
+		}
+		return componente
 	}
 
-	def getComponenteDirettoreGenerale (VistoParere vistoParere, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
-		return getComponenteDirettoreGenerale(vistoParere.documentoPrincipale, soggetti, codiceRuolo, tipoSoggettoPartenza)
+	def getComponenteCommissario2 (def documento, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
+		So4ComponentePubb componente = null
+		if (documento instanceof Delibera) {
+			componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(documento, RuoloPartecipante.CODICE_COMMISSARIO_2))
+		}
+		else {
+			if (documento instanceof VistoParere) {
+				VistoParere vistoParere = documento
+				componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(vistoParere.documentoPrincipale, RuoloPartecipante.CODICE_COMMISSARIO_2))
+			}
+			else {
+				if (documento instanceof SedutaStampa) {
+					componente = getSoggettoPerRuoloInSeduta (documento, RuoloPartecipante.CODICE_COMMISSARIO_2)
+				}
+			}
+		}
+		return componente
 	}
 
-    def getComponenteDirettoreSocioSanitario (Delibera delibera, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
-        return new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(delibera, RuoloPartecipante.CODICE_DIRETTORE_SOCIO_SANITARIO))
-    }
+	def getComponenteCommissario3 (def documento, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
+		So4ComponentePubb componente = null
+		if (documento instanceof Delibera) {
+			componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(documento, RuoloPartecipante.CODICE_COMMISSARIO_3))
+		}
+		else {
+			if (documento instanceof VistoParere) {
+				VistoParere vistoParere = documento
+				componente = new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(vistoParere.documentoPrincipale, RuoloPartecipante.CODICE_COMMISSARIO_3))
+			}
+			else {
+				if (documento instanceof SedutaStampa) {
+					componente = getSoggettoPerRuoloInSeduta (documento, RuoloPartecipante.CODICE_COMMISSARIO_3)
+				}
+			}
+		}
+		return componente
+	}
 
 	private As4SoggettoCorrente getSoggettoPerRuoloPartecipanteInSedutaOCommissione (Delibera delibera, String codiceRuoloPartecipante) {
+		Commissione commissione
 		if (delibera.oggettoSeduta != null) {
 			OggettoPartecipante partecipante = OggettoPartecipante.findByOggettoSedutaAndRuoloPartecipanteAndPresente(delibera.oggettoSeduta, RuoloPartecipante.get(codiceRuoloPartecipante), true)
+
+			if (partecipante == null) {
+				//verifico in commissione se i firmatari devono essere presenti in discussione oggettoSeduta
+				commissione = delibera.oggettoSeduta.seduta.commissione
+				if (commissione.firmatariPresenti == false) {
+					//Cerco il soggetto tra gli assenti (da verificare che non dia errore se ho più soggetti con lo stesso ruolo tutti assenti)
+					partecipante = OggettoPartecipante.findByOggettoSedutaAndRuoloPartecipanteAndPresente(delibera.oggettoSeduta, RuoloPartecipante.get(codiceRuoloPartecipante), false)
+				}
+			}
+
+			if (partecipante == null) {
+				String descrizioneRuolo = RuoloPartecipante.get(codiceRuoloPartecipante).descrizione
+				throw new AttiRuntimeException ("Non sono riuscito a calcolare il soggetto $descrizioneRuolo per il documento")
+			}
+
 			return partecipante.sedutaPartecipante.componenteEsterno?:partecipante.sedutaPartecipante.commissioneComponente.componente
 		}
 		
 		// se invece non ho l'oggettoSeduta perché la delibera non è passata dall'Ordine del Giorno, recupero il soggetto dalla commissione:
-		Commissione commissione = delibera.propostaDelibera.commissione
+		commissione = delibera.propostaDelibera.commissione
 		if (commissione == null) {
 			commissione = delibera.tipologiaDocumento.commissione
 		}
@@ -302,7 +448,14 @@ class RegolaCalcoloService {
 				return unita
 			}
 		}
-		return soggetti[tipoSoggettoPartenza.codice]?.unita?.domainObject
+
+		//se l'utente ha solo un'unità, allora deve essere restituita quella
+		List<So4UnitaPubb> so4UnitaPubbList = getListaUnitaSoggettoConRuolo(documento, soggetti, codiceRuolo, tipoSoggettoPartenza)
+		if (so4UnitaPubbList?.size() == 1) {
+			return so4UnitaPubbList.first()
+		}
+
+		return null //soggetti[tipoSoggettoPartenza.codice]?.unita?.domainObject
 	}
 
 	List<So4UnitaPubb> getListaUnitaSoggetto (def documento, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
@@ -485,6 +638,61 @@ class RegolaCalcoloService {
             utentiFirmatari << componentePubb
         }
         return utentiFirmatari
+	}
+
+	List<So4ComponentePubb> getComponentePresidenteSegretarioPresente (def documento, def soggetti, String codiceRuolo, TipoSoggetto tipoSoggettoPartenza) {
+		List<So4ComponentePubb> listaComponenti = []
+		So4ComponentePubb soggetto
+		if (documento instanceof SedutaStampa) {
+			listaComponenti.add(new So4ComponentePubb(soggetto: getSoggettoPerRuoloPresenteInSeduta(documento, RuoloPartecipante.CODICE_PRESIDENTE)))
+			listaComponenti.add(new So4ComponentePubb(soggetto: getSoggettoPerRuoloPresenteInSeduta(documento, RuoloPartecipante.CODICE_SEGRETARIO)))
+		}
+		else {
+			if (documento instanceof Delibera) {
+				listaComponenti.add(new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(documento, RuoloPartecipante.CODICE_PRESIDENTE)))
+				listaComponenti.add(new So4ComponentePubb(soggetto: getSoggettoPerRuoloPartecipanteInSedutaOCommissione(documento, RuoloPartecipante.CODICE_SEGRETARIO)))
+			}
+		}
+		return listaComponenti
+	}
+
+
+	//restituisce il soggetto partecipante alla seduta solo se presente, altrimenti viene restituito il componente della commissione
+	private As4SoggettoCorrente getSoggettoPerRuoloPresenteInSeduta (SedutaStampa sedutaStampa, String codiceRuoloPartecipante) {
+		SedutaPartecipante sedutaPartecipante = SedutaPartecipante.findBySedutaAndRuoloPartecipanteAndPresente(sedutaStampa.seduta, RuoloPartecipante.get(codiceRuoloPartecipante), true)
+		if (sedutaPartecipante) {
+			return sedutaPartecipante.componenteEsterno?:sedutaPartecipante.commissioneComponente.componente
+		}
+	}
+
+	//restituisce il soggetto partecipante alla seduta solo se presente, altrimenti viene restituito il componente della commissione
+	private As4SoggettoCorrente getSoggettoPerRuoloInSeduta (SedutaStampa sedutaStampa, String codiceRuoloPartecipante) {
+		SedutaPartecipante sedutaPartecipante = SedutaPartecipante.findBySedutaAndRuoloPartecipante(sedutaStampa.seduta, RuoloPartecipante.get(codiceRuoloPartecipante))
+		if (sedutaPartecipante) {
+			return sedutaPartecipante.componenteEsterno?:sedutaPartecipante.commissioneComponente.componente
+		}
+	}
+
+	private List<So4ComponentePubb> getSoggettiPerRuoloInSeduta (SedutaStampa sedutaStampa, String codiceRuoloPartecipante) {
+		List<SedutaPartecipante> sedutaPartecipanti =SedutaPartecipante.createCriteria().list {
+			eq ("seduta.id", sedutaStampa.seduta.id)
+			ruoloPartecipante {
+				eq ("codice", codiceRuoloPartecipante)
+			}
+			// Qui c'era la fetch join. L'ho tolta perché da alcuni clienti (ad es sandonato milanese) andava in doppio full-join
+		}
+		List<So4ComponentePubb> soggettiRuolo = []
+		for (SedutaPartecipante partecipante : sedutaPartecipanti) {
+			So4ComponentePubb componentePubb = So4ComponentePubb.findBySoggettoAndOttica(partecipante.componenteEsterno?:partecipante.commissioneComponente.componente, springSecurityService.principal.ottica)
+			if(componentePubb!=null)
+				soggettiRuolo << componentePubb
+		}
+		//#39087: in caso di più presidenti prender quello presente (che deve essere solo 1)
+		/*if (partecipanti.size() > 1 ){
+			partecipanti = partecipanti.findAll{it.presente == true}     //TODO chiedere se ok presenti
+		}*/
+
+		return soggettiRuolo
 	}
 
 	/**

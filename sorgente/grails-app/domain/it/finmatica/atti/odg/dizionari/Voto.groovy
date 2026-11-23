@@ -15,8 +15,10 @@ class Voto {
 	public static final transient String VOTO_FAVOREVOLE 	= 'FAVOREVOLE'
 	public static final transient String VOTO_CONTRARIO		= 'CONTRARIO'
 	public static final transient String VOTO_ASTENUTO		= 'ASTENUTO'
+	public static final transient String NON_VOTANTE		= 'NON_VOTANTE'
 
 	String  codice
+	String  codiceEsterno
 	String  descrizione
 	String  valore
 	boolean predefinito = false // solo un voto per ente può avere "predefinito" a true
@@ -50,8 +52,9 @@ class Voto {
 	}
 
     static constraints = {
-		descrizione nullable: true
-		validoAl 	nullable: true
+		descrizione 	nullable: true
+		validoAl 		nullable: true
+		codiceEsterno	nullable: true
     }
 
 	private SpringSecurityService getSpringSecurityService () {		return Holders.applicationContext.getBean("springSecurityService")    }

@@ -1,6 +1,7 @@
 package it.finmatica.atti.integrazioni.ricercadocumenti.agspr
 
 import grails.plugin.springsecurity.SpringSecurityService
+import it.finmatica.atti.documenti.PropostaDelibera
 import it.finmatica.atti.exceptions.AttiRuntimeException
 import it.finmatica.atti.integrazioni.protocollo.ProtocolloGdmCondition
 import org.springframework.context.annotation.Conditional
@@ -47,6 +48,11 @@ class RicercaDocumentiDaFascicolare implements RicercaDocumentiEsterni {
     }
 
     @Override
+    String getTipoOggetto () {
+        return "DA_FASCICOLARE"
+    }
+
+    @Override
     String getTitolo () {
         return "Documenti da fascicolare"
     }
@@ -65,7 +71,7 @@ class RicercaDocumentiDaFascicolare implements RicercaDocumentiEsterni {
     PagedList<DocumentoEsterno> ricerca (CampiRicerca campiRicerca) {
         Sql sql = new Sql(dataSource_gdm)
 
-        String select = """ SELECT id id_documento,
+        String select = """ SELECT distinct id id_documento,
                                    ti tipo_documento,
                                    to_char(a.data,'dd/mm/yyyy') data,
                                    codice_amministrazione,

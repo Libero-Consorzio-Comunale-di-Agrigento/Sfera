@@ -2,8 +2,10 @@ package atti.documenti
 
 import grails.orm.PagedResultList
 import it.finmatica.ad4.autenticazione.Ad4Ruolo
+import it.finmatica.ad4.autenticazione.Ad4Utente
 import it.finmatica.as4.As4SoggettoCorrente
 import it.finmatica.atti.AbstractViewModel
+import it.finmatica.atti.IProtocolloEsterno
 import it.finmatica.atti.IntegrazioneAlbo
 import it.finmatica.atti.IntegrazioneContabilita
 import it.finmatica.atti.commons.AttiUtils
@@ -11,18 +13,25 @@ import it.finmatica.atti.commons.DocumentoGenerico
 import it.finmatica.atti.commons.FileAllegatoGenerico
 import it.finmatica.atti.commons.FileAllegatoStorico
 import it.finmatica.atti.commons.TokenIntegrazioneService
+import it.finmatica.atti.contabilita.MovimentoContabile
 import it.finmatica.atti.dizionari.Categoria
 import it.finmatica.atti.dizionari.DatiAggiuntiviService
+import it.finmatica.atti.dizionari.ImpattoGenerazionale
 import it.finmatica.atti.dizionari.OggettoRicorrente
 import it.finmatica.atti.dizionari.TipoBudget
 import it.finmatica.atti.documenti.*
 import it.finmatica.atti.documenti.TipoDatoAggiuntivo
 import it.finmatica.atti.documenti.beans.AttiFileDownloader
 import it.finmatica.atti.documenti.beans.AttiGestoreCompetenze
+import it.finmatica.atti.documenti.competenze.DeterminaCompetenze
+import it.finmatica.atti.documenti.tipologie.GestioneTestiModelloCompetenza
 import it.finmatica.atti.documenti.tipologie.TipoDetermina
 import it.finmatica.atti.documenti.tipologie.TipoDeterminaCompetenza
+import it.finmatica.atti.documenti.viste.RicercaSiav
 import it.finmatica.atti.dto.documenti.*
 import it.finmatica.atti.dto.documenti.tipologie.TipoDeterminaDTO
+import it.finmatica.atti.dto.dizionari.ImpattoGenerazionaleDTO
+import it.finmatica.atti.dto.documenti.viste.So4DelegaService
 import it.finmatica.atti.dto.integrazioni.JConsLogConservazioneDTO
 import it.finmatica.atti.dto.integrazioni.Ce4FornitoreDTO
 import it.finmatica.atti.dto.integrazioni.Ce4ContoDTO
@@ -33,15 +42,24 @@ import it.finmatica.atti.integrazioni.CasaDiVetroService
 import it.finmatica.atti.integrazioni.ConservazioneService
 import it.finmatica.atti.integrazioni.Ce4Conto
 import it.finmatica.atti.integrazioni.Ce4Fornitore
+import it.finmatica.atti.integrazioni.pitre.PiTreField
+import it.finmatica.atti.integrazioni.pitre.PiTreTemplate
+import it.finmatica.atti.integrazioni.pnd.SmartPnd
+import it.finmatica.atti.integrazioni.protocollo.ProtocolloPiTre
+import it.finmatica.atti.integrazioni.protocollo.ProtocolloPiTreConfig
 import it.finmatica.dto.DTO
+import it.finmatica.gestioneiter.Attore
+import it.finmatica.gestioneiter.configuratore.dizionari.WkfTipoOggetto
 import it.finmatica.gestioneiter.configuratore.iter.WkfCfgIter
 import it.finmatica.gestionetesti.TipoFile
+import it.finmatica.gestionetesti.reporter.GestioneTestiModello
 import it.finmatica.so4.login.detail.UnitaOrganizzativa
 import it.finmatica.so4.strutturaPubblicazione.So4UnitaPubb
 import org.apache.commons.io.FilenameUtils
 import org.apache.log4j.Logger
 import org.hibernate.FetchMode
 import org.hibernate.criterion.CriteriaSpecification
+import org.springframework.beans.factory.annotation.Autowired
 import org.zkoss.bind.BindContext
 import org.zkoss.bind.BindUtils
 import org.zkoss.bind.annotation.*
@@ -56,13 +74,12 @@ import org.zkoss.zk.ui.util.Clients
 import org.zkoss.zul.ListModelList
 import org.zkoss.zul.Messagebox
 import org.zkoss.zul.Window
+import it.finmatica.gestionetesti.reporter.dto.GestioneTestiModelloDTO
+import it.finmatica.gestionetesti.ui.dizionari.GestioneTestiModelloDTOService
 
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
-import static it.finmatica.zkutils.LabelUtils.getLabel
-import static it.finmatica.zkutils.LabelUtils.getLabel
-import static it.finmatica.zkutils.LabelUtils.getLabel
 import static it.finmatica.zkutils.LabelUtils.getLabel
 
 class DeterminaViewModel extends AbstractViewModel<Determina> {
@@ -92,6 +109,12 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
     TokenIntegrazioneService       tokenIntegrazioneService
     DatiAggiuntiviService          datiAggiuntiviService
     BudgetDTOService               budgetDTOService
+    GestioneTestiModelloDTOService gestioneTestiModelloDTOService
+    So4DelegaService               so4DelegaService
+
+    SmartPnd                       smartPnd
+
+    ProtocolloPiTre protocolloPiTre
 
     // componenti
     Window popupCambiaTipologia
@@ -104,8 +127,10 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
     List                  listaCertificati
     def                   listaDestinatariInterni
     def                   listaDestinatariEsterni
+    def                   listaDestinatariPiTre
     def                   listaAllegati
     def                   listaDocumentiCollegati
+    def                   listaMacrocategorie
     def                   listaModelliTesto
     def                   storico
     def                   listaCategorie
@@ -119,6 +144,11 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
     boolean               isEstrattoPresente
     boolean               budgetAbilitato
 
+    IProtocolloEsterno       protocolloEsterno
+
+    private DeterminaNumero _numerazioneCommittataCache
+    private boolean         _numerazioneCommittataCacheLoaded = false
+
     // mappa dei soggetti
     Map<String, it.finmatica.atti.zk.SoggettoDocumento> soggetti = [:]
 
@@ -130,9 +160,11 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
 
     boolean firmaRemotaAbilitata
     boolean abilitaNoteContabili
-    boolean abilitaRiservato
+    boolean riservatoVisibile
+    boolean riservatoAbilitato
     boolean abilitaDestinatariEsterni
     boolean abilitaDestinatariInterni
+
     boolean abilitaDestinatari
     boolean destinatariInterniObbligatori = false
     boolean abilitaPubblicazioneProposte
@@ -140,12 +172,23 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
     boolean abilitaRichiestaEsecutivita
     boolean abilitaPriorita
     boolean riservatoModificabile
+    boolean visContabilita = true //indica se l'utente può visualizzare il folder della contabilità
     boolean mostraArchiviazioni
     boolean mostraCorteConti
     boolean mostraDatiTesoriere
+    boolean mostraDataScadenzaDisposizioni = false
+    boolean mostraImportoTotale = false
     boolean mostraNote                    = true
     boolean mostraStorico                 = true
     boolean mostraEseguibilitaImmediata
+    boolean modelloTestoUnitaProponente
+    boolean mostraComboModelloTesti = true
+    boolean mostraRiflessiContabili = false
+    boolean mostraDataControlloGestione = false
+    boolean mostraAttoSoggettoControllo = false
+    boolean mostraMacrocategoria = false
+    boolean gestioneFondi
+    boolean relataAlbo
 
     // paginazione integrazione ce4
     int    activePage = 0
@@ -183,45 +226,82 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
     // indica se abilitare la visualizzazione della relata di pubblicazione dell'albo
     boolean mostraRelata
 
+    //PND per i destinatari gestita per la determina
+    boolean  pndNotifica = false
+    boolean  pndPagamento = false
+
+    String tipoIntegrazioneContabilita
+    boolean isIntegrazioneContabilitaAtsPavia = false
+
+    // Impatto Generazionale
+    boolean impattoGenerazionaleAbilitato
+    List<ImpattoGenerazionaleDTO> listaImpattoGenerazionale
+    ImpattoGenerazionaleDTO impattoGenerazionale
+    boolean mostraImpattoGenerazionale = false
+
+    // Protocollazione
+    String tipoProtocollazione
+    boolean isIntegrazioneProtocolloPiTre = false
+
+    boolean isProtocollato = false
+
     // indica se è bloccato da un altro utente
     boolean isLocked = false
 
     // indica se il documento deve essere comunque aperto in lettura (delegato)
     boolean forzaCompetenzeLettura
 
-    @NotifyChange([
-            "determina",
-            "competenze",
-            "categoriaAbilitata"
-    ])
+    // utente per conto del quale si sta operando (delega So4)
+    Ad4Utente delegante
+
+    @NotifyChange(["determina", "competenze", "categoriaAbilitata", "mostraImpattoGenerazionale"])
     @Init
     init(
             @ContextParam(ContextType.COMPONENT) Window w,
-            @ExecutionArgParam("id") Long idDetermina, @ExecutionArgParam("idDocumentoEsterno") Long idDocumentoEsterno, @ExecutionArgParam("competenzeLettura") Boolean competenzeLettura) {
+            @ExecutionArgParam("id") Long idDetermina, @ExecutionArgParam("idDocumentoEsterno") Long idDocumentoEsterno, @ExecutionArgParam("competenzeLettura") Boolean competenzeLettura,
+            @ExecutionArgParam("classificazione") String classificazione, @ExecutionArgParam("numeroFascicolo") String numeroFascicolo, @ExecutionArgParam("annoFascicolo") String annoFascicolo,
+            @ExecutionArgParam("idPraticaSportello") String idPraticaSportello,
+            @ExecutionArgParam("delegante") Ad4Utente delegante) {
         this.self = w
 
-        firmaRemotaAbilitata = Impostazioni.FIRMA_REMOTA.abilitato
-        protocollo = Impostazioni.PROTOCOLLO_SEZIONE.abilitato
-        classifica_obb = Impostazioni.PROTOCOLLO_CLASSIFICA_OBBL.abilitato
-        fascicolo_obb = Impostazioni.PROTOCOLLO_FASCICOLO_OBBL.abilitato
-        abilitaNoteContabili = Impostazioni.NOTE_CONTABILI.abilitato
-        abilitaRiservato = Impostazioni.RISERVATO.abilitato
-        abilitaDestinatariEsterni = Impostazioni.DESTINATARI_ESTERNI.abilitato
-        abilitaDestinatariInterni = Impostazioni.DESTINATARI_INTERNI.abilitato
-        abilitaDestinatari = (abilitaDestinatariEsterni || abilitaDestinatariInterni)
-        abilitaPubblicazioneProposte = Impostazioni.PUBBLICAZIONE_VIS_PROP_DETERMINA.abilitato
-        abilitaPubblicazioneFinoRevoca = Impostazioni.PUBBLICAZIONE_FINO_REVOCA.abilitato
-        abilitaRichiestaEsecutivita = Impostazioni.RICHIESTA_ESECUTIVITA.abilitato
-        abilitaPriorita = Impostazioni.PRIORITA.abilitato
-        categoriaAbilitata = Impostazioni.CATEGORIA_DETERMINA.abilitato
-        mostraArchiviazioni = Impostazioni.PROTOCOLLO_MOSTRA_SEZIONE_ARCHIVIAZIONI.abilitato
-        mostraCorteConti = Impostazioni.GESTIONE_CORTE_CONTI.abilitato
-        mostraDatiTesoriere = Impostazioni.DATI_TESORIERE.abilitato
-        incaritatoAbilitato = Impostazioni.INCARICATO.abilitato
-        mostraEseguibilitaImmediata = Impostazioni.ESEGUIBILITA_IMMEDIATA_DETE_ATTIVA.abilitato
+        firmaRemotaAbilitata            = Impostazioni.FIRMA_REMOTA.abilitato
+        protocollo                      = Impostazioni.PROTOCOLLO_SEZIONE.abilitato
+        classifica_obb                  = Impostazioni.PROTOCOLLO_CLASSIFICA_OBBL.abilitato
+        fascicolo_obb                   = Impostazioni.PROTOCOLLO_FASCICOLO_OBBL.abilitato
+        abilitaNoteContabili            = Impostazioni.NOTE_CONTABILI.abilitato
+        riservatoVisibile               = Impostazioni.RISERVATO.abilitato
+        abilitaDestinatariEsterni       = Impostazioni.DESTINATARI_ESTERNI.abilitato
+        abilitaDestinatariInterni       = Impostazioni.DESTINATARI_INTERNI.abilitato
+        abilitaDestinatari              = (abilitaDestinatariEsterni || abilitaDestinatariInterni)
+        abilitaPubblicazioneProposte    = Impostazioni.PUBBLICAZIONE_VIS_PROP_DETERMINA.abilitato
+        abilitaPubblicazioneFinoRevoca  = Impostazioni.PUBBLICAZIONE_FINO_REVOCA.abilitato
+        abilitaRichiestaEsecutivita     = Impostazioni.RICHIESTA_ESECUTIVITA.abilitato
+        abilitaPriorita                 = Impostazioni.PRIORITA.abilitato
+        categoriaAbilitata              = Impostazioni.CATEGORIA_DETERMINA.abilitato
+        mostraArchiviazioni             = Impostazioni.PROTOCOLLO_MOSTRA_SEZIONE_ARCHIVIAZIONI.abilitato
+        mostraCorteConti                = Impostazioni.GESTIONE_CORTE_CONTI.abilitato
+        mostraDatiTesoriere             = Impostazioni.DATI_TESORIERE.abilitato
+        incaritatoAbilitato             = Impostazioni.INCARICATO.abilitato
+        mostraEseguibilitaImmediata     = Impostazioni.ESEGUIBILITA_IMMEDIATA_DETE_ATTIVA.abilitato
+        modelloTestoUnitaProponente     = Impostazioni.MODELLI_TESTO_UNITA_PROPONENTE.abilitato
+        gestioneFondi                   = Impostazioni.GESTIONE_FONDI.abilitato
+        budgetAbilitato                 = Impostazioni.GESTIONE_BUDGET.abilitato
+        impattoGenerazionaleAbilitato   = Impostazioni.IMPATTO_GENERAZIONALE.abilitato
+        scadenzaTabLabel                = Impostazioni.RICHIESTA_ESECUTIVITA_LABEL.valore
+        tipoIntegrazioneContabilita     = Impostazioni.CONTABILITA.valore
+        tipoProtocollazione             = Impostazioni.PROTOCOLLO.valore
+        forzaCompetenzeLettura          = competenzeLettura
+        this.delegante                  = delegante
 
-        scadenzaTabLabel = Impostazioni.RICHIESTA_ESECUTIVITA_LABEL.valore
-        forzaCompetenzeLettura = competenzeLettura
+        if (tipoIntegrazioneContabilita == "integrazioneContabilitaAtsPavia") {
+            isIntegrazioneContabilitaAtsPavia = true
+            BindUtils.postNotifyChange(null, null, this, "isIntegrazioneContabilitaAtsPavia")
+        }
+
+        if (tipoProtocollazione == "protocolloPiTre") {
+            isIntegrazioneProtocolloPiTre = true
+            BindUtils.postNotifyChange(null, null, this, "isIntegrazioneProtocolloPiTre")
+        }
 
         if (idDetermina != null) {
             determina = new DeterminaDTO(id: idDetermina)
@@ -231,14 +311,50 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
         }
 
         if (idDetermina > 0) {
-            aggiornaMaschera(Determina.get(idDetermina))
+            Determina d = Determina.get(idDetermina)
+            aggiornaMaschera(d)
         } else {
             if (!springSecurityService.principal.hasRuolo(Impostazioni.RUOLO_SO4_CREA_DETERMINA.valore)) {
                 throw new AttiRuntimeException("L'utente ${springSecurityService.principal.username} non ha i diritti di inserimento di una atto.")
             }
 
+            //quando creo un nuovo atto, la lista dei modelli testi si deve vedere solo se NON attiva l'impostazione modelloTestoUnitaProponente
+            if (modelloTestoUnitaProponente) {
+                mostraComboModelloTesti = false
+            }
+
             determina.dataProposta = new Date()
             competenze = [lettura: true, modifica: true, cancellazione: true]
+
+            //se il protocollo è GDM provo a valorizzare classifica e fascicolo se passati nell'url
+            if ("protocolloEsternoGdm".equals(tipoProtocollazione)) {
+                if (classificazione != null) {
+                    IProtocolloEsterno.Classifica classifica = protocolloEsterno.getClassifica(classificazione, determina.dataProposta)
+                    if (classifica != null) {
+                        determina.classificaCodice  = classifica.codice
+                        determina.classificaDal = classifica.dal
+                        determina.classificaDescrizione = classifica.descrizione
+
+                        if ((annoFascicolo != null) && (numeroFascicolo != null)) {
+                            IProtocolloEsterno.Fascicolo fascicolo = protocolloEsterno.getFascicolo(classifica, numeroFascicolo, Integer.parseInt(annoFascicolo))
+                            if (fascicolo != null) {
+                                determina.fascicoloAnno = fascicolo.anno
+                                determina.fascicoloNumero = fascicolo.numero
+                                determina.fascicoloOggetto = fascicolo.oggetto
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            //memorizzo l'eventuale collegamento ad una pratica SURF
+            if (idPraticaSportello) {
+                DatoAggiuntivoDTO datoAggiuntivoDTO = new DatoAggiuntivoDTO()
+                datoAggiuntivoDTO.codice = TipoDatoAggiuntivo.ID_PRATICA_SPORTELLO
+                datoAggiuntivoDTO.valore = idPraticaSportello
+                determina.addToDatiAggiuntivi(datoAggiuntivoDTO)
+            }
 
             // in apertura della maschera, il redattore è l'utente corrente:
             As4SoggettoCorrente s = springSecurityService.principal.soggetto
@@ -267,19 +383,37 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
             tipoDetermina { order("titolo") }
         }.collect { new TipoDeterminaDTO(id: it[0], titolo: it[1], descrizione: it[2]) }
 
-        aggiornaPulsanti()
-        caricaListaCategorie()
-        caricaListaBudget()
+        if(determina.tipologia!=null && isIntegrazioneProtocolloPiTre) {
+            mostraAttoSoggettoControllo = protocolloPiTre.checkMostraControlliTemplate(PiTreField.ATTO_SOGGETTO_CONTROLLO, String.valueOf(determina.tipologia.id))
+            mostraMacrocategoria = protocolloPiTre.checkMostraControlliTemplate(PiTreField.ATTO_SOGGETTO_CONTROLLO, String.valueOf(determina.tipologia.id))
+            if(determina.attoSoggettoControllo){
+                listaMacrocategorie = protocolloPiTre.loadValoriCampo(PiTreField.MACROCATEGORIA, String.valueOf(determina.tipologia.id))
+            }else{
+                listaMacrocategorie = protocolloPiTre.loadValoriCampo(PiTreField.MACROCATEGORIA_NO, String.valueOf(determina.tipologia.id))
+            }
+            BindUtils.postNotifyChange(null, null, this, "listaMacrocategorie")
+            BindUtils.postNotifyChange(null, null, this, "mostraAttoSoggettoControllo")
+            BindUtils.postNotifyChange(null, null, this, "mostraMacrocategoria")
+        }
+
+        mostraRiflessiContabili = TipoDatoAggiuntivo.isAbilitato(TipoDatoAggiuntivo.RIFLESSI_CONTABILI)
 
         if (determina.dataScadenza != null && determina.iter?.dataFine == null) {
             scadenzaTabLabel += " *";
         }
+
+        aggiornaPulsanti()
+        caricaListaCategorie()
+        caricaListaBudget()
+        caricaListaImpattoGenerazionale()
+        abilitaDataControlloGestione()
+        abilitaDataScadenzaDisposizioni()
+        abilitaImportoTotale()
     }
 
     /*
      * Gestione scelta e cambio tipologia
      */
-
     @AfterCompose
     void afterCompose(@SelectorParam("#popupCambiaTipologia") Window popupTipologia) {
         this.popupCambiaTipologia = popupTipologia
@@ -304,13 +438,48 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
             calcolaSoggetti(TipoSoggetto.REDATTORE)
             aggiornaPulsanti()
             caricaListaModelloTesto()
+            caricaListaImpattoGenerazionale()
+            abilitaDataControlloGestione()
+            abilitaDataScadenzaDisposizioni()
+            abilitaImportoTotale()
+
+            if(determina.tipologia!=null && isIntegrazioneProtocolloPiTre) {
+                mostraAttoSoggettoControllo = protocolloPiTre.checkMostraControlliTemplate(PiTreField.ATTO_SOGGETTO_CONTROLLO, String.valueOf(determina.tipologia.id))
+                mostraMacrocategoria = protocolloPiTre.checkMostraControlliTemplate(PiTreField.ATTO_SOGGETTO_CONTROLLO, String.valueOf(determina.tipologia.id))
+
+                if(determina.attoSoggettoControllo){
+                    listaMacrocategorie = protocolloPiTre.loadValoriCampo(PiTreField.MACROCATEGORIA, String.valueOf(determina.tipologia.id))
+                }else{
+                    listaMacrocategorie = protocolloPiTre.loadValoriCampo(PiTreField.MACROCATEGORIA_NO, String.valueOf(determina.tipologia.id))
+                }
+
+
+                BindUtils.postNotifyChange(null, null, this, "listaMacrocategorie")
+                BindUtils.postNotifyChange(null, null, this, "mostraAttoSoggettoControllo")
+                BindUtils.postNotifyChange(null, null, this, "mostraMacrocategoria")
+            }
 
             BindUtils.postNotifyChange(null, null, this, "listaModelliTesto")
+            BindUtils.postNotifyChange(null, null, this, "listaImpattoGenerazionale")
             BindUtils.postNotifyChange(null, null, this, "soggetti")
             BindUtils.postNotifyChange(null, null, this, "determina")
 
             this.popupCambiaTipologia.visible = false
         }
+    }
+
+    @NotifyChange(["listaMacrocategorie","macrocategoria"])
+    @Command
+    public void onCambioMacroCategoria() {
+        if(determina.attoSoggettoControllo){
+            listaMacrocategorie = protocolloPiTre.loadValoriCampo(PiTreField.MACROCATEGORIA, String.valueOf(determina.tipologia.id))
+        }else{
+            listaMacrocategorie = protocolloPiTre.loadValoriCampo(PiTreField.MACROCATEGORIA_NO, String.valueOf(determina.tipologia.id))
+        }
+        determina.macrocategoria=""
+
+        BindUtils.postNotifyChange(null, null, this, "macrocategoria")
+        BindUtils.postNotifyChange(null, null, this, "listaMacrocategorie")
     }
 
     void onCambiaTipologia(TipoDeterminaDTO tipologia) {
@@ -331,9 +500,27 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
         calcolaSoggetti(TipoSoggetto.REDATTORE)
         aggiornaPulsanti()
         caricaListaModelloTesto()
-
+        
         determina = determinaDTOService.cambiaTipologia(determina)
+        caricaListaImpattoGenerazionale()
+        abilitaDataControlloGestione()
+        abilitaDataScadenzaDisposizioni()
+        abilitaImportoTotale()
 
+        if(determina.tipologia!=null && isIntegrazioneProtocolloPiTre) {
+            mostraAttoSoggettoControllo = protocolloPiTre.checkMostraControlliTemplate(PiTreField.ATTO_SOGGETTO_CONTROLLO, String.valueOf(determina.tipologia.id))
+            mostraMacrocategoria = protocolloPiTre.checkMostraControlliTemplate(PiTreField.ATTO_SOGGETTO_CONTROLLO, String.valueOf(determina.tipologia.id))
+            if(determina.attoSoggettoControllo){
+                listaMacrocategorie = protocolloPiTre.loadValoriCampo(PiTreField.MACROCATEGORIA, String.valueOf(determina.tipologia.id))
+            }else{
+                listaMacrocategorie = protocolloPiTre.loadValoriCampo(PiTreField.MACROCATEGORIA_NO, String.valueOf(determina.tipologia.id))
+            }
+            BindUtils.postNotifyChange(null, null, this, "listaMacrocategorie")
+            BindUtils.postNotifyChange(null, null, this, "mostraAttoSoggettoControllo")
+            BindUtils.postNotifyChange(null, null, this, "mostraMacrocategoria")
+        }
+
+        BindUtils.postNotifyChange(null, null, this, "listaImpattoGenerazionale")
         BindUtils.postNotifyChange(null, null, this, "listaModelliTesto")
         BindUtils.postNotifyChange(null, null, this, "soggetti")
         BindUtils.postNotifyChange(null, null, this, "determina")
@@ -342,7 +529,6 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
     /*
      * Gestione dati di conservazione
      */
-
     JConsLogConservazioneDTO getLogConservazione() {
         return conservazioneService.getLastLog(determina.idDocumentoEsterno, determina.statoConservazione)
     }
@@ -350,7 +536,6 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
     /*
      * Gestione Applet e download Testo
      */
-
     @NotifyChange(["testoLockato"])
     @Command
     editaTesto() {
@@ -413,16 +598,98 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
 
     private void caricaListaModelloTesto() {
         listaModelliTesto = determinaDTOService.getListaModelliTestoAbilitati(determina.tipologia.id, springSecurityService.principal)
+        if(Impostazioni.MODELLI_TESTO_UNITA_PROPONENTE.abilitato && determina.soggetti) {
+            Determina domainObject = determina.getDomainObject()
+            So4UnitaPubb uo = domainObject.getSoggetto(TipoSoggetto.UO_PROPONENTE)?.unitaSo4
+            if (uo) {
+                List<GestioneTestiModelloDTO> toRemove= new ArrayList<GestioneTestiModelloDTO>()
+                for (GestioneTestiModelloDTO gestioneTestiModelloDTO : listaModelliTesto) {
+                    List<GestioneTestiModelloCompetenza> lista = GestioneTestiModelloCompetenza.createCriteria().list() {
+                        eq("gestioneTestiModello.id", gestioneTestiModelloDTO.id)
+                        createAlias ("unitaSo4", "unita", CriteriaSpecification.LEFT_JOIN)
+                        ne("unita.progr",uo.progr)
+                    }
+                    if(lista!=null && lista.size()>0)
+                        toRemove.add(gestioneTestiModelloDTO)
+                }
+                for(GestioneTestiModelloDTO elem: toRemove){
+                    listaModelliTesto.removeElement(elem)
+                }
+            }
+        }
 
         if (determina.modelloTesto == null) {
             determina.modelloTesto = determina?.tipologia?.modelloTesto?.getDomainObject()?.toDTO()
         }
     }
 
+    private void abilitaDataControlloGestione() {
+        mostraDataControlloGestione = TipoDatoAggiuntivo.isAbilitato(TipoDatoAggiuntivo.DATA_CONTROLLO_GESTIONE)
+        if (mostraDataControlloGestione) {
+            if (determina.tipologia) {
+                mostraDataControlloGestione = determina.tipologia.visDataControlloGestione
+            }
+            else {
+                mostraDataControlloGestione = false
+            }
+            BindUtils.postNotifyChange(null, null, this, "mostraDataControlloGestione")
+        }
+    }
+
+    private void abilitaDataScadenzaDisposizioni() {
+        mostraDataScadenzaDisposizioni = Impostazioni.DATA_SCADENZA_DISPOSIZIONI.abilitato
+        if (mostraDataScadenzaDisposizioni) {
+            if (determina.tipologia) {
+                mostraDataScadenzaDisposizioni = determina.tipologia.visDataScadenzaDisposizione
+            }
+            else {
+                mostraDataScadenzaDisposizioni = false
+            }
+            BindUtils.postNotifyChange(null, null, this, "mostraDataScadenzaDisposizioni")
+        }
+    }
+
+    private void abilitaImportoTotale() {
+        mostraImportoTotale = Impostazioni.GESTIONE_IMPORTO_TOTALE.abilitato
+        if (mostraImportoTotale) {
+            if (determina.tipologia) {
+                mostraImportoTotale = determina.tipologia.visImportoTotale
+            }
+            else {
+                mostraImportoTotale = false
+            }
+            BindUtils.postNotifyChange(null, null, this, "mostraImportoTotale")
+        }
+    }
+
+    //visualizza o meno la lista degli impatti generazionali
+    private void caricaListaImpattoGenerazionale() {
+        mostraImpattoGenerazionale = false
+        if (determina.tipologia) {
+            if (impattoGenerazionaleAbilitato && determina.tipologia.impattoGenerazionale) {
+                mostraImpattoGenerazionale = true
+
+                //carico la lista degli impatti generazionali
+                PagedResultList lista = ImpattoGenerazionale.createCriteria().list(max: 100, offset: 0) {
+                    eq ("valido",true)
+                    eq ("determina", true)
+                    order ("titolo", "asc")
+                    order ("descrizione", "asc")
+                }
+                listaImpattoGenerazionale = lista.toDTO()
+
+                if (determina.impattoGenerazionale?.id > 0) {
+                    impattoGenerazionale = ImpattoGenerazionale.get(determina.impattoGenerazionale.id).toDTO()
+                }
+                BindUtils.postNotifyChange(null, null, this, "listaImpattoGenerazionale")
+            }
+        }
+        BindUtils.postNotifyChange(null, null, this, "mostraImpattoGenerazionale")
+    }
+
     /*
      * Scelta dell'oggetto della determina
      */
-
     @Command
     onSceltaOggettoRicorrente() {
         def listaOggettiRicorrenti = Impostazioni.OGGETTI_RICORRENTI_TIPOLOGIE.abilitato ? determina.tipologia.oggettiRicorrenti : OggettoRicorrente.findAllByValidoAndDetermina(true, true).toDTO()
@@ -445,7 +712,6 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
     /*
      * Gestione dello storico:
      */
-
     private void caricaStorico() {
         storico = determinaDTOService.caricaStorico(determina);
         BindUtils.postNotifyChange(null, null, this, "storico")
@@ -454,7 +720,6 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
     /*
      * Gestione della contabilità
      */
-
     @Command
     void onAggiornaContabilita() {
         aggiornaContabilita(determina.domainObject)
@@ -469,7 +734,6 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
     /*
      * Gestisce le note di trasmissioni
      */
-
     private void aggiornaNoteTrasmissionePrecedenti() {
         def result = documentoDTOService.getNoteTrasmissionePrecedenti(determina)
         noteTrasmissionePrecedenti = result.noteTrasmissionePrecedenti
@@ -484,7 +748,6 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
     /*
      * Gestione Destinatari
      */
-
     @Command
     void onAggiungiDestinatariInterni() {
         Window w = Executions.createComponents("/commons/popupSceltaDestinatariInterni.zul", self,
@@ -499,7 +762,7 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
 
     @Command
     void onAggiungiDestinatariEsterni() {
-        Window w = Executions.createComponents("/commons/popupSceltaDestinatariEsterniEsistenti.zul", self, [destinatari: listaDestinatariEsterni])
+        Window w = Executions.createComponents("/commons/popupSceltaDestinatariEsterniEsistenti.zul", self, [destinatari: listaDestinatariEsterni, documento: determina.domainObject])
         w.onClose { event ->
             if (event.data == null) {
                 return null
@@ -508,6 +771,21 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
             DeterminaDTO d = destinatarioNotificaDTOService.aggiungiDestinatarioEsterno(determina, event.data)
             determina.version = d.version
             refreshListaDestinatariEsterni()
+        }
+        w.doModal()
+    }
+
+    @Command
+    void onAggiungiDestinatariPiTre() {
+        Window w = Executions.createComponents("/atti/integrazioni/protocollo/popupSceltaDestinatariPiTre.zul", self, [destinatari: listaDestinatariPiTre, documento: determina.domainObject])
+        w.onClose { event ->
+            if (event.data == null) {
+                return null
+            }
+
+            DeterminaDTO d = destinatarioNotificaDTOService.aggiungiDestinatarioPiTre(determina, event.data)
+            determina.version = d.version
+            refreshListaDestinatariPiTre()
         }
         w.doModal()
     }
@@ -523,14 +801,28 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
                             if (tipo == "E") {
                                 destinatarioNotificaDTOService.eliminaDestinatarioNotifica(destinatario)
                                 DeterminaViewModel.this.refreshListaDestinatariEsterni()
-                            } else {
+                            } else if (tipo == "I") {
                                 destinatarioNotificaDTOService.eliminaDestinatarioNotifica(destinatario.destinatario)
                                 DeterminaViewModel.this.refreshListaDestinatariInterni()
+                            } else if (tipo == "P3") {
+                                destinatarioNotificaDTOService.eliminaDestinatarioNotifica(destinatario)
+                                DeterminaViewModel.this.refreshListaDestinatariPiTre()
                             }
                             determina.version = determina.domainObject.version
                         }
                     }
                 })
+    }
+
+    @Command
+    void onVisualizzaNotificaPND(@ContextParam(ContextType.TRIGGER_EVENT) Event event
+                                       , @BindingParam("destinatario") def destinatario
+                                       , @BindingParam("tipo") String tipo) {
+        if (tipo == "E") {
+            String url = smartPnd.getUrlComunicazione(destinatario.codiceEsterno)
+            if (url)
+                Executions.getCurrent().sendRedirect(url, "_blank")
+        }
     }
 
     private void refreshListaDestinatariInterni() {
@@ -541,6 +833,11 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
     private void refreshListaDestinatariEsterni() {
         listaDestinatariEsterni = destinatarioNotificaDTOService.getListaDestinatariEsterni(determina)
         BindUtils.postNotifyChange(null, null, this, "listaDestinatariEsterni")
+    }
+
+    private void refreshListaDestinatariPiTre() {
+        listaDestinatariPiTre = destinatarioNotificaDTOService.getListaDestinatariPiTre(determina)
+        BindUtils.postNotifyChange(null, null, this, "listaDestinatariPiTre")
     }
 
     /*
@@ -560,10 +857,11 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
                 }
             }
 
-            order("valido", "asc")
             tipologia {
+                order("sequenzaStampaUnica", "asc")
                 order("codice", "asc")
             }
+            order("valido", "asc")
             order("dateCreated", "asc")
 
             fetchMode("tipologia", FetchMode.JOIN)
@@ -592,11 +890,9 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
         Window w = Executions.createComponents("/atti/documenti/visto.zul", self,
                 [id: nuovo ? -1 : selected.id, documento: determina, tipodoc: "determina", competenzeLettura: forzaCompetenzeLettura])
         w.onClose {
-            // potrei aver aggiornato la determina, quindi ne riprendo i numeri di versione e idDocumentoEsterno.
-            Determina d = determina.domainObject
-            determina.version = d.version
-            determina.idDocumentoEsterno = d.idDocumentoEsterno
-            refreshListaVisti()
+            //potrei aver aggiornato la determina
+            aggiornaMaschera(determina.domainObject)
+            aggiornaPulsanti()
         }
         w.doModal()
     }
@@ -625,11 +921,9 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
     /*
      * Metodi per la gestione del budget
      */
-
     private void caricaListaBudget() {
-        budgetAbilitato = Impostazioni.GESTIONE_BUDGET.abilitato
         if (budgetAbilitato) {
-            if (Impostazioni.GESTIONE_FONDI.abilitato) {
+            if (gestioneFondi) {
                 listaTipiBudget = TipoBudget.findAllByUnitaSo4AndAttivoAndValido(soggetti[TipoSoggetto.UO_PROPONENTE]?.unita?.domainObject, true, true, [sort: "titolo", order: "asc"]).toDTO()
             } else {
                 listaTipiBudget = TipoBudget.findAllByAttivoAndValido(true, true, [sort: 'titolo', order: 'asc']).toDTO()
@@ -830,7 +1124,7 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
             eq("determina.id", determina.id)
             order("sequenza", "asc")
             order("titolo", "asc")
-        }.toDTO()
+        }.toDTO(['fileAllegati'])
         BindUtils.postNotifyChange(null, null, this, "listaAllegati")
     }
 
@@ -924,7 +1218,8 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
     @NotifyChange('determina')
     @Command
     apriClassificazione() {
-        Window w = Executions.createComponents("/commons/popupClassificazioni.zul", self,
+        String zul = protocolloEsterno.getZulClassifica()
+        Window w = Executions.createComponents(zul, self,
                 [codiceUoProponente: soggetti[TipoSoggetto.UO_PROPONENTE].unita.codice])
         w.onClose { event ->
             if (event.data) {
@@ -945,20 +1240,37 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
     @NotifyChange('determina')
     @Command
     apriFascicoli() {
-        Window w = Executions.createComponents("/commons/popupFascicoli.zul", self,
-                [classificaCodice  : determina.classificaCodice, classificaDescrizione: determina.classificaDescrizione, classificaDal: determina.classificaDal,
-                 codiceUoProponente: soggetti[TipoSoggetto.UO_PROPONENTE].unita.codice])
+        String zul = protocolloEsterno.getZulFascicolo()
+        Window w = null
+        if(isIntegrazioneProtocolloPiTre) {
+            So4UnitaPubb unitaProponente= soggetti[TipoSoggetto.UO_PROPONENTE].unita?.domainObject
+            if(unitaProponente) {
+                w = Executions.createComponents(zul, self, [unitaProponente: unitaProponente, tipologia: String.valueOf(determina.tipologia.id),sceltaUnitaProponente:false, utenteRedattore :soggetti[TipoSoggetto.REDATTORE].utente?.domainObject])
+            }else{
+                throw new AttiRuntimeException("Attenzione: è necessario selezionare una unità proponente.")
+            }
+        }  else {
+            w = Executions.createComponents(zul, self, [classificaCodice: determina.classificaCodice, classificaDescrizione: determina.classificaDescrizione, classificaDal: determina.classificaDal, codiceUoProponente: soggetti[TipoSoggetto.UO_PROPONENTE].unita.codice])
+        }
         w.onClose { event ->
             if (event.data) {
-                // se ho cambiato la classificazione, la riaggiorno
-                if (event.data.classifica.codice != determina.classificaCodice) {
-                    determina.classificaCodice = event.data.classifica.codice
-                    determina.classificaDescrizione = event.data.classifica.descrizione
-                    determina.classificaDal = event.data.classifica.dal
+                if(isIntegrazioneProtocolloPiTre){
+                    determina.fascicoloNumero = event.data.numero
+                    determina.fascicoloAnno = ProtocolloPiTre.estraiAnnoDaFascicoloPiTre(event.data.numero)
+                    determina.fascicoloOggetto = event.data.oggetto
+                    determina.idFascicoloEsterno = event.data.sub
+                }else {
+
+                    // se ho cambiato la classificazione, la riaggiorno
+                    if (event.data.classifica.codice != determina.classificaCodice) {
+                        determina.classificaCodice = event.data.classifica.codice
+                        determina.classificaDescrizione = event.data.classifica.descrizione
+                        determina.classificaDal = event.data.classifica.dal
+                    }
+                    determina.fascicoloAnno = event.data.anno
+                    determina.fascicoloNumero = event.data.numero
+                    determina.fascicoloOggetto = event.data.oggetto
                 }
-                determina.fascicoloAnno = event.data.anno
-                determina.fascicoloNumero = event.data.numero
-                determina.fascicoloOggetto = event.data.oggetto
                 BindUtils.postNotifyChange(null, null, this, "determina")
             }
         }
@@ -1092,7 +1404,11 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
             }
         }
 
-        if (determina.controlloFunzionario && soggetti[TipoSoggetto.FUNZIONARIO]?.utente == null) {
+        boolean funzionarioPrevisto = determina.tipologia.caratteristicaTipologia.caratteristicheTipiSoggetto?.any {
+            it.tipoSoggetto.codice == TipoSoggetto.FUNZIONARIO
+        }
+        //if (!('/atti/documenti/determina/determina_redattore_dirigente.zul'.equals(determina.tipologia.caratteristicaTipologia.layoutSoggetti)))
+        if (funzionarioPrevisto && determina.controlloFunzionario && soggetti[TipoSoggetto.FUNZIONARIO]?.utente == null) {
             messaggi << Labels.getLabel("message.determina.funzionario")
         }
 
@@ -1102,6 +1418,8 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
 
         if (determina.tipologia.codiceGara && determina.codiceGara?.length() > 0 && determina.codiceGara?.length() < 10) {
             messaggi << "Il Codice Identificativo Gara deve contenere 10 caratteri"
+        } else if (determina.codiceGara?.indexOf(" ")>-1) {
+            messaggi << "Il Codice Identificativo Gara non deve contenere spazi"
         } else if (determina.annoProposta > 0 && determina.numeroProposta > 0) {
             if (determina.tipologia.codiceGara && determina.tipologia.codiceGaraObbligatorio && (determina.codiceGara == null || determina.codiceGara?.length() == 0)) {
                 messaggi << "Codice Identificativo Gara obbligatorio"
@@ -1132,8 +1450,20 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
             }
         }
 
+        if (mostraImportoTotale && determina.tipologia.importoTotaleObbligatorio && determina.importoTotale == null) {
+            messaggi << "Importo Totale obbligatorio"
+        }
+
         if (Impostazioni.ESEGUIBIILITA_IMMEDIATA_DETE_MOTIVAZIONI.abilitato && determina.eseguibilitaImmediata && (determina.motivazioniEseguibilita == null || determina.motivazioniEseguibilita?.isEmpty())) {
             messaggi << "Motivazione obbligatoria per documenti con Eseguibilità Immediata";
+        }
+
+        if(isIntegrazioneProtocolloPiTre && mostraMacrocategoria && (determina.macrocategoria==null || determina.macrocategoria.length()==0)){
+            messaggi << "E' obbligatorio inserire la macroCategoria";
+        }
+
+        if (mostraDataScadenzaDisposizioni && determina.dataScadenzaDisposizioni == null) {
+            messaggi << "E' obbligatorio inserire la data di scadenza delle disposizioni";
         }
 
         if (messaggi.size() > 0) {
@@ -1175,6 +1505,9 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
         d.fascicoloAnno = determina.fascicoloAnno
         d.fascicoloNumero = determina.fascicoloNumero
         d.fascicoloOggetto = determina.fascicoloOggetto
+        d.idFascicoloEsterno = determina.idFascicoloEsterno
+        d.attoSoggettoControllo=determina.attoSoggettoControllo
+        d.macrocategoria=determina.macrocategoria
         d.classificaCodice = determina.classificaCodice
         d.classificaDal = determina.classificaDal
         d.classificaDescrizione = determina.classificaDescrizione
@@ -1201,6 +1534,19 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
         d.motivazioniEseguibilita = determina?.motivazioniEseguibilita
         d.controllaDestinatari = determina?.controllaDestinatari
 
+        d.inEvidenza = determina?.inEvidenza
+        d.dataInEvidenzaDa = determina?.dataInEvidenzaDa
+        d.dataInEvidenzaA = determina?.dataInEvidenzaA
+        d.importo = determina?.importo
+        d.importoTotale = determina?.importoTotale
+        d.dataScadenzaDisposizioni = determina?.dataScadenzaDisposizioni
+
+        if(impattoGenerazionale?.id>0) {
+            determina.impattoGenerazionale=impattoGenerazionale
+            d.impattoGenerazionale = determina.impattoGenerazionale.domainObject
+        } else
+            d.impattoGenerazionale = null
+
         documentoService.controllaOggettoRicorrente(d)
 
         caratteristicaTipologiaService.salvaSoggettiModificati(d, soggetti)
@@ -1219,15 +1565,43 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
                     "L'utente ${springSecurityService.principal.username} non ha i diritti di lettura sulla determina con id ${d.id}")
         }
 
+        if (hasDelegaValida()) {
+            if (d.statoFirma == StatoFirma.DA_FIRMARE) { // || d.statoFirma == StatoFirma.IN_FIRMA || d.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE) {
+                gestoreCompetenze.assegnaCompetenze(d, WkfTipoOggetto.get(Determina.TIPO_OGGETTO), new Attore(utenteAd4: springSecurityService.principal.soggetto.utenteAd4), true, true, false, null)
+                competenze.modifica = true
+            } else {
+                // il documento è stato rimandato indietro: il delegante non ha più diritti di modifica
+                competenze.modifica = false
+                forzaCompetenzeLettura=false
+            }
+        }
+
         if (d.statoFirma == StatoFirma.IN_FIRMA || d.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE) {
             competenze.modifica = false
             competenze.cancellazione = false
+            // numeraDeterminaECommit può aggiornare un'istanza Hibernate diversa lasciando d stale
+            if (d.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE) {
+                d.refresh()
+            }
         }
 
         isLocked = tokenIntegrazioneService.isLocked(d)
 
-        // verifico che l'utente possa gestire il riservato:
-        riservatoModificabile = (!d.riservato || gestoreCompetenze.utenteCorrenteVedeRiservato(d));
+        //il campo tipologia non si deve abilitare
+        riservatoModificabile = d.tipologia.gestioneRiservato
+
+        if (riservatoModificabile) {
+            // verifico che l'utente possa gestire il riservato:
+            riservatoModificabile = (!d.riservato || gestoreCompetenze.utenteCorrenteVedeRiservato(d));
+        }
+
+        //se l'utente non può vedere i riservati e la tipologia prevede questo controllo, allora non potrà visualizzare il folder contabilità
+        if ((!riservatoModificabile) && (d.tipologia.contabilitaCheckRiservato)) {
+            visContabilita = false
+        }
+        else {
+            visContabilita = true
+        }
 
         // calcolo la posizione del flusso (può esseree nullo per i documenti trascodificati)
         posizioneFlusso = d.iter?.stepCorrente?.cfgStep?.nome
@@ -1246,26 +1620,28 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
                 "tipologia.oggettiRicorrenti", "oggettoRicorrente"
         ])
 
-        // aggiorno i dati del lock sul testo:
+        // aggiorno i dati del lock sul testo
         testoLockato = gestioneTesti.isTestoLockato(d)
 
         // verifico presenza notifiche
         isNotificaPresente = notificheService.isNotificaPresente(d, springSecurityService.currentUser)
         isMotivazionePresente = determina.motivazione != null && !determina.motivazione.isEmpty()
 
-        // carico la lista di allegati:
+        // carico la lista di allegati
         refreshListaAllegati()
 
-        // carico la lista dei visti:
+        // carico la lista dei visti
         refreshListaVisti()
 
         // carico i certificati
         refreshListaCertificati()
 
-        // carica la lista dei destinatari:
+        // carica la lista dei destinatari
         refreshListaDestinatariInterni()
 
         refreshListaDestinatariEsterni()
+
+        refreshListaDestinatariPiTre()
 
         // carica lista delle determine collegate
         refreshListaDocumentiCollegati()
@@ -1276,35 +1652,55 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
         // aggiorno la lista dei modelli testo selezionabili
         caricaListaModelloTesto()
 
-        // aggiorno lo storico:
+        // aggiorno lo storico
         caricaStorico()
 
         // calcolo i vari soggetti della determina
         soggetti = caratteristicaTipologiaService.calcolaSoggettiDto(d)
+
+        isProtocollato = (determina.numeroProtocollo>0)
 
         // gestione contabilità
         contabilitaAbilitata = integrazioneContabilita.isAbilitata(d)
         if (contabilitaAbilitata) {
             conDocumentiContabili = integrazioneContabilita.isConDocumentiContabili(d)
             zulContabilita = integrazioneContabilita.getZul(d)
+
             aggiornaContabilita(d)
 
             BindUtils.postNotifyChange(null, null, this, "conDocumentiContabili")
             BindUtils.postNotifyChange(null, null, this, "zulContabilita")
         }
 
-        mostraRelata = Impostazioni.RELATA_ALBO.abilitato && integrazioneAlbo.hasRelata(d)
+        mostraRelata = relataAlbo && integrazioneAlbo.hasRelata(d)
 
         mostraNote = regolaCampoService.isBloccoVisibile(d, d.tipoOggetto, "NOTE")
         mostraStorico = regolaCampoService.isBloccoVisibile(d, d.tipoOggetto, "STORICO")
 
         isEstrattoPresente = datiAggiuntiviService.isDatoPresente(d, TipoDatoAggiuntivo.ESTRATTO)
 
+        pndNotifica = d.tipologia.pndNotifica
+        if (pndNotifica)
+            pndPagamento = smartPnd.isNotificaPagamento(d.tipologia.id)
+
         caricaListaBudget()
 
-        BindUtils.postNotifyChange(null, null, this, "listaAllegati")
+        //se ho il testo già memorizzato allora non devo visualizzare la combo di scelta dei modelli testi
+        if (d.testo?.id) {
+            mostraComboModelloTesti = false
+        }
+        else {
+            mostraComboModelloTesti = true
+        }
+
+        _numerazioneCommittataCache = null
+        _numerazioneCommittataCacheLoaded = false
+
         BindUtils.postNotifyChange(null, null, this, "campiProtetti")
         BindUtils.postNotifyChange(null, null, this, "determina")
+        BindUtils.postNotifyChange(null, null, this, "numeroDeterminaEffettivo")
+        BindUtils.postNotifyChange(null, null, this, "annoDeterminaEffettivo")
+        BindUtils.postNotifyChange(null, null, this, "descrizioneRegistroDeterminaEffettivo")
         BindUtils.postNotifyChange(null, null, this, "competenze")
         BindUtils.postNotifyChange(null, null, this, "posizioneFlusso")
         BindUtils.postNotifyChange(null, null, this, "listaModelliTesto")
@@ -1313,6 +1709,8 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
         BindUtils.postNotifyChange(null, null, this, "isNotificaPresente")
         BindUtils.postNotifyChange(null, null, this, "contabilitaAbilitata")
         BindUtils.postNotifyChange(null, null, this, "listaBudget")
+        BindUtils.postNotifyChange(null, null, this, "pndNotifica")
+        BindUtils.postNotifyChange(null, null, this, "mostraComboModelloTesti")
     }
 
     @Command
@@ -1360,7 +1758,7 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
              , approvato         : row.approvato ? "Si" : "No"]
         }
 
-        if (Impostazioni.GESTIONE_FONDI.disabilitato) {
+        if (!gestioneFondi) {
             exportOptions = [atto                : [label: 'Atto', index: 0, columnType: 'TEXT']
                              , tipoBudget        : [label: 'Budget', index: 1, columnType: 'TEXT']
                              , importo           : [label: 'Importo', index: 2, columnType: 'TEXT']
@@ -1383,5 +1781,48 @@ class DeterminaViewModel extends AbstractViewModel<Determina> {
         } finally {
             // todo
         }
+    }
+
+    @NotifyChange(["importo"])
+    @Command
+    public void aggiornaTotaleImporto() {
+        //per ora viene usata solo dall'integrazione con ATS Pavia dove non abbiamo distinzione tra ENTRATA e SPESA
+        determina.importo = integrazioneContabilita.totaleImporto(determina.domainObject, null)
+        BindUtils.postNotifyChange(null, null, this, "determina")
+    }
+
+    Integer getNumeroDeterminaEffettivo() {
+        if (determina?.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE && !(determina?.numeroDetermina > 0)) {
+            Integer nc = caricaNumerazioneCommittata()?.numeroDetermina
+            return (nc != null && nc > 0) ? nc : null
+        }
+        return determina?.numeroDetermina
+    }
+
+    Integer getAnnoDeterminaEffettivo() {
+        if (determina?.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE && !(determina?.numeroDetermina > 0)) {
+            Integer ac = caricaNumerazioneCommittata()?.annoDetermina
+            return (ac != null && ac > 0) ? ac : null
+        }
+        return determina?.annoDetermina
+    }
+
+    String getDescrizioneRegistroDeterminaEffettivo() {
+        if (determina?.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE && !(determina?.numeroDetermina > 0)) {
+            return caricaNumerazioneCommittata()?.registroDetermina?.descrizione ?: ''
+        }
+        return determina?.registroDetermina?.descrizione ?: ''
+    }
+
+    private DeterminaNumero caricaNumerazioneCommittata() {
+        if (!_numerazioneCommittataCacheLoaded) {
+            _numerazioneCommittataCache = DeterminaNumero.findByDeterminaId(determina?.id)
+            _numerazioneCommittataCacheLoaded = true
+        }
+        return _numerazioneCommittataCache
+    }
+
+    private boolean hasDelegaValida() {
+        return delegante != null && !so4DelegaService.getDeleghe(springSecurityService.currentUser, delegante).isEmpty()
     }
 }

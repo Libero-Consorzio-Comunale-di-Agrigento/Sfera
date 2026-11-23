@@ -444,7 +444,7 @@
      , nvl(utility_pkg.get_nominativo_soggetto(utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), pd.ente), '${documentRoot.parere.FIRMATARIO}' ) FIRMATARIO
 	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), pd.ente)) DESCRIZIONE_FIRMATARIO
 	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, pd.ente)) DELEGANTE
-     , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario)), '${documentRoot.parere.DIRIGENTE_PARERE}') DIRIGENTE_PARERE
+     , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario), vp.ente), '${documentRoot.parere.DIRIGENTE_PARERE}') DIRIGENTE_PARERE
      , decode(vp.esito, 'DA_VALUTARE', '${documentRoot.parere.ESITO_PARERE}', replace(vp.esito,'_',' ')) ESITO_PARERE
 	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.ESITO_PARERE_DEFINITIVO}', replace(vp.esito,'_',' ')) ESITO_PARERE_DEFINITIVO
 	 , td.titolo TIPOLOGIA_PROPOSTA
@@ -484,7 +484,7 @@ select nvl(to_char(pd.numero_proposta), '${documentRoot.parere.NUMERO_PROPOSTA}'
      , nvl(utility_pkg.get_nominativo_soggetto(utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), pd.ente), '${documentRoot.parere.FIRMATARIO}' ) FIRMATARIO
 	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), pd.ente)) DESCRIZIONE_FIRMATARIO
 	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, pd.ente)) DELEGANTE
-     , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario)), '${documentRoot.parere.DIRIGENTE_PARERE}') DIRIGENTE_PARERE
+     , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario), vp.ente), '${documentRoot.parere.DIRIGENTE_PARERE}') DIRIGENTE_PARERE
      , decode(vp.esito, 'DA_VALUTARE', '${documentRoot.parere.ESITO_PARERE}', replace(vp.esito,'_',' ')) ESITO_PARERE
 	 , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.ESITO_PARERE_DEFINITIVO}', replace(vp.esito,'_',' ')) ESITO_PARERE_DEFINITIVO
 	 , td.titolo TIPOLOGIA_PROPOSTA
@@ -532,7 +532,7 @@ select nvl(to_char(pd.numero_proposta), '${documentRoot.parere.NUMERO_PROPOSTA}'
  	 ,  c.descr_voce_peg MOVIMENTO_DESCRIZIONE_BIL_PEG
 	 ,  c.anno_imp MOVIMENTO_ANNO_IMPEGNO
      ,  c.numero_imp MOVIMENTO_NUMERO_IMPEGNO
-     ,  c.FAT_DATA_SCADENZA FAT_DATA_SCADENZA
+	 ,  to_char(c.FAT_DATA_SCADENZA,'DD/MM/YYYY') FAT_DATA_SCADENZA
      ,  c.IMP_ANNO_DEL IMP_ANNO_DEL
      ,  c.IMP_NUMERO_DEL IMP_NUMERO_DEL
      ,  c.IMP_SEDE_DEL IMP_SEDE_DEL
@@ -573,7 +573,7 @@ select nvl(to_char(pd.numero_proposta), '${documentRoot.parere.NUMERO_PROPOSTA}'
  	 ,  c.descr_voce_peg MOVIMENTO_DESCRIZIONE_BIL_PEG
 	 ,  c.anno_imp MOVIMENTO_ANNO_IMPEGNO
      ,  c.numero_imp MOVIMENTO_NUMERO_IMPEGNO
-     ,  c.FAT_DATA_SCADENZA FAT_DATA_SCADENZA
+	 ,  to_char(c.FAT_DATA_SCADENZA,'DD/MM/YYYY') FAT_DATA_SCADENZA
      ,  c.IMP_ANNO_DEL IMP_ANNO_DEL
      ,  c.IMP_NUMERO_DEL IMP_NUMERO_DEL
      ,  c.IMP_SEDE_DEL IMP_SEDE_DEL

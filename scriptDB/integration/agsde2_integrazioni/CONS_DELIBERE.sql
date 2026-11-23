@@ -1,7 +1,7 @@
 --liquibase formatted sql
 --changeset rdestasio:install_20210221_integrazioni_01 runOnChange:true
 
-CREATE OR REPLACE FORCE VIEW CONS_DELIBERE
+create or replace force view CONS_DELIBERE
 (
    ID_DELIBERA,
    ID_PROPOSTA_DELIBERA,
@@ -69,11 +69,14 @@ CREATE OR REPLACE FORCE VIEW CONS_DELIBERE
    INDICE_ALLEGATI,
    COGNOME_SEGRETARIO,
    NOME_SEGRETARIO,
+   CF_SEGRETARIO,
    COGNOME_FUNZIONARIO,
-   NOME_FUNZIONARIO
+   NOME_FUNZIONARIO,
+   CF_FUNZIONARIO,
+   PRESENZA_FUNZIONARIO
 )
-AS
-SELECT d.id_delibera,
+as
+select d.id_delibera,
        pd.id_proposta_delibera,
        d.id_documento_esterno,
        fa.nome filename,
@@ -90,58 +93,43 @@ SELECT d.id_delibera,
        d.anno_protocollo,
        d.data_numero_protocollo,
        d.numero_protocollo,
-       DECODE (d.numero_protocollo,
-               NULL, NULL,
-               NVL (d.registro_protocollo, 'PROT')),
+       decode (d.numero_protocollo, null, null, nvl (d.registro_protocollo, 'PROT')),
        d.data_pubblicazione,
        d.data_fine_pubblicazione,
        d.data_esecutivita,
        td.titolo,
        d.oggetto,
        d.riservato,
-       (SELECT COUNT (1)
-        FROM allegati alle
-        WHERE     (   alle.id_delibera = d.id_delibera
-            OR alle.id_proposta_delibera = d.id_proposta_delibera)
-          AND alle.valido = 'Y'
-          AND alle.riservato = 'Y')
+       (select count (1)
+        from allegati alle
+        where (alle.id_delibera = d.id_delibera or alle.id_proposta_delibera = d.id_proposta_delibera)
+          and alle.valido = 'Y'
+          and alle.riservato = 'Y')
                num_allegati_riservati,
        td.titolo tipo_delibera,
-       utility_pkg.get_uo_descrizione (uo_prop.unita_progr,
-                                       uo_prop.unita_dal)
-           unita_proponente,
-       utility_pkg.get_cognome_nome (
-               utility_pkg.get_ni_soggetto (redattore.utente))
-           redattore,
-       DECODE (
-               pd.controllo_funzionario,
-               'Y', utility_pkg.get_cognome_nome (
-                       utility_pkg.get_ni_soggetto (funzionario.utente)),
+       utility_pkg.get_uo_descrizione (uo_prop.unita_progr, uo_prop.unita_dal) unita_proponente,
+       utility_pkg.get_cognome_nome (utility_pkg.get_ni_soggetto (redattore.utente), d.ente) redattore,
+       decode (pd.controllo_funzionario,
+               'Y', utility_pkg.get_cognome_nome (utility_pkg.get_ni_soggetto (funzionario.utente), d.ente),
                '')
            funzionario,
-       DECODE (
+       decode (
                d.id_engine_iter,
-               NULL, DECODE (
-                       dirigente.utente,
-                       NULL, 'NON VALORIZZATO ALLA DATA DI PRODUZIONE DEL DOCUMENTO',
-                       utility_pkg.get_cognome_nome (
-                               utility_pkg.get_ni_soggetto (dirigente.utente))),
-               utility_pkg.get_cognome_nome (
-                       utility_pkg.get_ni_soggetto (dirigente.utente)))
+               null, decode (dirigente.utente,
+                             null, 'NON VALORIZZATO ALLA DATA DI PRODUZIONE DEL DOCUMENTO',
+                             utility_pkg.get_cognome_nome (utility_pkg.get_ni_soggetto (dirigente.utente), d.ente)),
+               utility_pkg.get_cognome_nome (utility_pkg.get_ni_soggetto (dirigente.utente), d.ente))
            dirigente,
-       utility_pkg.get_uo_descrizione (dirigente.unita_progr,
-                                       dirigente.unita_dal)
-           unita_dirigente,
+       utility_pkg.get_uo_descrizione (dirigente.unita_progr, dirigente.unita_dal) unita_dirigente,
        utility_pkg.get_suddivisione_descrizione (uo_prop.unita_progr,
                                                  uo_prop.unita_dal,
                                                  'SO4_SUDDIVISIONE_AREA',
                                                  d.ente)
            descrizione_area,
-       utility_pkg.get_suddivisione_descrizione (
-               uo_prop.unita_progr,
-               uo_prop.unita_dal,
-               'SO4_SUDDIVISIONE_SERVIZIO',
-               d.ente)
+       utility_pkg.get_suddivisione_descrizione (uo_prop.unita_progr,
+                                                 uo_prop.unita_dal,
+                                                 'SO4_SUDDIVISIONE_SERVIZIO',
+                                                 d.ente)
            descrizione_servizio,
        pd.classifica_codice,
        pd.classifica_dal,
@@ -150,149 +138,93 @@ SELECT d.id_delibera,
        pd.fascicolo_anno,
        pd.fascicolo_oggetto,
        d.stato,
-       DECODE (
+       decode (
                d.id_engine_iter,
-               NULL, DECODE (
-                       utility_pkg.get_firmatario_delibera (d.id_delibera,
-                                                            'PRESIDENTE'),
-                       NULL, 'NON VALORIZZATO ALLA DATA DI PRODUZIONE DEL DOCUMENTO',
-                       utility_pkg.get_firmatario_delibera (d.id_delibera,
-                                                            'PRESIDENTE')),
-               NVL (
-                       utility_pkg.get_firmatario_delibera (d.id_delibera,
-                                                            'PRESIDENTE'),
-                       utility_pkg.get_nominativo_sogg_deli (d.id_delibera,
-                                                             'PRESIDENTE'))),
+               null, decode (utility_pkg.get_firmatario_delibera (d.id_delibera, 'PRESIDENTE'),
+                             null, 'NON VALORIZZATO ALLA DATA DI PRODUZIONE DEL DOCUMENTO',
+                             utility_pkg.get_firmatario_delibera (d.id_delibera, 'PRESIDENTE')),
+               nvl (utility_pkg.get_firmatario_delibera (d.id_delibera, 'PRESIDENTE'),
+                    utility_pkg.get_nominativo_sogg_deli (d.id_delibera, 'PRESIDENTE'))),
        utility_pkg.get_data_firma_delibera (d.id_delibera, 'PRESIDENTE'),
-       DECODE (
+       decode (
                d.id_engine_iter,
-               NULL, DECODE (
-                       utility_pkg.get_firmatario_delibera (d.id_delibera,
-                                                            'SEGRETARIO'),
-                       NULL, 'NON VALORIZZATO ALLA DATA DI PRODUZIONE DEL DOCUMENTO',
-                       utility_pkg.get_firmatario_delibera (d.id_delibera,
-                                                            'SEGRETARIO')),
-               NVL (
-                       utility_pkg.get_firmatario_delibera (d.id_delibera,
-                                                            'SEGRETARIO'),
-                       utility_pkg.get_nominativo_sogg_deli (d.id_delibera,
-                                                             'SEGRETARIO'))),
+               null, decode (utility_pkg.get_firmatario_delibera (d.id_delibera, 'SEGRETARIO'),
+                             null, 'NON VALORIZZATO ALLA DATA DI PRODUZIONE DEL DOCUMENTO',
+                             utility_pkg.get_firmatario_delibera (d.id_delibera, 'SEGRETARIO')),
+               nvl (utility_pkg.get_firmatario_delibera (d.id_delibera, 'SEGRETARIO'),
+                    utility_pkg.get_nominativo_sogg_deli (d.id_delibera, 'SEGRETARIO'))),
        utility_pkg.get_data_firma_delibera (d.id_delibera, 'SEGRETARIO'),
-       DECODE (
+       decode (
                d.id_engine_iter,
-               NULL, DECODE (
-                       utility_pkg.get_firmatario_delibera (
-                               d.id_delibera,
-                               'DIRETTORE_AMMINISTRATIVO'),
-                       NULL, 'NON VALORIZZATO ALLA DATA DI PRODUZIONE DEL DOCUMENTO',
-                       utility_pkg.get_firmatario_delibera (
-                               d.id_delibera,
-                               'DIRETTORE_AMMINISTRATIVO')),
-               utility_pkg.get_firmatario_delibera (d.id_delibera,
-                                                    'DIRETTORE_AMMINISTRATIVO')),
-       utility_pkg.get_data_firma_delibera (d.id_delibera,
-                                            'DIRETTORE_AMMINISTRATIVO'),
-       DECODE (
+               null, decode (utility_pkg.get_firmatario_delibera (d.id_delibera, 'DIRETTORE_AMMINISTRATIVO'),
+                             null, 'NON VALORIZZATO ALLA DATA DI PRODUZIONE DEL DOCUMENTO',
+                             utility_pkg.get_firmatario_delibera (d.id_delibera, 'DIRETTORE_AMMINISTRATIVO')),
+               utility_pkg.get_firmatario_delibera (d.id_delibera, 'DIRETTORE_AMMINISTRATIVO')),
+       utility_pkg.get_data_firma_delibera (d.id_delibera, 'DIRETTORE_AMMINISTRATIVO'),
+       decode (
                d.id_engine_iter,
-               NULL, DECODE (
-                       utility_pkg.get_firmatario_delibera (
-                               d.id_delibera,
-                               'DIRETTORE_SANITARIO'),
-                       NULL, 'NON VALORIZZATO ALLA DATA DI PRODUZIONE DEL DOCUMENTO',
-                       utility_pkg.get_firmatario_delibera (
-                               d.id_delibera,
-                               'DIRETTORE_SANITARIO')),
-               utility_pkg.get_firmatario_delibera (d.id_delibera,
-                                                    'DIRETTORE_SANITARIO')),
-       utility_pkg.get_data_firma_delibera (d.id_delibera,
-                                            'DIRETTORE_SANITARIO'),
-       DECODE (
+               null, decode (utility_pkg.get_firmatario_delibera (d.id_delibera, 'DIRETTORE_SANITARIO'),
+                             null, 'NON VALORIZZATO ALLA DATA DI PRODUZIONE DEL DOCUMENTO',
+                             utility_pkg.get_firmatario_delibera (d.id_delibera, 'DIRETTORE_SANITARIO')),
+               utility_pkg.get_firmatario_delibera (d.id_delibera, 'DIRETTORE_SANITARIO')),
+       utility_pkg.get_data_firma_delibera (d.id_delibera, 'DIRETTORE_SANITARIO'),
+       decode (
                d.id_engine_iter,
-               NULL, DECODE (
-                       utility_pkg.get_firmatario_delibera (
-                               d.id_delibera,
-                               'DIRETTORE_GENERALE'),
-                       NULL, 'NON VALORIZZATO ALLA DATA DI PRODUZIONE DEL DOCUMENTO',
-                       utility_pkg.get_firmatario_delibera (
-                               d.id_delibera,
-                               'DIRETTORE_GENERALE')),
-               utility_pkg.get_firmatario_delibera (d.id_delibera,
-                                                    'DIRETTORE_GENERALE')),
-       utility_pkg.get_data_firma_delibera (d.id_delibera,
-                                            'DIRETTORE_GENERALE'),
-       (SELECT DECODE (COUNT (1), 0, 'N', 'Y')
-        FROM visti_pareri vp, tipi_visto_parere tvp
-        WHERE     (   vp.id_delibera = d.id_delibera
-            OR vp.id_proposta_delibera = d.id_proposta_delibera)
-          AND vp.id_tipologia = tvp.id_tipo_visto_parere
-          AND vp.valido = 'Y'
-          AND tvp.contabile = 'Y')
+               null, decode (utility_pkg.get_firmatario_delibera (d.id_delibera, 'DIRETTORE_GENERALE'),
+                             null, 'NON VALORIZZATO ALLA DATA DI PRODUZIONE DEL DOCUMENTO',
+                             utility_pkg.get_firmatario_delibera (d.id_delibera, 'DIRETTORE_GENERALE')),
+               utility_pkg.get_firmatario_delibera (d.id_delibera, 'DIRETTORE_GENERALE')),
+       utility_pkg.get_data_firma_delibera (d.id_delibera, 'DIRETTORE_GENERALE'),
+       (select decode (count (1), 0, 'N', 'Y')
+        from visti_pareri vp, tipi_visto_parere tvp
+        where (vp.id_delibera = d.id_delibera or vp.id_proposta_delibera = d.id_proposta_delibera)
+          and vp.id_tipologia = tvp.id_tipo_visto_parere
+          and vp.valido = 'Y'
+          and tvp.contabile = 'Y')
            impegno_spesa,
-       utility_pkg.get_firmatario_par_contabile (d.id_delibera)
-           firmatario_parere_contabile,
-       utility_pkg.get_data_firma_par_contabile (d.id_delibera)
-           data_firma_parere_contabile,
-       utility_pkg.get_unita_parere_contabile (d.id_delibera)
-           unita_parere_contabile,
-       utility_pkg.get_esito_parere_contabile (d.id_delibera)
-           esito_parere_contabile,
+       utility_pkg.get_firmatario_par_contabile (d.id_delibera) firmatario_parere_contabile,
+       utility_pkg.get_data_firma_par_contabile (d.id_delibera) data_firma_parere_contabile,
+       utility_pkg.get_unita_parere_contabile (d.id_delibera) unita_parere_contabile,
+       utility_pkg.get_esito_parere_contabile (d.id_delibera) esito_parere_contabile,
        numero_albo,
        anno_albo,
-       utility_pkg.get_sogg_notifica_delibera (d.id_delibera)
-           soggetti_notifica,
+       utility_pkg.get_sogg_notifica_delibera (d.id_delibera) soggetti_notifica,
        d.ente,
        utility_pkg.cons_get_codice_aoo (d.ente),
        utility_pkg.cons_get_descrizione_aoo (d.ente),
        utility_pkg.cons_get_denominazione_amm (d.ente),
-       (SELECT COUNT (1)
-        FROM allegati alle
-        WHERE     (   alle.id_delibera = d.id_delibera
-            OR alle.id_proposta_delibera = d.id_proposta_delibera)
-          AND alle.valido = 'Y')
+       (select count (1)
+        from allegati alle
+        where (alle.id_delibera = d.id_delibera or alle.id_proposta_delibera = d.id_proposta_delibera) and alle.valido = 'Y')
            num_allegati,
-       utility_pkg.cons_indice_allegati_delibera (d.id_delibera,
-                                                  d.id_proposta_delibera),
-       DECODE (
+       utility_pkg.cons_indice_allegati_delibera (d.id_delibera, d.id_proposta_delibera),
+       decode (
                d.id_engine_iter,
-               NULL, DECODE (
-                       utility_pkg.get_firmatario_deli_cognome (d.id_delibera,
-                                                                'SEGRETARIO'),
-                       NULL, 'NON VALORIZZATO ALLA DATA DI PRODUZIONE DEL DOCUMENTO',
-                       utility_pkg.get_firmatario_deli_cognome (d.id_delibera,
-                                                                'SEGRETARIO')),
-               NVL (
-                       utility_pkg.get_firmatario_deli_cognome (d.id_delibera,
-                                                                'SEGRETARIO'),
-                       utility_pkg.get_nominativo_sogg_deli_c (d.id_delibera,
-                                                               'SEGRETARIO')))
+               null, decode (utility_pkg.get_firmatario_deli_cognome (d.id_delibera, 'SEGRETARIO'),
+                             null, 'NON VALORIZZATO ALLA DATA DI PRODUZIONE DEL DOCUMENTO',
+                             utility_pkg.get_firmatario_deli_cognome (d.id_delibera, 'SEGRETARIO')),
+               nvl (utility_pkg.get_firmatario_deli_cognome (d.id_delibera, 'SEGRETARIO'),
+                    utility_pkg.get_nominativo_sogg_deli_c (d.id_delibera, 'SEGRETARIO')))
            cognome_segretario,
-       DECODE (
+       decode (
                d.id_engine_iter,
-               NULL, DECODE (
-                       utility_pkg.get_firmatario_deli_nome (d.id_delibera,
-                                                             'SEGRETARIO'),
-                       NULL, 'NON VALORIZZATO ALLA DATA DI PRODUZIONE DEL DOCUMENTO',
-                       utility_pkg.get_firmatario_deli_nome (d.id_delibera,
-                                                             'SEGRETARIO')),
-               NVL (
-                       utility_pkg.get_firmatario_deli_nome (d.id_delibera,
-                                                             'SEGRETARIO'),
-                       utility_pkg.get_nominativo_sogg_deli_n (d.id_delibera,
-                                                               'SEGRETARIO')))
+               null, decode (utility_pkg.get_firmatario_deli_nome (d.id_delibera, 'SEGRETARIO'),
+                             null, 'NON VALORIZZATO ALLA DATA DI PRODUZIONE DEL DOCUMENTO',
+                             utility_pkg.get_firmatario_deli_nome (d.id_delibera, 'SEGRETARIO')),
+               nvl (utility_pkg.get_firmatario_deli_nome (d.id_delibera, 'SEGRETARIO'),
+                    utility_pkg.get_nominativo_sogg_deli_n (d.id_delibera, 'SEGRETARIO')))
            nome_segretario,
-       DECODE (
-               pd.controllo_funzionario,
-               'Y', utility_pkg.get_cognome (
-                       utility_pkg.get_ni_soggetto (funzionario.utente)),
-               '')
+       nvl (utility_pkg.get_firmatario_deli_cf (d.id_delibera, 'SEGRETARIO'), 'Non Applicabile') cf_segretario,
+       decode (pd.controllo_funzionario, 'Y', utility_pkg.get_cognome (utility_pkg.get_ni_soggetto (funzionario.utente)), '')
            cognome_firmatario,
-       DECODE (
-               pd.controllo_funzionario,
-               'Y', utility_pkg.get_nome (
-                       utility_pkg.get_ni_soggetto (funzionario.utente)),
+       decode (pd.controllo_funzionario, 'Y', utility_pkg.get_nome (utility_pkg.get_ni_soggetto (funzionario.utente)), '')
+           nome_firmatario,
+       decode (pd.controllo_funzionario,
+               'Y', utility_pkg.get_codice_fiscale (utility_pkg.get_ni_soggetto (funzionario.utente)),
                '')
-           nome_firmatario
-FROM proposte_delibera_soggetti uo_prop,
+           cf_funzionario,
+       nvl (pd.controllo_funzionario, 'N') presenza_funzionario
+from proposte_delibera_soggetti uo_prop,
      proposte_delibera_soggetti redattore,
      proposte_delibera_soggetti funzionario,
      proposte_delibera_soggetti dirigente,
@@ -301,17 +233,17 @@ FROM proposte_delibera_soggetti uo_prop,
      delibere d,
      tipi_delibera td,
      tipi_registro tr
-WHERE     pd.id_tipo_delibera = td.id_tipo_delibera
-  AND d.id_file_allegato_testo = fa.id_file_allegato
-  AND d.id_proposta_delibera = pd.id_proposta_delibera
-  AND uo_prop.id_proposta_delibera = d.id_proposta_delibera
-  AND uo_prop.tipo_soggetto = 'UO_PROPONENTE'
-  AND redattore.id_proposta_delibera(+) = d.id_proposta_delibera
-  AND redattore.tipo_soggetto(+) = 'REDATTORE'
-  AND funzionario.id_proposta_delibera(+) = d.id_proposta_delibera
-  AND funzionario.tipo_soggetto(+) = 'FUNZIONARIO'
-  AND dirigente.id_proposta_delibera(+) = d.id_proposta_delibera
-  AND dirigente.tipo_soggetto(+) = 'DIRIGENTE'
-  AND d.valido = 'Y'
-  AND d.registro_delibera = tr.tipo_registro
+where pd.id_tipo_delibera = td.id_tipo_delibera
+  and d.id_file_allegato_testo = fa.id_file_allegato
+  and d.id_proposta_delibera = pd.id_proposta_delibera
+  and uo_prop.id_proposta_delibera = d.id_proposta_delibera
+  and uo_prop.tipo_soggetto = 'UO_PROPONENTE'
+  and redattore.id_proposta_delibera(+) = d.id_proposta_delibera
+  and redattore.tipo_soggetto(+) = 'REDATTORE'
+  and funzionario.id_proposta_delibera(+) = d.id_proposta_delibera
+  and funzionario.tipo_soggetto(+) = 'FUNZIONARIO'
+  and dirigente.id_proposta_delibera(+) = d.id_proposta_delibera
+  and dirigente.tipo_soggetto(+) = 'DIRIGENTE'
+  and d.valido = 'Y'
+  and d.registro_delibera = tr.tipo_registro
 /

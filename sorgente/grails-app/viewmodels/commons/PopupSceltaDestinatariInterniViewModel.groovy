@@ -70,7 +70,9 @@ class PopupSceltaDestinatariInterniViewModel {
             } else if (it.utente != null && it.unitaSo4 != null) {
                 // inserisco il componente
                 So4ComponentePubb componente = strutturaOrganizzativaService.getComponente(it.utente.getDomainObject(), it.unitaSo4.getDomainObject())
-                listaComponenti.add(componente.toDTO())
+                if(componente!=null) {
+                    listaComponenti.add(componente.toDTO())
+                }
             }
         }
     }

@@ -20,7 +20,7 @@ import org.zkoss.zul.Window
 
 class CategoriaPropostaDeliberaDettaglioViewModel extends AfcAbstractRecord {
 
-	CategoriaDTO 	selectedRecord
+	//CategoriaDTO 	selectedRecord
 	def 			listaAllegatiObbligatori
 
 	// services

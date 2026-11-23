@@ -23,14 +23,15 @@ class RicercaCertificato extends RicercaDocumento {
 		ente 	column: 'ente'
 		step	column: 'id_step'
 
-		compLettura         type: 'yes_no'
-		compModifica        type: 'yes_no'
-		compCancellazione	type: 'yes_no'
+		compLettura          type: 'yes_no'
+		compModifica         type: 'yes_no'
+		compCancellazione	 type: 'yes_no'
 
-		riservato 			type: 'yes_no'
-		daInviareCorteConti	type: 'yes_no'
-		conImpegnoSpesa		type: 'yes_no'
-		attoConcluso		type: 'yes_no'
+		riservato 			 type: 'yes_no'
+		controlloFunzionario type: 'yes_no'
+		daInviareCorteConti	 type: 'yes_no'
+		conImpegnoSpesa		 type: 'yes_no'
+		attoConcluso		 type: 'yes_no'
 
 		utenteFirmatario	column: 'utente_firmatario'
 
@@ -66,6 +67,7 @@ class RicercaCertificato extends RicercaDocumento {
 		stepUtente 			column: 'step_utente'
 		stepRuolo  			column: 'step_ruolo'
 		categoria			column: 'id_categoria'
+		impattoGenerazionale column: 'id_impatto_generazionale'
 		testo				column: 'id_testo'
 		allegato			column: 'id_file_allegato'
         tipoBudget          column: 'id_tipo_budget'

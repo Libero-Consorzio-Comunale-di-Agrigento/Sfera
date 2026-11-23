@@ -25,6 +25,7 @@ public class DelegaDTO implements it.finmatica.dto.DTO<Delega> {
     Date validoAl;
     Date validoDal;
     Long idDelegaStorico;
+    Long idCategoriaDelega
 
 
     public Delega getDomainObject () {

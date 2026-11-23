@@ -81,4 +81,20 @@ class IntegrazioneContabilitaSfera extends AbstractIntegrazioneContabilita {
 		
 		return gestioneTestiService.stampaUnione(modello, [id: documento.id], TipoFile.PDF.estensione, true)
 	}
+
+	@Override
+	BigDecimal totaleImporto(IDocumento documento, String tipo) {
+		return MovimentoContabile.createCriteria().get {
+			projections {
+				sum("importo")
+			}
+
+			and {
+				eq("idDocumento", documento.id)
+				eq("tipoDocumento", documento.TIPO_OGGETTO)
+				eq("tipo", tipo)
+				isNotNull("importo")
+			}
+		}
+	}
 }

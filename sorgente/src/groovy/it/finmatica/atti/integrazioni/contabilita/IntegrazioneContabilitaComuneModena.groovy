@@ -352,7 +352,7 @@ class IntegrazioneContabilitaComuneModena extends AbstractIntegrazioneContabilit
             throw new AttiRuntimeException("Non è possibile creare la scheda contabile: è necessario configurare un modello di testo per il tipo allegato '${tipoAllegato.titolo}'.")
         }
 
-        return gestioneTestiService.stampaUnione(tipoAllegato.modelloTesto, [id: documento.id], Impostazioni.FORMATO_DEFAULT.valore)
+        return gestioneTestiService.stampaUnione(tipoAllegato.modelloTesto, [id: documento.id], Impostazioni.FORMATO_DEFAULT.valore, true)
     }
 
     /*

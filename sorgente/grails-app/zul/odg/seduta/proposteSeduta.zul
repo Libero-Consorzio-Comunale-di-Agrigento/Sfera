@@ -48,7 +48,7 @@
 										<label value="@load(c:cat(' - ', each.tipologia.titolo))" />
 									</div>
 									<label value="@load(c:cat3('Relatore', ': ', each.delega.assessore.denominazione)) " visible="@load(not empty each.delega.assessore.denominazione)"  />
-									<label onCreate="@command('getUnita', oggetto=each)" />
+									<label value="@load(each.unitaProponente)" />
 									<label value="@load(c:cat3('Oggetto', ': ', each.oggetto))" />
 									<div hflex="1">
 										<label value="Data Seduta prevista il: " />
@@ -68,7 +68,7 @@
 											style="text-decoration:underline; color:black;" />
 										<label value="@load(c:cat(' - ', each.tipologia.titolo))" />
 									</div>
-									<label onCreate="@command('getUnita', oggetto=each)" />
+									<label value="@load(each.unitaProponente)" />
 									<label value="@load(c:cat3('Oggetto', ': ', each.oggetto))" />
 								</vlayout>
 							</listcell>
@@ -110,7 +110,7 @@
 
 									</div>
 					                <label value="@load(c:cat3('Relatore', ': ', each.delega.assessore.denominazione))" visible="@load(not empty each.delega.assessore.denominazione)" />
-									<label onCreate="@command('getUnita', oggetto=(not empty each.propostaDelibera) ? each.propostaDelibera : each.determina)" />
+									<label value="@load(each.unitaProponente)" />
 									<label value="@load(not empty each.propostaDelibera ? c:cat3('Oggetto', ': ',  each.propostaDelibera.oggetto) : c:cat3('Oggetto', ': ',  each.determina.oggetto))" />
 								</vlayout>
 							</listcell>

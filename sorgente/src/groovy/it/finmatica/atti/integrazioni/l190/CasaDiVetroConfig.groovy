@@ -9,7 +9,9 @@ import it.finmatica.atti.impostazioni.MappingIntegrazione
 import it.finmatica.atti.integrazioni.CasaDiVetroService
 import it.finmatica.atti.integrazioni.lookup.LookupCategoria
 import it.finmatica.atti.integrazioni.lookup.LookupOggettoRicorrente
+import it.finmatica.atti.integrazioni.lookup.LookupSiNo
 import it.finmatica.atti.integrazioni.lookup.LookupTipologiaAtto
+import it.finmatica.atti.integrazioni.lookup.LookupTutti
 import it.finmatica.atti.integrazioni.parametri.ParametroIntegrazione
 import it.finmatica.atti.integrazioniws.ads.l190.PubblicaAttoService
 import org.springframework.context.annotation.Lazy
@@ -55,6 +57,7 @@ class CasaDiVetroConfig extends AbstractWebServiceConfig {
         return [new ParametroIntegrazione("URL_SERVER", "Url di accesso all'applicativo Casa di Vetro"),
                 new ParametroIntegrazione("SEZIONE_DELIBERE", "Sezioni di default per le delibere"),
                 new ParametroIntegrazione("SEZIONE_DETERMINE", "Sezioni di default per le determine"),
+                new ParametroIntegrazione("SEZIONE_TUTTE", "Pubblicare gli atti nelle sezioni indicate in tutti i livelli di mappatura ?", LookupTutti.INSTANCE, LookupSiNo.INSTANCE),
                 new ParametroIntegrazione(MAPPING_CODICE_CATEGORIA, "Categoria", LookupCategoria.INSTANCE),
                 new ParametroIntegrazione(MAPPING_CODICE_TIPOLOGIA, "Tipologia", LookupTipologiaAtto.INSTANCE),
                 new ParametroIntegrazione(MAPPING_CODICE_OGGETTO_RICORRENTE, "Oggetto Ricorrente", LookupOggettoRicorrente.INSTANCE)]
@@ -79,10 +82,14 @@ class CasaDiVetroConfig extends AbstractWebServiceConfig {
     }
 
     String getSezioneDelibere() {
-        return MappingIntegrazione.getValoreEsterno(MAPPING_CATEGORIA, "SEZIONE_DELIBERE", MappingIntegrazione.VALORE_INTERNO_TUTTI, "DELIBERA")
+        return MappingIntegrazione.getValoreEsterno(MAPPING_CATEGORIA, "SEZIONE_DELIBERE", MappingIntegrazione.VALORE_INTERNO_TUTTI, "N")
     }
 
     String getSezioneDetermine() {
         return MappingIntegrazione.getValoreEsterno(MAPPING_CATEGORIA, "SEZIONE_DETERMINE", MappingIntegrazione.VALORE_INTERNO_TUTTI, "DETERMINA")
+    }
+
+    boolean getSezioneTutte() {
+        return MappingIntegrazione.getValoreEsternoBoolean(MAPPING_CATEGORIA, "SEZIONE_TUTTE", MappingIntegrazione.VALORE_INTERNO_TUTTI, "N")
     }
 }

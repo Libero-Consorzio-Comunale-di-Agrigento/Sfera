@@ -1,6 +1,7 @@
 package it.finmatica.atti.documenti
 
 import grails.plugin.springsecurity.SpringSecurityService
+import it.finmatica.atti.IFileAllegato
 import it.finmatica.atti.IGestoreFile
 import it.finmatica.atti.IntegrazioneContabilita
 import it.finmatica.atti.commons.FileAllegato
@@ -16,9 +17,7 @@ import it.finmatica.gestionetesti.reporter.GestioneTestiModello
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.FilenameUtils
 import org.apache.commons.io.IOUtils
-import org.zkoss.zhtml.Filedownload
-
-import java.text.SimpleDateFormat
+import org.springframework.transaction.annotation.Transactional
 
 class AllegatoService {
 
@@ -383,6 +382,10 @@ class AllegatoService {
         return TipoAllegato.findByValidoAndCodiceAndTipologia(true, tipoAllegato, tipoDocumento)
     }
 
+    TipoAllegato getTipoAllegatoByCodiceEsterno (String tipoAllegato, String tipoDocumento) {
+        return TipoAllegato.findByValidoAndCodiceEsternoAndTipologia(true, tipoAllegato, tipoDocumento)
+    }
+
     Allegato getAllegato (IDocumento documento, String tipoAllegato) {
         if (documento.allegati == null) {
             return null
@@ -483,6 +486,22 @@ class AllegatoService {
         return false;
     }
 
+    @Transactional(readOnly = true)
+    boolean esistonoFileNonPdf(IDocumento documento) {
+
+        for (Allegato allegato : documento.allegati?.findAll { it.valido == true }) {
+            if (!allegato.statoFirma.equals(StatoFirma.DA_FIRMARE)) {
+                continue
+            }
+            for (IFileAllegato fileAllegato : allegato.fileAllegati?.findAll { it.valido }) {
+                if (!fileAllegato.isPdf()) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
     public boolean esistonoAllegatiDaFirmareNonConvertibili(IDocumento documento){
         for (Allegato allegato : documento.allegati?.findAll { it.valido == true }) {
             if (!allegato.statoFirma.equals(StatoFirma.DA_FIRMARE)) {
@@ -570,5 +589,9 @@ class AllegatoService {
         proposta.addToAllegati(allegato)
 
         proposta.save()
+    }
+
+    boolean isRiservato(Allegato allegato){
+        return allegato.riservato
     }
 }

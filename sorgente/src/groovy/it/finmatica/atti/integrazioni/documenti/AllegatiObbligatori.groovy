@@ -38,8 +38,8 @@ class AllegatiObbligatori implements ModuloIntegrazione {
 
     @Override
     List<ParametroIntegrazione> getListaParametri() {
-        return [new ParametroIntegrazione(MAPPING_CODICE_CATEGORIA, "Categoria", LookupCategoria.INSTANCE, LookupTipoAllegato.INSTANCE),
-                new ParametroIntegrazione(MAPPING_CODICE_TIPOLOGIA, "Tipologia", LookupTipologiaAtto.INSTANCE, LookupTipoAllegato.INSTANCE)]
+        return [new ParametroIntegrazione(MAPPING_CODICE_CATEGORIA, "Categoria", LookupCategoria.INSTANCE, LookupTipoAllegato.INSTANCE, true),
+                new ParametroIntegrazione(MAPPING_CODICE_TIPOLOGIA, "Tipologia", LookupTipologiaAtto.INSTANCE, LookupTipoAllegato.INSTANCE, false)]
     }
 
     String getCategoria(IProposta proposta) {

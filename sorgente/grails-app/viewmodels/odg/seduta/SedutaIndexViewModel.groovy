@@ -5,7 +5,6 @@ import it.finmatica.atti.dizionari.TipoNotifica
 import it.finmatica.atti.documenti.Delibera
 import it.finmatica.atti.dto.dizionari.NotificaDTO
 import it.finmatica.atti.dto.odg.CommissioneStampaDTO
-import it.finmatica.atti.dto.odg.ConvocatiSedutaDTOService
 import it.finmatica.atti.dto.odg.SedutaDTO
 import it.finmatica.atti.dto.odg.SedutaDTOService
 import it.finmatica.atti.impostazioni.Impostazioni
@@ -19,14 +18,19 @@ import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.hibernate.FetchMode
 import org.zkoss.bind.BindUtils
 import org.zkoss.bind.annotation.*
+import org.zkoss.zk.ui.Component
 import org.zkoss.zk.ui.Executions
 import org.zkoss.zk.ui.event.Event
 import org.zkoss.zk.ui.event.Events
 import org.zkoss.zk.ui.util.Clients
 import org.zkoss.zul.Filedownload
+import org.zkoss.zul.Include
 import org.zkoss.zul.Messagebox
+import org.zkoss.zul.Tab
 import org.zkoss.zul.Tabbox
+import org.zkoss.zul.Tabpanel
 import org.zkoss.zul.Window
+import org.zkoss.zk.ui.event.EventListener
 
 import java.text.SimpleDateFormat
 
@@ -53,11 +57,13 @@ class SedutaIndexViewModel {
     List<CommissioneStampaDTO> listaStampeCommissione
     List<NotificaDTO>          listaNotifiche
     boolean                    abilitaTabVerbalizzazione
+    boolean                    abilitaTabCommissioniCollegate
     boolean                    abilitaVerbalizzazione
     boolean                    abilitaTesti
     boolean                    esportaSedutaXml
     boolean                    esportaSedutaCsv
     Date                       dataSedutaIniziale
+    boolean                    abilitaOrdinamentoProposteSeparato
 
     GrailsApplication grailsApplication
 
@@ -68,6 +74,7 @@ class SedutaIndexViewModel {
         linkSedutaPrincipale = ""
         abilitaLinkSeduta = true
         abilitaTabVerbalizzazione = true
+        abilitaTabCommissioniCollegate = false
         abilitaVerbalizzazione = true
         abilitaTesti = true
         esportaSedutaXml = false
@@ -75,6 +82,8 @@ class SedutaIndexViewModel {
         descrizioneSeduta = ""
         numOggettoSeduta = 0
         numSedutaPartecipante = 0
+
+        abilitaOrdinamentoProposteSeparato=Impostazioni.ODG_ORDINAMENTO_PROPOSTE_SEPARATO.abilitato
 
         if (id > 0) {
             Seduta s = Seduta.findById(id,
@@ -100,11 +109,60 @@ class SedutaIndexViewModel {
 
         calcolaNumSedutaPartecipante()
         calcolaNumDelibere()
-        checkAbilitaTesti()
-        checkAbilitaVerbalizzazione()
+        checkAbilitaTestiEVerbalizzazione()
         checkAbilitaTabVerbalizzazione()
+        checkAbilitaTabCommissioniCollegate()
         checkAbilitaEsportazioneSedutaXml()
         checkAbilitaEsportazioneSedutaCsv()
+    }
+    /*
+    @Command
+    public void onSelectTab(@BindingParam("selectedTab") Tab selectedTab,
+                            @ContextParam(ContextType.VIEW) Component view) {
+
+        if (selectedTab != null && "verbalizzazioneOrdina".equals(selectedTab.getId())) {
+            Include include = (Include) view.query("#includeOrdina");
+            if (include != null) {
+                String src = include.getSrc();
+                include.setSrc(null);
+                include.setSrc(src);
+            }
+        } else if (selectedTab != null && "verbalizzazioneModifica".equals(selectedTab.getId())) {
+            Include include = (Include) view.query("#includeModifica");
+            if (include != null) {
+                // forza il reload dello zul e quindi re-inizializza il VM
+                String src = include.getSrc();
+                include.setSrc(null);
+                include.setSrc(src);
+            }
+        } else if(selectedTab != null && selectedTab.getLastChild()!=null){
+            selectedTab.getLastChild().invalidate()
+        }
+
+    }
+    */
+    @Command
+    public void onSelectTab(@BindingParam("selectedTab") Tab selectedTab,
+                            @ContextParam(ContextType.VIEW) Component view) {
+
+        if (selectedTab == null) return
+
+        switch (selectedTab.getId()) {
+            case "verbalizzazioneOrdina":
+                BindUtils.postGlobalCommand(null, null,
+                        "onRefreshVerbalizzazioneOrdina",
+                        null
+                )
+                break
+            case "verbalizzazioneModifica":
+                BindUtils.postGlobalCommand(null, null,
+                        "onRefreshVerbalizzazioneModifica",
+                        null
+                )
+                break
+            default:
+                return
+        }
     }
 
     boolean isStampeAbilitate () {
@@ -174,36 +232,38 @@ class SedutaIndexViewModel {
     void abilitaTabFolders () {
         calcolaNumSedutaPartecipante()
         calcolaNumDelibere()
-        checkAbilitaTesti()
-        checkAbilitaVerbalizzazione()
+        checkAbilitaTestiEVerbalizzazione()
     }
 
     private void checkAbilitaTabVerbalizzazione () {
-        Date dataSedutaFormatted = (new SimpleDateFormat("dd/MM/yyyy")).parse(seduta.dataSeduta.getDateString())
-        Date oggi = (new SimpleDateFormat("dd/MM/yyyy")).parse(new Date().getDateString())
+        Date dataSedutaFormatted = (new SimpleDateFormat("dd/MM/yyyy")).parse(seduta.dataSeduta.format("dd/MM/yyyy"))
+        Date oggi = (new SimpleDateFormat("dd/MM/yyyy")).parse(new Date().format("dd/MM/yyyy"))
 
         abilitaTabVerbalizzazione = !(dataSedutaFormatted.compareTo(oggi) <= 0 && seduta.oraSeduta != null)
 
         BindUtils.postNotifyChange(null, null, this, "abilitaTabVerbalizzazione")
     }
 
-    private void checkAbilitaVerbalizzazione () {
-        if (!controlloRuoliObbligatori(RuoloPartecipante.CODICE_PRESIDENTE) && !controlloRuoliObbligatori(RuoloPartecipante.CODICE_SEGRETARIO)) {
-            abilitaVerbalizzazione = (numSedutaPartecipante == 0)
-        } else {
-            abilitaVerbalizzazione = true
-        }
+    private void checkAbilitaTabCommissioniCollegate () {
+        abilitaTabCommissioniCollegate = CommissioneCollegata.countByCommissioneAndValido(seduta?.commissione?.getDomainObject(), true) > 0
+        BindUtils.postNotifyChange(null, null, this, "abilitaTabCommissioniCollegate")
+    }
 
-        BindUtils.postNotifyChange(null, null, this, "abilitaVerbalizzazione")
+    private void checkAbilitaVerbalizzazione () {
+        checkAbilitaTestiEVerbalizzazione()
     }
 
     private void checkAbilitaTesti () {
-        if (!controlloRuoliObbligatori(RuoloPartecipante.CODICE_PRESIDENTE) && !controlloRuoliObbligatori(RuoloPartecipante.CODICE_SEGRETARIO)) {
-            abilitaTesti = (numDelibere == 0)
-        } else {
-            abilitaTesti = true
-        }
+        checkAbilitaTestiEVerbalizzazione()
+    }
 
+    private void checkAbilitaTestiEVerbalizzazione () {
+        boolean ruoliObbligatoriMancanti = !controlloRuoliObbligatori(RuoloPartecipante.CODICE_PRESIDENTE) && !controlloRuoliObbligatori(RuoloPartecipante.CODICE_SEGRETARIO)
+
+        abilitaVerbalizzazione = ruoliObbligatoriMancanti ? (numSedutaPartecipante == 0) : true
+        abilitaTesti           = ruoliObbligatoriMancanti ? (numDelibere == 0)           : true
+
+        BindUtils.postNotifyChange(null, null, this, "abilitaVerbalizzazione")
         BindUtils.postNotifyChange(null, null, this, "abilitaTesti")
     }
 
@@ -225,10 +285,10 @@ class SedutaIndexViewModel {
 
     private boolean controlloRuoliObbligatori (String ruolo) {
         if (seduta.commissione?.ruoliObbligatori) {
-            return (SedutaPartecipante.createCriteria().list {
+            return (SedutaPartecipante.createCriteria().count {
                 eq('seduta.id', seduta.id)
                 ruoloPartecipante { eq("codice", ruolo) }
-            }?.size() == 0)
+            } == 0)
         }
 
         return false
@@ -272,64 +332,75 @@ class SedutaIndexViewModel {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy")
         List<String> messaggio = []
 
-        if (seduta.commissione == null) {
+        if (!seduta.commissione) {
             messaggio << "Il valore COMMISSIONE è obbligatorio"
         }
 
-        if (seduta.tipoSeduta == null) {
+        if (!seduta.tipoSeduta) {
             messaggio << "Il valore TIPO SEDUTA è obbligatorio"
         }
 
-        if (seduta.dataInizioSeduta != null) {
-            if (seduta.oraInizioSeduta == null || seduta.oraInizioSeduta.trim().length() == 0) {
-                messaggio << "Il valore ORA INIZIO SEDUTA è obbligatorio se viene valorizzata la DATA INIZIO SEDUTA"
-            }
+        def oraInizioSeduta = seduta.oraInizioSeduta?.trim()
+
+        if (seduta.dataInizioSeduta && !oraInizioSeduta) {
+            messaggio << "Il valore ORA INIZIO SEDUTA è obbligatorio se viene valorizzata la DATA INIZIO SEDUTA"
+        } else if (oraInizioSeduta && !(oraInizioSeduta ==~ /^([0-1]\d|2[0-3]):([0-5]\d)$/)) {
+            messaggio << "Il valore ORA INIZIO SEDUTA non è corretto (HH:mm)"
         }
 
-        if (seduta.dataSeduta == null) {
+        if (!seduta.dataSeduta) {
             messaggio << "Il valore DATA SEDUTA è obbligatorio"
         }
 
-        if (seduta.oraSeduta == null) {
+        def oraSeduta = seduta.oraSeduta?.trim()
+
+        if (!oraSeduta) {
             messaggio << "Il valore ORA SEDUTA è obbligatorio"
+        } else if (oraSeduta && !(oraSeduta ==~ /^([0-1]\d|2[0-3]):([0-5]\d)$/)) {
+            messaggio << "Il valore ORA SEDUTA non è corretto (HH:mm)"
         }
 
-        if (seduta.dataSeduta != null && seduta.dataSecondaConvocazione != null) {
+        if (seduta.dataSeduta && seduta.dataSecondaConvocazione) {
             if (seduta.dataSecondaConvocazione < seduta.dataSeduta) {
                 messaggio << "Il valore DATA SECONDA CONVOCAZIONE non può essere precedente alla DATA SEDUTA ("+dateFormatter.format(seduta.dataSeduta)+")"
             }
         }
 
-        if (seduta.dataSecondaConvocazione != null) {
-            if (seduta.oraSecondaConvocazione == null || seduta.oraSecondaConvocazione.trim().length() == 0) {
-                messaggio << "Il valore ORA SECONDA CONVOCAZIONE è obbligatorio se viene valorizzata la DATA SECONDA CONVOCAZIONE"
-            }
+        def oraSecondaConvocazione = seduta.oraSecondaConvocazione?.trim()
+
+        if (seduta.dataSecondaConvocazione && !oraSecondaConvocazione) {
+            messaggio << "Il valore ORA SECONDA CONVOCAZIONE è obbligatorio se viene valorizzata la DATA SECONDA CONVOCAZIONE"
+        } else if (oraSecondaConvocazione && !(oraSecondaConvocazione ==~ /^([0-1]\d|2[0-3]):([0-5]\d)$/)) {
+            messaggio << "Il valore ORA SECONDA CONVOCAZIONE non è corretto (HH:mm)"
         }
 
-        if (seduta.dataSeduta != null && seduta.dataInizioSeduta != null) {
+        if (seduta.dataSeduta && seduta.dataInizioSeduta) {
             if (seduta.dataInizioSeduta < seduta.dataSeduta) {
                 messaggio << "Il valore DATA INIZIO SEDUTA non può essere precedente alla DATA SEDUTA ("+dateFormatter.format(seduta.dataSeduta)+")"
             }
         }
 
-        if (seduta.dataInizioSeduta == null && seduta.dataFineSeduta != null) {
+        if (!seduta.dataInizioSeduta && seduta.dataFineSeduta) {
             messaggio << "Il valore DATA INZIO SEDUTA è obbligatorio se viene valorizzata la DATA FINE SEDUTA"
         }
 
-        if (seduta.dataInizioSeduta != null && seduta.dataFineSeduta != null) {
+        if (seduta.dataInizioSeduta && seduta.dataFineSeduta) {
             if (seduta.dataFineSeduta < seduta.dataInizioSeduta) {
                 messaggio << "Il valore DATA FINE SEDUTA non può essere precedente alla DATA INIZIO SEDUTA ("+dateFormatter.format(seduta.dataInizioSeduta)+")"
             }
         }
 
-        if (seduta.dataFineSeduta != null) {
-            if (seduta.oraFineSeduta == null || seduta.oraFineSeduta.trim().length() == 0) {
-                messaggio << "Il valore ORA FINE SEDUTA è obbligatorio se viene valorizzata la DATA FINE SEDUTA"
-            }
+        def oraFineSeduta = seduta.oraFineSeduta?.trim()
+
+        if (seduta.dataFineSeduta && !oraFineSeduta) {
+            messaggio << "Il valore ORA FINE SEDUTA è obbligatorio se viene valorizzata la DATA FINE SEDUTA"
+        } else if (oraFineSeduta && !(oraFineSeduta ==~ /^([0-1]\d|2[0-3]):([0-5]\d)$/)) {
+            messaggio << "Il valore ORA FINE SEDUTA non è corretto (HH:mm)"
         }
 
         if (messaggio.size() > 0) {
-            Clients.showNotification("Attenzione:\n${messaggio.join("\n")}", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center", 5000, true)
+            //Clients.showNotification("Attenzione:\n${messaggio.join("\n")}", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center", 5000, true)
+            Messagebox.show("${messaggio.join("\n\n")}.", "Attenzione", Messagebox.OK, Messagebox.EXCLAMATION)
             return false
         }
 
@@ -344,21 +415,24 @@ class SedutaIndexViewModel {
             "numSedutaPartecipante"
     ])
     @Command
-    void onSalva () {
+    boolean onSalva () {
         if (!checkOnSalva()) {
-            return;
+            return false
         }
 
         seduta = sedutaDTOService.salva(seduta)
         Clients.showNotification("Seduta salvata.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center", 3000, true);
         calcolaNumSedutaPartecipante()
         checkAbilitaTabVerbalizzazione()
+        checkAbilitaTabCommissioniCollegate()
         calcolaListaStampeCommissione()
         calcolaListaNotifiche()
 
         BindUtils.postGlobalCommand(null, null, "onSelectDatiSeduta", null)
         BindUtils.postGlobalCommand(null, null, "onRefreshCommissione", null)
-        BindUtils.postGlobalCommand(null, null, "onRefreshPartecipantiAndShowNotify", null);
+        BindUtils.postGlobalCommand(null, null, "onRefreshPartecipantiAndShowNotify", null)
+
+        return true
     }
 
     @Command
@@ -378,8 +452,8 @@ class SedutaIndexViewModel {
 
     @Command
     void onSalvaChiudi () {
-        onSalva()
-        onChiudi()
+        if (onSalva())
+            onChiudi()
     }
 
     @Command
@@ -387,10 +461,7 @@ class SedutaIndexViewModel {
         Events.postEvent(Events.ON_CLOSE, self, null)
     }
 
-    @Command
-    void onSelectTab (@ContextParam(ContextType.COMPONENT) Tabbox tb) {
-        tb.getSelectedPanel().getLastChild().invalidate()
-    }
+
 
     @NotifyChange("seduta")
     @Command

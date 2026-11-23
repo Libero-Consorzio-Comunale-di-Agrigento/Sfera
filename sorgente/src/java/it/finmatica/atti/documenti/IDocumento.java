@@ -62,4 +62,6 @@ public interface IDocumento extends IDocumentoIterabile, IDocumentoEsterno {
     StatoMarcatura getStatoMarcatura();
 
     void setStatoMarcatura(StatoMarcatura statoMarcatura);
+
+    String getTipoFirma();
 }

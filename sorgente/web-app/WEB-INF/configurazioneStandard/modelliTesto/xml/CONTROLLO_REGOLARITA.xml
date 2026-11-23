@@ -29,6 +29,12 @@
 				<OGGETTO>OGGETTO DELLA DELIBERA</OGGETTO>
 				<ESITO>POSITIVO</ESITO>
 				<MOTIVAZIONE>A NORMA</MOTIVAZIONE>
+				<FIRMATARIO_ATTO>NOMINATIVO FIRMATARIO</FIRMATARIO_ATTO>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<UNITA_PROPONENTE>UFFICIO SEGRETERIA</UNITA_PROPONENTE>
+				<CODICE_REGISTRO>DETE</CODICE_REGISTRO>
+				<DESCRIZIONE_REGISTRO>DETERMINAZIONI DIRIGENZIALI</DESCRIZIONE_REGISTRO>
 			</atti>
 			<atti>
 				<SEQUENZA>2</SEQUENZA>
@@ -42,6 +48,12 @@
 				<OGGETTO>OGGETTO DELLA DELIBERA - 2</OGGETTO>
 				<ESITO>POSITIVO</ESITO>
 				<MOTIVAZIONE>A NORMA</MOTIVAZIONE>
+				<FIRMATARIO_ATTO>NOMINATIVO FIRMATARIO</FIRMATARIO_ATTO>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<UNITA_PROPONENTE>UFFICIO SEGRETERIA</UNITA_PROPONENTE>
+				<CODICE_REGISTRO>DETE</CODICE_REGISTRO>
+				<DESCRIZIONE_REGISTRO>DETERMINAZIONI DIRIGENZIALI</DESCRIZIONE_REGISTRO>
 			</atti>
 			<atti>
 				<SEQUENZA>3</SEQUENZA>
@@ -55,6 +67,12 @@
 				<OGGETTO>OGGETTO DELLA DELIBERA - 3</OGGETTO>
 				<ESITO>NEGATIVO</ESITO>
 				<MOTIVAZIONE>NON A NORMA</MOTIVAZIONE>
+				<FIRMATARIO_ATTO>NOMINATIVO FIRMATARIO</FIRMATARIO_ATTO>
+				<AREA_PROPONENTE>AFFARI GENERALI</AREA_PROPONENTE>
+				<SERVIZIO_PROPONENTE>SEGRETERIA</SERVIZIO_PROPONENTE>
+				<UNITA_PROPONENTE>UFFICIO SEGRETERIA</UNITA_PROPONENTE>
+				<CODICE_REGISTRO>DETE</CODICE_REGISTRO>
+				<DESCRIZIONE_REGISTRO>DETERMINAZIONI DIRIGENZIALI</DESCRIZIONE_REGISTRO>
 			</atti>
 			<criteriRicerca>
 				<DESCRIZIONE_CRITERIO>CRITERIO</DESCRIZIONE_CRITERIO>
@@ -149,7 +167,43 @@
 			<descrizione>Oggetto dell'atto</descrizione>
 			<path/>
 		</metaDato>
-        <metaDato>
+		<metaDato>
+			<nomeSimbolico>FIRMATARIO_ATTO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Firmatario dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>AREA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Area dell'unita' proponente dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>SERVIZIO_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Servizio dell'unita' proponente dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>UNITA_PROPONENTE</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Unità proponente dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>CODICE_REGISTRO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Codice del registro di numerazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
+			<nomeSimbolico>DESCRIZIONE_REGISTRO</nomeSimbolico>
+			<tipo>string</tipo>
+			<descrizione>Descrizione del registro di numerazione dell'atto</descrizione>
+			<path/>
+		</metaDato>
+		<metaDato>
             <nomeSimbolico>DATA_ESTRAZIONE</nomeSimbolico>
             <tipo>string</tipo>
             <descrizione>Data di estrazione del controllo di regolarità</descrizione>
@@ -202,7 +256,7 @@
 <query id='controlloRegolarita'
 	   help_query_alias="n"
 	   help_field_aliases="AMBITO, FINALITA_ESTRAZIONE, DATA_ESTRAZIONE, DATA_MAX_ESECUTIVITA, DATA_MIN_ESECUTIVITA, FIRMATARIO, ATTI_DA_ESTRARRE, NUMERO_RISULTATI">
-  select utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (cr.utente_ins)) firmatario
+  select utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (cr.utente_ins), cr.ente) firmatario
        ,  cr.ambito ambito
        ,  pcr.titolo finalita_estrazione
        ,  to_char (cr.data_estrazione, 'dd/mm/yyyy') data_estrazione
@@ -217,7 +271,7 @@
  	<!-- atti: restituisce l'elenco degli atti relativi al controllo di regolarita -->
 <query id='atti'
 	   help_query_alias="a"
-	   help_field_aliases="NUMERO, ANNO, NUMERO_PROPOSTA, ANNO_PROPOSTA, DATA_ADOZIONE, DATA_PUBBLICAZIONE, OGGETTO, SEQUENZA, ESITO, MOTIVAZIONE, DATA_ESECUTIVITA">
+	   help_field_aliases="NUMERO, ANNO, NUMERO_PROPOSTA, ANNO_PROPOSTA, CODICE_REGISTRO, DATA_ADOZIONE, DATA_PUBBLICAZIONE, DESCRIZIONE_REGISTRO, OGGETTO, SEQUENZA, ESITO, MOTIVAZIONE, DATA_ESECUTIVITA, FIRMATARIO_ATTO, AREA_PROPONENTE, SERVIZIO_PROPONENTE, UNITA_PROPONENTE">
   select rownum SEQUENZA
      ,  t.numero NUMERO
      ,  t.anno ANNO
@@ -229,6 +283,12 @@
      ,  t.esito ESITO
      ,  t.motivazione MOTIVAZIONE
 	 ,  t.data_esecutivita DATA_ESECUTIVITA
+	 ,  t.firmatario_atto FIRMATARIO_ATTO
+	 ,  t.AREA_PROPONENTE AREA_PROPONENTE
+	 ,  t.UNITA_PROPONENTE UNITA_PROPONENTE
+	 ,  t.SERVIZIO_PROPONENTE SERVIZIO_PROPONENTE
+	 ,  t.CODICE_REGISTRO
+	 ,  t.DESCRIZIONE_REGISTRO
   from (select d.numero_determina numero
   			 ,  d.anno_determina anno
   			 ,  d.numero_proposta numero_proposta
@@ -239,10 +299,17 @@
              ,  tecr.titolo ESITO
              ,  crd.note MOTIVAZIONE
 			 ,  to_char (d.data_esecutivita, 'dd/mm/yyyy') DATA_ESECUTIVITA
-          from controllo_regolarita_doc crd, determine d, tipi_esiti_controllo_reg tecr
+	         ,  nvl(utility_pkg.get_primo_firmatario_determina (d.id_determina),'') FIRMATARIO_ATTO
+			 ,  utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_AREA', d.ente) AREA_PROPONENTE
+			 ,  utility_pkg.get_suddivisione_determina (d.id_determina, 'SO4_SUDDIVISIONE_SERVIZIO', d.ente) SERVIZIO_PROPONENTE
+	         ,  utility_pkg.get_unita_prop_determina (d.id_determina) UNITA_PROPONENTE
+			 ,  d.registro_determina CODICE_REGISTRO
+			 ,  tr.descrizione DESCRIZIONE_REGISTRO
+          from controllo_regolarita_doc crd, determine d, tipi_esiti_controllo_reg tecr, tipi_registro tr
          where crd.id_controllo_regolarita = #id
            and crd.id_determina = d.id_determina
            and crd.id_esito_controllo_reg = tecr.id_esito_controllo_reg (+)
+	 	   and d.registro_determina = tr.tipo_registro (+)
         union
         select d.numero_delibera numero
   			 ,  d.anno_delibera anno
@@ -254,11 +321,18 @@
              ,  tecr.titolo ESITO
              ,  crd.note MOTIVAZIONE
 			 ,  to_char (d.data_esecutivita, 'dd/mm/yyyy') DATA_ESECUTIVITA
-          from controllo_regolarita_doc crd, delibere d, proposte_delibera p, tipi_esiti_controllo_reg tecr
+	         ,  nvl(utility_pkg.get_primo_firmatario_prop_deli (p.id_proposta_delibera),'') FIRMATARIO_ATTO
+			 ,  utility_pkg.get_suddivisione_prop_delibera (p.id_proposta_delibera, 'SO4_SUDDIVISIONE_AREA', p.ente) AREA_PROPONENTE
+			 ,  utility_pkg.get_suddivisione_prop_delibera (p.id_proposta_delibera, 'SO4_SUDDIVISIONE_SERVIZIO', p.ente) SERVIZIO_PROPONENTE
+	         ,  utility_pkg.get_unita_prop_delibera (p.id_proposta_delibera) UNITA_PROPONENTE
+			 ,  d.registro_delibera CODICE_REGISTRO
+			 ,  tr.descrizione DESCRIZIONE_REGISTRO
+	from controllo_regolarita_doc crd, delibere d, proposte_delibera p, tipi_esiti_controllo_reg tecr, tipi_registro tr
          where crd.id_controllo_regolarita = #id
            and crd.id_delibera = d.id_delibera
            and p.id_proposta_delibera = d.id_proposta_delibera
            and crd.id_esito_controllo_reg = tecr.id_esito_controllo_reg (+)
+		   and d.registro_delibera = tr.tipo_registro (+)
         order by numero) t 
 </query>
 <query id='criteriRicerca'

@@ -17,6 +17,11 @@ class LookupTipologiaAtto implements LookupValori {
 
         } + (TipoDelibera.findAllByValido(true, [sort: "titolo", order: "asc"])).collect {
             new CodiceDescrizione(it.id.toString(), "Delibera: " + it.titolo)
+        } + (TipoDetermina.findAllByValido(false, [sort: "titolo", order: "asc"])).collect {
+            new CodiceDescrizione(it.id.toString(), "Determina (non valida): " + it.titolo)
+
+        } + (TipoDelibera.findAllByValido(false, [sort: "titolo", order: "asc"])).collect {
+            new CodiceDescrizione(it.id.toString(), "Delibera (non valida): " + it.titolo)
         })
     }
 }

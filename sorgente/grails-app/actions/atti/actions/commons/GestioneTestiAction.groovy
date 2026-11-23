@@ -197,6 +197,15 @@ class GestioneTestiAction {
         return d.testo == null || d.testo.isModificabile();
     }
 
+
+    @Action(tipo = TipoAzione.CONDIZIONE,
+            tipiOggetto = [Determina.TIPO_OGGETTO, VistoParere.TIPO_OGGETTO, Certificato.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO],
+            nome = "Il testo è in formato pdf?",
+            descrizione = "Indica se il testo è in formato pdf")
+    def isTestoPdf (IDocumento d) {
+        return d.testo != null && d.testo.isPdf()
+    }
+
     @Action(tipo = TipoAzione.AUTOMATICA,
             tipiOggetto = [Determina.TIPO_OGGETTO, VistoParere.TIPO_OGGETTO, Certificato.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO],
             nome = "Crea Testo (dati live)",
@@ -231,6 +240,18 @@ class GestioneTestiAction {
         if (d.testo == null || d.testo.isModificabile()) {
             eliminaTesto(d);
             creaTesto(d);
+        }
+
+        return d
+    }
+
+    @Action(tipo = TipoAzione.AUTOMATICA,
+            tipiOggetto = [Determina.TIPO_OGGETTO, VistoParere.TIPO_OGGETTO, Certificato.TIPO_OGGETTO, Delibera.TIPO_OGGETTO, PropostaDelibera.TIPO_OGGETTO],
+            nome = "Ripristina odt/docx per il documento principale",
+            descrizione = "Se il documento principale è un pdf non firmato, lo elimina e ripristina l'odt/doc.")
+    def ripristinaTestoOdt (IDocumento d) {
+        if (d.testo != null && d.testoOdt != null) {
+            gestioneTesti.ripristinaTestoDaPdf(d)
         }
 
         return d

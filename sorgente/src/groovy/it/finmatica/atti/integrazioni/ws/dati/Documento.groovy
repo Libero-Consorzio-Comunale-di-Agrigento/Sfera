@@ -6,6 +6,9 @@ import javax.xml.bind.annotation.*
 @XmlType
 class Documento {
 
+    public static final String TIPO_DETERMINA = "DETERMINA"
+    public static final String TIPO_DELIBERA = "DELIBERA"
+
     @XmlElement(required = true, nillable = false)
     String tipo // DETERMINA o DELIBERA
 

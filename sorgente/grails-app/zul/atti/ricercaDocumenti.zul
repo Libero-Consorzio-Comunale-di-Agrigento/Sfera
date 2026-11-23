@@ -38,7 +38,7 @@
 						<intbox value="@bind(vm.ricerca.numeroProposta)" onOK="@command('onCerca')" mold="rounded" width="100%"/>
 					</cell>
 					<cell colspan="2">
-						<checkbox label="Ricerca nei file" checked="@bind(vm.ricerca.cercaNelTesto)" />
+						<checkbox label="Ricerca nei file" checked="@bind(vm.ricerca.cercaNelTesto)" visible="@load(vm.abilitaRicercaNelTesto)" />
 					</cell>
 				</row>
 				<row>
@@ -120,9 +120,7 @@
 					</listcell>
 					<listcell label="@load(documento.uoProponenteDescrizione)" />
 					<listcell>
-                        <label sclass="redText" value="PROPOSTA ANNULLATA"  visible="@load(documento.stato eq 'ANNULLATO' and empty documento.numeroAtto)" />
-                        <label sclass="redText" value="ATTO ANNULLATO"      visible="@load(((documento.stato eq 'ANNULLATO' or documento.stato eq 'NON_ESECUTIVO') and documento.numeroAtto gt 0 and empty documento.dataEsecutivita))" />
-                        <label sclass="redText" value="NON ESECUTIVO"       visible="@load( (documento.stato eq 'ANNULLATO' or documento.stato eq 'NON_ESECUTIVO') and not empty documento.dataEsecutivita)" />
+						<label sclass="redText" value="@load(documento.descrizioneStato )"   visible="@load( (documento.stato eq 'ANNULLATO') or (documento.stato eq 'NON_ESECUTIVO') or (documento.titoloStep eq 'ANNULLATO'))" />
                         <label value="@load(documento.titoloStep )"         visible="@load( ! ((documento.stato eq 'ANNULLATO') or (documento.stato eq 'NON_ESECUTIVO') or (documento.titoloStep eq 'ANNULLATO')) )" />
 					</listcell>
 					<listcell>

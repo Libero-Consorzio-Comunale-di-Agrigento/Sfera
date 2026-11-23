@@ -9,6 +9,7 @@ import it.finmatica.atti.commons.AttiUtils
 import it.finmatica.atti.commons.TokenIntegrazione
 import it.finmatica.atti.commons.TokenIntegrazioneService
 import it.finmatica.atti.dizionari.NotificaErrore
+import it.finmatica.atti.dizionari.StatoIterService
 import it.finmatica.atti.documenti.*
 import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.integrazioni.AttiFirmaService
@@ -37,6 +38,7 @@ class AttiJobExecutor {
 	FileFirmatoDettaglioService fileFirmatoDettaglioService
     IDocumentaleEsterno gestoreDocumentaleEsterno
     NotificheErroreService notificheErroreService
+	StatoIterService statoIterService
 
 	String[] eseguiAutenticazione(String utente) {
 		AttiUtils.eseguiAutenticazione(Holders.config.grails.plugins.anagrafesoggetti.utenteBatch)
@@ -220,7 +222,9 @@ class AttiJobExecutor {
 		AttiUtils.abilitaMultiEnteFilter(codiceEnte)
 		AttiUtils.setAmministrazioneOttica(codiceEnte)
 
-		integrazioneLetteraAgspr.aggiornaDatiProtocolloSedutaStampa()
+		if (Impostazioni.PROTOCOLLO.valore == "protocolloEsternoGdm") {
+			integrazioneLetteraAgspr.aggiornaDatiProtocolloSedutaStampa()
+		}
 	}
 
 	void pubblicaDelibera(String codiceEnte, long id) {
@@ -236,11 +240,7 @@ class AttiJobExecutor {
 	void cancellaLockDocumenti(String codiceEnte) {
 		AttiUtils.abilitaMultiEnteFilter(codiceEnte)
 		AttiUtils.setAmministrazioneOttica(codiceEnte)
-		tokenIntegrazioneService.rimuoviLockDocumenti(Certificato.TIPO_OGGETTO);
-		tokenIntegrazioneService.rimuoviLockDocumenti(Determina.TIPO_OGGETTO);
-		tokenIntegrazioneService.rimuoviLockDocumenti(Delibera.TIPO_OGGETTO);
-		tokenIntegrazioneService.rimuoviLockDocumenti(PropostaDelibera.TIPO_OGGETTO);
-		tokenIntegrazioneService.rimuoviLockDocumenti(VistoParere.TIPO_OGGETTO);
+		tokenIntegrazioneService.rimuoviLockDocumenti(TokenIntegrazione.TIPO_LOCK_DOCUMENTO);
 	}
 
 
@@ -275,4 +275,11 @@ class AttiJobExecutor {
         NotificaErrore notificaErrore = NotificaErrore.get(id)
         notificheErroreService.gestisciErroriNotifica(notificaErrore)
     }
+
+	void aggiornaStatiIter(String codiceEnte) {
+		AttiUtils.abilitaMultiEnteFilter(codiceEnte)
+		AttiUtils.setAmministrazioneOttica(codiceEnte)
+
+		statoIterService.aggiornaStatiIter()
+	}
 }

@@ -211,8 +211,10 @@ class PopupSceltaMovIntViewModel {
         if (selectedRecord?.id == null) {
             if (cognome == null || cognome.length() < 3) {
                 if (nome == null || nome.length() < 3) {
-                    Messagebox.show("Inserire almeno tre caratteri nel campo\n Cognome/Ragione Sociale o Nome per la ricerca del soggetto.", "Cerca", Messagebox.OK, Messagebox.EXCLAMATION)
-                    return
+                    if(idSoggetto == null) {
+                        Messagebox.show("Inserire almeno tre caratteri nel campo\n Cognome/Ragione Sociale o Nome per la ricerca del soggetto, oppure specificare il progressivo del soggetto", "Cerca", Messagebox.OK, Messagebox.EXCLAMATION)
+                        return
+                    }
                 }
             }
         }

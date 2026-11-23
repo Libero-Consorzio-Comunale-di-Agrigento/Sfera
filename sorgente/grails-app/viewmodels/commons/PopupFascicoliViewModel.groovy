@@ -56,32 +56,32 @@ class PopupFascicoliViewModel {
 		Events.postEvent(Events.ON_CLOSE, self, null)
 	}
 
-	@NotifyChange(["listaFascicoli", "classificaCodice", "classificaDescrizione"])
 	@Command onSvuotaClassifica () {
-		classificaCodice 		= "";
-		classificaDescrizione 	= "";
-		classificaDal			= null;
+		this.classificaCodice 		= "";
+		this.classificaDescrizione 	= "";
+		this.classificaDal			= null;
 		onCerca();
+		BindUtils.postNotifyChange(null, null, this, "classificaCodice")
+		BindUtils.postNotifyChange(null, null, this, "classificaDescrizione")
+		BindUtils.postNotifyChange(null, null, this, "classificaDal")
 	}
 
-	@NotifyChange(["classificaCodice", "classificaDescrizione"])
+	@NotifyChange([ 'classificaCodice', 'classificaDescrizione','classificaDal'])
 	@Command onAggiornaClassifica () {
 		if (selectedFascicolo == null) {
 			return;
 		}
 
-		classificaCodice 		= selectedFascicolo.classifica.codice;
-		classificaDescrizione 	= selectedFascicolo.classifica.descrizione;
-		classificaDal			= selectedFascicolo.classifica.dal
+		this.classificaCodice 		= selectedFascicolo.classifica.codice;
+		this.classificaDescrizione 	= selectedFascicolo.classifica.descrizione;
+		this.classificaDal			= selectedFascicolo.classifica.dal
 	}
 
-	@NotifyChange('listaFascicoli')
 	@Command onCreaFascicolo () {
 		if (Impostazioni.DOCER.abilitato) {
 			Window w = Executions.createComponents("/commons/popupCreaFascicolo.zul", self, [classificaCodice: this.classificaCodice, listaFascicoli: this.listaFascicoli])
 			w.onClose {
 				onCerca()
-				BindUtils.postNotifyChange(null, null, this, "listaFascicoli")
 			}
 			w.doModal()
 		}

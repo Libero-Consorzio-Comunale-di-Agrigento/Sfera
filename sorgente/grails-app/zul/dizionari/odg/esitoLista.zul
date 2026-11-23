@@ -13,6 +13,7 @@
 				<listheader label="Tipologia" />
 				<listheader label="Commissione" />
 				<listheader label="Descrizione" />
+				<listheader label="Codice" />
 				<listheader width="30px" />
 			</listhead>
 			<template name="model" var="esito">
@@ -21,6 +22,7 @@
 	                <listcell label="@load(esito.esitoStandard.titolo)"></listcell>
 	                <listcell label="@load(esito.commissione.titolo)"></listcell>
 	                <listcell label="@load(esito.descrizione)"></listcell>
+					<listcell label="@load(esito.codiceEsterno)"></listcell>
 	                <listcell image="@load(esito.valido  ? '/images/agsde2/16x16/point_green.png' : '/images/agsde2/16x16/point_red.png')" />
 				</listitem>
 			</template>

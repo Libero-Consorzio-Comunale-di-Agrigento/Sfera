@@ -59,7 +59,6 @@ class NotificaDettaglioViewModel extends AfcAbstractRecord {
 			caricaNotificaDto(id)
 
 			commissione = (selectedRecord.tipoNotifica == TipoNotifica.CONVOCAZIONE_SEDUTA || selectedRecord.tipoNotifica == TipoNotifica.VERBALE_SEDUTA)
-
 		} else {
 			selectedRecord = new NotificaDTO(valido:true)
 		}

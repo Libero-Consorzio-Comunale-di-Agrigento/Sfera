@@ -4,13 +4,16 @@ import groovy.sql.Sql
 import it.finmatica.atti.dto.odg.CommissioneComponenteDTO
 import it.finmatica.atti.dto.odg.CommissioneDTO
 import it.finmatica.atti.dto.odg.CommissioneStampaDTO
+import it.finmatica.atti.dto.odg.CommissioneCollegataDTO
 import it.finmatica.atti.exceptions.AttiRuntimeException
+import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.impostazioni.MappingIntegrazione
 import it.finmatica.atti.integrazioni.protocollo.ProtocolloGdmConfig
 import it.finmatica.atti.odg.Commissione
+import it.finmatica.atti.odg.CommissioneCollegata
 import it.finmatica.atti.odg.CommissioneComponente
 import it.finmatica.atti.odg.CommissioneStampa
-import oracle.jdbc.OracleTypes
+import org.apache.commons.lang.math.RandomUtils
 
 class CommissioneDTOService {
 
@@ -21,20 +24,24 @@ class CommissioneDTOService {
     	if (commissione.version != commissioneDto.version) {
 			throw new AttiRuntimeException(AttiRuntimeException.ERRORE_MODIFICA_CONCORRENTE)
 		}
-		commissione.titolo				= commissioneDto.titolo
-		commissione.descrizione			= commissioneDto.descrizione
-		commissione.valido				= commissioneDto.valido
-		commissione.ruoliObbligatori	= commissioneDto.ruoliObbligatori
-		commissione.votoPresidente  	= commissioneDto.votoPresidente
-		commissione.progressivoCfgIter	= commissioneDto.progressivoCfgIter > 0 ? commissioneDto.progressivoCfgIter : null
-		commissione.secondaConvocazione	= commissioneDto.secondaConvocazione
-		commissione.sedutaPubblica		= commissioneDto.sedutaPubblica
-		commissione.pubblicaWeb			= commissioneDto.pubblicaWeb
-		commissione.tipoRegistro		= commissioneDto.tipoRegistro?.domainObject
-		commissione.tipoRegistroSeduta	= commissioneDto.tipoRegistroSeduta?.domainObject
-		commissione.ruoloCompetenze		= commissioneDto.ruoloCompetenze?.domainObject
-		commissione.ruoloVisualizza		= commissioneDto.ruoloVisualizza?.domainObject
-		commissione.controlloFirmatari	= commissioneDto.controlloFirmatari
+		commissione.titolo						= commissioneDto.titolo
+		commissione.descrizione					= commissioneDto.descrizione
+		commissione.valido						= commissioneDto.valido
+		commissione.ruoliObbligatori			= commissioneDto.ruoliObbligatori
+		commissione.votoPresidente  			= commissioneDto.votoPresidente
+		commissione.progressivoCfgIter			= commissioneDto.progressivoCfgIter > 0 ? commissioneDto.progressivoCfgIter : null
+		commissione.secondaConvocazione			= commissioneDto.secondaConvocazione
+		commissione.sedutaPubblica				= commissioneDto.sedutaPubblica
+		commissione.visibileSoloConvocati		= commissioneDto.visibileSoloConvocati
+		commissione.pubblicaWeb					= commissioneDto.pubblicaWeb
+		commissione.tipoRegistro				= commissioneDto.tipoRegistro?.domainObject
+		commissione.tipoRegistroSeduta			= commissioneDto.tipoRegistroSeduta?.domainObject
+		commissione.ruoloCompetenze				= commissioneDto.ruoloCompetenze?.domainObject
+		commissione.ruoloVisualizza				= commissioneDto.ruoloVisualizza?.domainObject
+		commissione.controlloFirmatari			= commissioneDto.controlloFirmatari
+		commissione.firmatariPresenti			= commissioneDto.firmatariPresenti
+		commissione.singoloPresidente   		= commissioneDto.singoloPresidente
+		commissione.gettonePresenzaGiornaliera 	= commissioneDto.gettonePresenzaGiornaliera
 		commissione.save()
 
 		// prima di salvare, verifico che i requisiti della commissione siano rispettati:
@@ -72,39 +79,47 @@ class CommissioneDTOService {
         commissioneStampa.progressivoCfgIter = commissioneStampaDTO.progressivoCfgIter
         commissioneStampa.caratteristicaTipologia = commissioneStampaDTO.caratteristicaTipologia?.domainObject
         commissioneStampa.modelloTesto = commissioneStampaDTO.modelloTesto?.domainObject
+		commissioneStampa.pubblicazione = commissioneStampaDTO.pubblicazione
+		commissioneStampa.giorniPubblicazione = commissioneStampaDTO.giorniPubblicazione
         commissioneStampa.valido = commissioneStampaDTO.valido
         commissione.save()
 
-        int numeroVerbali = 0
-        int numeroConvocazioni = 0
-        for (CommissioneStampa stampa : commissione.stampe) {
-            if (stampa.valido && stampa.usoNelVisualizzatore) {
-                if (stampa.codice == CommissioneStampa.VERBALE) {
-                    numeroVerbali++
-                } else if (stampa.codice == CommissioneStampa.CONVOCAZIONE) {
-                    numeroConvocazioni++
-                }
-            }
-        }
+		if (!(Impostazioni.STAMPE_SEDUTA_DOCUMENTI.abilitato)) {
+			int numeroVerbali = 0
+			int numeroConvocazioni = 0
+			for (CommissioneStampa stampa : commissione.stampe) {
+				if (stampa.valido && stampa.usoNelVisualizzatore) {
+					if (stampa.codice == CommissioneStampa.VERBALE) {
+						numeroVerbali++
+					} else if (stampa.codice == CommissioneStampa.CONVOCAZIONE) {
+						numeroConvocazioni++
+					}
+				}
+			}
 
-        // verifico che ci sia una sola stampa con uso nel visualizzatore per i codici VERBALE e CONVOCAZIONE
-        if (numeroVerbali > 1) {
-            throw new AttiRuntimeException ("È possibile selezionare una sola stampa per l'uso 'VERBALE' nel visualizzatore. Togliere il flag 'Uso Nel Visualizzatore'")
-        }
+			// verifico che ci sia una sola stampa con uso nel visualizzatore per i codici VERBALE e CONVOCAZIONE
+			if (numeroVerbali > 1) {
+				throw new AttiRuntimeException ("È possibile selezionare una sola stampa per l'uso 'VERBALE' nel visualizzatore. Togliere il flag 'Uso Nel Visualizzatore'")
+			}
 
-        if (numeroConvocazioni > 1) {
-            throw new AttiRuntimeException ("È possibile selezionare una sola stampa per l'uso 'CONVOCAZIONE' nel visualizzatore. Togliere il flag 'Uso Nel Visualizzatore'")
-        }
+			if (numeroConvocazioni > 1) {
+				throw new AttiRuntimeException ("È possibile selezionare una sola stampa per l'uso 'CONVOCAZIONE' nel visualizzatore. Togliere il flag 'Uso Nel Visualizzatore'")
+			}
+		}
 
-		if (tipoDocumentoEsterno?.trim()?.length() > 0) {
+		if ("protocolloEsternoGdm".equals(Impostazioni.PROTOCOLLO.valore) && tipoDocumentoEsterno?.trim()) {
 			MappingIntegrazione mappingIntegrazione = MappingIntegrazione.findByCategoriaAndCodiceAndValoreInterno(ProtocolloGdmConfig.MAPPING_CATEGORIA, ProtocolloGdmConfig.MAPPING_CODICE_TIPO_DOCUMENTO, commissioneStampa.id.toString())
 			if (mappingIntegrazione == null) {
 				mappingIntegrazione = new MappingIntegrazione(categoria: ProtocolloGdmConfig.MAPPING_CATEGORIA, codice: ProtocolloGdmConfig.MAPPING_CODICE_TIPO_DOCUMENTO, valoreInterno: commissioneStampa.id.toString())
 			}
+
+			if (mappingIntegrazione.id == null) {
+				mappingIntegrazione.id = -RandomUtils.nextInt()
+			}
+
 			mappingIntegrazione.valoreEsterno = tipoDocumentoEsterno
 			mappingIntegrazione.save()
 		}
-
         commissioneDTO.version = commissione.version
         commissioneStampaDTO.version = commissioneStampa.version
 	}
@@ -210,5 +225,30 @@ class CommissioneDTOService {
 			c.save()
 			seq++;
 		}
+	}
+
+	void aggiungiCommissioneCollegata (CommissioneDTO commissioneDTO, CommissioneDTO commissioneCollegataDTO) {
+		Commissione commissione = commissioneDTO.domainObject
+		Commissione commissioneCollegata = commissioneCollegataDTO.domainObject
+
+		if (commissione.id == commissioneCollegata.id) {
+			throw new AttiRuntimeException("Non si può collegare una commissione a se stessa")
+		}
+
+		if (CommissioneCollegata.countByCommissioneAndCommissioneCollegataAndValido(commissione, commissioneCollegata, true) > 0) {
+			throw new AttiRuntimeException("Esiste già il collegamento attivo per questa commissione")
+		}
+
+		CommissioneCollegata collegata = new CommissioneCollegata()
+		collegata.commissione = commissione
+		collegata.commissioneCollegata = commissioneCollegata
+		collegata.save()
+	}
+
+	void togliCommissioneCollegata (CommissioneCollegataDTO commissioneCollegataDTO) {
+		CommissioneCollegata commissioneCollegata = commissioneCollegataDTO.domainObject
+		commissioneCollegata.valido = false
+		commissioneCollegata.validoAl = new Date()
+		commissioneCollegata.save()
 	}
 }

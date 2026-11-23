@@ -2,6 +2,7 @@ package dizionari.atti
 
 import afc.AfcAbstractRecord
 import grails.plugin.springsecurity.SpringSecurityService
+import it.finmatica.atti.IProtocolloEsterno
 import it.finmatica.atti.IntegrazioneContabilita
 import it.finmatica.atti.cf.integrazione.IAttiIntegrazioneServiceCf
 import it.finmatica.atti.commons.StrutturaOrganizzativaService
@@ -23,6 +24,7 @@ import it.finmatica.atti.impostazioni.TipoSoggetto
 import it.finmatica.atti.integrazioni.documenti.AllegatiObbligatori
 import it.finmatica.atti.integrazioni.parametri.CodiceDescrizione
 import it.finmatica.atti.integrazioni.protocollo.ProtocolloGdmConfig
+import it.finmatica.atti.integrazioni.protocollo.ProtocolloPiTre
 import it.finmatica.gestioneiter.configuratore.dizionari.WkfTipoOggetto
 import it.finmatica.gestioneiter.configuratore.iter.WkfCfgIter
 import it.finmatica.gestioneiter.dto.configuratore.iter.WkfCfgIterDTO
@@ -55,6 +57,7 @@ class TipoDeterminaDettaglioViewModel extends AfcAbstractRecord {
 	ProtocolloGdmConfig				protocolloGdmConfig
 	SuccessHandler                 	successHandler
 	MappingIntegrazioneDTOService   mappingIntegrazioneDTOService
+	IProtocolloEsterno protocolloEsterno
 
 	// dati
 	def listaCfgIter
@@ -77,6 +80,11 @@ class TipoDeterminaDettaglioViewModel extends AfcAbstractRecord {
 	boolean abilitaIncaricato
     boolean mostraEseguibilitaImmediata
     boolean mostraAllegatiVisualizzatore
+	boolean mostraDataScadenzaDisposizioni
+	boolean abilitaImpegnoObbligatorio
+
+	boolean isIntegrazioneProtocolloPiTre
+
     String tipoDocumentoEsterno
     List<CodiceDescrizione> listaTipiDocumento
 
@@ -102,14 +110,22 @@ class TipoDeterminaDettaglioViewModel extends AfcAbstractRecord {
 		if (id > 0) {
             listaTipiDocumento = getListaTipiDocumentoProtocollo()
             tipoDocumentoEsterno = protocolloGdmConfig?.getTipoDocumento(id)?:""
+			selectedRecord.tipoFirma = selectedRecord.tipoFirma?:""
 			aggiornaDatiCreazione(selectedRecord.utenteIns.id, selectedRecord.dateCreated)
 			aggiornaDatiModifica (selectedRecord.utenteUpd.id, selectedRecord.lastUpdated)
+		}
+
+		if (Impostazioni.PROTOCOLLO.valore == "protocolloPiTre") {
+			isIntegrazioneProtocolloPiTre = true
+			BindUtils.postNotifyChange(null, null, this, "isIntegrazioneProtocolloPiTre")
 		}
 
 		abilitaOggettiRicorrenti = Impostazioni.OGGETTI_RICORRENTI_TIPOLOGIE.abilitato
         mostraEseguibilitaImmediata = Impostazioni.ESEGUIBILITA_IMMEDIATA_DETE_ATTIVA.abilitato
 		abilitaIncaricato = selectedRecord.caratteristicaTipologia?.caratteristicheTipiSoggetto?.tipoSoggetto*.codice?.contains(TipoSoggetto.INCARICATO)
         mostraAllegatiVisualizzatore = Impostazioni.VIS_GESTIONE_PUBBLCAZIONE_ALLEGATI.abilitato
+		mostraDataScadenzaDisposizioni = Impostazioni.DATA_SCADENZA_DISPOSIZIONI.abilitato
+		abilitaImpegnoObbligatorio = Impostazioni.CONTABILITA_CFA_IMPEGNO_OBBLIGATORIO.abilitato
 
 		refreshListaTipiVisto ()
 		refreshListaModelloTesto()
@@ -124,6 +140,28 @@ class TipoDeterminaDettaglioViewModel extends AfcAbstractRecord {
     List<CodiceDescrizione> getListaTipiDocumentoProtocollo () {
 		return protocolloGdmConfig?.getTipiDocumento()?:[]
     }
+
+	@NotifyChange('selectedRecord')
+	@Command
+	apriFascicoli() {
+		String zul = protocolloEsterno.getZulFascicolo()
+		Window w = null
+		if(isIntegrazioneProtocolloPiTre) {
+				w = Executions.createComponents(zul, self, [unitaProponente: null, tipologia: String.valueOf(selectedRecord.id),sceltaUnitaProponente:true,utenteRedattore:springSecurityService.currentUser])
+		}
+		w.onClose { event ->
+			if (event.data) {
+				if(isIntegrazioneProtocolloPiTre){
+					selectedRecord.fascicoloNumero = event.data.numero
+					selectedRecord.fascicoloAnno = ProtocolloPiTre.estraiAnnoDaFascicoloPiTre(event.data.numero)
+					selectedRecord.fascicoloOggetto = event.data.oggetto
+					selectedRecord.idFascicoloEsterno = event.data.sub
+				}
+				BindUtils.postNotifyChange(null, null, this, "selectedRecord")
+			}
+		}
+		w.doModal()
+	}
 
 	private void caricaTipoDetermina (long id) {
 		if (id > 0) {
@@ -201,7 +239,7 @@ class TipoDeterminaDettaglioViewModel extends AfcAbstractRecord {
 	}
 
 	@Command onEliminaModelloTesto (@ContextParam(ContextType.TRIGGER_EVENT) Event event, @BindingParam("modelloTesto") GestioneTestiModelloDTO gestioneTestiModello) {
-		if (gestioneTestiModello.id == this.selectedRecord.modelloTesto.id){
+		if ((this.selectedRecord.modelloTesto) && (gestioneTestiModello.id == this.selectedRecord.modelloTesto.id)){
 			Messagebox.show("Il modello testo selezionato è testo predefinito: eliminare comunque?", "Attenzione!", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION,
 				new org.zkoss.zk.ui.event.EventListener() {
 					void onEvent(Event e) {
@@ -366,6 +404,9 @@ class TipoDeterminaDettaglioViewModel extends AfcAbstractRecord {
 
         if (!selectedRecord.codiceGara)
             selectedRecord.codiceGaraObbligatorio = false
+
+        if (!selectedRecord.visImportoTotale)
+            selectedRecord.importoTotaleObbligatorio = false
 
         selectedRecord = tipoDeterminaDTOService.salva(selectedRecord, listaParametri, tipoDocumentoEsterno)
 

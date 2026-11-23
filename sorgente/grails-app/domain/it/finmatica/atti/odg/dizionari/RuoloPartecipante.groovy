@@ -33,6 +33,10 @@ class RuoloPartecipante {
 	public static final transient String CODICE_DIRETTORE_GENERALE 		 = TipoSoggetto.DIRETTORE_GENERALE
     public static final transient String CODICE_DIRETTORE_SOCIO_SANITARIO= TipoSoggetto.DIRETTORE_SOCIO_SANITARIO
 
+	public static final transient String CODICE_COMMISSARIO_1 	= TipoSoggetto.COMMISSARIO_1
+	public static final transient String CODICE_COMMISSARIO_2 	= TipoSoggetto.COMMISSARIO_2
+	public static final transient String CODICE_COMMISSARIO_3	= TipoSoggetto.COMMISSARIO_3
+
 	String codice
 	String descrizione
 

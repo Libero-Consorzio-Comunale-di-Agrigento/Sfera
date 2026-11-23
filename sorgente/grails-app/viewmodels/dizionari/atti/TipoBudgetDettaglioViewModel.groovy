@@ -1,15 +1,11 @@
 package dizionari.atti
 
 import afc.AfcAbstractRecord
+import it.finmatica.as4.As4SoggettoCorrente
 import it.finmatica.atti.documenti.Budget
-import it.finmatica.atti.documenti.Delibera
-import it.finmatica.atti.documenti.Determina
-import it.finmatica.atti.documenti.PropostaDelibera
 import it.finmatica.atti.dto.dizionari.TipoBudgetDTO
 import it.finmatica.atti.dto.dizionari.TipoBudgetDTOService
 import it.finmatica.atti.dizionari.TipoBudget
-import it.finmatica.atti.dto.documenti.BudgetDTO
-import it.finmatica.atti.dto.documenti.DocumentoCollegatoDTO
 import it.finmatica.atti.exceptions.AttiRuntimeException
 import it.finmatica.atti.impostazioni.Impostazioni
 import org.zkoss.bind.BindUtils
@@ -29,6 +25,8 @@ class TipoBudgetDettaglioViewModel extends AfcAbstractRecord {
     def listaBudget
     boolean abilitaGestioneFondo
     def listaStorico
+	As4SoggettoCorrente soggettoFirmatario
+	String denominazioneUnita
 
 	// services
 	TipoBudgetDTOService tipoBudgetDTOService
@@ -42,6 +40,8 @@ class TipoBudgetDettaglioViewModel extends AfcAbstractRecord {
 			selectedRecord = caricaTipoBudgetDto(id)
             listaBudget = tipoBudgetDTOService.listaBudget(selectedRecord)
             listaStorico = tipoBudgetDTOService.listaStorico(selectedRecord)
+			aggiornaUnita()
+			aggiornaFirmatario()
 			aggiornaDatiCreazione(selectedRecord.utenteIns.id, selectedRecord.dateCreated)
 			aggiornaDatiModifica(selectedRecord.utenteUpd.id, selectedRecord.lastUpdated)
 		} else {
@@ -132,5 +132,44 @@ class TipoBudgetDettaglioViewModel extends AfcAbstractRecord {
             Executions.createComponents("/atti/documenti/propostaDelibera.zul", null, [id: budget.propostaDelibera.id]).doModal()
         }
     }
+
+	private void aggiornaUnita() {
+		if (selectedRecord.unitaSo4) {
+			denominazioneUnita = selectedRecord.unitaSo4.descrizione
+		}
+	}
+
+	@Command onSceltaUnita () {
+		Window w = Executions.createComponents("/commons/popupUnitaOrganizzativa.zul", self, null)
+		w.onClose { event ->
+			if (event.data?.unita != null) {
+				this.selectedRecord.unitaSo4 = event.data.unita
+				aggiornaUnita()
+				BindUtils.postNotifyChange(null, null, this, "denominazioneUnita")
+			}
+		}
+		w.doModal()
+	}
+
+	private void aggiornaFirmatario() {
+		if (selectedRecord.utenteAd4) {
+			soggettoFirmatario  = As4SoggettoCorrente.createCriteria().get{
+				eq("utenteAd4.id", selectedRecord.utenteAd4.id)
+			}
+		}
+	}
+
+	@Command
+	void onCercaSoggetto () {
+		Window w = Executions.createComponents("/commons/popupRicercaSoggetti.zul", self, [id: -1])
+		w.onClose { Event event ->
+			if (event.data != null) {
+				this.selectedRecord.utenteAd4 = event.data.utenteAd4;
+				aggiornaFirmatario()
+				BindUtils.postNotifyChange(null, null, this, "soggettoFirmatario")
+			}
+		}
+		w.doModal()
+	}
 
 }

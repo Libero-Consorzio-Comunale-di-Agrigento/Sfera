@@ -18,6 +18,5 @@ class RicercaSiav implements Serializable {
 		codiceSiav			column: 'COD_SIAV'
 	}
 
-	static hibernateFilters = {
-	}
+
 }

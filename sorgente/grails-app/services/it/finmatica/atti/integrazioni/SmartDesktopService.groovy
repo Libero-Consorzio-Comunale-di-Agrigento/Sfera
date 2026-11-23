@@ -9,9 +9,16 @@ import it.finmatica.atti.documenti.*
 import it.finmatica.atti.dto.documenti.viste.DocumentoStepDTO
 import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.integrazioni.jworklist.AbstractJWorklistDispatcher
+import it.finmatica.atti.integrazioni.jworklist.JWorklistDispatcher
 import it.finmatica.atti.integrazioniws.ads.smartdesktop.*
+import it.finmatica.atti.odg.SedutaStampa
 import it.finmatica.gestioneiter.IDocumentoIterabile
+import it.finmatica.gestioneiter.IMaschera
+import it.finmatica.gestioneiter.annotations.Action
 import it.finmatica.gestioneiter.configuratore.dizionari.WkfTipoOggetto
+import it.finmatica.gestioneiter.configuratore.iter.WkfCfgPulsante
+import it.finmatica.gestioneiter.motore.WkfIterService
+import it.finmatica.gestioneiter.motore.WkfStep
 import org.springframework.transaction.annotation.Transactional
 
 import javax.xml.datatype.DatatypeFactory
@@ -27,6 +34,9 @@ class SmartDesktopService extends AbstractJWorklistDispatcher {
     JWorklist smartDesktopClient
     AttiFirmaService attiFirmaService
     NotificheErroreService notificheErroreService
+
+    JWorklistDispatcher jworklistDispatcher
+    WkfIterService wkfIterService
 
     /**
      * Invia una notifica sulla jworklist.
@@ -139,6 +149,8 @@ class SmartDesktopService extends AbstractJWorklistDispatcher {
         String descrizioneTipologia = getDescrizioneNotificaTipologia(documentoIterabile)
         String tipoFirma = (hasRuoloFirma && documentoIterabile.iter?.stepCorrente?.id) ? attiFirmaService.getTipoFirma(documentoIterabile) : null
 
+        List<WkfCfgPulsante> listaPulsanti = getPulsantiSmartDesktop(documentoIterabile)
+
         if (log.debugEnabled) {
             log.debug("Invio la notifica con idRiferimento=$idRiferimento all'utente: ${utente.id}")
         }
@@ -146,7 +158,7 @@ class SmartDesktopService extends AbstractJWorklistDispatcher {
         Task task = creaTask(idRiferimento, oggetto, testoAttivita, urlRiferimento, urlRiferimentoDescrizione, urlEsecuzione,
                              descrizioneUrlEsecuzione,
                              tooltipUrlEsecuzione, scadenza, paramInitIter, descIter, dataAttivazione, utenteEsterno, dataArrivo, livelloPriorita,
-                             note, listaParametriIter, descrizioneTipologia, tipoFirma, documentoIterabile.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE)
+                             note, listaParametriIter, descrizioneTipologia, tipoFirma, documentoIterabile.statoFirma == StatoFirma.FIRMATO_DA_SBLOCCARE, listaPulsanti)
         try {
             TaskResponse resp = smartDesktopClient.inserisciTask(task)
             // se c'è stato un problema nella comunicazione con il webservice, lo scrivo nei log.
@@ -172,7 +184,7 @@ class SmartDesktopService extends AbstractJWorklistDispatcher {
     private Task creaTask (String idRiferimento, String oggetto, String testoAttivita, String urlRiferimento, String urlRiferimentoDescrizione,
                            String urlEsecuzione, String descrizioneUrlEsecuzione, String tooltipUrlEsecuzione, Date scadenza, String paramInitIter,
                            String descIter, Date dataAttivazione, String utenteEsterno, Date dataArrivo, String livelloPriorita, String note,
-                           ArrayList listaParametriIter, String descrizioneTipologia, String tipoFirma, boolean daSbloccare) {
+                           ArrayList listaParametriIter, String descrizioneTipologia, String tipoFirma, boolean daSbloccare, List<WkfCfgPulsante> listaPulsanti) {
         GregorianCalendar c = new GregorianCalendar()
         c.setTime(dataAttivazione);
         XMLGregorianCalendar dataAtt = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
@@ -284,6 +296,61 @@ class SmartDesktopService extends AbstractJWorklistDispatcher {
             taskBottone.setUrlAzione(JWorklistConfig.getUrlJWorklist()+ "/smartDesktop/completaFirma?LISTA_ID=XXXX")
             taskBottoneArrayList.add(taskBottone)
         }
+
+        if (!idRiferimento.startsWith("NOTIFICA_")) {
+            if (listaPulsanti?.size() > 0) {
+                for (WkfCfgPulsante cfgPulsante : listaPulsanti) {
+                    TaskBottone taskBottone = new TaskBottone()
+                    taskBottone.setTooltip(cfgPulsante.pulsante.tooltip?:cfgPulsante.pulsante.etichetta)
+                    taskBottone.setEtichetta(cfgPulsante.pulsante.etichetta)
+                    switch(cfgPulsante.pulsante.icona) {
+                        case "/images/pulsanti/16x16/button_accept.png":
+                            taskBottone.setIcona("fa fa-check-circle-o")
+                            break
+                        case "/images/pulsanti/16x16/button_cancel.png":
+                            taskBottone.setIcona("fa fa-ban")
+                            break
+                        case "/images/pulsanti/16x16/calculator.png":
+                            taskBottone.setIcona("fa fa-calculator")
+                            break
+                        case "/images/pulsanti/16x16/doc_cancel.png":
+                            taskBottone.setIcona("fa fa-file-text-o")
+                            break
+                        case "/images/pulsanti/16x16/duplicate.png":
+                            taskBottone.setIcona("fa fa-files-o")
+                            break
+                        case "/images/pulsanti/16x16/filesave.png":
+                            taskBottone.setIcona("fa fa-floppy-o")
+                            break
+                        case "/images/pulsanti/16x16/kipper_dock.png":
+                            taskBottone.setIcona("fa fa-newspaper-o")
+                            break
+                        case "/images/pulsanti/16x16/mail_forward.png":
+                            taskBottone.setIcona("fa fa-arrow-right")
+                            break
+                        case "/images/pulsanti/16x16/news_unsubscribe.png":
+                            taskBottone.setIcona("fa fa-external-link")
+                            break
+                        case "/images/pulsanti/16x16/signature.png":
+                            taskBottone.setIcona("fa fa-pencil")
+                            break
+                        case "/images/pulsanti/16x16/undo.png":
+                            taskBottone.setIcona("fa fa-arrow-left")
+                            break
+                        case "/images/pulsanti/16x16/window_close.png":
+                            taskBottone.setIcona("fa fa-window-close-o")
+                            break
+                    }
+
+                    taskBottone.setIdentificativoRiferimento(idRiferimento)
+                    taskBottone.setMultiplo(1)
+                    taskBottone.setTipologia("FORM")
+                    taskBottone.setUrlAzione(JWorklistConfig.getUrlJWorklist() + "/smartDesktop/pulsanteIter?ID_CFG_PULSANTE=" + cfgPulsante.id  + "&ID_RIFERIMENTO="+idRiferimento) //+ "&LISTA_ID=XXXX")
+                    taskBottoneArrayList.add(taskBottone)
+                }
+            }
+        }
+
         if (idRiferimento.startsWith("NOTIFICA_")) {
             TaskBottone taskBottone = new TaskBottone()
             taskBottone.setTooltip("Presa visione")
@@ -346,6 +413,18 @@ class SmartDesktopService extends AbstractJWorklistDispatcher {
         return result
     }
 
+//    public void eseguiPulsanteIter(IMaschera<? extends IDocumentoIterabile> maschera, String[] listaRiferimenti, long idCfgPulsante, String note) {
+//        for (String riferimento in listaRiferimenti) {
+//            IDocumento documento = jworklistDispatcher.getDocumento(riferimento)
+//            wkfIterService.eseguiPulsante (documento, idCfgPulsante, maschera, 0)
+//        }
+//    }
+
+    public void eseguiPulsanteIter(IMaschera<? extends IDocumentoIterabile> maschera, String riferimento, long idCfgPulsante) {
+        IDocumento documento = jworklistDispatcher.getDocumento(riferimento)
+        wkfIterService.eseguiPulsante (documento, idCfgPulsante, maschera, 0)
+    }
+
     public String getDescrizione(def doc) {
         String descrizione = getDescrizioneTipologia(doc);
         descrizione += (doc.tipologiaDocumento != null) ? ": "+doc.tipologiaDocumento.titolo : ""
@@ -371,10 +450,35 @@ class SmartDesktopService extends AbstractJWorklistDispatcher {
     }
 
     public String getDescrizioneNotificaTipologia(def doc){
-        String descrizione = doc.tipoOggetto == Delibera.TIPO_OGGETTO ? doc.tipologiaDocumento?.descrizioneNotificaDelibera : doc.tipologiaDocumento?.descrizioneNotifica
+        String descrizione = ""
+        if (doc instanceof SedutaStampa) {
+            descrizione = doc.commissioneStampa?.titolo
+        }
+        else {
+            descrizione = doc.tipoOggetto == Delibera.TIPO_OGGETTO ? doc.tipologiaDocumento?.descrizioneNotificaDelibera : doc.tipologiaDocumento?.descrizioneNotifica
+        }
         if (descrizione == null) {
             return getDescrizioneTipologia(doc)
         }
         return descrizione
+    }
+
+    private List<WkfCfgPulsante> getPulsantiSmartDesktop(IDocumentoIterabile documento) {
+        List<WkfCfgPulsante> pulsanti = null
+        if (documento.iter.stepCorrente.id) {
+            pulsanti = WkfStep.executeQuery("""select cfgPulsanti
+                                   from WkfStep s join s.cfgStep as cfgStep
+                                        join cfgStep.cfgPulsanti as cfgPulsanti
+                                        join cfgPulsanti.pulsante as pulsante
+                                        join pulsante.azioni as azione
+                                  where azione.tipo in :tipiAzione
+                                    and azione.nomeMetodo like :nomeMetodo
+                                    and azione.nomeBean 	= :nomeBean
+                                    and s.id 		= :idStep
+                        """, [tipiAzione: [Action.TipoAzione.AUTOMATICA, Action.TipoAzione.AUTOMATICA_CALCOLO_ATTORE], idStep: documento.iter.stepCorrente.id, nomeMetodo: 'visualizzaSmartDesktopPulsante%', nomeBean: 'notificheAction'])
+        }
+
+        return pulsanti
+
     }
 }

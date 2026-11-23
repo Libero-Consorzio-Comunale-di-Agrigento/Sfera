@@ -36,9 +36,6 @@ class TipoSeduta {
 		utenteIns 	column: 'utente_ins'
 		lastUpdated column: 'data_upd'
 		utenteUpd 	column: 'utente_upd'
-		utenteIns 	column: 'utente_ins'
-		lastUpdated column: 'data_upd'
-		utenteUpd 	column: 'utente_upd'
 	}
 
     static constraints = {

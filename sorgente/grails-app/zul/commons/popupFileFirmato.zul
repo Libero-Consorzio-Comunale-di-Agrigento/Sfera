@@ -30,6 +30,10 @@
 			.z-groupbox {
 				padding: 5px;
 			}
+
+			.z-window-modal-header {
+				height: 20px !important;
+			}
 		</style>
 
 		<h:div class="barraTitoloPagina">
@@ -53,11 +57,11 @@
 
 		<h:div class="barraPulsanti">
 			<h:div>
-				<button label="Download" 		onClick="@command('onP7m')" 			mold="trendy" image="/images/agsde2/16x16/inbox.png" 	tooltiptext="Scarica il file P7M firmato." visible="@load(vm.p7m)"/>
-				<button label="Verifica" 		onClick="@command('onVerifica')" 		mold="trendy" image="/images/agsde2/16x16/viewok.png" 	tooltiptext="Verifica la firma del P7M."  visible="@load(vm.p7m)"/>
-				<button label="Visualizza"		onClick="@command('onSbusta')" 			mold="trendy" image="/images/agsde2/16x16/document.png" tooltiptext="Scarica il file originale senza la busta P7M." />
+				<button label="Download" 		onClick="@command('onP7m')" 			mold="trendy" image="/images/agsde2/16x16/inbox.png" 	tooltiptext="Scarica il file firmato." visible="@load(vm.p7m)"/>
+				<button label="Verifica" 		onClick="@command('onVerifica')" 		mold="trendy" image="/images/agsde2/16x16/viewok.png" 	tooltiptext="Verifica la firma."  visible="@load(vm.p7m)"/>
+				<button label="Visualizza"		onClick="@command('onSbusta')" 			mold="trendy" image="/images/agsde2/16x16/document.png" tooltiptext="Scarica il file originale." />
 				<button label="Copia Testo" 	onClick="@command('onCopia')"    		mold="trendy" image="/images/agsde2/16x16/edit_doc.png" tooltiptext="Scarica la copia modificabile del file firmato." visible="@load(vm.copiaTesto)"/>
-				<button label="Copia conforme"	onClick="@command('onCopiaConforme')" 	mold="trendy" image="/images/agsde2/16x16/folder_documents.png" tooltiptext="Copia conforme" />
+				<button label="Copia conforme"	onClick="@command('onCopiaConforme')" 	mold="trendy" image="/images/agsde2/16x16/folder_documents.png" tooltiptext="Copia conforme" visible="@load(!(vm.storico))" />
 				<!-- <button label="Chiudi" 	 	onClick="@command('onChiudi')" 		mold="trendy" image="/images/pulsanti/16x16/window_close.png" tooltiptext="Chiude la maschera." />-->
 			</h:div>
 		</h:div>

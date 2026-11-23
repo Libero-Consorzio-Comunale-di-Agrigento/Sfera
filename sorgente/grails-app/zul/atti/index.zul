@@ -3,7 +3,6 @@
 
 <zk xmlns="http://www.zkoss.org/2005/zul" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
-
     <window closable="false" apply="grailsBindComposer" viewModel="@id('vm') @init('attiIndexViewModel')" width="100%"
             height="100%">
         <tabbox onCreate="@command('caricaPrimoTab')" vflex="1">

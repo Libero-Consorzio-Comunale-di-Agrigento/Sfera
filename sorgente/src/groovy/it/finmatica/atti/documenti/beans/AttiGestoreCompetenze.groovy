@@ -150,10 +150,11 @@ class AttiGestoreCompetenze implements IGestoreCompetenze {
 			assegnaCompetenzeDocumentiCollegati (domainObject.documentoPrincipale, attore, true, false, false, comp)
 
 		} else if (domainObject instanceof Delibera) {
-
-			// come delibera do le competenze alla proposta
-			assegnaCompetenzeGenerico(domainObject.proposta, attore, true, false, false, comp)
-			assegnaCompetenzeDocumentiCollegati (domainObject.proposta, attore, true, false, false, comp)
+				// come delibera do le competenze alla proposta se l'impostazione lo prevede
+				if (Impostazioni.DELIBERA_COMPETENZA_ALLA_PROPOSTA.abilitato) {
+					assegnaCompetenzeGenerico(domainObject.proposta, attore, true, false, false, comp)
+					assegnaCompetenzeDocumentiCollegati (domainObject.proposta, attore, true, false, false, comp)
+				}
 		}
 
 		if (domainObject.hasProperty("allegati")) {
@@ -560,19 +561,44 @@ class AttiGestoreCompetenze implements IGestoreCompetenze {
     }
 
 	boolean controllaRiservato (def documento) {
+		return controllaRiservato(documento, true)
+	}
+
+	boolean controllaRiservato (def documento, boolean mostraNotifica) {
+		//il flag riservato è presente su Determina, PropostaDelibera, Delibera, Allegato
 		def documentoPrincipale = documento;
+		boolean isRiservato = (documento.hasProperty("riservato") && documento.riservato)
 
 		if (documento instanceof IDocumentoStorico) {
+			//per i documenti storici, leggo il documento attuale (non devo controllare il campo riservato nei documenti storici)
 			documentoPrincipale = documento.getDocumentoOriginale();
+			//Per il momento nello storico abbiamo Determina, PropostaDelibera, Delibera e VistoParere
+			//Per il VistoParere leggo il documento principale (Determina, PropostaDelibera o Delibera)
+			if (documentoPrincipale instanceof VistoParere) {
+				documentoPrincipale = documentoPrincipale.getDocumentoPrincipale();
+			}
+			isRiservato = (documentoPrincipale.hasProperty("riservato") && documentoPrincipale.riservato)
 		} else if (documento instanceof Allegato) {
+			//Per gli allegati devo verificare il flag riservato inserito nell'allegato
+			//ma per il calcolo dell'utente devo usare il documento principale  (Determina, PropostaDelibera o Delibera)
 			documentoPrincipale = documento.getDocumentoPrincipale();
+			//se sto considerando un allegato al visto devo leggere il documento principale del visto
+			if (documentoPrincipale instanceof VistoParere) {
+				documentoPrincipale = documentoPrincipale.getDocumentoPrincipale();
+			}
+		}  else if ((documento instanceof VistoParere) || (documento instanceof Certificato)) {
+			//i visti/pareri e il certificato non hanno l'informazione del riservato. Di conseguenza leggo il documento padre
+			documentoPrincipale = documento.getDocumentoPrincipale();
+			isRiservato = (documentoPrincipale.hasProperty("riservato") && documentoPrincipale.riservato)
 		}
 
 		// controllo la proprietà "riservato" sul documento effettivo, mentre controllo la competenza sul documentoPrincipale.
 		// questo serve in caso stia scaricando un allegato: l'allegato può essere riservato quindi devo valutare se verificarne la riservatezza.
 		// però il suo documento principale potrebbe non essere riservato.
-		if (documento.hasProperty("riservato") && documento.riservato && !utenteCorrenteVedeRiservato(documentoPrincipale) && !utenteCorrenteHaRuoloRiservatoInTipologia(documentoPrincipale)) {
-			Clients.showNotification("Attenzione: l'utente corrente non è abilitato alla visione del testo: il documento è riservato.", Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 5000);
+		if (isRiservato && !utenteCorrenteVedeRiservato(documentoPrincipale) && !utenteCorrenteHaRuoloRiservatoInTipologia(documentoPrincipale)) {
+			if (mostraNotifica) {
+				Clients.showNotification("Attenzione: l'utente corrente non è abilitato alla visione del testo: il documento è riservato.", Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 5000);
+			}
 			return false
 		}
 

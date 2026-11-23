@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <documentRoot>
-	<descrizione>Parere Contabile</descrizione>
+	<descrizione>Parere Contabile (Modena)</descrizione>
 	<connections>
 		<connectionJNDI>jdbc/agsde2</connectionJNDI>
 	</connections>
@@ -1591,7 +1591,7 @@
             , nvl(utility_pkg.get_nominativo_soggetto (utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), pd.ente), '${documentRoot.parere.FIRMATARIO}' ) FIRMATARIO
 	        , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), pd.ente)) DESCRIZIONE_FIRMATARIO
 	        , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, pd.ente)) DELEGANTE
-            , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario)), '${documentRoot.visto.DIRIGENTE_PARERE}') DIRIGENTE_PARERE
+            , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario), vp.ente), '${documentRoot.visto.DIRIGENTE_PARERE}') DIRIGENTE_PARERE
             , decode(vp.esito, 'DA_VALUTARE', '${documentRoot.parere.ESITO_PARERE}', replace(vp.esito,'_',' ')) ESITO_PARERE
             , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.ESITO_PARERE_DEFINITIVO}', replace(vp.esito,'_',' ')) ESITO_PARERE_DEFINITIVO
             , td.titolo TIPOLOGIA_PROPOSTA
@@ -1626,7 +1626,7 @@
             , nvl(utility_pkg.get_nominativo_soggetto(utility_pkg.get_ni_soggetto (nvl(f.utente_firmatario_effettivo, f.utente_firmatario)), pd.ente), '${documentRoot.parere.FIRMATARIO}' ) FIRMATARIO
             , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.DESCRIZIONE_FIRMATARIO}', utility_pkg.get_descrizione_firmatario(nvl(f.utente_firmatario_effettivo, f.utente_firmatario), pd.ente)) DESCRIZIONE_FIRMATARIO
             , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.parere.DELEGANTE}', utility_pkg.get_delegante(f.utente_firmatario_effettivo, f.utente_firmatario, pd.ente)) DELEGANTE
-            , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario)), '${documentRoot.visto.DIRIGENTE_PARERE}') DIRIGENTE_PARERE
+            , nvl(utility_pkg.get_cognome_nome(utility_pkg.get_ni_soggetto (vp.utente_firmatario), vp.ente), '${documentRoot.visto.DIRIGENTE_PARERE}') DIRIGENTE_PARERE
             , decode(vp.esito, 'DA_VALUTARE', '${documentRoot.parere.ESITO_PARERE}', replace(vp.esito,'_',' ')) ESITO_PARERE
             , decode(nvl(f.utente_firmatario_effettivo, f.utente_firmatario),null,'${documentRoot.visto.ESITO_PARERE_DEFINITIVO}', replace(vp.esito,'_',' ')) ESITO_PARERE_DEFINITIVO
             , td.titolo TIPOLOGIA_PROPOSTA

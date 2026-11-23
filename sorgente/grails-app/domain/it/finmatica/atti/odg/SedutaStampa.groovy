@@ -2,12 +2,13 @@ package it.finmatica.atti.odg
 
 import it.finmatica.atti.commons.FileAllegato
 import it.finmatica.atti.dizionari.TipoRegistro
+import it.finmatica.atti.dizionari.TipologieFirma
 import it.finmatica.atti.documenti.*
+import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.impostazioni.TipoSoggetto
 import it.finmatica.gestionedocumenti.documenti.Documento
 import it.finmatica.gestionedocumenti.documenti.FileDocumento
 import it.finmatica.gestionetesti.reporter.GestioneTestiModello
-import it.finmatica.gestionetesti.reporter.GestioneTestiTipoModello
 import it.finmatica.so4.strutturaPubblicazione.So4UnitaPubb
 
 /**
@@ -62,6 +63,9 @@ class SedutaStampa extends Documento implements IProtocollabile, IPubblicabile {
     Date    dataFinePubblicazione2
     Date    dataMinimaPubblicazione
 
+    //Integrazione con PiTre client ma usabile per fascicoli esterni
+    String idFascicoloEsterno
+
     static belongsTo = [seduta: Seduta]
     static hasMany = [destinatariNotifiche: DestinatarioNotifica]
 
@@ -74,6 +78,8 @@ class SedutaStampa extends Documento implements IProtocollabile, IPubblicabile {
         note length: 4000
         classificaDescrizione length: 4000
         registroProtocollo column: 'registro_protocollo'
+
+        idFascicoloEsterno length: 256, column: 'id_fascicolo_esterno'
 
         // dati pubblicazione
         dataPubblicazione2 column: 'data_pubblicazione_2'
@@ -108,6 +114,8 @@ class SedutaStampa extends Documento implements IProtocollabile, IPubblicabile {
         dataPubblicazione2 nullable: true
         dataFinePubblicazione2 nullable: true
         dataMinimaPubblicazione nullable: true
+
+        idFascicoloEsterno      nullable: true
 
         // Dati dell'albo
         idDocumentoAlbo nullable: true
@@ -183,12 +191,14 @@ class SedutaStampa extends Documento implements IProtocollabile, IPubblicabile {
 
     @Override
     String getNomeFile () {
-        GestioneTestiTipoModello tipoModello = getModelloTesto().tipoModello
-        if (tipoModello.codice == Seduta.MODELLO_TESTO_VERBALE) {
-            return "Verbale_${seduta.commissione.tipoRegistroSeduta.codice}_${seduta.numero}_${seduta.anno}"
-        } else {
-            return "Convocazione_${seduta.commissione.tipoRegistroSeduta.codice}_${seduta.numero}_${seduta.anno}"
-        }
+//        GestioneTestiTipoModello tipoModello = getModelloTesto().tipoModello
+
+        return commissioneStampa.titolo+"_${seduta.commissione.tipoRegistroSeduta.codice}_${seduta.numero}_${seduta.anno}"
+//        if (tipoModello.codice == Seduta.MODELLO_TESTO_VERBALE) {
+//            return Labels.getLabel("label.stampaSeduta.prefissoFileVerbale")+"_${seduta.commissione.tipoRegistroSeduta.codice}_${seduta.numero}_${seduta.anno}"
+//        } else {
+//            return Labels.getLabel("label.stampaSeduta.prefissoFileConvocazione")+"_${seduta.commissione.tipoRegistroSeduta.codice}_${seduta.numero}_${seduta.anno}"
+//        }
     }
 
     @Override
@@ -197,7 +207,19 @@ class SedutaStampa extends Documento implements IProtocollabile, IPubblicabile {
     }
 
     String getOggetto () {
-        return "${commissioneStampa.titolo} ${seduta.commissione.titolo} ${seduta.numero} / ${seduta.anno} del ${seduta.dataOraSeduta.format("dd/MM/yyyy 'ore' HH:mm")}"
+        String frase = Impostazioni.SEDUTA_STAMPA_OGGETTO.valore
+
+        String stampaTitolo = commissioneStampa.titolo
+        String commissioneTitolo = seduta.commissione.titolo
+        String sedutaNumero = seduta.numero
+        String sedutaAnno = seduta.anno
+        String sedutaDataOraMinuti = seduta.dataOraSeduta.format("dd/MM/yyyy 'ore' HH:mm")
+        String sedutaData = seduta.dataOraSeduta.format("dd/MM/yyyy")
+
+       // String frase = "$STAMPA_TITOLO\$ $COMMISSIONE_TITOLO\$ $SEDUTA_NUMERO\$ / $SEDUTA_ANNO\$ del $SEDUTA_DATA_ORA_MINUTI\$"
+        String fraseCalcolata = frase.replaceAll("[\$]STAMPA_TITOLO[\$]", stampaTitolo).replaceAll("[\$]COMMISSIONE_TITOLO[\$]", commissioneTitolo).replaceAll("[\$]SEDUTA_NUMERO[\$]", sedutaNumero).replaceAll("[\$]SEDUTA_ANNO[\$]", sedutaAnno).replaceAll("[\$]SEDUTA_DATA_ORA_MINUTI[\$]", sedutaDataOraMinuti).replaceAll("[\$]SEDUTA_DATA[\$]", sedutaData)
+
+        return fraseCalcolata
     }
 
     @Override
@@ -217,5 +239,9 @@ class SedutaStampa extends Documento implements IProtocollabile, IPubblicabile {
         }
 
         return this.destinatariNotifiche as List
+    }
+
+    transient String getTipoFirma () {
+        return Impostazioni.FIRMA_PADES.abilitato ? TipologieFirma.PDF : TipologieFirma.P7M
     }
 }

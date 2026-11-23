@@ -20,6 +20,7 @@ class Delega {
 	Ad4Utente 				utenteUpd
 	int 					sequenza = 1
 	Long 					idDelegaStorico
+	Long 					idCategoriaDelega
 
 	static mapping = {
 		table 		'deleghe'
@@ -32,11 +33,15 @@ class Delega {
 		lastUpdated column: 'data_upd'
 		utenteUpd 	column: 'utente_upd'
 		idDelegaStorico column: 'id_delega_storico'
+		idCategoriaDelega column: 'id_categoria_delega'
+
+		descrizioneAssessorato length: 4000
 	}
 
 	static constraints = {
 		validoAl 		nullable: true
 		idDelegaStorico nullable: true
+		idCategoriaDelega nullable: true
 	}
 
 	private SpringSecurityService getSpringSecurityService () {		return Holders.applicationContext.getBean("springSecurityService")    }

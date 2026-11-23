@@ -54,6 +54,8 @@ class JWorklistConfig extends AbstractWebServiceConfig {
     List<ParametroIntegrazione> getListaParametriAggiuntivi() {
         return [new ParametroIntegrazione("JWORKLIST_URL", "Url per accedere a Sfera dalla Scrivania Virtuale")
                 , new ParametroIntegrazione("JWORKLIST_ELIMINA_NOTIFICA_UO", "Eliminare le notifiche per unità?", LookupTutti.INSTANCE, LookupSiNo.INSTANCE)
+                , new ParametroIntegrazione("JWORKLIST_DATA_NUMERO_PROPOSTA", "Riportare la data di numerazione proposta?", LookupTutti.INSTANCE, LookupSiNo.INSTANCE)
+                , new ParametroIntegrazione("JWORKLIST_ATTORE_OPERAZIONE", "Riportare il nominativo di chi esegue l'operazione?", LookupTutti.INSTANCE, LookupSiNo.INSTANCE)
                 , new ParametroIntegrazione("APPLICATIVO_CHIAMANTE", "Nome dell'applicativo")]
     }
 
@@ -67,6 +69,14 @@ class JWorklistConfig extends AbstractWebServiceConfig {
 
     boolean isEliminaNotificaPerUtente() {
         return !isEliminaNotificaPerUo()
+    }
+
+    boolean isDataNumeroPropostaVisibile() {
+        return MappingIntegrazione.getValoreEsternoBoolean(getCodice(), "JWORKLIST_DATA_NUMERO_PROPOSTA", MappingIntegrazione.VALORE_INTERNO_TUTTI, "N")
+    }
+
+    boolean isAttoreOperazioneVisibile() {
+        return MappingIntegrazione.getValoreEsternoBoolean(getCodice(), "JWORKLIST_ATTORE_OPERAZIONE", MappingIntegrazione.VALORE_INTERNO_TUTTI, "N")
     }
 
     String getApplicativoChiamante() {

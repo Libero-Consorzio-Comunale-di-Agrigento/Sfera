@@ -63,7 +63,7 @@ class So4DelegaService {
     }
 
     public boolean hasDelega(Ad4Utente delegato, Ad4Utente delegante) {
-        return getDeleghe(delegato, delegante) != null;
+        return !getDeleghe(delegato, delegante).isEmpty();
     }
 
 }

@@ -4,7 +4,9 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.util.Holders
 import it.finmatica.ad4.autenticazione.Ad4Utente
 import it.finmatica.atti.commons.FileAllegato
+import it.finmatica.atti.dizionari.TipologieFirma
 import it.finmatica.atti.documenti.tipologie.TipoVistoParere
+import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.impostazioni.TipoSoggetto
 import it.finmatica.gestioneiter.motore.WkfIter
 import it.finmatica.gestionetesti.reporter.GestioneTestiModello
@@ -266,5 +268,14 @@ class VistoParere implements IDocumentoCollegato, IDocumento {
 
 	transient boolean isRiservato () {
 		return false
+	}
+
+	transient String getTipoFirma () {
+		if (this.tipologia.tipoFirma) {
+			return this.tipologia.tipoFirma
+		}
+		else {
+			return Impostazioni.FIRMA_PADES.abilitato ? TipologieFirma.PDF : TipologieFirma.P7M
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package it.finmatica.atti.integrazioni
 
 import grails.plugin.springsecurity.SpringSecurityService
+import grails.util.Holders
 import groovy.sql.Sql
 import it.finmatica.atti.AbstractAlboEsterno
 import it.finmatica.atti.IDocumentaleEsterno
@@ -14,7 +15,9 @@ import it.finmatica.atti.exceptions.AttiRuntimeException
 import it.finmatica.atti.impostazioni.Impostazioni
 import it.finmatica.atti.impostazioni.TipoSoggetto
 import it.finmatica.atti.integrazioni.albo.AlboJMessiConfig
+import it.finmatica.atti.mail.Mail
 import it.finmatica.atti.odg.SedutaStampa
+import it.finmatica.atti.utility.InvioMail
 import it.finmatica.jdmsutil.data.ProfiloExtend
 import oracle.jdbc.OracleTypes
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional
 import javax.sql.DataSource
 import java.sql.Connection
 import java.sql.SQLException
+import java.sql.Timestamp
 
 @Component("alboJMessi")
 @Lazy
@@ -39,8 +43,7 @@ class AlboJMessi extends AbstractAlboEsterno {
     private static final String FORMATO_DATA = "dd/MM/yyyy"
 
     private static final String Q_NUMERO_ALBO = "SELECT TO_CHAR (ag_albo_sq.NEXTVAL) id_albo FROM DUAL"
-    private static
-    final String F_NUMERA_ALBO = "{ call ? :=  AG_MES_UTILITY.F_MESSI_NUMERA_ALBO_NOCOMMIT('${AREA_MESSI}','REGISTRO', ?, '${ALBO_TIPO_REGISTRO}', ?, '${AREA_MESSI}', '${MODELLO_ALBO}', '${ALBO_CAMPO_NUMERO}') }"
+    private static final String F_NUMERA_ALBO = "{ call ? :=  AG_MES_UTILITY.F_MESSI_NUMERA_ALBO_NOCOMMIT('${AREA_MESSI}','REGISTRO', ?, '${ALBO_TIPO_REGISTRO}', ?, '${AREA_MESSI}', '${MODELLO_ALBO}', '${ALBO_CAMPO_NUMERO}') }"
 
     @Autowired DataSource dataSource_gdm
     @Autowired DataSource dataSource
@@ -92,9 +95,14 @@ class AlboJMessi extends AbstractAlboEsterno {
         return map
     }
 
+
+
+
     @Transactional
     void pubblicaAtto(IPubblicabile atto) {
-
+        // ottengo la connessione
+        Connection conn = dataSource_gdm.connection
+        //Connection connAlbo = dataSource_gdm.connection
         // ottengo il lock pessimistico per evitare doppie numerazioni all'albo.
         atto.lock();
         if (atto.numeroAlbo > 0) {
@@ -107,24 +115,28 @@ class AlboJMessi extends AbstractAlboEsterno {
         if (token.isStatoSuccesso()) {
             // significa che ho già protocollato: prendo il numero di protocollo, lo assegno al documento ed esco:
             def map = Eval.me(token.dati);
-            atto.numeroAlbo = map.numero;
-            atto.annoAlbo = map.anno;
-            atto.idDocumentoAlbo = map.idDocumentoAlbo;
-            atto.save()
 
-            // allineo il documento gdm solo se sono integrato con GDM.
-            // Ci sono clienti (ad es: bagno di romagna) che NON hanno GDM.
-            if (Impostazioni.GESTORE_FILE.valore == "gdmGestoreFile") {
-                gestoreDocumentaleEsterno.salvaDocumento(atto);
+            if(!checkAlbo(conn,Long.toString(map.idDocumentoAlbo))){
+                // devo cancellare il token ( la transazione è stata rollbacckata senza creare albo ) e uscire
+                tokenIntegrazioneService.stopTokenTransaction("${atto.id}", TokenIntegrazione.TIPO_ALBO)
+            } else {
+                atto.numeroAlbo = map.numero
+                atto.annoAlbo = map.anno
+                atto.idDocumentoAlbo = map.idDocumentoAlbo
+                atto.save()
+
+                // allineo il documento gdm solo se sono integrato con GDM.
+                // Ci sono clienti (ad es: bagno di romagna) che NON hanno GDM.
+                if (Impostazioni.GESTORE_FILE.valore == "gdmGestoreFile") {
+                    gestoreDocumentaleEsterno.salvaDocumento(atto)
+                }
+
+                // elimino il token: tutto è andato bene e verrà eliminato solo alla commit sull transaction principale
+                tokenIntegrazioneService.endTokenTransaction("${atto.id}", TokenIntegrazione.TIPO_ALBO)
+                return
             }
 
-            // elimino il token: tutto è andato bene e verrà eliminato solo alla commit sull transaction principale
-            tokenIntegrazioneService.endTokenTransaction("${atto.id}", TokenIntegrazione.TIPO_ALBO)
-            return;
         }
-
-        // ottengo la connessione
-        Connection conn = dataSource_gdm.connection
 
         try {
             // setto i campi dell'albo e gli allegati
@@ -153,7 +165,9 @@ class AlboJMessi extends AbstractAlboEsterno {
 
         } catch (Throwable e) {
             log.error("Errore in fase di pubblicazione all'albo: ${e.getMessage()}", e);
-
+            InvioMail.inviaMailErrori("Errore in fase di pubblicazione all'albo"
+                    ,getDatiAtto(atto,e.getMessage()) + "\n Utente operazione: " + springSecurityService.currentUser?.id
+                    ,e.getStackTrace().toString())
             // elimino il token e interrompo la transazione del token (così si possono fare più tentativi)
             tokenIntegrazioneService.stopTokenTransaction("${atto.id}", TokenIntegrazione.TIPO_ALBO);
             throw new AttiRuntimeException("Errore in fase di pubblicazione all'albo: ${e.getMessage()}.", e);
@@ -161,6 +175,20 @@ class AlboJMessi extends AbstractAlboEsterno {
 
         // elimino il token: questo avverrà solo se la transazione "normale" di grails andrà a buon fine:
         tokenIntegrazioneService.endTokenTransaction("${atto.id}", TokenIntegrazione.TIPO_ALBO)
+    }
+
+    @Transactional(readOnly = true)
+    private boolean checkAlbo(Connection conn, String idDocumento){
+        boolean  ret = false
+        try {
+            ProfiloExtend testAlbo = new ProfiloExtend(idDocumento, GdmDocumentaleEsterno.GDM_USER, null, conn, false)
+            if(testAlbo!=null && testAlbo.getDocNumber().equals(idDocumento)){
+                ret=true
+            }
+        }catch (Exception ex){
+            ret=false
+        }
+        return ret
     }
 
     @Transactional
@@ -175,6 +203,9 @@ class AlboJMessi extends AbstractAlboEsterno {
         albo.settaValore("A_DATA_FINE_II_PUBB", atto.pubblicaRevoca ? "" : atto.dataFinePubblicazione2?.format(FORMATO_DATA) ?: "");
 
         if (!albo.salva().booleanValue()) {
+            InvioMail.inviaMailErrori("Errore nel salvare l'albo per la seconda pubblicazione"
+                    ,getDatiAtto(atto,albo.getError()) + "\n Utente operazione: " + springSecurityService.currentUser?.id
+                    ,albo.getError())
             throw new AttiRuntimeException("Errore nel salvare l'albo per la seconda pubblicazione: ${albo.getError()}")
         }
     }
@@ -183,8 +214,15 @@ class AlboJMessi extends AbstractAlboEsterno {
     void annullaAtto(IPubblicabile atto, IAtto attoPrincipale) {
         if (atto.idDocumentoAlbo > 0) {
             // ottengo la connessione
-            Connection conn = dataSource_gdm.connection
-            annullaAttoAlbo(conn, atto.idDocumentoAlbo, "Annullato dall'atto ${attoPrincipale.estremiAtto}");
+            try {
+                Connection conn = dataSource_gdm.connection
+                annullaAttoAlbo(conn, atto.idDocumentoAlbo, "Annullato dall'atto ${attoPrincipale.estremiAtto}");
+            }catch (Throwable e){
+                InvioMail.inviaMailErrori("Errore nell'annullamento dell'atto"
+                        ,getDatiAtto(atto,e.getMessage()) + "\n Utente operazione: " + springSecurityService.currentUser?.id
+                        ,e.getStackTrace().toString())
+                throw new AttiRuntimeException("Errore nell'annullamento dell'atto: ${e.message}", e)
+            }
         }
     }
 
@@ -206,6 +244,9 @@ class AlboJMessi extends AbstractAlboEsterno {
 
                 // salvo il profilo con le date aggiornate
                 if (!albo.salva().booleanValue()) {
+                    InvioMail.inviaMailErrori("Errore nel salvare l'albo per inviare la data esecutivita"
+                            ,getDatiAtto(atto,albo.getError()) + "\n Utente operazione: " + springSecurityService.currentUser?.id
+                            ,albo.getError())
                     throw new AttiRuntimeException("Errore nel salvare l'albo per inviare la data esecutività: ${albo.getError()}")
                 }
             }
@@ -321,6 +362,11 @@ class AlboJMessi extends AbstractAlboEsterno {
     }
 
     private void settaValoriDetermina(Connection conn, ProfiloExtend albo, Determina determina, String idRifAlbo) {
+        DeterminaSoggetto soggetto = Impostazioni.RICERCA_PER_SERVIZIO.abilitato ? determina.getSoggetto(TipoSoggetto.UO_SERVIZIO) : null
+        if (!soggetto) {
+            soggetto = determina.getSoggetto(TipoSoggetto.UO_PROPONENTE)
+        }
+
         settaValoriCostanti(albo, Impostazioni.ALBO_COSTANTI_DETERMINA.valore);
 
         // se ho valorizzato il tipo di pubblicazione all'albo nella tipologia, la uso, altrimenti
@@ -330,16 +376,16 @@ class AlboJMessi extends AbstractAlboEsterno {
             albo.settaValore("A_TIPO_PUBBLICAZIONE", determina.tipologia.tipoPubblicazioneAlbo?.trim())
         }
 
-        albo.settaValore("CODICE_UO", determina.getSoggetto(TipoSoggetto.UO_PROPONENTE).unitaSo4.codice);
-        albo.settaValore("A_SETTORE_RICHIEDENTE", determina.getSoggetto(TipoSoggetto.UO_PROPONENTE).unitaSo4.descrizione);
+        albo.settaValore("CODICE_UO", soggetto?.unitaSo4?.codice);
+        albo.settaValore("A_SETTORE_RICHIEDENTE", soggetto?.unitaSo4?.descrizione);
 
         albo.settaValore("A_ANNO_DETE", determina.annoDetermina);
         albo.settaValore("A_NR_DETE", determina.numeroDetermina);
-        albo.settaValore("A_DATA_DETE", determina.dataNumeroDetermina.format(FORMATO_DATA));
+        albo.settaValore("A_DATA_DETE", determina.dataNumeroDetermina?.format(FORMATO_DATA));
         albo.settaValore("A_COD_REG_DETE", determina.registroDetermina.codice);
         albo.settaValore("A_REGISTRO_DETE", determina.registroDetermina.descrizione);
         albo.settaValore("ID_DOC_DETERMINA", determina.idDocumentoEsterno);
-        albo.settaValore("A_SETTORE_DETE", determina.getSoggetto(TipoSoggetto.UO_PROPONENTE).unitaSo4.descrizione);
+        albo.settaValore("A_SETTORE_DETE", soggetto?.unitaSo4?.descrizione);
 
         albo.settaValore("A_OGGETTO", determina.oggetto);
 
@@ -350,6 +396,11 @@ class AlboJMessi extends AbstractAlboEsterno {
     }
 
     private void settaValoriDelibera(Connection conn, ProfiloExtend albo, Delibera delibera, String idRifAlbo) {
+        ISoggettoDocumento soggetto = Impostazioni.RICERCA_PER_SERVIZIO.abilitato ? delibera.proposta.getSoggetto(TipoSoggetto.UO_SERVIZIO) : null
+        if (!soggetto) {
+            soggetto = delibera.proposta.getSoggetto(TipoSoggetto.UO_PROPONENTE)
+        }
+
         settaValoriCostanti(albo, Impostazioni.ALBO_COSTANTI_DELIBERA.valore);
 
         // se ho valorizzato il tipo di pubblicazione all'albo nella tipologia, la uso, altrimenti
@@ -359,12 +410,12 @@ class AlboJMessi extends AbstractAlboEsterno {
             albo.settaValore("A_TIPO_PUBBLICAZIONE", delibera.tipologiaDocumento.tipoPubblicazioneAlbo?.trim());
         }
 
-        albo.settaValore("CODICE_UO", delibera.proposta.getSoggetto(TipoSoggetto.UO_PROPONENTE).unitaSo4.codice);
-        albo.settaValore("A_SETTORE_RICHIEDENTE", delibera.proposta.getSoggetto(TipoSoggetto.UO_PROPONENTE).unitaSo4.descrizione);
+        albo.settaValore("CODICE_UO", soggetto?.unitaSo4?.codice);
+        albo.settaValore("A_SETTORE_RICHIEDENTE", soggetto?.unitaSo4?.descrizione);
 
         albo.settaValore("A_ANNO_DELI", delibera.annoDelibera);
         albo.settaValore("A_NR_DELI", delibera.numeroDelibera);
-        albo.settaValore("A_DATA_ATTO", delibera.dataNumeroDelibera.format(FORMATO_DATA));
+        albo.settaValore("A_DATA_ATTO", delibera.dataNumeroDelibera?.format(FORMATO_DATA));
         albo.settaValore("A_COD_REG_DELI", delibera.registroDelibera.codice);
         albo.settaValore("A_ORGANO_DELIBERANTE", delibera.registroDelibera.descrizione);
         albo.settaValore("ID_DOC_DELIBERA", delibera.idDocumentoEsterno);
@@ -556,4 +607,284 @@ class AlboJMessi extends AbstractAlboEsterno {
         }
         return false
     }
+
+    static String getDatiAtto(def atto, String message){
+        String ret=""
+        ret="Id: " + atto.id
+        if (atto instanceof Determina) {
+            ret+="\n Tipologia: "+ atto.tipologia.titolo
+            ret+="\n Anno Proposta: "+ atto.annoProposta
+            ret+="\n Numero Proposta: "+ atto.numeroProposta
+        } else if (atto instanceof Delibera) {
+            ret+="\n Tipologia: "+ atto.propostaDelibera.tipologia.titolo
+            ret+="\n Anno Proposta: "+ atto.propostaDelibera.annoProposta
+            ret+="\n Numero Proposta: "+ atto.propostaDelibera.numeroProposta
+        } else if (atto instanceof SedutaStampa) {
+            ret+="\n Tipologia: SedutaStampa"
+            ret+="\n Oggetto: "+ atto.oggetto
+            ret+="\n Anno Protocollo: "+ atto.annoProtocollo
+            ret+="\n Numero Protocollo: "+ atto.numeroProtocollo
+        }
+        if(message!=null && message.length()>0){
+            ret+="\n Dettaglio Errore: "+ message
+        }
+        return ret;
+    }
+
+    //TRASCODIFICA
+    @Transactional
+    void trascoAtto(IPubblicabile atto,int numero) {
+        // ottengo il lock pessimistico per evitare doppie numerazioni all'albo.
+        //atto.lock();
+        if (atto.numeroAlbo > 0) {
+            log.warn("Il documento è già numerato all'albo, non lo ripubblico.");
+            return;
+        }
+        // ottengo la connessione
+        Connection conn = dataSource_gdm.connection
+        try {
+            // setto i campi dell'albo e gli allegati
+            ProfiloExtend albo = creaAlboConAnnoNumero(conn, atto,numero);
+
+            // se sono in prima pubblicazione, setto la data di inizio pubblicazione:
+            Date dataInizioPubb  = (atto.dataPubblicazione ? atto.dataPubblicazione : (atto.dataEsecutivita ? atto.dataEsecutivita : atto.dataNumeroDetermina) )
+            Integer numeroGiorni = 15
+            if (atto.giorniPubblicazione!=null){
+                numeroGiorni=atto.giorniPubblicazione
+            }
+
+            Date dataFinePubb
+            if(atto.dataFinePubblicazione!=null){
+                dataFinePubb=atto.dataFinePubblicazione
+            }else{
+                dataFinePubb=addDayToDate(dataInizioPubb,numeroGiorni)
+            }
+            albo.settaValore("A_DATA_I_PUBB", dataInizioPubb.format(FORMATO_DATA));
+            albo.settaValore("A_GG_I_PUBB", numeroGiorni);
+            albo.settaValore("A_DATA_FINE_I_PUBB", dataFinePubb.format(FORMATO_DATA));
+            if (!albo.salva().booleanValue()) {
+                throw new AttiRuntimeException("Errore nel salvare l'albo in pubblicazione: ${albo.getError()}")
+            }
+            // allineo il documento sul documentale esterno
+            //gestoreDocumentaleEsterno.salvaDocumento(atto)
+        } catch (Throwable e) {
+            log.error("Errore in fase di pubblicazione all'albo: ${e.getMessage()}", e);
+            throw new AttiRuntimeException("Errore in fase di pubblicazione all'albo: ${e.getMessage()}.", e);
+        }
+    }
+
+
+    private ProfiloExtend creaAlboConAnnoNumero(Connection conn, IPubblicabile atto,int numero) throws Exception {
+        if (atto.idDocumentoAlbo > 0) {
+            return new ProfiloExtend(Long.toString(atto.idDocumentoAlbo), GdmDocumentaleEsterno.GDM_USER, null, conn, false);
+        }
+
+        // creo il nuovo profilo per l'albo
+        ProfiloExtend albo = new ProfiloExtend(MODELLO_ALBO, AREA_MESSI, GdmDocumentaleEsterno.GDM_USER, null, conn, false);
+        albo.escludiControlloCompetenze(true);
+
+        // ottengo l'id-rif
+        String idRifAlbo = getIdRifAlbo(conn);
+        log.debug("creaAlbo - idRifAlbo: $idRifAlbo")
+        albo.settaValore("ID_ALBO", idRifAlbo);
+
+        if (atto instanceof Determina) {
+            settaValoriDetermina(conn, albo, atto, idRifAlbo)
+            creaDocumentiAllegatiAlboTrasco(conn, atto, albo, idRifAlbo)
+        } else if (atto instanceof Delibera) {
+            settaValoriDelibera(conn, albo, atto, idRifAlbo)
+            creaDocumentiAllegatiAlboTrasco(conn, atto, albo, idRifAlbo)
+        } else if (atto instanceof SedutaStampa) {
+            settaValoriSedutaStampa(conn, albo, atto, idRifAlbo)
+        } else {
+            throw new AttiRuntimeException("Tipo di atto ${atto.class.name} non riconosciuto.")
+        }
+
+        if (!albo.salva().booleanValue()) {
+            throw new AttiRuntimeException("Errore nel salvare l'albo: ${albo.getError()}")
+        }
+
+        log.debug("alboJMessi: ${albo.getDocNumber()}")
+        atto.idDocumentoAlbo = Long.parseLong(albo.getDocNumber())
+
+        // numero l'albo solo se non è già numerato.
+
+
+
+
+        if (!(atto.numeroAlbo > 0)) {
+            if (atto instanceof Determina) {
+                numeraAlboTrasco(conn, albo, atto,atto.annoDetermina,numero)
+            } else if (atto instanceof Delibera) {
+                numeraAlboTrasco(conn, albo, atto,atto.annoDelibera,numero)
+            }
+        }
+
+        return albo
+    }
+
+    private void numeraAlboTrasco(Connection conn, ProfiloExtend albo, IPubblicabile atto,int anno,int numero) {
+        int annoCorrente = Calendar.getInstance().get(Calendar.YEAR)
+        albo.settaValore("ANNO_REG", anno)
+        albo.settaValore("TIPO_REG", ALBO_TIPO_REGISTRO)
+        albo.settaValore(ALBO_CAMPO_NUMERO, numero)
+        if (!albo.salva().booleanValue()) {
+            throw new AttiRuntimeException("Errore nel salvare l'albo dopo la numerazione: ${albo.getError()}")
+        }
+        // imposto il numero dell'albo sull'atto
+        atto.numeroAlbo = numero
+        atto.annoAlbo = anno
+        atto.save()
+    }
+
+    private creaDocumentiAllegatiAlboTrasco(Connection conn, IAtto atto, ProfiloExtend albo, String idRifAlbo) {
+        // pubblico gli allegati se
+        // - l'attributo da tipologia vale Y e
+        // - l'atto non è riservato oppure
+
+        // se l'impostazione dice che devo pubblicare la stampa unica (nella stampa unica non c'è il testo se riservato), la pubblico, altrimenti pubblico il file principale.
+
+        if (("T".equals(Impostazioni.FILE_DA_PUBBLICARE.valore) || "All".equals(Impostazioni.FILE_DA_PUBBLICARE.valore)) && atto.testo != null && !atto.riservato) {
+            // altrimenti pubblico il file principale
+            //albo.setFileName(atto.testo.nome, gestoreFile.getFile(atto, atto.testo))
+            InputStream tempFile = readTempFile()
+
+
+            albo.setFileName(atto.testo.idFileEsterno.toString(), tempFile)
+            //albo.settaValore("LINK_ALBO_DETERMINA",atto.testo.idFileEsterno)
+
+        }
+
+        // pubblico gli allegati (quelli non riservati e quelli su cui c'è scritto che devono essere pubblicati)
+
+        for (Allegato allegato : atto.allegati.sort { it.sequenza }) {
+            // non vanno pubblicati gli allegati non validi
+            if (!allegato.valido ) {
+                continue
+            }
+
+            // non vanno pubblicate le schede contabili degli atti riservati quando è disabilitata l'impostazione PUBBLICAZIONE_SCHEDA_CONTABILE
+            if (atto.riservato && Allegato.ALLEGATO_SCHEDA_CONTABILE == allegato.codice && !Impostazioni.PUBBLICAZIONE_SCHEDA_CONTABILE.abilitato) {
+                continue
+            }
+            creaAllegatoAlboTrasco(conn, allegato, idRifAlbo)
+        }
+
+        // pubblico i visti/pareri
+        if (Impostazioni.PUBBLICAZIONE_VISTI.abilitato || Impostazioni.PUBBLICAZIONE_ALLEGATI_VISTI.abilitato) {
+            // se la delibera ha dei pareri, pubblico solo quelli e non quelli della proposta.
+            def vistiPareriAtto = atto.visti.findAll{it.valido == true}
+            def vistiPareriProposta = (atto instanceof Delibera) ? atto.proposta.visti.findAll{it.valido == true} : []
+            def vistiPareri = (vistiPareriProposta ?: []) + (vistiPareriAtto ?: [])
+
+            for (def vistoParere : vistiPareriProposta){
+                if (vistiPareriAtto.findAll{ it.tipologia.codice == vistoParere.tipologia.codice}.size() > 0){
+                    vistiPareri.remove(vistoParere)
+                }
+            }
+
+            for (VistoParere visto : vistiPareri) {
+                if (!visto.valido ) {
+                    continue
+                }
+
+                if (Impostazioni.PUBBLICAZIONE_VISTI.abilitato && visto.testo != null) {
+                    creaVistoAlboTrasco(conn, visto, idRifAlbo)
+                }
+
+                if (Impostazioni.PUBBLICAZIONE_ALLEGATI_VISTI.abilitato) {
+                    for (Allegato allegato : visto.allegati) {
+
+                        // pubblico all'albo solo se l'allegato è valido ed ha il flag di pubblicazione valorizzato.
+                        if (!allegato.valido || !allegato.pubblicaAlbo) {
+                            continue
+                        }
+
+                        creaAllegatoAlboTrasco(conn, allegato, idRifAlbo)
+                    }
+                }
+            }
+        }
+    }
+
+    private void creaAllegatoAlboTrasco(Connection conn, Allegato allegato, String idRifAlbo) {
+        log.debug("creaAllegatoAlbo - idRifAlbo: $idRifAlbo")
+        // creo il documento allegato
+        ProfiloExtend allegatoAlbo = new ProfiloExtend(MODELLO_ALLEGATO_ALBO, AREA_MESSI, GdmDocumentaleEsterno.GDM_USER, null, conn, false);
+        allegatoAlbo.escludiControlloCompetenze(true);
+
+        // setto i vari campi
+        allegatoAlbo.settaValore("ALLEGATO_ALBO_QUANTITA", allegato.quantita);
+        allegatoAlbo.settaValore("ALLEGATO_ALBO_DESCRIZIONE", allegato.titolo);
+        allegatoAlbo.settaValore("ALLEGATO_ALBO_N_PAGINE", allegato.numPagine);
+        allegatoAlbo.settaValore("ALLEGATO_ALBO_TIPO_ALLEGATO", allegato.tipoAllegato?.titolo ?: "");
+        allegatoAlbo.settaValore("ALLEGATO_RISERVATO", allegato.riservato ? "Y" : "N");
+        allegatoAlbo.settaValore("ID_ALBO", idRifAlbo);
+
+        // allego i file
+        for (FileAllegato fileAllegato : allegato.fileAllegati.sort { it.id }) {
+            InputStream tempFile = readTempFile()
+            allegatoAlbo.setFileName(fileAllegato.idFileEsterno.toString(), tempFile)
+        }
+
+        // salvo
+        if (!allegatoAlbo.salva().booleanValue()) {
+            log.error("Impossibile salvare il documento relativo all'allegato dell'albo. " + allegatoAlbo.getError());
+            throw new AttiRuntimeException("Impossibile salvare il documento relativo all'allegato dell'albo. " + allegatoAlbo.getError());
+        }
+    }
+
+    private creaVistoAlboTrasco(Connection conn, VistoParere visto, String idRifAlbo) {
+        log.debug("creaAllegatoAlbo - idRifAlbo: $idRifAlbo")
+        // creo il documento allegato
+        ProfiloExtend allegatoAlbo = new ProfiloExtend(MODELLO_ALLEGATO_ALBO, AREA_MESSI, GdmDocumentaleEsterno.GDM_USER, null, conn, false)
+        allegatoAlbo.escludiControlloCompetenze(true)
+
+        // setto i vari campi
+        allegatoAlbo.settaValore("ALLEGATO_ALBO_QUANTITA", "1")
+        allegatoAlbo.settaValore("ALLEGATO_ALBO_DESCRIZIONE", visto.tipologia.titolo)
+        allegatoAlbo.settaValore("ALLEGATO_ALBO_N_PAGINE", "")
+        allegatoAlbo.settaValore("ID_ALBO", idRifAlbo)
+
+        // allego i file
+
+        InputStream tempFile = readTempFile()
+        allegatoAlbo.setFileName(visto.testo.idFileEsterno.toString(), tempFile)
+
+        // salvo
+        if (!allegatoAlbo.salva().booleanValue()) {
+            log.error("Impossibile salvare il documento relativo all'allegato dell'albo. " + allegatoAlbo.getError())
+            throw new AttiRuntimeException("Impossibile salvare il documento relativo all'allegato dell'albo. " + allegatoAlbo.getError())
+        }
+    }
+
+    Date addDayToDate(Date currentDate, Integer numDay)  {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate); // Set the current date
+        calendar.add(Calendar.DATE, numDay); // Add one day
+        Date newDate = calendar.getTime();
+        return newDate
+    }
+
+    Date addDayToDate(Timestamp currentDate, Integer numDay)  {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate); // Set the current date
+        calendar.add(Calendar.DATE, numDay); // Add one day
+        Date newDate = calendar.getTime();
+        return newDate
+    }
+
+    private InputStream readTempFile(){
+        char character = 'A';
+        byte[] myArray = new byte[(byte) character]
+        InputStream ret = new ByteArrayInputStream(myArray);
+        try {
+            int data = ret.read();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ret
+    }
+
+    // FINE TRASCO
 }

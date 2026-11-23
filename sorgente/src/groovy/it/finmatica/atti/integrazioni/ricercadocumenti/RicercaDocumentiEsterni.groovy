@@ -12,6 +12,8 @@ interface RicercaDocumentiEsterni {
 
     boolean isAbilitato ()
 
+    String getTipoOggetto ()
+
     String getTitolo ()
 
     String getDescrizione ()

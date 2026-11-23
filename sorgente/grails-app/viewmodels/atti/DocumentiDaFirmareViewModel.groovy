@@ -118,11 +118,35 @@ class DocumentiDaFirmareViewModel {
 		return listbox.getSelectedItems().size() > 0;
 	}
 
+	//verifica che tutti i documenti selezionati abbiano la stessa tipologia di firma
+	private boolean controllaTipoFirmaDocumentiSelezionati(boolean firmatiDaSbloccare) {
+		String pTipoFirma = null;
+		for (Listitem item : listbox.getSelectedItems()) {
+			if (pTipoFirma) {
+				if (firmatiDaSbloccare && (!(item.value.tipoFirma.equals(pTipoFirma)))) {
+					return false;
+				} else if ((!firmatiDaSbloccare) && (!(item.value.tipoFirma.equals(pTipoFirma)))) {
+					return false;
+				}
+			} else {
+				pTipoFirma = item.value.tipoFirma
+			}
+		}
+
+		return listbox.getSelectedItems().size() > 0;
+	}
+
 	@Command onFirmaDocumenti() {
 		activePage = 0
 		// giusto per essere sicuri di aver cliccato bene:
 		if (!controllaDocumentiSelezionati(false)) {
 			Messagebox.show("Attenzione: non è possibile firmare documenti di tipo diverso. Selezionare documenti omogenei")
+			return;
+		}
+
+		// controllo che la tipologia di firma sia coerente:
+		if (!controllaTipoFirmaDocumentiSelezionati(false)) {
+			Messagebox.show("Attenzione: Non è possibile firmare perché sono presenti file che richiedono tipologia di firma differente (Pades o Cades). Selezionare documenti omogenei")
 			return;
 		}
 
@@ -144,6 +168,13 @@ class DocumentiDaFirmareViewModel {
 			Messagebox.show("Attenzione: non è possibile sbloccare documenti di tipo diverso. Selezionare documenti omogenei")
 			return;
 		}
+
+		// controllo che la tipologia di firma sia coerente:
+		if (!controllaTipoFirmaDocumentiSelezionati(true)) {
+			Messagebox.show("Attenzione: Non è possibile firmare perché sono presenti file che richiedono tipologia di firma differente (Pades o Cades). Selezionare documenti omogenei")
+			return;
+		}
+
 		attiFirmaService.sbloccaDocumentiFirmati (listbox.getSelectedItems()*.value, (delegante?.id?:springSecurityService.currentUser.id));
 
         caricaLista()
@@ -157,7 +188,7 @@ class DocumentiDaFirmareViewModel {
 	}
 
 	@Command onApriDocumento () {
-		Window w = Executions.createComponents(zul[selected.tipoOggetto], self, [id: selected.idDocumento, idPadre: selected.idPadre, competenzeLettura:true])
+		Window w = Executions.createComponents(zul[selected.tipoOggetto], self, [id: selected.idDocumento, idPadre: selected.idPadre, competenzeLettura:true, delegante: delegante?.domainObject])
 		w.doModal()
 		w.onClose {
 			caricaLista()

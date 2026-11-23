@@ -33,7 +33,7 @@ class AlboJMessiConfig implements ModuloIntegrazione {
 
     @Override
     List<ParametroIntegrazione> getListaParametri() {
-        return [new ParametroIntegrazione(PARAMETRO_TITOLO_PUBBLICAZIONE, "Titolo di Pubblicazione", LookupTipologiaDaProtocollare.INSTANCE)]
+        return [new ParametroIntegrazione(PARAMETRO_TITOLO_PUBBLICAZIONE, "Titolo di Pubblicazione", LookupTipologiaDaProtocollare.INSTANCE, true)]
     }
 
     String getTitoloPubblicazione(long idTipologia) {
